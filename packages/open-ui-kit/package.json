@@ -129,7 +129,6 @@
     "@types/rollup-plugin-peer-deps-external": "^2",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
-    "chromatic": "^6.19.9",
     "concurrently": "^8.2.2",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",

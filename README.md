@@ -4,7 +4,7 @@
 
 **React Component Library & Design System**
 
-[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1- 🌐 **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issuessvg)](http://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![Monorepo](https://img.shields.io/badge/monorepo-turborepo-blue)](https://turbo.build/)
 [![Storybook](https://img.shields.io/badge/storybook-docs-ff69b4)](https://main--67e2c28f188630b706cee923.chromatic.com)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](LICENSE)

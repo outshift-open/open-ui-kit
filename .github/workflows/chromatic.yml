@@ -1,24 +1,24 @@
-# name: Chromatic
+name: Chromatic
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   chromatic-deployment:
-#     name: Chromatic
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0 # 👈 Required to retrieve git history
-#       - name: Install dependencies
-#         run: yarn install
-#       - name: Publish to Chromatic
-#         uses: chromaui/action@v1
-#         with:
-#           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           buildScriptName: storybook:build
+jobs:
+  chromatic-deployment:
+    name: Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 👈 Required to retrieve git history
+      - name: Install dependencies
+        run: yarn install
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          buildScriptName: storybook:build
