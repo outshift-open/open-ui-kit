@@ -3730,7 +3730,6 @@ __metadata:
     "@types/rollup-plugin-peer-deps-external": "npm:^2"
     "@typescript-eslint/eslint-plugin": "npm:^5.57.0"
     "@typescript-eslint/parser": "npm:^5.57.0"
-    chromatic: "npm:^6.19.9"
     concurrently: "npm:^8.2.2"
     copy-to-clipboard: "npm:^3.3.3"
     date-fns: "npm:^4.1.0"
@@ -8558,17 +8557,6 @@ __metadata:
     chromatic: dist/bin.js
     chromatic-cli: dist/bin.js
   checksum: 10/8416acc2f5d61bbbaffb232906244c1a84b6068b2801ae166b76c880a45bc42282bc79ea36c58811a9e6d9e9ea142de5610165940fac2c7bf1d4fc1ba6bc091c
-  languageName: node
-  linkType: hard
-
-"chromatic@npm:^6.19.9":
-  version: 6.24.1
-  resolution: "chromatic@npm:6.24.1"
-  bin:
-    chroma: dist/bin.js
-    chromatic: dist/bin.js
-    chromatic-cli: dist/bin.js
-  checksum: 10/5ea62aac2c2d2795a010975af75bf6f2006622d4f9abd9e0a0973079aee2a0e4ee525d7c778b52ee216c2e90acb53e550f487dbefb3f72cb77d6669fffff2260
   languageName: node
   linkType: hard
 
