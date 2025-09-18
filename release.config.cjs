@@ -18,19 +18,12 @@ module.exports = {
         changelogFile: "CHANGELOG.md"
       }
     ],
-    // [
-    //   "./plugins/release-plugin.js",
-    //   {
-    //     registries: {
-    //       "github": {
-    //         pkgRoot: "packages/open-ui-kit/dist"
-    //       },
-    //       "devhub": {
-    //         pkgRoot: "packages/open-ui-kit/dist"
-    //       }
-    //     },
-    //   }
-    // ],
+    [
+      "@semantic-release/npm",
+      {
+        "pkgRoot": "packages/open-ui-kit/dist"
+      }
+    ],
     [
       "@semantic-release/github",
       {
