@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@open-ui-kit/monorepo",
+  "version": "0.1.0",
+  "description": "Open UI Kit - A comprehensive React component library and design system built on Material-UI",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/outshift-open/open-ui-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/outshift-open/open-ui-kit/issues"
+  },
+  "homepage": "https://github.com/outshift-open/open-ui-kit#readme",
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "design-system",
+    "material-ui",
+    "typescript",
+    "open-source"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+    "lib:dev": "turbo run lib:dev",
+    "build": "turbo run build",
+    "license:add": "turbo run license:add",
+    "license:check": "turbo run license:check",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "storybook": "turbo run storybook",
+    "storybook:build": "cd packages/open-ui-kit && yarn run storybook:build",
+    "postinstall": "husky install",
+    "prepublish": "yarn build",
+    "prepare": "husky",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": ">=10",
+    "prettier": "^3.0.3",
+    "semantic-release": "^24.2.0",
+    "turbo": "^2.0.3"
+  },
+  "lint-staged": {
+    "{packages/*/src/**/*,playground/**/*}.{ts,tsx,js,jsx}": [
+      "yarn workspace @open-ui-kit/scripts license:check"
+    ],
+    "**/*.{ts,tsx,js,md,mdx}": [
+      "prettier --write"
+    ]
+  },
+  "workspaces": [
+    "packages/*",
+    "playground/*",
+    "scripts"
+  ],
+  "packageManager": "yarn@4.8.1",
+  "engines": {
+    "node": ">=18"
+  }
+}

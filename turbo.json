@@ -1,0 +1,66 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "dist/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "lint-staged": {},
+    "lib:build": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "banners": {
+      "cache": false
+    },
+    "license:add": {
+      "cache": false,
+      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
+      "outputs": []
+    },
+    "license:check": {
+      "cache": false,
+      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
+      "outputs": []
+    },
+    "lint": {
+      "cache": false,
+      "outputs": []
+    },
+    "lint:fix": {
+      "cache": false
+    },
+    "lib:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false
+    },
+    "test": {},
+    "test:watch": {
+      "cache": false
+    },
+    "storybook": {
+      "cache": false
+    },
+    "storybook:build": {
+      "outputs": [
+        "storybook-static/**"
+      ]
+    }
+  }
+}

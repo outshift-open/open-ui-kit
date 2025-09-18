@@ -1,0 +1,37 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { Typography, Divider } from "@mui/material";
+import { lightTheme } from "../theme/light/light-theme";
+import { gradientsPalette } from "../theme/gradients";
+
+<Meta title="Foundations/Gradients" />
+
+<ColorPalette>
+  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
+    Gradients
+  </Typography>
+  <ColorItem
+    title="Gradients Background"
+    subtitle="gradientsPalette.background"
+    colors={gradientsPalette.background}
+  />
+  <ColorItem
+    title="Gradients Primary"
+    subtitle="gradientsPalette.primary"
+    colors={gradientsPalette.primary}
+  />
+  <ColorItem
+    title="Gradients Secondary"
+    subtitle="gradientsPalette.secondary"
+    colors={gradientsPalette.secondary}
+  />
+  <ColorItem
+    title="Gradients Illustrations"
+    subtitle="gradientsPalette.illustrations"
+    colors={gradientsPalette.illustrations}
+  />
+  <ColorItem
+    title="Gradients Red"
+    subtitle="gradientsPalette.red"
+    colors={gradientsPalette.red}
+  />
+</ColorPalette>

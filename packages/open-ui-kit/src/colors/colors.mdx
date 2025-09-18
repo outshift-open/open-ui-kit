@@ -1,0 +1,106 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { Typography, Divider } from "@mui/material"
+import { lightTheme } from "../theme/light/light-theme";
+import { OS_LIGHT_COLORS } from "../theme/light/light-color-palette";
+
+<Meta title="Foundations/Colors" />
+
+<ColorPalette>
+  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
+    MUI Colors - Light Theme
+  </Typography>
+  <ColorItem
+    title="Primary"
+    subtitle="theme.palette.primary"
+    colors={lightTheme.palette.primary}
+  />
+  <ColorItem
+    title="Secondary"
+    subtitle="theme.palette.secondary"
+    colors={lightTheme.palette.secondary}
+  />
+  <ColorItem
+    title="Tertiary"
+    subtitle="theme.palette.tertiary"
+    colors={lightTheme.palette.tertiary}
+  />
+  <ColorItem
+    title="Info"
+    subtitle="theme.palette.info"
+    colors={lightTheme.palette.info}
+  />
+  <ColorItem
+    title="Success"
+    subtitle="theme.palette.success"
+    colors={lightTheme.palette.success}
+  />
+  <ColorItem
+    title="Warning"
+    subtitle="theme.palette.warning"
+    colors={lightTheme.palette.warning}
+  />
+  <ColorItem
+    title="Error"
+    subtitle="theme.palette.error"
+    colors={lightTheme.palette.error}
+  />
+  <ColorItem
+    title="Orange"
+    subtitle="theme.palette.orange"
+    colors={lightTheme.palette.orange}
+  />
+  <ColorItem
+    title="Grey"
+    subtitle="theme.palette.grey"
+    colors={lightTheme.palette.grey}
+  />
+  <Divider />
+  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
+    Open UI Kit Light Colors
+  </Typography>
+  <ColorItem
+    title="Surface Light"
+    subtitle="OS_LIGHT_COLORS.surfaceLight"
+    colors={OS_LIGHT_COLORS.surfaceLight}
+  />
+  <ColorItem
+    title="Teal"
+    subtitle="OS_LIGHT_COLORS.teal"
+    colors={OS_LIGHT_COLORS.teal}
+  />
+  <ColorItem
+    title="Pink"
+    subtitle="OS_LIGHT_COLORS.pink"
+    colors={OS_LIGHT_COLORS.pink}
+  />
+  <ColorItem
+    title="Lime"
+    subtitle="OS_LIGHT_COLORS.lime"
+    colors={OS_LIGHT_COLORS.lime}
+  />
+  <ColorItem
+    title="Lavender"
+    subtitle="OS_LIGHT_COLORS.lavender"
+    colors={OS_LIGHT_COLORS.lavender}
+  />
+  <ColorItem
+    title="Purple"
+    subtitle="OS_LIGHT_COLORS.purple"
+    colors={OS_LIGHT_COLORS.purple}
+  />
+  <ColorItem
+    title="Light Blue"
+    subtitle="OS_Colors.lightBlue"
+    colors={OS_LIGHT_COLORS.lightBlue}
+  />
+  <ColorItem
+    title="Sunset"
+    subtitle="OS_Colors.sunset"
+    colors={OS_LIGHT_COLORS.sunset}
+  />
+  <ColorItem
+    title="Night"
+    subtitle="OS_Colors.nightPalette"
+    colors={OS_LIGHT_COLORS.night}
+  />
+</ColorPalette>

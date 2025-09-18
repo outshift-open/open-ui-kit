@@ -1,0 +1,43 @@
+/*
+ * Copyright 2025 Open UI Kit Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { SvgIcon, SvgIconProps } from "@mui/material";
+
+export function AzureCategoryIdentitySecurity(props: SvgIconProps) {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="25"
+        fill="none"
+      >
+        <path
+          fill={props.fill ?? "currentColor"}
+          fillRule="evenodd"
+          d="M7.959 4.889a9 9 0 0 1 5-1.517 9.01 9.01 0 0 1 9 9 9 9 0 1 1-14-7.483Zm10.23 13.232A7.772 7.772 0 1 1 7.729 6.623 7.772 7.772 0 0 1 18.19 18.12Z"
+          clipRule="evenodd"
+        />
+        <path
+          fill={props.fill ?? "currentColor"}
+          fillRule="evenodd"
+          d="M16.7 10.123c0 .365-.145.715-.401.975l-2.25 2.294v.188l.512.519a.188.188 0 0 1 0 .256l-.369.368a.203.203 0 0 0 0 .279l.369.368a.188.188 0 0 1 0 .256l-.369.369a.203.203 0 0 0 0 .278l.369.369a.188.188 0 0 1 0 .255l-.512.512-.872.872a.309.309 0 0 1-.436 0l-.903-.902a.473.473 0 0 1-.136-.331v-3.671c0-.102-.04-.2-.113-.271l-1.97-2.008a1.384 1.384 0 0 1 0-1.949l2.37-2.377a1.377 1.377 0 0 1 1.94 0l2.37 2.377c.256.26.4.61.4.974ZM13.51 7.58a.778.778 0 1 0-1.102 1.101.778.778 0 0 0 1.101-1.1Zm-1.08 9.554a.173.173 0 0 1-.088-.04.21.21 0 0 1-.053-.128v-3.009a.164.164 0 0 1 .081-.155.166.166 0 0 1 .175.005.18.18 0 0 1 .083.15v3.009a.173.173 0 0 1-.198.168Zm2.311-7.194h-3.467a.21.21 0 0 0-.211.21v.038c0 .117.094.21.21.21h3.468a.21.21 0 0 0 .211-.21v-.037a.21.21 0 0 0-.21-.211Zm-3.467.745h3.467a.21.21 0 0 1 .211.21v.038a.21.21 0 0 1-.21.21h-3.468a.21.21 0 0 1-.211-.21v-.038a.21.21 0 0 1 .21-.21Z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </SvgIcon>
+  );
+}
