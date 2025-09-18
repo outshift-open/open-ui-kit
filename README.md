@@ -6,7 +6,7 @@
 
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![Monorepo](https://img.shields.io/badge/monorepo-turborepo-blue)](https://turbo.build/)
-[![Storybook](https://img.shields.io/badge/storybook-docs-ff69b4)](https://main--67e2c28f188630b706cee923.chromatic.com)
+[![Storybook](https://img.shields.io/badge/storybook-docs-ff69b4)](https://main--68cc22452afe30d90e4ca977.chromatic.com)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](LICENSE)
 [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core)
 [![npm downloads](https://img.shields.io/npm/dm/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core)
@@ -41,7 +41,7 @@ Open UI Kit is designed to be framework-agnostic, accessible, and highly customi
 
 | Package | Description | Version | Documentation |
 |---------|-------------|---------|---------------|
-| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material-UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Docs](https://main--67e2c28f188630b706cee923.chromatic.com/) |
+| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material-UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Docs](https://main--68cc22452afe30d90e4ca977.chromatic.com/) |
 
 ## 🚀 Quick Start
 

@@ -36,7 +36,7 @@ DO NOT UPDATE MANUALLY! -->
 
 [![npm](https://img.shields.io/badge/npm-package-CB3837?logo=npm)](https://www.npmjs.com/package/@open-ui-kit/core)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
-[![Storybook](https://img.shields.io/badge/storybook-view%20docs-ff69b4)](https://main--67e2c28f188630b706cee923.chromatic.com)
+[![Storybook](https://img.shields.io/badge/storybook-view%20docs-ff69b4)](https://main--68cc22452afe30d90e4ca977.chromatic.com)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](LICENSE)
 
 </div>
