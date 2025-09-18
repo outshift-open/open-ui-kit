@@ -1,41 +1,39 @@
-# name: Release
-# on:
-#   push:
-#     branches:
-#       - main
-#       - beta
+name: Release
+on:
+  push:
+    branches:
+      - main
+      - beta
 
-# permissions:
-#   packages: write
-#   contents: write
-#   issues: write
-#   pull-requests: write
-#   id-token: write
-#   actions: write
+permissions:
+  packages: write
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+  actions: write
 
-# jobs:
-#   release:
-#     name: Release
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0
-#           persist-credentials: true
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: latest
-#       - name: Install dependencies
-#         run: yarn install
-#       - name: Build package
-#         run: yarn lib:build
-#       - name: Release
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           GITHUB_NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           GITHUB_NPM_CONFIG_REGISTRY: https://npm.pkg.github.com/
-#           DEVHUB_NPM_TOKEN: ${{ secrets.DEVHUB_CLOUD_TOKEN }}
-#           DEVHUB_NPM_CONFIG_REGISTRY: https://artifactory.devhub-cloud.cisco.com/artifactory/api/npm/outshift-npm/
-#         run: yarn semantic-release
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install dependencies
+        run: yarn install
+      - name: Build package
+        run: yarn lib:build
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release@21.0.2
