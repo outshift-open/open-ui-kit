@@ -1,0 +1,81 @@
+/*
+ * Copyright 2025 Open UI Kit Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+
+interface PaRealtimeCDRProps extends SvgIconProps {
+  primaryColor: string;
+  secondaryColor?: string;
+}
+
+const PaRealtimeCDR = ({
+  primaryColor,
+  secondaryColor,
+  ...props
+}: PaRealtimeCDRProps) => {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7.22862 3.33641C8.42242 2.64724 9.69891 2.2342 10.9881 2.0751C14.2641 1.67064 17.6095 2.91328 19.8128 5.47913L19.9317 5.03397C19.9886 4.82015 20.1282 4.63775 20.3199 4.52691C20.5115 4.41606 20.7393 4.38601 20.953 4.44336H20.9529C21.1669 4.5003 21.3493 4.63996 21.4601 4.83159C21.571 5.02309 21.601 5.25099 21.5437 5.46468V5.46482L21.0037 7.48694L21.0029 7.49519C20.982 7.71549 20.8741 7.91856 20.7033 8.05932C20.5509 8.18508 20.3593 8.25197 20.1633 8.2496C20.1206 8.24978 20.0779 8.24668 20.0354 8.24026L18.0251 8.04292C17.8046 8.02196 17.6017 7.91415 17.4608 7.74333C17.32 7.57255 17.2529 7.35264 17.2744 7.13233C17.2969 6.91299 17.4054 6.71157 17.576 6.57205C17.7467 6.43253 17.9657 6.36621 18.185 6.38786L18.4142 6.40967C15.8352 3.5465 11.5336 2.77628 8.05924 4.78219C6.95343 5.42065 6.05605 6.26727 5.37665 7.24941C5.25147 7.43277 5.05833 7.55864 4.84009 7.59903C4.62173 7.63956 4.3963 7.59117 4.21377 7.46489C4.03137 7.33875 3.90674 7.14519 3.86745 6.92695C3.8283 6.70869 3.87765 6.48371 4.00463 6.30201C4.82054 5.12233 5.90677 4.09949 7.22862 3.33641ZM4.30343 15.7481C4.33055 15.7481 4.35776 15.7494 4.38499 15.7521L6.45225 15.9551C6.67146 15.9761 6.87343 16.0829 7.01405 16.2525C7.15481 16.422 7.22264 16.6402 7.20293 16.8595C7.18197 17.08 7.07416 17.2829 6.90335 17.4238C6.73242 17.5646 6.51266 17.6316 6.29235 17.6102H6.29221L6.05993 17.5881C8.6374 20.4522 12.9351 21.223 16.41 19.2167C17.5158 18.5781 18.4133 17.7254 19.0926 16.7433C19.2187 16.5609 19.4123 16.4362 19.6305 16.3971C19.8488 16.3578 20.0737 16.4072 20.2555 16.5341C20.4378 16.6603 20.5625 16.8538 20.6018 17.0721C20.6409 17.2903 20.5918 17.5153 20.4647 17.697C19.6487 18.8767 18.5624 19.8994 17.2406 20.6626C13.0109 23.1046 7.71965 22.0943 4.65035 18.5127L4.5299 18.9637C4.47296 19.1776 4.33331 19.3601 4.14168 19.4708C3.95007 19.5817 3.7223 19.6117 3.50847 19.5544C3.29465 19.4974 3.11226 19.3578 3.00141 19.1663C2.89057 18.9747 2.86051 18.7469 2.91787 18.5331L3.49622 16.3674C3.55316 16.1534 3.69282 15.971 3.88445 15.8601C4.01292 15.7858 4.15762 15.7478 4.30343 15.7481Z"
+          fill={primaryColor}
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M12.0202 7.27661C10.6967 7.27661 9.54252 8.05037 8.9357 9.19406C7.54842 9.41225 6.48637 10.6836 6.48637 12.2155C6.48637 13.9024 7.77635 15.273 9.36396 15.273H15.1191C16.4632 15.273 17.554 14.114 17.554 12.6859C17.554 11.3787 16.6407 10.3097 15.4556 10.1365C15.0749 8.49169 13.6824 7.27661 12.0202 7.27661ZM9.89111 10.3987C10.1571 9.40954 11.0068 8.68774 12.0202 8.68774C13.2438 8.68774 14.2337 9.73956 14.2337 11.0396V11.51H15.1191C15.7318 11.51 16.2259 12.035 16.2259 12.6859C16.2259 13.3369 15.7318 13.8619 15.1191 13.8619H9.36396C8.50783 13.8619 7.81449 13.1252 7.81449 12.2155C7.81449 11.3059 8.50783 10.5692 9.36396 10.5692H9.84524L9.89111 10.3987ZM4.36396 10.1249C4.36396 10.7002 3.89759 11.1666 3.3223 11.1666C2.74701 11.1666 2.28064 10.7002 2.28064 10.1249C2.28064 9.54962 2.74701 9.08325 3.3223 9.08325C3.89759 9.08325 4.36396 9.54962 4.36396 10.1249ZM21.0305 12.6249C20.4552 12.6249 19.9889 13.0913 19.9889 13.6666C19.9889 14.2419 20.4552 14.7083 21.0305 14.7083C21.6058 14.7083 22.0722 14.2419 22.0722 13.6666C22.0722 13.0913 21.6058 12.6249 21.0305 12.6249Z"
+          fill={secondaryColor || primaryColor}
+        />
+      </svg>
+    </SvgIcon>
+  );
+};
+
+export const RealtimeCDRUnselected = (props: SvgIconProps) => {
+  const theme = useTheme();
+  return <PaRealtimeCDR primaryColor={theme.palette.grey[50]} {...props} />;
+};
+
+export const RealtimeCDRSelected = (props: SvgIconProps) => {
+  const theme = useTheme();
+
+  return (
+    <PaRealtimeCDR
+      primaryColor={theme.palette.primary.main}
+      secondaryColor={theme.palette.primary[100]}
+      {...props}
+    />
+  );
+};
+
+export const RealtimeCDRDisabled = (props: SvgIconProps) => {
+  const theme = useTheme();
+  return (
+    <PaRealtimeCDR
+      primaryColor={theme.palette.grey[300]}
+      secondaryColor={theme.palette.grey[50]}
+      {...props}
+    />
+  );
+};

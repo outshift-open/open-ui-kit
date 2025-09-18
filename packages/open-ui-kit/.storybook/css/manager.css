@@ -1,0 +1,8 @@
+@import "./typography.css";
+@import "./sidebar-items.css";
+@import "./sidebar-headers.css";
+@import "./search-result-items.css";
+
+div[data-radix-scroll-area-viewport] > div > div {
+  padding-top: 0px !important;
+}

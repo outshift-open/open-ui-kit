@@ -1,0 +1,36 @@
+/*
+ * Copyright 2025 Open UI Kit Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { SvgIconProps, SvgIcon } from "@mui/material";
+
+export function Pin(props: SvgIconProps) {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.5137 8.54533L15.4564 3.4888C15.3016 3.33384 15.1178 3.21091 14.9155 3.12704C14.7131 3.04317 14.4963 3 14.2772 3C14.0582 3 13.8414 3.04317 13.639 3.12704C13.4367 3.21091 13.2529 3.33384 13.0981 3.4888L8.76823 7.83368C7.73242 7.55619 5.71164 7.35703 3.62336 9.04198C3.441 9.1887 3.29159 9.37219 3.18485 9.58049C3.07812 9.78879 3.01645 10.0172 3.00387 10.2509C2.9913 10.4847 3.02809 10.7184 3.11185 10.937C3.19561 11.1555 3.32447 11.354 3.49003 11.5194L7.27826 15.3085L3.96169 18.6251C3.77383 18.8129 3.66829 19.0677 3.66829 19.3334C3.66829 19.599 3.77383 19.8538 3.96169 20.0417C4.14954 20.2295 4.40433 20.3351 4.67 20.3351C4.93567 20.3351 5.19046 20.2295 5.37832 20.0417L8.69489 16.7243L12.484 20.5125C12.7962 20.8244 13.2193 20.9997 13.6606 21C13.6989 21 13.7381 21 13.7773 20.9958C14.0151 20.9786 14.2465 20.9106 14.4558 20.7963C14.6651 20.682 14.8475 20.5242 14.9906 20.3334C15.3814 19.8142 15.9072 18.9892 16.1939 18.0001C16.4805 17.0109 16.4814 16.0935 16.2072 15.2168L20.5154 10.8944C20.8253 10.582 20.9991 10.1596 20.9988 9.71954C20.9985 9.27945 20.8241 8.85734 20.5137 8.54533ZM14.3256 14.2777C14.1776 14.4262 14.0801 14.6174 14.0467 14.8244C14.0134 15.0313 14.0459 15.2435 14.1397 15.431C14.4256 16.0026 14.7147 17.1809 13.6164 18.8184L5.17499 10.3778C6.93244 9.16198 8.46907 9.82446 8.59156 9.8778C8.77822 9.97471 8.99127 10.0085 9.19875 9.97409C9.40624 9.93968 9.59698 9.83894 9.74237 9.68697L14.2781 5.13625L18.8613 9.71947L14.3256 14.2777Z"
+          fill={props?.fill || "currentColor"}
+        />
+      </svg>
+    </SvgIcon>
+  );
+}

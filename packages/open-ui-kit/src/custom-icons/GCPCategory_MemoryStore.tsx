@@ -1,0 +1,44 @@
+/*
+ * Copyright 2025 Open UI Kit Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { SvgIcon, SvgIconProps } from "@mui/material";
+
+export function GCPCategoryMemoryStore(props: SvgIconProps) {
+  return (
+    <SvgIcon {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="25"
+        fill="none"
+      >
+        <path
+          fill={props.fill ?? "currentColor"}
+          fillRule="evenodd"
+          d="M22.75 10.9668L23.25 12.3335L21.75 12.8335L21.4362 11.4574C21.1473 10.6675 20.6594 10.3442 19.7564 10.3442C19.3848 10.3442 19.0777 10.052 19.0567 9.67765C18.9585 8.02833 18.1214 7.23841 17.3825 7.20012C16.4388 7.15616 16.129 7.56459 16.0252 7.69931C15.8696 7.90637 15.613 8.00847 15.3634 7.97302C15.1096 7.93331 14.8965 7.75888 14.8081 7.51495C14.5067 6.68107 14.0832 6.01312 13.4761 5.41466C12.1692 4.13547 9.73368 3.87028 7.55191 4.77506C6.06281 5.39197 5.09952 6.98456 5.09952 8.83242C5.09952 9.03664 5.12616 9.35431 5.15 9.55143C5.19207 9.90597 4.96632 10.2364 4.62279 10.3229C2.95982 10.7399 2.15217 11.7042 2.15217 13.267C2.15217 13.3379 2.15077 13.4103 2.15778 13.4812C2.2377 14.9121 3.0117 16.4153 4.94949 16.4153H7.75663V17.8335H4.94949C2.58544 17.8335 0.900032 16.126 0.759815 13.5847C0.751402 13.4939 0.75 13.3805 0.75 13.267C0.75 11.2476 1.79461 9.79394 3.70717 9.12031C3.70156 9.01679 3.69736 8.9161 3.69736 8.83242C3.69736 6.40595 5.00277 4.29856 7.02189 3.46185C9.70424 2.35426 12.7582 2.73858 14.452 4.39642C14.975 4.91263 15.3984 5.48415 15.7336 6.12799C16.1542 5.89825 16.7095 5.74225 17.454 5.78338C18.9333 5.85996 20.0803 7.13772 20.3859 8.9714C21.5357 9.143 22.3293 9.81237 22.75 10.9668Z"
+          clipRule="evenodd"
+        />
+        <path
+          d="M14.4615 14.0898V12.1667M17.5385 14.0898V12.1667M12.9231 18.7052H11M12.9231 15.6283H11M17.5385 20.2437V22.1667M14.4615 20.2437V22.1667M19.0769 15.6283H21M19.0769 18.7052H21M18.3077 14.0898H13.6923C13.4883 14.0898 13.2926 14.1709 13.1484 14.3151C13.0041 14.4594 12.9231 14.655 12.9231 14.8591V19.4744C12.9231 19.6785 13.0041 19.8741 13.1484 20.0184C13.2926 20.1626 13.4883 20.2437 13.6923 20.2437H18.3077C18.5117 20.2437 18.7074 20.1626 18.8516 20.0184C18.9959 19.8741 19.0769 19.6785 19.0769 19.4744V14.8591C19.0769 14.655 18.9959 14.4594 18.8516 14.3151C18.7074 14.1709 18.5117 14.0898 18.3077 14.0898Z"
+          stroke="#E8E9EA"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </SvgIcon>
+  );
+}
