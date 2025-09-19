@@ -121,7 +121,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/babel__core": "^7",
     "@types/identity-obj-proxy": "^3",
-    "@types/jest": "^29.5.3",
+    "@types/jest": "^30.0.0",
     "@types/react": "^18.2.6",
     "@types/react-syntax-highlighter": "^15",
     "@types/rollup-plugin-node-builtins": "^2",
