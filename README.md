@@ -5,6 +5,7 @@
 **React Component Library & Design System**
 
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![Monorepo](https://img.shields.io/badge/monorepo-turborepo-blue)](https://turbo.build/)
 [![Storybook](https://img.shields.io/badge/storybook-docs-ff69b4)](https://main--68cc22452afe30d90e4ca977.chromatic.com)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](LICENSE)
@@ -156,8 +157,10 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## 🔗 Related Links
 
 - 📚 **[Component Documentation](https://main--67e2c28f188630b706cee923.chromatic.com)** - Interactive Storybook
+- 📋 **[Changelog](CHANGELOG.md)** - Release notes and version history
+- 🔄 **[Migration Guide](MIGRATION.md)** - Version upgrade instructions
 - 🎯 **[Material-UI](https://mui.com/)** - Foundation library
-- � **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issues
+- 🏠 **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issues
 
 ---
 

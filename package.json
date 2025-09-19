@@ -26,6 +26,7 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "lib:dev": "turbo run lib:dev",
+    "lib:build": "turbo run lib:build",
     "build": "turbo run build",
     "license:add": "turbo run license:add",
     "license:check": "turbo run license:check",
