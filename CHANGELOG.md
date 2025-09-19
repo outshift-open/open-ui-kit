@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/outshift-open/open-ui-kit/compare/v1.0.3...v1.0.4) (2025-09-19)
+
+
+### Bug Fixes
+
+* deps ([49e48b7](https://github.com/outshift-open/open-ui-kit/commit/49e48b7844004b6e8ae62264ddf2bc6528f09630))
+* deps ([e63ecab](https://github.com/outshift-open/open-ui-kit/commit/e63ecab523a3e61b02ffe9b2af6e1f3a03e01e17))
+* deps ([def722a](https://github.com/outshift-open/open-ui-kit/commit/def722abb863c2bc112f06fc22804e3c390065d9))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
