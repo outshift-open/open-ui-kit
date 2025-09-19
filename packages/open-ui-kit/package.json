@@ -165,7 +165,7 @@
     "storybook-mock-date-decorator": "^2.0.6",
     "storycap": "^5.0.1",
     "ts-jest": "^29.3.0",
-    "tsup": "^6.7.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.2",
     "typescript-transform-paths": "^3.5.5",
     "vite": "^6.2.3",
