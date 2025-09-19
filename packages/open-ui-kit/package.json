@@ -92,7 +92,7 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.27.0",
     "@chromatic-com/storybook": "^3",
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^10.0.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-image": "^3.0.3",
