@@ -360,9 +360,7 @@ Each release includes:
 
 ### 🆘 Support
 
-- **🔧 Engineering Support**: [ENG Support](https://eurl.io/#n5tjptkJ2)
-- **🎨 UI/UX Support**: [UI/UX Support](https://eurl.io/#_uXpdQd1z)
-- **📞 Team Contact**: [Team Contact](https://eurl.io/#Nc8d4kzLp)
+Need help? Check out our [Contributing Guide](../../CONTRIBUTING.md#support) for support options.
 
 ## 🤝 Contributing
 

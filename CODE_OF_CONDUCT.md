@@ -60,7 +60,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-[Team Contact](https://eurl.io/#Nc8d4kzLp) or by opening an issue in the
+[oss-conduct@cisco.com](mailto:oss-conduct@cisco.com) or by opening an issue in the
 [GitHub repository](https://github.com/outshift-open/open-ui-kit/issues).
 All complaints will be reviewed and investigated promptly and fairly.
 

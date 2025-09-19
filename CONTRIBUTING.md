@@ -137,9 +137,6 @@ If you need help or have questions:
 
 - **General Questions**: [GitHub Discussions](https://github.com/outshift-open/open-ui-kit/discussions)
 - **Bug Reports**: [GitHub Issues](https://github.com/outshift-open/open-ui-kit/issues)
-- **Engineering Support**: [ENG Support](https://eurl.io/#n5tjptkJ2)
-- **UI/UX Support**: [UI/UX Support](https://eurl.io/#_uXpdQd1z)
-- **Team Contact**: [Team Contact](https://eurl.io/#Nc8d4kzLp)
 
 ### Reporting Issues
 
