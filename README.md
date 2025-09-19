@@ -133,13 +133,7 @@ When reporting issues, please include:
 
 ### 🆘 Get Support
 
-Need help integrating Open UI Kit or have questions?
-
-| Support Type | Contact | Best For |
-|--------------|---------|----------|
-| 🔧 **Engineering Support** | [ENG Support](https://eurl.io/#n5tjptkJ2) | Technical implementation, API questions |
-| 🎨 **UI/UX Support** | [UI/UX Support](https://eurl.io/#_uXpdQd1z) | Design guidance, component usage |
-| 📞 **Team Contact** | [Team Contact](https://eurl.io/#Nc8d4kzLp) | General questions, feedback |
+Need help? Check out our [Contributing Guide](CONTRIBUTING.md#support) for support options.
 
 ## 👥 Maintainers
 
