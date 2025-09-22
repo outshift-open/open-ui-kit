@@ -23,7 +23,7 @@ import {
 import { Box, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { styles } from "./styles";
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
+import { greyPalette } from "@/theme/color-palette";
 import { SearchField } from "@/components";
 
 export interface FiltersBarActionsProps {
@@ -89,7 +89,7 @@ export const FiltersBarActions = ({
               color:
                 activeFiltersCount && activeFiltersCount > 0
                   ? "inherit"
-                  : PA_Colors.grey[200],
+                  : greyPalette[200],
             }}
           >
             {activeFiltersCount}

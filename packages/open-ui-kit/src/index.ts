@@ -24,7 +24,7 @@ export * as Icons from "./custom-icons";
 export * from "./custom-illustrations";
 export * from "./common";
 export * from "./common/utils";
-export { OS_LIGHT_COLORS } from "./theme/light/light-color-palette";
+export { OS_LIGHT_COLORS } from "./theme/color-palette";
 export { gradientsPalette } from "./theme/gradients";
 export { ThemeProvider } from "./theme-provider/theme-provider";
 

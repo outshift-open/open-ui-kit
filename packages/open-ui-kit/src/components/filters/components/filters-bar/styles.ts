@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
+import { surfaceDarkPalette } from "@/theme/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
 
 export const styles = {
@@ -38,7 +38,7 @@ export const styles = {
   },
   chipTooltip: {
     "& .MuiTooltip-tooltip": {
-      backgroundColor: PA_Colors.surface[50],
+      backgroundColor: surfaceDarkPalette[50],
       color: darkTheme.palette.grey[50],
       marginBottom: "2px !important",
       height: "auto",

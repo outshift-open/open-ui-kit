@@ -28,7 +28,7 @@ import {
   formatNodeValue,
   isLeaf,
 } from "@/common";
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
+import { greyPalette } from "@/theme/color-palette";
 import { AugmentedSelectNodeType } from "@/types";
 import { useAutocompleteTreeContext } from "./autocomplete-tree-context";
 import {
@@ -202,7 +202,7 @@ export const SelectNodeListItem = ({
       {selectableLeavesCount && (
         <Typography
           variant="body2"
-          color={PA_Colors.grey[200]}
+          color={greyPalette[200]}
           sx={{ cursor: "pointer" }}
         >
           {selectableLeavesCount}

@@ -15,7 +15,7 @@
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
-import { PA_Colors } from "../theme/dark/dark-color-palette";
+import { greyPalette } from "@/theme/color-palette";
 
 export function KubernetesCategoryNone(props: SvgIconProps) {
   return (
@@ -27,7 +27,7 @@ export function KubernetesCategoryNone(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? PA_Colors.grey[50]}
+          fill={props.fill ?? greyPalette[50]}
           fillRule="evenodd"
           clipRule="evenodd"
           stroke="#E8E9EA"

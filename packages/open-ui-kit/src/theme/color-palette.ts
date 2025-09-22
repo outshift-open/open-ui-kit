@@ -49,11 +49,11 @@ export const blue600 = "#004ba8";
 export const blue700 = "#00409f";
 export const blue800 = "#003796";
 export const blue900 = "#002786";
-export const blueAlpha40 = "rgba(0, 81, 175, 0.4)";
-export const blueAplha10 = "rgba(0, 81, 175, 0.1)";
+export const blueAlpha40 = "#0051af66";
+export const blueAlpha10 = "#0051af19";
 
 // Light Blue
-export const lightBlue50 = "#e4faff";
+export const lightBlue50 = "#edfbff";
 export const lightBlue100 = "#bcf2ff";
 export const lightBlue200 = "#8fe9ff";
 export const lightBlue300 = "#62e0ff";
@@ -63,8 +63,8 @@ export const lightBlue600 = "#1bcdff";
 export const lightBlue700 = "#17c7ff";
 export const lightBlue800 = "#12c1ff";
 export const lightBlue900 = "#0ab6ff";
-export const lightBlueAlpha40 = "rgba(31, 210, 255, 0.4)";
-export const lightBlueAlpha10 = "rgba(31, 210, 255, 0.1)";
+export const lightBlueAlpha40 = "#1fd2ff66";
+export const lightBlueAlpha10 = "#1fd2ff19";
 
 // Grey
 export const grey0 = "#ffffff";
@@ -78,8 +78,8 @@ export const grey600 = "#363e4a";
 export const grey700 = "#2e3640";
 export const grey800 = "#272e37";
 export const grey900 = "#1a1f27";
-export const greyAlpha40 = "rgba(60, 69, 81, 0.4)";
-export const greyAlpha10 = "rgba(60, 69, 81, 0.1)";
+export const greyAlpha40 = "#3c455166";
+export const greyAlpha10 = "#3c455119";
 
 // Purple
 export const purple50 = "#faecff";
@@ -92,8 +92,8 @@ export const purple600 = "#9c4eea";
 export const purple700 = "#6a21ba";
 export const purple800 = "#5300a4";
 export const purple900 = "#1b0077";
-export const purpleAlpha40 = "rgba(183, 109, 255, 0.4)";
-export const purpleAlpha10 = "rgba(183, 109, 255, 0.1)";
+export const purpleAlpha40 = "#b76dff66";
+export const purpleAlpha10 = "#b76dff19";
 
 // Red
 export const red50 = "#f8e5ea";
@@ -106,8 +106,8 @@ export const red600 = "#c0244c";
 export const red700 = "#b91f42";
 export const red800 = "#b11939";
 export const red900 = "#a40f29";
-export const redAlpha40 = "rgba(198, 41, 83, 0.4)";
-export const redAlpha10 = "rgba(198, 41, 83, 0.1)";
+export const redAlpha40 = "#c6295366";
+export const redAlpha10 = "#c6295319";
 
 // Orange
 export const orange50 = "#fdece8";
@@ -120,8 +120,8 @@ export const orange600 = "#f05c37";
 export const orange700 = "#ee522f";
 export const orange800 = "#ec4827";
 export const orange900 = "#e8361a";
-export const orangeAlpha40 = "rgba(242, 100, 61, 0.4)";
-export const orangeAlpha10 = "rgba(242, 100, 61, 0.1)";
+export const orangeAlpha40 = "#f2643d66";
+export const orangeAlpha10 = "#f2643d19";
 
 // Light Orange
 export const lightOrange50 = "#fff5e9";
@@ -134,8 +134,8 @@ export const lightOrange600 = "#fbab2c";
 export const lightOrange700 = "#fb9f36";
 export const lightOrange800 = "#fb962e";
 export const lightOrange900 = "#fb861f";
-export const lightAlphaOrange40 = "rgba(251, 175, 69, 0.4)";
-export const lightAlphaOrange10 = "rgba(251, 175, 69, 0.1)";
+export const lightAlphaOrange40 = "#fbaf4566";
+export const lightAlphaOrange10 = "#fbaf4519";
 
 // Yellow
 export const yellow50 = "#fffceb";
@@ -148,11 +148,11 @@ export const yellow600 = "#ffe351";
 export const yellow700 = "#ffdf48";
 export const yellow800 = "#ffdb3e";
 export const yellow900 = "#ffd52e";
-export const yellowAlpha40 = "rgba(255, 230, 89, 0.4)";
-export const yellowAlpha10 = "rgba(255, 230, 89, 0.1)";
+export const yellowAlpha40 = "#ffe65966";
+export const yellowAlpha10 = "#ffe65919";
 
 // Green
-export const green50 = "#e0f7f1";
+export const green50 = "#eafbf6";
 export const green100 = "#b3eadd";
 export const green200 = "#80dcc6";
 export const green300 = "#4dceaf";
@@ -162,8 +162,8 @@ export const green600 = "#00b285";
 export const green700 = "#00aa7a";
 export const green800 = "#00a270";
 export const green900 = "#00935d";
-export const green40 = "rgba(0, 185, 141, 0.4)";
-export const green10 = "rgba(0, 185, 141, 0.1)";
+export const green40 = "#00b98d66";
+export const green10 = "#00b98d19";
 
 // Night
 export const night10 = "#dff1f5";
@@ -243,6 +243,35 @@ export const teal700 = "#007178";
 export const teal800 = "#00484f";
 export const teal900 = "#00353c";
 
+// Brand
+export const outshiftLogoLightOrange = "#fbaf45";
+export const outshiftBlue = "#0051af";
+export const outshiftMidnightBlue = "#0d274d";
+export const agentcyYellow = "#fbaf45";
+export const outshiftOrange = "#fb861f";
+export const agentcyBlue = "#187adc";
+export const agentcyDarkBlue = "#00142b";
+export const outshiftLogoLightBlue = "#17c7ff";
+export const outshiftLogoGreen = "#74bf4b";
+export const outshiftLogoWhite = "#ffffff";
+export const outshiftLogoOrange = "#f2643d";
+export const outshiftLogoDark = "#00142b";
+
+export const brandColors = {
+  outshiftLogoLightOrange,
+  outshiftBlue,
+  outshiftMidnightBlue,
+  agentcyYellow,
+  outshiftOrange,
+  agentcyBlue,
+  agentcyDarkBlue,
+  outshiftLogoLightBlue,
+  outshiftLogoGreen,
+  outshiftLogoWhite,
+  outshiftLogoOrange,
+  outshiftLogoDark,
+};
+
 // Light Mode Box Shadows
 export const lightModeCardLifted = "0px 4px 4px rgba(200, 213, 245, 0.33)";
 export const lightModeCardSubtle = "0px 2px 5px rgba(200, 213, 245, 0.4)";
@@ -292,7 +321,7 @@ export const bluePalette = {
   800: blue800,
   900: blue900,
   alpha40: blueAlpha40,
-  alpha10: blueAplha10,
+  alpha10: blueAlpha10,
 };
 
 // Light Blue Palette
@@ -532,4 +561,5 @@ export const OS_LIGHT_COLORS = {
   teal: tealPalette,
   night: nightPalette,
   sunset: sunsetPalette,
+  brand: brandColors,
 };

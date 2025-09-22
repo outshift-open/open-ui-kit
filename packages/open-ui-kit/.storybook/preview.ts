@@ -15,6 +15,13 @@ export const decorators = [ThemeDecorator, withScreenshot, mockDateDecorator];
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      default: "Light",
+      values: [
+        { name: "Dark", value: "#00142B" },
+        { name: "Light", value: "#EFF3FC" },
+      ],
+    },
     darkMode: {
       dark: {
         ...comomnTheme,

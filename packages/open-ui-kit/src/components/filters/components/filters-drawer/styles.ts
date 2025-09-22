@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
+import { surfaceDarkPalette, greyPalette } from "@/theme/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
 
 const getChildAccordionMarginLeft = (
@@ -40,16 +40,16 @@ const getChildAccordionMarginLeft = (
 const filterItemStyles = {
   loadingStack: {
     padding: "8px 24px",
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: surfaceDarkPalette[700],
   },
   parentAccordion: {
     "&.MuiPaper-root": {
       border: "0px solid !important",
-      borderBottom: `0.5px solid ${PA_Colors.surface[400]} !important`,
+      borderBottom: `0.5px solid ${surfaceDarkPalette[400]} !important`,
       boxShadow: "unset",
       margin: "0",
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: PA_Colors.grey[50],
+        color: greyPalette[50],
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -88,7 +88,7 @@ const filterItemStyles = {
         isSelectAllEnabledOnParent,
       )}`,
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: PA_Colors.grey[50],
+        color: greyPalette[50],
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -118,11 +118,11 @@ const filterItemStyles = {
     color: isSelected
       ? (darkTheme.palette.primary[500] ?? "unset")
       : darkTheme.palette.text.primary,
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: surfaceDarkPalette[700],
     flexDirection: "row-reverse",
   }),
   accordionDetails: {
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: surfaceDarkPalette[700],
   },
   listItem: (level: number, isSelectAllEnabled: boolean) => {
     if (level === 0) {
@@ -139,7 +139,7 @@ const filterItemStyles = {
     return { paddingLeft: "0px" }; // Default return value
   },
   listItemButton: {
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: surfaceDarkPalette[700],
     paddingTop: 0,
     paddingBottom: 0,
   },
@@ -163,7 +163,7 @@ const filtersDrawerStyles = {
   drawerHeader: {
     padding: "16px 24px",
     width: "480px",
-    backgroundColor: PA_Colors.surface[400],
+    backgroundColor: surfaceDarkPalette[400],
   },
   drawerTitle: {
     justifyContent: "space-between",
@@ -177,7 +177,7 @@ const filtersDrawerStyles = {
   },
   clearAll: {
     "&.MuiButton-sizeMedium": {
-      backgroundColor: PA_Colors.surface[500],
+      backgroundColor: surfaceDarkPalette[500],
       height: "58px",
       justifyContent: "left",
       padding: "8px 16px",
@@ -186,8 +186,8 @@ const filtersDrawerStyles = {
 };
 
 const emptySearchStyles = {
-  emptySearchTypography: { color: PA_Colors.grey[300], marginTop: "50px" },
-  emptySearchInput: { color: PA_Colors.grey[50] },
+  emptySearchTypography: { color: greyPalette[300], marginTop: "50px" },
+  emptySearchInput: { color: greyPalette[50] },
 };
 
 export const styles = {

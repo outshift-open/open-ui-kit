@@ -29,7 +29,7 @@ import {
   lightModeCardRaised,
   lightModeCardFloating,
   lightModeSideDrawer,
-} from "./light-color-palette";
+} from "../color-palette";
 import {
   createTheme,
   PaletteOptions,
@@ -61,7 +61,7 @@ import {
   tabComponent,
   tabsComponent,
   tooltipComponent,
-} from "./mui";
+} from "../mui";
 
 export const shadows: Shadows = [
   `none`,

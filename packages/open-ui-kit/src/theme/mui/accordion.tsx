@@ -15,7 +15,7 @@
  */
 
 import { accordionSummaryClasses, Components, Theme } from "@mui/material";
-import { lightBluePalette } from "../light-color-palette";
+import { lightBluePalette } from "../color-palette";
 
 export const accordionComponent = (theme: Theme): Components => {
   return {

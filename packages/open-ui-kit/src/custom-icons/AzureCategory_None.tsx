@@ -15,7 +15,7 @@
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
-import { PA_Colors } from "../theme/dark/dark-color-palette";
+import { greyPalette } from "@/theme/color-palette";
 
 export function AzureCategoryNone(props: SvgIconProps) {
   return (
@@ -27,7 +27,7 @@ export function AzureCategoryNone(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? PA_Colors.grey[50]}
+          fill={props.fill ?? greyPalette[50]}
           d="M2 17.535L7.18932 8.89266L13.25 4L6.67866 17.5483V17.535H2ZM15.9923 17.3761L11.11 11.7431L13.6513 4.96782L22 19.0001H6.50003L15.9923 17.3761Z"
         />
       </svg>
