@@ -28,12 +28,17 @@
     },
     "license:add": {
       "cache": false,
-      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
+      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
       "outputs": []
     },
     "license:check": {
       "cache": false,
-      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
+      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
+      "outputs": []
+    },
+    "license:add:force": {
+      "cache": false,
+      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
       "outputs": []
     },
     "lint": {

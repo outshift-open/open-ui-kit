@@ -29,6 +29,7 @@
     "lib:build": "turbo run lib:build",
     "build": "turbo run build",
     "license:add": "turbo run license:add",
+    "license:add:force": "turbo run license:add:force",
     "license:check": "turbo run license:check",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",

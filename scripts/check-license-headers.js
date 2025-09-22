@@ -1,3 +1,9 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 "use strict";
 
 const fs = require("fs");
@@ -12,10 +18,12 @@ const path = require("path");
     const rootDir = path.join(__dirname, "..");
 
     const filePatterns = [
-      "packages/*/src/**/*.{js,jsx,ts,tsx}",
-      "playground/*/**/*.{js,jsx,ts,tsx}",
+      "packages/*/src/**/*.{js,jsx,ts,tsx,css,html}",
+      "playground/*/**/*.{js,jsx,ts,tsx,css,html}",
+      "scripts/**/*.{js,jsx,ts,tsx}",
       "!**/node_modules/**",
       "!**/dist/**",
+      "!**/storybook-static/**",
       "!**/*.stories.{js,jsx,ts,tsx}", // Optional: exclude stories
       "!**/*.test.{js,jsx,ts,tsx}", // Optional: exclude tests
       "!**/*.spec.{js,jsx,ts,tsx}", // Optional: exclude specs
@@ -28,7 +36,9 @@ const path = require("path");
       throw new Error(`License template not found at: ${bannerSourcePath}`);
     }
 
-    const copyrightRegex = /\/\*[\s\S]*?Copyright[\s\S]*?\*\//;
+    // Check for both JS-style and HTML-style license headers
+    const copyrightRegexJS = /\/\*[\s\S]*?Copyright[\s\S]*?\*\//;
+    const copyrightRegexHTML = /<!--[\s\S]*?Copyright[\s\S]*?-->/;
 
     let processed = 0;
     let missing = 0;
@@ -39,8 +49,16 @@ const path = require("path");
     files.forEach((file) => {
       const fullPath = path.join(rootDir, file);
       const contents = fs.readFileSync(fullPath, "utf8");
+      const ext = path.extname(file);
 
-      if (!copyrightRegex.test(contents)) {
+      let hasLicense = false;
+      if (ext === ".html") {
+        hasLicense = copyrightRegexHTML.test(contents);
+      } else {
+        hasLicense = copyrightRegexJS.test(contents);
+      }
+
+      if (!hasLicense) {
         missing++;
         missingFiles.push(file);
         console.log(chalk.red(`  ❌ Missing license header: ${file}`));
