@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
+import { surfaceDarkPalette } from "@/theme/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
 
 export const defaultPopperContentStyles = {
   width: "480px",
   maxHeight: "375px",
-  backgroundColor: PA_Colors.surface[500],
+  backgroundColor: surfaceDarkPalette[500],
   borderRadius: "4px",
   boxShadow:
     "0px 2px 3px 0px rgba(0, 0, 0, 0.30), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)",

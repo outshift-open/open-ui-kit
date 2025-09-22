@@ -162,7 +162,7 @@ Releases are handled automatically through semantic-release when changes are mer
    This is to support the `exactOptionalPropertyTypes` typescript option.
 
 2. Override MUI component:
-   - Create a file like [this](packages/open-ui-kit/src/theme/light/mui/avatar.ts) inside the `mui` folder in each `theme`(light or dark) and per each component that you want to override;
+   - Create a file like [this](packages/open-ui-kit/src/theme/mui/avatar.ts) inside the `mui` folder in each `theme`(light or dark) and per each component that you want to override;
    - Export this file on the `index.ts` on the `mui` folder;
    - Add the custom override to the theme like [this](https://github.com/outshift-open/open-ui-kit/blob/main/packages/open-ui-kit/src/theme/light/light-theme.tsx#L146-L149);
 

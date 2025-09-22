@@ -16,7 +16,7 @@
 
 import { Theme } from "@mui/material";
 import { Severity } from "../types";
-import { PA_Colors } from "../../theme/dark/dark-color-palette";
+import { orangePalette, redPalette } from "@/theme/color-palette";
 import { SEVERITY_VALUE } from "../constants";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -31,9 +31,9 @@ export const getColorBySeverity = (
   theme: Theme,
 ): string => {
   const severitiesToColors: Record<Severity, string> = {
-    [Severity.CRITICAL]: PA_Colors.bordeaux[500],
+    [Severity.CRITICAL]: redPalette[500],
     [Severity.HIGH]: theme.palette.error.main,
-    [Severity.MEDIUM]: PA_Colors.orange[500],
+    [Severity.MEDIUM]: orangePalette[500],
     [Severity.LOW]: theme.palette.warning.main,
     [Severity.INFORMATION]: theme.palette.info.main,
   };

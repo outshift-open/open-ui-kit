@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { lightBluePalette } from "../light-color-palette";
+import { lightBluePalette } from "../color-palette";
 import { Components, Theme } from "@mui/material";
 
 export const buttonComponent = (theme: Theme): Components => {
