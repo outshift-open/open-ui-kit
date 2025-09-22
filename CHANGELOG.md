@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/outshift-open/open-ui-kit/compare/v1.0.4...v1.1.0) (2025-09-22)
+
+
+### Bug Fixes
+
+* persist dark theme between pages ([4b13c18](https://github.com/outshift-open/open-ui-kit/commit/4b13c18796a191a147524af80a878a37f5b5ba48))
+
+
+### Features
+
+* setup dark theme variables ([e6a0303](https://github.com/outshift-open/open-ui-kit/commit/e6a0303f927241e637789134554bc4a91b5899cc))
+
 ## [1.0.4](https://github.com/outshift-open/open-ui-kit/compare/v1.0.3...v1.0.4) (2025-09-19)
 
 
