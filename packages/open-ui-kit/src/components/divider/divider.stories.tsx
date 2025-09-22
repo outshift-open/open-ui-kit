@@ -1,3 +1,7 @@
+// Copyright 2025 Cisco Systems, Inc. and its affiliates
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Divider } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

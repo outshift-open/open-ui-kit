@@ -1,3 +1,7 @@
+// Copyright 2025 Cisco Systems, Inc. and its affiliates
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Backdrop, BackdropProps, Button } from "@mui/material";

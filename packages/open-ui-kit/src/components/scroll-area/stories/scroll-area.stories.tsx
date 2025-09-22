@@ -1,3 +1,7 @@
+// Copyright 2025 Cisco Systems, Inc. and its affiliates
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Meta, StoryFn } from "@storybook/react";
 import { Box, Typography } from "@mui/material";
 import { ScrollArea } from "../components/scroll-area";

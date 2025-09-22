@@ -1,3 +1,7 @@
+// Copyright 2025 Cisco Systems, Inc. and its affiliates
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import { Box, Grid, Stack } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react";
 import { DonutChart } from "./donut-chart";
