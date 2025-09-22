@@ -64,10 +64,10 @@ export const Breadcrumbs = ({
       aria-label="breadcrumb"
       separator={
         <ChevronRightIcon
-          color={color}
           sx={{
             width: "20px",
             height: "20px",
+            color: theme.palette.vars.interactiveSecondaryDefaultDefault,
           }}
         />
       }
