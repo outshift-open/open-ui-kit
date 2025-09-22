@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/outshift-open/open-ui-kit/compare/v1.1.0...v1.1.1) (2025-09-22)
+
+
+### Bug Fixes
+
+* breadcrumbs separator icon color ([04f2516](https://github.com/outshift-open/open-ui-kit/commit/04f251616e4dcddc5acfce446d5c3f5f33339977))
+
 # [1.1.0](https://github.com/outshift-open/open-ui-kit/compare/v1.0.4...v1.1.0) (2025-09-22)
 
 
