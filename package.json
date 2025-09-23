@@ -28,7 +28,8 @@
     "lib:dev": "turbo run lib:dev",
     "lib:build": "turbo run lib:build",
     "build": "turbo run build",
-    "license:add": "turbo run license:add",
+    "license:add": "turbo run license:add && yarn prettier:fix",
+    "license:add:force": "turbo run license:add:force && yarn prettier:fix",
     "license:check": "turbo run license:check",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
@@ -55,7 +56,7 @@
     "turbo": "^2.0.3"
   },
   "lint-staged": {
-    "{packages/*/src/**/*,playground/**/*}.{ts,tsx,js,jsx}": [
+    "{packages/**/*,playground/**/*,scripts/**/*}.{ts,tsx,js,jsx,css,html}": [
       "yarn workspace @open-ui-kit/scripts license:check"
     ],
     "**/*.{ts,tsx,js,md,mdx}": [

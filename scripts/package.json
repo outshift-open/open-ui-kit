@@ -5,6 +5,7 @@
   "description": "Build and automation scripts for Open UI Kit",
   "scripts": {
     "license:add": "node add-license-headers.js",
+    "license:add:force": "node add-license-headers.js --force",
     "license:check": "node check-license-headers.js"
   },
   "dependencies": {
