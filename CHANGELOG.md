@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/outshift-open/open-ui-kit/compare/v1.1.1...v1.1.2) (2025-09-23)
+
+
+### Bug Fixes
+
+* licenses banners ([fed6725](https://github.com/outshift-open/open-ui-kit/commit/fed6725d398015c5c30e509016aad72eaba7aacd))
+* licenses banners ([8ba5353](https://github.com/outshift-open/open-ui-kit/commit/8ba5353eb7f470f2b4688266f9805a270ba17454))
+* licenses banners ([ef1c37f](https://github.com/outshift-open/open-ui-kit/commit/ef1c37f40e1a301e86d6a52556ea533f7d2d80fc))
+
 ## [1.1.1](https://github.com/outshift-open/open-ui-kit/compare/v1.1.0...v1.1.1) (2025-09-22)
 
 
