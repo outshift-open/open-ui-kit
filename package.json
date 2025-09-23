@@ -56,7 +56,7 @@
     "turbo": "^2.0.3"
   },
   "lint-staged": {
-    "{packages/*/src/**/*,playground/**/*}.{ts,tsx,js,jsx}": [
+    "{packages/**/*,playground/**/*,scripts/**/*}.{ts,tsx,js,jsx,css,html}": [
       "yarn workspace @open-ui-kit/scripts license:check"
     ],
     "**/*.{ts,tsx,js,md,mdx}": [
