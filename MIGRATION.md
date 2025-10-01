@@ -11,7 +11,9 @@ Open UI Kit follows [Semantic Versioning](https://semver.org/):
 
 ## Current Version: 1.x
 
-Open UI Kit is currently in its initial major version. This migration guide will be updated as new major versions are released.
+Open UI Kit is currently in its initial major version (1.x). This migration guide will be updated as new major versions are released.
+
+**Current stable version**: Check the [latest release](https://github.com/outshift-open/open-ui-kit/releases) for the most up-to-date version information.
 
 ## Future Migration Planning
 

@@ -54,7 +54,7 @@ npm install @open-ui-kit/core @mui/material @emotion/react @emotion/styled
 import { ThemeProvider, Button } from '@open-ui-kit/core';
 ```
 
-👉 **[View Full Installation Guide](https://main--67e2c28f188630b706cee923.chromatic.com/?path=/docs/overview-introduction--docs#-installation)**
+👉 **[View Full Installation Guide](https://main--68cc22452afe30d90e4ca977.chromatic.com/?path=/docs/overview-introduction--docs#-installation)**
 
 ## 🏗️ Architecture
 
@@ -156,7 +156,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🔗 Related Links
 
-- 📚 **[Component Documentation](https://main--67e2c28f188630b706cee923.chromatic.com)** - Interactive Storybook
+- 📚 **[Component Documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com)** - Interactive Storybook
 - 📋 **[Changelog](CHANGELOG.md)** - Release notes and version history
 - 🔄 **[Migration Guide](MIGRATION.md)** - Version upgrade instructions
 - 🎯 **[Material-UI](https://mui.com/)** - Foundation library
@@ -170,6 +170,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 *Empowering developers to build exceptional user experiences*
 
-[🚀 Get Started](packages/open-ui-kit#quick-start) • [📚 Documentation](https://main--67e2c28f188630b706cee923.chromatic.com) • [🤝 Contribute](CONTRIBUTING.md) • [💬 Discussions](https://github.com/outshift-open/open-ui-kit/discussions)
+[🚀 Get Started](packages/open-ui-kit#quick-start) • [📚 Documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com) • [🤝 Contribute](CONTRIBUTING.md) • [💬 Discussions](https://github.com/outshift-open/open-ui-kit/discussions)
 
 </div>

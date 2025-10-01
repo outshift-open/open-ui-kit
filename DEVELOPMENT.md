@@ -3,6 +3,7 @@
 Welcome to Open UI Kit development! This guide will help you set up your local development environment and understand our development workflow.
 
 - [🛠️ Repository Setup](#%EF%B8%8F-repository-setup)
+- [📁 Project Structure](#-project-structure)
 - [🎨 Style and Linting](#-style-and-linting)
 - [👾 Development & 📚 Documentation](#-development-documentation)
 - [🗂️ Testing](#%EF%B8%8F-testing)
@@ -33,7 +34,43 @@ nvm install
 yarn install
 ```
 
-## 📦 Package Structure
+## 📁 Project Structure
+
+This monorepo is organized as follows:
+
+```
+open-ui-kit/
+├── .github/                    # GitHub templates and workflows
+│   ├── ISSUE_TEMPLATE/        # Issue templates (bug reports, feature requests, docs)
+│   ├── workflows/             # CI/CD GitHub Actions workflows
+│   └── dependabot.yml         # Automated dependency updates
+├── .husky/                    # Git hooks for code quality enforcement
+├── .vscode/                   # VSCode workspace settings (optional)
+├── docs/                      # Additional project documentation
+├── packages/
+│   └── open-ui-kit/          # 📦 @open-ui-kit/core - Main component library
+│       ├── src/              # Source code for components, themes, utilities
+│       ├── stories/          # Storybook stories for documentation
+│       └── tests/            # Unit and integration tests
+├── playground/
+│   └── vite-ts/              # 🎮 Development playground with Vite + TypeScript
+├── scripts/                   # Build scripts and automation tools
+├── package.json              # Root workspace configuration
+├── turbo.json                # Turborepo build system configuration
+├── yarn.lock                 # Dependency lock file
+├── DEVELOPMENT.md            # This file - development guidelines
+├── CONTRIBUTING.md           # Contribution guidelines and processes
+└── README.md                 # Main project overview and setup
+```
+
+### Key Directories
+
+- **`packages/open-ui-kit/`** - The core component library where most development happens
+- **`playground/vite-ts/`** - Interactive development environment for testing components
+- **`.github/`** - CI/CD workflows, issue templates, and GitHub configuration
+- **`scripts/`** - Build and maintenance automation
+
+### Main Packages
 
 This monorepo contains the following main packages:
 
@@ -76,7 +113,7 @@ cd open-ui-kit  # Move into the cloned repository
 yarn install && yarn run build && yarn run storybook # Install & build deps and start Storybook
 ```
 
-The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--67e2c28f188630b706cee923.chromatic.com).
+The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--68cc22452afe30d90e4ca977.chromatic.com).
 
 ## 🗂️ Testing
 
@@ -210,3 +247,93 @@ Releases are handled automatically through semantic-release when changes are mer
        },
    }
    ```
+
+3. **Creating New Components** - Follow the established file structure pattern:
+
+   When creating a new component, follow the structure used by existing components like `ActivityTimeline`. Each component should have its own directory with organized subfolders:
+
+   ```
+   packages/open-ui-kit/src/components/[component-name]/
+   ├── components/
+   │   ├── [ComponentName].tsx         # Main component implementation
+   │   └── [SubComponent].tsx          # Sub-components (if needed)
+   ├── types/
+   │   ├── [ComponentName].types.ts    # Main component type definitions
+   │   └── [SubComponent].types.ts     # Sub-component types (if needed)
+   ├── styles/
+   │   └── [component-name].styles.ts  # Component-specific styles
+   ├── utils/
+   │   └── [component-name].utils.ts   # Component-specific utilities
+   ├── stories/
+   │   └── [ComponentName].stories.tsx # Storybook documentation
+   ├── __tests__/
+   │   └── [ComponentName].test.tsx    # Unit tests
+   └── index.ts                        # Main export file
+   ```
+
+   **Required files for a new component:**
+
+   - **`index.ts`** - Export the component and its types
+     ```tsx
+     export { ComponentName } from './components/ComponentName';
+     export type { ComponentNameProps } from './types/ComponentName.types';
+     ```
+
+   - **`components/[ComponentName].tsx`** - Main component implementation
+     ```tsx
+     import React from 'react';
+     import { ComponentNameProps } from '../types/ComponentName.types';
+     
+     export const ComponentName: React.FC<ComponentNameProps> = ({ ...props }) => {
+       // Component implementation
+     };
+     ```
+
+   - **`types/[ComponentName].types.ts`** - Type definitions
+     ```tsx
+     export interface ComponentNameProps {
+       // Component prop types
+     }
+     ```
+
+   - **`__tests__/[ComponentName].test.tsx`** - Unit tests
+     ```tsx
+     import { render, screen } from '@testing-library/react';
+     import { ComponentName } from '../components/ComponentName';
+     
+     describe('ComponentName', () => {
+       it('renders correctly', () => {
+         // Test implementation
+       });
+     });
+     ```
+
+   - **`stories/[ComponentName].stories.tsx`** - Storybook documentation
+     ```tsx
+     import type { Meta, StoryObj } from '@storybook/react';
+     import { ComponentName } from '../components/ComponentName';
+     
+     const meta: Meta<typeof ComponentName> = {
+       title: 'Components/ComponentName',
+       component: ComponentName,
+     };
+     
+     export default meta;
+     type Story = StoryObj<typeof meta>;
+     
+     export const Default: Story = {
+       args: {
+         // Default props
+       },
+     };
+     ```
+
+   **Additional requirements:**
+   - Export your component from `packages/open-ui-kit/src/components/index.ts`
+   - Follow naming conventions: PascalCase for components, kebab-case for directories
+   - Include comprehensive JSDoc comments for props and functionality
+   - Organize types in the dedicated `types/` folder
+   - Add component-specific styles to the `styles/` folder
+   - Add component-specific utilities to the `utils/` folder
+   - Organize sub-components within the same `components/` folder
+   
