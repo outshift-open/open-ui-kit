@@ -135,7 +135,7 @@ export const inputComponents = (theme: Theme): Components => {
       styleOverrides: {
         root: {
           "& .MuiSelect-select": {
-            backgroundColor: theme.palette.vars.controlBackgroundWeak,
+            backgroundColor: theme.palette.vars.controlBackgroundDefault,
           },
         },
         icon: {

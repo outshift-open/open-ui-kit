@@ -112,6 +112,7 @@ export interface VarsType {
   successBorderActive: string;
   successBorderHover: string;
   successBorderDefault: string;
+  successBorderWeak: string;
   successIconInDisabled: string;
   successIconInActive: string;
   successIconInHover: string;
@@ -128,6 +129,7 @@ export interface VarsType {
   negativeBorderHover: string;
   negativeBorderDisabled: string;
   negativeBorderDefault: string;
+  negativeBorderWeak: string;
   negativeIconDisabled: string;
   negativeIconActive: string;
   negativeIconHover: string;
@@ -152,6 +154,7 @@ export interface VarsType {
   excellentBorderHover: string;
   excellentBorderActive: string;
   excellentBorderDisabled: string;
+  excellentBorderWeak: string;
   excellentIconDefault: string;
   excellentIconHover: string;
   excellentIconActive: string;
@@ -174,6 +177,7 @@ export interface VarsType {
   neutralBorderHover: string;
   neutralBorderActive: string;
   neutralBorderDisabled: string;
+  neutralBorderWeak: string;
   neutralIconDefault: string;
   neutralIconHover: string;
   neutralIconActive: string;
@@ -196,6 +200,7 @@ export interface VarsType {
   infoBorderHover: string;
   infoBorderActive: string;
   infoBorderDisabled: string;
+  infoBorderWeak: string;
   infoIconDefault: string;
   infoIconHover: string;
   infoIconActive: string;
@@ -218,6 +223,7 @@ export interface VarsType {
   inactiveBorderHover: string;
   inactiveBorderActive: string;
   inactiveBorderDisabled: string;
+  inactiveBorderWeak: string;
   inactiveIconDefault: string;
   inactiveIconHover: string;
   inactiveIconActive: string;
@@ -240,6 +246,7 @@ export interface VarsType {
   warningBorderHover: string;
   warningBorderActive: string;
   warningBorderDisabled: string;
+  warningBorderWeak: string;
   warningIconDefault: string;
   warningIconHover: string;
   warningIconActive: string;
@@ -262,6 +269,7 @@ export interface VarsType {
   severeWarningBorderHover: string;
   severeWarningBorderActive: string;
   severeWarningBorderDisabled: string;
+  severeWarningBorderWeak: string;
   severeWarningIconDefault: string;
   severeWarningIconHover: string;
   severeWarningIconActive: string;
@@ -284,6 +292,7 @@ export interface VarsType {
   moderateBorderHover: string;
   moderateBorderActive: string;
   moderateBorderDisabled: string;
+  moderateBorderWeak: string;
   moderateIconDefault: string;
   moderateIconHover: string;
   moderateIconActive: string;

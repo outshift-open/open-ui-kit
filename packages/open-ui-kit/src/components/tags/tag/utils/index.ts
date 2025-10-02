@@ -25,56 +25,100 @@ import {
 export const selectTagStyle = (theme: Theme) => ({
   [TagStatus.Excellent]: {
     backgroundColor: theme.palette.vars?.excellentBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.excellentBorderWeak}`
+        : `none`,
     icon: StarIcon,
     iconColor: theme.palette.vars?.excellentIconDefault,
   },
   [TagStatus.Positive]: {
     backgroundColor: theme.palette.vars?.successBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.successBorderWeak}`
+        : `none`,
     icon: CheckCircleIcon,
     iconColor: theme.palette.vars?.successIconDefault,
   },
   [TagStatus.Warning]: {
     backgroundColor: theme.palette.vars?.warningBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.warningBorderWeak}`
+        : `none`,
     icon: WarningIcon,
     iconColor: theme.palette.vars?.warningIconDefault,
   },
   [TagStatus.SevereWarning]: {
     backgroundColor: theme.palette.vars?.severeWarningBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.severeWarningBorderWeak}`
+        : `none`,
     icon: WarningIcon,
     iconColor: theme.palette.vars?.severeWarningIconDefault,
   },
   [TagStatus.Negative]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: CancelIcon,
   },
   [TagStatus.Inactive]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: RemoveCircleIcon,
   },
   [TagStatus.Disabled]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: BlockFlippedIcon,
   },
   [TagStatus.InProgress]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
+        : `none`,
     icon: ScheduleIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Info]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
+        : `none`,
     icon: InfoIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Allow]: {
     backgroundColor: theme.palette.vars?.neutralBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.neutralBorderWeak}`
+        : `none`,
     icon: CheckCircleOutlineIcon,
     iconColor: theme.palette.vars?.neutralIconDefault,
   },
   [TagStatus.Deny]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: BlockFlippedIcon,
   },
@@ -104,6 +148,7 @@ export const getTagStyle = ({
     }),
     ...(statusStyle && {
       backgroundColor: statusStyle?.backgroundColor,
+      border: statusStyle?.border,
     }),
     "&.MuiChip-outlinedDefault": {
       border: `2px dashed ${theme.palette.vars?.controlBorderDefault}`,
