@@ -13,6 +13,10 @@ export const tooltipComponent = (theme: Theme): Components => {
         tooltip: {
           ...theme.typography.captionMedium,
           backgroundColor: theme.palette.vars.inactiveBackgroundActive,
+          color: theme.palette.vars.baseTextInverse,
+        },
+        arrow: {
+          color: theme.palette.vars.inactiveBackgroundActive,
         },
       },
     },
