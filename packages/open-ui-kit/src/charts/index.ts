@@ -11,5 +11,6 @@ export * from "./donut-chart/donut-chart";
 export * from "./gauge-chart/gauge-chart";
 export * from "./horizontal-bar-chart/horizontal-bar-chart";
 export * from "./line-chart/line-chart";
+export * from "./spider-chart";
 
 export * from "./common/types";
