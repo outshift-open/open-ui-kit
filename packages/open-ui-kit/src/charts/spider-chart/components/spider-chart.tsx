@@ -143,7 +143,6 @@ export const SpiderChart = ({
           ))}
           {showTooltip && (
             <Tooltip
-              active={false}
               wrapperStyle={{ outline: "none", zIndex: 1 }}
               content={
                 customTooltip ?? (
