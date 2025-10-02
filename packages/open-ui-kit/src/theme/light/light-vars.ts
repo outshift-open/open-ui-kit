@@ -1,7 +1,17 @@
 /*
- * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ * Copyright 2025 Open UI Kit Contributors
  *
- * SPDX-License-Identifier: Apache-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import { VarsType } from "@/types/vars";
@@ -133,6 +143,7 @@ export const lightVars: VarsType = {
   successBorderActive: greenPalette[700],
   successBorderHover: greenPalette[400],
   successBorderDefault: greenPalette[600],
+  successBorderWeak: greenPalette[50],
   successIconInDisabled: greenPalette[10],
   successIconInActive: greenPalette[200],
   successIconInHover: greenPalette[100],
@@ -149,6 +160,7 @@ export const lightVars: VarsType = {
   negativeBorderHover: redPalette[400],
   negativeBorderDisabled: redPalette["alpha40"],
   negativeBorderDefault: redPalette[600],
+  negativeBorderWeak: redPalette[50],
   negativeIconDisabled: redPalette["alpha40"],
   negativeIconActive: redPalette[700],
   negativeIconHover: redPalette[400],
@@ -173,6 +185,7 @@ export const lightVars: VarsType = {
   excellentBorderHover: lightBluePalette[400],
   excellentBorderActive: lightBluePalette[900],
   excellentBorderDisabled: lightBluePalette["alpha40"],
+  excellentBorderWeak: lightBluePalette[700],
   excellentIconDefault: lightBluePalette[700],
   excellentIconHover: lightBluePalette[400],
   excellentIconActive: lightBluePalette[900],
@@ -195,6 +208,7 @@ export const lightVars: VarsType = {
   neutralBorderHover: bluePalette[500],
   neutralBorderActive: bluePalette[800],
   neutralBorderDisabled: bluePalette["alpha40"],
+  neutralBorderWeak: bluePalette[50],
   neutralIconDefault: bluePalette[600],
   neutralIconHover: bluePalette[500],
   neutralIconActive: bluePalette[800],
@@ -217,6 +231,7 @@ export const lightVars: VarsType = {
   infoBorderHover: purplePalette[500],
   infoBorderActive: purplePalette[800],
   infoBorderDisabled: purplePalette["alpha40"],
+  infoBorderWeak: purplePalette[50],
   infoIconDefault: purplePalette[600],
   infoIconHover: purplePalette[500],
   infoIconActive: purplePalette[800],
@@ -239,6 +254,7 @@ export const lightVars: VarsType = {
   inactiveBorderHover: greyPalette[500],
   inactiveBorderActive: greyPalette[800],
   inactiveBorderDisabled: greyPalette["alpha40"],
+  inactiveBorderWeak: greyPalette[50],
   inactiveIconDefault: greyPalette[400],
   inactiveIconHover: greyPalette[500],
   inactiveIconActive: greyPalette[800],
@@ -261,6 +277,7 @@ export const lightVars: VarsType = {
   warningBorderHover: lightOrangePalette[400],
   warningBorderActive: lightOrangePalette[700],
   warningBorderDisabled: lightOrangePalette["alpha40"],
+  warningBorderWeak: lightOrangePalette[50],
   warningIconDefault: lightOrangePalette[600],
   warningIconHover: lightOrangePalette[400],
   warningIconActive: lightOrangePalette[700],
@@ -283,6 +300,7 @@ export const lightVars: VarsType = {
   severeWarningBorderHover: orangePalette[400],
   severeWarningBorderActive: orangePalette[700],
   severeWarningBorderDisabled: orangePalette["alpha40"],
+  severeWarningBorderWeak: orangePalette[50],
   severeWarningIconDefault: orangePalette[600],
   severeWarningIconHover: orangePalette[400],
   severeWarningIconActive: orangePalette[700],
@@ -305,6 +323,7 @@ export const lightVars: VarsType = {
   moderateBorderHover: yellowPalette[400],
   moderateBorderActive: yellowPalette[700],
   moderateBorderDisabled: yellowPalette["alpha40"],
+  moderateBorderWeak: yellowPalette[50],
   moderateIconDefault: yellowPalette[600],
   moderateIconHover: yellowPalette[400],
   moderateIconActive: yellowPalette[700],
