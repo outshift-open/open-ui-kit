@@ -1,3 +1,13 @@
+## [1.1.3](https://github.com/outshift-open/open-ui-kit/compare/v1.1.2...v1.1.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* copyright message ([5e8fd1c](https://github.com/outshift-open/open-ui-kit/commit/5e8fd1caa2dab7e08ab8ca4b467757f5201d0453))
+* select in dark theme ([a6491b8](https://github.com/outshift-open/open-ui-kit/commit/a6491b851bb2cfe07163285abf2fc9e77357dc1e))
+* tags in dark theme ([e2eab64](https://github.com/outshift-open/open-ui-kit/commit/e2eab64f04ea63f65e23ba63d4f951a642341640))
+* tooltip in dark theme ([7be74db](https://github.com/outshift-open/open-ui-kit/commit/7be74dbd3c4f59b8dc41e6a902376759b8d2caef))
+
 ## [1.1.2](https://github.com/outshift-open/open-ui-kit/compare/v1.1.1...v1.1.2) (2025-09-23)
 
 
