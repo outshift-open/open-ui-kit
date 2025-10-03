@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/outshift-open/open-ui-kit/compare/v1.1.3...v1.2.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* lint ([f6a17c3](https://github.com/outshift-open/open-ui-kit/commit/f6a17c3e99c66e7e93bdc670e8072b54c4bfdd5a))
+* storybook ([900f3dc](https://github.com/outshift-open/open-ui-kit/commit/900f3dc42539a3a37aeb71a317db5b90a3c0aab3))
+
+
+### Features
+
+* enable tooltip ([7becbe0](https://github.com/outshift-open/open-ui-kit/commit/7becbe0291d2f9687ec78fbedb2a9c0a1fabcd16))
+* import spider chart ([4ced9a7](https://github.com/outshift-open/open-ui-kit/commit/4ced9a7dc6bd6c80f2fcf33eb8e9ad5f8744a69d))
+
 ## [1.1.3](https://github.com/outshift-open/open-ui-kit/compare/v1.1.2...v1.1.3) (2025-10-02)
 
 
