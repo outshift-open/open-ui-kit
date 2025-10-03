@@ -5,4 +5,7 @@
  */
 
 export { SpiderChart } from "./components/spider-chart";
-export type { SpiderChartProps } from "./types/spider-chart.types";
+export type {
+  SpiderChartProps,
+  ExtendedDataPoint,
+} from "./types/spider-chart.types";
