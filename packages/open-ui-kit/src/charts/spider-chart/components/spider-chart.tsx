@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import {
   Customized,
   PolarRadiusAxis,
