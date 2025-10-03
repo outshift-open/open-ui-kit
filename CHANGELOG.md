@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/outshift-open/open-ui-kit/compare/v1.2.0...v1.2.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* lint ([c59e8a0](https://github.com/outshift-open/open-ui-kit/commit/c59e8a02c0a9649d45db9b211f857f2da8ebfdf4))
+* spider chart with variable data points ([be7dfdd](https://github.com/outshift-open/open-ui-kit/commit/be7dfdddc46055704615495ad5d2ae112fa07710))
+* storybook ([140390b](https://github.com/outshift-open/open-ui-kit/commit/140390bf24855ae17ce2006500c74c5590a024d3))
+
 # [1.2.0](https://github.com/outshift-open/open-ui-kit/compare/v1.1.3...v1.2.0) (2025-10-03)
 
 
