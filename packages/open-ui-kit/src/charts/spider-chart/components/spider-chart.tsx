@@ -45,7 +45,6 @@ const calculateDomain = (data: ExtendedDataPoint[]) => [
 export const SpiderChart = ({
   data,
   radars,
-  band = 30,
   tickBand = 5,
   scale = 1,
   outerRadius = 90,
