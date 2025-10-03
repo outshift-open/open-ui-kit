@@ -7,6 +7,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { SpiderChart } from "../components/spider-chart";
 import { ExtendedDataPoint } from "../types/spider-chart.types";
+import { Box } from "@mui/material";
 
 const meta: Meta<typeof SpiderChart> = {
   title: "Charts/SpiderChart",
@@ -78,9 +79,9 @@ const data: ExtendedDataPoint[] = [
 export const Example: Story = {
   render: (args) => {
     return (
-      <div style={{ width: "400px", height: "400px" }}>
+      <Box style={{ width: "400px", height: "400px" }}>
         <SpiderChart {...args} />
-      </div>
+      </Box>
     );
   },
   args: {
