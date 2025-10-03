@@ -32,7 +32,6 @@ export type SpiderChartProps = {
   radars: RadarType[];
   outerRadius?: number;
   padData?: number;
-  band?: number;
   onTooltipClick?: (subject: string) => void;
   tooltipContent?: (dataPoint: ExtendedDataPoint) => React.ReactNode;
   showTooltip?: boolean;

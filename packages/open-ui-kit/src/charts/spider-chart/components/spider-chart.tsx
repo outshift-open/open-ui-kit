@@ -45,7 +45,6 @@ const calculateDomain = (data: ExtendedDataPoint[]) => [
 export const SpiderChart = ({
   data,
   radars,
-  band = 30,
   tickBand = 5,
   scale = 1,
   outerRadius = 90,
@@ -78,6 +77,9 @@ export const SpiderChart = ({
     );
   });
 
+  const angleStep = 360 / data.length;
+  const computedAngleOffset = 90 % angleStep;
+
   return (
     <StyledRadarChart onClick={handleClick}>
       <ResponsiveContainer width="100%" height="100%">
@@ -95,7 +97,7 @@ export const SpiderChart = ({
             data={[{ subject: "1" }]}
             polarAngles={Array(data.length)
               .fill(0)
-              .map((_, i) => i * (360 / data.length) + tickBand)}
+              .map((_, i) => i * angleStep + tickBand)}
           />
           <Customized
             component={CustomPolarGrid}
@@ -107,7 +109,7 @@ export const SpiderChart = ({
             scale={scale}
             polarAngles={Array(data.length)
               .fill(0)
-              .map((_, i) => i * (360 / data.length) + band)}
+              .map((_, i) => i * angleStep + computedAngleOffset)}
           />
           <Customized
             component={CustomLines}
@@ -120,7 +122,7 @@ export const SpiderChart = ({
             outerRadius={1}
             polarAngles={Array(data.length)
               .fill(0)
-              .map((_, i) => i * (360 / data.length) + band)}
+              .map((_, i) => i * angleStep + computedAngleOffset)}
           />
 
           {radars.map((radar, index) => (
