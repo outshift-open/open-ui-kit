@@ -21,9 +21,6 @@ const meta: Meta<typeof SpiderChart> = {
     outerRadius: {
       description: "The outer radius of the chart.",
     },
-    band: {
-      description: "The outer radius of the chart",
-    },
     onTooltipClick: {
       description: "Callback to call on tooltip click",
     },
