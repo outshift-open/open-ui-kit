@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/outshift-open/open-ui-kit/compare/v1.2.1...v1.3.0) (2025-10-07)
+
+
+### Features
+
+* indicator badge ([5fac116](https://github.com/outshift-open/open-ui-kit/commit/5fac116bae9c87a90176d69a5957f26ca21c2e9e))
+* severity badge ([0b2c8c4](https://github.com/outshift-open/open-ui-kit/commit/0b2c8c40486c6948116e1c6469d029b27fcb54be))
+* severity badge label ([0bd70cd](https://github.com/outshift-open/open-ui-kit/commit/0bd70cdf7320ce2cc865185dbfb01c34724465c2))
+
 ## [1.2.1](https://github.com/outshift-open/open-ui-kit/compare/v1.2.0...v1.2.1) (2025-10-03)
 
 
