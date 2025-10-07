@@ -21,6 +21,7 @@ export * from "./empty-state";
 export * from "./favorite-button";
 export * from "./footer";
 export * from "./header";
+export * from "./indicator-badge";
 export * from "./legend";
 export * from "./link";
 export * from "./loading-error-state";
