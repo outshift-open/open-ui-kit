@@ -31,6 +31,8 @@ export * from "./overflow-tooltip";
 export * from "./path-display";
 export * from "./search-field";
 export * from "./severity-bar";
+export * from "./severity-badge";
+export * from "./severity-badge-label";
 export * from "./spinner";
 export * from "./table";
 export * from "./tabs";
