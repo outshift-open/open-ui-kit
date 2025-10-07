@@ -6,7 +6,6 @@
 
 import { Theme } from "@mui/material";
 import { Severity } from "../types";
-import { orangePalette, redPalette } from "@/theme/color-palette";
 import { SEVERITY_VALUE } from "../constants";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -21,11 +20,11 @@ export const getColorBySeverity = (
   theme: Theme,
 ): string => {
   const severitiesToColors: Record<Severity, string> = {
-    [Severity.CRITICAL]: redPalette[500],
-    [Severity.HIGH]: theme.palette.error.main,
-    [Severity.MEDIUM]: orangePalette[500],
-    [Severity.LOW]: theme.palette.warning.main,
-    [Severity.INFORMATION]: theme.palette.info.main,
+    [Severity.CRITICAL]: theme.palette.vars.negativeBackgroundActive,
+    [Severity.HIGH]: theme.palette.vars.severeWarningBackgroundDefault,
+    [Severity.MEDIUM]: theme.palette.vars.warningBackgroundActive,
+    [Severity.LOW]: theme.palette.vars.warningBackgroundDefault,
+    [Severity.INFORMATION]: theme.palette.vars.neutralBackgroundDefault,
   };
   return severity in severitiesToColors
     ? severitiesToColors[severity]
