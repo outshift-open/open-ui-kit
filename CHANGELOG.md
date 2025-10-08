@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/outshift-open/open-ui-kit/compare/v1.3.0...v1.3.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* not found extended interface when using path alias ([d1095ce](https://github.com/outshift-open/open-ui-kit/commit/d1095ce372bd932f80adc0c5f23d09a3a3676afe))
+
 # [1.3.0](https://github.com/outshift-open/open-ui-kit/compare/v1.2.1...v1.3.0) (2025-10-07)
 
 
