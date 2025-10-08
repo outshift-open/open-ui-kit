@@ -6,7 +6,7 @@
 
 import { StackProps } from "@mui/material";
 import { TypographyProps } from "@mui/material";
-import { SeverityBadgeProps } from "@/components";
+import type { SeverityBadgeProps } from "../../severity-badge/types/severity-badge.types";
 
 export interface SeverityBadgeLabelProps extends SeverityBadgeProps {
   /**
