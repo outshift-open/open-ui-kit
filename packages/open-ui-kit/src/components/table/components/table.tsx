@@ -32,6 +32,7 @@ import { TableProps } from "../types";
 import { tableComfortStyles, tableCompactStyles } from "../styles";
 import { Box, PaginationItem, SvgIconProps, useTheme } from "@mui/material";
 import { EmptyState, Link, OverflowTooltip, TooltipSize } from "@/components";
+import { withHeaderHelpTooltips } from "../utils/helpers";
 
 /**
  * `Table` Component
@@ -109,7 +110,7 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
     enableFilters: !!data.length,
     enableFullScreenToggle: !!data.length,
     enableHiding: !!data.length,
-    columns,
+    columns: withHeaderHelpTooltips(columns),
     data,
     enableColumnActions: false,
     enableTopToolbar,

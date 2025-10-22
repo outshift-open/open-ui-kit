@@ -118,18 +118,21 @@ const data = {
       accessorKey: "id",
       header: "ID",
       size: 350,
+      meta: { headerTooltip: "The unique identifier of the record" },
     },
     {
       header: "Name",
       accessorKey: "name",
       enableColumnOrdering: false,
       size: 200,
+      meta: { headerTooltip: "Full name of the person" },
     },
     {
       header: "Phone",
       accessorKey: "phone",
       enableSorting: false,
       enableColumnOrdering: false,
+      meta: { headerTooltip: "Primary phone number" },
     },
     {
       header: "firstName",

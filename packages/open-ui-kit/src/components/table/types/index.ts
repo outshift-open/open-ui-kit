@@ -68,6 +68,10 @@ interface TableRow {
   subRows?: ReactNode;
 }
 
+interface HeaderTooltipMeta {
+  headerTooltip?: ReactNode;
+}
+
 export {
   AtomicTypes,
   ExportProps,
@@ -75,4 +79,5 @@ export {
   TableRow,
   TopToolbarProps,
   TableTitle,
+  HeaderTooltipMeta,
 };
