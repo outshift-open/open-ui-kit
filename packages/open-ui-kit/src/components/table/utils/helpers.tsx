@@ -45,7 +45,7 @@ export const parseFromValuesOrFunc = <T, U>(
 ): T | undefined => (fn instanceof Function ? fn(arg) : fn);
 
 // Enhance column headers to optionally show an info tooltip icon.
-// Usage: column.meta?.headerTooltip?: string | React.ReactNode
+// Usage: column.meta?.headerTooltip?: React.ReactNode
 export const withHeaderHelpTooltips = <
   TData extends MRT_RowData,
   TValue = unknown,
