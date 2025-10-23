@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/outshift-open/open-ui-kit/compare/v1.3.1...v1.4.0) (2025-10-23)
+
+
+### Bug Fixes
+
+* comment ([ecac1a2](https://github.com/outshift-open/open-ui-kit/commit/ecac1a2a6b3181a41e25800029c70d6f9c3698d8))
+
+
+### Features
+
+* optional tooltip helper for table column headers ([a7475b6](https://github.com/outshift-open/open-ui-kit/commit/a7475b6787931ea34362f17f12c9613f8e388a6c))
+
 ## [1.3.1](https://github.com/outshift-open/open-ui-kit/compare/v1.3.0...v1.3.1) (2025-10-08)
 
 
