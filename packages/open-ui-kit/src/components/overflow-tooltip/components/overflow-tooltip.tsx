@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { rtlWrapperStyle, baseWrapperStyle, spanStyle } from "../styles";
 import { Tooltip, TooltipProps } from "@/components";
 
@@ -24,37 +24,27 @@ export const OverflowTooltip = ({
   styleText,
   ...rest
 }: OverflowTooltipProps) => {
-  // Create Ref
-  const textElementRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const textElementRef = useRef<HTMLDivElement | null>(null);
+  const [hoverStatus, setHover] = useState(false);
 
-  /**
-   * Compares the size of the text element to its container and sets the hover state accordingly
-   */
-  const compareSize = () => {
-    const compare =
-      textElementRef.current.scrollWidth > textElementRef.current.clientWidth;
-    setHover(compare);
-  };
-
-  // Add resize listener to compare size on component mount
-  useEffect(() => {
-    window.addEventListener("resize", compareSize);
+  const compareSize = useCallback(() => {
+    const el = textElementRef.current;
+    if (!el) return;
+    setHover(el.scrollWidth > el.clientWidth);
   }, []);
 
   useEffect(() => {
+    const el = textElementRef.current;
+    if (!el) return;
+
     compareSize();
-  }, [value]);
 
-  // Remove resize listener on component unmount
-  useEffect(
-    () => () => {
-      window.removeEventListener("resize", compareSize);
-    },
-    [],
-  );
-
-  // Define state and function to update the value
-  const [hoverStatus, setHover] = useState(false);
+    const ro = new ResizeObserver(() => {
+      compareSize();
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [value, someLongText, ellipsisDirection, compareSize]);
 
   return (
     <Tooltip {...rest} disableHoverListener={!hoverStatus} title={value}>

@@ -68,17 +68,20 @@ export const BarGraph = ({
 
   const [header0, header1] = headers;
 
-  const updateYAxisWidth = () => {
-    if (chartContainerRef.current) {
-      const chartWidth =
-        chartContainerRef.current.getBoundingClientRect().width;
-      setYAxisWidth(chartWidth * 0.43);
-    }
-  };
-
   useEffect(() => {
+    const el = chartContainerRef.current;
+    if (!el) return;
+
+    const updateYAxisWidth = () => {
+      const chartWidth = el.getBoundingClientRect().width;
+      setYAxisWidth(chartWidth * 0.43);
+    };
+
     updateYAxisWidth();
-    window.addEventListener("resize", updateYAxisWidth, false);
+
+    const ro = new ResizeObserver(updateYAxisWidth);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   return (
@@ -177,7 +180,6 @@ export const BarGraph = ({
           spacing={2}
           alignItems="center"
           overflow="hidden"
-          position="absolute"
           bottom={0}
           sx={{
             backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
