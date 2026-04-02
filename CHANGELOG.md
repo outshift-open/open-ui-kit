@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/outshift-open/open-ui-kit/compare/v1.4.0...v1.4.1) (2026-04-02)
+
+
+### Bug Fixes
+
+* trigger patch release ([4d5f6eb](https://github.com/outshift-open/open-ui-kit/commit/4d5f6ebf42da1e82a279358b806d281cbcdf2958))
+
 # [1.4.0](https://github.com/outshift-open/open-ui-kit/compare/v1.3.1...v1.4.0) (2025-10-23)
 
 
