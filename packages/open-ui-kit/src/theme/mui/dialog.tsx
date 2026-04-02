@@ -15,13 +15,13 @@ export const dialogComponent = (theme: Theme): Components => {
           background: theme.palette.vars.controlBackgroundDefault,
           padding: "24px",
           "&.MuiDialog-paperWidthMd": {
-            maxWidth: "480px",
+            maxWidth: theme.breakpoints.values?.sm ?? 600,
           },
           "&.MuiDialog-paperWidthLg": {
-            maxWidth: "720px",
+            maxWidth: theme.breakpoints.values?.md ?? 1024,
           },
           "&.MuiDialog-paperWidthXl": {
-            maxWidth: "1200px",
+            maxWidth: theme.breakpoints.values?.lg ?? 1440,
           },
         },
       },

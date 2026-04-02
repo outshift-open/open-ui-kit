@@ -7,6 +7,7 @@
 import { useEffect, useState } from "react";
 import { Box, Drawer, Toolbar, Typography } from "@mui/material";
 import { Header, HeaderProps } from "@/components";
+import { breakpoints } from "@/theme/common";
 
 export interface LayoutProps {
   content?: React.ReactNode;
@@ -23,10 +24,12 @@ export const Layout = ({
 }: LayoutProps) => {
   const defaultLayoutWidth = 240;
   const collapsedLayoutWidth = 56;
-  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 768);
+  const [isCollapsed, setIsCollapsed] = useState(
+    window.innerWidth < (breakpoints.values?.sm ?? 600),
+  );
 
   const handleResize = () => {
-    setIsCollapsed(window.innerWidth < 768);
+    setIsCollapsed(window.innerWidth < (breakpoints.values?.sm ?? 600));
   };
 
   useEffect(() => {

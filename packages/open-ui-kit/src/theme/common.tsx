@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Components, Theme } from "@mui/material";
+import { BreakpointsOptions, Components, Theme } from "@mui/material";
 import { TypographyVariantsOptions } from "@mui/material/styles/createTypography";
 import { KeyboardArrowUp } from "../custom-icons";
 import { TOOLBAR_MINIMUM_HEIGHT } from "./constants";
@@ -385,13 +385,27 @@ export const listItemCommonStyles = (theme: Theme) => {
   };
 };
 
+export const breakpoints: BreakpointsOptions = {
+  keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 1024,
+    lg: 1440,
+    xl: 1920,
+    xxl: 2560,
+  },
+};
+
 export const commonMixins = {
   toolbar: {
     minHeight: TOOLBAR_MINIMUM_HEIGHT,
-    "@media (min-width:0px) and (orientation: landscape)": {
+    [`@media (min-width:${
+      breakpoints.values?.xs ?? 0
+    }px) and (orientation: landscape)`]: {
       minHeight: TOOLBAR_MINIMUM_HEIGHT,
     },
-    "@media (min-width:600px)": {
+    [`@media (min-width:${breakpoints.values?.sm ?? 600}px)`]: {
       minHeight: TOOLBAR_MINIMUM_HEIGHT,
     },
   },
