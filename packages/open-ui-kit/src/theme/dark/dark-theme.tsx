@@ -14,7 +14,7 @@ import {
   surfaceDark900,
   surfaceDarkPalette,
 } from "../color-palette";
-import { typography, commonMixins } from "../common";
+import { typography, breakpoints, commonMixins } from "../common";
 import {
   createTheme,
   PaletteOptions,
@@ -90,15 +90,7 @@ const palette: PaletteOptions = {
 };
 
 const theme: Theme = createTheme({
-  breakpoints: {
-    keys: ["md", "lg", "xl", "xxl"],
-    values: {
-      md: 1024,
-      lg: 1440,
-      xl: 1920,
-      xxl: 2560,
-    },
-  },
+  breakpoints,
   palette,
   typography,
   mixins: commonMixins,

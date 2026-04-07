@@ -33,8 +33,8 @@ declare module "@mui/material/styles" {
   interface PaletteColor extends ColorPartial {}
 
   interface BreakpointOverrides {
-    xs: false;
-    sm: false;
+    xs: true;
+    sm: true;
     md: true;
     lg: true;
     xl: true;

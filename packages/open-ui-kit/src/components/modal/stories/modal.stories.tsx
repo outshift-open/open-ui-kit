@@ -39,6 +39,12 @@ const meta: Meta<typeof Modal> = {
       ),
     },
   },
+  argTypes: {
+    maxWidth: {
+      description:
+        "Dialog **content width** preset (MUI). This string is **not** the same as layout viewport breakpoints (`theme.breakpoints`). See the **Dialog sizes** story and `docs/new-breakpoints-branch-changes.md`.",
+    },
+  },
 };
 
 export default meta;
@@ -97,11 +103,32 @@ export const SimpleModal: Story = {
 };
 
 export const DialogSizes: Story = {
+  name: "Dialog sizes (content width)",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Labels use M / L / XL (content) to avoid confusing these with layout breakpoints. Engineers still set MUI maxWidth (md / lg / xl) as shown in each row. Mapping: theme/mui/dialog.tsx docblock and docs/new-breakpoints-branch-changes.md.",
+      },
+    },
+  },
   render: () => (
     <Stack gap={2}>
-      <ModalComponent maxWidth="md" fullWidth title="md" />
-      <ModalComponent maxWidth="lg" fullWidth title="lg" />
-      <ModalComponent maxWidth="xl" fullWidth title="xl" />
+      <ModalComponent
+        maxWidth="md"
+        fullWidth
+        title='M (content), maxWidth="md", 600px paper'
+      />
+      <ModalComponent
+        maxWidth="lg"
+        fullWidth
+        title='L (content), maxWidth="lg", 1024px paper'
+      />
+      <ModalComponent
+        maxWidth="xl"
+        fullWidth
+        title='XL (content), maxWidth="xl", 1440px paper'
+      />
     </Stack>
   ),
 };

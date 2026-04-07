@@ -4,8 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useState } from "react";
-import { Box, Drawer, Toolbar, Typography } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Header, HeaderProps } from "@/components";
 
 export interface LayoutProps {
@@ -21,20 +27,12 @@ export const Layout = ({
   headerProps,
   content,
 }: LayoutProps) => {
+  const theme = useTheme();
   const defaultLayoutWidth = 240;
   const collapsedLayoutWidth = 56;
-  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 768);
-
-  const handleResize = () => {
-    setIsCollapsed(window.innerWidth < 768);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isCollapsed = useMediaQuery(theme.breakpoints.down("sm"), {
+    noSsr: true,
+  });
 
   return (
     <Box sx={{ display: "flex" }}>

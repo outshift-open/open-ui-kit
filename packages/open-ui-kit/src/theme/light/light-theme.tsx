@@ -27,7 +27,7 @@ import {
   Theme,
   Shadows,
 } from "@mui/material";
-import { commonMixins, typography } from "../common";
+import { commonMixins, typography, breakpoints } from "../common";
 import { lightVars } from "./light-vars";
 import {
   appBarComponent,
@@ -109,15 +109,7 @@ const palette: PaletteOptions = {
 // });
 
 const theme: Theme = createTheme({
-  breakpoints: {
-    keys: ["md", "lg", "xl", "xxl"],
-    values: {
-      md: 1024,
-      lg: 1440,
-      xl: 1920,
-      xxl: 2560,
-    },
-  },
+  breakpoints,
   palette,
   typography,
   mixins: commonMixins,
