@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/outshift-open/open-ui-kit/compare/v1.4.1...v1.4.2) (2026-04-07)
+
+
+### Bug Fixes
+
+* add and apply new breakpoints ([faf16fc](https://github.com/outshift-open/open-ui-kit/commit/faf16fca8e322e7405b09a44687c13c578713f11))
+* **layout:** use useMediaQuery for sidenav collapse instead of window resize ([6ac7256](https://github.com/outshift-open/open-ui-kit/commit/6ac725694fddf8ca4daef59f58f9613498ec578d))
+
 ## [1.4.1](https://github.com/outshift-open/open-ui-kit/compare/v1.4.0...v1.4.1) (2026-04-02)
 
 
