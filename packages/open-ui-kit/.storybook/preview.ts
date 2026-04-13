@@ -1,42 +1,46 @@
-import type { Preview } from "@storybook/react";
-import { themes } from "@storybook/theming";
+import "./css/typography.css";
+
+import type { Preview } from "@storybook/react-vite";
+import { withThemeFromJSXProvider } from "@storybook/addon-themes";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { mockDateDecorator } from "storybook-mock-date-decorator";
 import { withScreenshot } from "storycap";
-import { ThemeDecorator } from "./decorators";
+import { darkTheme } from "../src/theme/dark/dark-theme";
+import { lightTheme } from "../src/theme/light/light-theme";
 
-const comomnTheme = {
-  fontBase: "Inter, Sharp Sans, sans-serif",
-  fontCode: "monospace",
-  brandTitle: "Open UI Kit",
-  brandUrl: "https://github.com/outshift-open/open-ui-kit",
-};
+const muiThemeDecorator = withThemeFromJSXProvider({
+  Provider: ThemeProvider,
+  GlobalStyles: CssBaseline,
+  defaultTheme: "light",
+  themes: {
+    light: lightTheme,
+    dark: darkTheme,
+  },
+});
 
-export const decorators = [ThemeDecorator, withScreenshot, mockDateDecorator];
+export const decorators = [
+  muiThemeDecorator,
+  withScreenshot,
+  mockDateDecorator,
+];
 
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: "Light",
-      values: [
-        { name: "Dark", value: "#00142B" },
-        { name: "Light", value: "#EFF3FC" },
-      ],
-    },
-    darkMode: {
-      dark: {
-        ...comomnTheme,
-        ...themes.dark,
-        appBg: "#00142B",
-        barBg: "#00142B",
+      options: {
+        dark: {
+          name: "Dark",
+          value: "#00142B",
+        },
+        light: {
+          name: "Light",
+          value: "#EFF3FC",
+        },
+        extra: {
+          name: "Extra",
+          value: "red",
+        },
       },
-      light: {
-        ...comomnTheme,
-        ...themes.light,
-        appBg: "#EFF3FC",
-        barBg: "#EFF3FC",
-      },
-      current: "light",
-      stylePreview: true,
     },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -76,6 +80,10 @@ const preview: Preview = {
         ],
       },
     },
+  },
+  initialGlobals: {
+    backgrounds: { value: "light" },
+    theme: "light",
   },
 };
 

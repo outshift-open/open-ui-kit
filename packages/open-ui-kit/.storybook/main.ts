@@ -1,10 +1,39 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import { join, dirname, resolve } from "path";
+import { readFileSync, existsSync } from "node:fs";
+import { join, dirname, resolve } from "node:path";
 import TSConfigPaths from "vite-tsconfig-paths";
 import VitePluginImp from "vite-plugin-imp";
 
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, "package.json")));
+/**
+ * Storybook addon paths must be the package root. Resolving `pkg/package.json` breaks when the
+ * package uses "exports" and does not expose `./package.json` (e.g. storycap).
+ */
+function getAbsolutePath(packageName: string): string {
+  const entry = require.resolve(packageName);
+  let dir = dirname(entry);
+  while (true) {
+    const pkgJsonPath = join(dir, "package.json");
+    if (existsSync(pkgJsonPath)) {
+      try {
+        const { name } = JSON.parse(readFileSync(pkgJsonPath, "utf8")) as {
+          name?: string;
+        };
+        if (name === packageName) {
+          return dir;
+        }
+      } catch {
+        // ignore unreadable package.json
+      }
+    }
+    const parent = dirname(dir);
+    if (parent === dir) {
+      break;
+    }
+    dir = parent;
+  }
+  throw new Error(
+    `Could not resolve install directory for package "${packageName}" (from ${entry})`,
+  );
 }
 
 const config: StorybookConfig = {
@@ -13,21 +42,16 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "./stories",
   ],
+
   addons: [
-    getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@storybook/addon-onboarding"),
-    getAbsolutePath("@storybook/addon-interactions"),
     getAbsolutePath("@storybook/addon-themes"),
-    getAbsolutePath("storybook-dark-mode"),
-    "storycap",
+    getAbsolutePath("storycap"),
+    getAbsolutePath("@storybook/addon-docs"),
   ],
-  framework: {
-    name: getAbsolutePath("@storybook/react-vite"),
-    options: {},
-  },
-  docs: {
-    autodocs: "tag",
-  },
+
+  framework: "@storybook/react-vite",
+
   typescript: {
     reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
@@ -47,6 +71,7 @@ const config: StorybookConfig = {
           : true,
     },
   },
+
   viteFinal: async (config) => {
     config.base = "./";
     config.plugins = [
@@ -72,6 +97,7 @@ const config: StorybookConfig = {
     };
     return config;
   },
+
   staticDirs: [
     { from: "./fonts", to: "/fonts" },
     { from: "./assets", to: "/assets" },

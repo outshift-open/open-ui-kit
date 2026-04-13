@@ -1,5 +1,5 @@
 import { ComponentProps, type ReactElement, type ReactNode } from "react";
-import { Title, Primary, Stories } from "@storybook/addon-docs";
+import { Title, Primary, Stories } from "@storybook/addon-docs/blocks";
 import { OpenPage } from "@/custom-icons";
 import { Banner, CodeBlock } from "@/components";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
