@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { Box } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";

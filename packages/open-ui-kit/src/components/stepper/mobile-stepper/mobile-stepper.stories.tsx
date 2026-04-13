@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/react-vite";
 import {
   Box,
   Button,
@@ -9,7 +9,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import React from "react";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof MobileStepper> = {
   title: "DEV/Stepper/MobileStepper",

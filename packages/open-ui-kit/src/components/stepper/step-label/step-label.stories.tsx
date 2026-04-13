@@ -1,6 +1,6 @@
 import { StepLabel } from "@mui/material";
-import type { Meta } from "@storybook/react";
-import { StoryObj } from "@storybook/react";
+import type { Meta } from "@storybook/react-vite";
+import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof StepLabel> = {
   title: "DEV/Stepper/StepLabel",

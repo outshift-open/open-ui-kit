@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { JSX } from "react/jsx-runtime";
 import { ModalSubtitle } from "../components/modal-subtitle";
 import { ModalTitle } from "../components/modal-title";

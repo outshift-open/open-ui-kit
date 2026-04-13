@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Divider, Stack } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 import { Spinner, SpinnerProps } from "../components/spinner";

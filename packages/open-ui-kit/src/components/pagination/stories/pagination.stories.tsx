@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Pagination, PaginationProps } from "../components/pagination";
 

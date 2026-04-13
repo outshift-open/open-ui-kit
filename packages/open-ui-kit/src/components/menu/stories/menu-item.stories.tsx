@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { MenuItem } from "../components/menu-item";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

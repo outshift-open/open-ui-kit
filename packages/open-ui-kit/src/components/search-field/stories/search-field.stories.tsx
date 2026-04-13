@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 import { SearchField, SearchFieldProps } from "../components/search-field";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 

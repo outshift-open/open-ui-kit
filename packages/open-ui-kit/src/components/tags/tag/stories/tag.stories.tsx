@@ -1,5 +1,5 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { GeneralSize } from "@/common";
 import { Tag, TagProps } from "../components/tag";

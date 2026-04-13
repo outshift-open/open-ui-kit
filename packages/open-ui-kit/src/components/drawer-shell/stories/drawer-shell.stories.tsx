@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Button, Stack, Typography, useTheme } from "@mui/material";
 import { Severity } from "@/common";

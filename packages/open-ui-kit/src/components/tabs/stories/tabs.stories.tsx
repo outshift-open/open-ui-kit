@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, TabsProps, Typography, useTheme } from "@mui/material";
 import { ReactNode, useState } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 import { Radio, RadioProps } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

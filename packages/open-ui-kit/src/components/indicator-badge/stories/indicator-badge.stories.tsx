@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { IndicatorBadge } from "../components/indicator-badge";
 
 const meta: Meta<typeof IndicatorBadge> = {

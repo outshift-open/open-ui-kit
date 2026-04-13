@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Backdrop, BackdropProps, Button } from "@mui/material";
 import { Spinner } from "../spinner";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasePage, BasePageProps } from "../components/base-page";
 import { Box, Button } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

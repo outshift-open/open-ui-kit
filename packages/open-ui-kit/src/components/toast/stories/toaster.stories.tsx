@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Button } from "@mui/material";
 import { Toaster, ToasterProps } from "../components/toaster";
 import { toast } from "../components/toast";

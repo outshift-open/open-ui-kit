@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 import { CodeBlock } from "../components/code-block";
 

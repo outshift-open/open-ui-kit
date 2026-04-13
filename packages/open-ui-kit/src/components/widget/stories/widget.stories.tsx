@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, Stack } from "@mui/material";
 import { Kubernetes } from "@/custom-icons";
 import { IWidgetProps, Widget } from "../components/widget";

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { AWSIcon, All } from "@/custom-icons";
 import { SelectNodeType } from "@/types";

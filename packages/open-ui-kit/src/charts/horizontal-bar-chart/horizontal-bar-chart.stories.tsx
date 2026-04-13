@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { HorizontalBarChart } from "./horizontal-bar-chart";
 import { ChartDataItem } from "@/charts";
 import {

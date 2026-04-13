@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 import { Accordion, AccordionProps } from "../components/accordion";
 import { Stack, Typography } from "@mui/material";

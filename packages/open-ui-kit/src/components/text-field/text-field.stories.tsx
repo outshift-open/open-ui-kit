@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import React from "react";

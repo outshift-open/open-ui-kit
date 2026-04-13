@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { CopyButton } from "../components/copy-button";
 import { Box } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";

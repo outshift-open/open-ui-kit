@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
 import { ActivityTimelineStepStatus } from "../types";
 import { Alert, Box, Stack, Typography } from "@mui/material";

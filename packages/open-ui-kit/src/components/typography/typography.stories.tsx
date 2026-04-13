@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 
 /**

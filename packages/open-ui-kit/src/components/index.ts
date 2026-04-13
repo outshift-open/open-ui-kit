@@ -33,6 +33,7 @@ export * from "./search-field";
 export * from "./severity-bar";
 export * from "./severity-badge";
 export * from "./severity-badge-label";
+export * from "./sidebar";
 export * from "./spinner";
 export * from "./table";
 export * from "./tabs";

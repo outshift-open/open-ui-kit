@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Mail } from "@mui/icons-material";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
 import { Badge, BadgeProps } from "../components/badge";

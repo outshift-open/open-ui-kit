@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Legend, TRow } from "../components/legend";
 import { TooltipSize } from "../..";
 import { DocsHeader } from "storybook/components/docs-header.stories-src";
