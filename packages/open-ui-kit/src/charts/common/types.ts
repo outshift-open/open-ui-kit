@@ -4,21 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 import type { ContentType } from "recharts/types/component/Tooltip";
-import { BarChart } from "../bar-chart/bar-chart";
-import { HorizontalBarChart } from "../horizontal-bar-chart/horizontal-bar-chart";
-import { DonutChart, DonutProps } from "../donut-chart/donut-chart";
-import { GaugeChart, GaugeChartProps } from "../gauge-chart/gauge-chart";
-import { LineChart } from "../line-chart/line-chart";
-import { BarGraph, BarGraphProps } from "../bar-graph/bar-graph";
+import type { DonutProps } from "../donut-chart/donut-chart";
+import type { GaugeChartProps } from "../gauge-chart/gauge-chart";
+import type { BarGraphProps } from "../bar-graph/bar-graph";
 import type { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 
 export interface ChartDataItem {
   name: string;
   value: number;
   color: string;
-  icon?: React.ElementType;
+  icon?: ElementType;
 }
 
 export interface TableChartDataItem {
@@ -63,17 +60,6 @@ export enum ChartType {
   LINE = "line",
   BAR_GRAPH = "bar_graph",
 }
-
-export const ChartTypeComponents: {
-  [key: string]: React.ComponentType<ChartProps>;
-} = {
-  [ChartType.VERTICAL_BAR]: BarChart,
-  [ChartType.HORIZONTAL_BAR]: HorizontalBarChart,
-  [ChartType.DONUT]: DonutChart,
-  [ChartType.GAUGE]: GaugeChart,
-  [ChartType.LINE]: LineChart,
-  [ChartType.BAR_GRAPH]: BarGraph,
-};
 
 export type ConditionalPropsByType =
   | {

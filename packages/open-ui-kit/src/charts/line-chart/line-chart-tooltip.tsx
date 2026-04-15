@@ -14,6 +14,10 @@ export interface LineChartTooltipProps extends TooltipProps<number, string> {
   valueFormatter?: (value?: number) => string;
 }
 
+type LineChartPayloadItem = NonNullable<
+  LineChartTooltipProps["payload"]
+>[number];
+
 export const LineChartTooltip = ({
   active,
   payload,
@@ -22,28 +26,25 @@ export const LineChartTooltip = ({
   valueFormatter,
 }: LineChartTooltipProps) => {
   const theme = useTheme();
+  const styles = tooltipStyles(theme);
 
   if (!active || !payload?.length) {
     return null;
   }
   return (
-    <Box sx={tooltipStyles(theme).mainContainer}>
-      <Typography
-        component="div"
-        variant="caption"
-        sx={tooltipStyles(theme).title}
-      >
+    <Box sx={styles.mainContainer}>
+      <Typography component="div" variant="caption" sx={styles.title}>
         {subject ?? formatISODate(label, "LLL dd, yyyy")} -{" "}
         {formatISODate(label, "hh:mmaaa")}
       </Typography>
-      <Box sx={tooltipStyles(theme).categoriesContainer}>
-        {payload.map((category) => {
+      <Box sx={styles.categoriesContainer}>
+        {payload.map((category: LineChartPayloadItem) => {
           return (
             <Typography
-              key={category.name}
+              key={String(category.name)}
               component="span"
               variant="caption"
-              sx={tooltipStyles(theme).categoryEntry(category.color)}
+              sx={styles.categoryEntry(category.color)}
             >
               {category.name}:{" "}
               {valueFormatter ? valueFormatter(category.value) : category.value}

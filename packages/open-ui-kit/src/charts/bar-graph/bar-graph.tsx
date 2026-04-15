@@ -17,7 +17,7 @@ import { useRef, useState, useEffect } from "react";
 import { graphStyles } from "./styles";
 import { BarGraphTooltip } from "./bar-graph-tooltip";
 import { YAxisTick } from "./y-axis-tick";
-import { BarGraphItem, ChartProps } from "@/charts";
+import { BarGraphItem, ChartProps } from "../common/types";
 import type { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { CustomBar } from "./custom-bar";
 import { Stack, Typography, useTheme } from "@mui/material";

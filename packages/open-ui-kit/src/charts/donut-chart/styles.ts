@@ -4,14 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
-import { CSSProperties } from "react";
+import type { CSSObject } from "@mui/system";
+import type { Theme } from "@mui/material/styles";
+import type { CSSProperties } from "react";
 
 export const donutLabel = (theme: Theme): CSSProperties => ({
   ...(theme.typography.h4 as CSSProperties),
 });
 
-export const styles = (theme: Theme) => ({
+export type DonutChartStyleSlots = {
+  tooltip: CSSObject;
+  tooltipTypography: CSSObject;
+};
+
+export const styles = (theme: Theme): DonutChartStyleSlots => ({
   tooltip: {
     backgroundColor: theme.palette.vars.baseBackgroundWeak,
     padding: "2px 8px",

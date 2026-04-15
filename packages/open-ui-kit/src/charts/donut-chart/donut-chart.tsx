@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { Stack, Typography } from "@mui/material";
 import { donutLabel, styles } from "./styles";
-import { ChartDataItem, ChartProps } from "@/charts";
+import { ChartDataItem, ChartProps } from "../common/types";
 
 const formatBigNum = (value: number) =>
   Intl.NumberFormat("en-US", {

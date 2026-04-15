@@ -5,7 +5,7 @@
  */
 
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { ChartDataItem, ChartProps } from "@/charts";
+import { ChartDataItem, ChartProps } from "../common/types";
 import { getBarStyle, styles } from "./styles";
 
 interface HorizontalBarChartProps extends ChartProps {
