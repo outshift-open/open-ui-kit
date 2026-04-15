@@ -22,6 +22,18 @@ jobs:
       - run: yarn install
       - run: yarn lint
 
+  typescript:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "yarn"
+      - run: yarn install
+      - run: yarn typecheck
+
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
