@@ -55,7 +55,7 @@
     "lib:build": "yarn workspace scripts build",
     "dev": "yarn lib:dev",
     "lib:dev": "yarn bundle --watch",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\" \"vitest.config.ts\" \"vitest.shims.d.ts\" --max-warnings=0",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\" \"vitest.config.ts\" \"vitest.shims.d.ts\" --max-warnings=0 && yarn workspace @open-ui-kit/monorepo exec prettier --check \"packages/open-ui-kit/**/*.{js,ts,tsx,md,mdx}\"",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.storybook.json",
     "test": "jest --config=jest.config.js --coverage",
     "storybook": "storybook dev -p 6006",
