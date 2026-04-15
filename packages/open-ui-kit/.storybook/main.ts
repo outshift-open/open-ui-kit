@@ -1,17 +1,35 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import type { StorybookConfig } from "@storybook/react-vite";
+import type { PropItem } from "react-docgen-typescript";
+import type { UserConfig } from "vite";
 import { readFileSync, existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import TSConfigPaths from "vite-tsconfig-paths";
 import VitePluginImp from "vite-plugin-imp";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
+
+/**
+ * Storybook + Vite: `paths` only map `@/*` and `storybook/components/*` (see root tsconfig.json).
+ * Other `storybook/...` imports resolve via the `storybook` package (`moduleResolution: "bundler"` + `exports`).
+ */
+const storybookTsconfigPath = fileURLToPath(
+  new URL("../tsconfig.storybook.json", import.meta.url),
+);
+
 /**
  * Storybook addon paths must be the package root. Resolving `pkg/package.json` breaks when the
- * package uses "exports" and does not expose `./package.json` (e.g. storycap).
+ * package uses "exports" and does not expose `./package.json`.
  */
 function getAbsolutePath(packageName: string): string {
   const entry = require.resolve(packageName);
   let dir = dirname(entry);
-  while (true) {
+  // Walk up until package.json "name" matches or filesystem root (no constant condition: breaks below).
+  for (;;) {
     const pkgJsonPath = join(dir, "package.json");
     if (existsSync(pkgJsonPath)) {
       try {
@@ -44,40 +62,38 @@ const config: StorybookConfig = {
   ],
 
   addons: [
-    getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-themes"),
-    getAbsolutePath("storycap"),
     getAbsolutePath("@storybook/addon-docs"),
+    getAbsolutePath("@storybook/addon-vitest"),
   ],
 
-  framework: "@storybook/react-vite",
+  framework: getAbsolutePath("@storybook/react-vite"),
 
   typescript: {
+    check: true,
     reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
-      // Speeds up Storybook build time
-      compilerOptions: {
-        allowSyntheticDefaultImports: false,
-        esModuleInterop: false,
-      },
+      // Must include `.storybook` so react-docgen-typescript does not skip files there (tsconfigPath
+      // cannot be combined with inline compilerOptions — those live in tsconfig.storybook.json).
+      tsconfigPath: "./tsconfig.storybook.json", //storybookTsconfigPath,
       // Makes union prop types like variant and size appear as select controls
       shouldExtractLiteralValuesFromEnum: true,
       // Makes string and boolean types that can be undefined appear as inputs and switches
       shouldRemoveUndefinedFromOptional: true,
       // Filter out third-party props from node_modules except @mui packages
-      propFilter: (prop) =>
+      propFilter: (prop: PropItem) =>
         prop.parent
           ? !/node_modules\/(?!@mui)/.test(prop.parent.fileName)
           : true,
     },
   },
 
-  viteFinal: async (config) => {
+  viteFinal: async (config: UserConfig) => {
     config.base = "./";
     config.plugins = [
       ...(config.plugins || []),
       TSConfigPaths({
-        projects: [resolve(dirname(__dirname), "tsconfig.json")],
+        projects: [storybookTsconfigPath],
       }),
       VitePluginImp({
         libList: [

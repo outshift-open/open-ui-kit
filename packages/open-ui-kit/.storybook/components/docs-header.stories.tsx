@@ -1,3 +1,5 @@
+/* This module is a docs layout component (named *.stories.tsx for colocation), not CSF. */
+/* eslint-disable storybook/default-exports */
 import { ComponentProps, type ReactElement, type ReactNode } from "react";
 import { Title, Primary, Stories } from "@storybook/addon-docs/blocks";
 import { OpenPage } from "@/custom-icons";

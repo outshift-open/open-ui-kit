@@ -3,8 +3,8 @@ import "./css/typography.css";
 import type { Preview } from "@storybook/react-vite";
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { mockDateDecorator } from "storybook-mock-date-decorator";
-import { withScreenshot } from "storycap";
+import { mockDateDecorator } from "./mock-date-decorator";
+import { withScreenshot } from "@prantlf/storycap";
 import { darkTheme } from "../src/theme/dark/dark-theme";
 import { lightTheme } from "../src/theme/light/light-theme";
 
@@ -35,10 +35,6 @@ const preview: Preview = {
         light: {
           name: "Light",
           value: "#EFF3FC",
-        },
-        extra: {
-          name: "Extra",
-          value: "red",
         },
       },
     },
