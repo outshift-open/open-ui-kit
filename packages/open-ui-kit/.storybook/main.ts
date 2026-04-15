@@ -75,7 +75,7 @@ const config: StorybookConfig = {
     reactDocgenTypescriptOptions: {
       // Must include `.storybook` so react-docgen-typescript does not skip files there (tsconfigPath
       // cannot be combined with inline compilerOptions — those live in tsconfig.storybook.json).
-      tsconfigPath: "./tsconfig.storybook.json", //storybookTsconfigPath,
+      tsconfigPath: storybookTsconfigPath,
       // Makes union prop types like variant and size appear as select controls
       shouldExtractLiteralValuesFromEnum: true,
       // Makes string and boolean types that can be undefined appear as inputs and switches
