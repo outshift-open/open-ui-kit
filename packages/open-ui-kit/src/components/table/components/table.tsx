@@ -29,7 +29,11 @@ import TopToolbar from "./top-toolbar/top-toolbar";
 import { DEFAULT_PAGINATION_OPTIONS } from "../utils/consts";
 import { TableFooter } from "./table-footer/table-footer";
 import { TableProps } from "../types";
-import { tableComfortStyles, tableCompactStyles } from "../styles";
+import {
+  tableComfortStyles,
+  tableCompactStyles,
+  type TableDensityStyles,
+} from "../styles";
 import { Box, PaginationItem, SvgIconProps, useTheme } from "@mui/material";
 import { EmptyState, Link, OverflowTooltip, TooltipSize } from "@/components";
 import { withHeaderHelpTooltips } from "../utils/helpers";
@@ -83,9 +87,9 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
 }: TableProps<TData>): MRT_TableInstance<TData> => {
   const theme = useTheme();
   const rowPerPageOptions = rowsPerPageOptions || DEFAULT_PAGINATION_OPTIONS;
-  const tableStyles = !densityCompact
-    ? { ...tableComfortStyles(theme) }
-    : { ...tableCompactStyles(theme) };
+  const tableStyles: TableDensityStyles = !densityCompact
+    ? tableComfortStyles(theme)
+    : tableCompactStyles(theme);
 
   const shouldShowTableFooter = () => {
     if (rowCount !== undefined) return rowCount > rowPerPageOptions[0];

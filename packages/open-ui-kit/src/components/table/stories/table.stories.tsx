@@ -22,7 +22,7 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";
 import { mainTableMockData, subTableMockData } from "../utils/mock-data";
