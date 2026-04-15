@@ -7,7 +7,6 @@ import {
   Divider,
   FormControlLabel,
   FormGroup,
-  Grid,
   IconButton,
   List,
   ListItem,
@@ -20,6 +19,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import { Fragment, cloneElement, useState } from "react";

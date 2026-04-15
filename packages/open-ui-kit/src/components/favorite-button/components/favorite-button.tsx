@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button } from "@mui/material";
+import { Button, type ButtonProps } from "@mui/material";
 import { styledButton, styledStarIcon } from "../styles/styles";
-import { ButtonProps } from "@mui/material/Button/Button";
 import { Star, StarOutline } from "@/custom-icons";
 import { Tooltip, TooltipProps, TooltipSize } from "@/components";
 

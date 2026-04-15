@@ -64,7 +64,6 @@ export const CodeBlock = (props: CodeBlockProps) => {
               ...(theme.typography.body2 as CSSProperties),
             },
           }}
-          style={{}} // empty style to avoid default padding from themes
           lineNumberStyle={lineNumberStyle(
             theme,
             lineNumberWidth,

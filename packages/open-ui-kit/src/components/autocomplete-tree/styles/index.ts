@@ -6,6 +6,7 @@
 
 import { surfaceDarkPalette } from "@/theme/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
+import { CSSObject } from "@mui/material";
 
 export const defaultPopperContentStyles = {
   width: "480px",
@@ -16,7 +17,10 @@ export const defaultPopperContentStyles = {
     "0px 2px 3px 0px rgba(0, 0, 0, 0.30), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)",
 };
 
-export const autocompleteStyles = (showSearchBox: boolean, label: boolean) => ({
+export const autocompleteStyles = (
+  showSearchBox: boolean,
+  label: boolean,
+): CSSObject => ({
   "& .MuiInputBase-root.MuiAutocomplete-inputRoot": {
     padding: "7px 8px 7px 16px",
     marginTop: label ? "24px" : 0,
