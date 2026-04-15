@@ -34,6 +34,7 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
@@ -58,6 +59,9 @@
   "lint-staged": {
     "{packages/**/*,playground/**/*,scripts/**/*}.{ts,tsx,js,jsx,css,html}": [
       "yarn workspace @open-ui-kit/scripts license:check"
+    ],
+    "packages/open-ui-kit/**/*.{ts,tsx}": [
+      "eslint --max-warnings=0 --fix --config packages/open-ui-kit/.eslintrc.cjs --resolve-plugins-relative-to packages/open-ui-kit"
     ],
     "**/*.{ts,tsx,js,md,mdx}": [
       "prettier --write"
