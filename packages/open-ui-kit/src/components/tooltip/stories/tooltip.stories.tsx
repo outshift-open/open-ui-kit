@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, Stack } from "@mui/material";
 import { Tooltip } from "../components/tooltip";
 import { TooltipSize } from "../types";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Tooltips display informative text when users hover over, focus on, or tap an element.

@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { MenuItem } from "../components/menu-item";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  *  ### Link represent custom component with link and optional icon.

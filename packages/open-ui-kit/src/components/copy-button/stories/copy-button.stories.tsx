@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { CopyButton } from "../components/copy-button";
 import { Box } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof CopyButton> = {
   title: "Components/CopyButton",

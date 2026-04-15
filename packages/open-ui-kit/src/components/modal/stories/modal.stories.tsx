@@ -11,7 +11,7 @@ import {
   ModalProps,
 } from "..";
 import { Button, Stack } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ###  Modals inform users about a task and can contain critical information, require decisions, or involve multiple tasks.

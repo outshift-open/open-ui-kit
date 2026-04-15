@@ -13,7 +13,7 @@ import {
   DropdownAutocompleteTree,
   useDropdownAutocompleteTree,
 } from "../components/dropdown-autocomplete-tree";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof DropdownAutocompleteTree> = {
   title: "Components/DropdownAutocompleteTree",

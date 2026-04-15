@@ -7,7 +7,7 @@ import {
   TimePicker,
   DateRangePicker,
 } from "..";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { useState } from "react";
 import { DateRangePickerProps } from "@/components/date-time/components/DateRangePicker";
 import Event from "@mui/icons-material/Event";

@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { Breadcrumbs } from "../components/breadcrumbs";
 import { IconPosition } from "@/common";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const simpleItems = [
   { text: "this", link: "fake-route/this" },

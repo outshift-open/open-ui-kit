@@ -11,7 +11,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useState } from "react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Checkboxes allow the user to select one or more items from a set.

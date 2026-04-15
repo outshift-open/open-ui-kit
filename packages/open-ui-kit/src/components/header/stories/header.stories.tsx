@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Avatar, Box, Button, Menu, MenuItem, Typography } from "@mui/material";
 import { Book, BugReport, ExpandMore, ExpandLess } from "@mui/icons-material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import Header from "../components/header";
 
 // Mock Logo and User Section components remain the same...

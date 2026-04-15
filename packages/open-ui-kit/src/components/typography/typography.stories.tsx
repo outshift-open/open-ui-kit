@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Typography allow users to show styled text.

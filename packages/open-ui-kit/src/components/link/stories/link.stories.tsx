@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Stack } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Link } from "../components/link";
 import { GeneralSize } from "@/common";
 import { LinkColorEnum, LinkType } from "../types";

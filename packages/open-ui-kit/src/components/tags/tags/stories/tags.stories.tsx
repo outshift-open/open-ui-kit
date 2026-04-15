@@ -5,7 +5,7 @@ import { AWSIcon } from "@/custom-icons";
 import { SelectNodeType } from "@/types";
 import { baseSelectTree } from "@/common";
 import { Tags } from "..";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Tags> = {
   title: "Components/Tags/Tags",

@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 import { GeneralSize } from "@/common";
 import { Tag, TagProps } from "../components/tag";
 import { TagBackgroundColorVariants, TagStatus } from "../types";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Tag> = {
   title: "Components/Tags/Tag",

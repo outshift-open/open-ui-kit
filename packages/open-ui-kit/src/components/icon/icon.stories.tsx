@@ -14,7 +14,7 @@ import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
 import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
 import FourKIcon from "@mui/icons-material/FourK";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### An icon is a glyph used to represent something else.

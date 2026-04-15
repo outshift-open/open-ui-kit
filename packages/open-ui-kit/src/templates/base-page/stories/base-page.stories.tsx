@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasePage, BasePageProps } from "../components/base-page";
 import { Box, Button } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { BrowserRouter } from "react-router-dom";
 
 const meta: Meta<typeof BasePage> = {

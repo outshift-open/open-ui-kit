@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react-vite";
 import { Box, Typography } from "@mui/material";
 import { ScrollArea } from "../components/scroll-area";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 export default {
   title: "Components/ScrollArea",

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Backdrop, BackdropProps, Button } from "@mui/material";
 import { Spinner } from "../spinner";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### The Backdrop component narrows the user's focus to a particular element on the screen.
