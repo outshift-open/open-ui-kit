@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import React from "react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Text Fields let users enter and edit text.

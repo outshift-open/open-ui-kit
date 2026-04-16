@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, LayoutProps } from "../components/layout";
-import { Meta, StoryObj } from "@storybook/react/*";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Avatar, Box, Button, Menu, MenuItem, Typography } from "@mui/material";
 import { Book, BugReport } from "@mui/icons-material";
 import { BrowserRouter } from "react-router-dom";
@@ -98,7 +98,7 @@ const BasePageStory = () => {
 const TemplateLayout = (args: LayoutProps) => <Layout {...args} />;
 
 export const Default: Story = {
-  render: (args) => <TemplateLayout {...args} />,
+  render: (args: LayoutProps) => <TemplateLayout {...args} />,
   args: {
     headerProps: {
       logo: <StoryLogo />,
@@ -137,7 +137,7 @@ export const Default: Story = {
 };
 
 export const LayoutWithBasePage: Story = {
-  render: (args) => <TemplateLayout {...args} />,
+  render: (args: LayoutProps) => <TemplateLayout {...args} />,
   args: {
     headerProps: {
       logo: <StoryLogo />,

@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import { ActionsModal, ActionsModalProps } from "../components/actions-modal";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 export default {
   title: "Components/ActionsModal",

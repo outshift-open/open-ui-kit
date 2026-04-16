@@ -1,5 +1,5 @@
 import { Grid, Stack } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { ChartDataItem, ChartCategoryItem, ChartType } from "@/charts";
 import {
   AWSServicesS3Bucket,

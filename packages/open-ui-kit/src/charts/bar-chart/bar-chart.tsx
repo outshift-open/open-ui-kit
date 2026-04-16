@@ -14,7 +14,7 @@ import {
   Tooltip,
   TooltipProps,
 } from "recharts";
-import { ChartDataItem, ChartProps } from "@/charts";
+import { ChartDataItem, ChartProps } from "../common/types";
 import { Stack, Typography, useTheme } from "@mui/material";
 import { styles } from "./styles";
 

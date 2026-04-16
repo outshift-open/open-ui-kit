@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 import { faker } from "@faker-js/faker";
 import {
   MRT_ColumnDef,
@@ -22,7 +22,7 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";
 import { mainTableMockData, subTableMockData } from "../utils/mock-data";

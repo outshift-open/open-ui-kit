@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
+import type { CSSObject } from "@mui/system";
 
-export const getSharedStyle = (theme: Theme) => {
+export const getSharedStyle = (theme: Theme): CSSObject => {
   return {
     border: `2px solid ${theme.palette.vars.controlBorderActive}`,
     padding: "0 0 16px 0",
@@ -78,7 +79,7 @@ export const getStaticPickerToolbarSlotProp = (theme: Theme) => {
   };
 };
 
-export const getSharedSlotPropsDateTimePicker = (theme: Theme) => {
+export const getSharedSlotPropsDateTimePicker = (theme: Theme): CSSObject => {
   return {
     leftArrowIcon: {
       sx: {

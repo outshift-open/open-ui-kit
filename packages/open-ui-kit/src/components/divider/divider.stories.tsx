@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Divider is a thin line that groups content in lists and layouts.

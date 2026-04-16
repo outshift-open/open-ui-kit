@@ -1,5 +1,5 @@
 import { Box, Grid, Stack } from "@mui/material";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DonutChart } from "./donut-chart";
 
 const meta: Meta<typeof DonutChart> = {

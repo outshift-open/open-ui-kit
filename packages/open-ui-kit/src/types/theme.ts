@@ -11,8 +11,8 @@ import "@mui/material/Divider";
 import "@mui/material/Tab";
 
 import React from "react";
+import type { Color } from "@mui/material/styles";
 import { VarsType } from "./vars";
-import { ColorPartial } from "@mui/material/styles/createPalette";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -29,8 +29,10 @@ declare module "@mui/material/styles" {
     vars?: VarsType;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface PaletteColor extends ColorPartial {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface -- MUI module augmentation hook (same as `ColorPartial` in createPalette)
+  interface PaletteColor extends Partial<Color> {
+    // no additional properties needed
+  }
 
   interface BreakpointOverrides {
     xs: true;

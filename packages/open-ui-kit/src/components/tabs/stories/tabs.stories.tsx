@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, TabsProps, Typography, useTheme } from "@mui/material";
 import { ReactNode, useState } from "react";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import PhoneMissedIcon from "@mui/icons-material/PhoneMissed";
 import React from "react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Tabs } from "../components/tabs";
 import { Tab } from "../components/tab";
 

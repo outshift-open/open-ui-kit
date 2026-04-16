@@ -14,3 +14,4 @@ export * from "./line-chart/line-chart";
 export * from "./spider-chart";
 
 export * from "./common/types";
+export * from "./common/chart-type-components";

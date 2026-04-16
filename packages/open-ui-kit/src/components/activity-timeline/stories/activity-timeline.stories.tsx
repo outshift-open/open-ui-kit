@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
 import { ActivityTimelineStepStatus } from "../types";
 import { Alert, Box, Stack, Typography } from "@mui/material";
 import { ActivityTimeline } from "../components/activity-timeline";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Spinner, Tag, TagBackgroundColorVariants } from "@/components";
 
 const meta: Meta<typeof ActivityTimeline> = {

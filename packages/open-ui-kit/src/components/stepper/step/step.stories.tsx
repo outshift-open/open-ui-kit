@@ -1,5 +1,5 @@
-import type { Meta } from "@storybook/react";
-import { StoryObj } from "@storybook/react";
+import type { Meta } from "@storybook/react-vite";
+import { StoryObj } from "@storybook/react-vite";
 import ErrorIcon from "@mui/icons-material/Error";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { Step, Stepper, StepLabel } from "@mui/material";

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { CodeBlock } from "../components/code-block";
 
 const example = `helm upgrade --create-namespace -n panoptica -i panoptica deployment/apisec-controllers \\

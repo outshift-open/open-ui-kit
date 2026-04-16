@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
 import { Box } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { Breadcrumbs } from "../components/breadcrumbs";
 import { IconPosition } from "@/common";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const simpleItems = [
   { text: "this", link: "fake-route/this" },

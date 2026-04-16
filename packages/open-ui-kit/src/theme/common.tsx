@@ -5,7 +5,7 @@
  */
 
 import { BreakpointsOptions, Components, Theme } from "@mui/material";
-import { TypographyVariantsOptions } from "@mui/material/styles/createTypography";
+import type { TypographyVariantsOptions } from "@mui/material/styles";
 import { KeyboardArrowUp } from "../custom-icons";
 import { TOOLBAR_MINIMUM_HEIGHT } from "./constants";
 

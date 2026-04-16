@@ -1,5 +1,5 @@
 import { Checkbox, Stack, Typography } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { AWSIcon } from "@/custom-icons";
 import { AugmentedSelectNodeType, SelectNodeType } from "@/types";
@@ -13,7 +13,7 @@ import {
   DropdownAutocompleteTree,
   useDropdownAutocompleteTree,
 } from "../components/dropdown-autocomplete-tree";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof DropdownAutocompleteTree> = {
   title: "Components/DropdownAutocompleteTree",

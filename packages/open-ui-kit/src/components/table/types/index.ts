@@ -6,7 +6,7 @@
 
 import { MRT_TableOptions, MRT_RowData, MRT_Cell } from "material-react-table";
 import { ReactNode } from "react";
-import { TypographyVariant } from "@mui/material/styles/createTypography";
+import type { TypographyVariant } from "@mui/material/styles";
 import { EmptyStateProps } from "@/components";
 
 interface ExportProps {

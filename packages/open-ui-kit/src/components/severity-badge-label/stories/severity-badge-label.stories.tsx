@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { SeverityBadgeLabel } from "../components/severity-badge-label";
 import { Severity } from "@/common";

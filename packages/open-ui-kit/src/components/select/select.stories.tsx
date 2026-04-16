@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   FormControl,
   InputLabel,
@@ -8,7 +8,7 @@ import {
   SelectProps,
 } from "@mui/material";
 import React from "react";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",

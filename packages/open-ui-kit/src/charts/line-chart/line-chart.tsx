@@ -17,7 +17,7 @@ import {
   YAxisProps,
   LineProps,
 } from "recharts";
-import { ChartProps } from "@/charts";
+import { ChartProps } from "../common/types";
 import { LineChartTooltip, LineChartTooltipProps } from "./line-chart-tooltip";
 import { formatISODate, formatNumber } from "./utils";
 import { useTheme } from "@mui/material";

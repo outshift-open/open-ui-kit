@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import {
   Button,
@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Star } from "@mui/icons-material";
 import { MenuItem } from "../components/menu-item";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### A menu displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.

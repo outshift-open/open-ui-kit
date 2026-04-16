@@ -4,9 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
+import type { CSSObject } from "@mui/system";
 
-export const styles = (theme: Theme) => ({
+export const styles = (
+  theme: Theme,
+): {
+  tooltip: CSSObject;
+  tooltipTypography: CSSObject;
+} => ({
   tooltip: {
     backgroundColor: theme.palette.vars.baseBackgroundMedium,
     padding: "2px 8px",

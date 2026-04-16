@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { CSSObject } from "@mui/system";
+import type { Theme } from "@mui/material/styles";
 import { isOuterPinnedColumn } from "../utils/helpers";
 import {
   MRT_Column,
@@ -110,7 +111,7 @@ const commonTableStyles = (theme: Theme) => ({
   tableBodyStyle: () => {
     const notSelectedOrPinned = `tr:not([data-selected="true"]):not([column-pinned="true"]):not([data-pinned="true"]):not(.Mui-TableBodyCell-DetailPanel)`;
 
-    const styles: Record<string, { backgroundColor: string }> = {
+    const styles: CSSObject = {
       // Row backgroundColor when it is hovered, not selected, and not pinned.
       [`& ${notSelectedOrPinned}:hover > td`]: {
         backgroundColor: theme.palette.vars.controlBackgroundMedium,
@@ -126,7 +127,25 @@ const commonTableStyles = (theme: Theme) => ({
   },
 });
 
-export const tableComfortStyles = (theme: Theme) => ({
+export type TableDensityStyles = {
+  columnHeaderStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) => CSSObject;
+  bodyCellStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) => CSSObject;
+  tableBottomToolbarStyle: CSSObject;
+  checkBoxStyle: CSSObject;
+  expandButtonStyle: CSSObject;
+  tableDetailsStyle: CSSObject;
+  tablePaperStyle: CSSObject;
+  tableContainerStyle: CSSObject;
+  tableBodyStyle: () => CSSObject;
+};
+
+export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
@@ -152,7 +171,7 @@ export const tableComfortStyles = (theme: Theme) => ({
   ...commonTableStyles(theme),
 });
 
-export const tableCompactStyles = (theme: Theme) => ({
+export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
   ...commonTableStyles(theme),
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,

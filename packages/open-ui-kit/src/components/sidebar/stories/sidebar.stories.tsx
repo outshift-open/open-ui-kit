@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Box,
   ListItem,
@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { SidebarItem } from "../types/sidebar.types";
 import { Sidebar } from "../components/sidebar";
 import React from "react";

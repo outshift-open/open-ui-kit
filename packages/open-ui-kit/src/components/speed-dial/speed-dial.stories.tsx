@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, SpeedDialIcon, SpeedDialAction, SpeedDial } from "@mui/material";
 
 /**

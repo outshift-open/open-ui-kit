@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Severity } from "@/common";
 import { SeverityBar } from "../components/severity-bar";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  *  ### A color indicator severity badge. Either works with Severity types or with a value score system.

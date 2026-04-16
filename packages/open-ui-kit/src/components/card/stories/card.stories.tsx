@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Button,
   Card,
@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import CardSubheader from "../components/card-subheader";
 import CardDescription from "../components/card-description";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Cards contain content and actions about a single subject.

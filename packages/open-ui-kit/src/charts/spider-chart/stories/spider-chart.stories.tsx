@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { SpiderChart } from "../components/spider-chart";
 import { ExtendedDataPoint } from "../types/spider-chart.types";
 import { Box } from "@mui/material";

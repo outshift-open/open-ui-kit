@@ -4,9 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { CSSObject } from "@mui/system";
+import type { Theme } from "@mui/material/styles";
 
-export const tooltipStyles = (theme: Theme) => ({
+export type LineChartTooltipStyleSlots = {
+  mainContainer: CSSObject;
+  title: CSSObject;
+  categoriesContainer: CSSObject;
+  categoryEntry: (categoryColor?: string) => CSSObject;
+};
+
+export const tooltipStyles = (theme: Theme): LineChartTooltipStyleSlots => ({
   mainContainer: {
     padding: "8px 12px",
     borderRadius: "4px",

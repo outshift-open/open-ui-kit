@@ -45,6 +45,10 @@
       "cache": false,
       "outputs": []
     },
+    "typecheck": {
+      "cache": false,
+      "outputs": []
+    },
     "lint:fix": {
       "cache": false
     },

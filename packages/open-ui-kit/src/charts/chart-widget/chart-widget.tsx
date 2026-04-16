@@ -6,12 +6,12 @@
 
 import { Stack, SxProps } from "@mui/material";
 import { Widget, IWidgetProps } from "@/components";
+import { ChartTypeComponents } from "../common/chart-type-components";
 import {
   ChartType,
-  ChartTypeComponents,
   ConditionalPropsByType,
   ExtendedChartProps,
-} from "@/charts";
+} from "../common/types";
 
 export type IChartWidgetProps<T extends string> = ExtendedChartProps &
   Omit<IWidgetProps<T>, "bodyElement"> &

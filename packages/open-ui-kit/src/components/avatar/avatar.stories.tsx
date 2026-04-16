@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Avatar, AvatarGroup, AvatarProps, Stack } from "@mui/material";
 import { FileCopy } from "@mui/icons-material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  * ### Avatars are found throughout material design with uses in everything from tables to dialog menus.
