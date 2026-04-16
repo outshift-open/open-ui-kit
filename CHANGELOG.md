@@ -1,3 +1,22 @@
+# [1.5.0](https://github.com/outshift-open/open-ui-kit/compare/v1.4.2...v1.5.0) (2026-04-16)
+
+
+### Bug Fixes
+
+* **storybook:** resolve docgen tsconfigPath to absolute file URL ([15a19b5](https://github.com/outshift-open/open-ui-kit/commit/15a19b5b831ea602ec675a82256b36e4400b6a5a))
+* **theme:** tokens and misc component typings ([1c2e3d5](https://github.com/outshift-open/open-ui-kit/commit/1c2e3d5a4622b68bdc7f2f93653da5b2632145f9))
+* **types:** table density styles for MaterialReactTable ([43c0e70](https://github.com/outshift-open/open-ui-kit/commit/43c0e70d3f6310f46aa858df0e520922e0b21774))
+
+
+### Features
+
+* **package.json:** upgrade storybook, add vitest and playwright ([2ca27f7](https://github.com/outshift-open/open-ui-kit/commit/2ca27f77eb47b8c6ae91096ceb8c829a555766e6))
+* storybook 9, fix imports ([c709c0c](https://github.com/outshift-open/open-ui-kit/commit/c709c0ccccccf3be3c645ec71913e7b8a883a57b))
+* TS reconfiguration ([a6a3ce9](https://github.com/outshift-open/open-ui-kit/commit/a6a3ce92e8c3b08e8da26ff8a0a7d284f748cb43))
+* upgrade to storybook 9 and fix changes ([5e1a1e8](https://github.com/outshift-open/open-ui-kit/commit/5e1a1e8fb87aebe5de4bfc30cb634a2dc3fcf5f5))
+* vitest config ([0acc68f](https://github.com/outshift-open/open-ui-kit/commit/0acc68fc94d5e135ace70713b303bc992955e6dd))
+* **yarn:** upgrade ([d94eb29](https://github.com/outshift-open/open-ui-kit/commit/d94eb296a24ed3c04785b4201c4cc0ff10adb38f))
+
 ## [1.4.2](https://github.com/outshift-open/open-ui-kit/compare/v1.4.1...v1.4.2) (2026-04-07)
 
 
