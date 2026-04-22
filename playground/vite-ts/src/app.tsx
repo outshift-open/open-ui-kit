@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
 import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import {
   Container,
@@ -45,7 +44,7 @@ function AppContent() {
             color="primary"
           />
         }
-        label="Dark Mode"
+        label={`Dark Mode: ${isDarkMode ? "On" : "Off"}`}
       />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
