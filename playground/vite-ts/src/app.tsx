@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { ThemeProvider } from "@open-ui-kit/core";
+import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import {
   Container,
   Box,
@@ -28,42 +28,48 @@ function Copyright() {
   );
 }
 
-export default function App() {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+function AppContent() {
+  const { isDarkMode, toggleTheme } = useThemeMode();
   return (
-    <ThemeProvider isDarkMode={isDarkMode}>
-      <Container maxWidth="md">
-        <FormControlLabel
-          sx={{
-            display: "block",
-            marginTop: 2,
-          }}
-          control={
-            <Switch
-              checked={isDarkMode}
-              onChange={() => setIsDarkMode((prev) => !prev)}
-              name="isDarkMode"
-              color="primary"
-            />
-          }
-          label="Dark Mode"
-        />
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          marginTop={6}
-        >
-          {/* <img src={isDarkMode ? logoWhite : logo} alt="logo" width={200} /> */}
-        </Box>
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
-            Open UI Kit Vite.js example in TypeScript
-          </Typography>
-          <ProTip />
-          <Copyright />
-        </Box>
-      </Container>
+    <Container maxWidth="md">
+      <FormControlLabel
+        sx={{
+          display: "block",
+          marginTop: 2,
+        }}
+        control={
+          <Switch
+            checked={isDarkMode}
+            onChange={toggleTheme}
+            name="isDarkMode"
+            color="primary"
+          />
+        }
+        label="Dark Mode"
+      />
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        marginTop={6}
+      >
+        {/* <img src={isDarkMode ? logoWhite : logo} alt="logo" width={200} /> */}
+      </Box>
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
+          Open UI Kit Vite.js example in TypeScript
+        </Typography>
+        <ProTip />
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

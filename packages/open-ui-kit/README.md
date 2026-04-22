@@ -97,23 +97,29 @@ yarn add @open-ui-kit/core @mui/material @emotion/react @emotion/styled
 Wrap your application with the `ThemeProvider` to enable Open UI Kit theming:
 
 ```jsx
-import React, { useState } from 'react';
-import { ThemeProvider } from '@open-ui-kit/core';
+import React from 'react';
+import { ThemeProvider, useThemeMode } from '@open-ui-kit/core';
 import '@open-ui-kit/core/typography.css';
 
-function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+function AppContent() {
+  const { isDarkMode, toggleTheme } = useThemeMode();
 
   return (
-    <ThemeProvider isDarkMode={isDarkMode}>
-      <div className="app">
-        <header>
-          <button onClick={() => setIsDarkMode(!isDarkMode)}>
-            Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
-          </button>
-        </header>
-        {/* Your app content goes here */}
-      </div>
+    <div className="app">
+      <header>
+        <button type="button" onClick={toggleTheme}>
+          Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
+        </button>
+      </header>
+      {/* Your app content goes here */}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }
