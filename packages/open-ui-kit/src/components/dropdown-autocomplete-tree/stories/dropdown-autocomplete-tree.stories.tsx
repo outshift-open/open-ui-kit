@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { AWSIcon } from "@/custom-icons";
 import { AugmentedSelectNodeType, SelectNodeType } from "@/types";
-import { LabelAndChildrenTooltipContent, Tags } from "@/components";
+import { LabelAndChildrenTooltipContent, Tags } from "@/components/tags/tags";
 import {
   baseSelectTree,
   formatNodeValue,

@@ -1,7 +1,7 @@
 import type { Meta } from "@storybook/react-vite";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import {
+  Box,
   Button,
   Step,
   StepLabel,

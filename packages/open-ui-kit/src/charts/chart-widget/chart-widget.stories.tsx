@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { ChartDataItem, ChartCategoryItem, ChartType } from "@/charts";
+import { ChartDataItem, ChartCategoryItem, ChartType } from "../common/types";
 import {
   AWSServicesS3Bucket,
   AWSServicesRedshift,
