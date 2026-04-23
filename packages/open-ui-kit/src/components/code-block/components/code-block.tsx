@@ -14,7 +14,7 @@ import {
 import React from "react";
 import { Prism, SyntaxHighlighterProps } from "react-syntax-highlighter";
 import { Separator } from "./separator";
-import { CopyButton, CopyButtonProps } from "@/components";
+import { CopyButton, CopyButtonProps } from "@/components/copy-button";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SyntaxHighlighter = Prism as any as React.FC<SyntaxHighlighterProps>;

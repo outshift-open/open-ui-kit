@@ -6,7 +6,7 @@
 
 import { type IconButtonProps, IconButton } from "@mui/material";
 import { Reload } from "@/custom-icons";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 
 interface Props extends IconButtonProps {
   onReload: () => void;

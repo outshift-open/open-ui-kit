@@ -5,7 +5,7 @@
  */
 
 import { Stack, Typography, useTheme } from "@mui/material";
-import { IndicatorBadge } from "@/components";
+import { IndicatorBadge } from "@/components/indicator-badge";
 import {
   getIndicatorBadgeConfigurationByScoreSystem,
   getIndicatorBadgeConfigurationBySeverity,

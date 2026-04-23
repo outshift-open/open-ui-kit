@@ -16,7 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { styles } from "../styles/styles";
-import { Tooltip, TooltipProps, TooltipSize } from "@/components";
+import { Tooltip, TooltipProps, TooltipSize } from "@/components/tooltip";
 
 export interface ILegendProps<T extends string> {
   headers: T[];

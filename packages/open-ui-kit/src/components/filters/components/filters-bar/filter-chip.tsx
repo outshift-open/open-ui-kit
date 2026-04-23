@@ -7,7 +7,7 @@
 import { Tooltip } from "@mui/material";
 import { FilterData } from "../../types/types";
 import { styles } from "./styles";
-import { Tag } from "@/components";
+import { Tag } from "@/components/tags/tag";
 import { GeneralSize } from "@/common";
 
 interface FilterChipProps {

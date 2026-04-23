@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SearchFieldProps } from "@/components";
+import type { SearchFieldProps } from "@/components/search-field";
 import { AppBarProps, SxProps, Theme } from "@mui/material";
 import React, { ReactNode } from "react";
 

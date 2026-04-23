@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SearchField, SearchFieldProps } from "@/components";
+import { SearchField, SearchFieldProps } from "@/components/search-field";
 
 export const CustomSearchField = (props: SearchFieldProps) => {
   const { placeholder, value, onChange } = props;

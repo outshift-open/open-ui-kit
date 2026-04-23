@@ -13,7 +13,7 @@ import {
   MenuProps,
   Stack,
 } from "@mui/material";
-import { Tooltip, TooltipProps } from "@/components";
+import { Tooltip, TooltipProps } from "@/components/tooltip";
 
 type ValueType = string | number;
 

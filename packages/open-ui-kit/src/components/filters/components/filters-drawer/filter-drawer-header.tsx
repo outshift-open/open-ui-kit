@@ -8,7 +8,7 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { styles } from "./styles";
 import { AssetsData } from "../../types/types";
 import { CloseOutlined } from "@mui/icons-material";
-import { SearchField } from "@/components";
+import { SearchField } from "@/components/search-field";
 
 interface FilterDrawerHeaderProps {
   activeFiltersCount: number;

@@ -9,7 +9,7 @@ import { BoxProps, SxProps } from "@mui/material";
 import { FooterElement } from "./footer-element";
 import { BodyElement } from "./body-element";
 import { styles } from "../styles";
-import { Modal, ModalSubtitle, ModalTitle } from "@/components";
+import { Modal, ModalSubtitle, ModalTitle } from "@/components/modal";
 
 export interface ActionsModalProps {
   open: boolean;

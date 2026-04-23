@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ILegendProps, Legend } from "@/components";
+import { Legend, type ILegendProps } from "@/components/legend";
 import { Stack, Typography, useTheme } from "@mui/material";
 import { styles } from "../styles/styles";
 

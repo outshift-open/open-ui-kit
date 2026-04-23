@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { IconPosition } from "@/common";
-import { Link, LinkProps, LinkType } from "@/components";
+import { Link, LinkProps, LinkType } from "@/components/link";
 
 export interface MenuItemProps extends MuiMenuItemProps {
   href?: LinkProps["href"];

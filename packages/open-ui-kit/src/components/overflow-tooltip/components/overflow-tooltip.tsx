@@ -6,7 +6,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { rtlWrapperStyle, baseWrapperStyle, spanStyle } from "../styles";
-import { Tooltip, TooltipProps } from "@/components";
+import { Tooltip, TooltipProps } from "@/components/tooltip";
 
 // Define props
 export interface OverflowTooltipProps

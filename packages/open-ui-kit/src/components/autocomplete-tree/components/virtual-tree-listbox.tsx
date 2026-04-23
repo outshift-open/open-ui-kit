@@ -17,7 +17,7 @@ import {
   useAutocomplete,
 } from "@mui/material";
 import { defaultPopperContentStyles } from "../styles";
-import { SearchField } from "@/components";
+import { SearchField } from "@/components/search-field";
 
 interface VirtualTreeListboxProps extends React.HTMLAttributes<HTMLElement> {
   ListboxProps?: ReturnType<

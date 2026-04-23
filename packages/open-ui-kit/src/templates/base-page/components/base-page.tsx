@@ -11,9 +11,13 @@ import {
   Tabs,
   TabsProps,
 } from "@/components";
-import { Box, BoxProps, Typography } from "@mui/material";
 import { ReactNode, useCallback, useEffect } from "react";
-import { TabProps as MuiTabProps } from "@mui/material";
+import {
+  Box,
+  BoxProps,
+  Typography,
+  TabProps as MuiTabProps,
+} from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 

@@ -19,7 +19,7 @@ import { Tooltip } from "@/components";
 import {
   DOWNLOAD_ERROR_DEFAULT_MESSAGE,
   DOWNLOAD_SUCCESS_DEFAULT_MESSAGE,
-} from "@/components/table/utils/consts";
+} from "../../../../utils/consts";
 
 interface Props<TData extends MRT_RowData> extends IconButtonProps {
   table: MRT_TableInstance<TData>;

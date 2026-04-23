@@ -17,7 +17,7 @@ import {
   LinkColorStatus,
   LinkProps,
   LinkType,
-} from "@/components";
+} from "@/components/link";
 import { getLinkColors } from "@/components/link/helpers";
 
 const MAX_NUMBER_OF_VISIBLE_BREADCRUMBS = 4;
