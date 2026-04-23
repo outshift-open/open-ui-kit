@@ -4,7 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Badge as MuiBadge, styled, Theme } from "@mui/material";
+import {
+  Badge as MuiBadge,
+  styled,
+  Theme,
+  type BadgeProps,
+} from "@mui/material";
+import type { ComponentType } from "react";
 import { BadgeType } from "../types";
 
 const getBadgeColor = (
@@ -80,4 +86,4 @@ export const StyledBadge = styled(MuiBadge, {
       },
     }),
   }),
-);
+) as ComponentType<BadgeProps & { type?: BadgeType; isNotification?: boolean }>;

@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, styled } from "@mui/material";
+import { Box, styled, type BoxProps } from "@mui/material";
+import type { ComponentType } from "react";
 
 export const ScrollAreaRoot = styled(Box)(() => ({
   position: "relative",
-}));
+})) as ComponentType<BoxProps>;
 
 export const ScrollAreaViewport = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -22,4 +23,4 @@ export const ScrollAreaViewport = styled(Box)(({ theme }) => ({
     boxShadow: `0 0 0 3px ${theme.palette.primary.main}50`,
     outline: `1px solid ${theme.palette.primary.main}`,
   },
-}));
+})) as ComponentType<BoxProps>;

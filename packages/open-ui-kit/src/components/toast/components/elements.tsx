@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Alert, styled, Theme } from "@mui/material";
+import { Alert, styled, Theme, type AlertProps } from "@mui/material";
+import type { ComponentType } from "react";
 import { ToastType } from "../types";
 import {
   CheckCircleOutline,
@@ -88,7 +89,7 @@ export const StyledToast = styled(Alert, {
     marginTop: "-2px",
   },
   ...(type && getStyleByStatus(type, theme)),
-}));
+})) as ComponentType<AlertProps & { type?: ToastType }>;
 
 export const IconToast = ({ type }: { type?: ToastType }) => {
   switch (type) {

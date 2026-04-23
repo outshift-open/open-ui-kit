@@ -10,7 +10,12 @@ import {
   AccordionDetails,
   styled,
   Box,
+  type AccordionDetailsProps,
+  type AccordionProps,
+  type AccordionSummaryProps,
+  type BoxProps,
 } from "@mui/material";
+import type { ComponentType } from "react";
 
 export const StyledAccordion = styled(Accordion, {
   shouldForwardProp: (prop) => prop !== "contained" && prop !== "mediumSize",
@@ -35,7 +40,9 @@ export const StyledAccordion = styled(Accordion, {
       },
     }),
   }),
-);
+) as ComponentType<
+  AccordionProps & { contained?: boolean; mediumSize?: boolean }
+>;
 
 export const StyledAccordionSummary = styled(AccordionSummary)<{
   contained?: boolean;
@@ -55,7 +62,13 @@ export const StyledAccordionSummary = styled(AccordionSummary)<{
     flexDirection: "row-reverse",
     gap: "8px",
   }),
-}));
+})) as ComponentType<
+  AccordionSummaryProps & {
+    contained?: boolean;
+    arrowPosition?: "left" | "right";
+    mediumSize?: boolean;
+  }
+>;
 
 export const StyledAccordionDetails = styled(AccordionDetails, {
   shouldForwardProp: (prop) => prop !== "contained",
@@ -64,7 +77,7 @@ export const StyledAccordionDetails = styled(AccordionDetails, {
   ...(contained && {
     padding: "16px",
   }),
-}));
+})) as ComponentType<AccordionDetailsProps & { contained?: boolean }>;
 
 export const StyledBox = styled(Box, {
   shouldForwardProp: (prop) => prop !== "useDotsStyle",
@@ -74,4 +87,4 @@ export const StyledBox = styled(Box, {
     border: "1px dotted #9747FF",
     borderRadius: "2px",
   }),
-}));
+})) as ComponentType<BoxProps & { useDotsStyle?: boolean }>;

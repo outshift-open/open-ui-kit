@@ -18,6 +18,25 @@ const tableComfortCellHeight = 40;
 const tableCompactCellHeight = 32;
 const subTablePadding = 16;
 
+/** Public shape for MRT style helpers (avoids TS2742 / non-portable .d.ts types). */
+export type TableMRTDensityStyles = {
+  columnHeaderStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) => SxProps<Theme>;
+  bodyCellStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) => SxProps<Theme>;
+  tableBottomToolbarStyle: SxProps<Theme>;
+  checkBoxStyle: SxProps<Theme>;
+  expandButtonStyle: SxProps<Theme>;
+  tableDetailsStyle: SxProps<Theme>;
+  tablePaperStyle: SxProps<Theme>;
+  tableContainerStyle: SxProps<Theme>;
+  tableBodyStyle: () => Record<string, SxProps<Theme>>;
+};
+
 const setBorder = (isPinned = true, theme: Theme) =>
   isPinned ? `1px solid ${theme.palette.vars.controlBorderDefault}` : "none";
 
@@ -169,7 +188,7 @@ export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
     };
   },
   ...commonTableStyles(theme),
-});
+})) as (theme: Theme) => TableMRTDensityStyles;
 
 export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
   ...commonTableStyles(theme),
@@ -202,4 +221,4 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
       height: `${tableCompactCellHeight}px`,
     };
   },
-});
+})) as (theme: Theme) => TableMRTDensityStyles;

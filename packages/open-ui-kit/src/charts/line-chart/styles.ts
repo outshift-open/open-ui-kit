@@ -41,5 +41,30 @@ export const tooltipStyles = (theme: Theme): LineChartTooltipStyleSlots => ({
       marginRight: "6px",
       background: categoryColor ?? theme.palette.vars.baseBackgroundMedium,
     },
-  }),
-});
+    title: {
+      marginBottom: "8px",
+    },
+    categoriesContainer: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px",
+    },
+    categoryEntry: (categoryColor?: string) => ({
+      display: "flex",
+      alignItems: "center",
+
+      "&::before": {
+        content: '""',
+        height: "6px",
+        width: "6px",
+        borderRadius: "50%",
+        marginRight: "6px",
+        background: categoryColor ?? theme.palette.vars.baseBackgroundMedium,
+      },
+    }),
+  }) as {
+    mainContainer: SxProps<Theme>;
+    title: SxProps<Theme>;
+    categoriesContainer: SxProps<Theme>;
+    categoryEntry: (categoryColor?: string) => SxProps<Theme>;
+  };

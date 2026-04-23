@@ -5,6 +5,7 @@
  */
 
 import { styled } from "@mui/material";
+import type { ComponentType, HTMLAttributes } from "react";
 
 export const StyledTooltip = styled("div")(({ theme }) => ({
   width: "max-content",
@@ -13,7 +14,7 @@ export const StyledTooltip = styled("div")(({ theme }) => ({
   color: theme.palette.vars.baseTextDefault,
   backgroundColor: theme.palette.background.paper,
   padding: "2px 8px",
-}));
+})) as ComponentType<HTMLAttributes<HTMLDivElement>>;
 
 export const StyledRadarChart = styled("div")({
   width: "100%",
@@ -23,4 +24,4 @@ export const StyledRadarChart = styled("div")({
       strokeWidth: "0 !important",
     },
   },
-});
+}) as ComponentType<HTMLAttributes<HTMLDivElement>>;

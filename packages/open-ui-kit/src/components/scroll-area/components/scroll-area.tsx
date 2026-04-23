@@ -11,20 +11,20 @@ import { ScrollAreaRoot, ScrollAreaViewport } from "./elements";
 const ScrollArea = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof Box>
->(({ className, children, ...props }, ref) => {
-  return (
-    <ScrollAreaRoot
-      ref={ref}
-      data-slot="scroll-area"
-      className={className}
-      {...props}
-    >
-      <ScrollAreaViewport data-slot="scroll-area-viewport">
-        {children}
-      </ScrollAreaViewport>
-    </ScrollAreaRoot>
-  );
-});
+>(({ className, children, ...props }, ref) => (
+  <ScrollAreaRoot
+    ref={ref}
+    data-slot="scroll-area"
+    className={className}
+    {...props}
+  >
+    <ScrollAreaViewport data-slot="scroll-area-viewport">
+      {children}
+    </ScrollAreaViewport>
+  </ScrollAreaRoot>
+)) as React.ForwardRefExoticComponent<
+  React.ComponentProps<typeof Box> & React.RefAttributes<HTMLDivElement>
+>;
 ScrollArea.displayName = "ScrollArea";
 
 export { ScrollArea };

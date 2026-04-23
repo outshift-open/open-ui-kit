@@ -28,11 +28,13 @@ export const StaticDateTimePicker = (
       <MuiStaticDateTimePicker
         views={["year", "month", "day", "hours", "minutes"]}
         {...props}
-        slotProps={{
-          ...getSharedSlotPropsDateTimePicker(theme),
-          toolbar: { sx: getStaticPickerToolbarSlotProp(theme) },
-        }}
-        sx={getSharedStyle(theme)}
+        slotProps={
+          {
+            ...getSharedSlotPropsDateTimePicker(theme),
+            toolbar: { sx: getStaticPickerToolbarSlotProp(theme) },
+          } as StaticDateTimePickerProps<Dayjs>["slotProps"]
+        }
+        sx={getSharedStyle(theme) as StaticDateTimePickerProps<Dayjs>["sx"]}
       />
     </LocalizationProvider>
   );
