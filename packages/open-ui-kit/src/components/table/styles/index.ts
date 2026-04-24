@@ -188,7 +188,7 @@ export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
     };
   },
   ...commonTableStyles(theme),
-})) as (theme: Theme) => TableMRTDensityStyles;
+});
 
 export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
   ...commonTableStyles(theme),
@@ -221,4 +221,4 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
       height: `${tableCompactCellHeight}px`,
     };
   },
-})) as (theme: Theme) => TableMRTDensityStyles;
+});
