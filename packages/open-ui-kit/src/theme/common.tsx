@@ -137,35 +137,7 @@ export const typography: TypographyVariantsOptions = {
 };
 
 export const getInputSharedStyle = (theme: Theme): Components => {
-  const underline = {
-    ...(typography.body2 as object),
-    // border: "1px solid",
-    // borderColor: surface200,
-    // backgroundColor: surface800,
-    // borderRadius: "4px",
-    // "&:not(.Mui-disabled,.Mui-error).Mui-focused": {
-    //   borderColor: primary500,
-    // },
-    // "&:not(.Mui-disabled).Mui-error": {
-    //   borderColor: bordeaux500,
-    // },
-    // "&&:not(.Mui-error)::before": {
-    //   borderBottom: "none",
-    // },
-    // "&&.Mui-error::before": {
-    //   borderColor: bordeaux500,
-    //   borderBottom: "none",
-    // },
-    // "&:hover:not(.Mui-disabled,.Mui-error,.Mui-focused)": {
-    //   borderColor: grey400,
-    // },
-    // "&:hover:.Mui-error:before": {
-    //   borderBottom: "none",
-    // },
-    // "&::after": {
-    //   borderBottom: "none",
-    // },
-  };
+  const underline = { ...(typography.body2 as object) };
 
   return {
     MuiInput: {
@@ -195,134 +167,15 @@ export const getInputSharedStyle = (theme: Theme): Components => {
         underline,
       },
     },
-    MuiInputLabel: {
-      // styleOverrides: {
-      //   root: {
-      //     ...typography.subtitle2,
-      //     paddingLeft: "1px",
-      //     color: grey50,
-      //     transform: "translate(0, -1.5px) scale(1)",
-      //     "&.Mui-focused": {
-      //       color: grey50,
-      //     },
-      //     "&.Mui-disabled": {
-      //       color: theme.palette.text.disabled,
-      //     },
-      //     "&:not(.Mui-disabled).Mui-error": {
-      //       color: grey50,
-      //     },
-      //   },
-      // },
-      // defaultProps: {
-      //   shrink: true,
-      // },
-    },
-    MuiFormHelperText: {
-      // styleOverrides: {
-      //   root: {
-      //     color: grey200,
-      //     paddingLeft: "1px",
-      //     marginTop: "4px",
-      //     "&.Mui-disabled": {
-      //       color: grey300,
-      //     },
-      //     "&:not(.Mui-disabled).Mui-error": {
-      //       color: bordeaux500_Text,
-      //     },
-      //   },
-      // },
-    },
-    MuiFilledInput: {
-      // styleOverrides: {
-      //   underline,
-      //   root: {
-      //     "&:hover:not(.Mui-disabled, .Mui-error)": {
-      //       backgroundColor: surface800,
-      //     },
-      //   },
-      //   input: {
-      //     borderRadius: "4px",
-      //   },
-      // },
-    },
-    MuiOutlinedInput: {
-      // styleOverrides: {
-      //   root: {
-      //     "&:not(.Mui-disabled).Mui-error .MuiOutlinedInput-notchedOutline": {
-      //       borderColor: bordeaux500,
-      //     },
-      //   },
-      //   notchedOutline: {
-      //     legend: {
-      //       maxWidth: "100%",
-      //     },
-      //   },
-      // },
-    },
-    MuiTextField: {
-      // styleOverrides: {
-      //   root: {
-      //     "& .MuiInputLabel-outlined": {
-      //       transform: "translate(12px, -9px) scale(1)",
-      //     },
-      //     "& .MuiInputLabel-filled": {
-      //       transform: "translate(12px, 3px) scale(1)",
-      //     },
-      //   },
-      // },
-    },
+    MuiInputLabel: {},
+    MuiFormHelperText: {},
+    MuiFilledInput: {},
+    MuiOutlinedInput: {},
+    MuiTextField: {},
     MuiAutocomplete: {
       defaultProps: {
         popupIcon: <KeyboardArrowUp />,
       },
-      // styleOverrides: {
-      //   popper: {
-      //     "& .MuiAutocomplete-listbox": {
-      //       fontSize: "14px",
-      //     },
-      //   },
-      //   root: {
-      //     "& .MuiInputBase-root.MuiAutocomplete-inputRoot": {
-      //       marginTop: "28px",
-      //       fontSize: "14px",
-      //       paddingTop: "8px",
-      //       paddingBottom: "8px",
-      //       paddingLeft: "16px",
-      //       backgroundColor: surface800,
-
-      //       "&.MuiInputBase-sizeSmall": {
-      //         paddingTop: "4px",
-      //         paddingBottom: "4px",
-      //       },
-
-      //       "& .MuiInputBase-input.MuiAutocomplete-input": {
-      //         padding: "2px 0",
-      //       },
-      //     },
-      //     "& .MuiTextField-root": {
-      //       "& .MuiInputLabel-root": {
-      //         transform: "translate(0, -1.5px) scale(1)",
-      //       },
-      //     },
-      //     "& .MuiOutlinedInput-notchedOutline": {
-      //       borderColor: surface200,
-      //       legend: {
-      //         width: "0px",
-      //       },
-      //     },
-      //     "& .MuiIconButton-root": {
-      //       color: grey200,
-      //       transform: "rotate(180deg)",
-      //       "&.MuiAutocomplete-popupIndicatorOpen": {
-      //         transform: "rotate(0deg)",
-      //       },
-      //     },
-      //     "&:hover:not(.Mui-disabled, .Mui-error, .Mui-focused) .MuiOutlinedInput-notchedOutline":
-      //       {
-      //         borderColor: `${grey400} !important`,
-      //       },
-      //   },
-      // },
     },
     MuiPaper: {
       styleOverrides: {
@@ -353,35 +206,6 @@ export const listItemCommonStyles = (theme: Theme) => {
   return {
     ...(typography.body1 as object),
     color: theme.palette.grey[50],
-    // backgroundColor: "inherit",
-    // minHeight: "40px",
-    // alignItems: "center",
-    // "&.MuiListItem-dense, &.MuiListItemButton-dense": {
-    //   ...(typography.body2 as object),
-    //   minHeight: "36px",
-    // },
-    // "&.Mui-selected": {
-    //   backgroundColor: PA_Colors.surface[500],
-    //   color: theme.palette.primary.main,
-
-    //   "&:hover": {
-    //     backgroundColor: PA_Colors.surface.A400,
-    //     color: theme.palette.primary.main,
-    //   },
-    // },
-    // "&:hover": {
-    //   backgroundColor: PA_Colors.surface.A400,
-    //   color: theme.palette.primary.main,
-    // },
-    // "&:focus, &:focus-visible, &.Mui-focusVisible": {
-    //   backgroundColor: PA_Colors.surface.A200,
-    //   color: theme.palette.primary.main,
-    // },
-
-    // "&.Mui-disabled": {
-    //   color: theme.palette.grey[200],
-    //   backgroundColor: PA_Colors.surface[500],
-    // },
   };
 };
 
