@@ -62,9 +62,9 @@ export const tooltipStyles = (theme: Theme): LineChartTooltipStyleSlots => ({
         background: categoryColor ?? theme.palette.vars.baseBackgroundMedium,
       },
     }),
-  }) as {
+  } as {
     mainContainer: SxProps<Theme>;
     title: SxProps<Theme>;
     categoriesContainer: SxProps<Theme>;
     categoryEntry: (categoryColor?: string) => SxProps<Theme>;
-  };
+  });
