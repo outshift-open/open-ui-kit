@@ -35,7 +35,10 @@ import {
   type TableDensityStyles,
 } from "../styles";
 import { Box, PaginationItem, SvgIconProps, useTheme } from "@mui/material";
-import { EmptyState, Link, OverflowTooltip, TooltipSize } from "@/components";
+import { EmptyState } from "@/components/empty-state";
+import { Link } from "@/components/link";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { TooltipSize } from "@/components/tooltip";
 import { withHeaderHelpTooltips } from "../utils/helpers";
 
 /**

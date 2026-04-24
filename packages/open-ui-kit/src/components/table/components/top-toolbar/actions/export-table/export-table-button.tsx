@@ -15,7 +15,7 @@ import { type MRT_RowData, type MRT_TableInstance } from "material-react-table";
 
 import ExportTableMenu from "./export-table-menu";
 import { DownloadOutline } from "@/custom-icons";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 import {
   DOWNLOAD_ERROR_DEFAULT_MESSAGE,
   DOWNLOAD_SUCCESS_DEFAULT_MESSAGE,

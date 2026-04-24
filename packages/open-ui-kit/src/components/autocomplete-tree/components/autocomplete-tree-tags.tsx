@@ -10,7 +10,8 @@ import { formatNodeValue } from "@/common";
 import { AugmentedSelectNodeType } from "@/types";
 import { chip, overflowTooltipPopperStyle } from "../styles";
 import { Chip, Stack, Typography } from "@mui/material";
-import { OverflowTooltip, Tooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { Tooltip } from "@/components/tooltip";
 
 interface AutocompleteTreeTagsProps {
   selectedValues: AugmentedSelectNodeType[];

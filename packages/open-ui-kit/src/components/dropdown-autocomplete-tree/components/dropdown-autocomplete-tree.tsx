@@ -8,11 +8,9 @@ import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { ReactNode, useRef, useState } from "react";
 import { AugmentedSelectNodeType } from "@/types";
 import { isLeaf } from "@/common";
-import {
-  DropdownAutocompleteTreeListbox,
-  SelectNode,
-  SelectNodeListItem,
-} from "..";
+import { DropdownAutocompleteTreeListbox } from "./dropdown-autocomplete-tree-listbox";
+import { SelectNode } from "./select-node";
+import { SelectNodeListItem } from "./select-node-list-item";
 import {
   Box,
   Button,

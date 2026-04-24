@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ILegendProps, TooltipProps } from "@/components";
+import type { ILegendProps } from "@/components/legend";
+import type { TooltipProps } from "@/components/tooltip";
 import { Card, SxProps, useTheme } from "@mui/material";
 import { styles } from "../styles/styles";
 import { WidgetHeadline } from "./widget-headline";

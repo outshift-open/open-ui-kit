@@ -7,7 +7,7 @@
 import { type MouseEvent, useState } from "react";
 import IconButton, { type IconButtonProps } from "@mui/material/IconButton";
 import { type MRT_RowData, type MRT_TableInstance } from "material-react-table";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 import { ShowHideColumnsMenu } from "./arrange-columns-menu";
 
 interface Props<TData extends MRT_RowData> extends IconButtonProps {
