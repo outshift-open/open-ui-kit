@@ -64,7 +64,7 @@ export const getSharedStyle = (theme: Theme): CSSObject => {
       {
         backgroundColor: `${theme.palette.vars.baseBackgroundHover} !important`,
       },
-  } as SxProps<Theme>);
+  }) as SxProps<Theme>;
 
 export const getStaticPickerToolbarSlotProp = (theme: Theme) =>
   ({
@@ -75,7 +75,7 @@ export const getStaticPickerToolbarSlotProp = (theme: Theme) =>
     "& .MuiTypography-root:not([data-selected])": {
       color: theme.palette.vars.interactiveTextInDefault,
     },
-  } as SxProps<Theme>);
+  }) as SxProps<Theme>;
 
 export const getSharedSlotPropsDateTimePicker = (theme: Theme): CSSObject => {
   return {
@@ -128,7 +128,7 @@ export const getSharedSlotPropsDateTimePicker = (theme: Theme): CSSObject => {
     desktopPaper: {
       sx: getSharedStyle(theme),
     },
-  } as DateTimePickerSharedSlotProps);
+  }) as DateTimePickerSharedSlotProps;
 
 export const getDateRangePickerStyles = (theme: Theme) => {
   const weekDayStyle = {
