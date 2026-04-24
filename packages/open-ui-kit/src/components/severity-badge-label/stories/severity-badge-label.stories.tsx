@@ -7,7 +7,8 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Severity } from "@/common";
-import { SeverityBadgeLabel, SeverityBadgeScoreSystemItem } from "@/components";
+import type { SeverityBadgeScoreSystemItem } from "@/components/severity-badge";
+import { SeverityBadgeLabel } from "@/components/severity-badge-label";
 
 /**
  *  ### A color indicator severity badge with label. Either works with Severity types or with a value score system.

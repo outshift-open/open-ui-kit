@@ -26,7 +26,8 @@ import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";
 import { mainTableMockData, subTableMockData } from "../utils/mock-data";
-import { MenuItem, PathDisplay } from "@/components";
+import { MenuItem } from "@/components/menu";
+import { PathDisplay } from "@/components/path-display";
 
 faker.seed(42);
 
