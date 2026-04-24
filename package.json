@@ -60,8 +60,14 @@
     "{packages/**/*,playground/**/*,scripts/**/*}.{ts,tsx,js,jsx,css,html}": [
       "yarn workspace @open-ui-kit/scripts license:check"
     ],
-    "packages/open-ui-kit/**/*.{ts,tsx}": [
+    "packages/open-ui-kit/src/**/*.{ts,tsx}": [
       "eslint --max-warnings=0 --fix --config packages/open-ui-kit/.eslintrc.cjs --resolve-plugins-relative-to packages/open-ui-kit"
+    ],
+    "packages/open-ui-kit/*.{ts,tsx}": [
+      "eslint --max-warnings=0 --fix --config packages/open-ui-kit/.eslintrc.cjs --resolve-plugins-relative-to packages/open-ui-kit"
+    ],
+    "packages/open-ui-kit/.storybook/**/*.{ts,tsx}": [
+      "yarn workspace @open-ui-kit/core exec eslint --max-warnings=0 --fix \".storybook/**/*.{ts,tsx}\""
     ],
     "**/*.{ts,tsx,js,md,mdx}": [
       "prettier --write"
