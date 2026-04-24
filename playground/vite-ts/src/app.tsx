@@ -47,14 +47,6 @@ function AppContent() {
         }
         label="Dark Mode"
       />
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        marginTop={6}
-      >
-        {/* <img src={isDarkMode ? logoWhite : logo} alt="logo" width={200} /> */}
-      </Box>
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
           Open UI Kit Vite.js example in TypeScript
