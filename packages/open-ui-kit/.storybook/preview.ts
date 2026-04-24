@@ -6,7 +6,6 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { mockDateDecorator } from "./mock-date-decorator";
 import { withScreenshot } from "@prantlf/storycap";
 import { darkTheme } from "../src/theme/dark/dark-theme";
-import { lightTheme } from "../src/theme/light/light-theme";
 
 const muiThemeDecorator = withThemeFromJSXProvider({
   Provider: ThemeProvider,

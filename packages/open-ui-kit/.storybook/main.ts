@@ -58,7 +58,6 @@ const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "./stories",
   ],
 
   addons: [
@@ -66,9 +65,10 @@ const config: StorybookConfig = {
     getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-vitest"),
   ],
+  framework: getAbsolutePath("@storybook/react-vite"),
+  ],
 
   framework: getAbsolutePath("@storybook/react-vite"),
-
   typescript: {
     check: true,
     reactDocgen: "react-docgen-typescript",
