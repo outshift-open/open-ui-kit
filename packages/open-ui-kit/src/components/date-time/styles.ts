@@ -4,11 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Theme } from "@mui/material/styles";
-import type { CSSObject } from "@mui/system";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const getSharedStyle = (theme: Theme): CSSObject => {
-  return {
+export type DateTimePickerSharedSlotProps = {
+  leftArrowIcon: { sx: SxProps<Theme> };
+  rightArrowIcon: { sx: SxProps<Theme> };
+  calendarHeader: { sx: SxProps<Theme> };
+  switchViewIcon: { sx: SxProps<Theme> };
+  day: { sx: SxProps<Theme> };
+  actionBar: { sx: SxProps<Theme> };
+  desktopPaper: { sx: SxProps<Theme> };
+};
+
+export const getSharedStyle = (theme: Theme) =>
+  ({
     border: `2px solid ${theme.palette.vars.controlBorderActive}`,
     padding: "0 0 16px 0",
 
@@ -77,8 +86,8 @@ export const getStaticPickerToolbarSlotProp = (theme: Theme) =>
     },
   }) as SxProps<Theme>;
 
-export const getSharedSlotPropsDateTimePicker = (theme: Theme): CSSObject => {
-  return {
+export const getSharedSlotPropsDateTimePicker = (theme: Theme) =>
+  ({
     leftArrowIcon: {
       sx: {
         color: theme.palette.vars.interactiveSecondaryDefaultDefault,

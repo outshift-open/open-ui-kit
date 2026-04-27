@@ -58,14 +58,17 @@ const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "./stories",
   ],
 
   addons: [
     getAbsolutePath("@storybook/addon-themes"),
     getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-vitest"),
-  ],
-  framework: getAbsolutePath("@storybook/react-vite"),
+    // Bare package name: Storybook resolves `join(spec, "manager"|"preview")`. An absolute
+    // directory from getAbsolutePath() becomes `.../storycap/manager`, which bypasses "exports"
+    // and does not exist on disk. The specifier `@prantlf/storycap/manager` resolves correctly.
+    "@prantlf/storycap",
   ],
 
   framework: getAbsolutePath("@storybook/react-vite"),

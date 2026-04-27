@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { CSSObject } from "@mui/system";
-import type { Theme } from "@mui/material/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { isOuterPinnedColumn } from "../utils/helpers";
 import {
   MRT_Column,
@@ -17,25 +16,6 @@ const tableBorderRadius = 8;
 const tableComfortCellHeight = 40;
 const tableCompactCellHeight = 32;
 const subTablePadding = 16;
-
-/** Public shape for MRT style helpers (avoids TS2742 / non-portable .d.ts types). */
-export type TableMRTDensityStyles = {
-  columnHeaderStyle: <TData extends MRT_RowData>(
-    column: MRT_Column<TData>,
-    table: MRT_TableInstance<TData>,
-  ) => SxProps<Theme>;
-  bodyCellStyle: <TData extends MRT_RowData>(
-    column: MRT_Column<TData>,
-    table: MRT_TableInstance<TData>,
-  ) => SxProps<Theme>;
-  tableBottomToolbarStyle: SxProps<Theme>;
-  checkBoxStyle: SxProps<Theme>;
-  expandButtonStyle: SxProps<Theme>;
-  tableDetailsStyle: SxProps<Theme>;
-  tablePaperStyle: SxProps<Theme>;
-  tableContainerStyle: SxProps<Theme>;
-  tableBodyStyle: () => Record<string, SxProps<Theme>>;
-};
 
 const setBorder = (isPinned = true, theme: Theme) =>
   isPinned ? `1px solid ${theme.palette.vars.controlBorderDefault}` : "none";
@@ -130,7 +110,7 @@ const commonTableStyles = (theme: Theme) => ({
   tableBodyStyle: () => {
     const notSelectedOrPinned = `tr:not([data-selected="true"]):not([column-pinned="true"]):not([data-pinned="true"]):not(.Mui-TableBodyCell-DetailPanel)`;
 
-    const styles: CSSObject = {
+    return {
       // Row backgroundColor when it is hovered, not selected, and not pinned.
       [`& ${notSelectedOrPinned}:hover > td`]: {
         backgroundColor: theme.palette.vars.controlBackgroundMedium,
@@ -140,53 +120,50 @@ const commonTableStyles = (theme: Theme) => ({
         {
           backgroundColor: theme.palette.vars.controlBackgroundWeak,
         },
-    };
-
-    return styles;
+    } as SxProps<Theme>;
   },
 });
 
+/** Public shape for MRT style helpers (`sx` uses `SxProps<Theme>`, not Emotion `CSSObject`). */
 export type TableDensityStyles = {
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => CSSObject;
+  ) => SxProps<Theme>;
   bodyCellStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => CSSObject;
-  tableBottomToolbarStyle: CSSObject;
-  checkBoxStyle: CSSObject;
-  expandButtonStyle: CSSObject;
-  tableDetailsStyle: CSSObject;
-  tablePaperStyle: CSSObject;
-  tableContainerStyle: CSSObject;
-  tableBodyStyle: () => CSSObject;
+  ) => SxProps<Theme>;
+  tableBottomToolbarStyle: SxProps<Theme>;
+  checkBoxStyle: SxProps<Theme>;
+  expandButtonStyle: SxProps<Theme>;
+  tableDetailsStyle: SxProps<Theme>;
+  tablePaperStyle: SxProps<Theme>;
+  tableContainerStyle: SxProps<Theme>;
+  tableBodyStyle: () => SxProps<Theme>;
 };
 
 export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle1,
       fontWeight: 600,
       height: `${tableComfortCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   bodyCellStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...theme.typography.body1,
       height: `${tableComfortCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   ...commonTableStyles(theme),
 });
 
@@ -195,8 +172,8 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle2,
@@ -204,13 +181,12 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
       paddingTop: "6px",
       paddingBottom: "6px",
       height: `${tableCompactCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   bodyCellStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...theme.typography.body2,
       "&:has(.MuiCollapse-root)": {
@@ -219,6 +195,5 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
       alignItems: "center",
       alignSelf: "stretch",
       height: `${tableCompactCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
 });
