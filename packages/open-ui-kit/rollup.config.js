@@ -198,6 +198,14 @@ export default [
     external: [/\.css$/],
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [
+      alias({
+        entries: [
+          {
+            find: /^@\//,
+            replacement: `${path.resolve(__dirname, "dist/types")}${path.sep}`,
+          },
+        ],
+      }),
       dts.default(),
       del.default({
         hook: "buildEnd",

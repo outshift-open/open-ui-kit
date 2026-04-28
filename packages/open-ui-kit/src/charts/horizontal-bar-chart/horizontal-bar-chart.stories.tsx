@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { HorizontalBarChart } from "./horizontal-bar-chart";
-import { ChartDataItem } from "@/charts";
+import { ChartDataItem } from "../common/types";
 import {
   AWSCloudFormation,
   Ansible,

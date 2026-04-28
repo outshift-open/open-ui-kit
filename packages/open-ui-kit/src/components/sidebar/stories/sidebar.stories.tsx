@@ -11,7 +11,14 @@ import { action } from "storybook/actions";
 import { SidebarItem } from "../types/sidebar.types";
 import { Sidebar } from "../components/sidebar";
 import React from "react";
-import { Icons } from "@/index";
+import {
+  Dashboard1,
+  Folder,
+  GCPServicesProject,
+  KeyboardArrowRight,
+  KubernetesIcon,
+  Settings,
+} from "@/custom-icons";
 
 const SideBarItemSample = (props: SidebarItem) => {
   const [open, setIsOpen] = React.useState(false);
@@ -30,7 +37,7 @@ const SideBarItemSample = (props: SidebarItem) => {
       }}
     >
       <Stack direction="row" width="100%" alignItems="center">
-        <ListItemIcon>{<Icons.KubernetesIcon />}</ListItemIcon>
+        <ListItemIcon>{<KubernetesIcon />}</ListItemIcon>
         <ListItemText
           primary={
             <Typography
@@ -47,7 +54,7 @@ const SideBarItemSample = (props: SidebarItem) => {
           }}
         />
 
-        <Icons.KeyboardArrowRight
+        <KeyboardArrowRight
           sx={{
             visibility: props.iconOnly || open ? "hidden" : "visible",
           }}
@@ -61,21 +68,21 @@ const sampleSidebarItems: Array<SidebarItem | React.ReactElement> = [
   {
     id: "dashboard",
     tooltip: "Dashboard",
-    icon: <Icons.Dashboard1 />,
+    icon: <Dashboard1 />,
     onClick: action("Dashboard clicked!"),
     "aria-label": "Go to Dashboard",
   },
   {
     id: "projects",
     tooltip: "Projects",
-    icon: <Icons.GCPServicesProject />,
+    icon: <GCPServicesProject />,
     href: "/projects",
     "aria-label": "View Projects",
   },
   {
     id: "documentation",
     tooltip: "Documentation",
-    icon: <Icons.Folder />,
+    icon: <Folder />,
     href: "https://mui.com",
     target: "_blank", // Test external link
     "aria-label": "Open Documentation in new tab",
@@ -83,7 +90,7 @@ const sampleSidebarItems: Array<SidebarItem | React.ReactElement> = [
   {
     id: "settings",
     tooltip: "Settings",
-    icon: <Icons.Settings />,
+    icon: <Settings />,
     onClick: action("Settings clicked!"),
     "aria-label": "Open Settings",
   },

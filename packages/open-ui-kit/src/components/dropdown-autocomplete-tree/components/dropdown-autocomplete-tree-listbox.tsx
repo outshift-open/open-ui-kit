@@ -7,8 +7,10 @@
 import React from "react";
 import { Stack, useTheme } from "@mui/material";
 import { Virtuoso } from "react-virtuoso";
-import { EmptyState, SearchField } from "@/components";
-import { SelectNode, SelectNodeListItem } from "..";
+import { EmptyState } from "@/components/empty-state";
+import { SearchField } from "@/components/search-field";
+import { SelectNode } from "./select-node";
+import { SelectNodeListItem } from "./select-node-list-item";
 import { defaultPopperContentStyle } from "../styles/styles";
 import { AugmentedSelectNodeType } from "@/types";
 import { buildNodeLabelElement } from "../utils/utils";

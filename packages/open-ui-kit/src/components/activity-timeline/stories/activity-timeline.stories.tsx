@@ -4,7 +4,7 @@ import { ActivityTimelineStepStatus } from "../types";
 import { Alert, Box, Stack, Typography } from "@mui/material";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Spinner, Tag, TagBackgroundColorVariants } from "@/components";
+import { Spinner, Tag, TagBackgroundColorVariants } from "../../";
 
 const meta: Meta<typeof ActivityTimeline> = {
   title: "Components/ActivityTimeline",

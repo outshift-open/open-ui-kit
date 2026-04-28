@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { styled } from "@mui/material";
-import { Pagination } from "@mui/material";
+import { styled, Pagination, type PaginationProps } from "@mui/material";
+import type { ComponentType } from "react";
 
 export const SytledPagination = styled(Pagination)(({ theme, variant }) => ({
   "& .MuiPaginationItem-root": {
@@ -36,4 +36,4 @@ export const SytledPagination = styled(Pagination)(({ theme, variant }) => ({
       },
     },
   }),
-}));
+})) as ComponentType<PaginationProps>;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { OverflowTooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { SelectNodeType } from "@/types";
 
 interface TagLabelProps {

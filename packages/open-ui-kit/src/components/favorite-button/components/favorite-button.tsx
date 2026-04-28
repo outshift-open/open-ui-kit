@@ -7,7 +7,7 @@
 import { Button, type ButtonProps } from "@mui/material";
 import { styledButton, styledStarIcon } from "../styles/styles";
 import { Star, StarOutline } from "@/custom-icons";
-import { Tooltip, TooltipProps, TooltipSize } from "@/components";
+import { Tooltip, TooltipSize, type TooltipProps } from "@/components/tooltip";
 
 export type FavoriteButtonProps = {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;

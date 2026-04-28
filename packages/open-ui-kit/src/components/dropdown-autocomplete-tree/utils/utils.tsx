@@ -5,7 +5,7 @@
  */
 
 import { Theme, Typography } from "@mui/material";
-import { OverflowTooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { AugmentedSelectNodeType } from "@/types";
 import { ellipsisStyle, formatNodeValue } from "@/common";
 import {

@@ -7,7 +7,7 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { ArrowForwardIcon, InfoCircleOutline } from "@/custom-icons";
-import { Tooltip, TooltipProps, TooltipSize } from "@/components";
+import { Tooltip, TooltipProps, TooltipSize } from "@/components/tooltip";
 import { styles } from "../styles/styles";
 
 export interface IWidgetHeadlineTitleProps {

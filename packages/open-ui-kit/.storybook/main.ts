@@ -65,10 +65,13 @@ const config: StorybookConfig = {
     getAbsolutePath("@storybook/addon-themes"),
     getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-vitest"),
+    // Bare package name: Storybook resolves `join(spec, "manager"|"preview")`. An absolute
+    // directory from getAbsolutePath() becomes `.../storycap/manager`, which bypasses "exports"
+    // and does not exist on disk. The specifier `@prantlf/storycap/manager` resolves correctly.
+    "@prantlf/storycap",
   ],
 
   framework: getAbsolutePath("@storybook/react-vite"),
-
   typescript: {
     check: true,
     reactDocgen: "react-docgen-typescript",

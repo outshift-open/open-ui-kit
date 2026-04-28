@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { GradientsPalette } from "@/types/palette";
+import type { GradientsPalette } from "../types/palette";
 
 export const gradientsIllustrationsBlue =
   "linear-gradient(79.41deg, #214694 0%, #3169a8 50%, #56bad5 100%)";

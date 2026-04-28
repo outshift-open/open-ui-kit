@@ -17,7 +17,7 @@ import { ActivityTimelineStep, ActivityTimelineStepStatus } from "../types";
 import { setStepColor } from "../utils/utils";
 import { useCallback } from "react";
 import { Typography, useTheme } from "@mui/material";
-import { Accordion } from "@/components";
+import { Accordion } from "@/components/accordion";
 
 export interface ActivityTimelineProps
   extends Omit<MuiTimelineProps, "children" | "ref"> {

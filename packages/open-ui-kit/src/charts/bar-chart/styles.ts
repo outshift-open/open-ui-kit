@@ -4,21 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Theme } from "@mui/material/styles";
-import type { CSSObject } from "@mui/system";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const styles = (
-  theme: Theme,
-): {
-  tooltip: CSSObject;
-  tooltipTypography: CSSObject;
-} => ({
-  tooltip: {
-    backgroundColor: theme.palette.vars.baseBackgroundMedium,
-    padding: "2px 8px",
-    borderRadius: "4px",
-  },
-  tooltipTypography: {
-    ...theme.typography.body2,
-  },
-});
+export const styles = (theme: Theme) =>
+  ({
+    tooltip: {
+      backgroundColor: theme.palette.vars.baseBackgroundMedium,
+      padding: "2px 8px",
+      borderRadius: "4px",
+    },
+    tooltipTypography: {
+      ...theme.typography.body2,
+    },
+  }) as {
+    tooltip: SxProps<Theme>;
+    tooltipTypography: SxProps<Theme>;
+  };

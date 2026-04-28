@@ -26,7 +26,6 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      //"storybook/components/*": [".storybook/components/*"]
       "storybook/*": ["./.storybook/*"]
     },
     "allowJs": true

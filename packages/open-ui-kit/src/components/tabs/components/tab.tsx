@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/spinner";
 import { TabProps as MuiTabProps, Tab as MuiTab } from "@mui/material";
 
 export const Tab = ({ loading, ...props }: MuiTabProps) => {

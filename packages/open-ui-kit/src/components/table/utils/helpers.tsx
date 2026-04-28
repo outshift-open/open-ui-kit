@@ -11,7 +11,7 @@ import {
   MRT_TableInstance,
 } from "material-react-table";
 import { Box, IconButton, Stack } from "@mui/material";
-import { Tooltip, TooltipSize } from "@/components";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
 import { InfoCircleOutline } from "@/custom-icons";
 import { HeaderTooltipMeta } from "../types";
 

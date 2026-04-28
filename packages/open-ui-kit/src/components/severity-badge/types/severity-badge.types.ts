@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IndicatorBadgeProps } from "@/components";
+import type { IndicatorBadgeProps } from "@/components/indicator-badge";
 import { Severity } from "@/common";
 
 export interface SeverityBadgeProps {

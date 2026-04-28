@@ -7,7 +7,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { styles } from "../styles";
-import { Link, LinkProps } from "@/components";
+import { Link, LinkProps } from "@/components/link";
 import { GeneralSize } from "@/common";
 import { Link as RouterLink } from "react-router-dom";
 

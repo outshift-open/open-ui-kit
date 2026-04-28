@@ -19,7 +19,7 @@ import {
   Theme,
   Tooltip,
 } from "@mui/material";
-import { Icons } from "@/index";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@/custom-icons";
 import { SidebarItem, SidebarProps } from "../types/sidebar.types";
 
 // Mixin for the opened state of the drawer
@@ -170,7 +170,7 @@ export const Sidebar = ({
         variant="outlined"
         onClick={handleToggle}
       >
-        {isOpen ? <Icons.KeyboardArrowLeft /> : <Icons.KeyboardArrowRight />}
+        {isOpen ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </Button>
     </StyledDrawer>
   );

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { styles } from "./styles";
 import { FilterOptionData } from "../../types/types";
-import { OverflowTooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
 
 export interface FilterOptionProps {
   option: FilterOptionData;

@@ -200,7 +200,12 @@ export const DateRangePicker = ({
           horizontal: "left",
         }}
         {...popoverProps}
-        sx={{ ...getDateRangePickerStyles(theme).popover, ...popoverProps?.sx }}
+        sx={
+          {
+            ...getDateRangePickerStyles(theme).popover,
+            ...popoverProps?.sx,
+          } as PopoverProps["sx"]
+        }
       >
         <Stack direction={"column"} gap={"12px"}>
           <Stack

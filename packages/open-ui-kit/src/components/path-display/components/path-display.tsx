@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Tooltip, TooltipSize } from "@/components";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
 import {
   TooltipProps,
   tooltipSlotProps,

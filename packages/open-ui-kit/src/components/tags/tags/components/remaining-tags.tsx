@@ -7,7 +7,7 @@
 import { AugmentedSelectNodeType } from "@/types";
 import { formatNodeValue } from "@/common";
 import { Typography } from "@mui/material";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 
 export const RemainingTags = ({
   tags,

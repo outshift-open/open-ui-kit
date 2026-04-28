@@ -14,7 +14,7 @@ import {
   styled,
 } from "@mui/material";
 import { HeaderAction, HeaderProps } from "../types";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 import { CustomSearchField } from "./custom-search-field";
 
 const StyledToolbar = styled(Toolbar)({

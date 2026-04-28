@@ -11,7 +11,7 @@ import { DonutChart } from "../donut-chart/donut-chart";
 import { GaugeChart } from "../gauge-chart/gauge-chart";
 import { LineChart } from "../line-chart/line-chart";
 import { BarGraph } from "../bar-graph/bar-graph";
-import { ChartProps, ChartType } from "./types";
+import { ChartType, type ChartProps } from "./types";
 
 export const ChartTypeComponents: {
   [key: string]: ComponentType<ChartProps>;

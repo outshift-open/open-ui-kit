@@ -16,8 +16,15 @@ export * from "./common";
 export * from "./common/utils";
 export { OS_LIGHT_COLORS } from "./theme/color-palette";
 export { gradientsPalette } from "./theme/gradients";
-export { ThemeProvider } from "./theme-provider/theme-provider";
+export {
+  ThemeProvider,
+  useTheme,
+  useThemeMode,
+} from "./theme-provider/theme-provider";
 
 export type { GradientsPalette, Gradient } from "./types/palette";
-export type { ThemeProviderProps } from "./theme-provider/theme-provider";
+export type {
+  ThemeModeContextValue,
+  ThemeProviderProps,
+} from "./theme-provider/theme-provider";
 export * from "./types/select-tree";

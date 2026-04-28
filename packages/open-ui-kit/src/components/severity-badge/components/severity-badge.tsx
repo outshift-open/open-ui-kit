@@ -10,7 +10,7 @@ import {
   getIndicatorBadgeConfigurationByScoreSystem,
 } from "../utils/severity-badge.utils";
 import { SeverityBadgeProps } from "../types/severity-badge.types";
-import { IndicatorBadge } from "@/components";
+import { IndicatorBadge } from "@/components/indicator-badge";
 
 export const SeverityBadge = ({
   severity,

@@ -4,7 +4,7 @@ import { BarGraph } from "./bar-graph";
 import { Stack, Typography } from "@mui/material";
 
 import { AWSServicesCloudWatch } from "@/custom-icons";
-import { OverflowTooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { PropsWithChildren } from "react";
 
 /**

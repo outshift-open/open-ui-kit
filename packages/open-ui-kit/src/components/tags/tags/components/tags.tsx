@@ -8,7 +8,9 @@ import { Stack } from "@mui/material";
 import { AugmentedSelectNodeType, SelectNodeType } from "@/types";
 import { formatNodeValue, GeneralSize } from "@/common";
 import TagLabel from "./tag-label";
-import { OverflowTooltip, Tag, Tooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { Tag } from "@/components/tags/tag";
+import { Tooltip } from "@/components/tooltip";
 import { RemainingTags } from "./remaining-tags";
 
 interface SkillTagsProps {

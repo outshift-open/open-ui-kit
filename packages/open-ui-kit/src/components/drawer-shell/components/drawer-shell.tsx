@@ -22,7 +22,7 @@ import DrawerShellFooter, {
   DrawerShellFooterProps,
 } from "./drawer-shell-footer";
 import { EMPTY_FUNCTION } from "@/common";
-import { LoadingErrorState } from "@/components";
+import { LoadingErrorState } from "@/components/loading-error-state";
 
 export interface DrawerShellProps
   extends Omit<MuiDrawerProps, "onClose">,

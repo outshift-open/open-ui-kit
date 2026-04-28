@@ -34,14 +34,11 @@ import {
   CloseLarge,
   OpenInNewTab,
 } from "@/custom-icons";
-import {
-  CopyButton,
-  FavoriteButton,
-  OverflowTooltip,
-  SeverityBar,
-  Tooltip,
-  TooltipSize,
-} from "@/components";
+import { CopyButton } from "@/components/copy-button";
+import { FavoriteButton } from "@/components/favorite-button";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { SeverityBar } from "@/components/severity-bar";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
 
 export interface DrawerShellHeaderProps {
   titleText?: string;

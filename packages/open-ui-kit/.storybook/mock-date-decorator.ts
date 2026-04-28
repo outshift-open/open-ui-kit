@@ -1,13 +1,13 @@
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 import MockDate from "mockdate";
 
 /**
- * Mirrors storybook-mock-date-decorator: set `parameters.date` to a `Date` on a story to freeze time.
- * Inlined so we do not depend on a package whose peer range is Storybook 9-only.
+ * When a story sets `parameters.date` to a `Date`, `Date` in the preview matches
+ * that instant (same behavior as storybook-mock-date-decorator, without legacy peers).
  */
 export const mockDateDecorator: Decorator = (Story, context) => {
   MockDate.reset();
-  const date = context.parameters?.date;
+  const date = context.parameters.date;
   if (date instanceof Date) {
     MockDate.set(date);
   }

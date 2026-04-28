@@ -5,7 +5,7 @@
  */
 
 import { CardContent, Skeleton, Stack, useTheme } from "@mui/material";
-import { ILegendProps } from "@/components";
+import type { ILegendProps } from "@/components/legend";
 import { WidgetBodyStateful } from "./widget-body-stateful";
 import { styles } from "../styles/styles";
 

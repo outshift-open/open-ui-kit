@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Alert, styled, Theme } from "@mui/material";
+import { Alert, styled, Theme, type AlertProps } from "@mui/material";
+import type { ComponentType } from "react";
 import { StatusBanner } from "../types";
 import {
   CheckCircleOutline,
@@ -127,7 +128,7 @@ export const StyledBanner = styled(Alert, {
     padding: 0,
   },
   ...(status && getStyleByStatus(status, theme)),
-}));
+})) as ComponentType<AlertProps & { status?: StatusBanner }>;
 
 export const IconBanner = ({ status }: { status?: StatusBanner }) => {
   switch (status) {
