@@ -1,3 +1,35 @@
+# [1.6.0](https://github.com/outshift-open/open-ui-kit/compare/v1.5.0...v1.6.0) (2026-04-28)
+
+
+### Bug Fixes
+
+* css types and imports ([0f6d462](https://github.com/outshift-open/open-ui-kit/commit/0f6d462939107f6cea97253a72a12e2df2d620ef))
+* **date-time:** adjust style typings ([d9948b4](https://github.com/outshift-open/open-ui-kit/commit/d9948b43d9544968dc8b849454c7a52426d933c8))
+* **export-types:** portable MUI annotations for declaration emit (TS2742) ([295ec3b](https://github.com/outshift-open/open-ui-kit/commit/295ec3ba41d14f9e3ba9e7888eb3f2bf540a3c65))
+* **export-types:** portable MUI annotations for declaration emit (TS2742) ([354b7b0](https://github.com/outshift-open/open-ui-kit/commit/354b7b0c407d8b2140348f94908b2657887db45e))
+* **favorite-button, storybook:** imports and addon ([5add49c](https://github.com/outshift-open/open-ui-kit/commit/5add49c7b4814e100331579e38fc66cfc907b9ff))
+* **package.json:** glob eslint ignored files ([a822987](https://github.com/outshift-open/open-ui-kit/commit/a82298718d03d9540ef6972c05eb6313d7eb355e))
+* **storybook:** theme via addon-themes, local mock-date, remove legacy addons ([73a1691](https://github.com/outshift-open/open-ui-kit/commit/73a1691ec5df275959c2fd34fc0469742419d823))
+* **storybook:** theme via addon-themes, local mock-date, remove legacy addons ([a53fcd4](https://github.com/outshift-open/open-ui-kit/commit/a53fcd434b8d4df09d186d45ca8c8c8e897ba03e))
+* **table:** align MRT density style types and export syntax ([a89a9da](https://github.com/outshift-open/open-ui-kit/commit/a89a9dabe433b4285014343ea5dfbb10abbb555f))
+* **theme:** tokens and misc component typings ([286a3a4](https://github.com/outshift-open/open-ui-kit/commit/286a3a4bb0e24bd02c49b59dba810371931ba3a1))
+* **types:** align theme augmentation and remove obsolete Storybook shim ([d321cb4](https://github.com/outshift-open/open-ui-kit/commit/d321cb4ab2b19242fa59b0f12148b34df37077ee))
+* **types:** align theme augmentation and remove obsolete Storybook shim ([e8c15e7](https://github.com/outshift-open/open-ui-kit/commit/e8c15e7860207f56bb5c7772c79188e0b31b6f25))
+* **types:** ambient modules for Storybook-only tooling ([6c79793](https://github.com/outshift-open/open-ui-kit/commit/6c7979350dde3b25673a5538b3d193acee70759c))
+* **types:** ambient modules for Storybook-only tooling ([f462714](https://github.com/outshift-open/open-ui-kit/commit/f462714b719036f49b3ff00a868b05d95715ab91))
+* **types:** table density styles for MaterialReactTable ([4657650](https://github.com/outshift-open/open-ui-kit/commit/4657650f3ca3cd37b9b84981337bbed8b28a571c))
+* yarn path to 4.13.0 ([6940cdc](https://github.com/outshift-open/open-ui-kit/commit/6940cdc59dc34edfd6b4c1a9e2b313d75fc877c7))
+
+
+### Features
+
+* **charts:** extend chart helpers, types, and styles ([8af99e3](https://github.com/outshift-open/open-ui-kit/commit/8af99e359e2d55f32a5486b2d6f59ec5c7685d45))
+* **package.json:** upgrade storybook, add vitest and playwright ([a73b693](https://github.com/outshift-open/open-ui-kit/commit/a73b6933c0fae15ad8e0890bc2198b996f753a91))
+* **theme:** internal dark mode + useThemeMode ([846a552](https://github.com/outshift-open/open-ui-kit/commit/846a552b6a5caffca8080d7f272861197924d804))
+* **theme:** internal dark mode + useThemeMode ([322d040](https://github.com/outshift-open/open-ui-kit/commit/322d040e69a6b4f72e4e255d7c720389095788b9))
+* **theme:** update shared theme wiring ([26a5bbc](https://github.com/outshift-open/open-ui-kit/commit/26a5bbc600a86aaaeee37215a304e2d49af4750b))
+* upgrade to storybook 9 and fix changes ([28a2f9a](https://github.com/outshift-open/open-ui-kit/commit/28a2f9a930f60d1f5f1cf1d03df506a016879ae5))
+
 # [1.5.0](https://github.com/outshift-open/open-ui-kit/compare/v1.4.2...v1.5.0) (2026-04-16)
 
 
