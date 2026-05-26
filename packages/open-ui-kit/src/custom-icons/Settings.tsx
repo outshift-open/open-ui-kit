@@ -5,7 +5,7 @@
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
-import { greyPalette } from "@/theme/color-palette";
+import { greyPalette } from "@/theme/style/color-palette";
 
 export function Settings(props: SvgIconProps) {
   return (

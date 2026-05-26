@@ -23,7 +23,7 @@ import {
   limePalette,
   pinkPalette,
   tealPalette,
-} from "../color-palette";
+} from "@/theme/style/color-palette";
 
 // NOTE: These values mirror the structure of light-vars, adapted for dark palette availability.
 // Where the light theme used palettes not present in dark (e.g., lightBlue, purple, teal, etc.),

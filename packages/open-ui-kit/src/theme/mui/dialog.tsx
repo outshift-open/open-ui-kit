@@ -24,7 +24,7 @@
  */
 
 import { Components, Theme } from "@mui/material";
-import { breakpointValues } from "../common";
+import { breakpointValues } from "@/theme/style/common";
 
 export const dialogComponent = (theme: Theme): Components => {
   return {

@@ -6,6 +6,7 @@
 
 export * from "./accordion";
 export * from "./activity-timeline";
+export * from "./avatar";
 export * from "./actions-modal";
 export * from "./banner";
 export * from "./badge";
@@ -48,7 +49,6 @@ export * from "./pagination";
 
 // MUI exports
 export {
-  Avatar,
   Button,
   Box,
   Stack,

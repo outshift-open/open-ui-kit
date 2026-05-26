@@ -13,7 +13,7 @@ import {
 import { Box, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { styles } from "./styles";
-import { greyPalette } from "@/theme/color-palette";
+import { greyPalette } from "@/theme/style/color-palette";
 import { SearchField } from "@/components/search-field";
 
 export interface FiltersBarActionsProps {

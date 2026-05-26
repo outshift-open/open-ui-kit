@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { lightBluePalette } from "../color-palette";
+import { lightBluePalette } from "@/theme/style/color-palette";
 import { Components, Theme } from "@mui/material";
 
 export const buttonComponent = (theme: Theme): Components => {

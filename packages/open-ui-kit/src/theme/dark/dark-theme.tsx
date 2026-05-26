@@ -13,8 +13,9 @@ import {
   surfaceDark800,
   surfaceDark900,
   surfaceDarkPalette,
-} from "../color-palette";
-import { typography, breakpoints, commonMixins } from "../common";
+} from "@/theme/style/color-palette";
+import { breakpoints, commonMixins } from "@/theme/style/common";
+import { typography } from "@/theme/style/typography";
 import {
   createTheme,
   PaletteOptions,
@@ -26,8 +27,6 @@ import { darkVars } from "./dark-vars";
 import {
   appBarComponent,
   accordionComponent,
-  avatarComponent,
-  avatarGroupComponent,
   buttonComponent,
   cardComponent,
   checkboxComponent,
@@ -45,7 +44,7 @@ import {
   tabComponent,
   tabsComponent,
   tooltipComponent,
-} from "../mui";
+} from "@/theme/mui";
 
 export const shadows: Shadows = [
   `none`,
@@ -101,8 +100,6 @@ const darkThemeOptions: ThemeOptions = {
   components: {
     ...appBarComponent(theme),
     ...accordionComponent(theme),
-    ...avatarComponent(theme),
-    ...avatarGroupComponent(theme),
     ...buttonComponent(theme),
     ...cardComponent(theme),
     ...checkboxComponent(theme),

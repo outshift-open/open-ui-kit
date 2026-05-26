@@ -14,6 +14,7 @@ export interface GradientsPalette {
     green: Gradient;
     lightBlue: Gradient;
     pink: Gradient;
+    orange: Gradient;
   };
   primary: {
     default: Gradient;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { surfaceDarkPalette, greyPalette } from "@/theme/color-palette";
+import { surfaceDarkPalette, greyPalette } from "@/theme/style/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
 
 const getChildAccordionMarginLeft = (

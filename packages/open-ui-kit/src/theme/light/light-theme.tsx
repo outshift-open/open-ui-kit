@@ -19,7 +19,7 @@ import {
   lightModeCardRaised,
   lightModeCardFloating,
   lightModeSideDrawer,
-} from "../color-palette";
+} from "@/theme/style/color-palette";
 import {
   createTheme,
   PaletteOptions,
@@ -27,13 +27,12 @@ import {
   Theme,
   Shadows,
 } from "@mui/material";
-import { commonMixins, typography, breakpoints } from "../common";
+import { commonMixins, breakpoints } from "@/theme/style/common";
+import { typography } from "@/theme/style/typography";
 import { lightVars } from "./light-vars";
 import {
   appBarComponent,
   accordionComponent,
-  avatarComponent,
-  avatarGroupComponent,
   buttonComponent,
   cardComponent,
   checkboxComponent,
@@ -51,7 +50,7 @@ import {
   tabComponent,
   tabsComponent,
   tooltipComponent,
-} from "../mui";
+} from "@/theme/mui";
 
 export const shadows: Shadows = [
   `none`,
@@ -120,8 +119,6 @@ const lightThemeOptions: ThemeOptions = {
   components: {
     ...appBarComponent(theme),
     ...accordionComponent(theme),
-    ...avatarComponent(theme),
-    ...avatarGroupComponent(theme),
     ...buttonComponent(theme),
     ...cardComponent(theme),
     ...checkboxComponent(theme),

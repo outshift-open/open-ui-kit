@@ -1,11 +1,16 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Avatar, AvatarGroup, AvatarProps, Stack } from "@mui/material";
-import { FileCopy } from "@mui/icons-material";
+import { Stack } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { Avatar } from "./components/avatar";
+import { AvatarGroup } from "./components/avatar-group";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-/**
- * ### Avatars are found throughout material design with uses in everything from tables to dialog menus.
- */
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
@@ -14,9 +19,9 @@ const meta: Meta<typeof Avatar> = {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Avatars are found throughout material design with uses in everything from tables to dialog menus."
+          blurb="Avatars represent a user or entity with an image, initials, or icon."
           guideLink=""
-          importLine='import { Avatar } from "@open-ui-kit/core";'
+          importLine='import { Avatar, AvatarGroup } from "@open-ui-kit/core";'
         />
       ),
     },
@@ -27,60 +32,78 @@ export default meta;
 
 type Story = StoryObj<typeof Avatar>;
 
-const AvatarStory = (args: AvatarProps) => (
-  <Avatar variant={args.variant} src={args.src}>
-    {args.children}
-  </Avatar>
-);
-
-export const Example: Story = {
-  render: AvatarStory,
-  args: {
-    variant: "circular",
-  },
+export const ImageLarge: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar size="L" src="/assets/img.png" alt="User" />
+    </Stack>
+  ),
 };
 
-export const AvatarWithInitials: Story = {
-  render: AvatarStory,
-  args: {
-    children: "SG",
-  },
+export const InitialsLarge: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar size="L" initials="WW" />
+    </Stack>
+  ),
 };
 
-export const AvatarWithIcon: Story = {
-  render: AvatarStory,
-  args: {
-    children: <FileCopy />,
-  },
+export const IconLarge: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar size="L" icon={<PersonIcon />} />
+    </Stack>
+  ),
 };
 
-export const AvatarWithImage: Story = {
-  render: AvatarStory,
-  args: {
-    src: "/assets/img.png",
-  },
+export const InitialsMedium: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar size="M" initials="WW" />
+    </Stack>
+  ),
 };
 
-export const AvatarsGroup: Story = {
-  render: (args) => (
-    <Stack>
-      <AvatarGroup sx={{ justifyContent: "flex-end" }}>
-        <AvatarStory {...args} />
-        <AvatarStory {...args} />
-        <AvatarStory {...args} />
+export const IconMedium: Story = {
+  render: () => (
+    <Stack direction="row" spacing={2}>
+      <Avatar size="M" icon={<PersonIcon />} />
+    </Stack>
+  ),
+};
+
+export const AllVariants: Story = {
+  render: () => (
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Avatar size="L" src="/assets/img.png" alt="User" />
+        <Avatar size="L" initials="WW" />
+        <Avatar size="L" icon={<PersonIcon />} />
+        <Avatar size="M" src="/assets/img.png" alt="User" />
+        <Avatar size="M" initials="WW" />
+        <Avatar size="M" icon={<PersonIcon />} />
+      </Stack>
+    </Stack>
+  ),
+};
+
+export const Group: Story = {
+  render: () => (
+    <Stack spacing={2}>
+      <AvatarGroup size="L">
+        <Avatar initials="AA" />
+        <Avatar initials="BB" />
+        <Avatar initials="CC" />
+        <Avatar initials="DD" />
+        <Avatar initials="EE" />
       </AvatarGroup>
-      <AvatarGroup
-        variant={args.variant}
-        total={10}
-        sx={{ justifyContent: "flex-end" }}
-      >
-        <AvatarStory {...args} />
-        <AvatarStory {...args} />
-        <AvatarStory {...args} />
+      <AvatarGroup size="M">
+        <Avatar initials="AA" />
+        <Avatar initials="BB" />
+        <Avatar initials="CC" />
+        <Avatar initials="DD" />
+        <Avatar initials="EE" />
       </AvatarGroup>
     </Stack>
   ),
-  args: {
-    children: "SG",
-  },
 };

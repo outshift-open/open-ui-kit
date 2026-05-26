@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { surfaceDarkPalette } from "@/theme/color-palette";
+import { surfaceDarkPalette } from "@/theme/style/color-palette";
 import { darkTheme } from "@/theme/dark/dark-theme";
 
 export const styles = {

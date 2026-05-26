@@ -6,7 +6,7 @@
 
 import { Components, Theme } from "@mui/material";
 import { KeyboardArrowUp, TriangleUpOutline } from "@/custom-icons";
-import { typography } from "@/theme/common";
+import { typography } from "@/theme/style/typography";
 
 export const inputComponents = (theme: Theme): Components => {
   return {

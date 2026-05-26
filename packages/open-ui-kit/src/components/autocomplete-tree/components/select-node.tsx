@@ -18,7 +18,7 @@ import {
   formatNodeValue,
   isLeaf,
 } from "@/common";
-import { greyPalette } from "@/theme/color-palette";
+import { greyPalette } from "@/theme/style/color-palette";
 import { AugmentedSelectNodeType } from "@/types";
 import { useAutocompleteTreeContext } from "./autocomplete-tree-context";
 import {

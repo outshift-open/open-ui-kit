@@ -1,106 +1,84 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
-import { Typography, Divider } from "@mui/material"
-import { lightTheme } from "../theme/light/light-theme";
-import { OS_LIGHT_COLORS } from "../theme/color-palette";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorPaletteSection, paletteToSwatches } from "./color-palette-section";
+import { CopyImport } from "./copy-import";
+import {
+  surfaceLightPalette,
+  surfaceDarkPalette,
+  bluePalette,
+  lightBluePalette,
+  greyPalette,
+  purplePalette,
+  redPalette,
+  orangePalette,
+  lightOrangePalette,
+  yellowPalette,
+  greenPalette,
+  tealPalette,
+  lavenderPalette,
+  limePalette,
+  pinkPalette,
+  nightPalette,
+  sunsetPalette,
+  brandColors,
+} from "@/theme/style/color-palette";
 
 <Meta title="Foundations/Colors" />
 
-<ColorPalette>
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    MUI Colors - Light Theme
-  </Typography>
-  <ColorItem
-    title="Primary"
-    subtitle="theme.palette.primary"
-    colors={lightTheme.palette.primary}
-  />
-  <ColorItem
-    title="Secondary"
-    subtitle="theme.palette.secondary"
-    colors={lightTheme.palette.secondary}
-  />
-  <ColorItem
-    title="Tertiary"
-    subtitle="theme.palette.tertiary"
-    colors={lightTheme.palette.tertiary}
-  />
-  <ColorItem
-    title="Info"
-    subtitle="theme.palette.info"
-    colors={lightTheme.palette.info}
-  />
-  <ColorItem
-    title="Success"
-    subtitle="theme.palette.success"
-    colors={lightTheme.palette.success}
-  />
-  <ColorItem
-    title="Warning"
-    subtitle="theme.palette.warning"
-    colors={lightTheme.palette.warning}
-  />
-  <ColorItem
-    title="Error"
-    subtitle="theme.palette.error"
-    colors={lightTheme.palette.error}
-  />
-  <ColorItem
-    title="Orange"
-    subtitle="theme.palette.orange"
-    colors={lightTheme.palette.orange}
-  />
-  <ColorItem
-    title="Grey"
-    subtitle="theme.palette.grey"
-    colors={lightTheme.palette.grey}
-  />
-  <Divider />
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    Open UI Kit Light Colors
-  </Typography>
-  <ColorItem
-    title="Surface Light"
-    subtitle="OS_LIGHT_COLORS.surfaceLight"
-    colors={OS_LIGHT_COLORS.surfaceLight}
-  />
-  <ColorItem
-    title="Teal"
-    subtitle="OS_LIGHT_COLORS.teal"
-    colors={OS_LIGHT_COLORS.teal}
-  />
-  <ColorItem
-    title="Pink"
-    subtitle="OS_LIGHT_COLORS.pink"
-    colors={OS_LIGHT_COLORS.pink}
-  />
-  <ColorItem
-    title="Lime"
-    subtitle="OS_LIGHT_COLORS.lime"
-    colors={OS_LIGHT_COLORS.lime}
-  />
-  <ColorItem
-    title="Lavender"
-    subtitle="OS_LIGHT_COLORS.lavender"
-    colors={OS_LIGHT_COLORS.lavender}
-  />
-  <ColorItem
-    title="Purple"
-    subtitle="OS_LIGHT_COLORS.purple"
-    colors={OS_LIGHT_COLORS.purple}
-  />
-  <ColorItem
-    title="Light Blue"
-    subtitle="OS_Colors.lightBlue"
-    colors={OS_LIGHT_COLORS.lightBlue}
-  />
-  <ColorItem
-    title="Sunset"
-    subtitle="OS_Colors.sunset"
-    colors={OS_LIGHT_COLORS.sunset}
-  />
-  <ColorItem
-    title="Night"
-    subtitle="OS_Colors.nightPalette"
-    colors={OS_LIGHT_COLORS.night}
-  />
-</ColorPalette>
+<div style={{ maxWidth: 960, padding: "64px 0 96px" }}>
+
+<style>{`
+  .ouk-page-title {
+    font-family: 'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 56px !important;
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+`}</style>
+
+<h1 className="ouk-page-title">Colors</h1>
+
+<p style={{
+  fontFamily: "Inter, sans-serif",
+  fontSize: 15,
+  opacity: 0.6,
+  marginBottom: 8,
+  maxWidth: 560,
+  lineHeight: 1.7,
+  marginTop: 0,
+}}>
+  The Open UI Kit color palette — 18 scales, each from 50 to 900.
+  Click any swatch to copy its hex value.
+</p>
+
+<CopyImport code={`import { bluePalette, lightVars } from "@open-ui-kit/core"`} />
+
+<hr style={{ border: "none", borderTop: "1px solid rgba(128,128,128,0.15)", marginBottom: 56 }} />
+
+<ColorPaletteSection title="Surface Light" swatches={paletteToSwatches(surfaceLightPalette, "surface-light")} />
+<ColorPaletteSection title="Surface Dark" swatches={paletteToSwatches(surfaceDarkPalette, "surface-dark")} />
+<ColorPaletteSection title="Blue / Interactive" swatches={paletteToSwatches(bluePalette, "blue")} />
+<ColorPaletteSection title="Light Blue" swatches={paletteToSwatches(lightBluePalette, "light-blue")} />
+<ColorPaletteSection title="Grey" swatches={paletteToSwatches(greyPalette, "grey")} />
+<ColorPaletteSection title="Green" swatches={paletteToSwatches(greenPalette, "green")} />
+<ColorPaletteSection title="Red" swatches={paletteToSwatches(redPalette, "red")} />
+<ColorPaletteSection title="Orange" swatches={paletteToSwatches(orangePalette, "orange")} />
+<ColorPaletteSection title="Light Orange" swatches={paletteToSwatches(lightOrangePalette, "light-orange")} />
+<ColorPaletteSection title="Yellow" swatches={paletteToSwatches(yellowPalette, "yellow")} />
+<ColorPaletteSection title="Purple" swatches={paletteToSwatches(purplePalette, "purple")} />
+<ColorPaletteSection title="Teal" swatches={paletteToSwatches(tealPalette, "teal")} />
+<ColorPaletteSection title="Lavender" swatches={paletteToSwatches(lavenderPalette, "lavender")} />
+<ColorPaletteSection title="Lime" swatches={paletteToSwatches(limePalette, "lime")} />
+<ColorPaletteSection title="Pink" swatches={paletteToSwatches(pinkPalette, "pink")} />
+<ColorPaletteSection title="Night" swatches={paletteToSwatches(nightPalette, "night")} />
+<ColorPaletteSection title="Sunset" swatches={paletteToSwatches(sunsetPalette, "sunset")} />
+<ColorPaletteSection
+  title="Brand"
+  swatches={Object.entries(brandColors).map(([key, value]) => ({ token: key, value }))}
+/>
+
+</div>

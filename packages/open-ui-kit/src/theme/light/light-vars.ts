@@ -23,7 +23,7 @@ import {
   limePalette,
   pinkPalette,
   tealPalette,
-} from "../color-palette";
+} from "@/theme/style/color-palette";
 
 export const lightVars: VarsType = {
   brandOrange: lightOrangePalette[500],
