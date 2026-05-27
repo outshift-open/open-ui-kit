@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Components } from "@mui/material";
+import { Components, type Theme } from "@mui/material";
 
-export const cardComponent = (): Components => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const cardComponent = (_theme: Theme): Components => {
   return {};
 };
