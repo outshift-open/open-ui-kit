@@ -13,7 +13,7 @@ const meta: Meta<AccordionProps> = {
         <DocsHeader
           blurb="Accordions are used to show and hide content. They can be used to organize content into sections, allowing users to expand and collapse sections as needed."
           guideLink=""
-          importLine='import { Accordion } from "@open-ui-kit/core";'
+          importLine={`import { Accordion } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -24,60 +24,134 @@ export default meta;
 
 type Story = StoryObj<AccordionProps>;
 
+const defaultChildren = <Typography variant="body2">Content</Typography>;
+
 export const Default: Story = {
   render: (args) => (
-    <Accordion title="Accordion Title" {...args}>
-      {args.children}
-    </Accordion>
+    <Accordion {...(args as AccordionProps)}>{args.children}</Accordion>
   ),
   args: {
-    subTitle: "Title 2 Text",
-    titleDetails: "Accordion Details",
-    id: "accordion-1",
+    title: "Title",
+    subTitle: "Text",
+    size: "large",
+    arrowPosition: "left",
     disabled: false,
-    children: <>Details</>,
+    defaultExpanded: true,
+    children: defaultChildren,
   },
 };
 
-export const Sizes: Story = {
+export const ArrowLeft: Story = {
   render: (args) => (
-    <Stack gap={4}>
-      <Stack>
-        <Typography sx={{ marginBottom: "12px" }}>Medium:</Typography>
-        <Accordion title="Accordion Title" size="medium" {...args}>
-          {args.children}
-        </Accordion>
-      </Stack>
-      <Stack>
-        <Typography sx={{ marginBottom: "12px" }}>Large:</Typography>
-        <Accordion title="Accordion Title" size="large" {...args}>
-          {args.children}
-        </Accordion>
-      </Stack>
-    </Stack>
-  ),
-  args: {
-    subTitle: "Title 2 Text",
-    id: "accordion-1",
-    disabled: false,
-    children: <>Details</>,
-  },
-};
-
-export const Variants: Story = {
-  render: (args) => (
-    <Stack gap={4}>
-      <Accordion title="Disabled title" disabled size="large" {...args}>
-        {args.children}
+    <Stack gap={2} width={300}>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
       </Accordion>
-      <Accordion contained title="Contained title" size="medium" {...args}>
-        {args.children}
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)} disabled defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)} disabled>
+        {defaultChildren}
       </Accordion>
     </Stack>
   ),
   args: {
-    subTitle: "Title 2 Text",
-    id: "accordion-1",
-    children: <>Details</>,
+    title: "Title",
+    subTitle: "Text",
+    size: "large",
+    arrowPosition: "left",
+  },
+};
+
+export const ArrowRight: Story = {
+  render: (args) => (
+    <Stack gap={2} width={300}>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)} disabled defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)} disabled>
+        {defaultChildren}
+      </Accordion>
+    </Stack>
+  ),
+  args: {
+    title: "Title",
+    subTitle: "Text",
+    size: "large",
+    arrowPosition: "right",
+  },
+};
+
+export const Medium: Story = {
+  render: (args) => (
+    <Stack gap={0} width={300}>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)} disabled defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)} disabled>
+        {defaultChildren}
+      </Accordion>
+    </Stack>
+  ),
+  args: {
+    title: "Title",
+    subTitle: "Text",
+    size: "medium",
+    arrowPosition: "left",
+  },
+};
+
+export const ContainedMedium: Story = {
+  render: (args) => (
+    <Stack gap={2} width={300}>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)} disabled defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)} disabled>
+        {defaultChildren}
+      </Accordion>
+    </Stack>
+  ),
+  args: {
+    title: "Title",
+    subTitle: "Text",
+    size: "medium",
+    contained: true,
+    arrowPosition: "left",
+  },
+};
+
+export const Group: Story = {
+  render: (args) => (
+    <Stack width={300}>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)}>{defaultChildren}</Accordion>
+      <Accordion {...(args as AccordionProps)} defaultExpanded>
+        {defaultChildren}
+      </Accordion>
+    </Stack>
+  ),
+  args: {
+    title: "Title",
+    subTitle: "Text",
+    size: "large",
+    arrowPosition: "right",
   },
 };

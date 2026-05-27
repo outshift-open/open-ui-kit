@@ -3,6 +3,173 @@
 @import "./sidebar-headers.css";
 @import "./search-result-items.css";
 
+:root {
+  --ouk-blue-50: #e8f1ff;
+  --ouk-blue-100: #9bcaff;
+  --ouk-blue-300: #187adc;
+  --ouk-blue-500: #0051af;
+  --ouk-surface-50: #fbfcfe;
+  --ouk-surface-100: #f5f8fd;
+  --ouk-surface-200: #eff3fc;
+  --ouk-surface-600: #dae3f8;
+  --ouk-surface-dark-900: #00142b;
+  --ouk-text: #1a1f27;
+  --ouk-text-muted: #59616b;
+}
+
+html,
+body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: var(--ouk-surface-50);
+}
+
 div[data-radix-scroll-area-viewport] > div > div {
-  padding-top: 0px !important;
+  padding-top: 0 !important;
+}
+
+#storybook-explorer-tree {
+  background: var(--ouk-surface-50);
+  padding: 10px 8px 24px !important;
+}
+
+#storybook-explorer-tree,
+#storybook-explorer-tree * {
+  letter-spacing: 0 !important;
+}
+
+#storybook-explorer-tree *:focus-visible {
+  outline: 2px solid rgba(24, 122, 220, 0.28) !important;
+  outline-offset: 2px !important;
+}
+
+.sidebar-container form,
+.sidebar-container [role="search"],
+.sidebar-container [data-testid*="search"],
+.search-field {
+  border-radius: 8px !important;
+}
+
+.search-field {
+  display: flex !important;
+  align-items: center !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  border: 1px solid var(--ouk-surface-600) !important;
+  background: var(--ouk-surface-50) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  overflow: hidden !important;
+}
+
+.search-field:has(input:focus),
+.search-field:has(input:active),
+.search-field:focus-within {
+  background: var(--ouk-surface-50) !important;
+  border-color: var(--ouk-blue-300) !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 3px rgba(24, 122, 220, 0.12) !important;
+}
+
+.search-field > * {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.search-field input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--ouk-text) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.search-field input::-webkit-search-decoration,
+.search-field input::-webkit-search-cancel-button,
+.search-field input::-webkit-search-results-button,
+.search-field input::-webkit-search-results-decoration {
+  display: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.search-field input::placeholder {
+  color: var(--ouk-text-muted) !important;
+}
+
+.search-field input:focus {
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+[data-testid="sidebar-search-input"],
+[data-testid="sidebar-search-input"] input {
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#storybook-explorer-menu,
+#storybook-explorer-menu + button {
+  border-color: var(--ouk-surface-600) !important;
+  border-radius: 8px !important;
+  color: var(--ouk-text-muted) !important;
+  box-shadow: none !important;
+}
+
+.search-field svg,
+#storybook-explorer-menu svg,
+#storybook-explorer-menu + button svg {
+  color: var(--ouk-text-muted) !important;
+}
+
+.sidebar-container button[title*="Create" i],
+.sidebar-container button[aria-label*="Create" i],
+.sidebar-container button[title*="New" i],
+.sidebar-container button[aria-label*="New" i] {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  border: 1px solid var(--ouk-surface-600) !important;
+  border-radius: 8px !important;
+  background: var(--ouk-surface-50) !important;
+  color: var(--ouk-text-muted) !important;
+  box-shadow: none !important;
+}
+
+.sidebar-container button[title*="Create" i]:hover,
+.sidebar-container button[aria-label*="Create" i]:hover,
+.sidebar-container button[title*="New" i]:hover,
+.sidebar-container button[aria-label*="New" i]:hover {
+  border-color: var(--ouk-blue-100) !important;
+  background: var(--ouk-blue-50) !important;
+  color: var(--ouk-blue-500) !important;
+}
+
+#storybook-explorer-tree [aria-label*="get started" i],
+#storybook-explorer-tree [data-testid*="onboarding" i],
+#storybook-explorer-tree [class*="onboarding" i] {
+  display: none !important;
+}
+
+button[title="Shortcuts"],
+button[title="About Storybook"],
+button[title="Settings"] {
+  color: var(--ouk-text-muted) !important;
 }

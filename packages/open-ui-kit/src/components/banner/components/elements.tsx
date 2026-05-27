@@ -14,16 +14,6 @@ import {
   WarningAmber,
 } from "@mui/icons-material";
 
-const customTextStyle = {
-  margin: 0,
-  padding: 0,
-};
-
-const customIconStyle = {
-  margin: 0,
-  padding: 0,
-};
-
 const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
   switch (status) {
     case "negative":
@@ -31,11 +21,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.negativeBorderDefault}`,
         background: theme.palette.vars.negativeBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.negativeTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.negativeIconDefault,
         },
       };
@@ -44,11 +36,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.severeWarningBorderDefault}`,
         background: theme.palette.vars.severeWarningBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.severeWarningTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.severeWarningIconDefault,
         },
       };
@@ -57,11 +51,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.successBorderDefault}`,
         background: theme.palette.vars.successBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.successTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.successIconDefault,
         },
       };
@@ -70,11 +66,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
         background: theme.palette.vars.neutralBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralIconDefault,
         },
       };
@@ -83,11 +81,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.excellentBorderDefault}`,
         background: theme.palette.vars.excellentBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.excellentTextDefault,
+          margin: 0,
+          padding: 0,
+          color: theme.palette.vars.baseTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.excellentIconDefault,
         },
       };
@@ -96,11 +96,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
         background: theme.palette.vars.neutralBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralIconDefault,
         },
       };
@@ -109,14 +111,8 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
 
 export const StyledBanner = styled(Alert, {
   shouldForwardProp: (prop) => prop !== "status",
-  name: "StyledBanner",
-  slot: "Root",
-  overridesResolver: (props, styles) => [
-    styles.root,
-    props.status && styles.status,
-  ],
 })<{ status?: StatusBanner }>(({ theme, status }) => ({
-  padding: "8px 12px",
+  padding: "8px 4px 8px 12px",
   height: "40px",
   display: "flex",
   justifyContent: "center",

@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "yarn lib:dev",
-    "bundle": "rollup -c --bundleConfigAsCjs",
+    "bundle": "rollup -c rollup.config.mjs",
     "build": "yarn lib:build",
     "lib:build": "yarn workspace scripts build",
     "dev": "yarn lib:dev",
@@ -160,7 +160,7 @@
     "storybook": "10.3.5",
     "ts-jest": "^29.3.0",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.8.0",
     "typescript-transform-paths": "^3.5.5",
     "vite": "^6.2.3",
     "vite-plugin-imp": "^2.4.0",

@@ -25,31 +25,35 @@ const setActivityTimelineDotStyle = (
     case ActivityTimelineStepStatus.InProgress:
       return {
         background: "transparent",
+        ringColor: theme.palette.vars?.controlBorderDefault,
         color: setStepColor(status, theme),
         percent: 67,
       };
     case ActivityTimelineStepStatus.Neutral:
       return {
-        background: theme.palette.vars?.interactivePrimaryWeakDefault,
+        background: "transparent",
+        ringColor: theme.palette.vars?.interactiveTertiaryActive,
         color: setStepColor(status, theme),
         percent: 100,
       };
     case ActivityTimelineStepStatus.Complete:
       return {
         background: theme.palette.vars?.controlBackgroundDefault,
+        ringColor: theme.palette.vars?.controlIconActive,
         color: setStepColor(status, theme),
         percent: 100,
       };
     case ActivityTimelineStepStatus.Error:
       return {
         background: theme.palette.vars?.controlBackgroundDefault,
+        ringColor: theme.palette.vars?.controlBorderDefault,
         color: setStepColor(status, theme),
         percent: 67,
       };
     default:
-      // INACTIVE STATUS
       return {
         background: theme.palette.vars?.controlBackgroundDefault,
+        ringColor: theme.palette.vars?.controlBorderDefault,
         color: setStepColor(status, theme),
         percent: 100,
       };
@@ -62,10 +66,12 @@ export const ActivityTimelineDot = ({
   status = ActivityTimelineStepStatus.Inactive,
 }: ActivityTimelineDotProps) => {
   const theme = useTheme();
-  const timelineDotStyle = setActivityTimelineDotStyle(
-    percent ? ActivityTimelineStepStatus.InProgress : status,
-    theme,
-  );
+  const effectiveStatus = percent
+    ? ActivityTimelineStepStatus.InProgress
+    : status;
+  const timelineDotStyle = setActivityTimelineDotStyle(effectiveStatus, theme);
+  const isInProgress =
+    effectiveStatus === ActivityTimelineStepStatus.InProgress;
 
   return (
     <Box
@@ -84,7 +90,7 @@ export const ActivityTimelineDot = ({
           backgroundColor: timelineDotStyle.background,
           borderRadius: "50%",
           "& .MuiCircularProgress-circle": {
-            stroke: theme.palette.vars?.controlBorderDefault,
+            stroke: timelineDotStyle.ringColor,
           },
         }}
         thickness={4}
@@ -95,6 +101,13 @@ export const ActivityTimelineDot = ({
         size={18}
         sx={{
           position: "absolute",
+          ...(isInProgress && {
+            animation: "spin 1.4s linear infinite",
+            "@keyframes spin": {
+              "0%": { transform: "rotate(-90deg)" },
+              "100%": { transform: "rotate(270deg)" },
+            },
+          }),
           "& .MuiCircularProgress-circle": {
             strokeLinecap: "round",
             stroke: timelineDotStyle.color,

@@ -14,7 +14,7 @@ const meta: Meta<typeof Badge> = {
         <DocsHeader
           blurb="Badges are used to display a small count or status indicator. They can be used to show notifications, statuses, or other small pieces of information."
           guideLink=""
-          importLine='import { Badge } from "@open-ui-kit/core";'
+          importLine={`import { Badge } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -25,60 +25,41 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-const BadgeStory = (args: BadgeProps) => <Badge {...args} />;
+const ALL_TYPES = [
+  "default",
+  "excellent",
+  "neutral",
+  "error",
+  "warning",
+  "info",
+  "success",
+  "inactive",
+  "moderate",
+  "severe",
+] as const;
 
-export const Example: Story = {
-  render: (args: BadgeProps) => <Badge {...args} />,
-  args: {
-    content: "1",
-  },
-};
-
-export const BadgeTypes: Story = {
-  render: (args) => (
-    <Stack direction={"row"} spacing={2}>
-      {(
-        [
-          "default",
-          "excellent",
-          "neutral",
-          "error",
-          "warning",
-          "info",
-          "success",
-          "inactive",
-          "moderate",
-          "severe",
-        ] as const
-      ).map((type) => BadgeStory({ ...args, type, content: 1 }))}
+export const Standard: Story = {
+  render: (args: BadgeProps) => (
+    <Stack direction="row" spacing={2}>
+      {ALL_TYPES.map((type) => (
+        <Badge key={type} {...args} type={type} content={1} />
+      ))}
     </Stack>
   ),
 };
 
-export const BadgeWithNotifications: Story = {
-  render: (args) => (
-    <Stack direction={"row"} spacing={2}>
-      {(
-        [
-          "default",
-          "excellent",
-          "neutral",
-          "error",
-          "warning",
-          "info",
-          "success",
-          "inactive",
-          "moderate",
-          "severe",
-        ] as const
-      ).map((type) =>
-        BadgeStory({
-          ...args,
-          type,
-          content: <Mail />,
-          notificationContent: 1,
-        }),
-      )}
+export const Notification: Story = {
+  render: (args: BadgeProps) => (
+    <Stack direction="row" spacing={2}>
+      {ALL_TYPES.map((type) => (
+        <Badge
+          key={type}
+          {...args}
+          type={type}
+          content={<Mail />}
+          notificationContent={1}
+        />
+      ))}
     </Stack>
   ),
 };

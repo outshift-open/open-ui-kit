@@ -1,34 +1,119 @@
 .sidebar-header {
-  padding-left: 0 !important;
-  padding-top: 2px !important;
+  position: relative;
+  min-height: 76px !important;
+  padding: 14px 16px !important;
+  border-bottom: 1px solid var(--ouk-surface-600);
+  background: var(--ouk-surface-50);
 }
 
-.sidebar-header > div > a {
-  font-family: Sharp Sans;
+.sidebar-header > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+.sidebar-header a {
+  display: grid !important;
+  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-rows: 19px 16px;
+  align-items: center !important;
+  column-gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+  font-family:
+    Sharp Sans,
+    Inter,
+    sans-serif;
   font-weight: 700;
-  font-size: 18px;
-  line-height: 18px;
-  letter-spacing: 0%;
+  font-size: 0 !important;
+  line-height: 0;
+  letter-spacing: 0;
+  text-decoration: none !important;
   vertical-align: middle;
-  color: inherit;
+  color: var(--ouk-surface-dark-900) !important;
+}
+
+.sidebar-header a > :not(img) {
+  display: none !important;
+}
+
+.sidebar-header a,
+.sidebar-header a * {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.sidebar-header a::after {
+  content: "Open UI Kit Core";
+  display: block;
+  grid-column: 2;
+  grid-row: 1;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ouk-surface-dark-900);
+  font-family:
+    Sharp Sans,
+    Inter,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-header a::before {
+  content: "Component library";
+  position: static;
+  display: block;
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ouk-text-muted);
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-header img {
+  grid-column: 1;
+  grid-row: 1 / span 2;
   width: auto;
-  height: 20px;
-  margin-left: 16px;
+  height: 36px;
+  margin-left: 0;
+  flex: 0 0 auto;
 }
 
 .sidebar-header button {
-  margin-right: 0px;
-  color: #3c4551;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 8px !important;
+  color: var(--ouk-text-muted);
+  box-shadow: none !important;
+}
+
+.sidebar-header button:hover {
+  background: rgba(0, 81, 175, 0.08) !important;
+  color: var(--ouk-blue-500) !important;
 }
 
 .sidebar-subheading {
-  margin: 24px -12px -12px -20px !important;
-  padding-top: 20px !important;
-  border-top: 1px #dae3f8 solid;
-  padding-bottom: 12px !important;
+  margin: 18px 0 6px !important;
+  padding: 0 !important;
+  border-top: 0 !important;
 }
 
 .sidebar-subheading:first-of-type {
@@ -38,20 +123,21 @@
 }
 
 .sidebar-subheading button[data-action="collapse-root"] {
-  padding-left: 20px;
+  min-height: 30px !important;
+  padding: 0 8px !important;
   font-weight: 700 !important;
-  font-size: 16px !important;
-  font-family: sans-serif !important;
+  font-size: 13px !important;
+  font-family: Inter, sans-serif !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
   background: none !important;
+  color: var(--ouk-text) !important;
 }
 
 .sidebar-subheading-action {
-  margin-right: 8px !important;
+  margin-right: 4px !important;
 }
 
 .sidebar-subheading-action:hover {
-  color: #0051af !important;
+  color: var(--ouk-blue-500) !important;
 }
-

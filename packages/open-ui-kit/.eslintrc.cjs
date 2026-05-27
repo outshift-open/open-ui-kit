@@ -21,7 +21,8 @@ module.exports = {
     'jest.config.js',
     'scripts/**',
     'dist/**',
-    'rollup.config.js'
+    'rollup.config.js',
+    'rollup.config.mjs'
   ],
   overrides: [
     {

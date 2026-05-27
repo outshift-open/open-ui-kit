@@ -22,15 +22,18 @@ import { Accordion } from "@/components/accordion";
 export interface ActivityTimelineProps
   extends Omit<MuiTimelineProps, "children" | "ref"> {
   automaticProgress?: boolean;
+  size?: "large" | "medium";
   steps: ActivityTimelineStep[];
 }
 
 export const ActivityTimeline = ({
   automaticProgress = false,
+  size = "large",
   steps,
   ...props
 }: ActivityTimelineProps) => {
   const theme = useTheme();
+  const isMedium = size === "medium";
 
   const setPercent = useCallback(
     (stepIdx: number): number => {
@@ -41,9 +44,9 @@ export const ActivityTimeline = ({
   );
 
   return (
-    <MuiTimeline {...props}>
+    <MuiTimeline sx={{ padding: 0, margin: 0 }} {...props}>
       {steps.map((step, index) => (
-        <MuiTimelineItem key={index}>
+        <MuiTimelineItem key={index} sx={{ "&::before": { display: "none" } }}>
           <MuiTimelineSeparator sx={{ marginTop: "2px" }}>
             <ActivityTimelineDot
               automaticProgress={automaticProgress}
@@ -64,14 +67,32 @@ export const ActivityTimeline = ({
             )}
           </MuiTimelineSeparator>
           <MuiTimelineContent
-            sx={{ padding: "0px 16px", paddingBottom: "24px" }}
+            sx={{
+              padding: "0px 0px 24px 16px",
+              gap: isMedium ? "10px" : "16px",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
             {step.content ? (
-              <Accordion title={step.title} subTitle={step.subTitle}>
+              <Accordion
+                title={step.title}
+                subTitle={step.subTitle}
+                size={size}
+              >
                 {step.content}
               </Accordion>
             ) : (
-              <Typography variant="h6">{step.title}</Typography>
+              <Typography
+                variant={isMedium ? "body2Semibold" : "h6"}
+                sx={{
+                  color: isMedium
+                    ? theme.palette.vars?.controlIconDefault
+                    : theme.palette.vars?.baseTextStrong,
+                }}
+              >
+                {step.title}
+              </Typography>
             )}
           </MuiTimelineContent>
         </MuiTimelineItem>

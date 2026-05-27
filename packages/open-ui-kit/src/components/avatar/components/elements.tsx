@@ -82,7 +82,7 @@ export const StyledAvatarGroup = styled(MuiAvatarGroup, {
         ? theme.palette.vars.baseBorderWeak
         : theme.palette.vars.baseBackgroundWeak
     }`,
-    boxSizing: "content-box",
+    boxSizing: "border-box",
     marginLeft: -16,
     "&:first-of-type": {
       marginLeft: 0,

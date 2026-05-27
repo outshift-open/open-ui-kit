@@ -15,7 +15,7 @@ export const setStepColor = (
     case ActivityTimelineStepStatus.InProgress:
       return theme.palette.vars?.interactiveTertiaryDefault;
     case ActivityTimelineStepStatus.Inactive:
-      return theme.palette.vars?.controlBorderStrong;
+      return theme.palette.vars?.controlBorderDefault;
     case ActivityTimelineStepStatus.Complete:
       return theme.palette.vars?.controlIconActive;
     case ActivityTimelineStepStatus.Error:

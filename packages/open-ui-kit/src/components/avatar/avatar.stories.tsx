@@ -21,7 +21,7 @@ const meta: Meta<typeof Avatar> = {
         <DocsHeader
           blurb="Avatars represent a user or entity with an image, initials, or icon."
           guideLink=""
-          importLine='import { Avatar, AvatarGroup } from "@open-ui-kit/core";'
+          importLine={`import { Avatar, AvatarGroup } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -33,52 +33,44 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 export const ImageLarge: Story = {
-  render: () => (
-    <Stack direction="row" spacing={2}>
-      <Avatar size="L" src="/assets/img.png" alt="User" />
-    </Stack>
-  ),
+  name: "Image — Large",
+  render: () => <Avatar size="L" src="/assets/img.png" alt="User" />,
 };
 
-export const InitialsLarge: Story = {
-  render: () => (
-    <Stack direction="row" spacing={2}>
-      <Avatar size="L" initials="WW" />
-    </Stack>
-  ),
+export const TextLarge: Story = {
+  name: "Text — Large",
+  render: () => <Avatar size="L" initials="WW" />,
 };
 
 export const IconLarge: Story = {
-  render: () => (
-    <Stack direction="row" spacing={2}>
-      <Avatar size="L" icon={<PersonIcon />} />
-    </Stack>
-  ),
+  name: "Icon — Large",
+  render: () => <Avatar size="L" icon={<PersonIcon />} />,
 };
 
-export const InitialsMedium: Story = {
-  render: () => (
-    <Stack direction="row" spacing={2}>
-      <Avatar size="M" initials="WW" />
-    </Stack>
-  ),
+export const ImageMedium: Story = {
+  name: "Image — Medium",
+  render: () => <Avatar size="M" src="/assets/img.png" alt="User" />,
+};
+
+export const TextMedium: Story = {
+  name: "Text — Medium",
+  render: () => <Avatar size="M" initials="WW" />,
 };
 
 export const IconMedium: Story = {
-  render: () => (
-    <Stack direction="row" spacing={2}>
-      <Avatar size="M" icon={<PersonIcon />} />
-    </Stack>
-  ),
+  name: "Icon — Medium",
+  render: () => <Avatar size="M" icon={<PersonIcon />} />,
 };
 
 export const AllVariants: Story = {
   render: () => (
     <Stack spacing={2}>
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={1} alignItems="center">
         <Avatar size="L" src="/assets/img.png" alt="User" />
         <Avatar size="L" initials="WW" />
         <Avatar size="L" icon={<PersonIcon />} />
+      </Stack>
+      <Stack direction="row" spacing={1} alignItems="center">
         <Avatar size="M" src="/assets/img.png" alt="User" />
         <Avatar size="M" initials="WW" />
         <Avatar size="M" icon={<PersonIcon />} />
@@ -87,23 +79,32 @@ export const AllVariants: Story = {
   ),
 };
 
-export const Group: Story = {
+export const GroupLarge: Story = {
+  name: "Group — Large",
   render: () => (
-    <Stack spacing={2}>
-      <AvatarGroup size="L">
-        <Avatar initials="AA" />
-        <Avatar initials="BB" />
-        <Avatar initials="CC" />
-        <Avatar initials="DD" />
-        <Avatar initials="EE" />
-      </AvatarGroup>
-      <AvatarGroup size="M">
-        <Avatar initials="AA" />
-        <Avatar initials="BB" />
-        <Avatar initials="CC" />
-        <Avatar initials="DD" />
-        <Avatar initials="EE" />
-      </AvatarGroup>
-    </Stack>
+    <AvatarGroup size="L">
+      <Avatar initials="WW" />
+      <Avatar initials="VW" />
+      <Avatar initials="VW" />
+      <Avatar initials="VW" />
+      <Avatar initials="AA" />
+      <Avatar initials="BB" />
+      <Avatar initials="CC" />
+    </AvatarGroup>
+  ),
+};
+
+export const GroupMedium: Story = {
+  name: "Group — Medium",
+  render: () => (
+    <AvatarGroup size="M">
+      <Avatar initials="WW" />
+      <Avatar initials="VW" />
+      <Avatar initials="VW" />
+      <Avatar initials="VW" />
+      <Avatar initials="AA" />
+      <Avatar initials="BB" />
+      <Avatar initials="CC" />
+    </AvatarGroup>
   ),
 };

@@ -26,7 +26,6 @@ import {
 import { darkVars } from "./dark-vars";
 import {
   appBarComponent,
-  accordionComponent,
   buttonComponent,
   cardComponent,
   checkboxComponent,
@@ -99,7 +98,6 @@ const darkThemeOptions: ThemeOptions = {
   shadows,
   components: {
     ...appBarComponent(theme),
-    ...accordionComponent(theme),
     ...buttonComponent(theme),
     ...cardComponent(theme),
     ...checkboxComponent(theme),

@@ -5,11 +5,9 @@
  */
 
 import {
-  Breadcrumbs as MuiBreadcrumbs,
   BreadcrumbsProps as MUIBreadcrumbsProps,
   useTheme,
 } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { GeneralSize, IconPosition } from "@/common";
 import {
   Link,
@@ -19,6 +17,7 @@ import {
   LinkType,
 } from "@/components/link";
 import { getLinkColors } from "@/components/link/helpers";
+import { BreadcrumbSeparator, StyledBreadcrumbs } from "./elements";
 
 const MAX_NUMBER_OF_VISIBLE_BREADCRUMBS = 4;
 
@@ -50,17 +49,9 @@ export const Breadcrumbs = ({
   const theme = useTheme();
 
   return (
-    <MuiBreadcrumbs
+    <StyledBreadcrumbs
       aria-label="breadcrumb"
-      separator={
-        <ChevronRightIcon
-          sx={{
-            width: "20px",
-            height: "20px",
-            color: theme.palette.vars.interactiveSecondaryDefaultDefault,
-          }}
-        />
-      }
+      separator={<BreadcrumbSeparator />}
       slotProps={{
         collapsedIcon: {
           sx: {
@@ -69,24 +60,7 @@ export const Breadcrumbs = ({
           },
         },
       }}
-      sx={{
-        lineHeight: "20px",
-        marginBottom: "16px",
-        "& .MuiBreadcrumbs-separator": { marginX: "4px" },
-        "& .MuiButtonBase-root": {
-          backgroundColor: "transparent",
-          margin: 0,
-          width: "20px",
-          height: "20px",
-        },
-        "& .MuiButtonBase-root:hover": { backgroundColor: "initial" },
-        "& .MuiBreadcrumbs-li, & .MuiBreadcrumbs-li > a": {
-          verticalAlign: "middle",
-          display: "flex",
-          alignItems: "center",
-        },
-        ...sx,
-      }}
+      sx={sx}
       maxItems={maximumNumberOfVisibleBreadcrumbs}
     >
       {items.map((item, idx) => {
@@ -129,6 +103,6 @@ export const Breadcrumbs = ({
           </Link>
         );
       })}
-    </MuiBreadcrumbs>
+    </StyledBreadcrumbs>
   );
 };

@@ -51,7 +51,13 @@ export const Accordion = ({
         aria-controls="panel-content"
         expandIcon={
           <ChevronRight
-            sx={(theme) => ({ color: theme.palette.vars.controlIconDefault })}
+            sx={(theme) => ({
+              color: theme.palette.vars.controlIconDefault,
+              ".Mui-disabled &": { color: theme.palette.vars.baseTextDisabled },
+              ".MuiButtonBase-root:hover &": {
+                color: theme.palette.vars.controlIconStrong,
+              },
+            })}
           />
         }
         {...accordionSummaryProps}

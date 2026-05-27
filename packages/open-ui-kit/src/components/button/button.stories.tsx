@@ -1,56 +1,20 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  Box,
-  Button,
-  ButtonProps,
-  FormControlLabel,
-  Stack,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
-import SaveIcon from "@mui/icons-material/Save";
-import { Expand } from "@/custom-icons";
+import { Stack } from "@mui/material";
+import GridViewIcon from "@mui/icons-material/GridView";
+import { Button, ButtonProps } from "./components/button";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Toggle } from "../toggle";
-
-/**
- * ### Buttons allow users to take actions, and make choices, with a single tap.
-
-  Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:
-
- * Modal windows
- * Forms
- * Cards
- * Toolbars
- */
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
-  argTypes: {
-    variant: {
-      control: "select", // Use a dropdown in Storybook
-      options: ["primary", "secondary", "outlined", "tertariary"], // Define the allowed values
-      description: "The variant of the button.",
-      defaultValue: "primary", // Set the default value
-    },
-    color: {
-      control: "select", // Use a dropdown in Storybook
-      options: ["default", "negative"],
-      // Define the allowed values
-      description: "The color of the button.",
-      defaultValue: "default", // Set the default value
-    },
-  },
   tags: ["autodocs"],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Buttons allow users to take actions, and make choices, with a single tap. Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like: Modal windows, Forms, Cards, Toolbars."
+          blurb="Buttons allow users to take actions and make choices with a single tap. They communicate actions that users can take and are typically placed throughout the UI in places like modal windows, forms, cards, and toolbars."
           guideLink=""
-          importLine='import { Button } from "@open-ui-kit/core";'
+          importLine={`import { Button } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -60,298 +24,188 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const BasicButtons: Story = {
-  render: (args: ButtonProps) => {
-    return (
-      <Stack direction="row" spacing={4}>
-        <Stack direction="column" spacing={2}>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="small" variant="tertariary" {...args}>
-              Text
-            </Button>
-            <Button size="small" variant="primary" {...args}>
-              Contained
-            </Button>
-            <Button size="small" variant="outlined" {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="small" variant="tertariary" disabled {...args}>
-              Text
-            </Button>
-            <Button size="small" variant="primary" disabled {...args}>
-              Contained
-            </Button>
-            <Button size="small" variant="outlined" disabled {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button
-              size="small"
-              variant="tertariary"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Text
-            </Button>
-            <Button
-              size="small"
-              variant="primary"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Contained
-            </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button
-              size="small"
-              variant="tertariary"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Text
-            </Button>
-            <Button
-              size="small"
-              variant="primary"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Contained
-            </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="small" variant="tertariary" {...args}>
-              <Expand />
-            </Button>
-            <Button size="small" variant="primary" {...args}>
-              <Expand />
-            </Button>
-            <Button size="small" variant="outlined" {...args}>
-              <Expand />
-            </Button>
-          </Stack>
-        </Stack>
-
-        <Stack direction="column" spacing={2}>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button variant="tertariary" {...args}>
-              Text
-            </Button>
-            <Button variant="primary" {...args}>
-              Contained
-            </Button>
-            <Button variant="outlined" {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button variant="tertariary" disabled {...args}>
-              Text
-            </Button>
-            <Button variant="primary" disabled {...args}>
-              Contained
-            </Button>
-            <Button variant="outlined" disabled {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button variant="tertariary" startIcon={<Expand />} {...args}>
-              Text
-            </Button>
-            <Button variant="primary" startIcon={<Expand />} {...args}>
-              Contained
-            </Button>
-            <Button variant="outlined" startIcon={<Expand />} {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button variant="tertariary" endIcon={<Expand />} {...args}>
-              Text
-            </Button>
-            <Button variant="primary" endIcon={<Expand />} {...args}>
-              Contained
-            </Button>
-            <Button variant="outlined" endIcon={<Expand />} {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button variant="primary" {...args}>
-              <Expand />
-            </Button>
-            <Button variant="primary" {...args}>
-              <Expand />
-            </Button>
-            <Button variant="outlined" {...args}>
-              <Expand />
-            </Button>
-          </Stack>
-        </Stack>
-        <Stack direction="column" spacing={2}>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="large" variant="tertariary" {...args}>
-              Text
-            </Button>
-            <Button size="large" variant="primary" {...args}>
-              Contained
-            </Button>
-            <Button size="large" variant="outlined" {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="large" variant="tertariary" disabled {...args}>
-              Text
-            </Button>
-            <Button size="large" variant="primary" disabled {...args}>
-              Contained
-            </Button>
-            <Button size="large" variant="outlined" disabled {...args}>
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button
-              size="large"
-              variant="tertariary"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Text
-            </Button>
-            <Button
-              size="large"
-              variant="primary"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Contained
-            </Button>
-            <Button
-              size="large"
-              variant="outlined"
-              startIcon={<Expand />}
-              {...args}
-            >
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button
-              size="large"
-              variant="tertariary"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Text
-            </Button>
-            <Button
-              size="large"
-              variant="primary"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Contained
-            </Button>
-            <Button
-              size="large"
-              variant="outlined"
-              endIcon={<Expand />}
-              {...args}
-            >
-              Outlined
-            </Button>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems={"center"}>
-            <Button size="large" variant="tertariary" {...args}>
-              <Expand />
-            </Button>
-            <Button size="large" variant="primary" {...args}>
-              <Expand />
-            </Button>
-            <Button size="large" variant="outlined" {...args}>
-              <Expand />
-            </Button>
-          </Stack>
-        </Stack>
-      </Stack>
-    );
-  },
-};
-
-export const IconAndLabelsButtons: Story = {
-  render: (args: ButtonProps) => {
-    return (
-      <Stack direction="row" spacing={2}>
-        <Button variant="outlined" {...args} startIcon={<DeleteIcon />}>
-          Delete
-        </Button>
-        <Button variant="primary" {...args} endIcon={<SendIcon />}>
-          Send
-        </Button>
-      </Stack>
-    );
-  },
-};
-
-const Buttons = (args: ButtonProps) => {
-  const [loading, setLoading] = React.useState(true);
-  return (
-    <Stack direction="row" spacing={2}>
-      <Box>
-        <FormControlLabel
-          sx={{
-            display: "block",
-          }}
-          control={
-            <Toggle
-              checked={loading}
-              onChange={() => setLoading(!loading)}
-              name="loading"
-              color="primary"
-            />
-          }
-          label="Loading"
-        />
-        <Box sx={{ "& > button": { m: 1 } }}>
-          <Button
-            loading={loading}
-            loadingPosition="start"
-            startIcon={<SaveIcon />}
-            {...args}
-          >
-            <span>Save</span>
-          </Button>
-        </Box>
-      </Box>
-      <Button {...args}>Enabled</Button>
+export const Primary: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button size="small" variant="primary" {...args}>
+        Button link
+      </Button>
+      <Button size="medium" variant="primary" {...args}>
+        Button link
+      </Button>
+      <Button size="large" variant="primary" {...args}>
+        Button link
+      </Button>
     </Stack>
-  );
+  ),
 };
-export const PrimaryButtons: Story = {
-  render: (args: ButtonProps) => {
-    return <Buttons {...args} />;
-  },
+
+export const Secondary: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button size="small" variant="secondary" {...args}>
+        Button link
+      </Button>
+      <Button size="medium" variant="secondary" {...args}>
+        Button link
+      </Button>
+      <Button size="large" variant="secondary" {...args}>
+        Button link
+      </Button>
+    </Stack>
+  ),
+};
+
+export const Outlined: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button size="small" variant="outlined" {...args}>
+        Button link
+      </Button>
+      <Button size="medium" variant="outlined" {...args}>
+        Button link
+      </Button>
+      <Button size="large" variant="outlined" {...args}>
+        Button link
+      </Button>
+    </Stack>
+  ),
+};
+
+export const Tertiary: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button size="small" variant="tertariary" {...args}>
+        Button link
+      </Button>
+      <Button size="medium" variant="tertariary" {...args}>
+        Button link
+      </Button>
+      <Button size="large" variant="tertariary" {...args}>
+        Button link
+      </Button>
+    </Stack>
+  ),
+};
+
+export const Destructive: Story = {
+  render: (args: ButtonProps) => (
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button size="small" variant="primary" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="medium" variant="primary" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="large" variant="primary" color="negative" {...args}>
+          Button link
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button size="small" variant="outlined" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="medium" variant="outlined" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="large" variant="outlined" color="negative" {...args}>
+          Button link
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button size="small" variant="tertariary" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="medium" variant="tertariary" color="negative" {...args}>
+          Button link
+        </Button>
+        <Button size="large" variant="tertariary" color="negative" {...args}>
+          Button link
+        </Button>
+      </Stack>
+    </Stack>
+  ),
+};
+
+export const WithIcons: Story = {
+  render: (args: ButtonProps) => (
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="primary" startIcon={<GridViewIcon />} {...args}>
+          Button link
+        </Button>
+        <Button variant="primary" endIcon={<GridViewIcon />} {...args}>
+          Button link
+        </Button>
+        <Button variant="primary" {...args}>
+          <GridViewIcon />
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button variant="outlined" startIcon={<GridViewIcon />} {...args}>
+          Button link
+        </Button>
+        <Button variant="outlined" endIcon={<GridViewIcon />} {...args}>
+          Button link
+        </Button>
+        <Button variant="outlined" {...args}>
+          <GridViewIcon />
+        </Button>
+      </Stack>
+    </Stack>
+  ),
+};
+
+export const Disabled: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button variant="primary" disabled {...args}>
+        Button link
+      </Button>
+      <Button variant="secondary" disabled {...args}>
+        Button link
+      </Button>
+      <Button variant="outlined" disabled {...args}>
+        Button link
+      </Button>
+      <Button variant="tertariary" disabled {...args}>
+        Button link
+      </Button>
+    </Stack>
+  ),
+};
+
+export const Loading: Story = {
+  render: (args: ButtonProps) => (
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button
+        variant="primary"
+        loading
+        loadingPosition="start"
+        startIcon={<GridViewIcon />}
+        {...args}
+      >
+        Button link
+      </Button>
+      <Button
+        variant="secondary"
+        loading
+        loadingPosition="start"
+        startIcon={<GridViewIcon />}
+        {...args}
+      >
+        Button link
+      </Button>
+      <Button
+        variant="outlined"
+        loading
+        loadingPosition="start"
+        startIcon={<GridViewIcon />}
+        {...args}
+      >
+        Button link
+      </Button>
+    </Stack>
+  ),
 };

@@ -6,11 +6,13 @@
 
 export * from "./accordion";
 export * from "./activity-timeline";
+export * from "./anchor-link-menu";
 export * from "./avatar";
 export * from "./actions-modal";
 export * from "./banner";
 export * from "./badge";
 export * from "./breadcrumbs";
+export * from "./button";
 export * from "./card";
 export * from "./code-block";
 export * from "./copy-button";
@@ -49,7 +51,6 @@ export * from "./pagination";
 
 // MUI exports
 export {
-  Button,
   Box,
   Stack,
   Typography,

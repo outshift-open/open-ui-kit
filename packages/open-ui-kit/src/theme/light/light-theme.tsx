@@ -32,7 +32,6 @@ import { typography } from "@/theme/style/typography";
 import { lightVars } from "./light-vars";
 import {
   appBarComponent,
-  accordionComponent,
   buttonComponent,
   cardComponent,
   checkboxComponent,
@@ -94,19 +93,6 @@ const palette: PaletteOptions = {
   },
 };
 
-// const getAlertStylesForSeverity = (borderColor: string) => ({
-//   borderRadius: "4px",
-//   borderTop: `1px solid ${borderColor}`,
-//   borderRight: `1px solid ${borderColor}`,
-//   borderBottom: `1px solid ${borderColor}`,
-//   borderLeft: `4px solid ${borderColor}`,
-//   background: OS_LIGHT_COLORS.surfaceLight["500"],
-//   boxShadow: shadows[5],
-//   ".MuiAlert-icon": {
-//     color: borderColor,
-//   },
-// });
-
 const theme: Theme = createTheme({
   breakpoints,
   palette,
@@ -118,7 +104,6 @@ const lightThemeOptions: ThemeOptions = {
   shadows,
   components: {
     ...appBarComponent(theme),
-    ...accordionComponent(theme),
     ...buttonComponent(theme),
     ...cardComponent(theme),
     ...checkboxComponent(theme),
@@ -349,69 +334,6 @@ const lightThemeOptions: ThemeOptions = {
     //           },
     //         },
     //       },
-    //     },
-    // MuiBadge: {
-    //   styleOverrides: {
-    //     badge: {
-    //       color: theme.palette.text.primary,
-    //       "&.MuiBadge-standard": {
-    //         height: "16px",
-    //         borderRadius: "64px",
-    //       },
-    //       // "&.MuiBadge-colorPrimary": {
-    //       //   backgroundColor: theme.palette.primary["900"],
-    //       // },
-    //       // "&.MuiBadge-colorSecondary": {
-    //       //   backgroundColor: theme.palette.secondary["500"],
-    //       // },
-    //       // "&.MuiBadge-colorError": {
-    //       //   backgroundColor: bordeauxPalette["500"],
-    //       // },
-    //       // "&.MuiBadge-colorWarning": {
-    //       //   backgroundColor: redPalette["500"],
-    //       // },
-    //     },
-    //   },
-    // },
-    //     MuiAlert: {
-    //       styleOverrides: {
-    //         message: {
-    //           color: grey50,
-    //         },
-    //         action: {
-    //           paddingTop: "0px",
-    //           display: "flex",
-    //           alignItems: "center",
-    //           flexWrap: "wrap",
-    //         },
-    //         root: {
-    //           "& .MuiButtonBase-root": {
-    //             color: grey200,
-    //           },
-    //         },
-    //       },
-    //       variants: [
-    //         {
-    //           props: { severity: "error" },
-    //           style: getAlertStylesForSeverity(PA_Colors.bordeaux["500"]),
-    //         },
-    //         {
-    //           props: { severity: "info" },
-    //           style:
-    //             theme.palette.info["500"] &&
-    //             getAlertStylesForSeverity(theme.palette.info["500"]),
-    //         },
-    //         {
-    //           props: { severity: "success" },
-    //           style:
-    //             theme.palette.success["500"] &&
-    //             getAlertStylesForSeverity(theme.palette.success["500"]),
-    //         },
-    //         {
-    //           props: { severity: "warning" },
-    //           style: getAlertStylesForSeverity(theme.palette.orange.main),
-    //         },
-    //       ],
     //     },
     //     MuiList: {
     //       defaultProps: {

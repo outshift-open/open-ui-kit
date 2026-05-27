@@ -1,0 +1,84 @@
+:root {
+  --ouk-blue-50: #e8f1ff;
+  --ouk-blue-100: #9bcaff;
+  --ouk-blue-300: #187adc;
+  --ouk-blue-500: #0051af;
+  --ouk-surface-50: #fbfcfe;
+  --ouk-surface-100: #f5f8fd;
+  --ouk-surface-200: #eff3fc;
+  --ouk-surface-600: #dae3f8;
+  --ouk-surface-dark-900: #00142b;
+  --ouk-text: #1a1f27;
+  --ouk-text-muted: #59616b;
+  --ouk-storybook-bg: var(--ouk-surface-200);
+  --ouk-storybook-preview-bg: var(--ouk-surface-50);
+}
+
+body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: var(--ouk-surface-200);
+  color: var(--ouk-text);
+}
+
+.sb-show-main,
+.sb-main-padded {
+  background: var(--ouk-surface-200);
+}
+
+.sb-main-padded {
+  padding: 32px;
+}
+
+.docs-story {
+  background: var(--ouk-storybook-bg) !important;
+}
+
+.sbdocs-wrapper {
+  background:
+    linear-gradient(180deg, rgba(251, 252, 254, 0.96), rgba(239, 243, 252, 1)),
+    var(--ouk-surface-200) !important;
+}
+
+.sbdocs-content {
+  max-width: 1040px;
+}
+
+.sbdocs-title {
+  color: var(--ouk-surface-dark-900) !important;
+  font-family:
+    "Sharp Sans",
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+.sbdocs-subtitle,
+.sbdocs-p,
+.sbdocs-li {
+  color: var(--ouk-text-muted) !important;
+}
+
+.sbdocs-a {
+  color: var(--ouk-blue-500) !important;
+}
+
+.docblock-argstable,
+.docblock-source,
+.docblock-code-toggle,
+.docblock-typeset,
+.sbdocs-preview {
+  border-color: var(--ouk-surface-600) !important;
+  border-radius: 8px !important;
+}
+
+.sbdocs-preview {
+  background: var(--ouk-storybook-preview-bg) !important;
+}
