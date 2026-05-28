@@ -4,7 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button, Drawer, Stack, useTheme } from "@mui/material";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 import { AssetsData, FilterData } from "../../types/types";
 import { getStyles } from "./styles";
 import { useDebounce } from "use-debounce";

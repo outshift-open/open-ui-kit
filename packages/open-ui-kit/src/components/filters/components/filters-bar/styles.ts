@@ -31,7 +31,7 @@ export const getStyles = (theme: Theme) => ({
       color: theme.palette.vars.baseTextDefault,
       marginBottom: "2px !important",
       height: "auto",
-      display: "flow",
+      display: "block",
     },
   },
   chip: {

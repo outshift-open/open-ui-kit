@@ -71,7 +71,7 @@ export const FilterOptionItem = ({
             tooltip: {
               sx: {
                 maxWidth: "240px",
-                display: "flow",
+                display: "block",
                 padding: "8px",
               },
             },
