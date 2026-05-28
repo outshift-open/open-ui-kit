@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { CodeBlock } from "../components/code-block";
 
@@ -53,7 +54,8 @@ const meta: Meta<typeof CodeBlock> = {
       page: () => (
         <DocsHeader
           blurb="CodeBlock is used to display code snippets with syntax highlighting and optional line numbers. It supports various programming languages and allows for easy copying of code."
-          importLine='import { CodeBlock } from "@open-ui-kit/core";'
+          guideLink=""
+          importLine={`import { CodeBlock } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -62,6 +64,7 @@ const meta: Meta<typeof CodeBlock> = {
 
 export default meta;
 type Story = StoryObj<typeof CodeBlock>;
+const buttonLinkAction = action("button-link clicked");
 
 const exampleCodeBlock = `import { Box } from '@atlaskit/primitives'
  
@@ -98,5 +101,55 @@ export const StartingLineNumber: Story = {
     text: exampleCodeBlock,
     showLineNumbers: true,
     startingLineNumber: 5,
+  },
+};
+
+export const WithHeaderMedium: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Medium size code block with a header bar containing button-link actions.",
+      },
+    },
+  },
+  render: (args) => (
+    <CodeBlock
+      {...args}
+      size="medium"
+      header={[
+        { label: "button-link", onClick: buttonLinkAction },
+        { label: "button-link", onClick: buttonLinkAction },
+      ]}
+    />
+  ),
+  args: {
+    text: exampleCodeBlock,
+    showLineNumbers: true,
+  },
+};
+
+export const WithHeaderSmall: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Small size code block with a header bar. Header padding is `8px 12px`, gap `12px`, and line numbers use caption typography.",
+      },
+    },
+  },
+  render: (args) => (
+    <CodeBlock
+      {...args}
+      size="small"
+      header={[
+        { label: "button-link", onClick: buttonLinkAction },
+        { label: "button-link", onClick: buttonLinkAction },
+      ]}
+    />
+  ),
+  args: {
+    text: exampleCodeBlock,
+    showLineNumbers: true,
   },
 };

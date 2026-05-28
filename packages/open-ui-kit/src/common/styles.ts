@@ -11,12 +11,3 @@ export const ellipsisStyle: CSSProperties = {
   overflow: "hidden",
   textOverflow: "ellipsis",
 };
-
-export const checkboxStyle = {
-  padding: 0,
-  marginLeft: 0,
-  borderRadius: 4,
-  "& + *": {
-    marginLeft: 8,
-  },
-};

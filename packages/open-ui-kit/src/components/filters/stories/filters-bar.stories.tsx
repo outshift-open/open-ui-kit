@@ -1,6 +1,12 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button } from "@/components/button";
 import {
   FiltersBar,
   FiltersBarProps,
@@ -11,23 +17,33 @@ import {
   filtersNoMultiSelectMockData,
   nestedFilters,
 } from "./mock-data";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof FiltersBar> = {
-  title: "DEV/FiltersBar",
+  title: "Components/Filters",
   component: FiltersBar,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="FiltersBar provides a search field, filter chips, and a slide-out drawer for selecting filter options. Supports nested filters, select-all, multi-select, and single-select modes."
+          guideLink=""
+          importLine={`import { FiltersBar } from "@open-ui-kit/core";`}
+        />
+      ),
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof FiltersBar>;
 
-const SideButton = () => {
-  return (
-    <Button variant={"outlined"} size={"large"}>
-      Side Button
-    </Button>
-  );
-};
+const SideButton = () => (
+  <Button variant="secondary" size="large">
+    button-link
+  </Button>
+);
 
 const FiltersBarStory = ({
   assetsData,
@@ -65,89 +81,74 @@ const FiltersBarStory = ({
   );
 };
 
-export const FiltersBarExample: Story = {
+export const Default: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
-    assetsData: {
-      count: 2200,
-      selectedCount: 2000,
-      name: "shaq's assets",
-    },
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: () => undefined,
   },
 };
 
-export const FiltersBarExampleSelectAllFilterOptions: Story = {
+export const WithSelectAll: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: filterSelectAllFilterOptions,
     assetsData: { count: 12, selectedCount: 10, name: "Filters" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: () => undefined,
   },
 };
 
-export const FiltersBarExampleNestedFilters: Story = {
+export const NestedFilters: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: nestedFilters,
     assetsData: { count: 20, selectedCount: 10, name: "Filters" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: () => undefined,
   },
 };
 
-export const FiltersBarExampleWithoutMultiSelect: Story = {
+export const SingleSelect: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: filtersNoMultiSelectMockData,
-    assetsData: {
-      count: 2200,
-      selectedCount: 2000,
-      name: "shaq's assets",
-    },
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: () => undefined,
   },
 };
 
-export const FiltersBarExampleWithoutOnSearch: Story = {
+export const WithoutSearch: Story = {
+  name: "Without Search Handler",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
-    assetsData: {
-      count: 2200,
-      selectedCount: 2000,
-      name: "shaq's assets",
-    },
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: undefined,
   },
 };
 
-export const FiltersBarExampleWithASideButton: Story = {
+export const WithSideButton: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
-    assetsData: {
-      count: 2200,
-      selectedCount: 2000,
-      name: "shaq's assets",
-    },
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
     isLoading: false,
-    searchPlaceHolder: "Search by...",
+    searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
     onSearch: () => undefined,
     rightSideComponent: <SideButton />,

@@ -7,28 +7,31 @@
 export * from "./accordion";
 export * from "./activity-timeline";
 export * from "./anchor-link-menu";
+export * from "./backdrop";
 export * from "./avatar";
-export * from "./actions-modal";
+export * from "./actions-dialog";
 export * from "./banner";
 export * from "./badge";
 export * from "./breadcrumbs";
 export * from "./button";
 export * from "./card";
+export * from "./checkbox";
 export * from "./code-block";
 export * from "./copy-button";
 export * from "./date-time";
 export * from "./drawer-shell";
-export * from "./dropdown";
-export * from "./dropdown-autocomplete-tree";
+export * from "./nested-menu";
 export * from "./empty-state";
-export * from "./favorite-button";
+export * from "./floating-button";
+export * from "./filters";
+
 export * from "./footer";
 export * from "./header";
+export * from "./icon";
 export * from "./indicator-badge";
-export * from "./legend";
 export * from "./link";
 export * from "./loading-error-state";
-export * from "./modal";
+export * from "./dialog";
 export * from "./menu";
 export * from "./overflow-tooltip";
 export * from "./path-display";
@@ -41,6 +44,7 @@ export * from "./spinner";
 export * from "./table";
 export * from "./tabs";
 export * from "./tags";
+export * from "./input-field";
 export * from "./toast";
 export * from "./toggle";
 export * from "./tooltip";
@@ -55,10 +59,8 @@ export {
   Stack,
   Typography,
   Grid,
-  Icon,
   IconButton,
   Stepper,
-  SpeedDial,
   Slider,
   Skeleton,
   Dialog,
@@ -69,8 +71,6 @@ export {
   ListItemButton,
   Drawer,
   Divider,
-  Checkbox,
-  Backdrop,
   Container,
   Paper,
   ButtonGroup,

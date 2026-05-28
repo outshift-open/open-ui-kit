@@ -5,8 +5,31 @@
  */
 
 import type { SearchFieldProps } from "@/components/search-field";
-import { AppBarProps, SxProps, Theme } from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 import React, { ReactNode } from "react";
+
+export interface GlobalSearchItem {
+  id: string;
+  label: string;
+  subtitle?: string;
+  icon?: ReactNode;
+}
+
+export interface GlobalSearchGroup {
+  key: string;
+  label: string;
+  items: GlobalSearchItem[];
+}
+
+export interface GlobalSearchProps {
+  placeholder?: string;
+  value?: string;
+  groups?: GlobalSearchGroup[];
+  onSearch?: (value: string) => void;
+  onSelect?: (item: GlobalSearchItem) => void;
+  onClear?: () => void;
+  width?: string | number;
+}
 
 // Prop type for individual action items
 export interface HeaderAction {
@@ -32,14 +55,20 @@ export interface HeaderProps {
   title?: string | ReactNode;
 
   /**
-   * Configuration object for the search field.
+   * Configuration for the global search with grouped dropdown results.
+   * If provided, renders a GlobalSearchField instead of the basic search.
+   */
+  globalSearchProps?: GlobalSearchProps;
+
+  /**
+   * Configuration object for the basic search field.
    * If undefined, the search field will not be rendered.
    */
   searchProps?: SearchFieldProps;
 
   /**
-   * A custom search field component to override the default search field.
-   * If provided, this will be used instead of the default searchProps.
+   * A custom search field component to override both search variants.
+   * If provided, this will be used instead of searchProps or globalSearchProps.
    */
   customSearchNode?: ReactNode;
 
@@ -54,16 +83,10 @@ export interface HeaderProps {
   userSection?: ReactNode;
 
   /**
-   * The positioning type of the AppBar.
+   * The CSS position of the header.
    * @default 'fixed'
    */
-  position?: AppBarProps["position"];
-
-  /**
-   * The elevation (shadow) of the AppBar.
-   * @default 0
-   */
-  elevation?: number;
+  position?: "fixed" | "absolute" | "sticky" | "static" | "relative";
 
   /**
    * Allows for custom styling overrides.

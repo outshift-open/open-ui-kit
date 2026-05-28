@@ -8,4 +8,5 @@ export { CopyButton } from "./components/copy-button";
 export type {
   CopyButtonProps,
   CopyButtonPosition,
+  CopyButtonSize,
 } from "./components/copy-button";

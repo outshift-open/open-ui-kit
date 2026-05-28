@@ -5,27 +5,24 @@
  */
 
 import { CardContent, Skeleton, Stack, useTheme } from "@mui/material";
-import type { ILegendProps } from "@/components/legend";
 import { WidgetBodyStateful } from "./widget-body-stateful";
 import { styles } from "../styles/styles";
 
-export interface IWidgetBodyProps<T extends string> {
+export interface IWidgetBodyProps {
   isLoading?: boolean;
-  legend?: ILegendProps<T>;
   bodyElement: JSX.Element;
   isHorizontal?: boolean;
   isEmpty: boolean;
   legendCustomComponent?: React.ReactNode;
 }
 
-export const WidgetBody = <T extends string>({
+export const WidgetBody = ({
   isLoading,
-  legend,
   bodyElement,
   isEmpty,
   isHorizontal = false,
   legendCustomComponent,
-}: IWidgetBodyProps<T>) => {
+}: IWidgetBodyProps) => {
   const theme = useTheme();
 
   return (
@@ -51,7 +48,6 @@ export const WidgetBody = <T extends string>({
         </Stack>
       ) : (
         <WidgetBodyStateful
-          legend={legend}
           bodyElement={bodyElement}
           legendCustomComponent={legendCustomComponent}
           isHorizontal={isHorizontal}

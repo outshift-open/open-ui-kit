@@ -33,9 +33,11 @@ import {
   ArrowForwardIOS,
   CloseLarge,
   OpenInNewTab,
+  StarOutline,
 } from "@/custom-icons";
+import { Star } from "@mui/icons-material";
 import { CopyButton } from "@/components/copy-button";
-import { FavoriteButton } from "@/components/favorite-button";
+
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { SeverityBar } from "@/components/severity-bar";
 import { Tooltip, TooltipSize } from "@/components/tooltip";
@@ -166,7 +168,26 @@ export const DrawerShellHeader = ({
         <Stack sx={drawerActionButtonsStyle}>
           {actionButtons}
           {!hideFavorite && (
-            <FavoriteButton isChecked={isFavorite} onClick={onFavorite} />
+            <Tooltip
+              placement="top"
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              size={TooltipSize.Large}
+            >
+              <span>
+                <Button
+                  disableRipple
+                  variant="secondary"
+                  onClick={onFavorite}
+                  sx={{ padding: "6px", minWidth: "unset" }}
+                >
+                  {isFavorite ? (
+                    <Star sx={{ height: "20px", width: "20px" }} />
+                  ) : (
+                    <StarOutline sx={{ height: "20px", width: "20px" }} />
+                  )}
+                </Button>
+              </span>
+            </Tooltip>
           )}
           {!hideCopyBtn && (
             <CopyButton text={copyURL} onCopy={() => onCopyLink} />

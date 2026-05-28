@@ -39,7 +39,13 @@ export const MenuItem = ({
   }
 
   return (
-    <MenuItem {...props} sx={{ padding: 0 }}>
+    <MuiMenuItem
+      {...props}
+      sx={[
+        { padding: 0 },
+        ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+      ]}
+    >
       <Link
         disabled={disabled}
         href={href}
@@ -63,6 +69,6 @@ export const MenuItem = ({
           {children}
         </Typography>
       </Link>
-    </MenuItem>
+    </MuiMenuItem>
   );
 };

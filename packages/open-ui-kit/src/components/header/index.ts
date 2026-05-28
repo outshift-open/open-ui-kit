@@ -6,3 +6,4 @@
 
 export * from "./types";
 export * from "./components/header";
+export { GlobalSearchField } from "./components/global-search-field";

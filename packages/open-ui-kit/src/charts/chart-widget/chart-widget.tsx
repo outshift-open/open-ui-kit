@@ -29,7 +29,6 @@ export const ChartWidget = <T extends string>({
   showTooltip = false,
   categories,
   isLoading,
-  legend,
   isEmpty = false,
   isHorizontal = false,
   customTooltip,
@@ -82,7 +81,6 @@ export const ChartWidget = <T extends string>({
       titleTooltip={titleTooltip}
       sx={combinedSx}
       isLoading={isLoading}
-      legend={legend}
       isHorizontal={isHorizontal}
       headerChildren={headerChildren}
       headerLeftChildren={headerLeftChildren}

@@ -1,26 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  FormControlLabel,
-  FormGroup,
-  Typography,
-  CheckboxProps,
-  Stack,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Checkbox,
-} from "@mui/material";
-import { useState } from "react";
+import { FormControlLabel, FormGroup, Stack } from "@mui/material";
+import { Checkbox, CheckboxProps } from "./components/checkbox";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-/**
- * ### Checkboxes allow the user to select one or more items from a set.
-
-Checkboxes can be used to turn an option on or off.
-
-If you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches.
-If you have a single option, avoid using a checkbox and use an on/off switch instead.
- */
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
   component: Checkbox,
@@ -29,9 +11,9 @@ const meta: Meta<typeof Checkbox> = {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Checkboxes allow the user to select one or more items from a set. Checkboxes can be used to turn an option on or off."
+          blurb="Checkboxes allow the user to select one or more items from a set. Used for selecting multiple values from several options. Do not use when the user should only select one option — use Radio instead."
           guideLink=""
-          importLine='import { Checkbox } from "@open-ui-kit/core";'
+          importLine={`import { Checkbox } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -39,134 +21,69 @@ const meta: Meta<typeof Checkbox> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Checkbox>;
 
-export const Example: Story = {};
-
-const Checkboxes = (args: CheckboxProps) => {
+const LabeledCheckbox = (props: CheckboxProps & { label?: string }) => {
+  const { label = "Label", ...rest } = props;
   return (
-    <Stack direction="column">
-      <Stack direction="row" alignItems={"center"}>
-        <Checkbox {...args} indeterminate={true} />
-        <Typography variant="body2" sx={{ marginLeft: "4px" }}>
-          Indeterminate
-        </Typography>
-      </Stack>
-      <Stack direction="row" alignItems={"center"}>
-        <Checkbox {...args} />
-        <Typography variant="body2" sx={{ marginLeft: "4px" }}>
-          Checkmark
-        </Typography>
-      </Stack>
-    </Stack>
+    <FormControlLabel
+      control={<Checkbox {...rest} />}
+      label={label}
+      sx={{ margin: 0, gap: "4px" }}
+    />
   );
 };
 
-export const Default: Story = {
-  render: Checkboxes,
-  args: {
-    color: "primary",
-    defaultChecked: true,
+export const States: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "All three check states (Unchecked, Checked, Mixed) across Default, and Disabled.",
+      },
+    },
   },
+  render: () => (
+    <Stack direction="row" spacing={4}>
+      <FormGroup>
+        <LabeledCheckbox label="Unchecked" />
+        <LabeledCheckbox label="Checked" defaultChecked />
+        <LabeledCheckbox label="Mixed" indeterminate />
+      </FormGroup>
+      <FormGroup>
+        <LabeledCheckbox label="Unchecked" disabled />
+        <LabeledCheckbox label="Checked" defaultChecked disabled />
+        <LabeledCheckbox label="Mixed" indeterminate disabled />
+      </FormGroup>
+    </Stack>
+  ),
 };
 
-export const Secondary: Story = {
-  render: Checkboxes,
-  args: {
-    color: "primary",
-    defaultChecked: true,
-  },
+export const Unchecked: Story = {
+  render: () => <LabeledCheckbox label="Label" />,
 };
 
-export const Error: Story = {
-  render: Checkboxes,
-  args: {
-    color: "error",
-    defaultChecked: true,
-  },
+export const Checked: Story = {
+  render: () => <LabeledCheckbox label="Label" defaultChecked />,
 };
 
-export const Success: Story = {
-  render: Checkboxes,
-  args: {
-    color: "success",
-    defaultChecked: true,
-  },
+export const Mixed: Story = {
+  render: () => <LabeledCheckbox label="Label" indeterminate />,
 };
 
-export const Warning: Story = {
-  render: Checkboxes,
-  args: {
-    color: "warning",
-    defaultChecked: true,
+export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "All check states in the disabled variant.",
+      },
+    },
   },
-};
-
-export const WithLabel: Story = {
-  render: function CheckboxesWithLabels() {
-    const [state, setState] = useState({
-      gilad: true,
-      jason: false,
-      antoine: false,
-    });
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setState({
-        ...state,
-        [event.target.name]: event.target.checked,
-      });
-    };
-
-    const { gilad, jason, antoine } = state;
-    const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
-    return (
-      <FormControl
-        required
-        error={error}
-        component="fieldset"
-        sx={{ m: 3 }}
-        variant="standard"
-      >
-        <FormLabel component="legend">Pick two</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
-            }
-            label={
-              <Typography variant="body2" sx={{ marginLeft: "4px" }}>
-                Gilad Gray
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={jason} onChange={handleChange} name="jason" />
-            }
-            label={
-              <Typography variant="body2" sx={{ marginLeft: "4px" }}>
-                Jason Killian
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={antoine}
-                onChange={handleChange}
-                name="antoine"
-              />
-            }
-            label={
-              <Typography variant="body2" sx={{ marginLeft: "4px" }}>
-                Antoine Llorca
-              </Typography>
-            }
-          />
-        </FormGroup>
-        <FormHelperText>You can display an error</FormHelperText>
-      </FormControl>
-    );
-  },
+  render: () => (
+    <FormGroup>
+      <LabeledCheckbox label="Unchecked" disabled />
+      <LabeledCheckbox label="Checked" defaultChecked disabled />
+      <LabeledCheckbox label="Mixed" indeterminate disabled />
+    </FormGroup>
+  ),
 };

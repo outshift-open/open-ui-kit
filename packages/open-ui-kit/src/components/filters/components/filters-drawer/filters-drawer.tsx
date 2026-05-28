@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button, Drawer, Stack } from "@mui/material";
+import { Button, Drawer, Stack, useTheme } from "@mui/material";
 import { AssetsData, FilterData } from "../../types/types";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
 import { useDebounce } from "use-debounce";
 import { useCallback, useState } from "react";
 import { getFilteredSubFilters, getFiltersSelectionCount } from "../../utils";
@@ -35,6 +35,8 @@ export const FiltersDrawer = ({
   handleClose,
   handleClearAll,
 }: FiltersDrawerProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [search, setSearch] = useState("");
   const [searchDebounced] = useDebounce(search, 170);
 

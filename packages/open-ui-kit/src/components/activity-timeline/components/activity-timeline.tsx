@@ -44,7 +44,13 @@ export const ActivityTimeline = ({
   );
 
   return (
-    <MuiTimeline sx={{ padding: 0, margin: 0 }} {...props}>
+    <MuiTimeline
+      {...props}
+      sx={[
+        { padding: 0, margin: 0 },
+        ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+      ]}
+    >
       {steps.map((step, index) => (
         <MuiTimelineItem key={index} sx={{ "&::before": { display: "none" } }}>
           <MuiTimelineSeparator sx={{ marginTop: "2px" }}>

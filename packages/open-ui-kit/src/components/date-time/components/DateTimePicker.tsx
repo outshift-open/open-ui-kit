@@ -17,6 +17,7 @@ export const DateTimePicker = ({
   ...props
 }: DateTimePickerProps) => {
   const theme = useTheme();
+  const sharedSlotProps = getSharedSlotPropsDateTimePicker(theme);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -25,28 +26,22 @@ export const DateTimePicker = ({
         format="MM/DD/YYYY HH:mm"
         {...props}
         slotProps={{
-          ...getSharedSlotPropsDateTimePicker(theme),
+          ...sharedSlotProps,
+          ...props.slotProps,
           textField: {
             placeholder: label,
             variant: "standard",
             size: "small",
             sx: {
               "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-              "& .MuiInputAdornment-root": {
-                paddingRight: "8px",
-              },
+              "& .MuiInputAdornment-root": { paddingRight: "8px" },
               ...textFieldStyles,
             },
+            ...props.slotProps?.textField,
           },
           popper: {
-            modifiers: [
-              {
-                name: "offset",
-                options: {
-                  offset: [0, 12],
-                },
-              },
-            ],
+            modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
+            ...props.slotProps?.popper,
           },
         }}
       />

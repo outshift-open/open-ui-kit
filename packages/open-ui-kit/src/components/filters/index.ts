@@ -3,3 +3,9 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+
+export { FiltersBar } from "./components/filters-bar/filters-bar";
+export type { FiltersBarProps } from "./components/filters-bar/filters-bar";
+export { FiltersDrawer } from "./components/filters-drawer/filters-drawer";
+export type { FiltersDrawerProps } from "./components/filters-drawer/filters-drawer";
+export type { FilterData, FilterOptionData, AssetsData } from "./types/types";

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Tooltip } from "@mui/material";
+import { Tooltip, useTheme } from "@mui/material";
 import { FilterData } from "../../types/types";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
 import { Tag } from "@/components/tags/tag";
 import { GeneralSize } from "@/common";
 
@@ -21,6 +21,8 @@ export const FilterChip = ({
   optionValues,
   handleDelete,
 }: FilterChipProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   if (optionValues.length === 0) {
     return <></>;
   }

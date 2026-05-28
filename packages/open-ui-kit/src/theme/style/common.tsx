@@ -4,76 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BreakpointsOptions, Components, Theme } from "@mui/material";
-import { KeyboardArrowUp } from "@/custom-icons";
+import { BreakpointsOptions, Theme } from "@mui/material";
 import { TOOLBAR_MINIMUM_HEIGHT } from "./constants";
 import { typography } from "./typography";
-
-export const getInputSharedStyle = (theme: Theme): Components => {
-  const underline = { ...(typography.body2 as object) };
-
-  return {
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          padding: "8px 16px 8px 16px",
-          height: "40px",
-          marginTop: "24px",
-          "label+&": {
-            marginTop: "24px",
-          },
-          "&.Mui-disabled": {
-            "& .MuiInputAdornment-root": {
-              color: theme.palette.text.disabled,
-            },
-          },
-        },
-        input: {
-          padding: "0px",
-        },
-        sizeSmall: {
-          height: "32px",
-        },
-        multiline: {
-          height: "max-content",
-        },
-        underline,
-      },
-    },
-    MuiInputLabel: {},
-    MuiFormHelperText: {},
-    MuiFilledInput: {},
-    MuiOutlinedInput: {},
-    MuiTextField: {},
-    MuiAutocomplete: {
-      defaultProps: {
-        popupIcon: <KeyboardArrowUp />,
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          "#mrt-rows-per-page": {
-            margin: "0px 5px 0px 0px",
-          },
-          "& > .MuiBox-root": {
-            "& > .MuiBox-root": {
-              "& > .MuiBox-root": {
-                width: "100%",
-                "& > .MuiBox-root": {
-                  width: "inherit",
-                },
-              },
-            },
-          },
-        },
-      },
-      defaultProps: {
-        elevation: 0,
-      },
-    },
-  };
-};
 
 export const listItemCommonStyles = (theme: Theme) => {
   return {

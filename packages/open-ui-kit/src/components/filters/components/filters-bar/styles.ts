@@ -4,10 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { surfaceDarkPalette } from "@/theme/style/color-palette";
-import { darkTheme } from "@/theme/dark/dark-theme";
+import { Theme } from "@mui/material";
 
-export const styles = {
+export const getStyles = (theme: Theme) => ({
   searchStack: {
     flex: "1",
   },
@@ -28,8 +27,8 @@ export const styles = {
   },
   chipTooltip: {
     "& .MuiTooltip-tooltip": {
-      backgroundColor: surfaceDarkPalette[50],
-      color: darkTheme.palette.grey[50],
+      backgroundColor: theme.palette.vars.baseBackgroundStrong,
+      color: theme.palette.vars.baseTextDefault,
       marginBottom: "2px !important",
       height: "auto",
       display: "flow",
@@ -38,6 +37,9 @@ export const styles = {
   chip: {
     marginRight: "8px",
     maxWidth: "240px",
-    textTransform: "none",
+    textTransform: "none" as const,
   },
-};
+  inactiveCount: {
+    color: theme.palette.vars.baseTextWeak,
+  },
+});

@@ -14,6 +14,7 @@ export const dividerComponent = (theme: Theme): Components => {
           "&.MuiDivider-root": {
             background: theme.palette.vars.controlBorderDefault,
             border: "none",
+            borderRadius: "100px",
           },
         },
       },

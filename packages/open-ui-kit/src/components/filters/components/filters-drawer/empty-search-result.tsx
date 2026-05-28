@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography } from "@mui/material";
-import { styles } from "./styles";
+import { Typography, useTheme } from "@mui/material";
+import { getStyles } from "./styles";
 
 interface EmptySearchResultProps {
   searchValue: string;
@@ -14,6 +14,8 @@ interface EmptySearchResultProps {
 export const EmptySearchResult = ({
   searchValue,
 }: EmptySearchResultProps): JSX.Element => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   return (
     <Typography
       variant="body2"

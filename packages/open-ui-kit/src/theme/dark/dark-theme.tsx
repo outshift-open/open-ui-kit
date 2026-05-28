@@ -25,10 +25,8 @@ import {
 } from "@mui/material";
 import { darkVars } from "./dark-vars";
 import {
-  appBarComponent,
+  backdropComponent,
   buttonComponent,
-  cardComponent,
-  checkboxComponent,
   circularProgressComponent,
   dialogComponent,
   dividerComponent,
@@ -97,10 +95,8 @@ const theme: Theme = createTheme({
 const darkThemeOptions: ThemeOptions = {
   shadows,
   components: {
-    ...appBarComponent(theme),
+    ...backdropComponent(theme),
     ...buttonComponent(theme),
-    ...cardComponent(theme),
-    ...checkboxComponent(theme),
     ...circularProgressComponent(theme),
     ...dialogComponent(theme),
     ...dividerComponent(theme),
@@ -115,7 +111,6 @@ const darkThemeOptions: ThemeOptions = {
     ...tabComponent(theme),
     ...tabsComponent(theme),
     ...tooltipComponent(theme),
-
     MuiCssBaseline: {
       styleOverrides: {
         html: {

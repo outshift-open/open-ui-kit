@@ -3,7 +3,8 @@
 import { ComponentProps, type ReactElement, type ReactNode } from "react";
 import { Title, Primary, Stories } from "@storybook/addon-docs/blocks";
 import { OpenPage } from "@/custom-icons";
-import { Banner, CodeBlock } from "@/components";
+import { Banner } from "@/components/banner";
+import { CodeBlock } from "@/components/code-block";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { Box, Button, Typography } from "@mui/material";
 

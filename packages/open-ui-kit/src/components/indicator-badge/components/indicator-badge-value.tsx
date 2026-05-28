@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box } from "@mui/material";
-import { indicatorBadgeValueStyles } from "../styles/indicator-badge-value-styles";
+import { IndicatorBadgeValueBar } from "./elements";
 
 export interface IndicatorBadgeValueProps {
   color: string;
@@ -16,5 +15,11 @@ export const IndicatorBadgeValue = ({
   color,
   isActive,
 }: IndicatorBadgeValueProps): JSX.Element => {
-  return <Box sx={indicatorBadgeValueStyles(color, isActive)} />;
+  return (
+    <IndicatorBadgeValueBar
+      badgeColor={color}
+      data-testid="indicator-badge-bar"
+      isActive={isActive}
+    />
+  );
 };

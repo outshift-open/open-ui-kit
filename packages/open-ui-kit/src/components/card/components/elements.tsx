@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { ComponentType } from "react";
 import {
   Card as MuiCard,
   CardProps as MuiCardProps,
@@ -28,11 +29,12 @@ export const StyledCard = styled(MuiCard)(({ theme }) => ({
   borderRadius: "8px",
   backgroundImage: "none",
   backgroundColor: theme.palette.vars.baseBackgroundWeak,
+  boxShadow: theme.shadows[1],
   boxSizing: "border-box",
   "&:hover": {
     backgroundColor: theme.palette.vars.baseBackgroundWeak,
   },
-})) as React.ComponentType<MuiCardProps>;
+})) as ComponentType<MuiCardProps>;
 
 export const StyledCardActionArea = styled(MuiCardActionArea)(({ theme }) => ({
   borderRadius: "8px",
@@ -48,33 +50,35 @@ export const StyledCardActionArea = styled(MuiCardActionArea)(({ theme }) => ({
       opacity: 0,
     },
   },
-})) as React.ComponentType<MuiCardActionAreaProps>;
+})) as ComponentType<MuiCardActionAreaProps>;
 
 export const StyledCardHeader = styled(MuiCardHeader)(({ theme }) => ({
   padding: "0",
-  ...theme.typography.body1Semibold,
-  color: theme.palette.vars.baseTextDefault,
   "& .MuiCardHeader-title": {
     ...theme.typography.body1Semibold,
     color: theme.palette.vars.baseTextDefault,
   },
-})) as React.ComponentType<MuiCardHeaderProps>;
+  "& .MuiCardHeader-subheader": {
+    ...theme.typography.captionMedium,
+    color: theme.palette.vars.baseTextMedium,
+  },
+})) as ComponentType<MuiCardHeaderProps>;
 
 export const StyledCardContent = styled(MuiCardContent)(() => ({
   padding: "0",
   "&:last-child": {
     paddingBottom: "0",
   },
-})) as React.ComponentType<MuiCardContentProps>;
+})) as ComponentType<MuiCardContentProps>;
 
 export const StyledCardActions = styled(MuiCardActions)(() => ({
   padding: "0",
-})) as React.ComponentType<MuiCardActionsProps>;
+})) as ComponentType<MuiCardActionsProps>;
 
 export const StyledCardDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextDefault,
-})) as React.ComponentType<TypographyProps>;
+})) as ComponentType<TypographyProps>;
 
 export const StyledCardSubheader = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextMedium,
-})) as React.ComponentType<TypographyProps>;
+})) as ComponentType<TypographyProps>;

@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button, Stack } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
 import { FilterData, AssetsData, FilterOptionData } from "../../types/types";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
+import { Button } from "@/components/button";
 import {
   getFiltersSelectionCount,
   setAllSubFilters,
@@ -58,6 +59,8 @@ export const FiltersBar = ({
   rightSideComponent,
   isFiltersButtonVisible = true,
 }: FiltersBarProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [isOpen, setIsOpen] = useState(false);
   const [favorite, setFavorite] = useState(initialFavoriteValue);
 

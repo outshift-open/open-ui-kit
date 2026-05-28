@@ -1,116 +1,280 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Avatar, Box, Button, Menu, MenuItem, Typography } from "@mui/material";
-import { Book, BugReport, ExpandMore, ExpandLess } from "@mui/icons-material";
+import {
+  Badge,
+  Box,
+  Chip,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import {
+  AccountCircleOutlined,
+  ExpandMore,
+  ExpandLess,
+  GitHub,
+  MenuBook,
+  NotificationsNone,
+  LogoutOutlined,
+  PersonOutlineOutlined,
+} from "@mui/icons-material";
+import { Button } from "@/components/button";
+import { OutshiftBrand } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import Header from "../components/header";
+import { GlobalSearchGroup, GlobalSearchItem, HeaderAction } from "../types";
 
-// Mock Logo and User Section components remain the same...
-const StoryLogo = () => (
-  <svg height="32" viewBox="0 0 100 100" width="32">
-    <circle cx="50" cy="50" r="45" fill="#007BFF" />
-    <circle cx="50" cy="50" r="25" fill="#FFFFFF" />
-  </svg>
+/* ─── Title block: "Agent Directory" + "Beta" chip ─── */
+const AppTitle = () => (
+  <Stack direction="row" alignItems="center" gap={1}>
+    <Typography
+      sx={(theme) => ({
+        fontFamily: "Inter, sans-serif",
+        fontWeight: 400,
+        fontSize: "18px",
+        lineHeight: "18px",
+        color: theme.palette.vars.baseTextStrong,
+      })}
+    >
+      Agent Directory
+    </Typography>
+    <Chip
+      label="Beta"
+      size="small"
+      sx={(theme) => ({
+        height: "20px",
+        fontSize: "12px",
+        fontWeight: 600,
+        borderRadius: "12px",
+        backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
+        color: theme.palette.vars.baseTextDefault,
+        "& .MuiChip-label": { padding: "0 8px" },
+      })}
+    />
+  </Stack>
 );
 
-const StoryUserSection = () => {
+/* ─── User section dropdown ─── */
+const UserSection = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
-    setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
 
   return (
     <>
       <Button
-        onClick={handleClick}
-        startIcon={
-          <Avatar
-            sx={{
-              width: "20px",
-              height: "20px",
-              paddingTop: "-20px",
-              "&:hover": { backgroundColor: "inherit" },
-            }}
-          ></Avatar>
-        }
         variant="tertariary"
-        sx={{
-          textAlign: "left",
-          paddingLeft: "4px",
-          "&.MuiButton-tertariary": {
-            "&:focus": {
-              border: "none !important",
-            },
-          },
-        }}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+        startIcon={<AccountCircleOutlined sx={{ width: 24, height: 24 }} />}
         endIcon={
           open ? (
-            <ExpandLess width={16} height={16} sx={{ marginBottom: "20px" }} />
+            <ExpandLess sx={{ width: 16, height: 16 }} />
           ) : (
-            <ExpandMore width={16} height={16} sx={{ marginBottom: "20px" }} />
+            <ExpandMore sx={{ width: 16, height: 16 }} />
           )
         }
         disableRipple
-        disableFocusRipple
-        focusRipple={false}
+        sx={{
+          paddingLeft: "4px",
+          gap: "4px",
+          "&.MuiButton-tertariary": {
+            "&:focus": { border: "none !important" },
+          },
+        }}
       >
-        <div>
+        <Box sx={{ textAlign: "left" }}>
           <Typography
             variant="subtitle2"
-            sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+            sx={(theme) => ({
+              color: theme.palette.vars.baseTextStrong,
+              display: "block",
+              lineHeight: "20px",
+            })}
           >
-            Username
+            James Miller
           </Typography>
           <Typography
             variant="caption"
             sx={(theme) => ({
               color: theme.palette.vars.baseTextDefault,
-              marginTop: "-4px",
+              display: "block",
+              lineHeight: "16px",
             })}
           >
-            ROLE
+            Admin
           </Typography>
-        </div>
+        </Box>
       </Button>
+
       <Menu
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
-        sx={{ mt: 1 }}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        sx={(theme) => ({
+          mt: "8px",
+          "& .MuiPaper-root": {
+            borderRadius: "8px",
+            border: `1px solid ${theme.palette.vars.baseBorderDefault}`,
+            boxShadow: theme.shadows[4],
+            minWidth: "160px",
+            padding: "4px",
+          },
+          "& .MuiList-root": { padding: 0 },
+        })}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => setAnchorEl(null)}
+          sx={(theme) => ({
+            borderRadius: "6px",
+            gap: "8px",
+            padding: "8px 12px",
+            color: theme.palette.vars.baseTextDefault,
+            "&:hover": {
+              backgroundColor: theme.palette.vars.baseBackgroundHover,
+            },
+          })}
+        >
+          <PersonOutlineOutlined
+            sx={(theme) => ({
+              fontSize: 20,
+              color: theme.palette.vars.baseTextDefault,
+            })}
+          />
+          <Typography
+            variant="body2"
+            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+          >
+            Profile
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => setAnchorEl(null)}
+          sx={(theme) => ({
+            borderRadius: "6px",
+            gap: "8px",
+            padding: "8px 12px",
+            color: theme.palette.vars.baseTextDefault,
+            "&:hover": {
+              backgroundColor: theme.palette.vars.baseBackgroundHover,
+            },
+          })}
+        >
+          <LogoutOutlined
+            sx={(theme) => ({
+              fontSize: 20,
+              color: theme.palette.vars.baseTextDefault,
+            })}
+          />
+          <Typography
+            variant="body2"
+            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+          >
+            Log out
+          </Typography>
+        </MenuItem>
       </Menu>
     </>
   );
 };
 
+/* ─── Module-level stable constants (avoids re-render on every render call) ─── */
+const allGroups: GlobalSearchGroup[] = [
+  {
+    key: "agents",
+    label: "Agents",
+    items: [
+      {
+        id: "a1",
+        label: "Tabular Regression",
+        subtitle: "ML / Classification",
+      },
+      { id: "a2", label: "NLP Summarizer", subtitle: "NLP / Text" },
+      { id: "a3", label: "Vision Detector", subtitle: "Computer Vision" },
+    ],
+  },
+  {
+    key: "users",
+    label: "Users",
+    items: [
+      { id: "u1", label: "James Miller", subtitle: "Admin" },
+      { id: "u2", label: "Sarah Connor", subtitle: "Developer" },
+    ],
+  },
+  {
+    key: "projects",
+    label: "Projects",
+    items: [
+      { id: "p1", label: "Agent Directory v2", subtitle: "Active" },
+      { id: "p2", label: "Model Registry", subtitle: "In Review" },
+    ],
+  },
+];
+
+const defaultActions: HeaderAction[] = [
+  {
+    id: "docs",
+    icon: <MenuBook />,
+    tooltip: "View Documentation",
+    href: "#",
+    "aria-label": "documentation",
+  },
+  {
+    id: "github",
+    icon: <GitHub />,
+    tooltip: "GitHub",
+    href: "#",
+    target: "_blank",
+    "aria-label": "github",
+  },
+  {
+    id: "notifications",
+    icon: (
+      <Badge
+        badgeContent="1"
+        sx={{
+          "& .MuiBadge-badge": (theme) => ({
+            backgroundColor:
+              theme.palette.vars.interactivePrimaryDefaultDefault,
+            color: "#fff",
+            fontSize: "10px",
+            minWidth: "16px",
+            height: "16px",
+            top: "-2px",
+            right: "-2px",
+          }),
+        }}
+      >
+        <NotificationsNone />
+      </Badge>
+    ),
+    tooltip: "Notifications",
+    "aria-label": "notifications",
+  },
+];
+
+/* ─── Meta ─── */
 const meta: Meta<typeof Header> = {
   title: "Components/Header",
   component: Header,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     layout: "fullscreen",
     docs: {
-      description: {
-        component: `
-A responsive and configurable Header component for application layouts.
-It includes slots for a logo, title, search, actions, and user profile.
-
-### Import
-
-You can import the component as follows:
-\`\`\`tsx
-import { Header } from '@open-ui-kit/core';
-\`\`\`
-        `,
-      },
       page: () => (
         <DocsHeader
-          blurb="Header is a responsive and configurable component for application layouts. It includes slots for a logo, title, search, actions, and user profile. The Header component adapts to different screen sizes and provides a consistent navigation experience."
+          blurb="Header is a responsive and configurable component for application layouts. It includes slots for a logo, title, search, actions, and user profile."
           guideLink=""
-          importLine='import { Header } from "@open-ui-kit/core";'
+          importLine={`import { Header } from "@open-ui-kit/core";`}
+          includeStories={true}
         />
       ),
     },
@@ -120,119 +284,93 @@ import { Header } from '@open-ui-kit/core';
       control: "select",
       options: ["fixed", "absolute", "sticky", "static", "relative"],
     },
-    elevation: {
-      control: { type: "range", min: 0, max: 24, step: 1 },
-    },
     logo: { control: { disable: true } },
     userSection: { control: { disable: true } },
-    searchProps: { control: { type: "object" } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const HeaderTemplate: Story["render"] = (args) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchValue, setSearchValue] = useState(args.searchProps?.value ?? "");
+/* ─── Default ─── */
+export const Default: Story = {
+  render: () => (
+    <Header
+      position="static"
+      logo={<OutshiftBrand sx={{ width: 115, height: 45 }} />}
+      title={<AppTitle />}
+      globalSearchProps={{
+        placeholder: "Search",
+        groups: allGroups,
+        width: "360px",
+      }}
+      actions={defaultActions}
+      userSection={<UserSection />}
+    />
+  ),
+};
 
-  const searchProps = args.searchProps
-    ? {
-        ...args.searchProps,
-        onChangeCallback: (value: string) => {
-          setSearchValue(value);
-        },
-      }
-    : undefined;
+/* ─── Interactive global search ─── */
+const GlobalSearchStory = () => {
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<GlobalSearchItem | null>(null);
+
+  const filtered = allGroups.map((g) => ({
+    ...g,
+    items: g.items.filter((item) =>
+      item.label.toLowerCase().includes(search.toLowerCase()),
+    ),
+  }));
 
   return (
-    <Box minHeight={80}>
-      <Header {...args} searchProps={searchProps} />
+    <Box>
+      <Header
+        position="static"
+        logo={<OutshiftBrand sx={{ width: 115, height: 45 }} />}
+        title={<AppTitle />}
+        globalSearchProps={{
+          placeholder: "Search agents, users, projects…",
+          value: search,
+          groups: filtered,
+          onSearch: setSearch,
+          onSelect: (item) => {
+            setSelected(item);
+            setSearch(item.label);
+          },
+          onClear: () => {
+            setSearch("");
+            setSelected(null);
+          },
+          width: "360px",
+        }}
+        actions={defaultActions}
+        userSection={<UserSection />}
+      />
+      {selected && (
+        <Box sx={{ mt: 10, p: 2 }}>
+          <Typography variant="body2">
+            Selected: <strong>{selected.label}</strong>
+            {selected.subtitle && ` — ${selected.subtitle}`}
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };
 
-export const Default: Story = {
-  args: {
-    logo: <StoryLogo />,
-    title: (
-      <Typography
-        variant="h1"
-        fontWeight={700}
-        fontSize="18px"
-        lineHeight="18px"
-        sx={(theme) => ({ color: theme.palette.vars.brandTextSecondary })}
-      >
-        My Application
-      </Typography>
-    ),
-    position: "fixed",
-    searchProps: {
-      onChangeCallback: (value: string) => {
-        console.log("Search value changed:", value);
-      },
-      placeholder: "Search",
-    },
-    actions: [
-      {
-        id: "docs",
-        icon: <Book />,
-        tooltip: "View Documentation",
-        href: "#",
-        "aria-label": "documentation",
-      },
-      {
-        id: "issues",
-        icon: <BugReport />,
-        tooltip: "Report an Issue",
-        onClick: () => alert("Issue reporting coming soon!"),
-        "aria-label": "report an issue",
-      },
-    ],
-    userSection: <StoryUserSection />,
-  },
-  render: HeaderTemplate,
+export const WithGlobalSearch: Story = {
+  render: () => <GlobalSearchStory />,
 };
 
+/* ─── Minimal ─── */
 export const Minimal: Story = {
-  args: {
-    logo: <StoryLogo />,
-    title: "Minimal Header",
-    position: "static",
-  },
-};
-
-export const ScrollingBehavior: Story = {
-  args: {
-    ...Default.args,
-    position: "fixed",
-  },
-  decorators: [
-    (Story) => (
-      <Box overflow="hidden">
-        <Story />
-      </Box>
-    ),
-  ],
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "This story includes a tall container to demonstrate the scrolling behavior of the header when `position` is set to `sticky` or `fixed`.",
-      },
-    },
-  },
-  render: (args) => (
-    <Box maxHeight={300} overflow="auto">
-      <HeaderTemplate {...args} />
-      <Box sx={{ padding: 4, paddingTop: 12 }}>
-        <Typography variant="h4">Scroll Down to See the Effect</Typography>
-        <Typography height="200vh">
-          {`The Header component above is set to position: ${args.position}. When
-          you scroll this container, the header should remain "stuck" at the top
-          of the view. This demonstrates how the header behaves on a long page.`}
-        </Typography>
-      </Box>
-    </Box>
+  name: "Minimal — Logo + User",
+  render: () => (
+    <Header
+      position="static"
+      logo={<OutshiftBrand sx={{ width: 115, height: 45 }} />}
+      title={<AppTitle />}
+      userSection={<UserSection />}
+    />
   ),
 };

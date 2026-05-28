@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { styles } from "./styles";
+import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
+import { getStyles } from "./styles";
 import { AssetsData } from "../../types/types";
 import { CloseOutlined } from "@mui/icons-material";
 import { SearchField } from "@/components/search-field";
@@ -25,6 +25,8 @@ export const FilterDrawerHeader = ({
   onCloseDrawer,
   onSearch,
 }: FilterDrawerHeaderProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const buildSummaryText = () => {
     return activeFiltersCount ? (
       <Stack direction="row" alignItems="baseline">

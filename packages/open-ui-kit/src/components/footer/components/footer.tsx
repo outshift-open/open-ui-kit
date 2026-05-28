@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography } from "@mui/material";
 import React from "react";
 import { styles } from "../styles";
 import { Link, LinkProps } from "@/components/link";
@@ -16,6 +16,7 @@ export interface FooterProps {
   productName: string;
   productLink?: string;
   links?: LinkProps[];
+  sx?: SxProps<Theme>;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -23,9 +24,13 @@ export const Footer: React.FC<FooterProps> = ({
   productNode,
   productLink = "#",
   productName,
+  sx,
 }) => {
   return (
-    <Box component="footer" sx={styles.container}>
+    <Box
+      component="footer"
+      sx={[styles.container, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+    >
       {productNode ? (
         productNode
       ) : (

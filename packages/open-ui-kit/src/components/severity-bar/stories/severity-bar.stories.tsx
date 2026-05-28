@@ -15,9 +15,9 @@ const meta: Meta<typeof SeverityBar> = {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Text Fields let users enter and edit text."
+          blurb="Severity bars display compact severity levels."
           guideLink="#"
-          importLine='import { TextField } from "@open-ui-kit/core";'
+          importLine='import { SeverityBar } from "@open-ui-kit/core";'
         />
       ),
     },

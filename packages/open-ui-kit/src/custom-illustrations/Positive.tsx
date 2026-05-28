@@ -17,24 +17,24 @@ export const Positive = (props: SvgIconProps) => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
-          opacity="0.2"
+          opacity="0.3"
           x="69.9644"
           y="11"
           width="27"
           height="120"
           rx="13.5"
           transform="rotate(25 69.9644 11)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <rect
-          opacity="0.5"
+          opacity="0.3"
           x="195.285"
           y="65.75"
           width="27"
           height="90"
           rx="13.5"
           transform="rotate(25 195.285 65.75)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <rect
           opacity="0.3"
@@ -44,7 +44,7 @@ export const Positive = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 28.3662 147.5)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <circle
           cx="112"

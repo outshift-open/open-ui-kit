@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Stack } from "@mui/material";
 import {
   IndicatorBadgeValue,
   IndicatorBadgeValueProps,
 } from "./indicator-badge-value";
 import {
-  indicatorBadgeValueContainerStyles,
-  indicatorBadgeBackdropStyles,
-} from "../styles/indicator-badge.styles";
+  IndicatorBadgeBackdrop,
+  IndicatorBadgeContainer,
+  IndicatorBadgeValueStack,
+} from "./elements";
 
 const INDICATOR_BADGE_VALUES_COUNT = 4;
 
@@ -26,9 +26,12 @@ export const IndicatorBadge = ({
   value,
 }: IndicatorBadgeProps): JSX.Element => {
   return (
-    <Box sx={indicatorBadgeValueContainerStyles.container}>
-      <Box sx={indicatorBadgeBackdropStyles(color)} />
-      <Stack direction="column" spacing={0.25} position="absolute">
+    <IndicatorBadgeContainer
+      aria-label={`Indicator badge value ${value} of ${INDICATOR_BADGE_VALUES_COUNT}`}
+      role="img"
+    >
+      <IndicatorBadgeBackdrop badgeColor={color} />
+      <IndicatorBadgeValueStack>
         {Array.from({ length: INDICATOR_BADGE_VALUES_COUNT }).map((n, i) => (
           <IndicatorBadgeValue
             key={i}
@@ -36,7 +39,7 @@ export const IndicatorBadge = ({
             isActive={value > INDICATOR_BADGE_VALUES_COUNT - (i + 1)}
           />
         ))}
-      </Stack>
-    </Box>
+      </IndicatorBadgeValueStack>
+    </IndicatorBadgeContainer>
   );
 };

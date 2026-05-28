@@ -35,6 +35,18 @@ export const sizeToMainFlexGapSizeMapping: Record<GeneralSize, string> = {
   [GeneralSize.Small]: "0px",
 };
 
+export const sizeToContainerPaddingMapping: Record<GeneralSize, string> = {
+  [GeneralSize.Large]: "0px",
+  [GeneralSize.Medium]: "12px 0px",
+  [GeneralSize.Small]: "4px 12px 8px",
+};
+
+export const sizeToRowGapMapping: Record<GeneralSize, string> = {
+  [GeneralSize.Large]: "40px",
+  [GeneralSize.Medium]: "4px",
+  [GeneralSize.Small]: "4px",
+};
+
 export const sizeToSecondaryFlexGapSizeMapping: Record<GeneralSize, string> = {
   [GeneralSize.Large]: "8px",
   [GeneralSize.Medium]: "4px",
@@ -87,4 +99,4 @@ export const directionToTextMaxWidthMapping: Record<Direction, string> = {
   column: "unset",
 };
 
-export const DefaultDescription = "No matched found";
+export const DefaultDescription = "No matches found";

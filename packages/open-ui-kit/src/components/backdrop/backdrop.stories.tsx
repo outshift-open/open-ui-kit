@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Backdrop, BackdropProps, Button } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { Backdrop, BackdropProps } from "./components/backdrop";
+import { Button } from "../button";
 import { Spinner } from "../spinner";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-/**
- * ### The Backdrop component narrows the user's focus to a particular element on the screen.
-
- The Backdrop signals a state change within the application and can be used for creating loaders, dialogs, and more.
- In its simplest form, the Backdrop component will add a dimmed layer over your application.
- */
 const meta: Meta<typeof Backdrop> = {
   title: "Components/Backdrop",
   component: Backdrop,
@@ -20,7 +16,7 @@ const meta: Meta<typeof Backdrop> = {
         <DocsHeader
           blurb="The Backdrop component narrows the user's focus to a particular element on the screen. It signals a state change within the application and can be used for creating loaders, dialogs, and more."
           guideLink=""
-          importLine="import { Backdrop } from '@open-ui-kit/core';"
+          importLine={`import { Backdrop } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -30,30 +26,80 @@ const meta: Meta<typeof Backdrop> = {
 export default meta;
 type Story = StoryObj<typeof Backdrop>;
 
-const BackdropExample = (args: BackdropProps) => {
+const BackdropWithState = ({
+  children,
+  ...args
+}: Omit<BackdropProps, "open">) => {
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   return (
     <>
-      <Button onClick={handleOpen}>Show backdrop</Button>
+      <Button variant="primary" onClick={() => setOpen(true)}>
+        Show backdrop
+      </Button>
       <Backdrop
         {...args}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-        onClick={handleClose}
+        onClick={() => setOpen(false)}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Spinner color="inherit" />
+        {children}
       </Backdrop>
     </>
   );
 };
 
-export const Example: Story = {
-  render: BackdropExample,
+export const WithSpinner: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Default use case — a dimmed overlay with a centered spinner to block interaction during loading. Click anywhere on the backdrop to dismiss.",
+      },
+    },
+  },
+  render: () => (
+    <BackdropWithState>
+      <Spinner color="inherit" />
+    </BackdropWithState>
+  ),
+};
+
+export const WithMessage: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Backdrop with a spinner and a status message. Useful for longer operations where users benefit from knowing what is happening.",
+      },
+    },
+  },
+  render: () => (
+    <BackdropWithState>
+      <Stack alignItems="center" spacing={2}>
+        <Spinner color="inherit" />
+        <Typography color="white" variant="body2">
+          Processing, please wait…
+        </Typography>
+      </Stack>
+    </BackdropWithState>
+  ),
+};
+
+export const Invisible: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The `invisible` prop removes the dimmed overlay while keeping the backdrop's click-away and focus-trap behaviour. Useful when the blocking element (e.g. a popover) provides its own visual context.",
+      },
+    },
+  },
+  render: () => (
+    <BackdropWithState invisible>
+      <Typography color="text.primary" variant="body2">
+        Click anywhere to dismiss
+      </Typography>
+    </BackdropWithState>
+  ),
 };

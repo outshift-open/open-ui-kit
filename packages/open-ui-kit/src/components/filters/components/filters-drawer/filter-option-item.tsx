@@ -5,13 +5,14 @@
  */
 
 import {
-  Checkbox,
   ListItem,
   ListItemButton,
   ListItemText,
   Typography,
+  useTheme,
 } from "@mui/material";
-import { styles } from "./styles";
+import { Checkbox } from "@/components/checkbox";
+import { getStyles } from "./styles";
 import { FilterOptionData } from "../../types/types";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 
@@ -32,6 +33,8 @@ export const FilterOptionItem = ({
   isSelectAllEnabled = false,
   level,
 }: FilterOptionProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const handleToggle = () => {
     onOptionToggled({ ...option, isSelected: !option.isSelected });
   };

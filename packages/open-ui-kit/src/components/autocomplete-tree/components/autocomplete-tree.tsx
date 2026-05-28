@@ -31,9 +31,8 @@ import {
   PopperProps,
   SvgIconProps,
   SxProps,
-  TextField,
-  TextFieldProps,
 } from "@mui/material";
+import { InputField, type InputFieldProps } from "@/components/input-field";
 import { autocompleteStyles, defaultPopperContentStyles } from "../styles";
 
 export interface AutocompleteTreeProps {
@@ -51,7 +50,7 @@ export interface AutocompleteTreeProps {
   isClearDisabled?: boolean;
   virtualizationOverscanPx?: number;
   maxTooltipTags?: number;
-  autocompleteTextFieldProps?: Partial<TextFieldProps>;
+  autocompleteInputFieldProps?: Partial<InputFieldProps>;
   autocompletePopperProps?: Partial<PopperProps>;
   autocompletePaperSx?: SxProps;
   autocompleteProps?: Partial<
@@ -64,7 +63,7 @@ export const AutocompleteTree = ({
   autocompletePaperSx,
   autocompletePopperProps,
   autocompleteProps,
-  autocompleteTextFieldProps,
+  autocompleteInputFieldProps,
   disabled = false,
   isClearDisabled = false,
   isSearchFieldEnabled = true,
@@ -106,8 +105,8 @@ export const AutocompleteTree = ({
   >(selectionFilter(selectTree));
   const { sx: autocompleteSx, ...restAutocompleteProps } =
     autocompleteProps ?? {};
-  const { sx: textFieldSx, ...restTextFieldProps } =
-    autocompleteTextFieldProps ?? {};
+  const { sx: inputFieldSx, ...restInputFieldProps } =
+    autocompleteInputFieldProps ?? {};
 
   const flattenedTreeData = useMemo(() => {
     augmentTreeData(selectTree);
@@ -299,13 +298,20 @@ export const AutocompleteTree = ({
             selectNode ? labels.get(selectNode) || "" : ""
           }
           renderInput={(params) => (
-            <TextField
+            <InputField
               {...params}
               label={label}
               placeholder={selectedValues.length === 0 ? placeholder : ""}
               variant="standard"
-              sx={{ caretColor: "transparent", ...textFieldSx }}
-              {...restTextFieldProps}
+              sx={[
+                { caretColor: "transparent" },
+                ...(Array.isArray(inputFieldSx)
+                  ? inputFieldSx
+                  : inputFieldSx
+                    ? [inputFieldSx]
+                    : []),
+              ]}
+              {...restInputFieldProps}
             />
           )}
           onInputChange={(event, newInputValue, reason) => {

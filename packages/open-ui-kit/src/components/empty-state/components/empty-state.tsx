@@ -5,12 +5,13 @@
  */
 
 import { GeneralSize } from "@/common";
+import { Button } from "@/components/button";
 import {
-  Button,
   ButtonProps,
   Stack,
   StackProps,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   DefaultDescription,
@@ -26,6 +27,8 @@ import {
   sizeToDescriptionVariantMapping,
   directionToTextAlignmentMapping,
   sizeToActionSizeMapping,
+  sizeToContainerPaddingMapping,
+  sizeToRowGapMapping,
 } from "../helpers/constants";
 
 export interface EmptyStateProps {
@@ -51,20 +54,34 @@ export const EmptyState = ({
   actionButtonProps,
   containerProps,
 }: EmptyStateProps) => {
+  const theme = useTheme();
   const Illustration = Illustrations[variant];
 
   return (
     <Stack
       direction={direction}
-      gap={sizeToMainFlexGapSizeMapping[size]}
+      gap={
+        direction === "row"
+          ? sizeToRowGapMapping[size]
+          : sizeToMainFlexGapSizeMapping[size]
+      }
       alignItems={"center"}
       justifyContent={"center"}
       {...containerProps}
+      sx={[
+        { padding: sizeToContainerPaddingMapping[size] },
+        ...(Array.isArray(containerProps?.sx)
+          ? containerProps.sx
+          : containerProps?.sx
+            ? [containerProps.sx]
+            : []),
+      ]}
     >
       <Illustration
         sx={{
           width: sizeToIllustrationSizeMapping[size],
           height: sizeToIllustrationSizeMapping[size],
+          flexShrink: 0,
         }}
       />
       <Stack
@@ -81,14 +98,23 @@ export const EmptyState = ({
           sx={{ maxWidth: directionToTextMaxWidthMapping[direction] }}
         >
           {title && size !== GeneralSize.Small && (
-            <Typography variant={sizeToTitleVariantMapping[size]}>
+            <Typography
+              variant={sizeToTitleVariantMapping[size]}
+              sx={{
+                color: theme.palette.vars.baseTextStrong,
+                textAlign: directionToTextAlignmentMapping[direction],
+              }}
+            >
               {title}
             </Typography>
           )}
           {description && (
             <Typography
               variant={sizeToDescriptionVariantMapping[size]}
-              sx={{ textAlign: directionToTextAlignmentMapping[direction] }}
+              sx={{
+                color: theme.palette.vars.baseTextMedium,
+                textAlign: directionToTextAlignmentMapping[direction],
+              }}
             >
               {description}
             </Typography>
@@ -100,6 +126,14 @@ export const EmptyState = ({
             size={sizeToActionSizeMapping[size]}
             onClick={actionCallback}
             {...actionButtonProps}
+            sx={[
+              {},
+              ...(Array.isArray(actionButtonProps?.sx)
+                ? actionButtonProps.sx
+                : actionButtonProps?.sx
+                  ? [actionButtonProps.sx]
+                  : []),
+            ]}
           >
             {actionTitle}
           </Button>

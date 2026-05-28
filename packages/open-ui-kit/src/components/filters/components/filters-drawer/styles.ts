@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { surfaceDarkPalette, greyPalette } from "@/theme/style/color-palette";
-import { darkTheme } from "@/theme/dark/dark-theme";
+import { Theme } from "@mui/material";
 
 const getChildAccordionMarginLeft = (
   level: number,
@@ -27,19 +26,19 @@ const getChildAccordionMarginLeft = (
   return "0";
 };
 
-const filterItemStyles = {
+const filterItemStyles = (theme: Theme) => ({
   loadingStack: {
     padding: "8px 24px",
-    backgroundColor: surfaceDarkPalette[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
   },
   parentAccordion: {
     "&.MuiPaper-root": {
       border: "0px solid !important",
-      borderBottom: `0.5px solid ${surfaceDarkPalette[400]} !important`,
+      borderBottom: `0.5px solid ${theme.palette.vars.baseBorderDefault} !important`,
       boxShadow: "unset",
       margin: "0",
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: greyPalette[50],
+        color: theme.palette.vars.baseTextDefault,
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -78,7 +77,7 @@ const filterItemStyles = {
         isSelectAllEnabledOnParent,
       )}`,
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: greyPalette[50],
+        color: theme.palette.vars.baseTextDefault,
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -106,13 +105,13 @@ const filterItemStyles = {
   }),
   accordionSummery: (isSelected: boolean) => ({
     color: isSelected
-      ? (darkTheme.palette.primary[500] ?? "unset")
-      : darkTheme.palette.text.primary,
-    backgroundColor: surfaceDarkPalette[700],
+      ? theme.palette.vars.interactivePrimaryDefaultDefault
+      : theme.palette.vars.baseTextDefault,
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
     flexDirection: "row-reverse",
   }),
   accordionDetails: {
-    backgroundColor: surfaceDarkPalette[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
   },
   listItem: (level: number, isSelectAllEnabled: boolean) => {
     if (level === 0) {
@@ -126,26 +125,26 @@ const filterItemStyles = {
       }
       return { paddingLeft: "32px" };
     }
-    return { paddingLeft: "0px" }; // Default return value
+    return { paddingLeft: "0px" };
   },
   listItemButton: {
-    backgroundColor: surfaceDarkPalette[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
     paddingTop: 0,
     paddingBottom: 0,
   },
   searchMatchText: {
-    color: darkTheme.palette.primary[500],
+    color: theme.palette.vars.interactivePrimaryDefaultDefault,
   },
   accordionTitleTypography: (isSelectAllEnabled: boolean) => ({
     margin: isSelectAllEnabled ? 0 : "0 8px",
-    textTransform: "capitalize",
+    textTransform: "capitalize" as const,
   }),
   accordionCheckbox: {
     padding: "0 8px",
   },
-};
+});
 
-const filtersDrawerStyles = {
+const filtersDrawerStyles = (theme: Theme) => ({
   drawerBody: {
     width: "480px",
     paddingLeft: "8px",
@@ -153,7 +152,7 @@ const filtersDrawerStyles = {
   drawerHeader: {
     padding: "16px 24px",
     width: "480px",
-    backgroundColor: surfaceDarkPalette[400],
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
   },
   drawerTitle: {
     justifyContent: "space-between",
@@ -163,25 +162,30 @@ const filtersDrawerStyles = {
     marginTop: "16px",
   },
   activeFiltersDesc: {
-    color: darkTheme.palette.primary[500],
+    color: theme.palette.vars.interactivePrimaryDefaultDefault,
   },
   clearAll: {
     "&.MuiButton-sizeMedium": {
-      backgroundColor: surfaceDarkPalette[500],
+      backgroundColor: theme.palette.vars.controlBackgroundWeak,
       height: "58px",
       justifyContent: "left",
       padding: "8px 16px",
     },
   },
-};
+});
 
-const emptySearchStyles = {
-  emptySearchTypography: { color: greyPalette[300], marginTop: "50px" },
-  emptySearchInput: { color: greyPalette[50] },
-};
+const emptySearchStyles = (theme: Theme) => ({
+  emptySearchTypography: {
+    color: theme.palette.vars.baseTextWeak,
+    marginTop: "50px",
+  },
+  emptySearchInput: {
+    color: theme.palette.vars.baseTextDefault,
+  },
+});
 
-export const styles = {
-  ...filtersDrawerStyles,
-  ...filterItemStyles,
-  ...emptySearchStyles,
-};
+export const getStyles = (theme: Theme) => ({
+  ...filtersDrawerStyles(theme),
+  ...filterItemStyles(theme),
+  ...emptySearchStyles(theme),
+});

@@ -27,7 +27,7 @@ const meta: Meta<typeof DateTimePicker> = {
         <DocsHeader
           blurb="The Date Time Picker component lets the user select a date and time."
           guideLink=""
-          importLine='import { DateTimePicker } from "@open-ui-kit/core";'
+          importLine={`import { DateTimePicker, DatePicker, TimePicker, DateRangePicker } from "@open-ui-kit/core";`}
         />
       ),
     },
@@ -42,7 +42,7 @@ type DateStory = StoryObj<typeof DatePicker>;
 type TimeStory = StoryObj<typeof TimePicker>;
 type DateRangePickerStory = StoryObj<typeof DateRangePicker>;
 
-export const DateTimePickerExample: DateTimeStory = {
+export const Default: DateTimeStory = {
   render: (args) => {
     return (
       <DateTimePicker
@@ -55,7 +55,7 @@ export const DateTimePickerExample: DateTimeStory = {
   },
 };
 
-export const DatePickerExample: DateStory = {
+export const DatePickerDay: DateStory = {
   render: (args) => (
     <DatePicker
       {...args}
@@ -80,7 +80,7 @@ const DateRangePickerWrapper = (args: DateRangePickerProps) => {
   return (
     <DateRangePicker
       {...args}
-      textFieldProps={{ placeholder: "Pick a date" }}
+      inputFieldProps={{ placeholder: "Pick a date" }}
       startDate={startDate}
       endDate={endDate}
       setStartDate={setStartDate}
@@ -118,7 +118,7 @@ const CustomDateRangePickerWrapper = (args: DateRangePickerProps) => {
   return (
     <DateRangePicker
       {...args}
-      textFieldProps={{
+      inputFieldProps={{
         placeholder: "Pick a date",
         value: value,
         slotProps: {
@@ -143,23 +143,23 @@ const CustomDateRangePickerWrapper = (args: DateRangePickerProps) => {
   );
 };
 
-export const DateRangePickerExample: DateRangePickerStory = {
+export const DateRange: DateRangePickerStory = {
   render: (args) => {
     return <DateRangePickerWrapper {...args} />;
   },
 };
 
-export const DateRangePickerCustomExample: DateRangePickerStory = {
+export const DateRangeCustom: DateRangePickerStory = {
   render: (args) => {
     return <CustomDateRangePickerWrapper {...args} />;
   },
 };
 
-export const TimePickerExample: TimeStory = {
+export const TimePickerDefault: TimeStory = {
   render: (args) => <TimePicker {...args} />,
 };
 
-export const StaticDatePickerExample: StaticDateStory = {
+export const DatePickerMonth: StaticDateStory = {
   render: (args) => <StaticDatePicker {...args} />,
 };
 

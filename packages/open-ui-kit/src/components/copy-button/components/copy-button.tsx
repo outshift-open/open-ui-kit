@@ -5,6 +5,7 @@
  */
 
 import { IconButtonProps, IconButton, useTheme } from "@mui/material";
+import { Tooltip, TooltipProps } from "@/components/tooltip";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { CopyButtonStylesProps, styles } from "../styles";
 import { useCallback, useEffect, useState } from "react";
@@ -14,22 +15,30 @@ import { Copy } from "@/custom-icons";
 const TIMEOUT = 2000;
 
 export type CopyButtonPosition = "left" | "right";
+export type CopyButtonSize = "small" | "medium" | "large";
 
 export interface CopyButtonProps
   extends IconButtonProps,
     CopyButtonStylesProps {
   text: string;
   onCopy?: () => void;
+  tooltipPlacement?: TooltipProps["placement"];
+  copyLabel?: string;
+  copiedLabel?: string;
 }
 
 export const CopyButton = ({
   text,
   position,
+  size = "large",
   top,
-  bottom,
   left,
   right,
+  disableMargin,
   onCopy,
+  tooltipPlacement = "top",
+  copyLabel = "Copy",
+  copiedLabel = "Copied",
   ...props
 }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -56,17 +65,27 @@ export const CopyButton = ({
   }, [onCopy, text]);
 
   return (
-    <IconButton
-      {...props}
-      sx={(theme) => styles({ position, top, bottom, left, right, theme })}
-      onClick={handleOnCopy}
-      disableRipple={true}
+    <Tooltip
+      title={isCopied ? copiedLabel : copyLabel}
+      placement={tooltipPlacement}
+      arrow
     >
-      {isCopied ? (
-        <DoneRoundedIcon color="success" />
-      ) : (
-        <Copy fill={theme.palette.vars.interactiveSecondaryDefaultDefault} />
-      )}
-    </IconButton>
+      <IconButton
+        {...props}
+        sx={[
+          (theme) =>
+            styles({ position, size, top, left, right, disableMargin, theme }),
+          ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+        ]}
+        onClick={handleOnCopy}
+        disableRipple={true}
+      >
+        {isCopied ? (
+          <DoneRoundedIcon color="success" />
+        ) : (
+          <Copy fill={theme.palette.vars.interactiveSecondaryDefaultDefault} />
+        )}
+      </IconButton>
+    </Tooltip>
   );
 };

@@ -10,10 +10,10 @@ import {
   StarOutline,
   StarOutlined,
 } from "@mui/icons-material";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
-import { greyPalette } from "@/theme/style/color-palette";
+import { getStyles } from "./styles";
+import { Button } from "@/components/button";
 import { SearchField } from "@/components/search-field";
 
 export interface FiltersBarActionsProps {
@@ -49,6 +49,8 @@ export const FiltersBarActions = ({
   rightSideComponent,
   isFiltersButtonVisible = true,
 }: FiltersBarActionsProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [search, setSearch] = useState(initialSearchValue);
 
   const onSearchSubmit = (value = search) => {
@@ -75,12 +77,11 @@ export const FiltersBarActions = ({
           Filters
           <Box width="8px" />
           <Box
-            sx={{
-              color:
-                activeFiltersCount && activeFiltersCount > 0
-                  ? "inherit"
-                  : greyPalette[200],
-            }}
+            sx={
+              activeFiltersCount && activeFiltersCount > 0
+                ? undefined
+                : styles.inactiveCount
+            }
           >
             {activeFiltersCount}
           </Box>

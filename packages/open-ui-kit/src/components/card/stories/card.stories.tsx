@@ -7,7 +7,6 @@ import {
   CardActions,
   CardActionArea,
 } from "../components/card";
-import CardSubheader from "../components/card-subheader";
 import CardDescription from "../components/card-description";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
@@ -20,6 +19,7 @@ const meta: Meta<typeof Card> = {
       page: () => (
         <DocsHeader
           blurb="Cards group related information in a flexible-size container. Normally for interactive groups."
+          guideLink=""
           importLine={`import { Card, CardHeader, CardContent, CardActions, CardActionArea } from "@open-ui-kit/core";`}
         />
       ),
@@ -36,7 +36,7 @@ export const Basic: Story = {
     <Card sx={{ minWidth: 275 }} {...args}>
       <CardHeader
         title="Marketing strategy manager"
-        subheader={<CardSubheader>March 26, 2025</CardSubheader>}
+        subheader="March 26, 2025"
       />
       <CardContent>
         <CardDescription>
@@ -58,7 +58,7 @@ export const Clickable: Story = {
       <Card sx={{ minWidth: 275 }} {...args}>
         <CardHeader
           title="Marketing strategy manager"
-          subheader={<CardSubheader>March 26, 2025</CardSubheader>}
+          subheader="March 26, 2025"
         />
         <CardContent>
           <CardDescription>
@@ -75,7 +75,7 @@ export const Disabled: Story = {
     <Card sx={{ minWidth: 275, opacity: 0.5 }} {...args}>
       <CardHeader
         title="Marketing strategy manager"
-        subheader={<CardSubheader>March 26, 2025</CardSubheader>}
+        subheader="March 26, 2025"
       />
       <CardContent>
         <CardDescription>
