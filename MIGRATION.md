@@ -9,11 +9,11 @@ Open UI Kit follows [Semantic Versioning](https://semver.org/):
 - **Minor versions** (1.0.0 → 1.1.0) - New features (backward compatible)
 - **Patch versions** (1.0.0 → 1.0.1) - Bug fixes (backward compatible)
 
-## Current Version: 1.5.0
+## Current Version
 
-Open UI Kit is currently in its initial major version (1.x). This migration guide will be updated as new major versions are released.
+Open UI Kit is currently in its initial major version line. This migration guide will be updated as new major versions are released.
 
-**Current stable version**: Check the [latest release](https://github.com/outshift-open/open-ui-kit/releases) for the most up-to-date version information.
+**Current stable version**: Check the [latest npm package](https://www.npmjs.com/package/@open-ui-kit/core), the docs header, or the [latest release](https://github.com/outshift-open/open-ui-kit/releases) for the most up-to-date version information.
 
 ## 1.5 → 1.6 (Breaking changes within 1.x)
 
@@ -100,7 +100,7 @@ When major versions are released, this guide will include:
 
 - **Component API Changes** - Modified prop names or types
 - **Theme Structure Updates** - Changes to design tokens or theme format
-- **Peer Dependency Updates** - Material-UI, React, or other dependency versions
+- **Peer Dependency Updates** - Material UI, React, or other dependency versions
 - **Breaking Changes** - Removed deprecated features
 - **New Requirements** - Updated Node.js, TypeScript, or browser support
 
@@ -142,8 +142,8 @@ To help ensure smooth migrations:
 ### v1.x.x (Current)
 - Initial stable release
 - 50+ components with full TypeScript support
-- Material-UI v5 foundation
-- React 17+ support
+- Material UI v7+ foundation
+- React 18+ support
 
 ---
 

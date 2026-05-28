@@ -50,8 +50,7 @@ open-ui-kit/
 ├── packages/
 │   └── open-ui-kit/          # 📦 @open-ui-kit/core - Main component library
 │       ├── src/              # Source code for components, themes, utilities
-│       ├── stories/          # Storybook stories for documentation
-│       └── tests/            # Unit and integration tests
+│       └── .storybook/       # Storybook configuration and overview pages
 ├── playground/
 │   └── vite-ts/              # 🎮 Development playground with Vite + TypeScript
 ├── scripts/                   # Build scripts and automation tools
@@ -104,13 +103,15 @@ Your editor will now format your code when you save a file.
 
 ## 👾 Development & 📚 Documentation
 
-This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. See [Documentation](/docs/overview-developer-only-documentation--page) for Storybook maintenance details.
+This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. The docs site also mirrors the high-level introduction, contributing, and developer-only guidance.
 
 To start up Storybook locally:
 
 ```sh
-cd open-ui-kit  # Move into the cloned repository
-yarn install && yarn run build && yarn run storybook # Install & build deps and start Storybook
+cd open-ui-kit
+yarn install
+yarn build
+yarn workspace @open-ui-kit/core storybook
 ```
 
 The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--68cc22452afe30d90e4ca977.chromatic.com).
@@ -310,7 +311,7 @@ Releases are handled automatically through semantic-release when changes are mer
 
    - **`stories/[ComponentName].stories.tsx`** - Storybook documentation
      ```tsx
-     import type { Meta, StoryObj } from '@storybook/react';
+     import type { Meta, StoryObj } from '@storybook/react-vite';
      import { ComponentName } from '../components/ComponentName';
      
      const meta: Meta<typeof ComponentName> = {
@@ -336,4 +337,3 @@ Releases are handled automatically through semantic-release when changes are mer
    - Add component-specific styles to the `styles/` folder
    - Add component-specific utilities to the `utils/` folder
    - Organize sub-components within the same `components/` folder
-   
