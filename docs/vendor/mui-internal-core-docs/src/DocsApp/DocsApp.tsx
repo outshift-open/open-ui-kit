@@ -12,8 +12,6 @@ import { ThemeProvider } from "../ThemeContext";
 import { CodeStylingProvider } from "../codeStyling";
 import { CodeVariantProvider } from "../codeVariant";
 import type { Translations } from "../i18n";
-import { AnalyticsProvider } from "./AnalyticsProvider";
-import GoogleAnalytics from "./GoogleAnalytics";
 import DocsStyledEngineProvider from "./StyledEngineProvider";
 import createEmotionCache from "./createEmotionCache";
 import { loadDependencies } from "./loadDependencies";
@@ -173,10 +171,7 @@ function DocsApp(props: DocsAppProps) {
                   <DemoContext.Provider value={demoContextValue}>
                     <ThemeWrapper>
                       <DocsStyledEngineProvider cacheLtr={emotionCache}>
-                        <AnalyticsProvider>
-                          {getLayout(<Component {...pageProps} />)}
-                          <GoogleAnalytics />
-                        </AnalyticsProvider>
+                        {getLayout(<Component {...pageProps} />)}
                       </DocsStyledEngineProvider>
                     </ThemeWrapper>
                   </DemoContext.Provider>

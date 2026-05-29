@@ -41,19 +41,9 @@ export function createGetInitialProps({
         url += "/";
       }
 
-      const isProd =
-        process.env.DEPLOY_ENV === "production" ||
-        process.env.DEPLOY_ENV === "staging";
-      const google = isProd ? "G-5NXDQLC2ZK" : "G-XJ83JQEK7J";
-      const apollo = isProd ? "691c2e920c5e20000d7801b6" : "dev-id";
-
       return {
         ...finalProps,
         canonicalAsServer: pathnameToLanguage(url ?? "").canonicalAsServer,
-        analytics: {
-          google,
-          apollo,
-        },
         userLanguage: ctx.query.userLanguage || "en",
         styles: [
           <style id="material-icon-font" key="material-icon-font" />,

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Script from "next/script";
 import { Html, Head, Main, NextScript } from "next/document";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import MuiInitColorSchemeScript from "@mui/material/InitColorSchemeScript";
@@ -8,10 +7,6 @@ import { fontClasses } from "../nextFonts";
 
 export type DocumentProps = {
   canonicalAsServer: string;
-  analytics: {
-    google: string;
-    apollo: string;
-  };
   userLanguage: string;
   children?: React.ReactNode;
 };
@@ -19,7 +14,6 @@ export type DocumentProps = {
 export function Document({
   canonicalAsServer,
   userLanguage,
-  analytics,
   children,
 }: DocumentProps) {
   return (
@@ -108,65 +102,6 @@ export function Document({
         <MuiInitColorSchemeScript defaultMode="system" />
         {children}
         <Main />
-        <script
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-window.gtag = gtag;
-
-${/* Set default consent to denied (Google Consent Mode v2) */ ""}
-gtag('consent', 'default', {
-  'ad_storage': 'denied',
-  'ad_user_data': 'denied',
-  'ad_personalization': 'denied',
-  'analytics_storage': 'denied',
-  'wait_for_update': 500
-});
-gtag('set', 'ads_data_redaction', true);
-gtag('set', 'url_passthrough', true);
-
-gtag('js', new Date());
-gtag('config', '${analytics.google}', {
-  send_page_view: false,
-});
-
-${/* Apollo initialization - called by AnalyticsProvider when consent is granted */ ""}
-window.initApollo = function() {
-  if (window.apolloInitialized) return;
-  window.apolloInitialized = true;
-  var n = Math.random().toString(36).substring(7),
-    o = document.createElement('script');
-  o.src = 'https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache=' + n;
-  o.async = true;
-  o.defer = true;
-  o.onload = function () {
-    window.trackingFunctions.onLoad({ appId: '${analytics.apollo}' });
-  };
-  document.head.appendChild(o);
-};
-
-${/* Check localStorage for existing consent and initialize if already granted */ ""}
-(function() {
-  try {
-    var consent = localStorage.getItem('docs-cookie-consent');
-    if (consent === 'analytics') {
-      window.initApollo();
-    }
-  } catch (e) {}
-})();
-`,
-          }}
-        />
-        {/**
-         * A better alternative to <script async>, to delay its execution
-         * https://developer.chrome.com/blog/script-component/
-         */}
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${analytics.google}`}
-        />
         <NextScript />
       </body>
     </Html>
