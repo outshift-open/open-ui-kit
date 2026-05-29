@@ -9,4 +9,4 @@ export type {
   FloatingButtonProps,
   FloatingButtonVariant,
   FloatingButtonSize,
-} from "./components/floating-button";
+} from "./types";

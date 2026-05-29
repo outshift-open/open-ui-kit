@@ -13,15 +13,15 @@ import {
   ExtendedChartProps,
 } from "../common/types";
 
-export type IChartWidgetProps<T extends string> = ExtendedChartProps &
-  Omit<IWidgetProps<T>, "bodyElement"> &
+export type IChartWidgetProps = ExtendedChartProps &
+  Omit<IWidgetProps, "bodyElement"> &
   ConditionalPropsByType & {
     sx?: SxProps;
     generalWidgetStyle?: SxProps;
     label: string;
   };
 
-export const ChartWidget = <T extends string>({
+export const ChartWidget = ({
   data,
   type,
   label,
@@ -44,7 +44,7 @@ export const ChartWidget = <T extends string>({
   onLabelClick,
   dataRoseyUrn,
   ...rest
-}: IChartWidgetProps<T>) => {
+}: IChartWidgetProps) => {
   const combinedSx = {
     ...(type === ChartType.BAR_GRAPH
       ? { position: "relative" }

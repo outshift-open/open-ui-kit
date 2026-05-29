@@ -17,7 +17,6 @@ import {
 import type { NotificationMessage } from "@mui/internal-core-docs/AppLayout";
 import findActivePage from "@mui/internal-core-docs/findActivePage";
 import { getProductInfoFromUrl } from "@mui/internal-core-docs/utils";
-import type { Translations } from "@mui/internal-core-docs/i18n";
 import type { MuiPage } from "@mui/internal-core-docs/MuiPage";
 import openUiKitCorePkgJson from "../../packages/open-ui-kit/package.json";
 import type { AppProps } from "next/app";
@@ -190,7 +189,6 @@ function useDemoDisplayName() {
 export default function MyApp(
   props: AppProps<{
     userLanguage: string;
-    translations: Translations;
     versions: VersionEntry[];
   }>,
 ) {
@@ -228,11 +226,6 @@ export default function MyApp(
 }
 
 MyApp.getInitialProps = createGetInitialProps({
-  translationsContext: require.context(
-    "../translations",
-    false,
-    /\.\/translations.*\.json$/,
-  ),
   versions: getOpenUiKitVersions,
 });
 

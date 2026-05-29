@@ -3,11 +3,7 @@
     "allowJs": true,
     "baseUrl": ".",
     "target": "ES2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2020"
-    ],
+    "lib": ["dom", "dom.iterable", "es2020"],
     "module": "esnext",
     "isolatedModules": true,
     "moduleResolution": "bundler",
@@ -19,9 +15,7 @@
     "incremental": true,
     "jsx": "preserve",
     "paths": {
-      "docs/*": [
-        "./*"
-      ],
+      "docs/*": ["./*"],
       "@mui/internal-core-docs": [
         "./vendor/mui-internal-core-docs/src/index.ts"
       ],
@@ -31,21 +25,13 @@
       "@mui/internal-core-docs/ApiPage/private": [
         "./vendor/mui-internal-core-docs/src/ApiPage/private.ts"
       ],
-      "@mui/internal-markdown": [
-        "./vendor/mui-internal-markdown/index.mjs"
-      ],
-      "@mui/internal-markdown/*": [
-        "./vendor/mui-internal-markdown/*"
-      ],
-      "@open-ui-kit/core": [
-        "./src/open-ui-kit-core-docs.ts"
-      ],
+      "@mui/internal-markdown": ["./vendor/mui-internal-markdown/index.mjs"],
+      "@mui/internal-markdown/*": ["./vendor/mui-internal-markdown/*"],
+      "@open-ui-kit/core": ["./src/open-ui-kit-core-docs.ts"],
       "@open-ui-kit/core/typography.css": [
         "../packages/open-ui-kit/src/typography.css"
       ],
-      "@/*": [
-        "../packages/open-ui-kit/src/*"
-      ]
+      "@/*": ["../packages/open-ui-kit/src/*"]
     },
     "strict": false
   },
@@ -58,9 +44,5 @@
     "data",
     "vendor"
   ],
-  "exclude": [
-    "docs/.next",
-    "docs/export",
-    "node_modules"
-  ]
+  "exclude": ["docs/.next", "docs/export", "node_modules"]
 }

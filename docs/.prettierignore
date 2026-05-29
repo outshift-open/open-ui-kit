@@ -1,0 +1,8 @@
+/node_modules
+/.next
+/export
+/translations
+/vendor
+/public/static/styles
+*.md
+*.mdx

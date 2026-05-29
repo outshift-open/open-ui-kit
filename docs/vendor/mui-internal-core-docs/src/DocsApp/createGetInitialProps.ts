@@ -16,19 +16,18 @@ interface AppContext {
 /**
  * Factory to create MyApp.getInitialProps.
  * Follows the same pattern as `@mui/internal-core-docs/Document`'s `createGetInitialProps`.
- *
- * @param options.translationsContext - A webpack require.context pointing at translation JSON files.
- *   e.g. `require.context('docs/translations', false, /\.\/translations.*\.json$/)`
  */
 
 export function createGetInitialProps(options: {
-  translationsContext: RequireContext;
+  translationsContext?: RequireContext;
   versions: VersionEntry[] | (() => Promise<VersionEntry[]>);
 }) {
   async function getInitialPropsApp({ ctx, Component }: AppContext) {
     let pageProps: Record<string, unknown> = {};
 
-    const translations = mapTranslations(options.translationsContext);
+    const translations = options.translationsContext
+      ? mapTranslations(options.translationsContext)
+      : undefined;
     const versions =
       typeof options.versions === "function"
         ? await options.versions()

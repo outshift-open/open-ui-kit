@@ -33,11 +33,11 @@ export interface DocsAppProps {
    */
   emotionCache?: ReturnType<typeof createEmotionCache>;
   /**
-   * Page props from Next.js, including userLanguage and translations.
+   * Page props from Next.js.
    */
   pageProps: {
     userLanguage: string;
-    translations: Translations;
+    translations?: Translations;
     versions: VersionEntry[];
     [key: string]: unknown;
   };

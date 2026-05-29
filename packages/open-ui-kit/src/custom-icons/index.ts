@@ -556,7 +556,7 @@ export * from "./target-sensitive";
 export * from "./teams";
 export * from "./tenable";
 export * from "./terraform";
-export * from "./test";
+export * from "./test-icon";
 export * from "./tray";
 export * from "./trend";
 export * from "./trend-arrow";

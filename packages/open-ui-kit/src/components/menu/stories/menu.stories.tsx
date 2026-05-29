@@ -133,22 +133,14 @@ export const Destructive: Story = {
 export const SizeMedium: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} size={"medium" as never}>
-        Menu Item {x}
-      </MenuItem>
-    )),
+    children: [1, 2, 3].map((x) => <MenuItem key={x}>Menu Item {x}</MenuItem>),
   },
 };
 
 export const SizeSmall: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} size={"small" as never}>
-        Menu Item {x}
-      </MenuItem>
-    )),
+    children: [1, 2, 3].map((x) => <MenuItem key={x}>Menu Item {x}</MenuItem>),
   },
 };
 

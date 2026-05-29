@@ -67,7 +67,7 @@ const ThemeBackground = ({
   children,
 }: {
   mode: keyof typeof themeBackgroundTokens;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   React.useEffect(() => {
     const tokens = themeBackgroundTokens[mode];

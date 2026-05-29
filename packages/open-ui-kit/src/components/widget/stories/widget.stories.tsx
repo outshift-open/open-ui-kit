@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { IWidgetProps, Widget } from "../components/widget";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta: Meta<IWidgetProps<string>> = {
+const meta: Meta<typeof Widget> = {
   title: "Components/Widget",
   component: Widget,
   tags: ["autodocs"],
@@ -21,7 +21,7 @@ const meta: Meta<IWidgetProps<string>> = {
 };
 
 export default meta;
-type Story = StoryObj<IWidgetProps<string>>;
+type Story = StoryObj<IWidgetProps>;
 
 export const Default: Story = {
   render: (args) => <Widget {...args} />,

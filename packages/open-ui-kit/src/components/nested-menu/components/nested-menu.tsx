@@ -17,6 +17,7 @@ import {
   Popover,
   SvgIconProps,
   SxProps,
+  Theme,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -67,6 +68,38 @@ export const NestedMenu = ({
   const theme = useTheme();
   const [openDropdown, setOpenDropdown] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
+  const getPopoverPaperSx = (theme: Theme) => ({
+    width: "480px",
+    maxHeight: "375px",
+    overflowY: "auto",
+    padding: "8px 0px",
+    backgroundColor: theme.palette.vars.controlBackgroundWeak,
+    border: `2px solid ${theme.palette.vars.controlBorderActive}`,
+    boxShadow: "0px 2px 5px rgba(200, 213, 245, 0.4)",
+    borderRadius: "4px",
+    "& .MuiStack-root": {
+      padding: "0px",
+    },
+    "& .MuiInput-root": {
+      marginTop: "0px",
+    },
+    "& .MuiTextField-root": {
+      padding: "0px 16px 8px 16px",
+    },
+    "& .MuiListItem-root": {
+      background: "transparent",
+      padding: "8px 16px",
+    },
+    "& .MuiCheckbox-root": {
+      marginLeft: "-3px",
+    },
+    "& .MuiButton-root": {
+      minWidth: "0px",
+      padding: "0px",
+      margin: "0px",
+    },
+  });
+
   return (
     <Box>
       <Box ref={anchorRef} display="inline-block">
@@ -135,40 +168,14 @@ export const NestedMenu = ({
         }}
         slotProps={{
           paper: {
-            sx: (theme) => ({
-              width: "480px",
-              maxHeight: "375px",
-              overflowY: "auto",
-              padding: "8px 0px",
-              backgroundColor: theme.palette.vars.controlBackgroundWeak,
-              border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-              boxShadow: "0px 2px 5px rgba(200, 213, 245, 0.4)",
-              borderRadius: "4px",
-              "& .MuiStack-root": {
-                padding: "0px",
-              },
-              "& .MuiInput-root": {
-                marginTop: "0px",
-              },
-              "& .MuiTextField-root": {
-                padding: "0px 16px 8px 16px",
-              },
-              "& .MuiListItem-root": {
-                background: "transparent",
-                padding: "8px 16px",
-              },
-              "& .MuiCheckbox-root": {
-                marginLeft: "-3px",
-              },
-              "& .MuiButton-root": {
-                minWidth: "0px",
-                padding: "0px",
-                margin: "0px",
-              },
-              ...(typeof popOverPaperSx === "function"
-                ? popOverPaperSx(theme)
-                : popOverPaperSx),
-            }),
+            sx: [
+              getPopoverPaperSx,
+              ...(Array.isArray(popOverPaperSx)
+                ? popOverPaperSx
+                : popOverPaperSx
+                  ? [popOverPaperSx]
+                  : []),
+            ] as SxProps<Theme>,
           },
           root: {
             sx: {

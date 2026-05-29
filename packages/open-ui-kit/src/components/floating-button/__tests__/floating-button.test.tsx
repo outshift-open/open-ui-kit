@@ -8,7 +8,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { FloatingButton } from "../components/floating-button";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
+import { FloatingButton } from "..";
+import { getFloatingButtonStyles } from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -84,6 +87,26 @@ describe("FloatingButton", () => {
       expect(() =>
         wrap(<FloatingButton sx={{ opacity: 0.8 }}>Button</FloatingButton>),
       ).not.toThrow();
+    });
+  });
+
+  describe("token styles", () => {
+    it("uses light theme tokens for primary styling", () => {
+      expect(getFloatingButtonStyles(lightTheme, "primary")).toMatchObject({
+        background: `${lightTheme.palette.vars.controlBackgroundDefault} !important`,
+        border: `2px solid ${lightTheme.palette.vars.interactivePrimaryDefaultDefault} !important`,
+        color: `${lightTheme.palette.vars.baseTextStrong} !important`,
+        boxShadow: lightTheme.shadows[4],
+      });
+    });
+
+    it("uses dark theme tokens for secondary styling", () => {
+      expect(getFloatingButtonStyles(darkTheme, "secondary")).toMatchObject({
+        background: `${darkTheme.palette.vars.controlBackgroundDefault} !important`,
+        border: `2px solid ${darkTheme.palette.vars.controlBorderDefault} !important`,
+        color: `${darkTheme.palette.vars.baseTextStrong} !important`,
+        boxShadow: darkTheme.shadows[4],
+      });
     });
   });
 });

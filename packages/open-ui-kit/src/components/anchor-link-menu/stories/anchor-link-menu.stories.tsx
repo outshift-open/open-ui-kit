@@ -3,12 +3,9 @@ import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
 import { Box, Stack, Typography } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import {
-  AnchorLinkMenu,
-  type AnchorLinkMenuProps,
-} from "../components/anchor-link-menu";
+import { AnchorLinkMenu } from "../components/anchor-link-menu";
 import { AnchorLinkMenuItemComponent } from "../components/anchor-link-menu-item";
-import type { AnchorLinkMenuItem } from "../types";
+import type { AnchorLinkMenuItem, AnchorLinkMenuProps } from "../types";
 
 const meta: Meta<AnchorLinkMenuProps> = {
   title: "Components/AnchorLinkMenu",

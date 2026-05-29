@@ -105,6 +105,9 @@ export default [
           "react-router-dom": "ReactRouterDOM",
           "react/jsx-runtime": "jsxRuntime",
           "@mui/material": "Mui",
+          "@mui/material/styles": "MuiMaterialStyles",
+          "@mui/material/Drawer": "MuiDrawer",
+          "@mui/material/Stack": "MuiStack",
           "@mui/icons-material/CheckBoxOutlineBlankRounded":
             "CheckBoxOutlineBlankRoundedIcon",
           "@mui/icons-material/CheckBoxRounded": "CheckBoxRoundedIcon",
