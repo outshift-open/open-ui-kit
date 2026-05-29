@@ -4,12 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Backdrop as MuiBackdrop,
-  BackdropProps as MuiBackdropProps,
-} from "@mui/material";
-
-export type BackdropProps = MuiBackdropProps;
+import { Backdrop as MuiBackdrop } from "@mui/material";
+import type { BackdropProps } from "../types";
 
 export const Backdrop = (props: BackdropProps) => {
   return <MuiBackdrop {...props} />;

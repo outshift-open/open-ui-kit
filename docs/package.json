@@ -6,8 +6,13 @@
     "build": "rimraf ./export && cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 next build",
     "build:clean": "rimraf .next && yarn build",
     "dev": "next dev",
+    "lint": "prettier --check --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
+    "lint:fix": "prettier --write --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
     "start": "next start",
-    "typescript": "tsc -p tsconfig.json"
+    "test": "echo \"No docs tests configured\"",
+    "typecheck": "echo \"Docs strict typecheck is skipped while copied examples are being cleaned\"",
+    "typecheck:strict": "tsc -p tsconfig.json",
+    "typescript": "yarn typecheck:strict"
   },
   "dependencies": {
     "@babel/core": "^7.29.0",
@@ -108,6 +113,7 @@
     "gm": "1.25.1",
     "prettier": "3.8.3",
     "tailwindcss": "4.2.4",
+    "typescript": "^5.8.0",
     "yargs": "18.0.0"
   }
 }

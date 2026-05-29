@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Mail } from "@mui/icons-material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Badge, BadgeProps } from "../components/badge";
+import { Badge } from "../components/badge";
+import type { BadgeProps } from "../types";
 import { Stack } from "@mui/material";
 
 const meta: Meta<typeof Badge> = {

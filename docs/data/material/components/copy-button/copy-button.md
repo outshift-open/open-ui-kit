@@ -52,7 +52,7 @@ Use `position`, `top`, `left`, and `right` when the button needs to sit inside a
 
 ## Props
 
-`CopyButton` extends Material UI `IconButtonProps` and adds copy-specific options.
+`CopyButton` extends icon button props and adds copy-specific options.
 
 | Prop | Type | Description |
 | --- | --- | --- |

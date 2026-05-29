@@ -1,9 +1,7 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import {
-  ActionsDialog,
-  ActionsDialogProps,
-} from "../components/actions-dialog";
+import { ActionsDialog } from "../components/actions-dialog";
+import type { ActionsDialogProps } from "../types";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Button } from "@/components/button";
 
@@ -14,9 +12,10 @@ export default {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="ActionsDialog is a dialog used to confirm actions that require user input. It includes a title, body text, optional comment input with suggestions, and an optional dismiss checkbox."
-          guideLink=""
+          title="ActionsDialog"
+          blurb="ActionsDialog is a confirmation dialog with body text, optional comment suggestions, an optional dismiss checkbox, and cancel/confirm actions."
           importLine={`import { ActionsDialog } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -43,10 +42,11 @@ export const Default: Story = {
     confirmClicked: (dismiss, comment) =>
       console.log("confirm clicked", dismiss, comment),
     mutationLoading: false,
-    title: 'Mark asset as "Sensitive"?',
+    title: "Dialog title",
+    subTitle: "Dialog Subtitle",
     includeDismissCheckbox: true,
     bodyText:
-      'Marking an asset as "Sensitive" will prioritize high severity alerts on it.',
+      "Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision.",
     commentSuggestions: [
       "This asset is sensitive because it contains PII.",
       "This asset is sensitive because it contains PHI.",
@@ -56,25 +56,29 @@ export const Default: Story = {
 };
 
 export const WithSubtitle: Story = {
+  name: "With subtitle",
   render: (args) => <ActionsDialogWrapper {...args} />,
   args: {
     confirmClicked: (dismiss, comment) =>
       console.log("confirm clicked", dismiss, comment),
     mutationLoading: false,
-    title: "Confirm action",
-    subTitle: "This action cannot be undone",
-    bodyText: "Are you sure you want to proceed with this action?",
+    title: "Dialog title",
+    subTitle: "Dialog Subtitle",
+    bodyText:
+      "Dialogs disable all app functionality when they appear, and remain on screen until a required action has been taken.",
   },
 };
 
 export const WithDismissOnly: Story = {
+  name: "With dismiss checkbox",
   render: (args) => <ActionsDialogWrapper {...args} />,
   args: {
     confirmClicked: (dismiss, comment) =>
       console.log("confirm clicked", dismiss, comment),
     mutationLoading: false,
-    title: "Dismiss alert?",
-    bodyText: "This will dismiss the alert and remove it from your feed.",
+    title: "Dialog title",
+    bodyText:
+      "Dialogs are purposefully interruptive, so they should be used sparingly.",
     includeDismissCheckbox: true,
     dismissCheckboxText: "Don't show this alert again",
   },

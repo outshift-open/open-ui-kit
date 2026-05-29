@@ -1,9 +1,13 @@
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Section from "docs/src/layouts/Section";
 import SectionHeadline from "@mui/internal-core-docs/SectionHeadline";
-import SearchOffRoundedIcon from "@mui/icons-material/SearchOffRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { OpenUiKitLogomarkIcon } from "docs/src/branding/OpenUiKitLogo";
 
 function NotFoundIllustration() {
   return (
@@ -11,83 +15,47 @@ function NotFoundIllustration() {
       sx={(theme) => ({
         mx: "auto",
         mb: 4,
-        height: { xs: 200, sm: 150 },
-        width: { xs: 100, sm: 200 },
+        height: { xs: 220, sm: 190 },
+        width: { xs: 280, sm: 420 },
         display: "flex",
-        flexDirection: { xs: "column-reverse", sm: "column" },
-        borderRadius: 1,
-        border: `1px solid ${theme.palette.grey[200]}`,
-        overflow: "clip",
-        boxShadow: `0px 2px 8px -2px ${alpha(
-          theme.palette.primary[300],
-          0.3,
-        )}, 0px 6px 12px -2px ${alpha(theme.palette.primary[100], 0.2)}`,
+        flexDirection: "column",
+        borderRadius: "20px",
+        border: "1px solid",
+        borderColor: "primary.200",
+        overflow: "hidden",
+        background:
+          "linear-gradient(180deg, rgba(231, 241, 255, 0.92), rgba(255, 255, 255, 0.96))",
+        boxShadow: "0 24px 60px rgba(24, 122, 220, 0.16)",
         ...theme.applyDarkStyles({
-          borderColor: theme.palette.primaryDark[700],
-          boxShadow: `0px 2px 8px -2px ${alpha(
-            theme.palette.common.black,
-            0.3,
-          )}, 0px 6px 12px -2px ${alpha(theme.palette.common.black, 0.2)}`,
+          borderColor: "primaryDark.700",
+          background:
+            "linear-gradient(180deg, rgba(1, 30, 62, 0.98), rgba(0, 20, 43, 0.98))",
+          boxShadow: "0 24px 60px rgba(0, 0, 0, 0.34)",
         }),
       })}
     >
       <Box
         sx={{
           p: 1.5,
-          display: { xs: "none", sm: "flex" },
+          display: "flex",
           gap: "6px",
           borderBottom: "1px solid",
           borderColor: "divider",
           bgcolor: "background.paper",
         }}
       >
-        <Box
-          sx={{
-            width: 10,
-            height: 10,
-            borderRadius: 2,
-            bgcolor: "error.500",
-            opacity: "80%",
-          }}
-        />
-        <Box
-          sx={{
-            width: 10,
-            height: 10,
-            borderRadius: 2,
-            bgcolor: "warning.500",
-            opacity: "80%",
-          }}
-        />
-        <Box
-          sx={{
-            width: 10,
-            height: 10,
-            borderRadius: 2,
-            bgcolor: "success.500",
-            opacity: "80%",
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          pt: 1,
-          pb: "5px",
-          display: { xs: "flex", sm: "none" },
-          justifyContent: "center",
-          borderTop: "1px solid",
-          borderColor: "divider",
-          bgcolor: "background.paper",
-        }}
-      >
-        <Box
-          sx={{
-            height: 3,
-            width: "40%",
-            bgcolor: "rgba(0,0,0,0.3)",
-            borderRadius: 2,
-          }}
-        />
+        {["error.500", "warning.500", "success.500"].map((color) => (
+          <Box
+            key={color}
+            sx={{
+              width: 10,
+              height: 10,
+              borderRadius: 2,
+              bgcolor: color,
+              opacity: 0.85,
+            }}
+          />
+        ))}
       </Box>
       <Box
         sx={{
@@ -95,11 +63,38 @@ function NotFoundIllustration() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          px: 3,
         }}
       >
-        <SearchOffRoundedIcon
-          sx={{ fontSize: 50, color: "primary.500", opacity: "40%" }}
-        />
+        <Box
+          sx={(theme) => ({
+            display: "grid",
+            gridTemplateColumns: "auto 1fr auto",
+            alignItems: "center",
+            gap: 2,
+            width: "100%",
+            p: 2,
+            borderRadius: "16px",
+            border: "1px solid",
+            borderColor: "primary.200",
+            bgcolor: "rgba(255,255,255,0.74)",
+            ...theme.applyDarkStyles({
+              borderColor: "primaryDark.700",
+              bgcolor: "rgba(0, 20, 43, 0.62)",
+            }),
+          })}
+        >
+          <OpenUiKitLogomarkIcon width={46} height={46} />
+          <Box>
+            <Typography sx={{ fontWeight: 700, color: "text.primary" }}>
+              Open UI Kit Core
+            </Typography>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              This route is not in the docs map.
+            </Typography>
+          </Box>
+          <SearchRoundedIcon sx={{ color: "primary.500" }} />
+        </Box>
       </Box>
     </Box>
   );
@@ -110,6 +105,7 @@ export default function NotFoundHero() {
     <Section
       bg="gradient"
       sx={{
+        minHeight: "calc(100vh - var(--MuiDocs-header-height, 60px))",
         display: "flex",
         alignItems: "center",
         "& .MuiContainer-root": {
@@ -132,8 +128,32 @@ export default function NotFoundHero() {
             Page not found
           </Typography>
         }
-        description="Apologies, but the page you were looking for wasn't found. Try reaching for the search button on the nav bar above to look for another one."
+        description="That page is not part of the Open UI Kit docs yet. Head back to the component library or search the docs from the header."
       />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={1.5}
+        sx={{ mt: 3 }}
+        useFlexGap
+      >
+        <Button
+          component={Link}
+          href="/open-ui-kit-core/"
+          variant="contained"
+          endIcon={<ArrowForwardRoundedIcon />}
+          underline="none"
+        >
+          Open docs
+        </Button>
+        <Button
+          component={Link}
+          href="/open-ui-kit-core/all-components/"
+          variant="outlined"
+          underline="none"
+        >
+          Browse components
+        </Button>
+      </Stack>
     </Section>
   );
 }

@@ -4,21 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AlertProps, IconButton, Typography } from "@mui/material";
-import { StatusBanner } from "../types";
+import { IconButton, Typography } from "@mui/material";
+import type { BannerProps } from "../types";
 import { IconBanner, StyledBanner } from "./elements";
 import { CloseOutlined } from "@mui/icons-material";
 import React from "react";
-
-export interface BannerProps
-  extends Omit<
-    AlertProps,
-    "variant" | "severity" | "children" | "iconMapping" | "action"
-  > {
-  status?: StatusBanner;
-  text: React.ReactNode;
-  showCloseButton?: boolean;
-}
 
 export const Banner = ({
   status = "info",

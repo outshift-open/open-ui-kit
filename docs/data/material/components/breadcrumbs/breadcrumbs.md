@@ -70,7 +70,7 @@ Use small in dense toolbars, side panels, or compact cards.
 
 ## Props
 
-Breadcrumbs supports the underlying Material UI `Breadcrumbs` props, plus Open UI Kit item, size, icon, and collapse props.
+Breadcrumbs supports the underlying breadcrumb props, plus Open UI Kit item, size, icon, and collapse props.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |

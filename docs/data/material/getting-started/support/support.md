@@ -18,7 +18,7 @@ Open a new issue in the [Open UI Kit repository](https://github.com/outshift-ope
 
 Good bug reports usually include:
 
-- The Open UI Kit, React, and MUI versions.
+- The Open UI Kit, React, and peer dependency versions.
 - The browser and operating system where the issue appears.
 - A minimal reproduction or code snippet.
 - Expected behavior and actual behavior.

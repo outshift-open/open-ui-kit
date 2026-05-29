@@ -25,7 +25,7 @@ Version numbers use the `major.minor.patch` format.
 When upgrading:
 
 1. Read the release notes for breaking changes and peer dependency updates.
-2. Update `@open-ui-kit/core` together with compatible MUI and Emotion versions.
+2. Update `@open-ui-kit/core` together with compatible peer dependency versions.
 3. Run your visual checks for shared application surfaces such as navigation, tables, dialogs, and forms.
 4. Check any custom `sx` overrides that reach into component internals.
 

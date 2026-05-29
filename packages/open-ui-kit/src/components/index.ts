@@ -19,6 +19,7 @@ export * from "./checkbox";
 export * from "./code-block";
 export * from "./copy-button";
 export * from "./date-time";
+export * from "./divider";
 export * from "./drawer-shell";
 export * from "./nested-menu";
 export * from "./empty-state";
@@ -69,7 +70,6 @@ export {
   ListItem,
   ListItemButton,
   Drawer,
-  Divider,
   Container,
   Paper,
   ButtonGroup,

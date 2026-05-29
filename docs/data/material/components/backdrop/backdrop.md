@@ -16,7 +16,7 @@ githubSource: packages/open-ui-kit/src/components/backdrop
 Backdrop narrows attention to a single moment in the interface.
 Use it when the page is waiting for an operation, when a modal surface needs focus, or when clicks outside a temporary surface should dismiss it.
 
-Open UI Kit exposes the Material UI Backdrop API, so props such as `open`, `invisible`, `onClick`, `sx`, and transition props still work.
+Open UI Kit exposes the expected backdrop API, so props such as `open`, `invisible`, `onClick`, `sx`, and transition props still work.
 
 {{"demo": "BackdropUsage.js", "bg": true}}
 
@@ -49,7 +49,7 @@ This is useful for contextual surfaces such as popovers, menus, or custom panels
 
 ## Props
 
-Backdrop supports the underlying Material UI `Backdrop` props.
+Backdrop supports the underlying backdrop props.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |

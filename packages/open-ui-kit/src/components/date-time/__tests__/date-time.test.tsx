@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { DatePicker } from "../components/DatePicker";
@@ -110,6 +110,28 @@ describe("DateRangePicker", () => {
         />,
       ),
     ).not.toThrow();
+  });
+
+  it("preserves input onClick while opening the popover", () => {
+    const onClick = jest.fn();
+    const getPopoverVisibility = jest.fn();
+    const { container } = wrap(
+      <DateRangePicker
+        startDate=""
+        endDate=""
+        setStartDate={noop}
+        setEndDate={noop}
+        getPopoverVisibility={getPopoverVisibility}
+        inputFieldProps={{ onClick }}
+      />,
+    );
+
+    const input = container.querySelector("input");
+    expect(input).toBeInTheDocument();
+    fireEvent.click(input as HTMLInputElement);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(getPopoverVisibility).toHaveBeenCalledWith(true);
   });
 });
 

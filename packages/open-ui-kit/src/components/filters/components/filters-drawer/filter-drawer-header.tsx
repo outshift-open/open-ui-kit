@@ -6,7 +6,7 @@
 
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { getStyles } from "./styles";
-import { AssetsData } from "../../types/types";
+import type { AssetsData } from "../../types";
 import { CloseOutlined } from "@mui/icons-material";
 import { SearchField } from "@/components/search-field";
 

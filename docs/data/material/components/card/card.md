@@ -14,7 +14,7 @@ githubSource: packages/open-ui-kit/src/components/card
 ## Introduction
 
 Cards are useful for compact summaries, selectable objects, resource previews, and small workflows.
-Open UI Kit wraps the Material UI card primitives and adds component defaults that match the rest of the system.
+Open UI Kit provides flexible card primitives with component defaults that match the rest of the system.
 
 {{"demo": "CardUsage.js", "bg": true}}
 
@@ -34,7 +34,7 @@ import {
 
 ## Composition
 
-Build cards from the same primitives as Material UI: `CardHeader`, `CardContent`, and `CardActions`.
+Build cards from familiar primitives: `CardHeader`, `CardContent`, and `CardActions`.
 Use `CardDescription` and `CardSubheader` for Open UI Kit text styling inside custom card layouts.
 
 {{"demo": "CardComposition.js", "bg": true}}
@@ -62,15 +62,15 @@ When a card represents unavailable content, make that state explicit in surround
 
 ## Props
 
-Card primitives support the underlying Material UI props.
+Card primitives support the underlying card props.
 
 | Component | Base props | Description |
 | --- | --- | --- |
-| `Card` | `MuiCardProps` | Root card surface. |
-| `CardHeader` | `MuiCardHeaderProps` | Header area with title, subheader, avatar, and action slots. |
-| `CardContent` | `MuiCardContentProps` | Main content area. |
-| `CardActions` | `MuiCardActionsProps` | Action row for buttons and controls. |
-| `CardActionArea` | `MuiCardActionAreaProps` | Makes the card surface interactive. |
+| `Card` | `CardProps` | Root card surface. |
+| `CardHeader` | `CardHeaderProps` | Header area with title, subheader, avatar, and action slots. |
+| `CardContent` | `CardContentProps` | Main content area. |
+| `CardActions` | `CardActionsProps` | Action row for buttons and controls. |
+| `CardActionArea` | `CardActionAreaProps` | Makes the card surface interactive. |
 | `CardDescription` | `TypographyProps` | Body text with Open UI Kit card description styling. |
 | `CardSubheader` | `TypographyProps` | Compact supporting text with Open UI Kit card subheader styling. |
 

@@ -1,6 +1,6 @@
 # Installation
 
-<p class="description">Install Open UI Kit with its Material UI and Emotion peer dependencies.</p>
+<p class="description">Install Open UI Kit with its required React styling peer dependencies.</p>
 
 ## Package manager
 
@@ -24,8 +24,7 @@ yarn add @open-ui-kit/core @mui/material @emotion/react @emotion/styled
 
 ## Peer dependencies
 
-Open UI Kit is built on Material UI.
-Your app should provide React, React DOM, Material UI, and Emotion.
+Open UI Kit expects your app to provide React, React DOM, and the styling packages listed below.
 Install extra peer dependencies only when the components you use require them, such as date pickers, charts, routing, motion, or toast packages.
 
 ```json

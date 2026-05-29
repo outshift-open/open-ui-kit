@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "start": "vite preview",
     "preview": "vite preview",
-    "lint": "echo lint"
+    "lint": "echo lint",
+    "lint:fix": "echo lint:fix",
+    "test": "echo \"No playground tests configured\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "latest",

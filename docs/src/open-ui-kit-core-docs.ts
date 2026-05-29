@@ -1,15 +1,10 @@
 import "../../packages/open-ui-kit/src/typography.css";
 
 import * as React from "react";
-import {
-  type ThemeProviderProps,
-} from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
+import { type ThemeProviderProps } from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
 import { ThemeOptionsContext } from "@mui/internal-core-docs/ThemeContext";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
-import {
-  CssBaseline,
-  ThemeProvider as MuiThemeProvider,
-} from "@mui/material";
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import {
   OpenUiKitTokenCssVars,
   openUiKitDarkDocsTheme,
@@ -120,7 +115,10 @@ export { default as CardDescription } from "../../packages/open-ui-kit/src/compo
 export type { CardDescriptionProps } from "../../packages/open-ui-kit/src/components/card/components/card-description";
 export { default as CardSubheader } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
 export type { CardSubheaderProps } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
-export { useTheme, useThemeMode } from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
+export {
+  useTheme,
+  useThemeMode,
+} from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
 export { Divider, Stack, Typography } from "@mui/material";
 
 const useClientLayoutEffect =

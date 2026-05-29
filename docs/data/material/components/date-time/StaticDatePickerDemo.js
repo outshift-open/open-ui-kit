@@ -10,9 +10,19 @@ export default function StaticDatePickerDemo() {
     <ThemeProvider>
       <Stack spacing={2} sx={{ maxWidth: 316 }}>
         <Typography variant="body2Semibold">May 2026</Typography>
-        <Box sx={{ display: "grid", gridTemplateColumns: "repeat(7, 32px)", gap: 1 }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(7, 32px)",
+            gap: 1,
+          }}
+        >
           {days.map((day, index) => (
-            <Typography key={`${day}-${index}`} variant="caption" align="center">
+            <Typography
+              key={`${day}-${index}`}
+              variant="caption"
+              align="center"
+            >
               {day}
             </Typography>
           ))}

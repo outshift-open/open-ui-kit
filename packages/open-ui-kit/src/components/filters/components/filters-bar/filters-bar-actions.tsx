@@ -15,26 +15,7 @@ import { useEffect, useState } from "react";
 import { getStyles } from "./styles";
 import { Button } from "@/components/button";
 import { SearchField } from "@/components/search-field";
-
-export interface FiltersBarActionsProps {
-  onFiltersButtonClick?: () => void;
-  activeFiltersCount?: number;
-  onSearch?: (search: string) => void;
-  searchPlaceHolder?: string;
-  favorite?: boolean;
-  onFavorite?: (favorite: boolean) => void;
-  initialSearchValue?: string;
-  searchValue?: string;
-  inputProps?: {
-    props: {
-      startAdornment?: JSX.Element;
-      endAdornment?: JSX.Element;
-    };
-    extendEndAdornment?: JSX.Element;
-  };
-  rightSideComponent?: JSX.Element;
-  isFiltersButtonVisible?: boolean;
-}
+import type { FiltersBarActionsProps } from "../../types";
 
 export const FiltersBarActions = ({
   onFiltersButtonClick,

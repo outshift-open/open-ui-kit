@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { ActionsDialog } from "../components/actions-dialog";
+import type { ActionsDialogProps } from "../types";
 
 const noop = jest.fn();
 
@@ -21,10 +21,7 @@ const defaultProps = {
   bodyText: "Are you sure you want to proceed?",
 };
 
-const wrap = (
-  props: Partial<React.ComponentProps<typeof ActionsDialog>> = {},
-  dark = false,
-) =>
+const wrap = (props: Partial<ActionsDialogProps> = {}, dark = false) =>
   render(
     <ThemeProvider defaultDarkMode={dark}>
       <ActionsDialog {...defaultProps} {...props} />

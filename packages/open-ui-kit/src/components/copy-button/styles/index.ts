@@ -4,26 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
-import { CopyButtonPosition, CopyButtonSize } from "../components/copy-button";
+import type { Theme } from "@mui/material";
+import type { CopyButtonSize, CopyButtonStylesProps } from "../types";
 
 const sizeTokens: Record<
   CopyButtonSize,
-  { box: string; icon: string; padding: string; hasBorder: boolean }
+  { box: string; icon: string; padding: number; hasBorder: boolean }
 > = {
-  small: { box: "16px", icon: "14px", padding: "1px", hasBorder: false },
-  medium: { box: "20px", icon: "16px", padding: "2px", hasBorder: false },
-  large: { box: "32px", icon: "20px", padding: "4px", hasBorder: true },
+  small: { box: "16px", icon: "14px", padding: 0, hasBorder: false },
+  medium: { box: "20px", icon: "16px", padding: 0, hasBorder: false },
+  large: { box: "32px", icon: "20px", padding: 0, hasBorder: true },
 };
 
-export interface CopyButtonStylesProps {
-  position?: CopyButtonPosition;
-  size?: CopyButtonSize;
+interface CopyButtonStyleOptions extends CopyButtonStylesProps {
   theme?: Theme;
-  top?: string;
-  left?: string;
-  right?: string;
-  disableMargin?: boolean;
 }
 
 export const styles = ({
@@ -34,7 +28,7 @@ export const styles = ({
   left,
   right,
   disableMargin = false,
-}: CopyButtonStylesProps) => {
+}: CopyButtonStyleOptions) => {
   const t = sizeTokens[size];
   return {
     borderRadius: "4px",

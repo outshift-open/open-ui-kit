@@ -6,7 +6,7 @@
 
 import React, { RefObject, useCallback } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ActionsDialogProps } from "./actions-dialog";
+import type { ActionsDialogProps } from "../types";
 import { styles } from "../styles";
 import { DialogActions } from "@/components/dialog";
 import { Button } from "@/components/button";

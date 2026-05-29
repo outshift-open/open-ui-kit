@@ -8,7 +8,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { Divider } from "@mui/material";
+import { Divider } from "../components/divider";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -33,6 +33,40 @@ describe("Divider", () => {
       expect(() =>
         wrap(<Divider orientation="vertical" variant="bold" />),
       ).not.toThrow();
+    });
+
+    it("uses the divider token in light mode", () => {
+      const { container } = wrap(<Divider orientation="horizontal" />);
+      expect(container.firstChild).toHaveStyle(
+        "background-color: rgb(213, 223, 247)",
+      );
+    });
+
+    it("renders horizontal and vertical dimensions from the design", () => {
+      const { container: horizontal } = wrap(
+        <Divider orientation="horizontal" />,
+      );
+      const { container: vertical } = wrap(<Divider orientation="vertical" />);
+      const { container: boldHorizontal } = wrap(
+        <Divider orientation="horizontal" variant="bold" />,
+      );
+      const { container: boldVertical } = wrap(
+        <Divider orientation="vertical" variant="bold" />,
+      );
+
+      expect(horizontal.firstChild).toHaveStyle({
+        height: "1px",
+        width: "100%",
+      });
+      expect(vertical.firstChild).toHaveStyle({ height: "100%", width: "1px" });
+      expect(boldHorizontal.firstChild).toHaveStyle({
+        height: "2px",
+        width: "100%",
+      });
+      expect(boldVertical.firstChild).toHaveStyle({
+        height: "100%",
+        width: "2px",
+      });
     });
   });
 
@@ -59,6 +93,13 @@ describe("Divider", () => {
       expect(() =>
         wrap(<Divider orientation="vertical" variant="bold" />, true),
       ).not.toThrow();
+    });
+
+    it("uses the divider token in dark mode", () => {
+      const { container } = wrap(<Divider orientation="vertical" />, true);
+      expect(container.firstChild).toHaveStyle(
+        "background-color: rgb(79, 98, 141)",
+      );
     });
   });
 });

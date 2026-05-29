@@ -11,24 +11,15 @@ import {
   Typography,
   useTheme,
   Popover,
-  PopoverProps,
   Stack,
 } from "@mui/material";
 import { Event, ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { InputField, type InputFieldProps } from "@/components/input-field";
+import { InputField } from "@/components/input-field";
 import { getDateRangePickerStyles } from "../styles";
+import type { DateRangePickerProps } from "../types";
+import type { PopoverProps } from "@mui/material";
 
 const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];
-
-export interface DateRangePickerProps {
-  startDate: string;
-  endDate: string;
-  setStartDate: (endDate: string) => void;
-  setEndDate: (endDate: string) => void;
-  getPopoverVisibility?: (visibility: boolean) => void;
-  inputFieldProps?: InputFieldProps;
-  popoverProps?: PopoverProps;
-}
 
 export const DateRangePicker = ({
   startDate,
@@ -47,6 +38,11 @@ export const DateRangePicker = ({
 
   const open = Boolean(anchorEl);
 
+  const closePopover = () => {
+    setAnchorEl(null);
+    getPopoverVisibility?.(false);
+  };
+
   const handleDayClick = (day: string) => {
     if (!startDate || (startDate && endDate)) {
       setStartDate(day);
@@ -54,10 +50,10 @@ export const DateRangePicker = ({
     } else if (new Date(day) < new Date(startDate)) {
       setEndDate(startDate);
       setStartDate(day);
-      handlePopoverClose();
+      closePopover();
     } else {
       setEndDate(day);
-      handlePopoverClose();
+      closePopover();
     }
   };
 
@@ -144,21 +140,25 @@ export const DateRangePicker = ({
   const handleInputFieldClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
     getPopoverVisibility?.(true);
+    inputFieldProps?.onClick?.(event);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-    getPopoverVisibility?.(false);
+  const handlePopoverClose: NonNullable<PopoverProps["onClose"]> = (
+    event,
+    reason,
+  ) => {
+    closePopover();
+    popoverProps?.onClose?.(event, reason);
   };
 
   return (
     <>
       <InputField
-        onClick={handleInputFieldClick}
         variant={"standard"}
         size={"small"}
         value={updateInput()}
         {...inputFieldProps}
+        onClick={handleInputFieldClick}
         sx={[
           {
             width: "264px",
@@ -191,18 +191,20 @@ export const DateRangePicker = ({
       <Popover
         open={open}
         anchorEl={anchorEl}
-        onClose={handlePopoverClose}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
         }}
         {...popoverProps}
-        sx={
-          {
-            ...s.popover,
-            ...popoverProps?.sx,
-          } as PopoverProps["sx"]
-        }
+        onClose={handlePopoverClose}
+        sx={[
+          s.popover,
+          ...(Array.isArray(popoverProps?.sx)
+            ? popoverProps.sx
+            : popoverProps?.sx
+              ? [popoverProps.sx]
+              : []),
+        ]}
       >
         <Stack direction={"column"} gap={"12px"}>
           <Stack

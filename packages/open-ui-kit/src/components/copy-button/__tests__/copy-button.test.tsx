@@ -4,16 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { CopyButton } from "../components/copy-button";
+import type { CopyButtonProps } from "../types";
 
-const renderCopyButton = (
-  props: Partial<React.ComponentProps<typeof CopyButton>> = {},
-  dark = false,
-) =>
+jest.mock("copy-to-clipboard", () => jest.fn(() => true));
+
+const renderCopyButton = (props: Partial<CopyButtonProps> = {}, dark = false) =>
   render(
     <ThemeProvider defaultDarkMode={dark}>
       <CopyButton text="copy me" {...props} />
@@ -29,6 +28,20 @@ describe("CopyButton", () => {
     it("renders a button", () => {
       renderCopyButton();
       expect(screen.getByRole("button")).toBeInTheDocument();
+    });
+
+    it("uses the copy label as the accessible name by default", () => {
+      renderCopyButton({ copyLabel: "Copy code" });
+      expect(
+        screen.getByRole("button", { name: "Copy code" }),
+      ).toBeInTheDocument();
+    });
+
+    it("preserves a consumer aria-label override", () => {
+      renderCopyButton({ "aria-label": "Copy snippet" });
+      expect(
+        screen.getByRole("button", { name: "Copy snippet" }),
+      ).toBeInTheDocument();
     });
 
     it("renders the copy icon by default", () => {
@@ -130,6 +143,15 @@ describe("CopyButton", () => {
         fireEvent.click(screen.getByRole("button"));
       });
       expect(onCopy).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls the consumer onClick when clicked", async () => {
+      const onClick = jest.fn();
+      renderCopyButton({ onClick });
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button"));
+      });
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
   });
 });

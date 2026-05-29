@@ -4,10 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CheckboxProps as MuiCheckboxProps } from "@mui/material";
+import type { CheckboxProps } from "../types";
 import { StyledCheckbox } from "./elements";
-
-export type CheckboxProps = MuiCheckboxProps;
 
 export const Checkbox = (props: CheckboxProps) => (
   <StyledCheckbox disableRipple {...props} />

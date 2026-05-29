@@ -6,4 +6,4 @@
 
 export { Accordion } from "./components/accordion";
 export { StyledAccordionSummary as AccordionSummary } from "./components/elements";
-export type { AccordionProps } from "./components/accordion";
+export type { AccordionProps } from "./types";

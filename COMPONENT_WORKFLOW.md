@@ -15,7 +15,7 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 ## 2. Remove MUI overrides
 
 - Check `lightThemeOptions.components` and `darkThemeOptions.components`.
-- Remove active or commented-out override blocks for the component.
+- Remove component-specific MUI visual overrides, including active or commented-out override blocks for the component.
 - Check `src/theme/mui/<name>.tsx`; move visual styles into the component.
 - Keep only true theme-level defaults when needed.
 - If the theme file becomes empty, delete it and remove imports, spreads, and exports.
@@ -23,12 +23,19 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 
 ## 3. Confirm component structure
 
-- Component styles live in `src/components/<name>/components/elements.tsx`.
+- Reusable style helpers live in `src/components/<name>/styles/index.ts`.
+- Styled element definitions live in `src/components/<name>/components/elements.tsx` when the component needs `styled()` elements.
 - Component logic lives in `src/components/<name>/components/<name>.tsx`.
+- Public component props and exported types live in `src/components/<name>/types/index.ts`.
+- For touched components, create `types/index.ts` when public props or types currently live in the component file.
+- Component files import public props and public types from `../types`.
+- Keep private styled-only types inside `elements.tsx` unless they are reused publicly.
 - Public exports live in `src/components/<name>/index.ts`.
+- `src/components/<name>/index.ts` exports both the component and public types.
 - Stories live in `src/components/<name>/stories/`.
 - Tests live in `src/components/<name>/__tests__/`.
-- Public component props include useful JSDoc comments that explain what each prop does and when to use it.
+- Public component props include concise JSDoc comments that explain what each prop does and when to use it, especially non-obvious variants, states, sizes, and callbacks.
+- Do not start a repo-wide type migration unless explicitly requested. Apply this structure incrementally to the components touched by the task.
 
 ## 4. QA light theme
 
@@ -56,6 +63,7 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 - Use `DocsHeader`.
 - Keep `@open-ui-kit/core` only inside documentation strings such as `importLine`.
 - Use local component wrappers from `@/components/*` when they exist.
+- Story-only visual labels or helper styles may use Figma colors if needed; production component styles should use tokens or palette constants.
 
 ## 8. Write focused tests
 
@@ -76,6 +84,9 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 ## 10. Design check
 
 - Read the light and dark PNGs from `~/Downloads/`.
+- Open the component Storybook docs page, usually:
+  `http://localhost:6006/?path=/docs/components-<component-name>--docs`.
+- Take a screenshot of the rendered Storybook docs or stories and use it as the implementation render for visual QA.
 - Compare implementation against design visually:
   - spacing
   - alignment
@@ -120,6 +131,7 @@ Follow the steps in order. Do not skip the final review or compact final resume.
   - Every import: local wrapper used when available?
   - Every prop spread: consumer overrides preserved?
   - Every public prop: documented clearly?
+  - Every public prop or type: exported from `types/` and the component index?
   - Every story: matches the design examples?
 - Treat "not sure" as a miss and verify before signing off.
 
@@ -150,4 +162,4 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 - Run Prettier on touched files and focused lint checks where practical.
 - Run story or type syntax checks when lightweight enough.
 - Avoid full repo test runs unless explicitly requested.
-- For visual QA, compare against exported PNGs and `helper.css`.
+- For visual QA, compare the Storybook screenshot against exported PNGs and `helper.css`.

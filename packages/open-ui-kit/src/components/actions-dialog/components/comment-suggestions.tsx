@@ -8,7 +8,7 @@ import React from "react";
 import { GeneralSize } from "@/common";
 import { Stack } from "@mui/material";
 import { styles } from "../styles";
-import { Tag, TagBackgroundColorVariants } from "@/components/tags/tag";
+import { Tag, TagBackgroundColorVariants } from "@/components/tags";
 
 type CommentSuggestionsProps = {
   commentSuggestions: string[];

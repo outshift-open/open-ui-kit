@@ -8,7 +8,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { EmptyState } from "../components/empty-state";
+import { EmptyState } from "..";
 import { GeneralSize } from "@/common";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
@@ -118,6 +118,24 @@ describe("EmptyState", () => {
       expect(screen.getByText("Refresh")).toBeInTheDocument();
     });
 
+    it("renders primary and secondary actions when both are provided", () => {
+      wrap(
+        <EmptyState
+          title="Heading"
+          actionCallback={noop}
+          actionTitle="button-link"
+          secondaryActionCallback={noop}
+          secondaryActionTitle="secondary button-link"
+        />,
+      );
+
+      expect(screen.getByText("button-link")).toBeInTheDocument();
+      expect(screen.getByText("secondary button-link")).toBeInTheDocument();
+      expect(
+        screen.getByText("secondary button-link").closest("button"),
+      ).toHaveClass("MuiButton-secondary");
+    });
+
     it("does not render action button in small size", () => {
       wrap(
         <EmptyState
@@ -127,6 +145,41 @@ describe("EmptyState", () => {
         />,
       );
       expect(screen.queryByText("Refresh")).not.toBeInTheDocument();
+    });
+
+    it("does not render secondary action button in small size", () => {
+      wrap(
+        <EmptyState
+          size={GeneralSize.Small}
+          secondaryActionCallback={noop}
+          secondaryActionTitle="Secondary"
+        />,
+      );
+      expect(screen.queryByText("Secondary")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("token usage", () => {
+    it("uses light text tokens for title and description", () => {
+      wrap(<EmptyState title="Heading" description="No matches found" />);
+
+      expect(screen.getByText("Heading")).toHaveStyle({
+        color: "rgb(0, 20, 43)",
+      });
+      expect(screen.getByText("No matches found")).toHaveStyle({
+        color: "rgb(89, 97, 107)",
+      });
+    });
+
+    it("uses dark text tokens for title and description", () => {
+      wrap(<EmptyState title="Heading" description="No matches found" />, true);
+
+      expect(screen.getByText("Heading")).toHaveStyle({
+        color: "rgb(255, 255, 255)",
+      });
+      expect(screen.getByText("No matches found")).toHaveStyle({
+        color: "rgb(197, 199, 203)",
+      });
     });
   });
 

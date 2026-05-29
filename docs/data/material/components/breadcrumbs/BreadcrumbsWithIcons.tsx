@@ -4,11 +4,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { MemoryRouter } from "react-router-dom";
-import {
-  Breadcrumbs,
-  IconPosition,
-  ThemeProvider,
-} from "@open-ui-kit/core";
+import { Breadcrumbs, IconPosition, ThemeProvider } from "@open-ui-kit/core";
 
 const items = [
   {

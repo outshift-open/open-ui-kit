@@ -13,7 +13,7 @@ githubSource: packages/open-ui-kit/src/components/dialog
 
 ## Introduction
 
-Dialog is built on Material UI Dialog and keeps the underlying modal behavior, focus management, transitions, sizing, and accessibility props.
+Dialog keeps the expected modal behavior, focus management, transitions, sizing, and accessibility props.
 Open UI Kit adds product typography through `DialogTitle` and `DialogSubtitle`, so modal headers feel consistent with the rest of the system.
 
 Use dialogs when the user must make a decision before continuing, or when a short focused workflow should temporarily sit above the page.
@@ -50,14 +50,14 @@ Make the primary action specific, and use `color="negative"` only when the actio
 
 ## Sizes
 
-Dialog supports the Material UI `maxWidth` presets.
+Dialog supports standard `maxWidth` presets.
 Use `sm` for short confirmations, `md` for settings or form-like content, and `lg` only when the dialog needs comparison or dense supporting details.
 
 {{"demo": "DialogSizes.js", "bg": true}}
 
 ## Props
 
-Dialog supports Material UI `DialogProps`, including `open`, `onClose`, `maxWidth`, `fullWidth`, `fullScreen`, `scroll`, `TransitionComponent`, `aria-labelledby`, and `aria-describedby`.
+Dialog supports standard dialog props, including `open`, `onClose`, `maxWidth`, `fullWidth`, `fullScreen`, `scroll`, `TransitionComponent`, `aria-labelledby`, and `aria-describedby`.
 
 | Component | Description |
 | --- | --- |

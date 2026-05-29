@@ -9,7 +9,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { FiltersBar } from "../components/filters-bar/filters-bar";
-import { FilterData } from "../types/types";
+import type { FilterData } from "../types";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);

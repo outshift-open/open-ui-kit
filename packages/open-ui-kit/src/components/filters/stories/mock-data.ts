@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FilterData } from "../types/types";
+import type { FilterData } from "../types";
 
 export const filtersMockData: Array<FilterData> = [
   {

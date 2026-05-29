@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DialogTitleProps, Typography, useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
+import type { DialogTitleProps } from "../types";
 
 export const DialogTitle = ({ children, ...props }: DialogTitleProps) => {
   const theme = useTheme();

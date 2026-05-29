@@ -5,25 +5,10 @@
  */
 
 import React, { useRef, useState, useCallback } from "react";
-import { SxProps } from "@mui/material";
 import { FooterElement } from "./footer-element";
 import { BodyElement } from "./body-element";
 import { Dialog, DialogSubtitle, DialogTitle } from "@/components/dialog";
-
-export interface ActionsDialogProps {
-  open: boolean;
-  confirmClicked: (dismiss: boolean, comment: string) => void;
-  hideModal: () => void;
-  mutationLoading: boolean;
-  title: string;
-  subTitle?: string;
-  includeDismissCheckbox?: boolean;
-  dismissCheckboxText?: string;
-  bodyText: string;
-  closeClicked?: () => void;
-  commentSuggestions?: string[];
-  styleModal?: SxProps;
-}
+import type { ActionsDialogProps } from "../types";
 
 export const ActionsDialog = ({
   open,
@@ -58,12 +43,15 @@ export const ActionsDialog = ({
       open={open}
       onClose={handleClose}
       PaperProps={{
-        sx: {
-          width: "570px",
-          ...(typeof styleModal === "object" ? styleModal : {}),
-        },
+        sx: [
+          { width: "570px" },
+          ...(Array.isArray(styleModal)
+            ? styleModal
+            : styleModal
+              ? [styleModal]
+              : []),
+        ],
       }}
-      sx={typeof styleModal === "function" ? styleModal : undefined}
     >
       <DialogTitle>{title}</DialogTitle>
       {subTitle && <DialogSubtitle>{subTitle}</DialogSubtitle>}

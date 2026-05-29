@@ -1,11 +1,7 @@
 import * as React from "react";
 import NoSsr from "@mui/material/NoSsr";
 import { MemoryRouter } from "react-router-dom";
-import {
-  Breadcrumbs,
-  Stack,
-  ThemeProvider,
-} from "@open-ui-kit/core";
+import { Breadcrumbs, Stack, ThemeProvider } from "@open-ui-kit/core";
 
 const levels = [
   [{ text: "Workspaces", link: "/workspaces" }],

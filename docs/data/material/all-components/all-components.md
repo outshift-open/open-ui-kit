@@ -1,38 +1,38 @@
-# Material UI components
+# Open UI Kit components
 
-<p class="description">Every Material UI component available so far.</p>
+<p class="description">Every Open UI Kit Core component available in the docs.</p>
 
-Material UI aims to provide building blocks for developers to create great user interfaces using the Material Design guidelines as a reference, which we strive to follow where practical.
-The library doesn't necessarily implement the exact specs of every component or feature—where official guidelines are incomplete or contradictory, maintainers apply common sense along with the latest standards in web development.
+Open UI Kit Core follows the same category model as the sidebar, so this index stays easy to scan as the package grows.
+Use it as the quick map for component docs, examples, and implementation notes.
 
 ## Inputs
 
-{{"component": "modules/components/MaterialUIComponents/MaterialInputComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "inputs"}}
 
 ## Data display
 
-{{"component": "modules/components/MaterialUIComponents/MaterialDataDisplayComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "data-display"}}
 
 ## Feedback
 
-{{"component": "modules/components/MaterialUIComponents/MaterialFeedbackComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "feedback"}}
 
-## Surface
+## Surfaces
 
-{{"component": "modules/components/MaterialUIComponents/MaterialSurfaceComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "surfaces"}}
 
 ## Navigation
 
-{{"component": "modules/components/MaterialUIComponents/MaterialNavigationComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "navigation"}}
 
 ## Layout
 
-{{"component": "modules/components/MaterialUIComponents/MaterialLayoutComponents.js"}}
-
-## Lab
-
-{{"component": "modules/components/MaterialUIComponents/MaterialLabComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "layout"}}
 
 ## Utils
 
-{{"component": "modules/components/MaterialUIComponents/MaterialUtilComponents.js"}}
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "utils"}}
+
+## Lab
+
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "lab"}}

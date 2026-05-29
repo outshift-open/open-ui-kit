@@ -16,7 +16,7 @@ export function App() {
       <Stack spacing={2} sx={{ maxWidth: 420 }}>
         <Typography variant="h4">Open UI Kit is ready</Typography>
         <Typography color="text.secondary">
-          The button below uses the Open UI Kit theme tokens and MUI props.
+          The button below uses the Open UI Kit theme tokens and component props.
         </Typography>
         <Button variant="primary">Create project</Button>
       </Stack>
@@ -25,10 +25,10 @@ export function App() {
 }
 ```
 
-## Working with MUI APIs
+## Customizing components
 
-Open UI Kit keeps the Material UI styling model available.
-Use `sx`, theme overrides, slots, and standard MUI props when a screen needs local control.
+Open UI Kit keeps component-level customization close to the code.
+Use `sx`, theme overrides, slots, and component props when a screen needs local control.
 
 ```tsx
 <Button

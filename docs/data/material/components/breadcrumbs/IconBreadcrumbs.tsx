@@ -22,13 +22,13 @@ export default function IconBreadcrumbs() {
           href="/"
         >
           <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          MUI
+          Open UI Kit
         </Link>
         <Link
           underline="hover"
           sx={{ display: "flex", alignItems: "center" }}
           color="inherit"
-          href="/material-ui/getting-started/installation/"
+          href="/open-ui-kit-core/getting-started/installation/"
         >
           <WhatshotIcon sx={{ mr: 0.5 }} fontSize="inherit" />
           Core

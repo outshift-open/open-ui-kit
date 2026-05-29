@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Banner, BannerProps } from "../components/banner";
+import { Banner } from "../components/banner";
+import type { BannerProps } from "../types";
 
 const meta: Meta<typeof Banner> = {
   title: "Components/Banner",

@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ArrowForward, GridView, Hub } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Accordion, type AccordionProps } from "../components/accordion";
+import { Accordion } from "../components/accordion";
+import type { AccordionProps } from "../types";
 
 const meta: Meta<AccordionProps> = {
   title: "Components/Accordion",

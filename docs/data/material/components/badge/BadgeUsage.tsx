@@ -1,11 +1,6 @@
 import * as React from "react";
 import MailIcon from "@mui/icons-material/Mail";
-import {
-  Badge,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@open-ui-kit/core";
+import { Badge, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export default function BadgeUsage() {
   return (

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TimelineProps as MuiTimelineProps } from "@mui/lab";
 import { ActivityTimelineDot } from "./activity-timeline-dot";
-import { ActivityTimelineStep, ActivityTimelineStepStatus } from "../types";
+import type { ActivityTimelineProps } from "../types";
+import { ActivityTimelineStepStatus } from "../types";
 import { setStepColor } from "../utils/utils";
 import { useCallback } from "react";
 import { Typography, useTheme } from "@mui/material";
@@ -18,16 +18,6 @@ import {
   StyledTimelineItem,
   StyledTimelineSeparator,
 } from "./elements";
-
-export interface ActivityTimelineProps
-  extends Omit<MuiTimelineProps, "children" | "ref"> {
-  /** When true, step dots and connector colors are calculated from each step position. */
-  automaticProgress?: boolean;
-  /** Controls the timeline title typography and vertical spacing. */
-  size?: "large" | "medium";
-  /** Ordered steps rendered in the activity timeline. */
-  steps: ActivityTimelineStep[];
-}
 
 export const ActivityTimeline = ({
   automaticProgress = false,

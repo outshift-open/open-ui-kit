@@ -13,7 +13,7 @@ githubSource: packages/open-ui-kit/src/components/button
 
 ## Introduction
 
-Button is built on Material UI Button and keeps the underlying button API, while applying Open UI Kit sizing, spacing, focus, disabled, loading, and color treatments.
+Button keeps the expected button API while applying Open UI Kit sizing, spacing, focus, disabled, loading, and color treatments.
 Use it for clear actions in toolbars, dialogs, forms, cards, and page headers.
 
 {{"demo": "ButtonUsage.js", "bg": true}}
@@ -53,14 +53,14 @@ For icon-only buttons, pass the icon as the only child and provide an accessible
 
 ## States
 
-Buttons support disabled and loading states through the MUI Button API.
+Buttons support disabled and loading states through the standard button API.
 Use loading when the action has been accepted and is still processing.
 
 {{"demo": "ButtonStates.js", "bg": true}}
 
 ## Props
 
-Button supports Material UI `ButtonProps`, including `variant`, `size`, `color`, `disabled`, `loading`, `startIcon`, `endIcon`, `onClick`, `href`, and `type`.
+Button supports the usual button props, including `variant`, `size`, `color`, `disabled`, `loading`, `startIcon`, `endIcon`, `onClick`, `href`, and `type`.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |

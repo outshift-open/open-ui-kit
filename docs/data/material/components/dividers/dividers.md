@@ -13,8 +13,8 @@ githubSource: packages/open-ui-kit/src/components/divider
 
 ## Introduction
 
-Divider is re-exported from Material UI and styled by the Open UI Kit theme.
-It keeps the MUI Divider API while applying the Open UI Kit divider color, radius, horizontal thickness, vertical thickness, and the `bold` variant.
+Divider is styled by the Open UI Kit theme and keeps familiar divider behavior.
+It applies the Open UI Kit divider color, radius, horizontal thickness, vertical thickness, and the `bold` variant.
 
 Use it to create structure without adding visual weight.
 Dividers work best between groups that are already related, such as form sections, metadata rows, toolbar actions, or list items.
@@ -56,7 +56,7 @@ Use dividers inside cards, panels, and settings surfaces to group fields without
 
 ## Props
 
-Divider supports Material UI `DividerProps`, including `orientation`, `variant`, `flexItem`, `textAlign`, `component`, `role`, and `aria-hidden`.
+Divider supports standard divider props, including `orientation`, `variant`, `flexItem`, `textAlign`, `component`, `role`, and `aria-hidden`.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |

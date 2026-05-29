@@ -1,15 +1,18 @@
 import * as React from "react";
-import { EmptyState, GeneralSize, Stack, ThemeProvider } from "@open-ui-kit/core";
+import {
+  EmptyState,
+  GeneralSize,
+  Stack,
+  ThemeProvider,
+} from "@open-ui-kit/core";
 
-const variants: Array<[
-  "info" | "positive" | "warning" | "negative",
-  string,
-]> = [
-  ["info", "No matches found"],
-  ["positive", "Everything is resolved"],
-  ["warning", "Configuration missing"],
-  ["negative", "Unable to load results"],
-];
+const variants: Array<["info" | "positive" | "warning" | "negative", string]> =
+  [
+    ["info", "No matches found"],
+    ["positive", "Everything is resolved"],
+    ["warning", "Configuration missing"],
+    ["negative", "Unable to load results"],
+  ];
 
 export default function EmptyStateVariants() {
   return (

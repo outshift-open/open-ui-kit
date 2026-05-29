@@ -16,7 +16,11 @@ const steps: ActivityTimelineStep[] = [
 export default function ActivityTimelineAutomaticProgress() {
   return (
     <ThemeProvider>
-      <ActivityTimeline automaticProgress steps={steps} sx={{ maxWidth: 560 }} />
+      <ActivityTimeline
+        automaticProgress
+        steps={steps}
+        sx={{ maxWidth: 560 }}
+      />
     </ThemeProvider>
   );
 }

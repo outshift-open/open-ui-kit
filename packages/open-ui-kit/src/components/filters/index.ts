@@ -5,7 +5,12 @@
  */
 
 export { FiltersBar } from "./components/filters-bar/filters-bar";
-export type { FiltersBarProps } from "./components/filters-bar/filters-bar";
 export { FiltersDrawer } from "./components/filters-drawer/filters-drawer";
-export type { FiltersDrawerProps } from "./components/filters-drawer/filters-drawer";
-export type { FilterData, FilterOptionData, AssetsData } from "./types/types";
+export type {
+  AssetsData,
+  FilterData,
+  FilterOptionData,
+  FiltersBarActionsProps,
+  FiltersBarProps,
+  FiltersDrawerProps,
+} from "./types";

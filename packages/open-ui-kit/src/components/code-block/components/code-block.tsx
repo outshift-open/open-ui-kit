@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack, StackOwnProps, useTheme } from "@mui/material";
-import { CSSProperties, ReactNode } from "react";
+import { Stack, useTheme } from "@mui/material";
 import {
   containerStackStyles,
+  codeTextStyle,
   customStyle,
   headerButtonStyles,
   headerStyles,
@@ -15,26 +15,13 @@ import {
   prismStyle,
 } from "@/components/code-block/styles";
 import React from "react";
-import { Prism, SyntaxHighlighterProps } from "react-syntax-highlighter";
+import { Prism, type SyntaxHighlighterProps } from "react-syntax-highlighter";
 import { Separator } from "./separator";
-import { CopyButton, CopyButtonProps } from "@/components/copy-button";
+import { CopyButton } from "@/components/copy-button";
+import type { CodeBlockProps } from "../types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SyntaxHighlighter = Prism as any as React.FC<SyntaxHighlighterProps>;
-
-export interface CodeBlockHeaderButton {
-  label: string;
-  onClick: () => void;
-}
-
-export interface CodeBlockProps
-  extends Omit<SyntaxHighlighterProps, "children"> {
-  containerProps?: StackOwnProps;
-  text: string;
-  copyButtonProps?: Omit<CopyButtonProps, "text">;
-  header?: CodeBlockHeaderButton[] | ReactNode;
-  size?: "small" | "medium";
-}
 
 export const CodeBlock = (props: CodeBlockProps) => {
   const theme = useTheme();
@@ -46,9 +33,13 @@ export const CodeBlock = (props: CodeBlockProps) => {
     copyButtonProps,
     header,
     size = "medium",
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    customStyle: customStyleProp,
+    codeTagProps,
+    lineNumberStyle: lineNumberStyleProp,
     ...highlighterProps
   } = props;
+  const { sx: containerSx, ...restContainerProps } = containerProps ?? {};
+  const { style: codeTagStyle, ...restCodeTagProps } = codeTagProps ?? {};
   const totalLines = (startingLineNumber ?? 0) + text.split("\n").length;
   const maxDigits = totalLines.toString().length;
   const lineNumberWidth = maxDigits * 12 + 16; // 12px per digit + 16px for padding
@@ -56,6 +47,7 @@ export const CodeBlock = (props: CodeBlockProps) => {
   const headerContent = Array.isArray(header)
     ? header.map((btn) => (
         <button
+          type="button"
           key={btn.label}
           style={headerButtonStyles(theme)}
           onClick={btn.onClick}
@@ -71,13 +63,17 @@ export const CodeBlock = (props: CodeBlockProps) => {
         <div style={headerStyles(theme, size)}>{headerContent}</div>
       )}
       <Stack
+        {...restContainerProps}
         direction="row"
         alignItems="flex-start"
-        sx={{
-          overflow: "auto",
-          ...containerProps?.sx,
-        }}
-        {...containerProps}
+        sx={[
+          { overflow: "auto" },
+          ...(Array.isArray(containerSx)
+            ? containerSx
+            : containerSx
+              ? [containerSx]
+              : []),
+        ]}
       >
         <Stack justifyContent={"center"} sx={{ flex: 1, minWidth: 0 }}>
           <Separator
@@ -88,23 +84,24 @@ export const CodeBlock = (props: CodeBlockProps) => {
           <SyntaxHighlighter
             language="javascript"
             style={prismStyle}
+            showLineNumbers={showLineNumbers}
+            startingLineNumber={startingLineNumber}
             {...highlighterProps}
             customStyle={{
               ...customStyle(theme, showLineNumbers, size),
-              ...props.customStyle,
+              ...(typeof customStyleProp === "object" ? customStyleProp : {}),
             }}
             codeTagProps={{
+              ...restCodeTagProps,
               style: {
-                ...(size === "small"
-                  ? (theme.typography.caption as CSSProperties)
-                  : (theme.typography.body2 as CSSProperties)),
+                ...codeTextStyle(size),
+                ...(typeof codeTagStyle === "object" ? codeTagStyle : {}),
               },
-              ...highlighterProps.codeTagProps,
             }}
             lineNumberStyle={{
               ...lineNumberStyle(theme, lineNumberWidth, showLineNumbers, size),
-              ...(typeof highlighterProps.lineNumberStyle === "object"
-                ? highlighterProps.lineNumberStyle
+              ...(typeof lineNumberStyleProp === "object"
+                ? lineNumberStyleProp
                 : {}),
             }}
           >
@@ -116,7 +113,11 @@ export const CodeBlock = (props: CodeBlockProps) => {
             size={size}
           />
         </Stack>
-        <CopyButton text={text} size="large" {...copyButtonProps} />
+        <CopyButton
+          {...copyButtonProps}
+          text={text}
+          size={copyButtonProps?.size ?? "large"}
+        />
       </Stack>
     </Stack>
   );

@@ -8,4 +8,5 @@ export { CodeBlock } from "./components/code-block";
 export type {
   CodeBlockProps,
   CodeBlockHeaderButton,
-} from "./components/code-block";
+  CodeBlockSize,
+} from "./types";

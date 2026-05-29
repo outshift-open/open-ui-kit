@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
-import { AssetsData, FilterData } from "../../types/types";
+import { Button } from "@/components/button";
+import type { FiltersDrawerProps, FilterData } from "../../types";
 import { getStyles } from "./styles";
 import { useDebounce } from "use-debounce";
 import { useCallback, useState } from "react";
@@ -17,17 +17,6 @@ import { FilterDrawerHeader } from "./filter-drawer-header";
 import { EmptySearchResult } from "./empty-search-result";
 import { Undo } from "@/custom-icons";
 import { FilterAccordion } from "./filter-accordion";
-
-export interface FiltersDrawerProps {
-  isOpen: boolean;
-  isLoading: boolean;
-  filters: Array<FilterData>;
-  searchText?: string;
-  assetsData: AssetsData;
-  onSelectedChange: (updatedFilters: Array<FilterData>) => void;
-  handleClose: () => void;
-  handleClearAll: () => void;
-}
 
 export const FiltersDrawer = ({
   isOpen,

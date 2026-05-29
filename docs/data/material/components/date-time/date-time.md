@@ -14,7 +14,7 @@ githubSource: packages/open-ui-kit/src/components/date-time
 ## Introduction
 
 Use Date Time components when users need to schedule events, filter by a period, or select a precise timestamp.
-The components wrap MUI X date pickers with Open UI Kit field defaults, popper spacing, and calendar styling.
+The components provide Open UI Kit field defaults, popper spacing, and calendar styling for date and time selection.
 
 {{"demo": "DateTimeUsage.js", "bg": true}}
 
@@ -59,7 +59,7 @@ Use static pickers when the calendar itself is the primary interaction, such as 
 
 ## Props
 
-Date Time components extend their MUI X picker props and add Open UI Kit convenience props.
+Date Time components extend the picker props and add Open UI Kit convenience props.
 
 | Component | Key props | Description |
 | --- | --- | --- |
@@ -67,8 +67,8 @@ Date Time components extend their MUI X picker props and add Open UI Kit conveni
 | `DatePicker` | `label`, `value`, `defaultValue`, `onChange`, `textFieldStyles`, `popperSlotProps` | Selects calendar dates. |
 | `TimePicker` | `label`, `value`, `defaultValue`, `onChange`, `textFieldStyles`, `popperSlotProps` | Selects time values. |
 | `DateRangePicker` | `startDate`, `endDate`, `setStartDate`, `setEndDate`, `textFieldProps`, `popoverProps` | Selects a date range with a custom range popover. |
-| `StaticDatePicker` | MUI X static date picker props | Renders an always-visible date picker. |
-| `StaticDateTimePicker` | MUI X static date-time picker props | Renders an always-visible date-time picker. |
+| `StaticDatePicker` | Static date picker props | Renders an always-visible date picker. |
+| `StaticDateTimePicker` | Static date-time picker props | Renders an always-visible date-time picker. |
 
 ## Accessibility
 

@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10
 
 "@adobe/css-tools@npm:^4.0.1, @adobe/css-tools@npm:^4.4.0":
@@ -10549,6 +10549,7 @@ __metadata:
     styled-components: "npm:^6.4.1"
     stylis: "npm:^4.3.2"
     tailwindcss: "npm:4.2.4"
+    typescript: "npm:^5.8.0"
     use-count-up: "npm:^3.0.1"
     webpack-bundle-analyzer: "npm:^5.3.0"
     yargs: "npm:18.0.0"

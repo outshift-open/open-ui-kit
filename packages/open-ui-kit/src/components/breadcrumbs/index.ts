@@ -5,4 +5,4 @@
  */
 
 export { Breadcrumbs } from "./components/breadcrumbs";
-export type { BreadcrumbsProps } from "./components/breadcrumbs";
+export type { BreadcrumbItem, BreadcrumbsProps } from "./types";

@@ -1,17 +1,14 @@
 import * as React from "react";
-import {
-  Accordion,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@open-ui-kit/core";
+import { Accordion, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export default function AccordionDividers() {
   return (
     <ThemeProvider>
       <Stack spacing={3} sx={{ maxWidth: 720 }}>
         <Stack spacing={1}>
-          <Typography variant="body2Semibold">Medium default divider</Typography>
+          <Typography variant="body2Semibold">
+            Medium default divider
+          </Typography>
           <Accordion
             defaultExpanded
             size="medium"

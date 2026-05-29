@@ -4,12 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TypographyProps } from "@mui/material";
+import type { CardSubheaderProps } from "../types";
 import { StyledCardSubheader } from "./elements";
-
-export interface CardSubheaderProps extends TypographyProps {
-  children: React.ReactNode;
-}
 
 const CardSubheader = ({ children, ...props }: CardSubheaderProps) => (
   <StyledCardSubheader variant="captionMedium" component="div" {...props}>

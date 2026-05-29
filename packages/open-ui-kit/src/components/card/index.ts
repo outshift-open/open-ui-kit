@@ -5,9 +5,7 @@
  */
 
 export { default as CardDescription } from "./components/card-description";
-export type { CardDescriptionProps } from "./components/card-description";
 export { default as CardSubheader } from "./components/card-subheader";
-export type { CardSubheaderProps } from "./components/card-subheader";
 export {
   Card,
   CardActionArea,
@@ -16,9 +14,11 @@ export {
   CardActions,
 } from "./components/card";
 export type {
-  CardProps,
   CardActionAreaProps,
-  CardHeaderProps,
-  CardContentProps,
   CardActionsProps,
-} from "./components/card";
+  CardContentProps,
+  CardDescriptionProps,
+  CardHeaderProps,
+  CardProps,
+  CardSubheaderProps,
+} from "./types";

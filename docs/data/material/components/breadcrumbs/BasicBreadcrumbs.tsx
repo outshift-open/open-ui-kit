@@ -13,12 +13,12 @@ export default function BasicBreadcrumbs() {
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
-          MUI
+          Open UI Kit
         </Link>
         <Link
           underline="hover"
           color="inherit"
-          href="/material-ui/getting-started/installation/"
+          href="/open-ui-kit-core/getting-started/installation/"
         >
           Core
         </Link>

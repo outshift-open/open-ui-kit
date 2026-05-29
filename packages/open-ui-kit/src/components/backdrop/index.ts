@@ -5,4 +5,4 @@
  */
 
 export { Backdrop } from "./components/backdrop";
-export type { BackdropProps } from "./components/backdrop";
+export type { BackdropProps } from "./types";

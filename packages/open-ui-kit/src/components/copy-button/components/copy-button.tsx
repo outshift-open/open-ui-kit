@@ -4,28 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IconButtonProps, IconButton, useTheme } from "@mui/material";
-import { Tooltip, TooltipProps } from "@/components/tooltip";
+import { IconButton, useTheme } from "@mui/material";
+import { Tooltip } from "@/components/tooltip";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-import { CopyButtonStylesProps, styles } from "../styles";
+import { styles } from "../styles";
 import { useCallback, useEffect, useState } from "react";
+import type { MouseEvent } from "react";
 import copy from "copy-to-clipboard";
 import { Copy } from "@/custom-icons";
+import type { CopyButtonProps } from "../types";
 
 const TIMEOUT = 2000;
-
-export type CopyButtonPosition = "left" | "right";
-export type CopyButtonSize = "small" | "medium" | "large";
-
-export interface CopyButtonProps
-  extends IconButtonProps,
-    CopyButtonStylesProps {
-  text: string;
-  onCopy?: () => void;
-  tooltipPlacement?: TooltipProps["placement"];
-  copyLabel?: string;
-  copiedLabel?: string;
-}
 
 export const CopyButton = ({
   text,
@@ -39,6 +28,7 @@ export const CopyButton = ({
   tooltipPlacement = "top",
   copyLabel = "Copy",
   copiedLabel = "Copied",
+  onClick,
   ...props
 }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -58,11 +48,15 @@ export const CopyButton = ({
     };
   }, [isCopied]);
 
-  const handleOnCopy = useCallback(() => {
-    copy(text);
-    setIsCopied(true);
-    onCopy?.();
-  }, [onCopy, text]);
+  const handleOnCopy = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      copy(text);
+      setIsCopied(true);
+      onCopy?.();
+      onClick?.(event);
+    },
+    [onClick, onCopy, text],
+  );
 
   return (
     <Tooltip
@@ -72,13 +66,14 @@ export const CopyButton = ({
     >
       <IconButton
         {...props}
+        aria-label={props["aria-label"] ?? copyLabel}
         sx={[
           (theme) =>
             styles({ position, size, top, left, right, disableMargin, theme }),
           ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
         ]}
         onClick={handleOnCopy}
-        disableRipple={true}
+        disableRipple={props.disableRipple ?? true}
       >
         {isCopied ? (
           <DoneRoundedIcon color="success" />

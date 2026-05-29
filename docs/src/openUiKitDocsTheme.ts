@@ -33,12 +33,10 @@ function toCssVarDeclarations(tokens: OpenUiKitTokenVars) {
 const tokenVarReferences = toCssVarReferences(lightTokenVars);
 
 export const openUiKitTokenCssVarStyles = {
-  ":root, [data-mui-color-scheme='light'], .mode-light": toCssVarDeclarations(
-    lightTokenVars,
-  ),
-  "[data-mui-color-scheme='dark'], .mode-dark": toCssVarDeclarations(
-    darkTokenVars,
-  ),
+  ":root, [data-mui-color-scheme='light'], .mode-light":
+    toCssVarDeclarations(lightTokenVars),
+  "[data-mui-color-scheme='dark'], .mode-dark":
+    toCssVarDeclarations(darkTokenVars),
 };
 
 function createOpenUiKitDocsTheme(baseTheme: Theme) {

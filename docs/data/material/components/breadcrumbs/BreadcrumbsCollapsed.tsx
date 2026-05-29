@@ -8,7 +8,10 @@ const items = [
   { text: "Workspaces", link: "/organization/workspaces" },
   { text: "Platform", link: "/organization/workspaces/platform" },
   { text: "Members", link: "/organization/workspaces/platform/members" },
-  { text: "Invite review", link: "/organization/workspaces/platform/members/invite" },
+  {
+    text: "Invite review",
+    link: "/organization/workspaces/platform/members/invite",
+  },
 ];
 
 export default function BreadcrumbsCollapsed() {

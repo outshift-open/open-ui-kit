@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Badge,
-  type BadgeType,
-  Stack,
-  ThemeProvider,
-} from "@open-ui-kit/core";
+import { Badge, type BadgeType, Stack, ThemeProvider } from "@open-ui-kit/core";
 
 const types: BadgeType[] = [
   "default",

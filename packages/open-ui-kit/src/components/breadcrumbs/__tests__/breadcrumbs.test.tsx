@@ -62,6 +62,31 @@ describe("Breadcrumbs", () => {
         screen.getByRole("navigation", { name: "breadcrumb" }),
       ).toBeInTheDocument();
     });
+
+    it("preserves pass-through MUI breadcrumb props", () => {
+      renderBreadcrumbs({
+        items: items3,
+        "aria-label": "page trail",
+        separator: "/",
+      });
+
+      expect(
+        screen.getByRole("navigation", { name: "page trail" }),
+      ).toBeInTheDocument();
+      expect(screen.getAllByText("/")).toHaveLength(2);
+    });
+
+    it("merges collapsed icon slot props", () => {
+      renderBreadcrumbs({
+        items: items5,
+        maximumNumberOfVisibleBreadcrumbs: 2,
+        slotProps: {
+          collapsedIcon: () => ({ "data-testid": "collapsed-icon" }),
+        },
+      });
+
+      expect(screen.getByTestId("collapsed-icon")).toBeInTheDocument();
+    });
   });
 
   describe("collapse / responsive behavior", () => {

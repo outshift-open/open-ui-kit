@@ -5,6 +5,5 @@
  */
 
 export { ActivityTimeline } from "./components/activity-timeline";
-export type { ActivityTimelineProps } from "./components/activity-timeline";
 export { ActivityTimelineStepStatus } from "./types";
-export type { ActivityTimelineStep } from "./types";
+export type { ActivityTimelineProps, ActivityTimelineStep } from "./types";

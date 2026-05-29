@@ -67,7 +67,7 @@ Pair it with nearby context that explains what needs to change.
 | `disabled` | `boolean` | `false` | Disables interaction and lowers emphasis. |
 | `sx` | `SxProps` | - | Additional style overrides. |
 
-Floating Button also accepts the standard Material UI `Button` props, except that `variant` and `size` are narrowed to the Open UI Kit floating button values.
+Floating Button also accepts standard button props, except that `variant` and `size` are narrowed to the Open UI Kit floating button values.
 
 ## Accessibility
 

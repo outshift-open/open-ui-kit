@@ -4,9 +4,14 @@
   "private": true,
   "description": "Build and automation scripts for Open UI Kit",
   "scripts": {
+    "build": "echo \"No build needed\"",
+    "lint": "node --check add-license-headers.js && node --check check-license-headers.js",
+    "lint:fix": "echo \"No lint fixes needed\"",
     "license:add": "node add-license-headers.js",
     "license:add:force": "node add-license-headers.js --force",
-    "license:check": "node check-license-headers.js"
+    "license:check": "node check-license-headers.js",
+    "test": "echo \"No script tests configured\"",
+    "typecheck": "echo \"No script typecheck configured\""
   },
   "dependencies": {
     "chalk": "^5.3.0",

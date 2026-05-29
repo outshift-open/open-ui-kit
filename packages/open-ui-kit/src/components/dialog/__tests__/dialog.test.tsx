@@ -16,7 +16,7 @@ import {
   DialogContent,
   DialogContentText,
 } from "..";
-import { Button } from "@mui/material";
+import { Button } from "@/components/button";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -33,8 +33,8 @@ describe("Dialog", () => {
               <DialogContentText>Content</DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button>Cancel</Button>
-              <Button>Action</Button>
+              <Button variant="tertariary">Cancel</Button>
+              <Button variant="primary">Action</Button>
             </DialogActions>
           </Dialog>,
         ),
@@ -79,7 +79,7 @@ describe("Dialog", () => {
               <DialogContentText>Body</DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button>OK</Button>
+              <Button variant="primary">OK</Button>
             </DialogActions>
           </Dialog>,
         ),
@@ -97,7 +97,7 @@ describe("Dialog", () => {
               <DialogContentText>Body</DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button>OK</Button>
+              <Button variant="primary">OK</Button>
             </DialogActions>
           </Dialog>,
           true,

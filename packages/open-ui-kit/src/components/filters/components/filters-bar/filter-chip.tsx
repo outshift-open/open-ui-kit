@@ -5,9 +5,9 @@
  */
 
 import { Tooltip, useTheme } from "@mui/material";
-import { FilterData } from "../../types/types";
+import type { FilterData } from "../../types";
 import { getStyles } from "./styles";
-import { Tag } from "@/components/tags/tag";
+import { Tag } from "@/components/tags";
 import { GeneralSize } from "@/common";
 
 interface FilterChipProps {
@@ -39,11 +39,13 @@ export const FilterChip = ({
         popper: styles.chipTooltip,
       }}
     >
-      <Tag
-        size={GeneralSize.Small}
-        sx={styles.chip}
-        onDelete={() => handleDelete(filter)}
-      >{`${filter.name}: ${optionValues[0]}${plusString}`}</Tag>
+      <span>
+        <Tag
+          size={GeneralSize.Small}
+          sx={styles.chip}
+          onDelete={() => handleDelete(filter)}
+        >{`${filter.name}: ${optionValues[0]}${plusString}`}</Tag>
+      </span>
     </Tooltip>
   );
 };

@@ -8,39 +8,51 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker as MuiDateTimePicker } from "@mui/x-date-pickers/TimePicker";
 import { useTheme } from "@mui/material";
-import { TimePickerProps } from "../types";
-import { getSharedSlotPropsDateTimePicker } from "../styles";
+import type { TimePickerProps } from "../types";
+import { getSharedSlotPropsDateTimePicker, mergeSx } from "../styles";
 
 export const TimePicker = ({
   label,
   textFieldStyles,
+  popperSlotProps,
   ...props
 }: TimePickerProps) => {
   const theme = useTheme();
   const sharedSlotProps = getSharedSlotPropsDateTimePicker(theme);
+  const { slotProps, ...pickerProps } = props;
+  const textFieldSlotProps =
+    typeof slotProps?.textField === "function"
+      ? undefined
+      : slotProps?.textField;
+  const popperSlotPropsFromProps =
+    typeof slotProps?.popper === "function" ? undefined : slotProps?.popper;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiDateTimePicker
         format="HH:mm"
-        {...props}
+        {...pickerProps}
         slotProps={{
           ...sharedSlotProps,
-          ...props.slotProps,
+          ...slotProps,
           textField: {
+            ...textFieldSlotProps,
             placeholder: label,
             variant: "standard",
             size: "small",
-            sx: {
-              "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-              "& .MuiInputAdornment-root": { paddingRight: "8px" },
-              ...textFieldStyles,
-            },
-            ...props.slotProps?.textField,
+            sx: mergeSx(
+              {
+                "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
+                "& .MuiInputAdornment-root": { paddingRight: "8px" },
+              },
+              textFieldStyles,
+              textFieldSlotProps?.sx,
+            ),
           },
           popper: {
             modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
-            ...props.slotProps?.popper,
+            ...popperSlotProps,
+            ...popperSlotPropsFromProps,
           },
         }}
       />

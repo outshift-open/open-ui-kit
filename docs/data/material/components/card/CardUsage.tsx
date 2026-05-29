@@ -13,7 +13,10 @@ export default function CardUsage() {
   return (
     <ThemeProvider>
       <Card sx={{ maxWidth: 360 }}>
-        <CardHeader title="Workspace health" subheader="Updated 2 minutes ago" />
+        <CardHeader
+          title="Workspace health"
+          subheader="Updated 2 minutes ago"
+        />
         <CardContent>
           <CardDescription>
             Review open findings, ownership gaps, and configuration drift for

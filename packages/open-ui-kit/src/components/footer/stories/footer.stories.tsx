@@ -47,7 +47,7 @@ const ProductNode = () =>
       },
       "\u2022 This product is currently in beta. Expect ongoing changes.",
     ),
-);
+  );
 
 const meta: Meta<typeof Footer> = {
   title: "Components/Footer",
@@ -76,7 +76,6 @@ export const Default: Story = {
       <Footer
         productName="Cisco Systems Inc."
         productNode={<ProductNode />}
-
         links={[
           {
             children: "support@agntcy.com",

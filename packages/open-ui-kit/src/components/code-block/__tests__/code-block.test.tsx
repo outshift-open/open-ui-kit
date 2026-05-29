@@ -4,19 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { CodeBlock } from "../components/code-block";
+import type { CodeBlockProps } from "../types";
 
 const CODE = `const x = 1;\nconsole.log(x);`;
 const noop = jest.fn();
 
-const renderCodeBlock = (
-  props: Partial<React.ComponentProps<typeof CodeBlock>> = {},
-  dark = false,
-) =>
+const renderCodeBlock = (props: Partial<CodeBlockProps> = {}, dark = false) =>
   render(
     <ThemeProvider defaultDarkMode={dark}>
       <CodeBlock text={CODE} {...props} />
@@ -57,6 +54,19 @@ describe("CodeBlock", () => {
 
     it("renders with wrapLongLines without throwing", () => {
       expect(() => renderCodeBlock({ wrapLongLines: true })).not.toThrow();
+    });
+
+    it("keeps forwarded container props while preserving internal scroll behavior", () => {
+      renderCodeBlock({
+        containerProps: {
+          className: "code-scroll-container",
+          sx: { maxWidth: 320 },
+        },
+      });
+
+      expect(
+        document.querySelector(".code-scroll-container"),
+      ).toBeInTheDocument();
     });
   });
 
@@ -149,6 +159,27 @@ describe("CodeBlock", () => {
       expect(() =>
         renderCodeBlock({ size: "small", showLineNumbers: true }, true),
       ).not.toThrow();
+    });
+  });
+
+  describe("style overrides", () => {
+    it("merges customStyle overrides with the internal code block styles", () => {
+      const { container } = renderCodeBlock({
+        customStyle: { margin: "4px" },
+      });
+
+      expect(container.querySelector("pre")).toHaveStyle({ margin: "4px" });
+    });
+
+    it("merges codeTagProps styles with the internal typography styles", () => {
+      const { container } = renderCodeBlock({
+        codeTagProps: { style: { color: "rgb(1, 2, 3)" } },
+      });
+
+      expect(container.querySelector("code")).toHaveStyle({
+        color: "rgb(1, 2, 3)",
+        fontFamily: "'Roboto Mono', monospace",
+      });
     });
   });
 });

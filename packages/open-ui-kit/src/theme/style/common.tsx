@@ -57,11 +57,3 @@ export const snackbarTopRightCommonStyles = {
   top: "76px",
   right: "24px",
 };
-
-export const commonCheckboxStyles = {
-  padding: 0,
-  borderRadius: 4,
-  "& + *": {
-    marginLeft: 8,
-  },
-};

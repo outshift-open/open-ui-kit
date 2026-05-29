@@ -5,42 +5,23 @@
  */
 
 import { Stack, useTheme } from "@mui/material";
-import { FilterData, AssetsData, FilterOptionData } from "../../types/types";
 import { useEffect, useState } from "react";
 import { getStyles } from "./styles";
 import { Button } from "@/components/button";
+import type {
+  AssetsData,
+  FilterData,
+  FilterOptionData,
+  FiltersBarProps,
+} from "../../types";
 import {
   getFiltersSelectionCount,
   setAllSubFilters,
   setFilterOptions,
 } from "../../utils";
-import {
-  FiltersBarActions,
-  FiltersBarActionsProps,
-} from "./filters-bar-actions";
+import { FiltersBarActions } from "./filters-bar-actions";
 import { FilterChipsContainer } from "./filter-chips-container";
 import { FiltersDrawer } from "../filters-drawer/filters-drawer";
-
-export interface FiltersBarProps
-  extends Pick<
-      FiltersBarActionsProps,
-      | "onFavorite"
-      | "onSearch"
-      | "searchPlaceHolder"
-      | "initialSearchValue"
-      | "searchValue"
-      | "inputProps"
-      | "isFiltersButtonVisible"
-    >,
-    Partial<Pick<FiltersBarActionsProps, "onFiltersButtonClick">> {
-  isLoading: boolean;
-  filtersData: Array<FilterData>;
-  assetsData: AssetsData;
-  onSelectedChange: (updatedFilters: Array<FilterData>) => void;
-  initialFavoriteValue?: boolean;
-  favoriteValue?: boolean;
-  rightSideComponent?: JSX.Element;
-}
 
 export const FiltersBar = ({
   filtersData: filters,

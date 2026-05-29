@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  CardProps as MuiCardProps,
-  CardActionAreaProps as MuiCardActionAreaProps,
-  CardHeaderProps as MuiCardHeaderProps,
-  CardContentProps as MuiCardContentProps,
-  CardActionsProps as MuiCardActionsProps,
-} from "@mui/material";
+import type {
+  CardActionAreaProps,
+  CardActionsProps,
+  CardContentProps,
+  CardHeaderProps,
+  CardProps,
+} from "../types";
 import {
   StyledCard,
   StyledCardActionArea,
@@ -18,12 +18,6 @@ import {
   StyledCardContent,
   StyledCardActions,
 } from "./elements";
-
-export type CardProps = MuiCardProps;
-export type CardActionAreaProps = MuiCardActionAreaProps;
-export type CardHeaderProps = MuiCardHeaderProps;
-export type CardContentProps = MuiCardContentProps;
-export type CardActionsProps = MuiCardActionsProps;
 
 export const Card = (props: CardProps) => <StyledCard {...props} />;
 export const CardActionArea = (props: CardActionAreaProps) => (

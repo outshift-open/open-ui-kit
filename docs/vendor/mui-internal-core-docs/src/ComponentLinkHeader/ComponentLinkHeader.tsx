@@ -1,19 +1,12 @@
-import * as React from "react";
 import { useRouter } from "next/router";
 import Chip from "@mui/material/Chip";
-import Tooltip from "@mui/material/Tooltip";
+import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
 import ChatRounded from "@mui/icons-material/ChatRounded";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import { styled } from "@mui/material/styles";
 import { type MarkdownHeaders } from "@mui/internal-markdown";
-import {
-  FigmaIcon,
-  BundleSizeIcon,
-  W3CIcon,
-  MaterialDesignIcon,
-  SketchIcon,
-  MarkdownIcon,
-} from "../svgIcons";
+import { W3CIcon, MarkdownIcon, StorybookIcon } from "../svgIcons";
 import { useTranslate } from "../i18n";
 
 const Root = styled("ul")(({ theme }) => ({
@@ -25,33 +18,55 @@ const Root = styled("ul")(({ theme }) => ({
   gap: 8,
   "& .MuiChip-root": {
     height: 26,
-    padding: "0 8px",
+    padding: "0 10px",
     gap: 6,
+    borderRadius: 999,
+    borderColor: theme.palette.primary[200],
+    color: theme.palette.primary[700],
+    backgroundColor: theme.palette.primary[50],
+    fontWeight: theme.typography.fontWeightSemiBold,
     "& .MuiChip-label": { padding: 0 },
     "& .MuiChip-iconSmall": {
       margin: 0,
       fontSize: 14,
+      color: "inherit",
     },
+    "&:hover": {
+      borderColor: theme.palette.primary[300],
+      backgroundColor: theme.palette.primary[100],
+    },
+    ...theme.applyDarkStyles({
+      borderColor: theme.palette.primaryDark[700],
+      color: theme.palette.primary[300],
+      backgroundColor: "rgba(24, 122, 220, 0.12)",
+      "&:hover": {
+        borderColor: theme.palette.primaryDark[500],
+        backgroundColor: "rgba(24, 122, 220, 0.2)",
+      },
+    }),
   },
 }));
 
 const defaultPackageNames: Record<string, string | undefined> = {
-  "material-ui": "@mui/material",
+  "material-ui": "@open-ui-kit/core",
+  "open-ui-kit-core": "@open-ui-kit/core",
   "joy-ui": "@mui/joy",
   system: "@mui/system",
 };
+
+const STORYBOOK_URL = "https://main--68cc22452afe30d90e4ca977.chromatic.com";
 
 export interface ComponentLinkHeaderProps {
   design?: boolean;
   markdown: {
     headers: MarkdownHeaders;
+    location?: string;
   };
 }
 
 export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
   const {
-    markdown: { headers },
-    design,
+    markdown: { headers, location },
   } = props;
   const t = useTranslate();
   const router = useRouter();
@@ -59,28 +74,57 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
   const packageName =
     headers.packageName ??
     defaultPackageNames[headers.productId] ??
-    "@mui/material";
+    "@open-ui-kit/core";
+  const markdownHref = location
+    ? `${process.env.SOURCE_CODE_REPO}/blob/${
+        process.env.SOURCE_GITHUB_BRANCH ?? "main"
+      }${location}`
+    : undefined;
 
   return (
     <Root>
-      {packageName === "@mui/material" && (
-        <li>
-          <Chip
-            clickable
-            role={undefined}
-            component="a"
-            size="small"
-            variant="outlined"
-            href={`${router.pathname}.md`}
-            icon={<MarkdownIcon />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label="Markdown"
-            data-ga-event-split="0.1"
-            label="View as Markdown"
-          />
-        </li>
-      )}
+      <li>
+        <Chip
+          clickable
+          role={undefined}
+          component="a"
+          size="small"
+          variant="outlined"
+          rel="nofollow"
+          target="_blank"
+          href={`https://www.npmjs.com/package/${packageName}`}
+          icon={<Inventory2RoundedIcon />}
+          label={packageName}
+        />
+      </li>
+      <li>
+        <Chip
+          clickable
+          role={undefined}
+          component="a"
+          size="small"
+          variant="outlined"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={STORYBOOK_URL}
+          icon={<StorybookIcon />}
+          label="Storybook"
+        />
+      </li>
+      <li>
+        <Chip
+          clickable
+          role={undefined}
+          component="a"
+          size="small"
+          variant="outlined"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={markdownHref ?? `${router.pathname}.md`}
+          icon={<MarkdownIcon />}
+          label="Markdown"
+        />
+      </li>
       {headers.githubLabel ? (
         <li>
           <Chip
@@ -90,37 +134,15 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
             size="small"
             variant="outlined"
             rel="nofollow"
+            target="_blank"
             href={`${process.env.SOURCE_CODE_REPO}/labels/${encodeURIComponent(
               headers.githubLabel,
             )}`}
             icon={<ChatRounded color="primary" />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label={t("githubLabel")}
-            data-ga-event-split="0.1"
             label={t("githubLabel")}
           />
         </li>
       ) : null}
-      <li>
-        <Tooltip title={t("bundleSizeTooltip")} describeChild>
-          <Chip
-            clickable
-            role={undefined}
-            component="a"
-            size="small"
-            variant="outlined"
-            rel="nofollow"
-            href={`https://bundlephobia.com/package/${packageName}@latest`}
-            icon={<BundleSizeIcon color="primary" />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label={t("bundleSize")}
-            data-ga-event-split="0.1"
-            label={t("bundleSize")}
-          />
-        </Tooltip>
-      </li>
       {headers.githubSource ? (
         <li>
           <Chip
@@ -130,12 +152,9 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
             size="small"
             variant="outlined"
             rel="nofollow"
-            href={`${process.env.SOURCE_CODE_REPO}/tree/v${process.env.LIB_VERSION}/${headers.githubSource}`}
+            target="_blank"
+            href={`${process.env.SOURCE_CODE_REPO}/tree/main/${headers.githubSource}`}
             icon={<GitHubIcon />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label="Source"
-            data-ga-event-split="0.1"
             label="Source"
           />
         </li>
@@ -149,75 +168,25 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
             size="small"
             variant="outlined"
             rel="nofollow"
+            target="_blank"
             href={headers.waiAria}
             icon={<W3CIcon color="primary" />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label="WAI-ARIA"
-            data-ga-event-split="0.1"
-            label="WAI-ARIA"
+            label="Accessibility"
           />
         </li>
       ) : null}
-      {headers.materialDesign ? (
-        <li>
-          <Chip
-            clickable
-            role={undefined}
-            component="a"
-            size="small"
-            variant="outlined"
-            rel="nofollow"
-            href={headers.materialDesign}
-            icon={<MaterialDesignIcon />}
-            data-ga-event-category="ComponentLinkHeader"
-            data-ga-event-action="click"
-            data-ga-event-label="Material Design"
-            data-ga-event-split="0.1"
-            label="Material Design"
-          />
-        </li>
-      ) : null}
-      {design === false ? null : (
-        <React.Fragment>
-          <li>
-            <Chip
-              clickable
-              role={undefined}
-              component="a"
-              size="small"
-              variant="outlined"
-              rel="nofollow"
-              href="https://mui.com/store/items/figma-react/?utm_source=docs&utm_medium=referral&utm_campaign=component-link-header"
-              icon={<FigmaIcon />}
-              data-ga-event-category="ComponentLinkHeader"
-              data-ga-event-action="click"
-              data-ga-event-label="Figma"
-              data-ga-event-split="0.1"
-              label="Figma"
-            />
-          </li>
-          {packageName === "@mui/joy" ? null : (
-            <li>
-              <Chip
-                clickable
-                role={undefined}
-                component="a"
-                size="small"
-                variant="outlined"
-                rel="nofollow"
-                href="https://mui.com/store/items/sketch-react/?utm_source=docs&utm_medium=referral&utm_campaign=component-link-header"
-                icon={<SketchIcon />}
-                data-ga-event-category="ComponentLinkHeader"
-                data-ga-event-action="click"
-                data-ga-event-label="Sketch"
-                data-ga-event-split="0.1"
-                label="Sketch"
-              />
-            </li>
-          )}
-        </React.Fragment>
-      )}
+      <li>
+        <Chip
+          clickable
+          role={undefined}
+          component="a"
+          size="small"
+          variant="outlined"
+          href="/open-ui-kit-core/"
+          icon={<AutoStoriesRoundedIcon />}
+          label="Docs"
+        />
+      </li>
     </Root>
   );
 }

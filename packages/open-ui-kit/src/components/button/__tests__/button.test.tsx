@@ -5,8 +5,7 @@
  */
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
@@ -121,21 +120,19 @@ describe("Button", () => {
       expect(screen.getByRole("button")).toBeDisabled();
     });
 
-    it("does not fire onClick when disabled", async () => {
+    it("does not fire onClick when disabled", () => {
       const onClick = jest.fn();
       renderButton({ children: "Disabled", disabled: true, onClick });
-      await userEvent.click(screen.getByRole("button"), {
-        pointerEventsCheck: 0,
-      });
+      fireEvent.click(screen.getByRole("button"));
       expect(onClick).not.toHaveBeenCalled();
     });
   });
 
   describe("click behavior", () => {
-    it("fires onClick when clicked", async () => {
+    it("fires onClick when clicked", () => {
       const onClick = jest.fn();
       renderButton({ children: "Click me", onClick });
-      await userEvent.click(screen.getByRole("button"));
+      fireEvent.click(screen.getByRole("button"));
       expect(onClick).toHaveBeenCalledTimes(1);
     });
   });

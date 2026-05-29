@@ -19,13 +19,13 @@ export default function CustomSeparator() {
       href="/"
       onClick={handleClick}
     >
-      MUI
+      Open UI Kit
     </Link>,
     <Link
       underline="hover"
       key="2"
       color="inherit"
-      href="/material-ui/getting-started/installation/"
+      href="/open-ui-kit-core/getting-started/installation/"
       onClick={handleClick}
     >
       Core

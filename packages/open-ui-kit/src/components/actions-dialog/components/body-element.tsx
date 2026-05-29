@@ -9,7 +9,7 @@ import { Box, Typography } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
 import { InputField } from "@/components/input-field";
 import { styles } from "../styles";
-import { ActionsDialogProps } from "./actions-dialog";
+import type { ActionsDialogProps } from "../types";
 import { CommentSuggestions } from "./comment-suggestions";
 
 interface BodyElementProps {

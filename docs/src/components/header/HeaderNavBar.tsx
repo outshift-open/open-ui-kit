@@ -67,9 +67,9 @@ const Navigation = styled("nav")(({ theme }) => [
 
 const PRODUCT_IDS = [
   "product-core",
-  "product-advanced",
-  "product-templates",
-  "product-design",
+  "storybook",
+  "source",
+  "all-components",
 ] as const;
 
 type ProductSubMenuProps = {
@@ -304,37 +304,37 @@ export default function HeaderNavBar() {
                     <li>
                       <ProductSubMenu
                         id={PRODUCT_IDS[0]}
-                        href={ROUTES.productCore}
+                        href="/open-ui-kit-core/"
                         icon={<IconImage name="product-core" />}
-                        name="MUI Core"
-                        description="Ready-to-use foundational React components, free forever."
+                        name="Open UI Kit Core"
+                        description="Core React components and design tokens."
                       />
                     </li>
                     <li>
                       <ProductSubMenu
                         id={PRODUCT_IDS[1]}
-                        href={ROUTES.productAdvanced}
+                        href="https://main--68cc22452afe30d90e4ca977.chromatic.com"
                         icon={<IconImage name="product-advanced" />}
-                        name="MUI X"
-                        description="Advanced and powerful components for complex use cases."
+                        name="Storybook"
+                        description="Interactive component examples and variants."
                       />
                     </li>
                     <li>
                       <ProductSubMenu
                         id={PRODUCT_IDS[2]}
-                        href={ROUTES.productTemplates}
+                        href="https://github.com/outshift-open/open-ui-kit"
                         icon={<IconImage name="product-templates" />}
-                        name="Templates"
-                        description="Fully built templates for your application."
+                        name="GitHub"
+                        description="Source code, issues, and contribution workflow."
                       />
                     </li>
                     <li>
                       <ProductSubMenu
                         id={PRODUCT_IDS[3]}
-                        href={ROUTES.productDesignKits}
+                        href="/open-ui-kit-core/all-components/"
                         icon={<IconImage name="product-designkits" />}
-                        name="Design Kits"
-                        description="Material UI components in your favorite design tool."
+                        name="Components"
+                        description="Browse the Open UI Kit component catalog."
                       />
                     </li>
                   </ul>

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack, Typography } from "@mui/material";
-import { Backdrop, BackdropProps } from "./components/backdrop";
-import { Button } from "../button";
-import { Spinner } from "../spinner";
+import { Backdrop } from "../components/backdrop";
+import type { BackdropProps } from "../types";
+import { Button } from "../../button";
+import { Spinner } from "../../spinner";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Backdrop> = {

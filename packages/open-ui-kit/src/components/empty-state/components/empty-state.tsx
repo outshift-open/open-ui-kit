@@ -6,42 +6,24 @@
 
 import { GeneralSize } from "@/common";
 import { Button } from "@/components/button";
-import {
-  ButtonProps,
-  Stack,
-  StackProps,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 import {
   DefaultDescription,
-  Direction,
   Illustrations,
-  Variant,
   directionToFlexAlignmentMapping,
   sizeToIllustrationSizeMapping,
   sizeToMainFlexGapSizeMapping,
   sizeToSecondaryFlexGapSizeMapping,
-  directionToTextMaxWidthMapping,
+  getTextMaxWidth,
   sizeToTitleVariantMapping,
+  sizeToTitleLineHeightMapping,
   sizeToDescriptionVariantMapping,
   directionToTextAlignmentMapping,
   sizeToActionSizeMapping,
   sizeToContainerPaddingMapping,
   sizeToRowGapMapping,
-} from "../helpers/constants";
-
-export interface EmptyStateProps {
-  variant?: Variant;
-  direction?: Direction;
-  size?: GeneralSize;
-  title?: string;
-  description?: string;
-  actionCallback?: () => void;
-  actionTitle?: string;
-  actionButtonProps?: ButtonProps;
-  containerProps?: StackProps;
-}
+} from "../styles";
+import type { EmptyStateProps } from "../types";
 
 export const EmptyState = ({
   variant = "info",
@@ -52,10 +34,21 @@ export const EmptyState = ({
   actionCallback,
   actionTitle,
   actionButtonProps,
+  secondaryActionCallback,
+  secondaryActionTitle,
+  secondaryActionButtonProps,
   containerProps,
 }: EmptyStateProps) => {
   const theme = useTheme();
   const Illustration = Illustrations[variant];
+  const showAction = Boolean(
+    actionCallback && actionTitle && size !== GeneralSize.Small,
+  );
+  const showSecondaryAction = Boolean(
+    secondaryActionCallback &&
+      secondaryActionTitle &&
+      size !== GeneralSize.Small,
+  );
 
   return (
     <Stack
@@ -95,7 +88,7 @@ export const EmptyState = ({
           gap={sizeToSecondaryFlexGapSizeMapping[size]}
           alignItems={directionToFlexAlignmentMapping[direction]}
           justifyContent={"center"}
-          sx={{ maxWidth: directionToTextMaxWidthMapping[direction] }}
+          sx={{ maxWidth: getTextMaxWidth(size, direction) }}
         >
           {title && size !== GeneralSize.Small && (
             <Typography
@@ -103,6 +96,7 @@ export const EmptyState = ({
               sx={{
                 color: theme.palette.vars.baseTextStrong,
                 textAlign: directionToTextAlignmentMapping[direction],
+                lineHeight: sizeToTitleLineHeightMapping[size],
               }}
             >
               {title}
@@ -120,23 +114,45 @@ export const EmptyState = ({
             </Typography>
           )}
         </Stack>
-        {actionCallback && actionTitle && size !== GeneralSize.Small && (
-          <Button
-            variant="primary"
-            size={sizeToActionSizeMapping[size]}
-            onClick={actionCallback}
-            {...actionButtonProps}
-            sx={[
-              {},
-              ...(Array.isArray(actionButtonProps?.sx)
-                ? actionButtonProps.sx
-                : actionButtonProps?.sx
-                  ? [actionButtonProps.sx]
-                  : []),
-            ]}
-          >
-            {actionTitle}
-          </Button>
+        {(showAction || showSecondaryAction) && (
+          <Stack direction="row" gap="16px" alignItems="flex-start">
+            {showAction && (
+              <Button
+                variant="primary"
+                size={sizeToActionSizeMapping[size]}
+                onClick={actionCallback}
+                {...actionButtonProps}
+                sx={[
+                  {},
+                  ...(Array.isArray(actionButtonProps?.sx)
+                    ? actionButtonProps.sx
+                    : actionButtonProps?.sx
+                      ? [actionButtonProps.sx]
+                      : []),
+                ]}
+              >
+                {actionTitle}
+              </Button>
+            )}
+            {showSecondaryAction && (
+              <Button
+                variant="secondary"
+                size={sizeToActionSizeMapping[size]}
+                onClick={secondaryActionCallback}
+                {...secondaryActionButtonProps}
+                sx={[
+                  {},
+                  ...(Array.isArray(secondaryActionButtonProps?.sx)
+                    ? secondaryActionButtonProps.sx
+                    : secondaryActionButtonProps?.sx
+                      ? [secondaryActionButtonProps.sx]
+                      : []),
+                ]}
+              >
+                {secondaryActionTitle}
+              </Button>
+            )}
+          </Stack>
         )}
       </Stack>
     </Stack>

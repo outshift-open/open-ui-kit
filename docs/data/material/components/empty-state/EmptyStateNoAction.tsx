@@ -1,5 +1,10 @@
 import * as React from "react";
-import { EmptyState, GeneralSize, Stack, ThemeProvider } from "@open-ui-kit/core";
+import {
+  EmptyState,
+  GeneralSize,
+  Stack,
+  ThemeProvider,
+} from "@open-ui-kit/core";
 
 export default function EmptyStateNoAction() {
   return (

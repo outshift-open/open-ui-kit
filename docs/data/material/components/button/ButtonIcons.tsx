@@ -6,7 +6,13 @@ import { Button, Stack, ThemeProvider } from "@open-ui-kit/core";
 export default function ButtonIcons() {
   return (
     <ThemeProvider>
-      <Stack direction="row" spacing={2} alignItems="center" useFlexGap flexWrap="wrap">
+      <Stack
+        direction="row"
+        spacing={2}
+        alignItems="center"
+        useFlexGap
+        flexWrap="wrap"
+      >
         <Button startIcon={<SaveOutlinedIcon />} variant="primary">
           Save
         </Button>

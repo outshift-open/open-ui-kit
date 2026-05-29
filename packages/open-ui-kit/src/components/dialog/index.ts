@@ -6,13 +6,10 @@
 
 import { DialogTitle } from "./components/dialog-title";
 import { DialogSubtitle } from "./components/dialog-subtitle";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogProps,
-} from "@mui/material";
+import { Dialog } from "./components/dialog";
+import { DialogActions } from "./components/dialog-actions";
+import { DialogContent } from "./components/dialog-content";
+import { DialogContentText } from "./components/dialog-content-text";
 
 export {
   Dialog,
@@ -22,4 +19,4 @@ export {
   DialogContent,
   DialogContentText,
 };
-export type { DialogProps };
+export * from "./types";

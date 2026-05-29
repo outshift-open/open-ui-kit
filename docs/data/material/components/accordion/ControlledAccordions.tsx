@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Accordion,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@open-ui-kit/core";
+import { Accordion, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export default function ControlledAccordions() {
   const [expanded, setExpanded] = React.useState<string | false>("panel-1");

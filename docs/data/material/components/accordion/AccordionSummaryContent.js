@@ -3,12 +3,7 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import GridView from "@mui/icons-material/GridView";
 import Hub from "@mui/icons-material/Hub";
 import { Box } from "@mui/material";
-import {
-  Accordion,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@open-ui-kit/core";
+import { Accordion, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 function SlotLabel({ children }) {
   return (

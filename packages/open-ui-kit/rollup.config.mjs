@@ -5,7 +5,7 @@
  */
 
 import { fileURLToPath } from "url";
-import pkg from "./package.json" assert { type: "json" };
+import { createRequire } from "module";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import terser from "@rollup/plugin-terser";
@@ -23,6 +23,8 @@ import alias from "@rollup/plugin-alias";
 import path from "path";
 import cleanup from "rollup-plugin-cleanup";
 
+const require = createRequire(import.meta.url);
+const pkg = require("./package.json");
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import copy from "rollup-plugin-copy";
 import * as dtsPlugin from "rollup-plugin-dts";

@@ -5,4 +5,4 @@
  */
 
 export { ActionsDialog } from "./components/actions-dialog";
-export type { ActionsDialogProps } from "./components/actions-dialog";
+export * from "./types";

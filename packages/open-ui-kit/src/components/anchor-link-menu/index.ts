@@ -5,5 +5,4 @@
  */
 
 export { AnchorLinkMenu } from "./components/anchor-link-menu";
-export type { AnchorLinkMenuProps } from "./components/anchor-link-menu";
-export type { AnchorLinkMenuItem } from "./types";
+export type { AnchorLinkMenuItem, AnchorLinkMenuProps } from "./types";

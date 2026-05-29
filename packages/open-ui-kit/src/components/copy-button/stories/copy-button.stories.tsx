@@ -1,53 +1,55 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { CopyButton } from "../components/copy-button";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Stack, Typography } from "@mui/material";
+import type { ReactNode } from "react";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { CopyButton } from "../components/copy-button";
 
 const meta: Meta<typeof CopyButton> = {
   title: "Components/CopyButton",
   component: CopyButton,
   args: {
-    text: "Text to copy",
+    text: "function readCacheFromRecords()",
     tooltipPlacement: "top",
     size: "large",
   },
   argTypes: {
     text: {
       control: "text",
-      description: "The text to copy",
+      description: "Text copied to the clipboard.",
     },
     size: {
       control: "radio",
       options: ["small", "medium", "large"],
       description:
-        "Visual size of the button. Small=16px, Medium=20px, Large=32px (default, with border).",
+        "Visual size: small is 16px, medium is 20px, and large is 32px with a border.",
     },
     position: {
       control: "radio",
       options: ["left", "right", undefined],
-      description: "Absolute position inside a relative container.",
+      description: "Absolute placement inside a relative container.",
     },
     tooltipPlacement: {
       control: "select",
       options: ["top", "bottom", "left", "right"],
-      description: "Placement of the tooltip relative to the button.",
+      description: "Tooltip placement around the copy action.",
     },
     copyLabel: {
       control: "text",
-      description: 'Tooltip label shown before copying. Defaults to "Copy".',
+      description: "Tooltip label shown before copying.",
     },
     copiedLabel: {
       control: "text",
-      description: 'Tooltip label shown after copying. Defaults to "Copied".',
+      description: "Tooltip label shown after copying.",
     },
   },
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="CopyButton is a button that copies text to the clipboard when clicked. It provides visual feedback to indicate that the text has been copied successfully."
-          guideLink=""
+          title="Copy button"
+          blurb="Copy buttons copy nearby code or text and confirm success with a temporary checked state."
           importLine={`import { CopyButton } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -57,68 +59,84 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
+const Swatch = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
+  <Stack gap={1} alignItems="center">
+    <Box
+      sx={{
+        width: 80,
+        height: 56,
+        display: "grid",
+        placeItems: "center",
+        position: "relative",
+      }}
+    >
+      {children}
+    </Box>
+    <Typography variant="caption">{title}</Typography>
+  </Stack>
+);
+
 export const Default: Story = {
   render: (args) => (
-    <Box sx={{ padding: "40px" }}>
+    <Box sx={{ padding: 4 }}>
       <CopyButton {...args} />
     </Box>
   ),
 };
 
 export const Sizes: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Large (32×32, border), Medium (20×20, no border), Small (16×16, no border).",
-      },
-    },
-  },
   render: (args) => (
-    <Stack direction="row" gap="32px" alignItems="center" padding="40px">
-      {(["large", "medium", "small"] as const).map((size) => (
-        <Stack key={size} alignItems="center" gap="8px">
-          <CopyButton {...args} size={size} />
-          <Typography variant="caption">{size}</Typography>
-        </Stack>
+    <Stack direction="row" gap={4} alignItems="center" padding={4}>
+      <Swatch title="Small">
+        <CopyButton {...args} size="small" disableMargin />
+      </Swatch>
+      <Swatch title="Medium">
+        <CopyButton {...args} size="medium" disableMargin />
+      </Swatch>
+      <Swatch title="Large">
+        <CopyButton {...args} size="large" disableMargin />
+      </Swatch>
+    </Stack>
+  ),
+};
+
+export const Position: Story = {
+  render: (args) => (
+    <Box
+      sx={(theme) => ({
+        width: 180,
+        height: 96,
+        position: "relative",
+        border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+        borderRadius: 1,
+        backgroundColor: theme.palette.vars.controlBackgroundDefault,
+      })}
+    >
+      <CopyButton {...args} position="left" left="16px" top="32px" />
+      <CopyButton {...args} position="right" right="16px" top="32px" />
+    </Box>
+  ),
+};
+
+export const TooltipPlacements: Story = {
+  render: (args) => (
+    <Stack direction="row" gap={4} alignItems="center" padding={4}>
+      {(["top", "right", "bottom", "left"] as const).map((placement) => (
+        <Swatch key={placement} title={placement}>
+          <CopyButton
+            {...args}
+            tooltipPlacement={placement}
+            disableMargin
+            copyLabel={`Copy ${placement}`}
+          />
+        </Swatch>
       ))}
     </Stack>
   ),
-  args: { text: "Text to copy", tooltipPlacement: "top" },
-};
-
-export const TooltipTop: Story = {
-  render: (args) => (
-    <Box sx={{ padding: "60px 40px 40px" }}>
-      <CopyButton {...args} tooltipPlacement="top" />
-    </Box>
-  ),
-  args: { text: "Text to copy", size: "large" },
-};
-
-export const TooltipRight: Story = {
-  render: (args) => (
-    <Box sx={{ padding: "40px" }}>
-      <CopyButton {...args} tooltipPlacement="right" />
-    </Box>
-  ),
-  args: { text: "Text to copy", size: "large" },
-};
-
-export const TooltipBottom: Story = {
-  render: (args) => (
-    <Box sx={{ padding: "40px 40px 60px" }}>
-      <CopyButton {...args} tooltipPlacement="bottom" />
-    </Box>
-  ),
-  args: { text: "Text to copy", size: "large" },
-};
-
-export const TooltipLeft: Story = {
-  render: (args) => (
-    <Box sx={{ padding: "40px 40px 40px 80px" }}>
-      <CopyButton {...args} tooltipPlacement="left" />
-    </Box>
-  ),
-  args: { text: "Text to copy", size: "large" },
 };

@@ -17,12 +17,12 @@ githubSource: packages/open-ui-kit/src/components/accordion
 Accordion is a disclosure surface for content that should stay available without taking over the page.
 Use it for grouped settings, page sections, filters, summaries, and optional details that users can scan before opening.
 
-Open UI Kit wraps the Material UI Accordion API with a simpler header contract:
+Open UI Kit keeps the expected accordion behavior and adds a simpler header contract:
 
 - `title` renders the main summary label.
 - `subTitle` renders supporting summary text.
 - `children` renders the expandable content.
-- MUI Accordion props such as `defaultExpanded`, `expanded`, `onChange`, and `disabled` still work.
+- Standard accordion props such as `defaultExpanded`, `expanded`, `onChange`, and `disabled` still work.
 
 {{"demo": "AccordionUsage.js", "bg": true}}
 
@@ -89,7 +89,7 @@ Learn more about controlled and uncontrolled components in the [React documentat
 
 ## Props
 
-The Open UI Kit Accordion keeps the MUI Accordion behavior and adds a small set of product defaults:
+The Open UI Kit Accordion keeps familiar disclosure behavior and adds a small set of product defaults:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -113,7 +113,7 @@ The Open UI Kit Accordion keeps the MUI Accordion behavior and adds a small set 
 
 ## Accessibility
 
-Accordion uses the underlying Material UI semantics, including keyboard support for Enter and Space.
+Accordion uses standard disclosure semantics, including keyboard support for Enter and Space.
 Add stable `id` and `aria-controls` values through `accordionSummaryProps` when the accordion needs explicit labels.
 
 ```tsx

@@ -4,38 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  BreadcrumbsProps as MUIBreadcrumbsProps,
-  useTheme,
-} from "@mui/material";
-import { GeneralSize, IconPosition } from "@/common";
+import { type SxProps, type Theme, useTheme } from "@mui/material";
+import { GeneralSize } from "@/common";
 import {
   Link,
   LinkColorEnum,
   LinkColorStatus,
-  LinkProps,
   LinkType,
 } from "@/components/link";
 import { getLinkColors } from "@/components/link/helpers";
+import type { BreadcrumbsProps } from "../types";
 import { BreadcrumbSeparator, StyledBreadcrumbs } from "./elements";
 
 const MAX_NUMBER_OF_VISIBLE_BREADCRUMBS = 4;
-
-interface BreadcrumbItem {
-  Icon?: LinkProps["Icon"];
-  text: string;
-  link?: string;
-  iconPosition?: IconPosition;
-}
-
-export interface BreadcrumbsProps extends MUIBreadcrumbsProps {
-  iconPosition?: IconPosition;
-  items: BreadcrumbItem[];
-  color?: LinkColorEnum;
-  type?: LinkType;
-  size?: GeneralSize;
-  maximumNumberOfVisibleBreadcrumbs?: number;
-}
+type CollapsedIconSlotPropsObject = { sx?: SxProps<Theme> };
 
 export const Breadcrumbs = ({
   iconPosition,
@@ -45,20 +27,42 @@ export const Breadcrumbs = ({
   color = LinkColorEnum.Secondary,
   type = LinkType.StandaloneBold,
   maximumNumberOfVisibleBreadcrumbs = MAX_NUMBER_OF_VISIBLE_BREADCRUMBS,
+  separator,
+  slotProps,
+  ...props
 }: BreadcrumbsProps) => {
   const theme = useTheme();
+  const collapsedIconSlotProps = slotProps?.collapsedIcon;
+  const mergeCollapsedIconSlotProps = (
+    collapsedIconSlotProps?: CollapsedIconSlotPropsObject,
+  ) => {
+    const collapsedIconSx = collapsedIconSlotProps?.sx;
+
+    return {
+      ...collapsedIconSlotProps,
+      sx: [
+        { width: "20px", height: "20px" },
+        ...(Array.isArray(collapsedIconSx)
+          ? collapsedIconSx
+          : collapsedIconSx
+            ? [collapsedIconSx]
+            : []),
+      ],
+    };
+  };
 
   return (
     <StyledBreadcrumbs
-      aria-label="breadcrumb"
-      separator={<BreadcrumbSeparator />}
+      {...props}
+      aria-label={props["aria-label"] ?? "breadcrumb"}
+      separator={separator ?? <BreadcrumbSeparator />}
       slotProps={{
-        collapsedIcon: {
-          sx: {
-            width: "20px",
-            height: "20px",
-          },
-        },
+        ...slotProps,
+        collapsedIcon:
+          typeof collapsedIconSlotProps === "function"
+            ? (ownerState) =>
+                mergeCollapsedIconSlotProps(collapsedIconSlotProps(ownerState))
+            : mergeCollapsedIconSlotProps(collapsedIconSlotProps),
       }}
       sx={sx}
       maxItems={maximumNumberOfVisibleBreadcrumbs}

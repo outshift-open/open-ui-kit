@@ -20,6 +20,10 @@ import {
   TypographyProps,
   styled,
 } from "@mui/material";
+import {
+  darkModeCardLifted,
+  lightModeCardLifted,
+} from "@/theme/style/color-palette";
 
 export const StyledCard = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -29,7 +33,8 @@ export const StyledCard = styled(MuiCard)(({ theme }) => ({
   borderRadius: "8px",
   backgroundImage: "none",
   backgroundColor: theme.palette.vars.baseBackgroundWeak,
-  boxShadow: theme.shadows[1],
+  boxShadow:
+    theme.palette.mode === "dark" ? darkModeCardLifted : lightModeCardLifted,
   boxSizing: "border-box",
   "&:hover": {
     backgroundColor: theme.palette.vars.baseBackgroundWeak,

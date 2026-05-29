@@ -14,7 +14,7 @@ githubSource: packages/open-ui-kit/src/components/banner
 ## Introduction
 
 Banner is a page-level message for system states, scheduled maintenance, success confirmations, warnings, and important product notices.
-It is built on top of Material UI Alert, but it uses Open UI Kit status colors, icons, spacing, and typography.
+It uses Open UI Kit status colors, icons, spacing, and typography so messages feel consistent across product screens.
 
 {{"demo": "BannerUsage.js", "bg": true}}
 
@@ -47,7 +47,7 @@ Use this sparingly so status icons remain predictable.
 
 ## Props
 
-Banner supports most Material UI `Alert` props, except `variant`, `severity`, `children`, `iconMapping`, and `action`.
+Banner supports most alert-style props, except `variant`, `severity`, `children`, `iconMapping`, and `action`.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |

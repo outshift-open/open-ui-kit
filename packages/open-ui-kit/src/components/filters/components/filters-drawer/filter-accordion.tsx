@@ -18,7 +18,7 @@ import {
 import { Checkbox } from "@/components/checkbox";
 
 import { getStyles } from "./styles";
-import { FilterOptionData, FilterData } from "../../types/types";
+import type { FilterOptionData, FilterData } from "../../types";
 import {
   getFilteredSubFilters,
   setAllOptions,

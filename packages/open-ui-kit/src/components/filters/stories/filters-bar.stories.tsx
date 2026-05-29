@@ -7,10 +7,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Button } from "@/components/button";
-import {
-  FiltersBar,
-  FiltersBarProps,
-} from "../components/filters-bar/filters-bar";
+import { FiltersBar, type FiltersBarProps } from "..";
 import {
   filterSelectAllFilterOptions,
   filtersMockData,

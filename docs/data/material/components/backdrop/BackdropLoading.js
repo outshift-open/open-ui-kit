@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Backdrop,
-  Button,
-  Spinner,
-  ThemeProvider,
-} from "@open-ui-kit/core";
+import { Backdrop, Button, Spinner, ThemeProvider } from "@open-ui-kit/core";
 
 export default function BackdropLoading() {
   const [open, setOpen] = React.useState(false);

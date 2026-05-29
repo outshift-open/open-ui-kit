@@ -16,9 +16,7 @@ export default function DateTimePickerDemo() {
         >
           <Typography variant="body1">05/28/2026 14:00</Typography>
         </Box>
-        <Typography variant="body2">
-          Selected: May 28, 2026 14:00
-        </Typography>
+        <Typography variant="body2">Selected: May 28, 2026 14:00</Typography>
       </Stack>
     </ThemeProvider>
   );

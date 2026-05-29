@@ -69,7 +69,7 @@ Export the component and public types from `index.ts`, add focused stories, and 
 
 ## Theme overrides
 
-When overriding MUI components, keep the override close to the active theme and export it through the theme `mui` index.
+When overriding base component behavior, keep the override close to the active theme and export it through the theme override index.
 Use existing override files as the template so light and dark behavior stay consistent.
 
 ## Release flow

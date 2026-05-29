@@ -123,6 +123,7 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: "./fonts", to: "/fonts" },
     { from: "./assets", to: "/assets" },
+    { from: "./assets", to: "/" },
   ],
 };
 export default config;

@@ -5,6 +5,7 @@
  */
 
 import type { ReactNode } from "react";
+import type { TimelineProps as MuiTimelineProps } from "@mui/lab";
 
 export enum ActivityTimelineStepStatus {
   InProgress = "in-progress",
@@ -27,4 +28,14 @@ export interface ActivityTimelineStep {
   content?: ReactNode;
   /** Expands accordion content by default when content is provided. */
   defaultExpanded?: boolean;
+}
+
+export interface ActivityTimelineProps
+  extends Omit<MuiTimelineProps, "children" | "ref"> {
+  /** When true, step dots and connector colors are calculated from each step position. */
+  automaticProgress?: boolean;
+  /** Controls the timeline title typography and vertical spacing. */
+  size?: "large" | "medium";
+  /** Ordered steps rendered in the activity timeline. */
+  steps: ActivityTimelineStep[];
 }

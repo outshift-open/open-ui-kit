@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
 import { getStyles } from "./styles";
-import { FilterOptionData } from "../../types/types";
+import type { FilterOptionData } from "../../types";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 
 export interface FilterOptionProps {

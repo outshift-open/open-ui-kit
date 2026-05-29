@@ -6,33 +6,41 @@
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import {
-  StaticDatePicker as MuiStaticDatePicker,
-  StaticDatePickerProps,
-} from "@mui/x-date-pickers/StaticDatePicker";
+import { StaticDatePicker as MuiStaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { useTheme } from "@mui/material";
-import { Dayjs } from "dayjs";
 import {
   getSharedSlotPropsDateTimePicker,
   getSharedStyle,
   getStaticPickerToolbarSlotProp,
+  mergeSx,
 } from "../styles";
+import type { StaticDatePickerProps } from "../types";
 
-export const StaticDatePicker = (props: StaticDatePickerProps<Dayjs>) => {
+export const StaticDatePicker = (props: StaticDatePickerProps) => {
   const theme = useTheme();
+  const { slotProps, sx, ...pickerProps } = props;
+  const toolbarSlotProps =
+    typeof slotProps?.toolbar === "function" ? undefined : slotProps?.toolbar;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiStaticDatePicker
         views={["year", "month", "day"]}
-        {...props}
+        {...pickerProps}
         slotProps={
           {
             ...getSharedSlotPropsDateTimePicker(theme),
-            toolbar: { sx: getStaticPickerToolbarSlotProp(theme) },
-          } as StaticDatePickerProps<Dayjs>["slotProps"]
+            ...slotProps,
+            toolbar: {
+              ...toolbarSlotProps,
+              sx: mergeSx(
+                getStaticPickerToolbarSlotProp(theme),
+                toolbarSlotProps?.sx,
+              ),
+            },
+          } as StaticDatePickerProps["slotProps"]
         }
-        sx={getSharedStyle(theme) as StaticDatePickerProps<Dayjs>["sx"]}
+        sx={mergeSx(getSharedStyle(theme), sx) as StaticDatePickerProps["sx"]}
       />
     </LocalizationProvider>
   );

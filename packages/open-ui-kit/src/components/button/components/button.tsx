@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ButtonProps as MuiButtonProps } from "@mui/material";
+import type { ButtonProps } from "../types";
 import { StyledButton } from "./elements";
 
-export type ButtonProps = MuiButtonProps;
-
-export const Button = (props: ButtonProps) => <StyledButton {...props} />;
+/** Spark button wrapper with tokenized variants, sizes, icon spacing, and states. */
+export const Button = ({ disableRipple = true, ...props }: ButtonProps) => (
+  <StyledButton disableRipple={disableRipple} {...props} />
+);

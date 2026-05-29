@@ -27,7 +27,9 @@ export default function DialogConfirmation() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle id="dialog-confirmation-title">Delete project?</DialogTitle>
+        <DialogTitle id="dialog-confirmation-title">
+          Delete project?
+        </DialogTitle>
         <DialogSubtitle>This action cannot be undone.</DialogSubtitle>
         <DialogContent>
           <DialogContentText id="dialog-confirmation-description">

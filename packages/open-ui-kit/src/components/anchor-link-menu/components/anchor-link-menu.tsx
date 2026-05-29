@@ -5,26 +5,13 @@
  */
 
 import { AnchorLinkMenuItemComponent } from "./anchor-link-menu-item";
-import { AnchorLinkMenuItem } from "../types";
+import type { AnchorLinkMenuProps } from "../types";
 import {
   StyledAnchorLinkMenuContainer,
   StyledAnchorLinkMenuFloatingContainer,
   StyledAnchorLinkMenuItemList,
   StyledAnchorLinkMenuTitle,
 } from "./elements";
-
-export interface AnchorLinkMenuProps {
-  /** Ordered navigation items rendered inside the anchor menu. */
-  items: AnchorLinkMenuItem[];
-  /** Item id that should render with the active indicator. */
-  selectedId?: string;
-  /** Optional heading displayed above the anchor list. */
-  title?: string;
-  /** Visual menu treatment for page rails or floating panels. */
-  variant?: "floating" | "rail";
-  /** Called with the selected item id when a menu item is clicked. */
-  onSelect?: (id: string) => void;
-}
 
 export const AnchorLinkMenu = ({
   items,

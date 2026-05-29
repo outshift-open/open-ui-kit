@@ -4,14 +4,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
-import { CSSProperties } from "react";
+import type { Theme } from "@mui/material";
+import type { CSSProperties } from "react";
 
 export const containerStackStyles = (theme: Theme): CSSProperties => ({
   backgroundColor: theme.palette.vars.controlBackgroundDefault,
   border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  borderRadius: "6px",
+  borderRadius: "4px",
   position: "relative",
+});
+
+export const codeTextStyle = (
+  size: "small" | "medium" = "medium",
+): CSSProperties => ({
+  fontFamily: "'Roboto Mono', monospace",
+  fontWeight: 400,
+  fontSize: size === "small" ? "12px" : "14px",
+  lineHeight: size === "small" ? "16px" : "20px",
+  letterSpacing: 0,
 });
 
 export const customStyle = (
@@ -24,7 +34,7 @@ export const customStyle = (
     padding: showLineNumbers ? 0 : pad,
     margin: "0",
     backgroundColor: theme.palette.vars.controlBackgroundDefault,
-    borderRadius: showLineNumbers ? "0 0 6px 6px" : "6px",
+    borderRadius: showLineNumbers ? "0 0 4px 4px" : "4px",
     color: theme.palette.vars.baseTextDefault,
   };
 };
@@ -45,9 +55,7 @@ export const lineNumberStyle = (
     marginRight: showLineNumbers ? (isSmall ? "12px" : "16px") : 0,
     color: theme.palette.vars.baseTextMedium,
     backgroundColor: theme.palette.vars.baseBackgroundMedium,
-    ...(isSmall
-      ? (theme.typography.caption as CSSProperties)
-      : (theme.typography.body1 as CSSProperties)),
+    ...codeTextStyle(size),
     minWidth: `${lineNumberWidth}px`,
   };
 };
@@ -59,7 +67,7 @@ export const separatorFirstBox = (
 ): CSSProperties => ({
   backgroundColor: theme.palette.vars.baseBackgroundMedium,
   borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  borderRadius: "6px 0 0 6px",
+  borderRadius: "4px 0 0 4px",
   height: size === "small" ? "12px" : "16px",
   width: `${lineNumberWidth}px`,
   minWidth: "28px",
@@ -95,7 +103,7 @@ export const headerStyles = (
   gap: size === "small" ? "12px" : "16px",
   backgroundColor: theme.palette.vars.controlBackgroundDefault,
   borderBottom: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  borderRadius: "6px 6px 0 0",
+  borderRadius: "4px 4px 0 0",
 });
 
 export const headerButtonStyles = (theme: Theme): CSSProperties => ({
@@ -107,8 +115,8 @@ export const headerButtonStyles = (theme: Theme): CSSProperties => ({
   color: theme.palette.vars.brandIconPrimaryDefault,
 });
 
-// Default prism theme with token backgrounds stripped so they don't bleed
-// through on dark backgrounds (operator/entity/url had hsla(0,0%,100%,.5)).
+// Syntax tokens intentionally keep Prism palette literals; no Spark semantic
+// tokens exist for language grammar colors in the current design system.
 export const prismStyle: { [key: string]: CSSProperties } = {
   'pre[class*="language-"]': { background: "transparent", textShadow: "none" },
   'code[class*="language-"]': { background: "transparent", textShadow: "none" },

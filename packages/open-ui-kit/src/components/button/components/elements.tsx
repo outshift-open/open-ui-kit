@@ -46,6 +46,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
     fontSize: "16px",
     lineHeight: "20px",
     height: "40px",
+    padding: "10px 16px",
   },
   "&.MuiButton-sizeMedium": {
     fontFamily: "Inter, sans-serif",

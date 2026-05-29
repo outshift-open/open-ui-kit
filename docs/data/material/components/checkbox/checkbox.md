@@ -29,13 +29,13 @@ import { Checkbox } from '@open-ui-kit/core';
 ## Labels
 
 Pair every checkbox with visible text when possible.
-The examples use Material UI's `FormControlLabel` and `FormGroup` helpers around the Open UI Kit `Checkbox`.
+The examples use form label and group helpers around the Open UI Kit `Checkbox`.
 
 {{"demo": "CheckboxLabels.js", "bg": true}}
 
 ## States
 
-Checkbox supports the same state props as Material UI: `checked`, `defaultChecked`, `indeterminate`, and `disabled`.
+Checkbox supports the expected state props: `checked`, `defaultChecked`, `indeterminate`, and `disabled`.
 Use the indeterminate state for parent items when only some child options are selected.
 
 {{"demo": "CheckboxStates.js", "bg": true}}
@@ -54,13 +54,13 @@ Group related checkboxes under a short label so users understand the set they ar
 
 ## Size
 
-Use the underlying Material UI `size` prop when a compact row needs a smaller control.
+Use the underlying `size` prop when a compact row needs a smaller control.
 
 {{"demo": "CheckboxSizes.js", "bg": true}}
 
 ## Props
 
-`Checkbox` supports the Material UI Checkbox props.
+`Checkbox` supports the standard checkbox props.
 
 | Prop | Type | Description |
 | --- | --- | --- |

@@ -77,7 +77,7 @@ export default function HomePage() {
         <title>Open UI Kit</title>
         <meta
           name="description"
-          content="Open UI Kit is an open source React component library and design system built on Material UI."
+          content="Open UI Kit is an open source React component library and design system for product teams."
         />
       </Head>
       <Box
@@ -160,9 +160,7 @@ export default function HomePage() {
                   key={href}
                   component={Link}
                   href={href}
-                  {...(isExternal
-                    ? { target: "_blank", rel: "noopener" }
-                    : {})}
+                  {...(isExternal ? { target: "_blank", rel: "noopener" } : {})}
                   variant="text"
                   size="small"
                   sx={(theme) => ({
@@ -299,9 +297,8 @@ export default function HomePage() {
                 }),
               })}
             >
-              A React component library built on Material UI for teams who want
-              polished defaults, flexible tokens, and documentation that stays
-              close to the code.
+              A React component library for teams who want polished defaults,
+              flexible tokens, and documentation that stays close to the code.
             </Typography>
             <Stack
               direction={{ xs: "column", sm: "row" }}
@@ -410,7 +407,7 @@ export default function HomePage() {
                     }),
                   })}
                 >
-                  1. Install the package and Material UI peers
+                  1. Install the package and peer dependencies
                 </Typography>
                 <Tooltip title={installCopied ? "Copied" : "Copy install"}>
                   <IconButton

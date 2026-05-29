@@ -1,11 +1,6 @@
 import * as React from "react";
 import PersonIcon from "@mui/icons-material/Person";
-import {
-  Avatar,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@open-ui-kit/core";
+import { Avatar, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export default function AvatarSizes() {
   return (

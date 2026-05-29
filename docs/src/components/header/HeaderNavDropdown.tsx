@@ -56,53 +56,37 @@ const UList = styled("ul")({
 
 const PRODUCTS = [
   {
-    name: "MUI Core",
-    description: "Ready-to-use foundational React components, free forever.",
-    href: ROUTES.productCore,
+    name: "Open UI Kit Core",
+    description: "Core React components and design tokens.",
+    href: "/open-ui-kit-core/",
   },
   {
-    name: "MUI X",
-    description: "Advanced and powerful components for complex use cases.",
-    href: ROUTES.productAdvanced,
+    name: "Storybook",
+    description: "Interactive component examples and variants.",
+    href: "https://main--68cc22452afe30d90e4ca977.chromatic.com",
   },
   {
-    name: "Templates",
-    description: "Fully built templates for your application.",
-    href: ROUTES.productTemplates,
+    name: "GitHub",
+    description: "Source code, issues, and contribution workflow.",
+    href: "https://github.com/outshift-open/open-ui-kit",
   },
   {
-    name: "Design Kits",
-    description: "Material UI components in your favorite design tool.",
-    href: ROUTES.productDesignKits,
+    name: "Components",
+    description: "Browse the Open UI Kit component catalog.",
+    href: "/open-ui-kit-core/all-components/",
   },
 ];
 
 const DOCS = [
   {
-    name: "Material UI",
-    description: "Component library that implements Google's Material Design.",
-    href: ROUTES.materialDocs,
+    name: "Getting started",
+    description: "Install, configure, and start building with Open UI Kit.",
+    href: "/open-ui-kit-core/",
   },
   {
-    name: "Joy UI",
-    description:
-      "Component library that implements MUI's own in-house design principles.",
-    href: ROUTES.joyDocs,
-  },
-  {
-    name: "Base UI",
-    description: "Unstyled components for building accessible UIs.",
-    href: ROUTES.baseDocs,
-  },
-  {
-    name: "MUI System",
-    description: "CSS utilities for rapidly laying out custom designs.",
-    href: ROUTES.systemDocs,
-  },
-  {
-    name: "MUI X",
-    description: "Advanced components for complex use cases.",
-    href: ROUTES.xIntro,
+    name: "All components",
+    description: "Browse the component catalog by category.",
+    href: "/open-ui-kit-core/all-components/",
   },
 ];
 
