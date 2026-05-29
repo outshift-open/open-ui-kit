@@ -9,7 +9,9 @@ import { StyledAvatarGroup } from "./elements";
 import { Avatar, AvatarProps } from "./avatar";
 
 export interface AvatarGroupProps {
+  /** Controls the size applied to every avatar in the group. */
   size?: "L" | "M";
+  /** Avatar children to stack with the configured group overlap. */
   children: React.ReactNode;
 }
 

@@ -4,25 +4,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Timeline as MuiTimeline,
-  TimelineProps as MuiTimelineProps,
-  TimelineItem as MuiTimelineItem,
-  TimelineSeparator as MuiTimelineSeparator,
-  TimelineConnector as MuiTimelineConnector,
-  TimelineContent as MuiTimelineContent,
-} from "@mui/lab";
+import { TimelineProps as MuiTimelineProps } from "@mui/lab";
 import { ActivityTimelineDot } from "./activity-timeline-dot";
 import { ActivityTimelineStep, ActivityTimelineStepStatus } from "../types";
 import { setStepColor } from "../utils/utils";
 import { useCallback } from "react";
 import { Typography, useTheme } from "@mui/material";
 import { Accordion } from "@/components/accordion";
+import {
+  StyledTimeline,
+  StyledTimelineConnector,
+  StyledTimelineContent,
+  StyledTimelineItem,
+  StyledTimelineSeparator,
+} from "./elements";
 
 export interface ActivityTimelineProps
   extends Omit<MuiTimelineProps, "children" | "ref"> {
+  /** When true, step dots and connector colors are calculated from each step position. */
   automaticProgress?: boolean;
+  /** Controls the timeline title typography and vertical spacing. */
   size?: "large" | "medium";
+  /** Ordered steps rendered in the activity timeline. */
   steps: ActivityTimelineStep[];
 }
 
@@ -37,6 +40,10 @@ export const ActivityTimeline = ({
 
   const setPercent = useCallback(
     (stepIdx: number): number => {
+      if (steps.length <= 1) {
+        return 100;
+      }
+
       const percent = Math.round((stepIdx / (steps.length - 1)) * 100);
       return percent > 100 ? 100 : percent;
     },
@@ -44,45 +51,37 @@ export const ActivityTimeline = ({
   );
 
   return (
-    <MuiTimeline
+    <StyledTimeline
       {...props}
       sx={[
-        { padding: 0, margin: 0 },
         ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
       ]}
     >
       {steps.map((step, index) => (
-        <MuiTimelineItem key={index} sx={{ "&::before": { display: "none" } }}>
-          <MuiTimelineSeparator sx={{ marginTop: "2px" }}>
+        <StyledTimelineItem key={index}>
+          <StyledTimelineSeparator>
             <ActivityTimelineDot
               automaticProgress={automaticProgress}
               status={step.status}
               {...(automaticProgress && { percent: setPercent(index) })}
             />
             {index < steps.length - 1 && (
-              <MuiTimelineConnector
-                sx={{
-                  backgroundColor: setStepColor(
-                    automaticProgress
-                      ? ActivityTimelineStepStatus.InProgress
-                      : step.status,
-                    theme,
-                  ),
-                }}
+              <StyledTimelineConnector
+                lineColor={setStepColor(
+                  automaticProgress
+                    ? ActivityTimelineStepStatus.InProgress
+                    : step.status,
+                  theme,
+                )}
               />
             )}
-          </MuiTimelineSeparator>
-          <MuiTimelineContent
-            sx={{
-              padding: "0px 0px 24px 16px",
-              gap: isMedium ? "10px" : "16px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          </StyledTimelineSeparator>
+          <StyledTimelineContent mediumSize={isMedium}>
             {step.content ? (
               <Accordion
+                defaultExpanded={step.defaultExpanded}
                 title={step.title}
+                titleStartIcon={step.titleStartIcon}
                 subTitle={step.subTitle}
                 size={size}
               >
@@ -91,18 +90,24 @@ export const ActivityTimeline = ({
             ) : (
               <Typography
                 variant={isMedium ? "body2Semibold" : "h6"}
-                sx={{
-                  color: isMedium
-                    ? theme.palette.vars?.controlIconDefault
-                    : theme.palette.vars?.baseTextStrong,
-                }}
+                sx={[
+                  {
+                    alignItems: "center",
+                    color: isMedium
+                      ? theme.palette.vars?.controlIconDefault
+                      : theme.palette.vars?.baseTextStrong,
+                    display: "flex",
+                    gap: "8px",
+                  },
+                ]}
               >
+                {step.titleStartIcon}
                 {step.title}
               </Typography>
             )}
-          </MuiTimelineContent>
-        </MuiTimelineItem>
+          </StyledTimelineContent>
+        </StyledTimelineItem>
       ))}
-    </MuiTimeline>
+    </StyledTimeline>
   );
 };

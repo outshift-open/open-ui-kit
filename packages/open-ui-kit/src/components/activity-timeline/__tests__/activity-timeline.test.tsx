@@ -12,8 +12,8 @@ import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
 import { ActivityTimelineStepStatus } from "../types";
 
-const renderWithTheme = (ui: React.ReactElement) =>
-  render(<ThemeProvider>{ui}</ThemeProvider>);
+const renderWithTheme = (ui: React.ReactElement, dark = false) =>
+  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
 
 const steps = [
   { status: ActivityTimelineStepStatus.InProgress, title: "Step 1" },
@@ -57,23 +57,39 @@ describe("ActivityTimeline", () => {
 
     it("renders title as plain text when no content", () => {
       renderWithTheme(<ActivityTimeline steps={steps} />);
-      // no accordion — titles rendered as h6
       const headings = screen.getAllByRole("heading", { level: 6 });
       expect(headings.length).toBe(3);
     });
 
     it("renders title inside an accordion when content is present", () => {
       renderWithTheme(<ActivityTimeline steps={stepsWithContent} />);
-      // accordion summary buttons contain the titles
       const buttons = screen.getAllByRole("button");
       expect(buttons.length).toBe(2);
+    });
+
+    it("passes defaultExpanded to content accordions", () => {
+      renderWithTheme(
+        <ActivityTimeline
+          steps={[
+            {
+              status: ActivityTimelineStepStatus.InProgress,
+              title: "Expanded",
+              content: <p>Expanded content</p>,
+              defaultExpanded: true,
+            },
+          ]}
+        />,
+      );
+
+      expect(screen.getByRole("button", { expanded: true })).toHaveTextContent(
+        "Expanded",
+      );
     });
   });
 
   describe("automaticProgress prop", () => {
     it("renders without automaticProgress by default", () => {
       renderWithTheme(<ActivityTimeline steps={steps} />);
-      // just verify it renders without errors
       expect(screen.getByText("Step 1")).toBeInTheDocument();
     });
 
@@ -82,6 +98,19 @@ describe("ActivityTimeline", () => {
       expect(screen.getByText("Step 1")).toBeInTheDocument();
       expect(screen.getByText("Step 2")).toBeInTheDocument();
       expect(screen.getByText("Step 3")).toBeInTheDocument();
+    });
+
+    it("renders a single automaticProgress step without invalid percentage math", () => {
+      renderWithTheme(
+        <ActivityTimeline
+          automaticProgress
+          steps={[
+            { status: ActivityTimelineStepStatus.InProgress, title: "Only" },
+          ]}
+        />,
+      );
+
+      expect(screen.getByText("Only")).toBeInTheDocument();
     });
   });
 
@@ -110,6 +139,41 @@ describe("ActivityTimeline", () => {
     });
   });
 
+  describe("step composition", () => {
+    it("renders a title start icon for plain steps", () => {
+      renderWithTheme(
+        <ActivityTimeline
+          steps={[
+            {
+              status: ActivityTimelineStepStatus.InProgress,
+              title: "With icon",
+              titleStartIcon: <span data-testid="title-icon" />,
+            },
+          ]}
+        />,
+      );
+
+      expect(screen.getByTestId("title-icon")).toBeInTheDocument();
+    });
+
+    it("renders a title start icon for accordion steps", () => {
+      renderWithTheme(
+        <ActivityTimeline
+          steps={[
+            {
+              status: ActivityTimelineStepStatus.InProgress,
+              title: "With icon",
+              titleStartIcon: <span data-testid="accordion-title-icon" />,
+              content: <p>Content</p>,
+            },
+          ]}
+        />,
+      );
+
+      expect(screen.getByTestId("accordion-title-icon")).toBeInTheDocument();
+    });
+  });
+
   describe("step count", () => {
     it("renders the correct number of steps", () => {
       renderWithTheme(<ActivityTimeline steps={steps} />);
@@ -126,6 +190,23 @@ describe("ActivityTimeline", () => {
         />,
       );
       expect(screen.getByText("Only")).toBeInTheDocument();
+    });
+  });
+
+  describe("dark theme token coverage", () => {
+    it("renders status steps in dark mode without throwing", () => {
+      renderWithTheme(<ActivityTimeline steps={steps} />, true);
+
+      expect(screen.getByText("Step 1")).toBeInTheDocument();
+      expect(screen.getByText("Step 2")).toBeInTheDocument();
+      expect(screen.getByText("Step 3")).toBeInTheDocument();
+    });
+
+    it("renders accordion content in dark mode without throwing", () => {
+      renderWithTheme(<ActivityTimeline steps={stepsWithContent} />, true);
+
+      expect(screen.getByText("Content 1")).toBeInTheDocument();
+      expect(screen.getByText("Content 2")).toBeInTheDocument();
     });
   });
 });
@@ -146,11 +227,18 @@ describe("ActivityTimelineDot", () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
+  it("renders zero percent as an in-progress dot state", () => {
+    renderWithTheme(<ActivityTimelineDot percent={0} />);
+
+    expect(
+      screen.getByLabelText(ActivityTimelineStepStatus.InProgress),
+    ).toBeInTheDocument();
+  });
+
   it("renders DoneIcon for Complete status", () => {
     const { container } = renderWithTheme(
       <ActivityTimelineDot status={ActivityTimelineStepStatus.Complete} />,
     );
-    // MUI DoneIcon renders an SVG
     expect(container.querySelector("svg")).toBeInTheDocument();
   });
 
@@ -168,9 +256,17 @@ describe("ActivityTimelineDot", () => {
         automaticProgress
       />,
     );
-    // Only CircularProgress SVGs, no DoneIcon
     const svgs = container.querySelectorAll("svg");
-    // 2 CircularProgress elements = 2 SVGs, no extra icon SVG
     expect(svgs).toHaveLength(2);
+  });
+
+  it("renders all status dots in dark mode without throwing", () => {
+    Object.values(ActivityTimelineStepStatus).forEach((status) => {
+      const { unmount } = renderWithTheme(
+        <ActivityTimelineDot status={status} />,
+        true,
+      );
+      unmount();
+    });
   });
 });

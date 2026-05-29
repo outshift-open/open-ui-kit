@@ -11,38 +11,45 @@ import {
   type BoxProps,
   type TypographyProps,
 } from "@mui/material";
-import type { ComponentType } from "react";
+import {
+  darkModeCardFloating,
+  lightModeCardFloating,
+} from "@/theme/style/color-palette";
+import type { ComponentPropsWithoutRef, ComponentType } from "react";
 
 export const StyledAnchorLinkMenuContainer = styled(Box)(() => ({
+  alignItems: "flex-start",
+  borderRadius: "2px",
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
   gap: "8px",
+  width: "224px",
 })) as ComponentType<BoxProps>;
 
 export const StyledAnchorLinkMenuFloatingContainer = styled(Box)(
   ({ theme }) => ({
+    alignItems: "flex-start",
+    backgroundColor: theme.palette.vars?.controlBackgroundDefault,
+    border: `2px solid ${theme.palette.vars?.controlBorderDefault}`,
+    borderRadius: "6px",
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
     gap: "8px",
     padding: "8px",
-    backgroundColor: theme.palette.vars?.controlBackgroundDefault,
-    border: `1px solid ${theme.palette.vars?.controlBorderDefault}`,
-    borderRadius: "8px",
+    width: "240px",
     boxShadow:
       theme.palette.mode === "dark"
-        ? "0px 4px 12px rgba(6, 34, 66, 0.7)"
-        : "0px 4px 12px rgba(200, 213, 245, 0.7)",
+        ? darkModeCardFloating
+        : lightModeCardFloating,
   }),
 ) as ComponentType<BoxProps>;
 
 export const StyledAnchorLinkMenuItemList = styled(Box)(({ theme }) => ({
+  alignItems: "flex-start",
+  borderLeft: `3px solid ${theme.palette.vars?.interactivePrimaryWeakDefault}`,
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
   width: "100%",
-  borderLeft: `3px solid ${theme.palette.vars?.controlBorderDefault}`,
 })) as ComponentType<BoxProps>;
 
 export const StyledAnchorLinkMenuTitle = styled(Typography)(({ theme }) => ({
@@ -52,17 +59,21 @@ export const StyledAnchorLinkMenuTitle = styled(Typography)(({ theme }) => ({
 export const StyledAnchorLinkMenuItem = styled(Box, {
   shouldForwardProp: (prop) => prop !== "subsection",
 })<{ subsection?: boolean }>(({ theme, subsection }) => ({
-  position: "relative",
+  alignItems: "center",
+  background: "transparent",
+  border: 0,
+  borderRadius: "2px",
+  boxSizing: "border-box",
+  cursor: "pointer",
   display: "flex",
   flexDirection: "row",
-  alignItems: "center",
-  padding: subsection ? "0px 12px 0px 28px" : "0px 12px",
+  font: "inherit",
   gap: "12px",
   height: "36px",
+  padding: subsection ? "0px 12px 0px 28px" : "0px 12px",
+  position: "relative",
+  textAlign: "left",
   width: "100%",
-  borderRadius: "2px",
-  cursor: "pointer",
-  boxSizing: "border-box",
   "&:hover": {
     backgroundColor: theme.palette.vars?.interactivePrimaryWeakDefault,
     "& .anchor-label": {
@@ -75,7 +86,17 @@ export const StyledAnchorLinkMenuItem = styled(Box, {
       backgroundColor: theme.palette.vars?.interactivePrimaryDefaultActive,
     },
   },
-})) as ComponentType<BoxProps & { subsection?: boolean }>;
+  "&:focus-visible": {
+    backgroundColor: theme.palette.vars?.interactivePrimaryWeakDefault,
+    outline: `2px solid ${theme.palette.vars?.interactivePrimaryDefaultActive}`,
+    outlineOffset: "2px",
+  },
+})) as ComponentType<
+  BoxProps &
+    ComponentPropsWithoutRef<"button"> & {
+      subsection?: boolean;
+    }
+>;
 
 export const StyledAnchorBar = styled(Box, {
   shouldForwardProp: (prop) => prop !== "selected",

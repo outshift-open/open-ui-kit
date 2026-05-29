@@ -11,9 +11,12 @@ import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { Accordion } from "../components/accordion";
 
-const renderAccordion = (props: React.ComponentProps<typeof Accordion>) =>
+const renderAccordion = (
+  props: React.ComponentProps<typeof Accordion>,
+  dark = false,
+) =>
   render(
-    <ThemeProvider>
+    <ThemeProvider defaultDarkMode={dark}>
       <Accordion {...props} />
     </ThemeProvider>,
   );
@@ -168,6 +171,101 @@ describe("Accordion", () => {
         children: <p>Content</p>,
       } as React.ComponentProps<typeof Accordion>);
       expect(screen.getByTestId("my-accordion")).toBeInTheDocument();
+    });
+
+    it("renders summary slots and action content", () => {
+      renderAccordion({
+        title: "Title",
+        subTitle: "Text",
+        titleSlot: <span>Title slot</span>,
+        subTitleSlot: <span>Subtitle slot</span>,
+        action: <span>Link</span>,
+        endSlot: <span>End slot</span>,
+        children: <p>Content</p>,
+      });
+
+      expect(screen.getByText("Title slot")).toBeInTheDocument();
+      expect(screen.getByText("Subtitle slot")).toBeInTheDocument();
+      expect(screen.getByText("Link")).toBeInTheDocument();
+      expect(screen.getByText("End slot")).toBeInTheDocument();
+    });
+
+    it("renders start and end icons for both summary values", () => {
+      renderAccordion({
+        title: "Title",
+        subTitle: "Text",
+        titleStartIcon: <span data-testid="title-start-icon" />,
+        titleEndIcon: <span data-testid="title-end-icon" />,
+        subTitleStartIcon: <span data-testid="subtitle-start-icon" />,
+        subTitleEndIcon: <span data-testid="subtitle-end-icon" />,
+        children: <p>Content</p>,
+      });
+
+      expect(screen.getByTestId("title-start-icon")).toBeInTheDocument();
+      expect(screen.getByTestId("title-end-icon")).toBeInTheDocument();
+      expect(screen.getByTestId("subtitle-start-icon")).toBeInTheDocument();
+      expect(screen.getByTestId("subtitle-end-icon")).toBeInTheDocument();
+    });
+  });
+
+  describe("light theme token coverage", () => {
+    it("renders large, medium, contained, disabled, and focused visual states in light mode", () => {
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          size: "large",
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          size: "medium",
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          contained: true,
+          disabled: true,
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+    });
+  });
+
+  describe("dark theme token coverage", () => {
+    it("renders large, medium, contained, disabled, and slot states in dark mode", () => {
+      expect(() =>
+        renderAccordion(
+          {
+            title: "Title",
+            subTitle: "Text",
+            size: "large",
+            titleSlot: <span>Title slot</span>,
+            action: <span>Link</span>,
+            children: <p>Content</p>,
+          },
+          true,
+        ),
+      ).not.toThrow();
+      expect(() =>
+        renderAccordion(
+          {
+            title: "Title",
+            subTitle: "Text",
+            size: "medium",
+            contained: true,
+            disabled: true,
+            children: <p>Content</p>,
+          },
+          true,
+        ),
+      ).not.toThrow();
     });
   });
 });

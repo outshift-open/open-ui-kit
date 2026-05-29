@@ -24,7 +24,6 @@ export * from "./nested-menu";
 export * from "./empty-state";
 export * from "./floating-button";
 export * from "./filters";
-
 export * from "./footer";
 export * from "./header";
 export * from "./icon";

@@ -4,16 +4,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TimelineDotProps as MuiTimelineDotProps } from "@mui/lab";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { setStepColor } from "../utils/utils";
-import { Box, CircularProgress, Theme, useTheme } from "@mui/material";
+import {
+  CircularProgress,
+  Theme,
+  useTheme,
+  type BoxProps,
+} from "@mui/material";
 import { ActivityTimelineStepStatus } from "../types";
+import { StyledTimelineDotRoot } from "./elements";
 
-export interface ActivityTimelineDotProps extends MuiTimelineDotProps {
+export interface ActivityTimelineDotProps extends BoxProps {
+  /** Uses percent-driven progress rendering instead of status icons. */
   automaticProgress?: boolean;
+  /** Progress percentage used by automatic timeline states. */
   percent?: number;
+  /** Visual state for the dot. */
   status?: ActivityTimelineStepStatus;
 }
 
@@ -64,25 +72,17 @@ export const ActivityTimelineDot = ({
   automaticProgress = false,
   percent,
   status = ActivityTimelineStepStatus.Inactive,
+  ...props
 }: ActivityTimelineDotProps) => {
   const theme = useTheme();
-  const effectiveStatus = percent
-    ? ActivityTimelineStepStatus.InProgress
-    : status;
+  const effectiveStatus =
+    percent !== undefined ? ActivityTimelineStepStatus.InProgress : status;
   const timelineDotStyle = setActivityTimelineDotStyle(effectiveStatus, theme);
   const isInProgress =
     effectiveStatus === ActivityTimelineStepStatus.InProgress;
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "2px 0",
-      }}
-    >
+    <StyledTimelineDotRoot aria-label={effectiveStatus} {...props}>
       <CircularProgress
         variant="determinate"
         size={18}
@@ -136,6 +136,6 @@ export const ActivityTimelineDot = ({
           }}
         />
       )}
-    </Box>
+    </StyledTimelineDotRoot>
   );
 };

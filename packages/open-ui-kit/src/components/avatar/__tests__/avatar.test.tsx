@@ -70,6 +70,9 @@ describe("Avatar", () => {
         <Avatar src="/img.png" alt="User" />,
       );
       expect(container.firstChild).toBeInTheDocument();
+      expect(
+        container.querySelector(".avatar-image-overlay"),
+      ).toBeInTheDocument();
     });
 
     it("renders without errors when no src", () => {
@@ -158,6 +161,7 @@ describe("AvatarGroup", () => {
         </AvatarGroup>,
       );
       expect(screen.getByText("WW")).toBeInTheDocument();
+      expect(screen.getByText("+3")).toBeInTheDocument();
     });
   });
 

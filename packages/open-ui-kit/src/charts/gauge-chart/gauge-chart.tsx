@@ -6,7 +6,6 @@
 
 import { Box, Typography, useTheme } from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-// import { barShadow, boxStyle, gaugeLabel, gaugeWrapper } from "./styles";
 import { ChartDataItem, ChartProps } from "../common/types";
 import styled from "@emotion/styled";
 

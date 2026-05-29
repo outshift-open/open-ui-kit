@@ -1,0 +1,43 @@
+{
+  "componentDescription": "",
+  "propDescriptions": {
+    "classes": { "description": "Override or extend the styles applied to the component." },
+    "delay": {
+      "description": "Adds a transition delay, to allow a series of SpeedDialActions to be animated."
+    },
+    "icon": { "description": "The icon to display in the SpeedDial Fab." },
+    "id": {
+      "description": "This prop is used to help implement the accessibility logic. If you don&#39;t provide this prop. It falls back to a randomly generated id."
+    },
+    "open": { "description": "If <code>true</code>, the component is shown." },
+    "slotProps": { "description": "The props used for each slot inside." },
+    "slots": { "description": "The components used for each slot inside." },
+    "sx": {
+      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
+    }
+  },
+  "classDescriptions": {
+    "fabClosed": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the Fab component",
+      "conditions": "<code>open={false}</code>"
+    },
+    "staticTooltipClosed": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the root element",
+      "conditions": "<code>tooltipOpen={true}</code> and <code>open={false}</code>"
+    },
+    "tooltipPlacementLeft": {
+      "description": "Styles applied to the root element if <code>tooltipOpen={true}</code> and `tooltipPlacement=&quot;left&quot;``"
+    },
+    "tooltipPlacementRight": {
+      "description": "Styles applied to the root element if <code>tooltipOpen={true}</code> and `tooltipPlacement=&quot;right&quot;``"
+    }
+  },
+  "slotDescriptions": {
+    "fab": "The component that renders the fab.",
+    "staticTooltip": "The component that renders the static tooltip.",
+    "staticTooltipLabel": "The component that renders the static tooltip label.",
+    "tooltip": "The component that renders the tooltip."
+  }
+}

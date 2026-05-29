@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1001,
+    "title": "Open UI Kit Core docs moved",
+    "text": "Open UI Kit Core docs now live under <a style=\"color: inherit;\" href=\"/open-ui-kit-core/\">/open-ui-kit-core</a>, with old docs routes redirected here.",
+    "date": "2026-05-27"
+  },
+  {
+    "id": 1002,
+    "title": "Focused docs navigation",
+    "text": "The sidebar has been trimmed to getting started, component docs, and Storybook while the component pages are reviewed.",
+    "date": "2026-05-27"
+  }
+]

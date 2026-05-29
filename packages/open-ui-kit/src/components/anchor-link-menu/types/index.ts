@@ -5,7 +5,10 @@
  */
 
 export interface AnchorLinkMenuItem {
+  /** Stable id passed to `selectedId` and `onSelect`. */
   id: string;
+  /** Visible anchor label. */
   label: string;
+  /** Indents the item as a child section. */
   subsection?: boolean;
 }

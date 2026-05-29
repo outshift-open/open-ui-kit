@@ -12,6 +12,8 @@ import {
   styled,
   Box,
 } from "@mui/material";
+import type { BoxProps } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import type { ComponentType } from "react";
 
 export const StyledAvatar = styled(MuiAvatar, {
@@ -39,6 +41,12 @@ export const StyledAvatar = styled(MuiAvatar, {
       color: theme.palette.vars.brandIconPrimaryDefault,
     },
 
+    "& .avatar-image": {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+    },
+
     "&:hover": {
       backgroundColor: hasImage
         ? "transparent"
@@ -62,13 +70,10 @@ export const AvatarImageOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   inset: 0,
   opacity: 0,
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(0, 20, 43, 0.1)"
-      : "rgba(0, 81, 175, 0.1)",
+  backgroundColor: alpha(theme.palette.vars.brandIconPrimaryStrong, 0.1),
   pointerEvents: "none",
   transition: "opacity 0.2s",
-})) as ComponentType<{ className?: string }>;
+})) as ComponentType<BoxProps>;
 
 export const StyledAvatarGroup = styled(MuiAvatarGroup, {
   shouldForwardProp: (prop) => prop !== "avatarSize",
@@ -77,13 +82,19 @@ export const StyledAvatarGroup = styled(MuiAvatarGroup, {
     width: avatarSize === "L" ? 40 : 32,
     height: avatarSize === "L" ? 40 : 32,
     borderRadius: "50px",
+    backgroundColor: theme.palette.vars.brandBackgroundPrimaryWeak,
     border: `2px solid ${
       theme.palette.mode === "dark"
         ? theme.palette.vars.baseBorderWeak
         : theme.palette.vars.baseBackgroundWeak
     }`,
     boxSizing: "border-box",
-    marginLeft: -16,
+    color: theme.palette.vars.brandIconPrimaryDefault,
+    fontSize: avatarSize === "L" ? "16px" : "12px",
+    fontWeight: 600,
+    letterSpacing: avatarSize === "L" ? "0.15px" : undefined,
+    lineHeight: "133%",
+    marginLeft: avatarSize === "L" ? -16 : -8,
     "&:first-of-type": {
       marginLeft: 0,
     },

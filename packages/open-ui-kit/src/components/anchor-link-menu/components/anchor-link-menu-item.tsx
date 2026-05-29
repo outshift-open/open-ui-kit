@@ -11,9 +11,13 @@ import {
 } from "./elements";
 
 export interface AnchorLinkMenuItemProps {
+  /** Visible anchor label. */
   label: string;
+  /** Whether this item should show the active indicator and selected label color. */
   selected?: boolean;
+  /** Indents the item as a child section. */
   subsection?: boolean;
+  /** Click handler for item selection. */
   onClick?: () => void;
 }
 
@@ -24,7 +28,13 @@ export const AnchorLinkMenuItemComponent = ({
   onClick,
 }: AnchorLinkMenuItemProps) => {
   return (
-    <StyledAnchorLinkMenuItem subsection={subsection} onClick={onClick}>
+    <StyledAnchorLinkMenuItem
+      component="button"
+      type="button"
+      aria-current={selected ? "location" : undefined}
+      subsection={subsection}
+      onClick={onClick}
+    >
       <StyledAnchorBar className="anchor-bar" selected={selected} />
       <StyledAnchorLabel
         className={selected ? "anchor-label-selected" : "anchor-label"}
