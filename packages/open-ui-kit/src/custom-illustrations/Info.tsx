@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
@@ -26,6 +16,36 @@ export const Info = (props: SvgIconProps) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <rect
+          opacity="0.3"
+          x="52.7144"
+          y="80.75"
+          width="27"
+          height="120"
+          rx="13.5"
+          transform="rotate(25 52.7144 80.75)"
+          fill="#9C4EEA"
+        />
+        <rect
+          opacity="0.3"
+          x="46.0356"
+          y="2"
+          width="27"
+          height="90"
+          rx="13.5"
+          transform="rotate(25 46.0356 2)"
+          fill="#9C4EEA"
+        />
+        <rect
+          opacity="0.3"
+          x="188.116"
+          y="119"
+          width="27"
+          height="48.1906"
+          rx="13.5"
+          transform="rotate(25 188.116 119)"
+          fill="#9C4EEA"
+        />
         <path
           d="M151 53.5H73C67.8283 53.5 62.8684 55.5545 59.2114 59.2114C55.5545 62.8684 53.5 67.8283 53.5 73V151C53.5 156.172 55.5545 161.132 59.2114 164.789C62.8684 168.446 67.8283 170.5 73 170.5H151C156.172 170.5 161.132 168.446 164.789 164.789C168.446 161.132 170.5 156.172 170.5 151V73C170.5 67.8283 168.446 62.8684 164.789 59.2114C161.132 55.5545 156.172 53.5 151 53.5Z"
           fill="url(#paint0_linear_23095_15669)"

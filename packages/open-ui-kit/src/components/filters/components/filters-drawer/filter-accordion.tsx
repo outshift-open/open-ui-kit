@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useEffect, useState, SyntheticEvent, useCallback } from "react";
@@ -19,14 +9,15 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Checkbox,
   List,
   Skeleton,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
+import { Checkbox } from "@/components/checkbox";
 
-import { styles } from "./styles";
+import { getStyles } from "./styles";
 import { FilterOptionData, FilterData } from "../../types/types";
 import {
   getFilteredSubFilters,
@@ -54,6 +45,8 @@ export const FilterAccordion = ({
   level = 0,
   isSelectAllEnabledOnParent = false,
 }: FilterProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {

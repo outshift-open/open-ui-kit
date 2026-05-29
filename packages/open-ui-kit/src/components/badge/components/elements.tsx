@@ -1,21 +1,38 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Badge as MuiBadge, styled, Theme } from "@mui/material";
+import {
+  Badge as MuiBadge,
+  styled,
+  Theme,
+  type BadgeProps,
+} from "@mui/material";
+import type { ComponentType } from "react";
 import { BadgeType } from "../types";
+
+const getLightTextColor = (theme: Theme, type?: BadgeType) => {
+  switch (type) {
+    case "excellent":
+      return theme.palette.vars.excellentBackgroundWeak;
+    case "neutral":
+      return theme.palette.vars.neutralBackgroundWeak;
+    case "error":
+      return theme.palette.vars.negativeBackgroundWeak;
+    case "info":
+      return theme.palette.vars.infoBackgroundWeak;
+    case "success":
+      return theme.palette.vars.successBackgroundWeak;
+    case "inactive":
+      return theme.palette.vars.inactiveBackgroundWeak;
+    case "severe":
+      return theme.palette.vars.severeWarningBackgroundWeak;
+    default:
+      return theme.palette.vars.baseTextInverse;
+  }
+};
 
 const getBadgeColor = (
   theme: Theme,
@@ -24,17 +41,19 @@ const getBadgeColor = (
 ) => {
   if (isNotification) {
     return "inherit";
-  } else if (type === "default" || type === "warning" || type === "moderate") {
-    return theme.palette.vars.baseTextStrong;
-  } else {
-    return theme.palette.vars.baseTextInverse;
   }
+  if (type === "default" || type === "warning" || type === "moderate") {
+    return theme.palette.vars.baseTextStrong;
+  }
+  return theme.palette.mode === "dark"
+    ? theme.palette.vars.baseTextStrong
+    : getLightTextColor(theme, type);
 };
 
 const getBadgeBackgroundColor = (theme: Theme, type?: BadgeType) => {
   switch (type) {
     case "default":
-      return "none";
+      return theme.palette.vars.controlBackgroundMedium;
     case "excellent":
       return theme.palette.vars.excellentBackgroundDefault;
     case "neutral":
@@ -59,19 +78,24 @@ const getBadgeBackgroundColor = (theme: Theme, type?: BadgeType) => {
 };
 
 export const StyledBadge = styled(MuiBadge, {
-  shouldForwardProp: (prop) => prop !== "type",
+  shouldForwardProp: (prop) => prop !== "type" && prop !== "isNotification",
 })<{ type?: BadgeType; isNotification?: boolean }>(
   ({ theme, type, isNotification = false }) => ({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     color: getBadgeColor(theme, type, isNotification),
     backgroundColor: getBadgeBackgroundColor(theme, type),
-    width: "19px",
+    minWidth: "19px",
     height: "16px",
     borderRadius: "64px",
     paddingLeft: "6.5px",
     paddingRight: "6.5px",
     ...(isNotification && {
-      backgroundColor: "none",
+      backgroundColor: "transparent",
       padding: 0,
+      minWidth: "18px",
       width: "18px",
       height: "18px",
       "& > svg": {
@@ -81,13 +105,14 @@ export const StyledBadge = styled(MuiBadge, {
       "& .MuiBadge-badge": {
         right: 0,
         top: 0,
-        width: "19px",
+        minWidth: "19px",
         height: "16px",
         paddingLeft: "6.5px",
         paddingRight: "6.5px",
+        borderRadius: "64px",
         backgroundColor: getBadgeBackgroundColor(theme, type),
         color: getBadgeColor(theme, type, false),
       },
     }),
   }),
-);
+) as ComponentType<BadgeProps & { type?: BadgeType; isNotification?: boolean }>;

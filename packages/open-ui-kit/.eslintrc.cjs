@@ -11,7 +11,7 @@ module.exports = {
     },
   },
   parserOptions: {
-    project: 'tsconfig.json',
+    project: "./tsconfig.eslint.json",
     tsconfigRootDir: __dirname,
     sourceType: 'module'
   },
@@ -21,7 +21,8 @@ module.exports = {
     'jest.config.js',
     'scripts/**',
     'dist/**',
-    'rollup.config.js'
+    'rollup.config.js',
+    'rollup.config.mjs'
   ],
   overrides: [
     {

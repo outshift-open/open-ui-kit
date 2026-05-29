@@ -62,8 +62,10 @@ _**Note**: In some cases, the connection while downloading can halt due to a net
 
 [Storybook](https://storybook.js.org/) is used as the documentation tool for this project. To build and view our documentation tool (in watch mode), please follow the steps below:
 
-- `yarn run build`
-- `yarn run storybook`
+- `yarn build`
+- `yarn workspace @open-ui-kit/core storybook`
+
+The hosted Storybook is available at https://main--68cc22452afe30d90e4ca977.chromatic.com.
 
 ## Working with the Package
 
@@ -81,9 +83,8 @@ This is a monorepo that contains the `@open-ui-kit/core` package. When contribut
 yarn build
 
 # Build and test the core package specifically
-cd packages/open-ui-kit
-yarn build
-yarn test
+yarn workspace @open-ui-kit/core build
+yarn workspace @open-ui-kit/core test
 ```
 
 ## Requirements

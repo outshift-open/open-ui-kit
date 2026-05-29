@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -27,6 +17,7 @@ export const DateTimePicker = ({
   ...props
 }: DateTimePickerProps) => {
   const theme = useTheme();
+  const sharedSlotProps = getSharedSlotPropsDateTimePicker(theme);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -35,28 +26,22 @@ export const DateTimePicker = ({
         format="MM/DD/YYYY HH:mm"
         {...props}
         slotProps={{
-          ...getSharedSlotPropsDateTimePicker(theme),
+          ...sharedSlotProps,
+          ...props.slotProps,
           textField: {
             placeholder: label,
             variant: "standard",
             size: "small",
             sx: {
               "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-              "& .MuiInputAdornment-root": {
-                paddingRight: "8px",
-              },
+              "& .MuiInputAdornment-root": { paddingRight: "8px" },
               ...textFieldStyles,
             },
+            ...props.slotProps?.textField,
           },
           popper: {
-            modifiers: [
-              {
-                name: "offset",
-                options: {
-                  offset: [0, 12],
-                },
-              },
-            ],
+            modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
+            ...props.slotProps?.popper,
           },
         }}
       />

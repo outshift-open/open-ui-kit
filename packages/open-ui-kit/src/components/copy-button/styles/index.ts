@@ -1,52 +1,63 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { Theme } from "@mui/material";
-import { CopyButtonPosition } from "../components/copy-button";
+import { CopyButtonPosition, CopyButtonSize } from "../components/copy-button";
+
+const sizeTokens: Record<
+  CopyButtonSize,
+  { box: string; icon: string; padding: string; hasBorder: boolean }
+> = {
+  small: { box: "16px", icon: "14px", padding: "1px", hasBorder: false },
+  medium: { box: "20px", icon: "16px", padding: "2px", hasBorder: false },
+  large: { box: "32px", icon: "20px", padding: "4px", hasBorder: true },
+};
 
 export interface CopyButtonStylesProps {
   position?: CopyButtonPosition;
+  size?: CopyButtonSize;
   theme?: Theme;
   top?: string;
-  bottom?: string;
   left?: string;
   right?: string;
+  disableMargin?: boolean;
 }
 
 export const styles = ({
   position,
+  size = "large",
   theme,
-  top,
+  top = "16px",
   left,
   right,
-}: CopyButtonStylesProps) => ({
-  border: `1px solid ${theme?.palette.vars.controlBorderDefault}`,
-  borderRadius: "4px",
-  padding: "4px",
-  width: "32px",
-  height: "32px",
-  ...(position && { position: "absolute", top: top ?? "16px" }),
-  ...(position === "left" && { left: left ?? "16px" }),
-  ...(position === "right" && { right: right ?? "16px" }),
-  "&:hover": {
-    border: `1px solid ${theme?.palette.vars.controlBorderDefault}`,
-    backgroundColor: "transparent",
-  },
-  "&.MuiSvgIcon-root, svg": {
-    width: "20px",
-    height: "20px",
-  },
-});
+  disableMargin = false,
+}: CopyButtonStylesProps) => {
+  const t = sizeTokens[size];
+  return {
+    borderRadius: "4px",
+    padding: t.padding,
+    margin: disableMargin ? 0 : "16px",
+    width: t.box,
+    height: t.box,
+    minWidth: t.box,
+    border: t.hasBorder
+      ? `1px solid ${theme?.palette.vars.controlBorderDefault}`
+      : "none",
+    ...(position && { position: "absolute", top }),
+    ...(position === "left" && { left: left ?? "16px" }),
+    ...(position === "right" && { right: right ?? "16px" }),
+    "&:hover": {
+      border: t.hasBorder
+        ? `1px solid ${theme?.palette.vars.controlBorderDefault}`
+        : "none",
+      backgroundColor: theme?.palette.vars.interactiveSecondaryWeakDefault,
+    },
+    "&.MuiSvgIcon-root, svg": {
+      width: t.icon,
+      height: t.icon,
+    },
+  };
+};

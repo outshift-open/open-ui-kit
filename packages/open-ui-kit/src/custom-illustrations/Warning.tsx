@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
@@ -26,6 +16,36 @@ export const Warning = (props: SvgIconProps) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <rect
+          opacity="0.3"
+          x="69.9644"
+          y="11"
+          width="27"
+          height="120"
+          rx="13.5"
+          transform="rotate(25 69.9644 11)"
+          fill="#FBAB2C"
+        />
+        <rect
+          opacity="0.3"
+          x="195.285"
+          y="65.75"
+          width="27"
+          height="90"
+          rx="13.5"
+          transform="rotate(25 195.285 65.75)"
+          fill="#FBAB2C"
+        />
+        <rect
+          opacity="0.3"
+          x="28.3662"
+          y="147.5"
+          width="27"
+          height="48.1906"
+          rx="13.5"
+          transform="rotate(25 28.3662 147.5)"
+          fill="#FBAB2C"
+        />
         <path
           d="M178.242 148.562L124.678 55.9371C123.396 53.7094 121.549 51.859 119.324 50.5724C117.098 49.2858 114.573 48.6083 112.003 48.6083C109.433 48.6083 106.908 49.2858 104.682 50.5724C102.457 51.859 100.61 53.7094 99.3281 55.9371L45.764 148.562C44.4628 150.778 43.7713 153.3 43.7597 155.87C43.7481 158.44 44.4168 160.967 45.6979 163.195C46.979 165.423 48.827 167.273 51.054 168.556C53.2811 169.839 55.808 170.509 58.3781 170.5H165.628C168.198 170.509 170.725 169.839 172.952 168.556C175.179 167.273 177.027 165.423 178.308 163.195C179.589 160.967 180.258 158.44 180.246 155.87C180.235 153.3 179.543 150.778 178.242 148.562Z"
           fill="url(#paint0_linear_23096_18852)"

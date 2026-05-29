@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Stack, Typography } from "@mui/material";
 import {
   OverflowTooltip,
   OverflowTooltipProps,
 } from "../components/overflow-tooltip";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof OverflowTooltip> = {
   title: "Components/OverflowTooltip",

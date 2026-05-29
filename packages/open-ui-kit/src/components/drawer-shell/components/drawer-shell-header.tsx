@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { CSSProperties } from "react";
@@ -43,15 +33,14 @@ import {
   ArrowForwardIOS,
   CloseLarge,
   OpenInNewTab,
+  StarOutline,
 } from "@/custom-icons";
-import {
-  CopyButton,
-  FavoriteButton,
-  OverflowTooltip,
-  SeverityBar,
-  Tooltip,
-  TooltipSize,
-} from "@/components";
+import { Star } from "@mui/icons-material";
+import { CopyButton } from "@/components/copy-button";
+
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { SeverityBar } from "@/components/severity-bar";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
 
 export interface DrawerShellHeaderProps {
   titleText?: string;
@@ -179,7 +168,26 @@ export const DrawerShellHeader = ({
         <Stack sx={drawerActionButtonsStyle}>
           {actionButtons}
           {!hideFavorite && (
-            <FavoriteButton isChecked={isFavorite} onClick={onFavorite} />
+            <Tooltip
+              placement="top"
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              size={TooltipSize.Large}
+            >
+              <span>
+                <Button
+                  disableRipple
+                  variant="secondary"
+                  onClick={onFavorite}
+                  sx={{ padding: "6px", minWidth: "unset" }}
+                >
+                  {isFavorite ? (
+                    <Star sx={{ height: "20px", width: "20px" }} />
+                  ) : (
+                    <StarOutline sx={{ height: "20px", width: "20px" }} />
+                  )}
+                </Button>
+              </span>
+            </Tooltip>
           )}
           {!hideCopyBtn && (
             <CopyButton text={copyURL} onCopy={() => onCopyLink} />

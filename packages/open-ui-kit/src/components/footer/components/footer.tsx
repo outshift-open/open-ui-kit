@@ -1,23 +1,13 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography } from "@mui/material";
 import React from "react";
 import { styles } from "../styles";
-import { Link, LinkProps } from "@/components";
+import { Link, LinkProps } from "@/components/link";
 import { GeneralSize } from "@/common";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -26,6 +16,7 @@ export interface FooterProps {
   productName: string;
   productLink?: string;
   links?: LinkProps[];
+  sx?: SxProps<Theme>;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -33,9 +24,13 @@ export const Footer: React.FC<FooterProps> = ({
   productNode,
   productLink = "#",
   productName,
+  sx,
 }) => {
   return (
-    <Box component="footer" sx={styles.container}>
+    <Box
+      component="footer"
+      sx={[styles.container, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+    >
       {productNode ? (
         productNode
       ) : (

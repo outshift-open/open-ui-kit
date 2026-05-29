@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { List, Stack, ListItemProps, ListItem } from "@mui/material";
 
 const meta: Meta<typeof ListItem> = {

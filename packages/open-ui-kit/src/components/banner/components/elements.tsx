@@ -1,20 +1,11 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Alert, styled, Theme } from "@mui/material";
+import { Alert, styled, Theme, type AlertProps } from "@mui/material";
+import type { ComponentType } from "react";
 import { StatusBanner } from "../types";
 import {
   CheckCircleOutline,
@@ -23,16 +14,6 @@ import {
   WarningAmber,
 } from "@mui/icons-material";
 
-const customTextStyle = {
-  margin: 0,
-  padding: 0,
-};
-
-const customIconStyle = {
-  margin: 0,
-  padding: 0,
-};
-
 const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
   switch (status) {
     case "negative":
@@ -40,11 +21,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.negativeBorderDefault}`,
         background: theme.palette.vars.negativeBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.negativeTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.negativeIconDefault,
         },
       };
@@ -53,11 +36,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.severeWarningBorderDefault}`,
         background: theme.palette.vars.severeWarningBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.severeWarningTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.severeWarningIconDefault,
         },
       };
@@ -66,11 +51,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.successBorderDefault}`,
         background: theme.palette.vars.successBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.successTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.successIconDefault,
         },
       };
@@ -79,11 +66,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
         background: theme.palette.vars.neutralBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralIconDefault,
         },
       };
@@ -92,11 +81,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.excellentBorderDefault}`,
         background: theme.palette.vars.excellentBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.excellentTextDefault,
+          margin: 0,
+          padding: 0,
+          color: theme.palette.vars.baseTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.excellentIconDefault,
         },
       };
@@ -105,11 +96,13 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
         border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
         background: theme.palette.vars.neutralBackgroundWeak,
         "& .MuiAlert-message": {
-          ...customTextStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralTextDefault,
         },
         "& .MuiAlert-icon": {
-          ...customIconStyle,
+          margin: 0,
+          padding: 0,
           color: theme.palette.vars.neutralIconDefault,
         },
       };
@@ -118,14 +111,8 @@ const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
 
 export const StyledBanner = styled(Alert, {
   shouldForwardProp: (prop) => prop !== "status",
-  name: "StyledBanner",
-  slot: "Root",
-  overridesResolver: (props, styles) => [
-    styles.root,
-    props.status && styles.status,
-  ],
 })<{ status?: StatusBanner }>(({ theme, status }) => ({
-  padding: "8px 12px",
+  padding: "8px 4px 8px 12px",
   height: "40px",
   display: "flex",
   justifyContent: "center",
@@ -137,7 +124,7 @@ export const StyledBanner = styled(Alert, {
     padding: 0,
   },
   ...(status && getStyleByStatus(status, theme)),
-}));
+})) as ComponentType<AlertProps & { status?: StatusBanner }>;
 
 export const IconBanner = ({ status }: { status?: StatusBanner }) => {
   switch (status) {

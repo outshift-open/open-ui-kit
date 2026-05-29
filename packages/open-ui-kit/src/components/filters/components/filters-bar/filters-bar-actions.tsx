@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import {
@@ -20,11 +10,11 @@ import {
   StarOutline,
   StarOutlined,
 } from "@mui/icons-material";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
-import { SearchField } from "@/components";
+import { getStyles } from "./styles";
+import { Button } from "@/components/button";
+import { SearchField } from "@/components/search-field";
 
 export interface FiltersBarActionsProps {
   onFiltersButtonClick?: () => void;
@@ -59,6 +49,8 @@ export const FiltersBarActions = ({
   rightSideComponent,
   isFiltersButtonVisible = true,
 }: FiltersBarActionsProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [search, setSearch] = useState(initialSearchValue);
 
   const onSearchSubmit = (value = search) => {
@@ -85,12 +77,11 @@ export const FiltersBarActions = ({
           Filters
           <Box width="8px" />
           <Box
-            sx={{
-              color:
-                activeFiltersCount && activeFiltersCount > 0
-                  ? "inherit"
-                  : PA_Colors.grey[200],
-            }}
+            sx={
+              activeFiltersCount && activeFiltersCount > 0
+                ? undefined
+                : styles.inactiveCount
+            }
           >
             {activeFiltersCount}
           </Box>

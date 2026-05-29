@@ -1,25 +1,13 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import {
-  Breadcrumbs as MuiBreadcrumbs,
   BreadcrumbsProps as MUIBreadcrumbsProps,
   useTheme,
 } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { GeneralSize, IconPosition } from "@/common";
 import {
   Link,
@@ -27,8 +15,9 @@ import {
   LinkColorStatus,
   LinkProps,
   LinkType,
-} from "@/components";
+} from "@/components/link";
 import { getLinkColors } from "@/components/link/helpers";
+import { BreadcrumbSeparator, StyledBreadcrumbs } from "./elements";
 
 const MAX_NUMBER_OF_VISIBLE_BREADCRUMBS = 4;
 
@@ -60,17 +49,9 @@ export const Breadcrumbs = ({
   const theme = useTheme();
 
   return (
-    <MuiBreadcrumbs
+    <StyledBreadcrumbs
       aria-label="breadcrumb"
-      separator={
-        <ChevronRightIcon
-          color={color}
-          sx={{
-            width: "20px",
-            height: "20px",
-          }}
-        />
-      }
+      separator={<BreadcrumbSeparator />}
       slotProps={{
         collapsedIcon: {
           sx: {
@@ -79,24 +60,7 @@ export const Breadcrumbs = ({
           },
         },
       }}
-      sx={{
-        lineHeight: "20px",
-        marginBottom: "16px",
-        "& .MuiBreadcrumbs-separator": { marginX: "4px" },
-        "& .MuiButtonBase-root": {
-          backgroundColor: "transparent",
-          margin: 0,
-          width: "20px",
-          height: "20px",
-        },
-        "& .MuiButtonBase-root:hover": { backgroundColor: "initial" },
-        "& .MuiBreadcrumbs-li, & .MuiBreadcrumbs-li > a": {
-          verticalAlign: "middle",
-          display: "flex",
-          alignItems: "center",
-        },
-        ...sx,
-      }}
+      sx={sx}
       maxItems={maximumNumberOfVisibleBreadcrumbs}
     >
       {items.map((item, idx) => {
@@ -139,6 +103,6 @@ export const Breadcrumbs = ({
           </Link>
         );
       })}
-    </MuiBreadcrumbs>
+    </StyledBreadcrumbs>
   );
 };

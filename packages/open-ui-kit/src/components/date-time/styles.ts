@@ -1,23 +1,23 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const getSharedStyle = (theme: Theme) => {
-  return {
+export type DateTimePickerSharedSlotProps = {
+  leftArrowIcon: { sx: SxProps<Theme> };
+  rightArrowIcon: { sx: SxProps<Theme> };
+  calendarHeader: { sx: SxProps<Theme> };
+  switchViewIcon: { sx: SxProps<Theme> };
+  day: { sx: SxProps<Theme> };
+  actionBar: { sx: SxProps<Theme> };
+  desktopPaper: { sx: SxProps<Theme> };
+};
+
+export const getSharedStyle = (theme: Theme) =>
+  ({
     border: `2px solid ${theme.palette.vars.controlBorderActive}`,
     padding: "0 0 16px 0",
 
@@ -73,11 +73,10 @@ export const getSharedStyle = (theme: Theme) => {
       {
         backgroundColor: `${theme.palette.vars.baseBackgroundHover} !important`,
       },
-  };
-};
+  }) as SxProps<Theme>;
 
-export const getStaticPickerToolbarSlotProp = (theme: Theme) => {
-  return {
+export const getStaticPickerToolbarSlotProp = (theme: Theme) =>
+  ({
     "& .MuiDateTimePickerToolbar-timeDigitsContainer": {
       display: "flex",
       alignItems: "center",
@@ -85,11 +84,10 @@ export const getStaticPickerToolbarSlotProp = (theme: Theme) => {
     "& .MuiTypography-root:not([data-selected])": {
       color: theme.palette.vars.interactiveTextInDefault,
     },
-  };
-};
+  }) as SxProps<Theme>;
 
-export const getSharedSlotPropsDateTimePicker = (theme: Theme) => {
-  return {
+export const getSharedSlotPropsDateTimePicker = (theme: Theme) =>
+  ({
     leftArrowIcon: {
       sx: {
         color: theme.palette.vars.interactiveSecondaryDefaultDefault,
@@ -139,8 +137,7 @@ export const getSharedSlotPropsDateTimePicker = (theme: Theme) => {
     desktopPaper: {
       sx: getSharedStyle(theme),
     },
-  };
-};
+  }) as DateTimePickerSharedSlotProps;
 
 export const getDateRangePickerStyles = (theme: Theme) => {
   const weekDayStyle = {
@@ -209,5 +206,5 @@ export const getDateRangePickerStyles = (theme: Theme) => {
     selectedDayStyle,
     insideSelectedRangeDayContainerStyle,
     popover,
-  };
+  } as Record<string, SxProps<Theme>>;
 };

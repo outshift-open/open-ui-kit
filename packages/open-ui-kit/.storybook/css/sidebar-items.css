@@ -1,39 +1,126 @@
 .sidebar-item {
-  --sidebar-item-icon-color: #187adc;
-  --sidebar-item-border-left-color: #0051af;
-  --sidebar-item-accent-icon-color: #0051af;
+  --sidebar-item-icon-color: var(--ouk-blue-300);
+  --sidebar-item-border-left-color: var(--ouk-blue-500);
+  --sidebar-item-accent-icon-color: var(--ouk-blue-500);
   align-items: center !important;
-}
-
-.sidebar-item svg {
-  color: var(--sidebar-item-icon-color) !important;
+  margin: 1px 0 !important;
+  border-radius: 6px !important;
 }
 
 .sidebar-item a,
 .sidebar-item button {
-  align-items: end;
-
-  font-size: 12px;
-  color: #3c4551 !important;
+  min-height: 30px;
+  align-items: center;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  color: var(--ouk-text-muted) !important;
   text-decoration: none !important;
+  border: 0 !important;
+  border-left: 3px transparent solid !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
 
-  border-left: 4px transparent solid;
+.sidebar-item a span,
+.sidebar-item button span {
+  font-size: 12px !important;
+  line-height: 18px !important;
+}
+
+.sidebar-item a:focus,
+.sidebar-item a:focus-visible,
+.sidebar-item button:focus,
+.sidebar-item button:focus-visible {
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.sidebar-item a:hover,
+.sidebar-item button:hover {
+  background: rgba(0, 81, 175, 0.08) !important;
+  color: var(--ouk-blue-500) !important;
+}
+
+.sidebar-item a svg,
+.sidebar-item button svg {
+  color: var(--ouk-text-muted) !important;
+}
+
+.sidebar-item a:hover svg,
+.sidebar-item button:hover svg {
+  color: var(--ouk-blue-500) !important;
 }
 
 .sidebar-item[data-selected="true"] a {
-  color: #3c4551 !important;
-  border-left-color: var(--sidebar-item-border-left-color);
-  border-radius: 4px;
+  color: var(--ouk-blue-500) !important;
+  background: var(--ouk-blue-50) !important;
+  border-left-color: var(--sidebar-item-border-left-color) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  font-weight: 700 !important;
+}
+
+.sidebar-item[data-selected="true"] a svg,
+.sidebar-item[data-selected="true"] button svg {
+  color: var(--ouk-blue-500) !important;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+.sidebar-item[data-selected="true"] button:not(:first-child),
+.sidebar-item[data-selected="true"] [role="button"]:not(:first-child),
+.sidebar-item[data-selected="true"] [aria-label*="more" i],
+.sidebar-item[data-selected="true"] [title*="more" i],
+.sidebar-item[data-selected="true"] [data-action] {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  margin-right: 4px !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: var(--ouk-blue-500) !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.sidebar-item[data-selected="true"] button:not(:first-child):hover,
+.sidebar-item[data-selected="true"] [role="button"]:not(:first-child):hover,
+.sidebar-item[data-selected="true"] [aria-label*="more" i]:hover,
+.sidebar-item[data-selected="true"] [title*="more" i]:hover,
+.sidebar-item[data-selected="true"] [data-action]:hover {
+  background: rgba(0, 81, 175, 0.1) !important;
+}
+
+.sidebar-item[data-selected="true"] button:not(:first-child) svg,
+.sidebar-item[data-selected="true"] [role="button"]:not(:first-child) svg,
+.sidebar-item[data-selected="true"] [aria-label*="more" i] svg,
+.sidebar-item[data-selected="true"] [title*="more" i] svg,
+.sidebar-item[data-selected="true"] [data-action] svg {
+  color: var(--ouk-blue-500) !important;
 }
 
 .sidebar-item[data-selected="true"] {
   background: none !important;
+  box-shadow: none !important;
 }
 
-.sidebar-item a svg {
-  color: #3c4551 !important;
+.sidebar-item[data-selected="true"] a::before,
+.sidebar-item[data-selected="true"] a::after,
+.sidebar-item[data-selected="true"] button::before,
+.sidebar-item[data-selected="true"] button::after {
+  box-shadow: none !important;
+  outline: 0 !important;
 }
 
-.sidebar-item[data-selected="true"] a svg {
-  color: var(--sidebar-item-accent-icon-color) !important;
+.sidebar-item[data-selected="true"] a:focus-visible,
+.sidebar-item[data-selected="true"] button:focus-visible {
+  outline: 0 !important;
 }

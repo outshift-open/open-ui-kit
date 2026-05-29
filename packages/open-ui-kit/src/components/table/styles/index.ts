@@ -1,20 +1,10 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { isOuterPinnedColumn } from "../utils/helpers";
 import {
   MRT_Column,
@@ -120,7 +110,7 @@ const commonTableStyles = (theme: Theme) => ({
   tableBodyStyle: () => {
     const notSelectedOrPinned = `tr:not([data-selected="true"]):not([column-pinned="true"]):not([data-pinned="true"]):not(.Mui-TableBodyCell-DetailPanel)`;
 
-    const styles: Record<string, { backgroundColor: string }> = {
+    return {
       // Row backgroundColor when it is hovered, not selected, and not pinned.
       [`& ${notSelectedOrPinned}:hover > td`]: {
         backgroundColor: theme.palette.vars.controlBackgroundMedium,
@@ -130,45 +120,60 @@ const commonTableStyles = (theme: Theme) => ({
         {
           backgroundColor: theme.palette.vars.controlBackgroundWeak,
         },
-    };
-
-    return styles;
+    } as SxProps<Theme>;
   },
 });
 
-export const tableComfortStyles = (theme: Theme) => ({
+/** Public shape for MRT style helpers (`sx` uses `SxProps<Theme>`, not Emotion `CSSObject`). */
+export type TableDensityStyles = {
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) => SxProps<Theme>;
+  bodyCellStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) => SxProps<Theme>;
+  tableBottomToolbarStyle: SxProps<Theme>;
+  checkBoxStyle: SxProps<Theme>;
+  expandButtonStyle: SxProps<Theme>;
+  tableDetailsStyle: SxProps<Theme>;
+  tablePaperStyle: SxProps<Theme>;
+  tableContainerStyle: SxProps<Theme>;
+  tableBodyStyle: () => SxProps<Theme>;
+};
+
+export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
+  columnHeaderStyle: <TData extends MRT_RowData>(
+    column: MRT_Column<TData>,
+    table: MRT_TableInstance<TData>,
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle1,
       fontWeight: 600,
       height: `${tableComfortCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   bodyCellStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...theme.typography.body1,
       height: `${tableComfortCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   ...commonTableStyles(theme),
 });
 
-export const tableCompactStyles = (theme: Theme) => ({
+export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
   ...commonTableStyles(theme),
   columnHeaderStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle2,
@@ -176,13 +181,12 @@ export const tableCompactStyles = (theme: Theme) => ({
       paddingTop: "6px",
       paddingBottom: "6px",
       height: `${tableCompactCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
   bodyCellStyle: <TData extends MRT_RowData>(
     column: MRT_Column<TData>,
     table: MRT_TableInstance<TData>,
-  ) => {
-    return {
+  ) =>
+    ({
       ...commonCellStyles(column, table, theme),
       ...theme.typography.body2,
       "&:has(.MuiCollapse-root)": {
@@ -191,6 +195,5 @@ export const tableCompactStyles = (theme: Theme) => ({
       alignItems: "center",
       alignSelf: "stretch",
       height: `${tableCompactCellHeight}px`,
-    };
-  },
+    }) as SxProps<Theme>,
 });

@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
@@ -27,24 +17,24 @@ export const Positive = (props: SvgIconProps) => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
-          opacity="0.2"
+          opacity="0.3"
           x="69.9644"
           y="11"
           width="27"
           height="120"
           rx="13.5"
           transform="rotate(25 69.9644 11)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <rect
-          opacity="0.5"
+          opacity="0.3"
           x="195.285"
           y="65.75"
           width="27"
           height="90"
           rx="13.5"
           transform="rotate(25 195.285 65.75)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <rect
           opacity="0.3"
@@ -54,7 +44,7 @@ export const Positive = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 28.3662 147.5)"
-          fill="#E0F7F1"
+          fill="#00B285"
         />
         <circle
           cx="112"

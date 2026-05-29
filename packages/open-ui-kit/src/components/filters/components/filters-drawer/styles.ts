@@ -1,21 +1,10 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { PA_Colors } from "@/theme/dark/dark-color-palette";
-import { darkTheme } from "@/theme/dark/dark-theme";
+import { Theme } from "@mui/material";
 
 const getChildAccordionMarginLeft = (
   level: number,
@@ -37,19 +26,19 @@ const getChildAccordionMarginLeft = (
   return "0";
 };
 
-const filterItemStyles = {
+const filterItemStyles = (theme: Theme) => ({
   loadingStack: {
     padding: "8px 24px",
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
   },
   parentAccordion: {
     "&.MuiPaper-root": {
       border: "0px solid !important",
-      borderBottom: `0.5px solid ${PA_Colors.surface[400]} !important`,
+      borderBottom: `0.5px solid ${theme.palette.vars.baseBorderDefault} !important`,
       boxShadow: "unset",
       margin: "0",
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: PA_Colors.grey[50],
+        color: theme.palette.vars.baseTextDefault,
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -88,7 +77,7 @@ const filterItemStyles = {
         isSelectAllEnabledOnParent,
       )}`,
       "&:not(.Mui-disabled) .MuiAccordionSummary-expandIconWrapper": {
-        color: PA_Colors.grey[50],
+        color: theme.palette.vars.baseTextDefault,
       },
       "& .MuiAccordionSummary-content": {
         margin: 0,
@@ -116,13 +105,13 @@ const filterItemStyles = {
   }),
   accordionSummery: (isSelected: boolean) => ({
     color: isSelected
-      ? (darkTheme.palette.primary[500] ?? "unset")
-      : darkTheme.palette.text.primary,
-    backgroundColor: PA_Colors.surface[700],
+      ? theme.palette.vars.interactivePrimaryDefaultDefault
+      : theme.palette.vars.baseTextDefault,
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
     flexDirection: "row-reverse",
   }),
   accordionDetails: {
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
   },
   listItem: (level: number, isSelectAllEnabled: boolean) => {
     if (level === 0) {
@@ -136,26 +125,26 @@ const filterItemStyles = {
       }
       return { paddingLeft: "32px" };
     }
-    return { paddingLeft: "0px" }; // Default return value
+    return { paddingLeft: "0px" };
   },
   listItemButton: {
-    backgroundColor: PA_Colors.surface[700],
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
     paddingTop: 0,
     paddingBottom: 0,
   },
   searchMatchText: {
-    color: darkTheme.palette.primary[500],
+    color: theme.palette.vars.interactivePrimaryDefaultDefault,
   },
   accordionTitleTypography: (isSelectAllEnabled: boolean) => ({
     margin: isSelectAllEnabled ? 0 : "0 8px",
-    textTransform: "capitalize",
+    textTransform: "capitalize" as const,
   }),
   accordionCheckbox: {
     padding: "0 8px",
   },
-};
+});
 
-const filtersDrawerStyles = {
+const filtersDrawerStyles = (theme: Theme) => ({
   drawerBody: {
     width: "480px",
     paddingLeft: "8px",
@@ -163,7 +152,7 @@ const filtersDrawerStyles = {
   drawerHeader: {
     padding: "16px 24px",
     width: "480px",
-    backgroundColor: PA_Colors.surface[400],
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
   },
   drawerTitle: {
     justifyContent: "space-between",
@@ -173,25 +162,30 @@ const filtersDrawerStyles = {
     marginTop: "16px",
   },
   activeFiltersDesc: {
-    color: darkTheme.palette.primary[500],
+    color: theme.palette.vars.interactivePrimaryDefaultDefault,
   },
   clearAll: {
     "&.MuiButton-sizeMedium": {
-      backgroundColor: PA_Colors.surface[500],
+      backgroundColor: theme.palette.vars.controlBackgroundWeak,
       height: "58px",
       justifyContent: "left",
       padding: "8px 16px",
     },
   },
-};
+});
 
-const emptySearchStyles = {
-  emptySearchTypography: { color: PA_Colors.grey[300], marginTop: "50px" },
-  emptySearchInput: { color: PA_Colors.grey[50] },
-};
+const emptySearchStyles = (theme: Theme) => ({
+  emptySearchTypography: {
+    color: theme.palette.vars.baseTextWeak,
+    marginTop: "50px",
+  },
+  emptySearchInput: {
+    color: theme.palette.vars.baseTextDefault,
+  },
+});
 
-export const styles = {
-  ...filtersDrawerStyles,
-  ...filterItemStyles,
-  ...emptySearchStyles,
-};
+export const getStyles = (theme: Theme) => ({
+  ...filtersDrawerStyles(theme),
+  ...filterItemStyles(theme),
+  ...emptySearchStyles(theme),
+});

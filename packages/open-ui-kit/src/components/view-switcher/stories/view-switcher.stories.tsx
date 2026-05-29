@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Dashboard1, SettingsMenuProfile, User } from "@/custom-icons";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ViewSwitcher } from "../components/view-switcher";
 
 const meta: Meta<typeof ViewSwitcher> = {

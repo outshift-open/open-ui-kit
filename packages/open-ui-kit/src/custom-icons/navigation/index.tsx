@@ -1,38 +1,48 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from "./API_Security";
-export * from "./Attack_Path_Analysis";
-export * from "./CI_CD";
-export * from "./Cloud_Inventory";
-export * from "./Code_Security";
-export * from "./Compliance_Report";
-export * from "./Dashboard";
-export * from "./Data_Security";
-export * from "./Discovery_Graph";
-export * from "./External_Attack_Surface";
-export * from "./Global_Policies";
-export * from "./Integrations";
-export * from "./LLM";
-export * from "./Realtime_CDR";
-export * from "./Reports";
-export * from "./Root_Cause_Analysis";
-export * from "./Runtime_Events";
-export * from "./Security_Posture";
-export * from "./Settings_Navigation";
-export * from "./Software_Supply_Chain";
-export * from "./Vulnerability_Management";
-export * from "./ScanReports";
+export * from "./accounts";
+export * from "./api-keys";
+export * from "./api-security";
+export * from "./attack-path-analysis";
+export * from "./audit-log";
+export * from "./ci-cd";
+export * from "./ciem";
+export * from "./cloud-inventory";
+export * from "./code-security";
+export * from "./compliance-report";
+export * from "./compose";
+export * from "./dashboard";
+export * from "./data-lake";
+export * from "./data-security";
+export * from "./discovery-graph";
+export * from "./external-attack-surface";
+export * from "./frameworks";
+export * from "./global-policies";
+export * from "./integrations";
+export * from "./llm";
+export * from "./llm-protection";
+export * from "./malicious-events";
+export * from "./notifications";
+export * from "./observability";
+export * from "./overview";
+export * from "./policies";
+export * from "./profile";
+export * from "./realtime-cdr";
+export * from "./reports";
+export * from "./repository";
+export * from "./root-cause-analysis";
+export * from "./runtime-events";
+export * from "./scan-report";
+export * from "./scan-reports";
+export * from "./scanners";
+export * from "./security-graph";
+export * from "./security-posture";
+export * from "./setting";
+export * from "./settings-navigation";
+export * from "./software-supply-chain";
+export * from "./users-scopes";
+export * from "./vulnerability-management";

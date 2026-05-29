@@ -3,11 +3,13 @@
 Welcome to Open UI Kit development! This guide will help you set up your local development environment and understand our development workflow.
 
 - [🛠️ Repository Setup](#%EF%B8%8F-repository-setup)
+- [📁 Project Structure](#-project-structure)
 - [🎨 Style and Linting](#-style-and-linting)
 - [👾 Development & 📚 Documentation](#-development-documentation)
 - [🗂️ Testing](#%EF%B8%8F-testing)
 - [📦 Building and Publishing](#-building-and-publishing)
 - [Style Agreements](#style-agreements)
+- [Component Workflow](#component-workflow)
 
 ## 🛠️ Repository Setup
 
@@ -33,7 +35,42 @@ nvm install
 yarn install
 ```
 
-## 📦 Package Structure
+## 📁 Project Structure
+
+This monorepo is organized as follows:
+
+```
+open-ui-kit/
+├── .github/                    # GitHub templates and workflows
+│   ├── ISSUE_TEMPLATE/        # Issue templates (bug reports, feature requests, docs)
+│   ├── workflows/             # CI/CD GitHub Actions workflows
+│   └── dependabot.yml         # Automated dependency updates
+├── .husky/                    # Git hooks for code quality enforcement
+├── .vscode/                   # VSCode workspace settings (optional)
+├── docs/                      # Additional project documentation
+├── packages/
+│   └── open-ui-kit/          # 📦 @open-ui-kit/core - Main component library
+│       ├── src/              # Source code for components, themes, utilities
+│       └── .storybook/       # Storybook configuration and overview pages
+├── playground/
+│   └── vite-ts/              # 🎮 Development playground with Vite + TypeScript
+├── scripts/                   # Build scripts and automation tools
+├── package.json              # Root workspace configuration
+├── turbo.json                # Turborepo build system configuration
+├── yarn.lock                 # Dependency lock file
+├── DEVELOPMENT.md            # This file - development guidelines
+├── CONTRIBUTING.md           # Contribution guidelines and processes
+└── README.md                 # Main project overview and setup
+```
+
+### Key Directories
+
+- **`packages/open-ui-kit/`** - The core component library where most development happens
+- **`playground/vite-ts/`** - Interactive development environment for testing components
+- **`.github/`** - CI/CD workflows, issue templates, and GitHub configuration
+- **`scripts/`** - Build and maintenance automation
+
+### Main Packages
 
 This monorepo contains the following main packages:
 
@@ -67,16 +104,18 @@ Your editor will now format your code when you save a file.
 
 ## 👾 Development & 📚 Documentation
 
-This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. See [Documentation](/docs/overview-developer-only-documentation--page) for Storybook maintenance details.
+This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. The docs site also mirrors the high-level introduction, contributing, and developer-only guidance.
 
 To start up Storybook locally:
 
 ```sh
-cd open-ui-kit  # Move into the cloned repository
-yarn install && yarn run build && yarn run storybook # Install & build deps and start Storybook
+cd open-ui-kit
+yarn install
+yarn build
+yarn workspace @open-ui-kit/core storybook
 ```
 
-The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--67e2c28f188630b706cee923.chromatic.com).
+The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--68cc22452afe30d90e4ca977.chromatic.com).
 
 ## 🗂️ Testing
 
@@ -161,52 +200,103 @@ Releases are handled automatically through semantic-release when changes are mer
 1. Optional React component props should also accept `undefined` as a value.
    This is to support the `exactOptionalPropertyTypes` typescript option.
 
-2. Override MUI component:
-   - Create a file like [this](packages/open-ui-kit/src/theme/light/mui/avatar.ts) inside the `mui` folder in each `theme`(light or dark) and per each component that you want to override;
-   - Export this file on the `index.ts` on the `mui` folder;
-   - Add the custom override to the theme like [this](https://github.com/outshift-open/open-ui-kit/blob/main/packages/open-ui-kit/src/theme/light/light-theme.tsx#L146-L149);
+2. Component visual styles should live with the component, not in MUI theme overrides.
+   Use `src/components/<name>/components/elements.tsx` for styled elements and keep
+   `src/theme/mui/<name>.tsx` only for true theme-level defaults that cannot live
+   safely in the component. Remove empty theme override files and their references.
 
-   Example of an override component:
+3. **Creating New Components** - Follow the established file structure pattern:
 
-   ```tsx
-   export const avatarComponent: Pick<OverrideComponent, "MuiAvatar"> = {
-     MuiAvatar: {
-       styleOverrides: {
-         root: {
-           backgroundColor: "#E8F1FF",
-           color: lightVars.interactivePrimaryDefaultDefault,
-           fontWeight: 600,
-           fontSize: "16px",
-           lineHeight: "133%",
-           letterSpacing: "0.15px",
-           textAlign: "center",
-           verticalAlign: "middle",
-           "&:hover": {
-             backgroundColor: lightVars.interactivePrimaryWeakHover,
-             color: lightVars.controlIconHover,
-             cursor: "pointer",
-           },
-         },
-         img: {
-           objectFit: "cover",
-           width: "100%",
-           height: "100%",
-           "&:hover": {
-             filter: `brightness(0.9) drop-shadow(0 0 4px ${lightVars.interactivePrimaryWeakDisabled})`,
-           },
-         },
-       },
-     },
-   };
+   When creating a new component, follow the structure used by the current component workflow. Each component should have its own directory with component logic, styled elements, stories, tests, and a public export:
+
+   ```
+   packages/open-ui-kit/src/components/[component-name]/
+   ├── components/
+   │   ├── elements.tsx                # styled() elements and component styles
+   │   └── [component-name].tsx        # Main component implementation
+   ├── stories/
+   │   └── [component-name].stories.tsx # Storybook documentation
+   ├── __tests__/
+   │   └── [component-name].test.tsx   # Unit tests
+   └── index.ts                        # Main export file
    ```
 
-   and import it like this to the MUI theme:
+   **Required files for a new component:**
 
-   ```tsx
-   const lightThemeOptions: ThemeOptions = {
-       ...
-       components: {
-           MuiAvatar: { ...avatarComponent.MuiAvatar },
+   - **`index.ts`** - Export the component and its props
+     ```tsx
+     export { ComponentName } from "./components/component-name";
+     export type { ComponentNameProps } from "./components/component-name";
+     ```
+
+   - **`components/elements.tsx`** - Styled elements
+     ```tsx
+     import { styled } from "@mui/material/styles";
+
+     export const StyledComponentName = styled("div")(({ theme }) => ({
+       color: theme.palette.vars.baseTextDefault,
+     }));
+     ```
+
+   - **`components/[component-name].tsx`** - Main component implementation
+     ```tsx
+     import type { ReactNode } from "react";
+     import { StyledComponentName } from "./elements";
+
+     export interface ComponentNameProps {
+       children?: ReactNode;
+     }
+
+     export const ComponentName = ({ children }: ComponentNameProps) => (
+       <StyledComponentName>{children}</StyledComponentName>
+     );
+     ```
+
+   - **`__tests__/[component-name].test.tsx`** - Unit tests
+     ```tsx
+     import { render, screen } from "@testing-library/react";
+     import { ComponentName } from "../components/component-name";
+
+     describe("ComponentName", () => {
+       it("renders correctly", () => {
+         render(<ComponentName>Content</ComponentName>);
+         expect(screen.getByText("Content")).toBeInTheDocument();
+       });
+     });
+     ```
+
+   - **`stories/[component-name].stories.tsx`** - Storybook documentation
+     ```tsx
+     import type { Meta, StoryObj } from "@storybook/react-vite";
+     import { ComponentName } from "../components/component-name";
+
+     const meta: Meta<typeof ComponentName> = {
+       title: "Components/ComponentName",
+       component: ComponentName,
+     };
+
+     export default meta;
+     type Story = StoryObj<typeof meta>;
+
+     export const Default: Story = {
+       args: {
+         children: "Content",
        },
-   }
-   ```
+     };
+     ```
+
+   **Additional requirements:**
+   - Export your component from `packages/open-ui-kit/src/components/index.ts`
+   - Follow naming conventions: PascalCase for components, kebab-case for directories
+   - Keep props close to the component unless an established local pattern requires a separate type file
+   - Put all styled elements in `elements.tsx`
+   - Organize sub-components within the same `components/` folder
+   - Follow [Open UI Kit Component Workflow](COMPONENT_WORKFLOW.md) before declaring the component complete
+
+# Component Workflow
+
+For each new or updated component, follow [Open UI Kit Component Workflow](COMPONENT_WORKFLOW.md).
+This workflow is the source of truth for source-material collection, MUI override cleanup,
+light and dark token QA, Storybook alignment, focused tests, visual design checks,
+props override checks, prop documentation, lint and Prettier checks, import checks,
+final verification, final code review, and a compact final resume.

@@ -1,5 +1,5 @@
 import { Box, Divider, useTheme } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { LineChart, LineChartProps } from "./line-chart";
 
 import LINE_DATA from "./story-data";

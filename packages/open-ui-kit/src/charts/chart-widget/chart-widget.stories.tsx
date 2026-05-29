@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
-import { ChartDataItem, ChartCategoryItem, ChartType } from "@/charts";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { ChartCategoryItem, ChartType } from "../common/types";
 import {
   AWSServicesS3Bucket,
   AWSServicesRedshift,
@@ -182,73 +182,12 @@ const chartData = {
   [ChartType.GAUGE]: gaugeData,
 };
 
-const LegendData = (data: ChartDataItem[] | ChartCategoryItem[]) => ({
-  [ChartType.DONUT]: {
-    headers: ["Name", "Total", "Trend"],
-    rows: data.map(({ color, name, value }) => ({
-      color: color,
-      values: { Name: name, Total: value, Trend: "+2%" },
-    })),
-  },
-  [ChartType.LINE]: {
-    headers: ["Name", "Total", "Trend"],
-    rows: categories.map(({ name, color, icon }) => {
-      const total = lineData.reduce(
-        (acc, data) => acc + ((data[name] as number) || 0),
-        0,
-      );
-
-      return {
-        color,
-        icon,
-        values: {
-          Name: name,
-          Total: total,
-          Trend: "+2%",
-        },
-      };
-    }),
-  },
-  [ChartType.VERTICAL_BAR]: {
-    headers: ["Name", "Assets"],
-    rows: data.map(({ color, name, value }) => ({
-      color,
-      values: { Name: name, Assets: value },
-    })),
-  },
-  [ChartType.GAUGE]: {
-    headers: ["Name", "Label1", "Label2"],
-    rows: data.map(({ color, name, value }) => ({
-      color,
-      values: { Name: name, Label1: value, Label2: "0" },
-    })),
-  },
-});
-
 export const ChartWidgetExample: Story = {
   render: (args) => (
     <Stack width="262px">
       <ChartWidget
         {...args}
         data={chartData[args.type as keyof typeof chartData]}
-        legend={
-          (
-            [
-              ChartType.DONUT,
-              ChartType.LINE,
-              ChartType.VERTICAL_BAR,
-              ChartType.GAUGE,
-            ] as readonly ChartType[]
-          ).includes(args.type)
-            ? LegendData(chartData[args.type as keyof typeof chartData])[
-                args.type as
-                  | ChartType.DONUT
-                  | ChartType.LINE
-                  | ChartType.VERTICAL_BAR
-                  | ChartType.GAUGE
-              ]
-            : undefined
-        }
       />
     </Stack>
   ),
@@ -271,7 +210,6 @@ export const ChartWidgetTypes: Story = {
           data={donutData}
           type={ChartType.DONUT}
           showTooltip
-          legend={LegendData(donutData)[ChartType.DONUT]}
         />
       </Stack>
       <Stack width="262px">
@@ -281,7 +219,6 @@ export const ChartWidgetTypes: Story = {
           data={gaugeData}
           type={ChartType.GAUGE}
           showTooltip
-          legend={LegendData(gaugeData)[ChartType.GAUGE]}
         />
       </Stack>
       <Stack width="262px">
@@ -291,7 +228,6 @@ export const ChartWidgetTypes: Story = {
           data={barData}
           type={ChartType.VERTICAL_BAR}
           showTooltip
-          legend={LegendData(barData)[ChartType.VERTICAL_BAR]}
         />
       </Stack>
       <Stack width="262px">
@@ -312,7 +248,6 @@ export const ChartWidgetTypes: Story = {
           categories={categories}
           type={ChartType.LINE}
           showTooltip
-          legend={LegendData(lineData)[ChartType.LINE]}
         />
       </Stack>
       <Stack width="262px">
@@ -334,7 +269,6 @@ export const ChartWidgetTypes: Story = {
           data={donutData}
           type={ChartType.DONUT}
           showTooltip
-          legend={LegendData(donutData)[ChartType.DONUT]}
           isHorizontal={true}
         />
       </Stack>

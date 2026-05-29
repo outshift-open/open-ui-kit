@@ -1,26 +1,16 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ILegendProps, TooltipProps } from "@/components";
+import type { TooltipProps } from "@/components/tooltip";
 import { Card, SxProps, useTheme } from "@mui/material";
 import { styles } from "../styles/styles";
 import { WidgetHeadline } from "./widget-headline";
 import { WidgetBody } from "./widget-body";
 
-export interface IWidgetProps<T extends string> {
+export interface IWidgetProps {
   bodyElement: JSX.Element;
   sx?: SxProps;
   label?: string | JSX.Element;
@@ -29,7 +19,6 @@ export interface IWidgetProps<T extends string> {
   labelTooltip?: React.ReactNode;
   titleTooltip?: React.ReactNode;
   isLoading?: boolean;
-  legend?: ILegendProps<T>;
   isHorizontal?: boolean;
   chartCustomComponent?: React.ReactNode;
   stackStyle?: Record<string, string | number>;
@@ -40,7 +29,7 @@ export interface IWidgetProps<T extends string> {
   dataRoseyUrn?: string;
 }
 
-export const Widget = <T extends string>({
+export const Widget = ({
   sx,
   label,
   headerChildren,
@@ -49,14 +38,13 @@ export const Widget = <T extends string>({
   titleTooltip,
   bodyElement,
   isLoading,
-  legend,
   isHorizontal = false,
   isEmpty = false,
   legendCustomComponent,
   tooltipProps,
   onLabelClick,
   dataRoseyUrn,
-}: IWidgetProps<T>) => {
+}: IWidgetProps) => {
   const theme = useTheme();
   return (
     <Card
@@ -81,7 +69,6 @@ export const Widget = <T extends string>({
       <WidgetBody
         bodyElement={bodyElement}
         isLoading={isLoading}
-        legend={legend}
         isHorizontal={isHorizontal}
         isEmpty={isEmpty}
         legendCustomComponent={legendCustomComponent}

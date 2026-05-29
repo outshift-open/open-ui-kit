@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { type MouseEvent, useState, useCallback } from "react";
@@ -25,11 +15,11 @@ import { type MRT_RowData, type MRT_TableInstance } from "material-react-table";
 
 import ExportTableMenu from "./export-table-menu";
 import { DownloadOutline } from "@/custom-icons";
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/tooltip";
 import {
   DOWNLOAD_ERROR_DEFAULT_MESSAGE,
   DOWNLOAD_SUCCESS_DEFAULT_MESSAGE,
-} from "@/components/table/utils/consts";
+} from "../../../../utils/consts";
 
 interface Props<TData extends MRT_RowData> extends IconButtonProps {
   table: MRT_TableInstance<TData>;

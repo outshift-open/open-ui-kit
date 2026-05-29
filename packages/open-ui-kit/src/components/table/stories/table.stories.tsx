@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 import { faker } from "@faker-js/faker";
 import {
   MRT_ColumnDef,
@@ -22,11 +22,12 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";
 import { mainTableMockData, subTableMockData } from "../utils/mock-data";
-import { MenuItem, PathDisplay } from "@/components";
+import { MenuItem } from "@/components/menu";
+import { PathDisplay } from "@/components/path-display";
 
 faker.seed(42);
 
@@ -118,18 +119,21 @@ const data = {
       accessorKey: "id",
       header: "ID",
       size: 350,
+      meta: { headerTooltip: "The unique identifier of the record" },
     },
     {
       header: "Name",
       accessorKey: "name",
       enableColumnOrdering: false,
       size: 200,
+      meta: { headerTooltip: "Full name of the person" },
     },
     {
       header: "Phone",
       accessorKey: "phone",
       enableSorting: false,
       enableColumnOrdering: false,
+      meta: { headerTooltip: "Primary phone number" },
     },
     {
       header: "firstName",

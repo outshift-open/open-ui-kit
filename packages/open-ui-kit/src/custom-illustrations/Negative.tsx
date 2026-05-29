@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
@@ -27,24 +17,24 @@ export const Negative = (props: SvgIconProps) => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
-          opacity="0.4"
+          opacity="0.3"
           x="200"
           y="34.25"
           width="27"
           height="120"
           rx="13.5"
           transform="rotate(25 200 34.25)"
-          fill="#F8E5EA"
+          fill="#C0244C"
         />
         <rect
-          opacity="0.2"
+          opacity="0.3"
           x="37.0356"
           y="92"
           width="27"
           height="90"
           rx="13.5"
           transform="rotate(25 37.0356 92)"
-          fill="#F8E5EA"
+          fill="#C0244C"
         />
         <rect
           opacity="0.3"
@@ -54,7 +44,7 @@ export const Negative = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 68.1152 -1)"
-          fill="#F8E5EA"
+          fill="#C0244C"
         />
         <path
           d="M103.13 46.1083C108.611 42.9639 115.389 42.9639 120.87 46.1083L166.641 72.3652C172.049 75.4677 175.375 81.1618 175.375 87.3191V136.681C175.375 142.838 172.049 148.532 166.641 151.635L120.87 177.892C115.389 181.036 108.611 181.036 103.13 177.892L57.3589 151.635C51.9506 148.532 48.625 142.838 48.625 136.681V87.3191C48.625 81.1618 51.9506 75.4677 57.3589 72.3652L103.13 46.1083Z"

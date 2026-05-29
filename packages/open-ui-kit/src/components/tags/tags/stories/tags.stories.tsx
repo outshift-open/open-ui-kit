@@ -1,11 +1,11 @@
 import { Checkbox, Stack, Typography } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { AWSIcon } from "@/custom-icons";
 import { SelectNodeType } from "@/types";
 import { baseSelectTree } from "@/common";
 import { Tags } from "..";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Tags> = {
   title: "Components/Tags/Tags",

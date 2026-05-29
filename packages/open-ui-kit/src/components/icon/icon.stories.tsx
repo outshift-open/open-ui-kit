@@ -1,20 +1,17 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { Icon, Stack, SvgIcon, SvgIconProps } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
-import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import DeleteForeverTwoToneIcon from "@mui/icons-material/DeleteForeverTwoTone";
-import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
-import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
-import FourKIcon from "@mui/icons-material/FourK";
-import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import BoltIcon from "@mui/icons-material/Bolt";
+import CloudQueueIcon from "@mui/icons-material/CloudQueue";
+import DataObjectIcon from "@mui/icons-material/DataObject";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import ShieldIcon from "@mui/icons-material/Shield";
+import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import { SvgIconComponent } from "@mui/icons-material";
+import { SvgIconProps } from "@mui/material";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Icon } from "./components/icon";
 
 /**
  * ### An icon is a glyph used to represent something else.
@@ -37,41 +34,103 @@ const meta: Meta<typeof Icon> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SvgIcon>;
+type Story = StoryObj<typeof meta>;
 
-const Icons = (args: SvgIconProps) => {
+const randomIcons = [
+  { label: "Rocket", Icon: RocketLaunchIcon },
+  { label: "Shield", Icon: ShieldIcon },
+  { label: "Cloud", Icon: CloudQueueIcon },
+  { label: "Explore", Icon: TravelExploreIcon },
+  { label: "Magic", Icon: AutoAwesomeIcon },
+];
+
+const IconSample = ({
+  label,
+  SvgIcon,
+  color,
+  fontSize,
+}: {
+  label: string;
+  SvgIcon: SvgIconComponent;
+  color?: SvgIconProps["color"];
+  fontSize?: SvgIconProps["fontSize"];
+}) => (
+  <Box
+    sx={(theme) => ({
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "72px",
+      minHeight: "64px",
+      gap: "6px",
+      color: theme.palette.vars.baseTextDefault,
+    })}
+  >
+    <SvgIcon color={color} fontSize={fontSize} />
+    <Typography variant="caption">{label}</Typography>
+  </Box>
+);
+
+const Icons: Story["render"] = (args) => {
   return (
-    <Stack spacing={2}>
-      <Stack direction="row" spacing={1}>
-        <Typography>Filled</Typography>
-        <DeleteIcon {...args} />
-        <DeleteForeverIcon {...args} color="primary" />
+    <Stack spacing={3}>
+      <Stack spacing={1}>
+        <Typography>Default</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          {randomIcons.map(({ label, Icon }) => (
+            <IconSample key={label} label={label} SvgIcon={Icon} {...args} />
+          ))}
+        </Stack>
       </Stack>
-      <Stack direction="row" spacing={1}>
-        <Typography>Outlined</Typography>
-        <DeleteOutlinedIcon {...args} />
-        <DeleteForeverOutlinedIcon {...args} />
+
+      <Stack spacing={1}>
+        <Typography>Primary</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          {randomIcons.map(({ label, Icon }) => (
+            <IconSample
+              key={label}
+              label={label}
+              SvgIcon={Icon}
+              color="primary"
+              {...args}
+            />
+          ))}
+        </Stack>
       </Stack>
-      <Stack direction="row" spacing={1}>
-        <Typography>Rounded</Typography>
-        <DeleteRoundedIcon {...args} color="secondary" />
-        <DeleteForeverRoundedIcon {...args} />
+
+      <Stack spacing={1}>
+        <Typography>Secondary</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          {randomIcons.map(({ label, Icon }) => (
+            <IconSample
+              key={label}
+              label={label}
+              SvgIcon={Icon}
+              color="secondary"
+              {...args}
+            />
+          ))}
+        </Stack>
       </Stack>
-      <Stack direction="row" spacing={1}>
-        <Typography>Two Tone</Typography>
-        <DeleteTwoToneIcon {...args} />
-        <DeleteForeverTwoToneIcon {...args} />
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <Typography>Sharp</Typography>
-        <DeleteSharpIcon {...args} color="primary" />
-        <DeleteForeverSharpIcon {...args} />
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <Typography>Edge-cases</Typography>
-        <ThreeDRotationIcon {...args} />
-        <FourKIcon {...args} />
-        <ThreeSixtyIcon {...args} />
+
+      <Stack spacing={1}>
+        <Typography>Sizes</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <IconSample
+            label="Small"
+            SvgIcon={BoltIcon}
+            fontSize="small"
+            {...args}
+          />
+          <IconSample label="Medium" SvgIcon={DataObjectIcon} {...args} />
+          <IconSample
+            label="Large"
+            SvgIcon={RocketLaunchIcon}
+            fontSize="large"
+            {...args}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );

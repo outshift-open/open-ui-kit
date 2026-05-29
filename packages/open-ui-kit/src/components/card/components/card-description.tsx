@@ -1,37 +1,20 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, TypographyProps, useTheme } from "@mui/material";
+import { TypographyProps } from "@mui/material";
+import { StyledCardDescription } from "./elements";
 
-interface CardDescriptionProps extends TypographyProps {
+export interface CardDescriptionProps extends TypographyProps {
   children: React.ReactNode;
 }
 
-const CardDescription = ({ children, ...props }: CardDescriptionProps) => {
-  const theme = useTheme();
-  return (
-    <Typography
-      variant="body2"
-      component="div"
-      sx={{ color: theme.palette.vars?.baseTextDefault }}
-      {...props}
-    >
-      {children}
-    </Typography>
-  );
-};
+const CardDescription = ({ children, ...props }: CardDescriptionProps) => (
+  <StyledCardDescription variant="body2" component="div" {...props}>
+    {children}
+  </StyledCardDescription>
+);
 
 export default CardDescription;

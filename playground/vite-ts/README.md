@@ -1,4 +1,6 @@
-# Open UI Kit - Vite## The idea behind the example
+# Open UI Kit - Vite + TypeScript Example
+
+## The idee example
 
 This example demonstrates how to use Open UI Kit components in a Vite.js + TypeScript environment.
 
@@ -22,20 +24,18 @@ You now have a working example project!
 
 **Next steps:**
 - Browse the [component documentation](https://github.com/outshift-open/open-ui-kit)
-- Check out the [Storybook examples](https://main--67e2c28f188630b706cee923.chromatic.com)
+- Check out the [Storybook examples](https://main--68cc22452afe30d90e4ca977.chromatic.com)
 - Read the [contributing guide](../../CONTRIBUTING.md)
 
 ## Learn more
 
 - [Open UI Kit Documentation](https://github.com/outshift-open/open-ui-kit)
 - [Vite.js Documentation](https://vitejs.dev/)
-- [Material-UI Documentation](https://mui.com/)cript Example
-
-A playground demonstrating Open UI Kit components with Vite.js and TypeScript.
+- [Material-UI Documentation](https://mui.com/)
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/outshift-open/open-ui-kit):
+Clone the repository and navigate to the playground:
 
 ```bash
 # Clone the repository
@@ -47,6 +47,12 @@ yarn install
 
 # Start development server
 yarn dev
+
+# Build for production
+yarn build
+
+# Preview production build
+yarn preview
 ```
 
 ## The idea behind the example

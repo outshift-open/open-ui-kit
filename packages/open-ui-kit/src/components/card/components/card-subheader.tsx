@@ -1,37 +1,20 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, TypographyProps, useTheme } from "@mui/material";
+import { TypographyProps } from "@mui/material";
+import { StyledCardSubheader } from "./elements";
 
-interface CardSubheaderProps extends TypographyProps {
+export interface CardSubheaderProps extends TypographyProps {
   children: React.ReactNode;
 }
 
-const CardSubheader = ({ children, ...props }: CardSubheaderProps) => {
-  const theme = useTheme();
-  return (
-    <Typography
-      variant="captionMedium"
-      component="div"
-      sx={{ color: theme.palette.vars?.baseTextMedium }}
-      {...props}
-    >
-      {children}
-    </Typography>
-  );
-};
+const CardSubheader = ({ children, ...props }: CardSubheaderProps) => (
+  <StyledCardSubheader variant="captionMedium" component="div" {...props}>
+    {children}
+  </StyledCardSubheader>
+);
 
 export default CardSubheader;

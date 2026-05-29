@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { GaugeChart } from "./gauge-chart";
 import { Typography } from "@mui/material";
 

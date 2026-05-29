@@ -1,21 +1,10 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
-import { ThemeProvider } from "@open-ui-kit/core";
+import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import {
   Container,
   Box,
@@ -38,42 +27,40 @@ function Copyright() {
   );
 }
 
-export default function App() {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+function AppContent() {
+  const { isDarkMode, toggleTheme } = useThemeMode();
   return (
-    <ThemeProvider isDarkMode={isDarkMode}>
-      <Container maxWidth="md">
-        <FormControlLabel
-          sx={{
-            display: "block",
-            marginTop: 2,
-          }}
-          control={
-            <Switch
-              checked={isDarkMode}
-              onChange={() => setIsDarkMode((prev) => !prev)}
-              name="isDarkMode"
-              color="primary"
-            />
-          }
-          label="Dark Mode"
-        />
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          marginTop={6}
-        >
-          {/* <img src={isDarkMode ? logoWhite : logo} alt="logo" width={200} /> */}
-        </Box>
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
-            Open UI Kit Vite.js example in TypeScript
-          </Typography>
-          <ProTip />
-          <Copyright />
-        </Box>
-      </Container>
+    <Container maxWidth="md">
+      <FormControlLabel
+        sx={{
+          display: "block",
+          marginTop: 2,
+        }}
+        control={
+          <Switch
+            checked={isDarkMode}
+            onChange={toggleTheme}
+            name="isDarkMode"
+            color="primary"
+          />
+        }
+        label={`Dark Mode: ${isDarkMode ? "On" : "Off"}`}
+      />
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">
+          Open UI Kit Vite.js example in TypeScript
+        </Typography>
+        <ProTip />
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

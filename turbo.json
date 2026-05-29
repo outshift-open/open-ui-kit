@@ -2,55 +2,39 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "dist/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**"]
+    },
+    "lib:build": {
+      "dependsOn": ["^lib:build"],
+      "inputs": ["src/**", "rollup.config.*", "tsconfig*.json", "package.json"],
+      "outputs": ["dist/**"]
     },
     "dev": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
-    },
-    "lint-staged": {},
-    "lib:build": {
-      "outputs": [
-        "dist/**"
-      ]
-    },
-    "banners": {
-      "cache": false
-    },
-    "license:add": {
-      "cache": false,
-      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
-      "outputs": []
-    },
-    "license:check": {
-      "cache": false,
-      "inputs": ["packages/*/src/**/*.{ts,tsx,js,jsx}", "playground/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
-      "outputs": []
-    },
-    "lint": {
-      "cache": false,
-      "outputs": []
-    },
-    "lint:fix": {
-      "cache": false
     },
     "lib:dev": {
       "cache": false,
       "persistent": true
     },
-    "start": {
+    "lint": {
+      "inputs": ["src/**", ".storybook/**", ".eslintrc.*", "tsconfig*.json"],
+      "outputs": []
+    },
+    "lint:fix": {
       "cache": false
     },
-    "test": {},
+    "typecheck": {
+      "dependsOn": ["^lib:build"],
+      "inputs": ["src/**", ".storybook/**", "tsconfig*.json"],
+      "outputs": []
+    },
+    "test": {
+      "inputs": ["src/**", "jest.config.*", "tsconfig*.json"],
+      "outputs": ["coverage/**"]
+    },
     "test:watch": {
       "cache": false
     },
@@ -58,9 +42,27 @@
       "cache": false
     },
     "storybook:build": {
-      "outputs": [
-        "storybook-static/**"
-      ]
+      "inputs": ["src/**", ".storybook/**"],
+      "outputs": ["storybook-static/**"]
+    },
+    "license:add": {
+      "cache": false,
+      "outputs": []
+    },
+    "license:add:force": {
+      "cache": false,
+      "outputs": []
+    },
+    "license:check": {
+      "cache": false,
+      "outputs": []
+    },
+    "lint-staged": {},
+    "banners": {
+      "cache": false
+    },
+    "start": {
+      "cache": false
     }
   }
 }

@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Divider, useTheme } from "@mui/material";
 import { BarGraph } from "./bar-graph";
 import { Stack, Typography } from "@mui/material";
 
 import { AWSServicesCloudWatch } from "@/custom-icons";
-import { OverflowTooltip } from "@/components";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { PropsWithChildren } from "react";
 
 /**

@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { ButtonProps, SvgIconProps, TypographyProps } from "@mui/material";
@@ -43,6 +33,18 @@ export const sizeToMainFlexGapSizeMapping: Record<GeneralSize, string> = {
   [GeneralSize.Large]: "12px",
   [GeneralSize.Medium]: "4px",
   [GeneralSize.Small]: "0px",
+};
+
+export const sizeToContainerPaddingMapping: Record<GeneralSize, string> = {
+  [GeneralSize.Large]: "0px",
+  [GeneralSize.Medium]: "12px 0px",
+  [GeneralSize.Small]: "4px 12px 8px",
+};
+
+export const sizeToRowGapMapping: Record<GeneralSize, string> = {
+  [GeneralSize.Large]: "40px",
+  [GeneralSize.Medium]: "4px",
+  [GeneralSize.Small]: "4px",
 };
 
 export const sizeToSecondaryFlexGapSizeMapping: Record<GeneralSize, string> = {
@@ -97,4 +99,4 @@ export const directionToTextMaxWidthMapping: Record<Direction, string> = {
   column: "unset",
 };
 
-export const DefaultDescription = "No matched found";
+export const DefaultDescription = "No matches found";

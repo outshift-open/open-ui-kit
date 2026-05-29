@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { SxProps, Theme } from "@mui/material";
@@ -35,56 +25,100 @@ import {
 export const selectTagStyle = (theme: Theme) => ({
   [TagStatus.Excellent]: {
     backgroundColor: theme.palette.vars?.excellentBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.excellentBorderWeak}`
+        : `none`,
     icon: StarIcon,
     iconColor: theme.palette.vars?.excellentIconDefault,
   },
   [TagStatus.Positive]: {
     backgroundColor: theme.palette.vars?.successBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.successBorderWeak}`
+        : `none`,
     icon: CheckCircleIcon,
     iconColor: theme.palette.vars?.successIconDefault,
   },
   [TagStatus.Warning]: {
     backgroundColor: theme.palette.vars?.warningBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.warningBorderWeak}`
+        : `none`,
     icon: WarningIcon,
     iconColor: theme.palette.vars?.warningIconDefault,
   },
   [TagStatus.SevereWarning]: {
     backgroundColor: theme.palette.vars?.severeWarningBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.severeWarningBorderWeak}`
+        : `none`,
     icon: WarningIcon,
     iconColor: theme.palette.vars?.severeWarningIconDefault,
   },
   [TagStatus.Negative]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: CancelIcon,
   },
   [TagStatus.Inactive]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: RemoveCircleIcon,
   },
   [TagStatus.Disabled]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: BlockFlippedIcon,
   },
   [TagStatus.InProgress]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
+        : `none`,
     icon: ScheduleIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Info]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
+        : `none`,
     icon: InfoIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Allow]: {
     backgroundColor: theme.palette.vars?.neutralBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.neutralBorderWeak}`
+        : `none`,
     icon: CheckCircleOutlineIcon,
     iconColor: theme.palette.vars?.neutralIconDefault,
   },
   [TagStatus.Deny]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
+    border:
+      theme.palette.mode === "dark"
+        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
+        : `none`,
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: BlockFlippedIcon,
   },
@@ -114,6 +148,7 @@ export const getTagStyle = ({
     }),
     ...(statusStyle && {
       backgroundColor: statusStyle?.backgroundColor,
+      border: statusStyle?.border,
     }),
     "&.MuiChip-outlinedDefault": {
       border: `2px dashed ${theme.palette.vars?.controlBorderDefault}`,

@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import React from "react";
@@ -39,9 +29,17 @@ import TopToolbar from "./top-toolbar/top-toolbar";
 import { DEFAULT_PAGINATION_OPTIONS } from "../utils/consts";
 import { TableFooter } from "./table-footer/table-footer";
 import { TableProps } from "../types";
-import { tableComfortStyles, tableCompactStyles } from "../styles";
+import {
+  tableComfortStyles,
+  tableCompactStyles,
+  type TableDensityStyles,
+} from "../styles";
 import { Box, PaginationItem, SvgIconProps, useTheme } from "@mui/material";
-import { EmptyState, Link, OverflowTooltip, TooltipSize } from "@/components";
+import { EmptyState } from "@/components/empty-state";
+import { Link } from "@/components/link";
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { TooltipSize } from "@/components/tooltip";
+import { withHeaderHelpTooltips } from "../utils/helpers";
 
 /**
  * `Table` Component
@@ -92,9 +90,9 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
 }: TableProps<TData>): MRT_TableInstance<TData> => {
   const theme = useTheme();
   const rowPerPageOptions = rowsPerPageOptions || DEFAULT_PAGINATION_OPTIONS;
-  const tableStyles = !densityCompact
-    ? { ...tableComfortStyles(theme) }
-    : { ...tableCompactStyles(theme) };
+  const tableStyles: TableDensityStyles = !densityCompact
+    ? tableComfortStyles(theme)
+    : tableCompactStyles(theme);
 
   const shouldShowTableFooter = () => {
     if (rowCount !== undefined) return rowCount > rowPerPageOptions[0];
@@ -119,7 +117,7 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
     enableFilters: !!data.length,
     enableFullScreenToggle: !!data.length,
     enableHiding: !!data.length,
-    columns,
+    columns: withHeaderHelpTooltips(columns),
     data,
     enableColumnActions: false,
     enableTopToolbar,

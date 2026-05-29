@@ -1,33 +1,23 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import {
   IconButton,
   InputAdornment,
-  TextField,
   InputProps,
   useTheme,
 } from "@mui/material";
-import type { TextFieldProps } from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import type { InputFieldProps } from "@/components/input-field";
+import { InputField } from "@/components/input-field";
 import { clearButtonStyle, clearIconStyle, searchIconStyle } from "../styles";
 
-export interface SearchFieldProps extends Omit<TextFieldProps, "inputProps"> {
+export interface SearchFieldProps extends Omit<InputFieldProps, "inputProps"> {
   inputProps?: InputProps;
   onChangeCallback?: (value: string) => void;
   onClear?: () => void;
@@ -46,59 +36,64 @@ export const SearchField = ({
   const [value, setValue] = useState(props.value?.toString() ?? "");
 
   useEffect(() => {
-    onChangeCallback && onChangeCallback(value);
-  }, [onChangeCallback, value]);
-
-  useEffect(() => {
     setValue(props.value?.toString() ?? "");
   }, [props.value]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    const newValue = event.target.value;
+    setValue(newValue);
+    onChangeCallback?.(newValue);
   };
 
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setValue("");
     onClear && onClear();
-  };
+  }, [onClear]);
+
+  const computedSlotProps = useMemo(
+    () => ({
+      ...slotProps,
+      input: {
+        ...inputProps,
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon sx={{ ...searchIconStyle(theme) }} />
+          </InputAdornment>
+        ),
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              onClick={handleClear}
+              sx={clearButtonStyle(!!value.length)}
+              data-testid="clear-button"
+            >
+              <HighlightOffIcon sx={clearIconStyle(theme)} />
+            </IconButton>
+            {extendEndAdornment && extendEndAdornment}
+          </InputAdornment>
+        ),
+      },
+    }),
+    [extendEndAdornment, handleClear, inputProps, slotProps, theme, value],
+  );
 
   return (
-    <TextField
+    <InputField
       id="search-field"
       variant="standard"
       autoComplete="off"
       placeholder="Search"
       {...props}
-      sx={{
-        padding: 0,
-        "& .MuiInput-root": {
-          marginTop: 0,
+      sx={[
+        {
+          padding: 0,
+          "& .MuiInput-root": {
+            marginTop: 0,
+          },
         },
-        ...props.sx,
-      }}
-      slotProps={{
-        ...slotProps,
-        input: {
-          ...inputProps,
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon sx={{ ...searchIconStyle(theme) }} />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={handleClear}
-                sx={clearButtonStyle(!!value.length)}
-                data-testid="clear-button"
-              >
-                <HighlightOffIcon sx={clearIconStyle(theme)} />
-              </IconButton>
-              {extendEndAdornment && extendEndAdornment}
-            </InputAdornment>
-          ),
-        },
-      }}
+        ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+      ]}
+      slotProps={computedSlotProps}
       value={value}
       onChange={handleChange}
     />

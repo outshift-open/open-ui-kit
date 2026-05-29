@@ -1,7 +1,7 @@
-import type { Meta } from "@storybook/react";
+import type { Meta } from "@storybook/react-vite";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import {
+  Box,
   Button,
   Step,
   StepLabel,
@@ -9,7 +9,7 @@ import {
   StepperProps,
   Typography,
 } from "@mui/material";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof Stepper> = {
   title: "DEV/Stepper/Desktop",

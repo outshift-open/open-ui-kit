@@ -1,0 +1,50 @@
+title: "Question: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for asking a question! Please fill out the sections below to help us assist you better.
+        
+        💡 **Tip**: Check our [Storybook documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com) first!
+        
+  - type: textarea
+    id: question
+    attributes:
+      label: "❓ Your Question"
+      description: "Ask your question clearly and provide context"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: goal
+    attributes:
+      label: "🎯 What You're Trying to Achieve" 
+      description: "Describe your end goal or use case"
+    validations:
+      required: true
+      
+  - type: input
+    id: package-version
+    attributes:
+      label: "📦 Package Version"
+      placeholder: "e.g., 1.2.3"
+      
+  - type: textarea
+    id: setup
+    attributes:
+      label: "💻 Current Setup"
+      description: "Share your current setup (React version, TypeScript, build tool, etc.)"
+      
+  - type: textarea
+    id: tried
+    attributes:
+      label: "🔍 What You've Tried"
+      description: "What approaches have you already attempted?"
+      
+  - type: textarea
+    id: code
+    attributes:
+      label: "📝 Code Example (Optional)"
+      description: "Share relevant code if applicable"
+      render: tsx

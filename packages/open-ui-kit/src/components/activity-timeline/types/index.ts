@@ -1,18 +1,10 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
+
+import type { ReactNode } from "react";
 
 export enum ActivityTimelineStepStatus {
   InProgress = "in-progress",
@@ -23,8 +15,16 @@ export enum ActivityTimelineStepStatus {
 }
 
 export interface ActivityTimelineStep {
+  /** Dot and connector state for this timeline step. */
   status: ActivityTimelineStepStatus;
+  /** Primary step label. */
   title: string;
+  /** Optional icon rendered before the title. */
+  titleStartIcon?: ReactNode;
+  /** Optional secondary label shown when the step renders accordion content. */
   subTitle?: string;
-  content?: React.ReactNode;
+  /** Optional expanded accordion content for the step. */
+  content?: ReactNode;
+  /** Expands accordion content by default when content is provided. */
+  defaultExpanded?: boolean;
 }

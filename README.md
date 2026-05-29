@@ -5,6 +5,7 @@
 **React Component Library & Design System**
 
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![Monorepo](https://img.shields.io/badge/monorepo-turborepo-blue)](https://turbo.build/)
 [![Storybook](https://img.shields.io/badge/storybook-docs-ff69b4)](https://main--68cc22452afe30d90e4ca977.chromatic.com)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](LICENSE)
@@ -41,7 +42,7 @@ Open UI Kit is designed to be framework-agnostic, accessible, and highly customi
 
 | Package | Description | Version | Documentation |
 |---------|-------------|---------|---------------|
-| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material-UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Docs](https://main--68cc22452afe30d90e4ca977.chromatic.com/) |
+| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Storybook](https://main--68cc22452afe30d90e4ca977.chromatic.com) |
 
 ## 🚀 Quick Start
 
@@ -50,10 +51,11 @@ Open UI Kit is designed to be framework-agnostic, accessible, and highly customi
 npm install @open-ui-kit/core @mui/material @emotion/react @emotion/styled
 
 # Start building with Open UI Kit
+import '@open-ui-kit/core/typography.css';
 import { ThemeProvider, Button } from '@open-ui-kit/core';
 ```
 
-👉 **[View Full Installation Guide](https://main--67e2c28f188630b706cee923.chromatic.com/?path=/docs/overview-introduction--docs#-installation)**
+👉 **[View Full Installation Guide](docs/data/material/getting-started/installation/installation.md)**
 
 ## 🏗️ Architecture
 
@@ -70,8 +72,8 @@ open-ui-kit/
 
 ### 🛠️ Built With
 
-- **React 18** - Modern React with hooks and concurrent features
-- **Material-UI v5** - Foundation for accessible, customizable components
+- **React 18+** - Modern React with hooks and concurrent features
+- **Material UI v7+** - Foundation for accessible, customizable components
 - **TypeScript** - Type safety and enhanced developer experience
 - **Emotion** - Performant CSS-in-JS styling solution
 - **Storybook** - Interactive component documentation and testing
@@ -100,7 +102,8 @@ We welcome contributions from the open source community! Whether you're fixing b
    git clone https://github.com/outshift-open/open-ui-kit.git
    cd open-ui-kit
    yarn install
-   yarn dev
+   yarn build
+   yarn workspace @open-ui-kit/core storybook
    ```
 
 3. **Start Contributing**
@@ -155,9 +158,11 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🔗 Related Links
 
-- 📚 **[Component Documentation](https://main--67e2c28f188630b706cee923.chromatic.com)** - Interactive Storybook
-- 🎯 **[Material-UI](https://mui.com/)** - Foundation library
-- � **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issues
+- 📚 **[Component Documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com)** - Interactive Storybook
+- 📋 **[Changelog](CHANGELOG.md)** - Release notes and version history
+- 🔄 **[Migration Guide](MIGRATION.md)** - Version upgrade instructions
+- 🎯 **[Material UI](https://mui.com/)** - Foundation library
+- 🏠 **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issues
 
 ---
 
@@ -167,6 +172,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 *Empowering developers to build exceptional user experiences*
 
-[🚀 Get Started](packages/open-ui-kit#quick-start) • [📚 Documentation](https://main--67e2c28f188630b706cee923.chromatic.com) • [🤝 Contribute](CONTRIBUTING.md) • [💬 Discussions](https://github.com/outshift-open/open-ui-kit/discussions)
+[🚀 Get Started](packages/open-ui-kit#quick-start) • [📚 Documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com) • [🤝 Contribute](CONTRIBUTING.md) • [💬 Discussions](https://github.com/outshift-open/open-ui-kit/discussions)
 
 </div>

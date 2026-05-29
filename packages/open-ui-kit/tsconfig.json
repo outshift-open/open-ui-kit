@@ -1,12 +1,6 @@
 {
-  "include": [
-    "src",
-    "@types/node"
-  ],
-  "typeRoots": [
-    "./node_modules/@types",
-    "./src/types"
-  ],
+  "include": ["src", "@types/node"],
+  "typeRoots": ["./node_modules/@types", "./src/types"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -18,13 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "jsx": "react-jsx",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": false,
@@ -32,12 +22,11 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES5",
+    "target": "ES2017",
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
+      "@/*": ["src/*"],
       "storybook/*": ["./.storybook/*"]
     },
     "allowJs": true

@@ -1,49 +1,49 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 export * from "./accordion";
 export * from "./activity-timeline";
-export * from "./actions-modal";
+export * from "./anchor-link-menu";
+export * from "./backdrop";
+export * from "./avatar";
+export * from "./actions-dialog";
 export * from "./banner";
 export * from "./badge";
 export * from "./breadcrumbs";
+export * from "./button";
 export * from "./card";
+export * from "./checkbox";
 export * from "./code-block";
 export * from "./copy-button";
 export * from "./date-time";
 export * from "./drawer-shell";
-export * from "./dropdown";
-export * from "./dropdown-autocomplete-tree";
+export * from "./nested-menu";
 export * from "./empty-state";
-export * from "./favorite-button";
+export * from "./floating-button";
+export * from "./filters";
 export * from "./footer";
 export * from "./header";
-export * from "./legend";
+export * from "./icon";
+export * from "./indicator-badge";
 export * from "./link";
 export * from "./loading-error-state";
-export * from "./modal";
+export * from "./dialog";
 export * from "./menu";
 export * from "./overflow-tooltip";
 export * from "./path-display";
 export * from "./search-field";
 export * from "./severity-bar";
+export * from "./severity-badge";
+export * from "./severity-badge-label";
+export * from "./sidebar";
 export * from "./spinner";
 export * from "./table";
 export * from "./tabs";
 export * from "./tags";
+export * from "./input-field";
 export * from "./toast";
 export * from "./toggle";
 export * from "./tooltip";
@@ -54,16 +54,12 @@ export * from "./pagination";
 
 // MUI exports
 export {
-  Avatar,
-  Button,
   Box,
   Stack,
   Typography,
   Grid,
-  Icon,
   IconButton,
   Stepper,
-  SpeedDial,
   Slider,
   Skeleton,
   Dialog,
@@ -74,8 +70,6 @@ export {
   ListItemButton,
   Drawer,
   Divider,
-  Checkbox,
-  Backdrop,
   Container,
   Paper,
   ButtonGroup,

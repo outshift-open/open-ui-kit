@@ -1,24 +1,19 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import {
   MRT_Column,
+  MRT_ColumnDef,
   MRT_RowData,
   MRT_TableInstance,
 } from "material-react-table";
+import { Box, IconButton, Stack } from "@mui/material";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
+import { InfoCircleOutline } from "@/custom-icons";
+import { HeaderTooltipMeta } from "../types";
 
 //  Check rightmost left-pinned column / leftmost right-pinned column
 export const isOuterPinnedColumn = <TData extends MRT_RowData>(
@@ -48,3 +43,49 @@ export const parseFromValuesOrFunc = <T, U>(
   fn: ((arg: U) => T) | T | undefined,
   arg: U,
 ): T | undefined => (fn instanceof Function ? fn(arg) : fn);
+
+// Enhance column headers to optionally show an info tooltip icon.
+// Usage: column.meta?.headerTooltip?: React.ReactNode
+export const withHeaderHelpTooltips = <
+  TData extends MRT_RowData,
+  TValue = unknown,
+>(
+  columns: MRT_ColumnDef<TData, TValue>[],
+): MRT_ColumnDef<TData, TValue>[] => {
+  return columns.map((col) => {
+    const meta = col.meta as HeaderTooltipMeta;
+    const hasHeaderTooltip =
+      meta?.headerTooltip !== undefined && meta?.headerTooltip !== null;
+
+    const updated: MRT_ColumnDef<TData, TValue> = {
+      ...col,
+    };
+
+    if (hasHeaderTooltip) {
+      updated.Header = (
+        <Stack direction="row" alignItems="flex-start" gap="2px">
+          <Box component="span">{col.header}</Box>
+          <Tooltip
+            size={TooltipSize.Medium}
+            title={meta?.headerTooltip}
+            placement="top"
+          >
+            <IconButton
+              sx={{
+                color: (theme) => theme.palette.vars.controlIconDefault,
+                "&:hover": {
+                  color: (theme) => theme.palette.vars.controlIconHover,
+                },
+              }}
+              aria-label="Column info"
+            >
+              <InfoCircleOutline sx={{ width: "16px", height: "16px" }} />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      );
+    }
+
+    return updated;
+  });
+};

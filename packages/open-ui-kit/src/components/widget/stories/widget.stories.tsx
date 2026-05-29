@@ -1,8 +1,7 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { Button, Stack } from "@mui/material";
-import { Kubernetes } from "@/custom-icons";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { Button } from "@mui/material";
 import { IWidgetProps, Widget } from "../components/widget";
-import { DocsHeader } from "storybook/components/docs-header.stories-src";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<IWidgetProps<string>> = {
   title: "Components/Widget",
@@ -12,7 +11,7 @@ const meta: Meta<IWidgetProps<string>> = {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Widget is a versatile component that can be used to display various types of content, including headers, body elements, and legends. It supports loading states and empty states, making it suitable for dynamic data presentation."
+          blurb="Widget is a versatile component that can be used to display various types of content, including headers and body elements. It supports loading states and empty states, making it suitable for dynamic data presentation."
           guideLink="#"
           importLine='import { Widget } from "@open-ui-kit/core";'
         />
@@ -76,48 +75,5 @@ export const LeftHeaderElement: Story = {
     bodyElement: <>This is body element</>,
     label: "Just a label",
     headerLeftChildren: <Button>Left element</Button>,
-  },
-};
-
-export const GeneralLegendWidget: Story = {
-  render: (args) => <Widget {...args} />,
-  args: {
-    bodyElement: <>This is body element</>,
-    isEmpty: false,
-    label: "General Header Label",
-    legend: {
-      headers: ["col1", "col2", "col3"],
-      rows: [
-        {
-          color: "red",
-          values: {
-            col1: "val1",
-            col2: "val2",
-            col3: "val3",
-          },
-        },
-        {
-          color: "blue",
-          values: {
-            col1: "val4",
-            col2: "val5",
-            col3: "val6",
-          },
-        },
-        {
-          color: "green",
-          values: {
-            col1: "val7",
-            col2: "val8",
-            col3: "val9",
-          },
-          tooltip: (
-            <Stack direction={"row"} alignItems={"center"}>
-              <Kubernetes /> K8s
-            </Stack>
-          ),
-        },
-      ],
-    },
   },
 };

@@ -1,37 +1,49 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
-import { Typography, Divider } from "@mui/material";
-import { lightTheme } from "../theme/light/light-theme";
-import { gradientsPalette } from "../theme/gradients";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { GradientSection } from "./gradient-section";
+import { CopyImport } from "./copy-import";
+import { gradientsPalette } from "@/theme/style/gradients";
 
 <Meta title="Foundations/Gradients" />
 
-<ColorPalette>
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    Gradients
-  </Typography>
-  <ColorItem
-    title="Gradients Background"
-    subtitle="gradientsPalette.background"
-    colors={gradientsPalette.background}
-  />
-  <ColorItem
-    title="Gradients Primary"
-    subtitle="gradientsPalette.primary"
-    colors={gradientsPalette.primary}
-  />
-  <ColorItem
-    title="Gradients Secondary"
-    subtitle="gradientsPalette.secondary"
-    colors={gradientsPalette.secondary}
-  />
-  <ColorItem
-    title="Gradients Illustrations"
-    subtitle="gradientsPalette.illustrations"
-    colors={gradientsPalette.illustrations}
-  />
-  <ColorItem
-    title="Gradients Red"
-    subtitle="gradientsPalette.red"
-    colors={gradientsPalette.red}
-  />
-</ColorPalette>
+<div style={{ maxWidth: 960, padding: "64px 0 96px" }}>
+
+<style>{`
+  .ouk-page-title {
+    font-family: 'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 56px !important;
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+`}</style>
+
+<h1 className="ouk-page-title">Gradients</h1>
+
+<p style={{
+  fontFamily: "Inter, sans-serif",
+  fontSize: 15,
+  opacity: 0.6,
+  marginBottom: 8,
+  maxWidth: 560,
+  lineHeight: 1.7,
+  marginTop: 0,
+}}>
+  Open UI Kit gradient tokens for backgrounds, brand moments, and illustrations.
+  Click any swatch to copy its value.
+</p>
+
+<CopyImport code={`import { gradientsPalette } from "@open-ui-kit/core"`} />
+
+<hr style={{ border: "none", borderTop: "1px solid rgba(128,128,128,0.15)", marginBottom: 56 }} />
+
+<GradientSection title="Background" entries={Object.entries(gradientsPalette.background)} />
+<GradientSection title="Primary" entries={Object.entries(gradientsPalette.primary)} />
+<GradientSection title="Secondary" entries={Object.entries(gradientsPalette.secondary)} />
+<GradientSection title="Red" entries={Object.entries(gradientsPalette.red)} />
+<GradientSection title="Illustrations" entries={Object.entries(gradientsPalette.illustrations)} />
+
+</div>

@@ -1,17 +1,7 @@
 /*
- * Copyright 2025 Open UI Kit Contributors
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { TooltipProps } from "recharts";
@@ -24,6 +14,10 @@ export interface LineChartTooltipProps extends TooltipProps<number, string> {
   valueFormatter?: (value?: number) => string;
 }
 
+type LineChartPayloadItem = NonNullable<
+  LineChartTooltipProps["payload"]
+>[number];
+
 export const LineChartTooltip = ({
   active,
   payload,
@@ -32,28 +26,25 @@ export const LineChartTooltip = ({
   valueFormatter,
 }: LineChartTooltipProps) => {
   const theme = useTheme();
+  const styles = tooltipStyles(theme);
 
   if (!active || !payload?.length) {
     return null;
   }
   return (
-    <Box sx={tooltipStyles(theme).mainContainer}>
-      <Typography
-        component="div"
-        variant="caption"
-        sx={tooltipStyles(theme).title}
-      >
+    <Box sx={styles.mainContainer}>
+      <Typography component="div" variant="caption" sx={styles.title}>
         {subject ?? formatISODate(label, "LLL dd, yyyy")} -{" "}
         {formatISODate(label, "hh:mmaaa")}
       </Typography>
-      <Box sx={tooltipStyles(theme).categoriesContainer}>
-        {payload.map((category) => {
+      <Box sx={styles.categoriesContainer}>
+        {payload.map((category: LineChartPayloadItem) => {
           return (
             <Typography
-              key={category.name}
+              key={String(category.name)}
               component="span"
               variant="caption"
-              sx={tooltipStyles(theme).categoryEntry(category.color)}
+              sx={styles.categoryEntry(category.color)}
             >
               {category.name}:{" "}
               {valueFormatter ? valueFormatter(category.value) : category.value}

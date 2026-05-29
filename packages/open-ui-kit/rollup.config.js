@@ -1,3 +1,9 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import pkg from "./package.json" assert { type: "json" };
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
@@ -16,9 +22,8 @@ import alias from "@rollup/plugin-alias";
 import path from "path";
 import cleanup from "rollup-plugin-cleanup";
 import copy from "rollup-plugin-copy";
-
-const dts = require("rollup-plugin-dts");
-const del = require("rollup-plugin-delete");
+import * as dtsPlugin from "rollup-plugin-dts";
+import del from "rollup-plugin-delete";
 
 const makeExternalPredicate = () => {
   const externalArr = [
@@ -174,6 +179,7 @@ export default [
       typescript({
         tsconfig: "./tsconfig.json",
         exclude: ["**/*.stories.tsx"],
+        compilerOptions: { ignoreDeprecations: undefined },
       }),
       commonjs({
         include: /node_modules/,
@@ -192,8 +198,16 @@ export default [
     external: [/\.css$/],
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [
-      dts.default(),
-      del.default({
+      alias({
+        entries: [
+          {
+            find: /^@\//,
+            replacement: `${path.resolve(__dirname, "dist/types")}${path.sep}`,
+          },
+        ],
+      }),
+      dtsPlugin.default(),
+      del({
         hook: "buildEnd",
         targets: ["dist/types"],
       }),

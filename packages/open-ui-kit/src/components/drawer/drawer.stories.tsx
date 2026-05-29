@@ -1,5 +1,5 @@
 import { Drawer } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { PersistentDrawerLeft } from "./persistent-drawer";
 import { BasicDrawer } from "./basic-drawer";
 
