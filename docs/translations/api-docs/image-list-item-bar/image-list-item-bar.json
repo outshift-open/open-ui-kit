@@ -1,0 +1,61 @@
+{
+  "componentDescription": "",
+  "propDescriptions": {
+    "actionIcon": {
+      "description": "An IconButton element to be used as secondary action target (primary action target is the item itself)."
+    },
+    "actionPosition": { "description": "Position of secondary action IconButton." },
+    "classes": { "description": "Override or extend the styles applied to the component." },
+    "position": { "description": "Position of the title bar." },
+    "subtitle": { "description": "String or element serving as subtitle (support text)." },
+    "sx": {
+      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
+    },
+    "title": { "description": "Title to be displayed." }
+  },
+  "classDescriptions": {
+    "actionIcon": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the actionIcon",
+      "conditions": "supplied"
+    },
+    "actionPositionLeft": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the action container element",
+      "conditions": "<code>actionPosition=\"left\"</code>"
+    },
+    "actionPositionRight": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the action container element",
+      "conditions": "<code>actionPosition=\"right\"</code>"
+    },
+    "positionBelow": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the root element",
+      "conditions": "<code>position=\"below\"</code>"
+    },
+    "positionBottom": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the root element",
+      "conditions": "<code>position=\"bottom\"</code>"
+    },
+    "positionTop": {
+      "description": "Styles applied to {{nodeName}} if {{conditions}}.",
+      "nodeName": "the root element",
+      "conditions": "<code>position=\"top\"</code>"
+    },
+    "root": { "description": "Styles applied to the root element." },
+    "subtitle": {
+      "description": "Styles applied to {{nodeName}}.",
+      "nodeName": "the subtitle container element"
+    },
+    "title": {
+      "description": "Styles applied to {{nodeName}}.",
+      "nodeName": "the title container element"
+    },
+    "titleWrap": {
+      "description": "Styles applied to {{nodeName}}.",
+      "nodeName": "the title and subtitle container element"
+    }
+  }
+}
