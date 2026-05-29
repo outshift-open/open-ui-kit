@@ -1,40 +1,40 @@
-import prism from 'prismjs';
-import 'prismjs/components/prism-css.js';
-import 'prismjs/components/prism-bash.js';
-import 'prismjs/components/prism-diff.js';
-import 'prismjs/components/prism-javascript.js';
-import 'prismjs/components/prism-json.js';
-import 'prismjs/components/prism-jsx.js';
-import 'prismjs/components/prism-markup.js';
-import 'prismjs/components/prism-yaml.js';
-import 'prismjs/components/prism-tsx.js';
+import prism from "prismjs";
+import "prismjs/components/prism-css.js";
+import "prismjs/components/prism-bash.js";
+import "prismjs/components/prism-diff.js";
+import "prismjs/components/prism-javascript.js";
+import "prismjs/components/prism-json.js";
+import "prismjs/components/prism-jsx.js";
+import "prismjs/components/prism-markup.js";
+import "prismjs/components/prism-yaml.js";
+import "prismjs/components/prism-tsx.js";
 
 function highlight(code, language) {
   let prismLanguage;
   switch (language) {
-    case 'ts':
+    case "ts":
       prismLanguage = prism.languages.tsx;
       break;
 
-    case 'js':
+    case "js":
       prismLanguage = prism.languages.jsx;
       break;
 
-    case 'sh':
+    case "sh":
       throw new Error(
         [
           `docs-infra: Unsupported language: "sh" in:`,
-          '',
-          '```sh',
+          "",
+          "```sh",
           code,
-          '```',
-          '',
+          "```",
+          "",
           'Use "bash" instead.',
-          '',
-        ].join('\n'),
+          "",
+        ].join("\n"),
       );
 
-    case 'diff':
+    case "diff":
       prismLanguage = { ...prism.languages.diff };
       // original `/^[-<].*$/m` matches lines starting with `<` which matches
       // <SomeComponent />

@@ -1,1 +1,6 @@
-export { createRender, getHeaders, getTitle, renderMarkdown } from './parseMarkdown.mjs';
+export {
+  createRender,
+  getHeaders,
+  getTitle,
+  renderMarkdown,
+} from "./parseMarkdown.mjs";

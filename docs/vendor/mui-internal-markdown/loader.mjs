@@ -1,9 +1,9 @@
 // @ts-check
 
-import { promises as fs, readdirSync, statSync } from 'fs';
-import path from 'path';
-import prepareMarkdown from './prepareMarkdown.mjs';
-import extractImports from './extractImports.mjs';
+import { promises as fs, readdirSync, statSync } from "fs";
+import path from "path";
+import prepareMarkdown from "./prepareMarkdown.mjs";
+import extractImports from "./extractImports.mjs";
 
 const notEnglishMarkdownRegExp = /-([a-z]{2})\.md$/;
 
@@ -25,9 +25,9 @@ function moduleIDToJSIdentifier(moduleID) {
   return moduleID
     .split(delimiter)
     .filter((part) => !delimiter.test(part))
-    .map((part) => (part.length === 0 ? '$' : part))
+    .map((part) => (part.length === 0 ? "$" : part))
     .map(upperCaseFirst)
-    .join('');
+    .join("");
 }
 
 /**
@@ -125,7 +125,7 @@ export default async function demoLoader() {
     componentPackageMapping = findComponents(options.packages ?? []);
   }
 
-  const englishFilename = path.basename(englishFilepath, '.md');
+  const englishFilename = path.basename(englishFilepath, ".md");
 
   const files = await fs.readdir(path.dirname(englishFilepath));
   const translations = await Promise.all(
@@ -135,11 +135,13 @@ export default async function demoLoader() {
           if (filename === `${englishFilename}.md`) {
             return {
               filename,
-              userLanguage: 'en',
+              userLanguage: "en",
             };
           }
 
-          const matchNotEnglishMarkdown = filename.match(notEnglishMarkdownRegExp);
+          const matchNotEnglishMarkdown = filename.match(
+            notEnglishMarkdownRegExp,
+          );
 
           if (
             filename.startsWith(englishFilename) &&
@@ -156,9 +158,12 @@ export default async function demoLoader() {
         })
         .filter((translation) => translation)
     ).map(async (translation) => {
-      const filepath = path.join(path.dirname(englishFilepath), translation.filename);
+      const filepath = path.join(
+        path.dirname(englishFilepath),
+        translation.filename,
+      );
       this.addDependency(filepath);
-      const markdown = await fs.readFile(filepath, { encoding: 'utf8' });
+      const markdown = await fs.readFile(filepath, { encoding: "utf8" });
 
       return {
         ...translation,
@@ -171,7 +176,7 @@ export default async function demoLoader() {
   const fileRelativeContext = path
     .relative(options.workspaceRoot, this.context)
     // win32 to posix
-    .replace(/\\/g, '/');
+    .replace(/\\/g, "/");
 
   const { docs } = prepareMarkdown({
     fileRelativeContext,
@@ -199,7 +204,10 @@ export default async function demoLoader() {
     new Set(
       /** @type {import('./prepareMarkdown.mjs').DemoEntry[]} */ (
         docs.en.rendered.filter((markdownOrComponentConfig) => {
-          return typeof markdownOrComponentConfig !== 'string' && markdownOrComponentConfig.demo;
+          return (
+            typeof markdownOrComponentConfig !== "string" &&
+            markdownOrComponentConfig.demo
+          );
         })
       ).map((demoConfig) => {
         if (demoConfig.hideToolbar) {
@@ -218,25 +226,34 @@ export default async function demoLoader() {
    * @returns {string} The name of the imported module along with a resolved extension if not provided
    * @example detectRelativeImports('ComboBox.js', '', JS', './top100Films') => relativeModules.set('ComboBox.js', new Map([['./top100Films.js', ['JS']]]))
    */
-  function detectRelativeImports(demoName, moduleFilepath, variant, importModuleID) {
+  function detectRelativeImports(
+    demoName,
+    moduleFilepath,
+    variant,
+    importModuleID,
+  ) {
     let relativeModuleFilename = importModuleID;
-    if (importModuleID.startsWith('.')) {
+    if (importModuleID.startsWith(".")) {
       const demoMap = relativeModules.get(demoName);
       // If the moduleID does not end with an extension, or ends with an unsupported extension (e.g. ".styling") we need to resolve it
       // Fastest way to get a file extension, see: https://stackoverflow.com/a/12900504/
       const importType = importModuleID.slice(
-        (Math.max(0, importModuleID.lastIndexOf('.')) || Infinity) + 1,
+        (Math.max(0, importModuleID.lastIndexOf(".")) || Infinity) + 1,
       );
-      const supportedTypes = ['js', 'jsx', 'ts', 'tsx', 'css', 'json'];
+      const supportedTypes = ["js", "jsx", "ts", "tsx", "css", "json"];
       if (!importType || !supportedTypes.includes(importType)) {
         // If the demo is a JS demo, we can assume that the relative import is either
         // a `.js` or a `.jsx` file, with `.js` taking precedence over `.jsx`
         // likewise for TS demos, with `.ts` taking precedence over `.tsx`
         const extensions =
-          variant === 'JS' ? ['.js', '.jsx', '.ts', '.tsx'] : ['.ts', '.tsx', '.js', '.jsx'];
+          variant === "JS"
+            ? [".js", ".jsx", ".ts", ".tsx"]
+            : [".ts", ".tsx", ".js", ".jsx"];
         const extension = extensions.find((ext) => {
           try {
-            return statSync(path.join(moduleFilepath, '..', `${importModuleID}${ext}`));
+            return statSync(
+              path.join(moduleFilepath, "..", `${importModuleID}${ext}`),
+            );
           } catch (error) {
             // If the file does not exist, we return false and continue to the next extension
             return false;
@@ -248,7 +265,7 @@ export default async function demoLoader() {
               `You are trying to import a module "${importModuleID}" in the demo "${demoName}" that could not be resolved.`,
               `Please make sure that one of the following file exists:`,
               ...extensions.map((ext) => `- ${importModuleID}${ext}`),
-            ].join('\n'),
+            ].join("\n"),
           );
         } else {
           relativeModuleFilename = `${importModuleID}${extension}`;
@@ -256,7 +273,10 @@ export default async function demoLoader() {
       }
 
       if (!demoMap) {
-        relativeModules.set(demoName, new Map([[relativeModuleFilename, [variant]]]));
+        relativeModules.set(
+          demoName,
+          new Map([[relativeModuleFilename, [variant]]]),
+        );
       } else {
         const variantArray = demoMap.get(relativeModuleFilename);
         if (variantArray) {
@@ -281,7 +301,11 @@ export default async function demoLoader() {
     );
     if (variantModule[variant]) {
       // Avoid duplicates
-      if (!variantModule[variant].some((elem) => elem.module === moduleData.module)) {
+      if (
+        !variantModule[variant].some(
+          (elem) => elem.module === moduleData.module,
+        )
+      ) {
         variantModule[variant].push(moduleData);
       }
     } else {
@@ -291,14 +315,14 @@ export default async function demoLoader() {
 
   await Promise.all(
     demoNames.map(async (demoName) => {
-      const multipleDemoVersionsUsed = !demoName.endsWith('.js');
+      const multipleDemoVersionsUsed = !demoName.endsWith(".js");
 
       // TODO: const moduleID = demoName;
       // The import paths currently use a completely different format.
       // They should just use relative imports.
       let moduleID = `./${demoName.replace(
-        `pages/${fileRelativeContext.replace(/^docs\/src\/pages\//, '')}/`,
-        '',
+        `pages/${fileRelativeContext.replace(/^docs\/src\/pages\//, "")}/`,
+        "",
       )}`;
 
       if (multipleDemoVersionsUsed) {
@@ -312,7 +336,7 @@ export default async function demoLoader() {
       this.addDependency(moduleFilepath);
       demos[demoName] = {
         module: moduleID,
-        raw: await fs.readFile(moduleFilepath, { encoding: 'utf8' }),
+        raw: await fs.readFile(moduleFilepath, { encoding: "utf8" }),
       };
       demoModuleIDs.add(moduleID);
 
@@ -320,14 +344,17 @@ export default async function demoLoader() {
       if (!nonEditableDemos.has(demoName)) {
         extractImports(demos[demoName].raw).forEach((importModuleID) => {
           // detect relative import
-          detectRelativeImports(demoName, moduleFilepath, 'JS', importModuleID);
+          detectRelativeImports(demoName, moduleFilepath, "JS", importModuleID);
           importedModuleIDs.add(importModuleID);
         });
       }
 
       if (multipleDemoVersionsUsed) {
         // Add Tailwind demo data
-        const tailwindModuleID = moduleID.replace('/system/index.js', '/tailwind/index.js');
+        const tailwindModuleID = moduleID.replace(
+          "/system/index.js",
+          "/tailwind/index.js",
+        );
         try {
           // Add JS demo data
           const tailwindModuleFilepath = path.join(
@@ -336,16 +363,19 @@ export default async function demoLoader() {
           );
 
           demos[demoName].moduleTailwind = tailwindModuleID;
-          demos[demoName].rawTailwind = await fs.readFile(tailwindModuleFilepath, {
-            encoding: 'utf8',
-          });
+          demos[demoName].rawTailwind = await fs.readFile(
+            tailwindModuleFilepath,
+            {
+              encoding: "utf8",
+            },
+          );
 
           this.addDependency(tailwindModuleFilepath);
 
           demoModuleIDs.add(tailwindModuleID);
 
-          extractImports(demos[demoName].rawTailwind).forEach((importModuleID) =>
-            importedModuleIDs.add(importModuleID),
+          extractImports(demos[demoName].rawTailwind).forEach(
+            (importModuleID) => importedModuleIDs.add(importModuleID),
           );
 
           demoModuleIDs.add(demos[demoName].moduleTailwind);
@@ -355,7 +385,7 @@ export default async function demoLoader() {
 
         try {
           // Add TS demo data
-          const tailwindTSModuleID = tailwindModuleID.replace('.js', '.tsx');
+          const tailwindTSModuleID = tailwindModuleID.replace(".js", ".tsx");
 
           const tailwindTSModuleFilepath = path.join(
             path.dirname(this.resourcePath),
@@ -363,16 +393,19 @@ export default async function demoLoader() {
           );
 
           demos[demoName].moduleTSTailwind = tailwindTSModuleID;
-          demos[demoName].rawTailwindTS = await fs.readFile(tailwindTSModuleFilepath, {
-            encoding: 'utf8',
-          });
+          demos[demoName].rawTailwindTS = await fs.readFile(
+            tailwindTSModuleFilepath,
+            {
+              encoding: "utf8",
+            },
+          );
 
           this.addDependency(tailwindTSModuleFilepath);
 
           demoModuleIDs.add(tailwindTSModuleID);
 
-          extractImports(demos[demoName].rawTailwindTS).forEach((importModuleID) =>
-            importedModuleIDs.add(importModuleID),
+          extractImports(demos[demoName].rawTailwindTS).forEach(
+            (importModuleID) => importedModuleIDs.add(importModuleID),
           );
 
           demoModuleIDs.add(demos[demoName].moduleTSTailwind);
@@ -381,7 +414,10 @@ export default async function demoLoader() {
         }
 
         // Add plain CSS demo data
-        const cssModuleID = moduleID.replace('/system/index.js', '/css/index.js');
+        const cssModuleID = moduleID.replace(
+          "/system/index.js",
+          "/css/index.js",
+        );
         try {
           // Add JS demo data
           const cssModuleFilepath = path.join(
@@ -391,7 +427,7 @@ export default async function demoLoader() {
 
           demos[demoName].moduleCSS = cssModuleID;
           demos[demoName].rawCSS = await fs.readFile(cssModuleFilepath, {
-            encoding: 'utf8',
+            encoding: "utf8",
           });
 
           this.addDependency(cssModuleFilepath);
@@ -409,7 +445,7 @@ export default async function demoLoader() {
 
         try {
           // Add TS demo data
-          const cssTSModuleID = cssModuleID.replace('.js', '.tsx');
+          const cssTSModuleID = cssModuleID.replace(".js", ".tsx");
 
           const cssTSModuleFilepath = path.join(
             path.dirname(this.resourcePath),
@@ -418,7 +454,7 @@ export default async function demoLoader() {
 
           demos[demoName].moduleTSCSS = cssTSModuleID;
           demos[demoName].rawCSSTS = await fs.readFile(cssTSModuleFilepath, {
-            encoding: 'utf8',
+            encoding: "utf8",
           });
 
           this.addDependency(cssTSModuleFilepath);
@@ -441,9 +477,12 @@ export default async function demoLoader() {
             `${path.sep}tailwind${path.sep}index.tsx.preview`,
           );
 
-          const tailwindJsxPreview = await fs.readFile(tailwindPreviewFilepath, {
-            encoding: 'utf8',
-          });
+          const tailwindJsxPreview = await fs.readFile(
+            tailwindPreviewFilepath,
+            {
+              encoding: "utf8",
+            },
+          );
           this.addDependency(tailwindPreviewFilepath);
 
           demos[demoName].tailwindJsxPreview = tailwindJsxPreview;
@@ -459,7 +498,7 @@ export default async function demoLoader() {
           );
 
           const cssJsxPreview = await fs.readFile(cssPreviewFilepath, {
-            encoding: 'utf8',
+            encoding: "utf8",
           });
           this.addDependency(cssPreviewFilepath);
 
@@ -470,9 +509,11 @@ export default async function demoLoader() {
       }
 
       try {
-        const previewFilepath = moduleFilepath.replace(/\.js$/, '.tsx.preview');
+        const previewFilepath = moduleFilepath.replace(/\.js$/, ".tsx.preview");
 
-        const jsxPreview = await fs.readFile(previewFilepath, { encoding: 'utf8' });
+        const jsxPreview = await fs.readFile(previewFilepath, {
+          encoding: "utf8",
+        });
         this.addDependency(previewFilepath);
 
         demos[demoName].jsxPreview = jsxPreview;
@@ -481,24 +522,30 @@ export default async function demoLoader() {
       }
 
       try {
-        const moduleTS = moduleID.replace(/\.js$/, '.tsx');
+        const moduleTS = moduleID.replace(/\.js$/, ".tsx");
         const moduleTSFilepath = path.join(
           path.dirname(this.resourcePath),
           moduleTS.replace(/\//g, path.sep),
         );
         this.addDependency(moduleTSFilepath);
-        const rawTS = await fs.readFile(moduleTSFilepath, { encoding: 'utf8' });
+        const rawTS = await fs.readFile(moduleTSFilepath, { encoding: "utf8" });
 
         // In development devs can choose whether they want to work on the TS or JS version.
         // But this leads to building both demo version i.e. more build time.
-        demos[demoName].moduleTS = this.mode === 'production' ? moduleID : moduleTS;
+        demos[demoName].moduleTS =
+          this.mode === "production" ? moduleID : moduleTS;
         demos[demoName].rawTS = rawTS;
 
         // Extract relative imports from the TypeScript version
         // of demos which have relative imports in the JS version
         if (relativeModules.has(demoName)) {
           extractImports(demos[demoName].rawTS).forEach((importModuleID) => {
-            detectRelativeImports(demoName, moduleTSFilepath, 'TS', importModuleID);
+            detectRelativeImports(
+              demoName,
+              moduleTSFilepath,
+              "TS",
+              importModuleID,
+            );
             importedModuleIDs.add(importModuleID);
           });
         }
@@ -535,110 +582,135 @@ export default async function demoLoader() {
         );
 
         await Promise.all(
-          Array.from(demoRelativeModules).map(async ([relativeModuleID, variants]) => {
-            for (const variant of variants) {
-              addedModulesRelativeToModulePathPerVariant[variant] ??= new Set();
-              const addedModulesRelativeToModulePath =
-                addedModulesRelativeToModulePathPerVariant[variant];
+          Array.from(demoRelativeModules).map(
+            async ([relativeModuleID, variants]) => {
+              for (const variant of variants) {
+                addedModulesRelativeToModulePathPerVariant[variant] ??=
+                  new Set();
+                const addedModulesRelativeToModulePath =
+                  addedModulesRelativeToModulePathPerVariant[variant];
 
-              let raw = '';
-              const relativeModuleFilePath = path.join(
-                path.dirname(moduleFilepath),
-                relativeModuleID,
-              );
+                let raw = "";
+                const relativeModuleFilePath = path.join(
+                  path.dirname(moduleFilepath),
+                  relativeModuleID,
+                );
 
-              // the file has already been processed
-              if (addedModulesRelativeToModulePath.has(relativeModuleFilePath)) {
-                continue;
-              }
+                // the file has already been processed
+                if (
+                  addedModulesRelativeToModulePath.has(relativeModuleFilePath)
+                ) {
+                  continue;
+                }
 
-              try {
-                // We are only iterating through an array that looks
-                // like this: ['JS', 'TS'], so  it is safe to await
-                // eslint-disable-next-line no-await-in-loop
-                raw = await fs.readFile(relativeModuleFilePath, {
-                  encoding: 'utf8',
-                });
+                try {
+                  // We are only iterating through an array that looks
+                  // like this: ['JS', 'TS'], so  it is safe to await
+                  // eslint-disable-next-line no-await-in-loop
+                  raw = await fs.readFile(relativeModuleFilePath, {
+                    encoding: "utf8",
+                  });
 
-                const importedProcessedModuleIDs = new Set();
-                const importedProcessedModulesIDsParents = new Map();
-                // Find the relative paths in the relative module
-                extractImports(raw).forEach((importModuleID) => {
-                  // detect relative import
-                  const importModuleIdWithExtension = detectRelativeImports(
-                    relativeModuleID,
-                    relativeModuleFilePath,
-                    variant,
-                    importModuleID,
-                  );
-                  if (importModuleID.startsWith('.')) {
-                    importedProcessedModuleIDs.add(importModuleIdWithExtension);
-                    importedProcessedModulesIDsParents.set(
-                      importModuleIdWithExtension,
+                  const importedProcessedModuleIDs = new Set();
+                  const importedProcessedModulesIDsParents = new Map();
+                  // Find the relative paths in the relative module
+                  extractImports(raw).forEach((importModuleID) => {
+                    // detect relative import
+                    const importModuleIdWithExtension = detectRelativeImports(
+                      relativeModuleID,
                       relativeModuleFilePath,
+                      variant,
+                      importModuleID,
                     );
-                  }
-                });
-
-                updateRelativeModules(demoName, { module: relativeModuleID, raw }, variant);
-                addedModulesRelativeToModulePath.add(relativeModuleFilePath);
-
-                // iterate recursively over the relative imports
-                while (importedProcessedModuleIDs.size > 0) {
-                  for (const entry of importedProcessedModuleIDs) {
-                    if (entry.startsWith('.')) {
-                      const entryModuleFilePath = path.join(
-                        path.dirname(importedProcessedModulesIDsParents.get(entry)),
-                        entry,
+                    if (importModuleID.startsWith(".")) {
+                      importedProcessedModuleIDs.add(
+                        importModuleIdWithExtension,
                       );
+                      importedProcessedModulesIDsParents.set(
+                        importModuleIdWithExtension,
+                        relativeModuleFilePath,
+                      );
+                    }
+                  });
 
-                      // We are only iterating through an array that looks
-                      // like this: ['JS', 'TS'], so  it is safe to await
-                      // eslint-disable-next-line no-await-in-loop
-                      const rawEntry = await fs.readFile(entryModuleFilePath, {
-                        encoding: 'utf8',
-                      });
+                  updateRelativeModules(
+                    demoName,
+                    { module: relativeModuleID, raw },
+                    variant,
+                  );
+                  addedModulesRelativeToModulePath.add(relativeModuleFilePath);
 
-                      extractImports(rawEntry).forEach((importModuleID) => {
-                        // detect relative import
-                        const importModuleIdWithExtension = detectRelativeImports(
-                          relativeModuleID,
-                          entryModuleFilePath,
-                          variant,
-                          importModuleID,
+                  // iterate recursively over the relative imports
+                  while (importedProcessedModuleIDs.size > 0) {
+                    for (const entry of importedProcessedModuleIDs) {
+                      if (entry.startsWith(".")) {
+                        const entryModuleFilePath = path.join(
+                          path.dirname(
+                            importedProcessedModulesIDsParents.get(entry),
+                          ),
+                          entry,
                         );
-                        if (importModuleID.startsWith('.')) {
-                          importedProcessedModuleIDs.add(importModuleIdWithExtension);
-                          importedProcessedModulesIDsParents.set(
-                            importModuleIdWithExtension,
+
+                        // We are only iterating through an array that looks
+                        // like this: ['JS', 'TS'], so  it is safe to await
+                        // eslint-disable-next-line no-await-in-loop
+                        const rawEntry = await fs.readFile(
+                          entryModuleFilePath,
+                          {
+                            encoding: "utf8",
+                          },
+                        );
+
+                        extractImports(rawEntry).forEach((importModuleID) => {
+                          // detect relative import
+                          const importModuleIdWithExtension =
+                            detectRelativeImports(
+                              relativeModuleID,
+                              entryModuleFilePath,
+                              variant,
+                              importModuleID,
+                            );
+                          if (importModuleID.startsWith(".")) {
+                            importedProcessedModuleIDs.add(
+                              importModuleIdWithExtension,
+                            );
+                            importedProcessedModulesIDsParents.set(
+                              importModuleIdWithExtension,
+                              entryModuleFilePath,
+                            );
+                          }
+                        });
+
+                        if (
+                          !addedModulesRelativeToModulePath.has(
+                            entryModuleFilePath,
+                          )
+                        ) {
+                          const modulePathDirectory = moduleFilepath
+                            .split("/")
+                            .slice(0, -1)
+                            .join("/");
+                          const moduleData = {
+                            module: `.${entryModuleFilePath.replace(modulePathDirectory, "")}`,
+                            raw: rawEntry,
+                          };
+                          updateRelativeModules(demoName, moduleData, variant);
+                          addedModulesRelativeToModulePath.add(
                             entryModuleFilePath,
                           );
                         }
-                      });
-
-                      if (!addedModulesRelativeToModulePath.has(entryModuleFilePath)) {
-                        const modulePathDirectory = moduleFilepath
-                          .split('/')
-                          .slice(0, -1)
-                          .join('/');
-                        const moduleData = {
-                          module: `.${entryModuleFilePath.replace(modulePathDirectory, '')}`,
-                          raw: rawEntry,
-                        };
-                        updateRelativeModules(demoName, moduleData, variant);
-                        addedModulesRelativeToModulePath.add(entryModuleFilePath);
                       }
+                      importedProcessedModuleIDs.delete(entry);
                     }
-                    importedProcessedModuleIDs.delete(entry);
                   }
+                } catch {
+                  throw new Error(
+                    `Could not find a module for the relative import "${relativeModuleID}" in the demo "${demoName}"`,
+                  );
                 }
-              } catch {
-                throw new Error(
-                  `Could not find a module for the relative import "${relativeModuleID}" in the demo "${demoName}"`,
-                );
               }
-            }
-          }),
+            },
+          ),
         );
       }
     }),
@@ -650,7 +722,8 @@ export default async function demoLoader() {
       /** @type {import('./prepareMarkdown.mjs').ComponentEntry[]} */ (
         docs.en.rendered.filter((markdownOrComponentConfig) => {
           return (
-            typeof markdownOrComponentConfig !== 'string' && markdownOrComponentConfig.component
+            typeof markdownOrComponentConfig !== "string" &&
+            markdownOrComponentConfig.component
           );
         })
       ).map((componentConfig) => {
@@ -660,9 +733,9 @@ export default async function demoLoader() {
   );
 
   componentNames.forEach((componentName) => {
-    const moduleID = componentName.startsWith('@mui/internal-core-docs/')
+    const moduleID = componentName.startsWith("@mui/internal-core-docs/")
       ? componentName
-      : path.join(this.rootContext, 'src', componentName).replace(/\\/g, '/');
+      : path.join(this.rootContext, "src", componentName).replace(/\\/g, "/");
 
     components[moduleID] = componentName;
     componentModuleIDs.add(moduleID);
@@ -672,21 +745,21 @@ export default async function demoLoader() {
   ${Array.from(importedModuleIDs)
     .map((moduleID) => {
       return `import * as ${moduleIDToJSIdentifier(
-        moduleID.replace('@', '$'),
+        moduleID.replace("@", "$"),
       )} from '${moduleID}';`;
     })
-    .join('\n')}
+    .join("\n")}
 
     ${Array.from(demoModuleIDs)
       .map((moduleID) => {
         return `import ${moduleIDToJSIdentifier(moduleID)} from '${moduleID}';`;
       })
-      .join('\n')}
+      .join("\n")}
     ${Array.from(componentModuleIDs)
       .map((moduleID) => {
         return `import ${moduleIDToJSIdentifier(moduleID)} from '${moduleID}';`;
       })
-      .join('\n')}
+      .join("\n")}
 export const docs = ${JSON.stringify(docs, null, 2)};
 export const demos = ${JSON.stringify(demos, null, 2)};
 
@@ -694,8 +767,11 @@ demos.scope = {
   process: {},
   import: {
 ${Array.from(importedModuleIDs)
-  .map((moduleID) => `    "${moduleID}": ${moduleIDToJSIdentifier(moduleID.replace('@', '$'))},`)
-  .join('\n')}
+  .map(
+    (moduleID) =>
+      `    "${moduleID}": ${moduleIDToJSIdentifier(moduleID.replace("@", "$"))},`,
+  )
+  .join("\n")}
   },
 };
 
@@ -704,14 +780,14 @@ ${Array.from(demoModuleIDs)
   .map((moduleID) => {
     return `  "${moduleID}": ${moduleIDToJSIdentifier(moduleID)},`;
   })
-  .join('\n')}
+  .join("\n")}
 };
 export const srcComponents = {
 ${Array.from(componentModuleIDs)
   .map((moduleID) => {
     return `  "${components[moduleID]}": ${moduleIDToJSIdentifier(moduleID)},`;
   })
-  .join('\n')}
+  .join("\n")}
 };
 `;
 

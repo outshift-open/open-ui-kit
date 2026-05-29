@@ -3,11 +3,11 @@
  */
 module.exports = {
   branches: [
-    "main", 
+    "main",
     {
       name: "beta",
-      prerelease: true
-    }
+      prerelease: true,
+    },
   ],
   plugins: [
     "@semantic-release/commit-analyzer",
@@ -15,27 +15,28 @@ module.exports = {
     [
       "@semantic-release/changelog",
       {
-        changelogFile: "CHANGELOG.md"
-      }
+        changelogFile: "CHANGELOG.md",
+      },
     ],
     [
       "@semantic-release/npm",
       {
-        "pkgRoot": "packages/open-ui-kit/dist"
-      }
+        pkgRoot: "packages/open-ui-kit/dist",
+      },
     ],
     [
       "@semantic-release/git",
       {
         assets: ["CHANGELOG.md", "packages/*/package.json"],
-        message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
+        message:
+          "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+      },
     ],
     [
       "@semantic-release/github",
       {
-        addReleases: "top"
-      }
-    ]
-  ]
+        addReleases: "top",
+      },
+    ],
+  ],
 };

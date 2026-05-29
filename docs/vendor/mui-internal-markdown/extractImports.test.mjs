@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import extractImports from './extractImports.mjs';
+import { expect } from "chai";
+import extractImports from "./extractImports.mjs";
 
-describe('extractImports', () => {
-  it('finds all imports', () => {
+describe("extractImports", () => {
+  it("finds all imports", () => {
     const imports = extractImports(`
 import {
   Component
@@ -22,18 +22,18 @@ import * from './smdn';
 import \${importName} from 'module11/\${importName}';
   `);
 
-    expect(imports[0]).to.equal('@angular2/core');
-    expect(imports[1]).to.equal('module-1');
-    expect(imports[2]).to.equal('module-2');
-    expect(imports[3]).to.equal('module-3');
-    expect(imports[4]).to.equal('module-4');
-    expect(imports[5]).to.equal('module-5');
-    expect(imports[6]).to.equal('module-6');
-    expect(imports[7]).to.equal('module-7');
-    expect(imports[8]).to.equal('module-8');
-    expect(imports[9]).to.equal('module-9');
-    expect(imports[10]).to.equal('module-10');
-    expect(imports[11]).to.equal('./smdn');
+    expect(imports[0]).to.equal("@angular2/core");
+    expect(imports[1]).to.equal("module-1");
+    expect(imports[2]).to.equal("module-2");
+    expect(imports[3]).to.equal("module-3");
+    expect(imports[4]).to.equal("module-4");
+    expect(imports[5]).to.equal("module-5");
+    expect(imports[6]).to.equal("module-6");
+    expect(imports[7]).to.equal("module-7");
+    expect(imports[8]).to.equal("module-8");
+    expect(imports[9]).to.equal("module-9");
+    expect(imports[10]).to.equal("module-10");
+    expect(imports[11]).to.equal("./smdn");
     expect(imports[12]).to.equal(undefined); // It's not a valid import
   });
 });

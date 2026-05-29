@@ -9,7 +9,8 @@
   font-weight: 400;
   font-style: normal;
   font-display: fallback;
-  src: url("./fonts/Inter-Regular.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-Regular.woff2") format("woff2"),
     url("./fonts/Inter-Regular.woff") format("woff");
 }
 
@@ -18,7 +19,8 @@
   font-weight: 400;
   font-style: italic;
   font-display: fallback;
-  src: url("./fonts/Inter-Italic.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-Italic.woff2") format("woff2"),
     url("./fonts/Inter-Italic.woff") format("woff");
 }
 
@@ -27,7 +29,8 @@
   font-weight: 600;
   font-style: normal;
   font-display: fallback;
-  src: url("./fonts/Inter-SemiBold.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-SemiBold.woff2") format("woff2"),
     url("./fonts/Inter-SemiBold.woff") format("woff");
 }
 
@@ -36,7 +39,8 @@
   font-weight: 600;
   font-style: italic;
   font-display: fallback;
-  src: url("./fonts/Inter-SemiBoldItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-SemiBoldItalic.woff2") format("woff2"),
     url("./fonts/Inter-SemiBoldItalic.woff") format("woff");
 }
 
@@ -45,7 +49,8 @@
   font-weight: 700;
   font-style: normal;
   font-display: fallback;
-  src: url("./fonts/Inter-Bold.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-Bold.woff2") format("woff2"),
     url("./fonts/Inter-Bold.woff") format("woff");
 }
 
@@ -54,7 +59,8 @@
   font-weight: 700;
   font-style: italic;
   font-display: fallback;
-  src: url("./fonts/Inter-BoldItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Inter-BoldItalic.woff2") format("woff2"),
     url("./fonts/Inter-BoldItalic.woff") format("woff");
 }
 
@@ -63,7 +69,8 @@
   font-weight: 700;
   font-style: normal;
   font-display: fallback;
-  src: url("./fonts/SharpSans-Bold.woff2") format("woff2"),
+  src:
+    url("./fonts/SharpSans-Bold.woff2") format("woff2"),
     url("./fonts/SharpSans-Bold.woff") format("woff");
 }
 
@@ -72,6 +79,7 @@
   font-weight: 700;
   font-style: italic;
   font-display: fallback;
-  src: url("./fonts/SharpSans-BoldItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/SharpSans-BoldItalic.woff2") format("woff2"),
     url("./fonts/SharpSans-BoldItalic.woff") format("woff");
 }

@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { kebabCase } from 'es-toolkit/string';
+import fs from "fs";
+import path from "path";
+import { kebabCase } from "es-toolkit/string";
 import {
   createRender,
   getContents,
@@ -9,7 +9,7 @@ import {
   getFeatureList,
   getHeaders,
   getTitle,
-} from './parseMarkdown.mjs';
+} from "./parseMarkdown.mjs";
 
 /**
  * @type {string | string[]}
@@ -29,28 +29,31 @@ function resolveComponentApiUrl(productId, componentPkg, component) {
   if (!productId) {
     return `/api/${kebabCase(component)}/`;
   }
-  if (productId === 'x-date-pickers') {
+  if (productId === "x-date-pickers") {
     return `/x/api/date-pickers/${kebabCase(component)}/`;
   }
-  if (productId === 'x-charts') {
+  if (productId === "x-charts") {
     return `/x/api/charts/${kebabCase(component)}/`;
   }
-  if (productId === 'x-tree-view') {
+  if (productId === "x-tree-view") {
     return `/x/api/tree-view/${kebabCase(component)}/`;
   }
-  if (productId === 'x-data-grid') {
+  if (productId === "x-data-grid") {
     return `/x/api/data-grid/${kebabCase(component)}/`;
   }
-  if (productId === 'x-scheduler') {
+  if (productId === "x-scheduler") {
     return `/x/api/scheduler/${kebabCase(component)}/`;
   }
-  if (productId === 'x-chat') {
+  if (productId === "x-chat") {
     return `/x/api/chat/${kebabCase(component)}/`;
   }
-  if (componentPkg === 'mui-base' || BaseUIReexportedComponents.includes(component)) {
+  if (
+    componentPkg === "mui-base" ||
+    BaseUIReexportedComponents.includes(component)
+  ) {
     return `/base-ui/react-${kebabCase(component)}/components-api/#${kebabCase(component)}`;
   }
-  if (productId === 'toolpad-core') {
+  if (productId === "toolpad-core") {
     return `/toolpad/core/api/${kebabCase(component)}/`;
   }
   return `/${productId}/api/${kebabCase(component)}/`;
@@ -76,7 +79,12 @@ function resolveComponentApiUrl(productId, componentPkg, component) {
  * @returns {{ docs: Record<string, TranslatedDoc> }} - Mapping of locale to its prepared markdown
  */
 function prepareMarkdown(config) {
-  const { fileRelativeContext, translations, componentPackageMapping = {}, options } = config;
+  const {
+    fileRelativeContext,
+    translations,
+    componentPackageMapping = {},
+    options,
+  } = config;
 
   /**
    * @type {Record<string, TranslatedDoc>}
@@ -87,16 +95,17 @@ function prepareMarkdown(config) {
   translations
     // Process the English markdown before the other locales.
     // English ToC anchor links are used in all languages
-    .sort((a) => (a.userLanguage === 'en' ? -1 : 1))
+    .sort((a) => (a.userLanguage === "en" ? -1 : 1))
     .forEach((translation) => {
       const { filename, markdown, userLanguage } = translation;
       const headers = getHeaders(markdown);
-      const location = headers.filename || `/${fileRelativeContext}/${filename}`;
+      const location =
+        headers.filename || `/${fileRelativeContext}/${filename}`;
       const markdownH1 = getTitle(markdown);
       const title = headers.title || markdownH1;
       const description = headers.description || getDescription(markdown);
 
-      if (title == null || title === '') {
+      if (title == null || title === "") {
         throw new Error(`docs-infra: Missing title in the page: ${location}\n`);
       }
 
@@ -104,29 +113,31 @@ function prepareMarkdown(config) {
         throw new Error(
           [
             `docs-infra: The title "${title}" is too long (${title.length} characters).`,
-            'It needs to have fewer than 70 characters—ideally less than 60. For more details, see:',
-            'https://developers.google.com/search/docs/advanced/appearance/title-link',
-            '',
-          ].join('\n'),
+            "It needs to have fewer than 70 characters—ideally less than 60. For more details, see:",
+            "https://developers.google.com/search/docs/advanced/appearance/title-link",
+            "",
+          ].join("\n"),
         );
       }
 
-      if (description == null || description === '') {
-        throw new Error(`docs-infra: Missing description in the page: ${location}\n`);
+      if (description == null || description === "") {
+        throw new Error(
+          `docs-infra: Missing description in the page: ${location}\n`,
+        );
       }
 
       if (description.length > 160) {
         throw new Error(
           [
             `docs-infra: The description "${description}" is too long (${description.length} characters).`,
-            'It needs to have fewer than 170 characters—ideally less than 160. For more details, see:',
-            'https://ahrefs.com/blog/meta-description/#4-be-concise',
-            '',
-          ].join('\n'),
+            "It needs to have fewer than 170 characters—ideally less than 160. For more details, see:",
+            "https://ahrefs.com/blog/meta-description/#4-be-concise",
+            "",
+          ].join("\n"),
         );
       }
 
-      if (description.slice(-1) !== '.' && description.slice(-1) !== '!') {
+      if (description.slice(-1) !== "." && description.slice(-1) !== "!") {
         throw new Error(
           `docs-infra: The description "${description}" should end with a "." or "!", those are sentences.`,
         );
@@ -134,7 +145,7 @@ function prepareMarkdown(config) {
 
       const contents = getContents(markdown);
 
-      if (headers.components.length > 0 && headers.productId !== 'base-ui') {
+      if (headers.components.length > 0 && headers.productId !== "base-ui") {
         contents.push(`
 ## API
 
@@ -150,14 +161,14 @@ ${headers.components
       component,
     )})`;
   })
-  .join('\n')}
+  .join("\n")}
 ${headers.hooks
   .map((hook) => {
     const componentPkgMap = componentPackageMapping[headers.productId];
     const componentPkg = componentPkgMap ? componentPkgMap[hook] : null;
     return `- [\`${hook}\`](${resolveComponentApiUrl(headers.productId, componentPkg, hook)})`;
   })
-  .join('\n')}
+  .join("\n")}
   `);
       }
 
@@ -175,7 +186,7 @@ ${headers.hooks
           try {
             return JSON.parse(`{${content}}`);
           } catch (err) {
-            console.error('JSON.parse fails with: ', `{${content}}`);
+            console.error("JSON.parse fails with: ", `{${content}}`);
             console.error(err);
             return null;
           }
@@ -260,10 +271,13 @@ ${headers.hooks
       };
     });
 
-  if (docs.en.headers.card === 'true') {
-    const slug = docs.en.location.replace(/(.*)\/(.*)\.md/, '$2');
+  if (docs.en.headers.card === "true") {
+    const slug = docs.en.location.replace(/(.*)\/(.*)\.md/, "$2");
     const exists = fs.existsSync(
-      path.resolve(config.options.workspaceRoot, `docs/public/static/blog/${slug}/card.png`),
+      path.resolve(
+        config.options.workspaceRoot,
+        `docs/public/static/blog/${slug}/card.png`,
+      ),
     );
 
     if (!exists) {
@@ -271,7 +285,7 @@ ${headers.hooks
         [
           `MUI: the card image for the blog post "${slug}" is missing.`,
           `Add a docs/public/static/blog/${slug}/card.png file and then restart Next.js or else remove card: true from the headers.`,
-        ].join('\n'),
+        ].join("\n"),
       );
     }
   }

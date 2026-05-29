@@ -1,15 +1,15 @@
-import { expect } from 'chai';
-import prepareMarkdown from './prepareMarkdown.mjs';
+import { expect } from "chai";
+import prepareMarkdown from "./prepareMarkdown.mjs";
 
-describe('prepareMarkdown', () => {
+describe("prepareMarkdown", () => {
   const defaultParams = {
-    fileRelativeContext: 'test/bar',
+    fileRelativeContext: "test/bar",
     options: {
       env: {},
     },
   };
 
-  it('returns the table of contents with html and emojis preserved and <a> tags stripped', () => {
+  it("returns the table of contents with html and emojis preserved and <a> tags stripped", () => {
     const markdown = `
 # Support
 
@@ -29,38 +29,38 @@ describe('prepareMarkdown', () => {
       },
     } = prepareMarkdown({
       ...defaultParams,
-      translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+      translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
     });
 
     expect(toc).to.have.deep.ordered.members([
       {
         children: [
           {
-            hash: 'github',
+            hash: "github",
             level: 3,
             text: 'GitHub <img src="/static/images/logos/github.svg" width="24" height="24" alt="GitHub logo" loading="lazy" />',
           },
-          { hash: 'unofficial', level: 3, text: 'Unofficial 👍' },
-          { hash: 'warning', level: 3, text: 'Warning ⚠️' },
+          { hash: "unofficial", level: 3, text: "Unofficial 👍" },
+          { hash: "warning", level: 3, text: "Warning ⚠️" },
           {
-            hash: 'header-with-pro-plan',
+            hash: "header-with-pro-plan",
             level: 3,
             text: 'Header with Pro plan <span class="plan-pro"></span>',
           },
           {
-            hash: 'header-with-code',
+            hash: "header-with-code",
             level: 3,
-            text: 'Header with code',
+            text: "Header with code",
           },
         ],
-        hash: 'community-help-free',
+        hash: "community-help-free",
         level: 2,
-        text: 'Community help (free)',
+        text: "Community help (free)",
       },
     ]);
   });
 
-  it('enables word-break for function signatures', () => {
+  it("enables word-break for function signatures", () => {
     const markdown = `
 # Theming
 
@@ -77,31 +77,31 @@ describe('prepareMarkdown', () => {
       },
     } = prepareMarkdown({
       ...defaultParams,
-      translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+      translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
     });
 
     expect(toc).to.have.deep.ordered.members([
       {
         children: [
           {
-            hash: 'responsivefontsizes-theme-options-theme',
+            hash: "responsivefontsizes-theme-options-theme",
             level: 3,
-            text: 'responsiveFontSizes(&#8203;theme, options) =&gt; theme',
+            text: "responsiveFontSizes(&#8203;theme, options) =&gt; theme",
           },
           {
-            hash: 'createtheme-options-args-theme',
+            hash: "createtheme-options-args-theme",
             level: 3,
-            text: 'createTheme(&#8203;options, ...args) =&gt; theme',
+            text: "createTheme(&#8203;options, ...args) =&gt; theme",
           },
         ],
-        hash: 'api',
+        hash: "api",
         level: 2,
-        text: 'API',
+        text: "API",
       },
     ]);
   });
 
-  it('use english hash for different locales', () => {
+  it("use english hash for different locales", () => {
     const markdownEn = `
 # Localization
 
@@ -138,11 +138,23 @@ describe('prepareMarkdown', () => {
         zh: { toc: tocZh },
       },
     } = prepareMarkdown({
-      pageFilename: '/same-hash-test',
+      pageFilename: "/same-hash-test",
       translations: [
-        { filename: 'localization.md', markdown: markdownEn, userLanguage: 'en' },
-        { filename: 'localization-pt.md', markdown: markdownPt, userLanguage: 'pt' },
-        { filename: 'localization-zh.md', markdown: markdownZh, userLanguage: 'zh' },
+        {
+          filename: "localization.md",
+          markdown: markdownEn,
+          userLanguage: "en",
+        },
+        {
+          filename: "localization-pt.md",
+          markdown: markdownPt,
+          userLanguage: "pt",
+        },
+        {
+          filename: "localization-zh.md",
+          markdown: markdownZh,
+          userLanguage: "zh",
+        },
       ],
     });
 
@@ -150,19 +162,19 @@ describe('prepareMarkdown', () => {
       {
         children: [
           {
-            hash: 'example',
+            hash: "example",
             level: 3,
-            text: '例',
+            text: "例",
           },
           {
-            hash: 'use-same-hash',
+            hash: "use-same-hash",
             level: 3,
-            text: '使用相同的哈希',
+            text: "使用相同的哈希",
           },
         ],
-        hash: 'locales',
+        hash: "locales",
         level: 2,
-        text: '语言环境',
+        text: "语言环境",
       },
     ]);
 
@@ -170,19 +182,19 @@ describe('prepareMarkdown', () => {
       {
         children: [
           {
-            hash: 'example',
+            hash: "example",
             level: 3,
-            text: 'Exemplo',
+            text: "Exemplo",
           },
           {
-            hash: 'use-same-hash',
+            hash: "use-same-hash",
             level: 3,
-            text: 'Usar o mesmo hash',
+            text: "Usar o mesmo hash",
           },
         ],
-        hash: 'locales',
+        hash: "locales",
         level: 2,
-        text: 'Idiomas',
+        text: "Idiomas",
       },
     ]);
 
@@ -190,24 +202,24 @@ describe('prepareMarkdown', () => {
       {
         children: [
           {
-            hash: 'example',
+            hash: "example",
             level: 3,
-            text: 'Example',
+            text: "Example",
           },
           {
-            hash: 'use-same-hash',
+            hash: "use-same-hash",
             level: 3,
-            text: 'Use same hash',
+            text: "Use same hash",
           },
         ],
-        hash: 'locales',
+        hash: "locales",
         level: 2,
-        text: 'Locales',
+        text: "Locales",
       },
     ]);
   });
 
-  it('use translated hash for translations are not synced', () => {
+  it("use translated hash for translations are not synced", () => {
     const markdownEn = `
 # Localization
 
@@ -235,10 +247,18 @@ describe('prepareMarkdown', () => {
         pt: { toc: tocPt },
       },
     } = prepareMarkdown({
-      pageFilename: '/same-hash-test',
+      pageFilename: "/same-hash-test",
       translations: [
-        { filename: 'localization.md', markdown: markdownEn, userLanguage: 'en' },
-        { filename: 'localization-pt.md', markdown: markdownPt, userLanguage: 'pt' },
+        {
+          filename: "localization.md",
+          markdown: markdownEn,
+          userLanguage: "en",
+        },
+        {
+          filename: "localization-pt.md",
+          markdown: markdownPt,
+          userLanguage: "pt",
+        },
       ],
     });
 
@@ -246,24 +266,24 @@ describe('prepareMarkdown', () => {
       {
         children: [
           {
-            hash: 'example',
+            hash: "example",
             level: 3,
-            text: 'Exemplo',
+            text: "Exemplo",
           },
           {
-            hash: 'use-same-hash',
+            hash: "use-same-hash",
             level: 3,
-            text: 'Usar o mesmo hash',
+            text: "Usar o mesmo hash",
           },
           {
-            hash: 'usar-traduzido',
+            hash: "usar-traduzido",
             level: 3,
-            text: 'Usar traduzido',
+            text: "Usar traduzido",
           },
         ],
-        hash: 'locales',
+        hash: "locales",
         level: 2,
-        text: 'Idiomas',
+        text: "Idiomas",
       },
     ]);
 
@@ -271,24 +291,24 @@ describe('prepareMarkdown', () => {
       {
         children: [
           {
-            hash: 'example',
+            hash: "example",
             level: 3,
-            text: 'Example',
+            text: "Example",
           },
           {
-            hash: 'use-same-hash',
+            hash: "use-same-hash",
             level: 3,
-            text: 'Use same hash',
+            text: "Use same hash",
           },
         ],
-        hash: 'locales',
+        hash: "locales",
         level: 2,
-        text: 'Locales',
+        text: "Locales",
       },
     ]);
   });
 
-  it('should report missing trailing splashes', () => {
+  it("should report missing trailing splashes", () => {
     const markdown = `
 # Localization
 
@@ -301,7 +321,7 @@ describe('prepareMarkdown', () => {
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to.throw(`docs-infra: Missing trailing slash. The following link:
 [foo](/foo) in /test/bar/index.md is missing a trailing slash, please add it.
@@ -310,7 +330,7 @@ See https://ahrefs.com/blog/trailing-slash/ for more details.
 `);
   });
 
-  it('should report missing leading splashes', () => {
+  it("should report missing leading splashes", () => {
     const markdown = `
 # Localization
 
@@ -323,14 +343,14 @@ See https://ahrefs.com/blog/trailing-slash/ for more details.
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to.throw(`docs-infra: Missing leading slash. The following link:
 [foo](foo/) in /test/bar/index.md is missing a leading slash, please add it.
 `);
   });
 
-  it('should report title too long', () => {
+  it("should report title too long", () => {
     const markdown = `
 # Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
@@ -341,7 +361,7 @@ See https://ahrefs.com/blog/trailing-slash/ for more details.
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to
       .throw(`docs-infra: The title "Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" is too long (117 characters).
@@ -350,7 +370,7 @@ https://developers.google.com/search/docs/advanced/appearance/title-link
 `);
   });
 
-  it('should report description too long', () => {
+  it("should report description too long", () => {
     const markdown = `
 # Foo
 
@@ -361,7 +381,7 @@ https://developers.google.com/search/docs/advanced/appearance/title-link
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to
       .throw(`docs-infra: The description "Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo." is too long (188 characters).
@@ -370,7 +390,7 @@ https://ahrefs.com/blog/meta-description/#4-be-concise
 `);
   });
 
-  it('should not accept sh', () => {
+  it("should not accept sh", () => {
     const markdown = `
 # Foo
 
@@ -385,7 +405,7 @@ npm install @mui/material
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to.throw(`docs-infra: Unsupported language: "sh" in:
 
@@ -397,7 +417,7 @@ Use "bash" instead.
 `);
   });
 
-  it('should report duplicated trailing splashes', () => {
+  it("should report duplicated trailing splashes", () => {
     const markdown = `
 # Localization
 
@@ -410,7 +430,7 @@ Use "bash" instead.
     expect(() => {
       prepareMarkdown({
         ...defaultParams,
-        translations: [{ filename: 'index.md', markdown, userLanguage: 'en' }],
+        translations: [{ filename: "index.md", markdown, userLanguage: "en" }],
       });
     }).to.throw(`docs-infra: Duplicated trailing slashes.`);
   });
