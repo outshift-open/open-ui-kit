@@ -13,7 +13,6 @@ import {
   Box,
 } from "@mui/material";
 import type { BoxProps } from "@mui/material";
-import { alpha } from "@mui/material/styles";
 import type { ComponentType } from "react";
 
 export const StyledAvatar = styled(MuiAvatar, {
@@ -70,7 +69,7 @@ export const AvatarImageOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   inset: 0,
   opacity: 0,
-  backgroundColor: alpha(theme.palette.vars.brandIconPrimaryStrong, 0.1),
+  backgroundColor: `color-mix(in srgb, ${theme.palette.vars.brandIconPrimaryStrong} 10%, transparent)`,
   pointerEvents: "none",
   transition: "opacity 0.2s",
 })) as ComponentType<BoxProps>;
