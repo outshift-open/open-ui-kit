@@ -19,14 +19,14 @@ import { DocsHeader } from "storybook/components/docs-header.stories";
 const meta: Meta<typeof FiltersBar> = {
   title: "Components/Filters",
   component: FiltersBar,
-  tags: ["autodocs"],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="FiltersBar provides a search field, filter chips, and a slide-out drawer for selecting filter options. Supports nested filters, select-all, multi-select, and single-select modes."
-          guideLink=""
+          title="Filters"
+          blurb="Filters combine search, applied chips, and a drawer for refining large result sets. They support select-all groups, nested groups, single-select groups, favorite toggles, and optional trailing actions."
           importLine={`import { FiltersBar } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -79,6 +79,7 @@ const FiltersBarStory = ({
 };
 
 export const Default: Story = {
+  name: "Filters",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
@@ -91,6 +92,7 @@ export const Default: Story = {
 };
 
 export const WithSelectAll: Story = {
+  name: "Agent skills",
   render: FiltersBarStory,
   args: {
     filtersData: filterSelectAllFilterOptions,
@@ -103,6 +105,7 @@ export const WithSelectAll: Story = {
 };
 
 export const NestedFilters: Story = {
+  name: "Agent skills use the nested dropdown menu",
   render: FiltersBarStory,
   args: {
     filtersData: nestedFilters,
@@ -115,6 +118,7 @@ export const NestedFilters: Story = {
 };
 
 export const SingleSelect: Story = {
+  name: "Locator type - Extension",
   render: FiltersBarStory,
   args: {
     filtersData: filtersNoMultiSelectMockData,
@@ -127,7 +131,7 @@ export const SingleSelect: Story = {
 };
 
 export const WithoutSearch: Story = {
-  name: "Without Search Handler",
+  name: "Search disabled",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
@@ -140,6 +144,7 @@ export const WithoutSearch: Story = {
 };
 
 export const WithSideButton: Story = {
+  name: "Activated",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,

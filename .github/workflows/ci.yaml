@@ -58,6 +58,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     needs: install
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Enable Corepack
@@ -67,7 +68,7 @@ jobs:
           node-version: 20
           cache: yarn
       - run: yarn install --immutable
-      - run: yarn test
+      - run: yarn core:test
 
   prettier:
     name: Prettier

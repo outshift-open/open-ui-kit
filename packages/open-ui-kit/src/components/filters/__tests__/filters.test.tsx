@@ -78,6 +78,38 @@ describe("FiltersBar", () => {
     expect(screen.getByPlaceholderText("Search by type")).toBeInTheDocument();
   });
 
+  it("disables search controls when no search handler is provided", () => {
+    wrap(
+      <FiltersBar
+        isLoading={false}
+        filtersData={mockFilters}
+        assetsData={mockAssetsData}
+        onSelectedChange={noop}
+        searchPlaceHolder="Search by type"
+      />,
+    );
+
+    expect(screen.getByPlaceholderText("Search by type")).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Search" })).toBeDisabled();
+  });
+
+  it("adds an accessible label to the favorite toggle", () => {
+    wrap(
+      <FiltersBar
+        isLoading={false}
+        filtersData={mockFilters}
+        assetsData={mockAssetsData}
+        onSelectedChange={noop}
+        onFavorite={noop}
+        favoriteValue={false}
+      />,
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Add to favorites" }),
+    ).toBeInTheDocument();
+  });
+
   it("renders filter chip for selected filter", () => {
     wrap(
       <FiltersBar

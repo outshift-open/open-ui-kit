@@ -8,12 +8,7 @@ import { Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getStyles } from "./styles";
 import { Button } from "@/components/button";
-import type {
-  AssetsData,
-  FilterData,
-  FilterOptionData,
-  FiltersBarProps,
-} from "../../types";
+import type { FilterData, FiltersBarProps } from "../../types";
 import {
   getFiltersSelectionCount,
   setAllSubFilters,
@@ -118,5 +113,3 @@ export const FiltersBar = ({
     </Stack>
   );
 };
-
-export type { FilterData, AssetsData, FilterOptionData };

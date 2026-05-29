@@ -70,6 +70,7 @@ export const FiltersBarActions = ({
       )}
       {onFavorite && (
         <Button
+          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
           size="large"
           variant="secondary"
           onClick={() => onFavorite(!favorite)}
