@@ -1,9 +1,9 @@
 const productNameProductId: Record<string, string> = {
-  "material-ui": "Material UI",
+  "open-ui-kit-core": "Open UI Kit Core",
   "joy-ui": "Joy UI",
-  "base-ui": "MUI Base",
-  x: "MUI X",
-  system: "MUI System",
+  "base-ui": "Base UI",
+  x: "Advanced components",
+  system: "System styles",
   toolpad: "Toolpad",
   "toolpad-studio": "Toolpad Studio",
   "toolpad-core": "Toolpad Core",

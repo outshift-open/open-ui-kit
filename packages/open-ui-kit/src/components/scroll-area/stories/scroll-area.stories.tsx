@@ -1,49 +1,83 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Typography } from "@mui/material";
-import { ScrollArea } from "../components/scroll-area";
+import { ScrollArea } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-export default {
-  title: "Components/ScrollArea",
+const meta: Meta<typeof ScrollArea> = {
+  title: "Components/Scroll Area",
   component: ScrollArea,
+  tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="ScrollArea is a component that allows you to create scrollable areas in your application. It can be used to contain content that exceeds the available space, providing a way for users to scroll through the content."
+          blurb="Scroll Area wraps overflow content in a constrained container. The viewport clips content and provides keyboard-accessible scrolling with a branded focus ring."
           guideLink=""
           importLine='import { ScrollArea } from "@open-ui-kit/core";'
         />
       ),
     },
   },
-} as Meta;
-
-const Template: StoryFn = (args) => (
-  <ScrollArea
-    sx={{ height: "200px", width: "300px", border: "1px solid #ccc" }}
-    {...args}
-  >
-    <Box sx={{ height: "600px", padding: 2 }}>
-      <Typography variant="body1">Scrollable Content</Typography>
-      {[...Array(50)].map((_, index) => (
-        <Typography key={index} variant="body2">
-          Item {index + 1}
-        </Typography>
-      ))}
-    </Box>
-  </ScrollArea>
-);
-
-export const Default = Template.bind({});
-Default.args = {};
-
-export const HorizontalScroll = Template.bind({});
-HorizontalScroll.args = {
-  sx: { height: "100px", width: "150px", border: "1px solid #ccc" },
 };
 
-export const VerticalScroll = Template.bind({});
-VerticalScroll.args = {
-  sx: { height: "200px", width: "550px", border: "1px solid #ccc" },
+export default meta;
+
+type Story = StoryObj<typeof ScrollArea>;
+
+const ITEMS = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
+
+export const VerticalScroll: Story = {
+  render: () => (
+    <ScrollArea sx={{ height: 200, width: 300, border: "1px solid #ccc" }}>
+      <Box sx={{ padding: 2 }}>
+        {ITEMS.map((item) => (
+          <Typography key={item} variant="body2">
+            {item}
+          </Typography>
+        ))}
+      </Box>
+    </ScrollArea>
+  ),
+};
+
+export const HorizontalScroll: Story = {
+  render: () => (
+    <ScrollArea
+      sx={{
+        height: 80,
+        width: 300,
+        border: "1px solid #ccc",
+        "& [data-slot='scroll-area-viewport']": { overflow: "scroll hidden" },
+      }}
+    >
+      <Box sx={{ display: "flex", gap: 2, padding: 2, width: "max-content" }}>
+        {ITEMS.map((item) => (
+          <Typography key={item} variant="body2" sx={{ whiteSpace: "nowrap" }}>
+            {item}
+          </Typography>
+        ))}
+      </Box>
+    </ScrollArea>
+  ),
+};
+
+export const CustomHeight: Story = {
+  render: () => (
+    <ScrollArea sx={{ height: 120, width: 400, border: "1px solid #ccc" }}>
+      <Box sx={{ padding: 2 }}>
+        {ITEMS.map((item) => (
+          <Typography key={item} variant="body2">
+            {item}
+          </Typography>
+        ))}
+      </Box>
+    </ScrollArea>
+  ),
 };

@@ -22,7 +22,7 @@ import openUiKitCorePkgJson from "../../packages/open-ui-kit/package.json";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
-import materialPages from "docs/data/material/pages";
+import openUiKitPages from "docs/data/material/pages";
 import staticNotifications from "../notifications.json";
 import {
   OpenUiKitLogomarkIcon,
@@ -101,7 +101,7 @@ const docsConfig: DocsConfig = {
 /**
  * Generates root index template for Open UI Kit demos.
  */
-function getMaterialRootIndex(codeVariant: string) {
+function getOpenUiKitRootIndex(codeVariant: string) {
   const type = codeVariant === "TS" ? "!" : "";
   return `import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
@@ -122,15 +122,11 @@ function useProductData(currentPackageVersion: string) {
   // TODO move productId & productCategoryId resolution to page layout.
   // We should use the productId field from the markdown and fallback to getProductInfoFromUrl()
   // if not present
-  const normalizedPath = router.asPath.replace(
-    /^\/open-ui-kit-core(?=\/|$)/,
-    "/material-ui",
-  );
-  const { productId = "material-ui", productCategoryId = "core" } =
-    getProductInfoFromUrl(normalizedPath);
+  const { productId = "open-ui-kit-core", productCategoryId = "core" } =
+    getProductInfoFromUrl(router.asPath);
 
   const productIdentifier = React.useMemo(() => {
-    if (productId === "material-ui") {
+    if (productId === "open-ui-kit-core") {
       return {
         metadata: "",
         name: "Open UI Kit Core",
@@ -156,7 +152,7 @@ function useProductData(currentPackageVersion: string) {
   }, [currentPackageVersion, productId]);
 
   return React.useMemo(() => {
-    const pages: MuiPage[] = materialPages as MuiPage[];
+    const pages: MuiPage[] = openUiKitPages as MuiPage[];
 
     const { activePage, activePageParents } = findActivePage(
       pages,
@@ -177,7 +173,7 @@ function useProductData(currentPackageVersion: string) {
 const CSB_CONFIG: SandboxConfig = {
   primaryPackage: "@mui/material",
   fallbackDependency: { name: "@mui/material", version: "latest" },
-  getRootIndex: getMaterialRootIndex,
+  getRootIndex: getOpenUiKitRootIndex,
 };
 
 const GA_AD_CONFIG: AdConfig = { GADisplayRatio: 0.1 };

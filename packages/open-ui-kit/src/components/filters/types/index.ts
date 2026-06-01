@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { SearchFieldProps } from "@/components/search-field";
+import type { SearchInputProps } from "@/components/search-input";
 
 export interface FilterOptionData {
   /** Raw option value shown in the filter menu or formatted with `valueFormatter`. */
@@ -60,7 +60,7 @@ export interface FiltersBarActionsProps {
   searchValue?: string;
   /** Extra props/adornments forwarded to the search field input. */
   inputProps?: {
-    props: SearchFieldProps["InputProps"];
+    props: SearchInputProps["InputProps"];
     extendEndAdornment?: JSX.Element;
   };
   /** Optional action area rendered at the far right of the filter bar. */

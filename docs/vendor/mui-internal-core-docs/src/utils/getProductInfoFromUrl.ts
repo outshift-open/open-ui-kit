@@ -3,7 +3,7 @@ import { pathnameToLanguage } from "../helpers/helpers";
 export type MuiProductId =
   | "null"
   | "base-ui"
-  | "material-ui"
+  | "open-ui-kit-core"
   | "system"
   | "docs-infra"
   | "docs"
@@ -36,7 +36,7 @@ export function getProductInfoFromUrl(asPath: string): MuiProductInfo {
   let productId = "null";
 
   if (
-    firstFolder === "material-ui" ||
+    firstFolder === "open-ui-kit-core" ||
     firstFolder === "joy-ui" ||
     firstFolder === "base-ui" ||
     firstFolder === "system"

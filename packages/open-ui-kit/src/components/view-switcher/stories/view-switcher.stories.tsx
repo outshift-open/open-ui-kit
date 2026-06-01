@@ -1,19 +1,29 @@
-import { useEffect, useState } from "react";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Dashboard1, SettingsMenuProfile, User } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ViewSwitcher } from "../components/view-switcher";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
+
 const meta: Meta<typeof ViewSwitcher> = {
-  decorators: [(story) => <Stack>{story()}</Stack>],
   title: "Components/ViewSwitcher",
   component: ViewSwitcher,
+  tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="ViewSwitcher allows users to switch between different views or modes in an application. It can be used to toggle between different layouts, data representations, or functionalities."
+          blurb="ViewSwitcher allows users to switch between different views or modes. It supports label and icon-only variants, two sizes, full-width layout, and disabled state."
           guideLink=""
           importLine='import { ViewSwitcher } from "@open-ui-kit/core";'
         />
@@ -23,124 +33,112 @@ const meta: Meta<typeof ViewSwitcher> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof ViewSwitcher>;
 
-export const SizeMedium: Story = {
-  args: { value: "Option 1" },
-  render: function Render(args) {
-    const options = ["Option 1", "Option 2", "Option 3"];
-    const [selectedView, setSelectedView] = useState(args.value);
-    useEffect(() => setSelectedView(args.value), [setSelectedView, args.value]);
-    return (
-      <ViewSwitcher
-        {...args}
-        onChange={(value) => setSelectedView(value)}
-        options={options}
-        value={selectedView}
-      />
-    );
-  },
+const labelOptions = ["Option 1", "Option 2", "Option 3"];
+const iconOptions = [
+  { icon: User, value: "user" },
+  { icon: Dashboard1, value: "dashboard" },
+  { icon: SettingsMenuProfile, value: "profile" },
+] as const;
+
+/* ─── Labels — Medium ─── */
+const LabelsMediumStory = () => {
+  const [value, setValue] = useState("Option 1");
+  return (
+    <ViewSwitcher options={labelOptions} value={value} onChange={setValue} />
+  );
 };
 
-export const SizeSmall: Story = {
-  args: { value: "Option 1", size: "sm" },
-  render: function Render(args) {
-    const options = ["Option 1", "Option 2", "Option 3"];
-    const [selectedView, setSelectedView] = useState(args.value);
-    useEffect(() => setSelectedView(args.value), [setSelectedView, args.value]);
-    return (
-      <ViewSwitcher
-        {...args}
-        onChange={(value) => setSelectedView(value)}
-        options={options}
-        value={selectedView}
-      />
-    );
-  },
+export const LabelsMedium: Story = {
+  name: "Labels — Medium",
+  render: () => <LabelsMediumStory />,
+};
+
+/* ─── Labels — Small ─── */
+const LabelsSmallStory = () => {
+  const [value, setValue] = useState("Option 1");
+  return (
+    <ViewSwitcher
+      options={labelOptions}
+      value={value}
+      onChange={setValue}
+      size="sm"
+    />
+  );
+};
+
+export const LabelsSmall: Story = {
+  name: "Labels — Small",
+  render: () => <LabelsSmallStory />,
+};
+
+/* ─── Icons — Medium ─── */
+const IconsMediumStory = () => {
+  const [value, setValue] = useState("user");
+  return (
+    <ViewSwitcher options={iconOptions} value={value} onChange={setValue} />
+  );
+};
+
+export const IconsMedium: Story = {
+  name: "Icons — Medium",
+  render: () => <IconsMediumStory />,
+};
+
+/* ─── Icons — Small ─── */
+const IconsSmallStory = () => {
+  const [value, setValue] = useState("user");
+  return (
+    <ViewSwitcher
+      options={iconOptions}
+      value={value}
+      onChange={setValue}
+      size="sm"
+    />
+  );
+};
+
+export const IconsSmall: Story = {
+  name: "Icons — Small",
+  render: () => <IconsSmallStory />,
+};
+
+/* ─── Full Width ─── */
+const FullWidthStory = () => {
+  const [value, setValue] = useState("Option 1");
+  return (
+    <ViewSwitcher
+      options={labelOptions}
+      value={value}
+      onChange={setValue}
+      fullWidth
+    />
+  );
 };
 
 export const FullWidth: Story = {
-  args: { value: "Option 1", fullWidth: true },
-  render: function Render(args) {
-    const options = ["Option 1", "Option 2", "Option 3"];
-    const [selectedView, setSelectedView] = useState(args.value);
-    useEffect(() => setSelectedView(args.value), [setSelectedView, args.value]);
-    return (
-      <ViewSwitcher
-        {...args}
-        onChange={(value) => setSelectedView(value)}
-        options={options}
-        value={selectedView}
-      />
-    );
-  },
+  name: "Full Width",
+  render: () => <FullWidthStory />,
 };
 
+/* ─── Disabled ─── */
 export const Disabled: Story = {
-  args: {
-    value: "Option 1",
-    disabled: true,
-    options: ["Option 1", "Option 2", "Option 3"],
-  },
-};
-
-export const IconOnlyMedium: Story = {
-  args: { value: "user" },
-  render: function Render(args) {
-    const options = [
-      {
-        icon: User,
-        value: "user",
-      },
-      {
-        icon: Dashboard1,
-        value: "dashboard",
-      },
-      {
-        icon: SettingsMenuProfile,
-        value: "menuProfile",
-      },
-    ];
-    const [selectedView, setSelectedView] = useState(args.value);
-    useEffect(() => setSelectedView(args.value), [setSelectedView, args.value]);
-    return (
+  name: "Disabled",
+  render: () => (
+    <Stack spacing={2}>
       <ViewSwitcher
-        {...args}
-        onChange={(value) => setSelectedView(value)}
-        options={options}
-        value={selectedView}
+        options={labelOptions}
+        value="Option 1"
+        onChange={noop}
+        disabled
       />
-    );
-  },
-};
-
-export const IconOnlySmall: Story = {
-  args: { value: "user", size: "sm" },
-  render: function Render(args) {
-    const options = [
-      {
-        icon: User,
-        value: "user",
-      },
-      {
-        icon: Dashboard1,
-        value: "dashboard",
-      },
-      {
-        icon: SettingsMenuProfile,
-        value: "menuProfile",
-      },
-    ];
-    const [selectedView, setSelectedView] = useState(args.value);
-    useEffect(() => setSelectedView(args.value), [setSelectedView, args.value]);
-    return (
       <ViewSwitcher
-        {...args}
-        onChange={(value) => setSelectedView(value)}
-        options={options}
-        value={selectedView}
+        options={iconOptions}
+        value="user"
+        onChange={noop}
+        disabled
       />
-    );
-  },
+    </Stack>
+  ),
 };

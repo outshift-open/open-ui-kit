@@ -10,7 +10,14 @@ import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
-import { IndicatorBadge } from "../components/indicator-badge";
+import { IndicatorBadge } from "..";
+import {
+  getIndicatorBadgeBackdropStyles,
+  getIndicatorBadgeContainerStyles,
+  getIndicatorBadgeValueBarStyles,
+  getIndicatorBadgeValueStackStyles,
+} from "../styles";
+import type { IndicatorBadgeValue } from "../types";
 
 const renderIndicatorBadge = (
   props: React.ComponentProps<typeof IndicatorBadge>,
@@ -23,6 +30,8 @@ const renderIndicatorBadge = (
   );
 
 describe("IndicatorBadge", () => {
+  const values: IndicatorBadgeValue[] = [0, 1, 2, 3, 4];
+
   describe("rendering", () => {
     it("renders an accessible indicator for the current value", () => {
       renderIndicatorBadge({
@@ -45,7 +54,7 @@ describe("IndicatorBadge", () => {
 
   describe("value variants", () => {
     it("renders all supported values", () => {
-      ([0, 1, 2, 3, 4] as const).forEach((value) => {
+      values.forEach((value) => {
         const { unmount } = renderIndicatorBadge({
           color: lightTheme.palette.vars.negativeBackgroundActive,
           value,
@@ -73,6 +82,52 @@ describe("IndicatorBadge", () => {
   });
 
   describe("token coverage", () => {
+    it("uses the expected light theme layout styles", () => {
+      expect(getIndicatorBadgeContainerStyles()).toMatchObject({
+        width: "24px",
+        height: "24px",
+        position: "relative",
+      });
+      expect(getIndicatorBadgeValueStackStyles()).toMatchObject({
+        position: "absolute",
+        gap: "2px",
+      });
+      expect(
+        getIndicatorBadgeBackdropStyles(
+          lightTheme,
+          lightTheme.palette.vars.negativeBackgroundActive,
+        ),
+      ).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.negativeBackgroundActive,
+        opacity: 0.1,
+      });
+      expect(
+        getIndicatorBadgeValueBarStyles(
+          lightTheme,
+          lightTheme.palette.vars.negativeBackgroundActive,
+          true,
+        ),
+      ).toMatchObject({
+        width: "6px",
+        height: "3px",
+        backgroundColor: lightTheme.palette.vars.negativeBackgroundActive,
+        opacity: 1,
+      });
+    });
+
+    it("uses the expected dark theme severity token styles", () => {
+      expect(
+        getIndicatorBadgeValueBarStyles(
+          darkTheme,
+          darkTheme.palette.vars.warningBackgroundActive,
+          false,
+        ),
+      ).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.warningBackgroundActive,
+        opacity: 0.4,
+      });
+    });
+
     it("renders light theme severity token colors", () => {
       expect(() =>
         renderIndicatorBadge({

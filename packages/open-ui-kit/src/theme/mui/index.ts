@@ -9,8 +9,6 @@ export * from "./button";
 export * from "./circular-progress";
 export * from "./input";
 export * from "./list";
-export * from "./menu";
-export * from "./popover";
 export * from "./radio";
 export * from "./skeleton";
 export * from "./snack-bar";

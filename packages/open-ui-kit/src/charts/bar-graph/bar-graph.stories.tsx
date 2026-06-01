@@ -91,7 +91,7 @@ const customLabelComponent = (
   <Stack direction={"row"} alignItems={"center"} gap={"2px"}>
     <AWSServicesCloudWatch />
     <Typography component="div" maxWidth={120} variant="button">
-      <OverflowTooltip someLongText="AWS CloudWatch" value="AWS CloudWatch" />
+      <OverflowTooltip value="AWS CloudWatch">AWS CloudWatch</OverflowTooltip>
     </Typography>
   </Stack>
 );

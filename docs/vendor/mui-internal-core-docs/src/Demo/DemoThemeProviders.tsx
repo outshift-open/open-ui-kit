@@ -22,7 +22,7 @@ export function DemoPageThemeProvider({
   const themeOptions = React.useContext(ThemeOptionsContext);
   return (
     <BrandingCssVarsProvider {...themeOptions}>
-      {/* The ThemeProvider below generate default Material UI CSS variables and attach to html for all the demo on the page */}
+      {/* The ThemeProvider below generates default CSS variables and attaches them to html for all demos on the page. */}
       {/* This is more performant than generating variables in each demo. */}
       <ThemeProvider theme={defaultTheme} />
       {children}

@@ -1,19 +1,29 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
-import { Toast, ToastProps } from "../components/toast";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Toast } from "../components/toast";
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
 
 const meta: Meta<typeof Toast> = {
   title: "Components/Toast/Toast",
   component: Toast,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="The Toast component appears temporarily and floats above the UI to provide users with (non-critical) updates on an app's processes."
+          blurb="Toast appears temporarily and floats above the UI to provide users with non-critical updates on app processes. Supports Default, Success, Error, Warning, and Info types."
           guideLink=""
-          importLine='import { Toast } from "@open-ui-kit/core";'
+          importLine='import { Toast, toast } from "@open-ui-kit/core";'
         />
       ),
     },
@@ -21,63 +31,77 @@ const meta: Meta<typeof Toast> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Toast>;
 
-const ToastComponent = (args: ToastProps) => {
-  return (
-    <Stack direction="column" spacing={2} display="flex">
-      <Toast
-        type={args.type}
-        description="You can customize the content and actions."
-        action={{
-          label: "Reply",
-          onClick: () => console.log("Button clicked"),
-        }}
-        {...args}
-      />
-    </Stack>
-  );
-};
+const description =
+  "Message description Lorem ip10m dolor 20t amet, 30ns ete tur 40 dipsci 50elitr";
+const action = { label: "Button", onClick: noop };
 
-export const Default: Story = {
-  render: (args) => <ToastComponent {...args} />,
-  args: {
-    title: "Default Toast",
-  },
-};
-
-export const ToastWithLongText: Story = {
-  render: (args) => <ToastComponent {...args} />,
-  args: {
-    description:
-      "This is a snackbar with long text. You can customize the content and actions.",
-  },
-};
-
-export const ToastWithOutTitle: Story = {
-  render: (args) => <ToastComponent {...args} />,
-  args: {
-    title: undefined,
-  },
-};
-
-export const ToastType: Story = {
-  render: (args) => (
-    <Stack direction={"column"} spacing={2}>
+/* ─── All types — with title ─── */
+export const WithTitle: Story = {
+  name: "With Title",
+  render: () => (
+    <Stack spacing={2} sx={{ width: "320px" }}>
       {(["default", "success", "error", "warning", "info"] as const).map(
-        (type) =>
-          ToastComponent({
-            ...args,
-            type,
-            title: `Toast of type ${type}`,
-            description: `This is a toast of type ${type}. You can customize the content and actions.`,
-            action: {
-              label: "Action",
-              onClick: () => console.log(`Action clicked for type ${type}`),
-            },
-          }),
+        (type) => (
+          <Toast
+            key={type}
+            id={type}
+            type={type}
+            title="Title"
+            description={description}
+            action={action}
+          />
+        ),
       )}
     </Stack>
+  ),
+};
+
+/* ─── All types — no title ─── */
+export const NoTitle: Story = {
+  name: "No Title",
+  render: () => (
+    <Stack spacing={2} sx={{ width: "320px" }}>
+      {(["default", "success", "error", "warning", "info"] as const).map(
+        (type) => (
+          <Toast
+            key={type}
+            id={type}
+            type={type}
+            description={description}
+            action={action}
+          />
+        ),
+      )}
+    </Stack>
+  ),
+};
+
+/* ─── Default ─── */
+export const Default: Story = {
+  name: "Default",
+  render: () => (
+    <Toast
+      id="default"
+      title="Title"
+      description={description}
+      action={action}
+      sx={{ width: "320px" }}
+    />
+  ),
+};
+
+/* ─── Without close button ─── */
+export const NoCloseButton: Story = {
+  name: "No Close Button",
+  render: () => (
+    <Toast
+      id="no-close"
+      title="Title"
+      description={description}
+      showCloseButton={false}
+      sx={{ width: "320px" }}
+    />
   ),
 };

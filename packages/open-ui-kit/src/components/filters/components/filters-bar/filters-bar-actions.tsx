@@ -14,7 +14,7 @@ import { Box, Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getStyles } from "./styles";
 import { Button } from "@/components/button";
-import { SearchField } from "@/components/search-field";
+import { SearchInput } from "@/components/search-input";
 import type { FiltersBarActionsProps } from "../../types";
 
 export const FiltersBarActions = ({
@@ -79,7 +79,7 @@ export const FiltersBarActions = ({
         </Button>
       )}
       <Stack direction="row" sx={styles.searchStack}>
-        <SearchField
+        <SearchInput
           fullWidth
           InputProps={
             inputProps?.props ? inputProps.props : { startAdornment: <></> }

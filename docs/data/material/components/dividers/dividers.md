@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Divider component
 githubLabel: 'component: divider'
 githubSource: packages/open-ui-kit/src/components/divider

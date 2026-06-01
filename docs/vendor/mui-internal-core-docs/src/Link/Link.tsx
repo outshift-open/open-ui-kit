@@ -9,10 +9,7 @@ import { useDocsConfig } from "../DocsProvider";
 /**
  * File to keep in sync with:
  *
- * - /packages/mui-docs/src/Link/Link.tsx
- * - /examples/material-ui-nextjs-pages-router/src/Link.js
- * - /examples/material-ui-nextjs-pages-router-ts/src/Link.tsx
- * - /examples/material-ui-nextjs-ts-v4-v5-migration/src/Link.tsx
+ * - /docs/vendor/mui-internal-core-docs/src/Link/Link.tsx
  */
 
 interface NextLinkComposedProps

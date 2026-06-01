@@ -1,26 +1,26 @@
 {
   "name": "@mui/internal-core-docs",
   "version": "9.0.1",
-  "author": "MUI Team",
-  "description": "MUI Docs - Documentation building blocks.",
+  "author": "Open UI Kit maintainers",
+  "description": "Open UI Kit docs - documentation building blocks.",
   "license": "MIT",
   "keywords": [
     "react",
     "react-component",
-    "material-ui",
-    "material design",
+    "open-ui-kit",
+    "design-system",
     "docs"
   ],
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mui/material-ui.git",
-    "directory": "packages-internal/core-docs"
+    "url": "git+https://github.com/outshift-open/open-ui-kit.git",
+    "directory": "docs/vendor/mui-internal-core-docs"
   },
   "bugs": {
-    "url": "https://github.com/mui/material-ui/issues"
+    "url": "https://github.com/outshift-open/open-ui-kit/issues"
   },
-  "homepage": "https://github.com/mui/material-ui/tree/master/packages-internal/core-docs",
+  "homepage": "https://github.com/outshift-open/open-ui-kit/tree/main/docs/vendor/mui-internal-core-docs",
   "scripts": {
     "build": "code-infra build --flat --bundle esm --copy \"src/translations/translations.json\" --copy \"src/nextFonts/fonts\"",
     "release": "pnpm build && pnpm publish",

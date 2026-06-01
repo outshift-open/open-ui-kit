@@ -20,7 +20,7 @@ const tooltipPopper = {
     {
       name: "offset",
       options: {
-        offset: [0, -4],
+        offset: [0, -2],
       },
     },
   ],

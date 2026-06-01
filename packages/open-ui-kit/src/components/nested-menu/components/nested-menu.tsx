@@ -5,46 +5,21 @@
  */
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import { ReactNode, useRef, useState } from "react";
-import { AugmentedSelectNodeType } from "@/types";
+import { useRef, useState } from "react";
 import { isLeaf } from "@/common";
 import { NestedMenuListbox } from "./nested-menu-listbox";
 import { SelectNode } from "./select-node";
 import { SelectNodeListItem } from "./select-node-list-item";
-import {
-  Box,
-  ButtonProps,
-  Popover,
-  SvgIconProps,
-  SxProps,
-  Theme,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Popover, type Theme, Typography, useTheme } from "@mui/material";
 import { Button } from "@/components/button";
 import { buildNodeLabelElement } from "../utils/utils";
-
-export interface NestedMenuProps {
-  buttonContent: ReactNode;
-  buttonSize?: "medium" | "large";
-  flattenedTreeOptions: AugmentedSelectNodeType[];
-  id?: string;
-  isIconAllowed?: boolean;
-  isSearchFieldEnabled?: boolean;
-  onSelectAllChange?: (isSelected: boolean) => void;
-  parentSelectOnly?: boolean;
-  searchText: string;
-  selectAllIcon?: React.ElementType<SvgIconProps>;
-  selectAllNode: AugmentedSelectNodeType;
-  setSearchText: (text: string) => void;
-  toggleExpand: (args: { selectNode: AugmentedSelectNodeType }) => void;
-  updateCheckbox: (
-    selectNode: AugmentedSelectNodeType,
-    isSelected: boolean,
-  ) => void;
-  popOverPaperSx?: SxProps;
-  buttonProps?: ButtonProps;
-}
+import {
+  getNestedMenuPopoverPaperStyles,
+  getNestedMenuTriggerButtonStyles,
+  getNestedMenuTriggerContentStyles,
+  getNestedMenuTriggerIconStyles,
+} from "../styles";
+import type { NestedMenuProps } from "../types";
 
 export { useNestedMenu } from "../hooks/useNestedMenu";
 
@@ -68,37 +43,7 @@ export const NestedMenu = ({
   const theme = useTheme();
   const [openDropdown, setOpenDropdown] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const getPopoverPaperSx = (theme: Theme) => ({
-    width: "480px",
-    maxHeight: "375px",
-    overflowY: "auto",
-    padding: "8px 0px",
-    backgroundColor: theme.palette.vars.controlBackgroundWeak,
-    border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-    boxShadow: "0px 2px 5px rgba(200, 213, 245, 0.4)",
-    borderRadius: "4px",
-    "& .MuiStack-root": {
-      padding: "0px",
-    },
-    "& .MuiInput-root": {
-      marginTop: "0px",
-    },
-    "& .MuiTextField-root": {
-      padding: "0px 16px 8px 16px",
-    },
-    "& .MuiListItem-root": {
-      background: "transparent",
-      padding: "8px 16px",
-    },
-    "& .MuiCheckbox-root": {
-      marginLeft: "-3px",
-    },
-    "& .MuiButton-root": {
-      minWidth: "0px",
-      padding: "0px",
-      margin: "0px",
-    },
-  });
+  const { sx: buttonSx, onClick, ...restButtonProps } = buttonProps ?? {};
 
   return (
     <Box>
@@ -107,51 +52,29 @@ export const NestedMenu = ({
           aria-describedby={id}
           variant="outlined"
           size={buttonSize}
-          onClick={() => setOpenDropdown(true)}
-          sx={{
-            backgroundColor: `${theme.palette.vars?.controlBackgroundDefault} !important`,
-            border: `2px solid ${theme.palette.vars?.controlBorderDefault} !important`,
-            color: theme.palette.vars?.baseTextWeak,
-            "&:hover": {
-              border: `2px solid ${theme.palette.vars?.controlBorderHover} !important`,
-            },
-            "&:focus": {
-              border: `2px solid ${theme.palette.vars?.controlBorderHover} !important`,
-            },
-            "&:active": {
-              border: `2px solid ${theme.palette.vars?.controlBorderActive} !important`,
-            },
-            "&.Mui-disabled": {
-              border: `2px solid ${theme.palette.vars?.controlBorderDisabled} !important`,
-              backgroundColor: `${theme.palette.vars?.controlBackgroundDisabled} !important`,
-            },
-            "&.MuiButton-outlinedSizeMedium": {
-              padding: "6px 8px 6px 16px !important",
-            },
-            "& .MuiSvgIcon-root": {
-              color: `${theme.palette.vars?.controlIconDefault} !important`,
-            },
+          onClick={(event) => {
+            onClick?.(event);
+            if (!event.defaultPrevented) {
+              setOpenDropdown(true);
+            }
           }}
-          {...buttonProps}
+          sx={[
+            (theme) => getNestedMenuTriggerButtonStyles(theme),
+            ...(Array.isArray(buttonSx)
+              ? buttonSx
+              : buttonSx
+                ? [buttonSx]
+                : []),
+          ]}
+          {...restButtonProps}
         >
-          <Box
-            display="flex"
-            alignContent={"center"}
-            width="100%"
-            justifyContent={"space-between"}
-          >
+          <Box sx={getNestedMenuTriggerContentStyles()}>
             {typeof buttonContent === "string" ? (
               <Typography variant="body1">{buttonContent}</Typography>
             ) : (
               buttonContent
             )}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                paddingLeft: "8px",
-              }}
-            >
+            <Box sx={getNestedMenuTriggerIconStyles()}>
               {openDropdown ? <ExpandLess /> : <ExpandMore />}
             </Box>
           </Box>
@@ -169,13 +92,13 @@ export const NestedMenu = ({
         slotProps={{
           paper: {
             sx: [
-              getPopoverPaperSx,
+              (theme: Theme) => getNestedMenuPopoverPaperStyles(theme),
               ...(Array.isArray(popOverPaperSx)
                 ? popOverPaperSx
                 : popOverPaperSx
                   ? [popOverPaperSx]
                   : []),
-            ] as SxProps<Theme>,
+            ],
           },
           root: {
             sx: {

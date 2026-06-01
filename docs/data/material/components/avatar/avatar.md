@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Avatar component
 githubLabel: 'component: avatar'
 githubSource: packages/open-ui-kit/src/components/avatar

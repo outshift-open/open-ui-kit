@@ -59,7 +59,7 @@ export async function registerServiceWorker(swPath: string): Promise<void> {
   if (
     "serviceWorker" in navigator &&
     process.env.NODE_ENV === "production" &&
-    window.location.host.includes("mui.com")
+    window.location.host.includes("open-ui-kit.outshift.ai")
   ) {
     // register() automatically attempts to refresh the sw.js.
     const registration = await navigator.serviceWorker.register(swPath);

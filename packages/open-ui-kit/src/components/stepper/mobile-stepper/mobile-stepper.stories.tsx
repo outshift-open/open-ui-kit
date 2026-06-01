@@ -12,7 +12,7 @@ import React from "react";
 import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof MobileStepper> = {
-  title: "DEV/Stepper/MobileStepper",
+  title: "Components/Stepper/Mobile",
   component: MobileStepper,
   tags: ["autodocs"],
 };

@@ -29,8 +29,8 @@ export const tabComponent = (theme: Theme): Components => {
             "&:hover": {
               backgroundColor: theme.palette.vars?.controlBackgroundMedium,
             },
-            ["&.Mui-selected"]: {
-              backgroundColor: "none",
+            "&.Mui-selected": {
+              backgroundColor: "unset",
               color: theme.palette.vars.interactiveSecondaryDefaultActive,
             },
           },

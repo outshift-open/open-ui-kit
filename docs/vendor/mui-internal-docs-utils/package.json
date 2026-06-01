@@ -1,12 +1,12 @@
 {
   "name": "@mui/internal-docs-utils",
   "version": "3.0.4",
-  "author": "MUI Team",
-  "description": "Utilities for MUI docs. This is an internal package not meant for general use.",
+  "author": "Open UI Kit maintainers",
+  "description": "Utilities for Open UI Kit docs. This is an internal package not meant for general use.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mui/material-ui.git",
-    "directory": "packages-internal/docs-utils"
+    "url": "git+https://github.com/outshift-open/open-ui-kit.git",
+    "directory": "docs/vendor/mui-internal-docs-utils"
   },
   "scripts": {
     "prebuild": "rimraf ./build",

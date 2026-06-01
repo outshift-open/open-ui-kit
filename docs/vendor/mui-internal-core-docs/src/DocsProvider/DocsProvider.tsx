@@ -9,25 +9,14 @@ import {
 } from "../constants";
 import type { NotificationMessage } from "../AppLayout/layout/Notifications";
 
-// #target-branch-reference
-const NOTIFICATIONS_URL =
-  "https://raw.githubusercontent.com/mui/material-ui/master/docs/notifications.json";
-
 async function defaultFetchNotifications(): Promise<NotificationMessage[]> {
-  const response = await fetch(NOTIFICATIONS_URL);
-  return response.json();
+  return [];
 }
 
 export type VersionEntry = { version: string; url: string };
 
-// #target-branch-reference
-const VERSIONS_URL =
-  "https://raw.githubusercontent.com/mui/material-ui/master/docs/versions.json";
-
 async function defaultFetchVersions(): Promise<VersionEntry[]> {
-  const response = await fetch(VERSIONS_URL);
-  const data = await response.json();
-  return data.versions;
+  return [];
 }
 
 export interface DocsConfig {

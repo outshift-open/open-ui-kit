@@ -192,8 +192,9 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
             <OverflowTooltip
               size={TooltipSize.Large}
               value={cell.getValue<string>()}
-              someLongText={renderedCellValue}
-            />
+            >
+              {renderedCellValue}
+            </OverflowTooltip>
           ) : (
             renderedCellValue
           );

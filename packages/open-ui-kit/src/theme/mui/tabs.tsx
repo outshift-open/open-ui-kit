@@ -14,7 +14,7 @@ export const tabsComponent = (theme: Theme): Components => {
           "& .MuiTabs-indicator": {
             backgroundColor:
               theme.palette.vars.interactiveSecondaryDefaultActive,
-            height: "3px",
+            height: "2px",
           },
         },
       },

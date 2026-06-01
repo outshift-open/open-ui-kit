@@ -48,7 +48,6 @@ const Root = styled("ul")(({ theme }) => ({
 }));
 
 const defaultPackageNames: Record<string, string | undefined> = {
-  "material-ui": "@open-ui-kit/core",
   "open-ui-kit-core": "@open-ui-kit/core",
   "joy-ui": "@mui/joy",
   system: "@mui/system",

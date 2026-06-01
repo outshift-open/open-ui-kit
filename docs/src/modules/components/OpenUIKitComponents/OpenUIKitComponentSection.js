@@ -12,7 +12,6 @@ const categoryDescriptions = {
   navigation: "Wayfinding components for moving through interfaces.",
   layout: "Responsive primitives for arranging product screens.",
   utils: "Lower-level helpers used to compose advanced experiences.",
-  lab: "Components that are still being shaped and validated.",
 };
 
 function getComponentGroups() {

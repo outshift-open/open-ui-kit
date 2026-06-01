@@ -102,6 +102,7 @@ export default withDocsInfra({
             openUiKitRoot,
             "typography.css",
           ),
+          "@": openUiKitRoot,
           "@/": `${openUiKitRoot}/`,
         },
         extensions: [

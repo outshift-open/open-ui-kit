@@ -8,7 +8,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { InputField } from "../components/input-field";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
+import { InputField } from "..";
+import { getInputFieldStyles } from "../styles";
 
 const renderInputField = (
   props: React.ComponentProps<typeof InputField>,
@@ -64,6 +67,46 @@ describe("InputField", () => {
   });
 
   describe("token coverage", () => {
+    it("uses expected light theme control styles", () => {
+      expect(getInputFieldStyles(lightTheme)).toMatchObject({
+        "& .MuiInput-root": expect.objectContaining({
+          height: "40px",
+          marginTop: "24px",
+          padding: "8px 16px",
+          border: `2px solid ${lightTheme.palette.vars.controlBorderDefault}`,
+          borderRadius: "4px",
+          backgroundColor: lightTheme.palette.vars.controlBackgroundDefault,
+        }),
+      });
+    });
+
+    it("uses expected dark theme control styles", () => {
+      expect(getInputFieldStyles(darkTheme)).toMatchObject({
+        "& .MuiInput-root": expect.objectContaining({
+          border: `2px solid ${darkTheme.palette.vars.controlBorderDefault}`,
+          backgroundColor: darkTheme.palette.vars.controlBackgroundDefault,
+          "&.Mui-focused:not(.Mui-disabled, .Mui-error)": {
+            borderColor: darkTheme.palette.vars.controlBorderActive,
+          },
+          "&.Mui-error:not(.Mui-disabled)": {
+            borderColor: darkTheme.palette.vars.negativeBorderActive,
+          },
+        }),
+      });
+    });
+
+    it("removes the MUI underline pseudo-elements", () => {
+      expect(getInputFieldStyles(lightTheme)["& .MuiInput-root"]).toMatchObject(
+        {
+          "&::before, &::after, &.MuiInput-underline::before, &.MuiInput-underline::after":
+            {
+              borderBottom: "0 !important",
+              transform: "none !important",
+            },
+        },
+      );
+    });
+
     it("renders light theme control tokens without throwing", () => {
       expect(() =>
         renderInputField({

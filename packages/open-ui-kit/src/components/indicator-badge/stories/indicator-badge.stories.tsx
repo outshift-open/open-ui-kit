@@ -4,22 +4,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack, Typography, useTheme } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { IndicatorBadge } from "../components/indicator-badge";
+import { IndicatorBadge } from "..";
+import type { IndicatorBadgeValue } from "../types";
 
 const meta: Meta<typeof IndicatorBadge> = {
   title: "Components/IndicatorBadge",
   component: IndicatorBadge,
-  tags: ["autodocs"],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          importLine="import { IndicatorBadge } from '@open-ui-kit/core';"
+          title="IndicatorBadge"
+          importLine={`import { IndicatorBadge } from "@open-ui-kit/core";`}
           blurb="Indicator badges display compact segmented values from 0 to 4."
-          guideLink=""
+          includeStories
         />
       ),
     },
@@ -30,15 +31,17 @@ export default meta;
 
 type IndicatorBadgeStory = StoryObj<typeof IndicatorBadge>;
 
+const VALUES: IndicatorBadgeValue[] = [0, 1, 2, 3, 4];
+
 const Values = () => {
   const theme = useTheme();
   const color = theme.palette.vars.negativeBackgroundActive;
 
   return (
     <Stack direction="row" spacing={3} alignItems="center">
-      {[0, 1, 2, 3, 4].map((value) => (
+      {VALUES.map((value) => (
         <Stack key={value} spacing={1} alignItems="center">
-          <IndicatorBadge color={color} value={value as 0 | 1 | 2 | 3 | 4} />
+          <IndicatorBadge color={color} value={value} />
           <Typography variant="caption">{value}</Typography>
         </Stack>
       ))}
@@ -74,7 +77,11 @@ const SeverityColors = () => {
       color: theme.palette.vars.negativeBackgroundActive,
       value: 4,
     },
-  ] as const;
+  ] satisfies Array<{
+    label: string;
+    color: string;
+    value: IndicatorBadgeValue;
+  }>;
 
   return (
     <Stack direction="row" spacing={3} alignItems="center">
@@ -94,6 +101,6 @@ export const ValuesStory: IndicatorBadgeStory = {
 };
 
 export const SeverityColorsStory: IndicatorBadgeStory = {
-  name: "Severity Colors",
+  name: "Severity colors",
   render: SeverityColors,
 };

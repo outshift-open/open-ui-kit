@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Button component
 githubLabel: 'component: button'
 githubSource: packages/open-ui-kit/src/components/button

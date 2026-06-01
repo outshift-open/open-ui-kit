@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Breadcrumbs component
 githubLabel: 'component: breadcrumbs'
 githubSource: packages/open-ui-kit/src/components/breadcrumbs

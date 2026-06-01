@@ -73,7 +73,7 @@ export interface IframeWrapperProps {
 
 export interface DemoContextValue {
   /**
-   * Display name shown in demo titles, e.g., "Material UI", "Joy UI", "MUI X"
+   * Display name shown in demo titles, e.g., "Open UI Kit Core"
    */
   productDisplayName: string;
 

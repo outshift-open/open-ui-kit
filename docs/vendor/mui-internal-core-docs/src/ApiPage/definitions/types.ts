@@ -32,11 +32,11 @@ export type PropertyDefinition = {
   signatureReturnDescription?: string;
   typeName: string;
   /**
-   * Used by MUI X interface documentation
+   * Used by generated interface documentation.
    */
   isProPlan?: boolean;
   /**
-   * Used by MUI X interface documentation
+   * Used by generated interface documentation.
    */
   isPremiumPlan?: boolean;
 };

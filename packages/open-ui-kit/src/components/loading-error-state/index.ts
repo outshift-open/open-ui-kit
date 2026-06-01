@@ -5,3 +5,4 @@
  */
 
 export { LoadingErrorState } from "./components/loading-error-state";
+export type { LoadingErrorStateProps } from "./types";

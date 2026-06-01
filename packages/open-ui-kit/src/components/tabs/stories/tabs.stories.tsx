@@ -1,39 +1,29 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, TabsProps, Typography, useTheme } from "@mui/material";
-import { ReactNode, useState } from "react";
-import PhoneIcon from "@mui/icons-material/Phone";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonPinIcon from "@mui/icons-material/PersonPin";
-import PhoneMissedIcon from "@mui/icons-material/PhoneMissed";
-import React from "react";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { useState } from "react";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Tabs } from "../components/tabs";
 import { Tab } from "../components/tab";
 
-/**
- * ### Tabs make it easy to explore and switch between different views.
-
-Tabs organize and allow navigation between groups of content that are related and at the same level of hierarchy.
- */
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
   tags: ["autodocs"],
-  argTypes: {
-    type: {
-      control: "select", // Use a dropdown in Storybook
-      options: ["main", "subTab", "toggleTab"], // Define the allowed values
-      description: "The type of the Tabs component.",
-      defaultValue: "main", // Set the default value
-    },
-  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Tabs make it easy to explore and switch between different views."
+          blurb="Tabs make it easy to explore and switch between different views. Three types are supported: Main Tab, Subtab, and Toggle Tab."
           guideLink=""
-          importLine='import { Tabs } from "@open-ui-kit/core";'
+          importLine='import { Tabs, Tab } from "@open-ui-kit/core";'
         />
       ),
     },
@@ -41,288 +31,291 @@ const meta: Meta<typeof Tabs> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Tabs>;
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function WrapperBox({
-  isScrollable = false,
-  isVertical = false,
-  ...rest
-}: {
-  isScrollable?: boolean;
-  isVertical?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <Box
-      sx={{
-        maxWidth: isScrollable && !isVertical ? 480 : "100%",
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: isVertical ? "row" : "column",
-        height: isScrollable && isVertical ? 300 : "auto",
-      }}
-    >
-      {rest.children}
-    </Box>
-  );
-}
-
-function Template(args: TabsProps) {
-  const [tab, setTab] = useState(0);
-  const isScrollable = args.variant === "scrollable";
-  const isVertical = args.orientation === "vertical";
-  return (
-    <WrapperBox isScrollable={isScrollable} isVertical={isVertical}>
-      <Tabs
-        {...args}
-        value={tab}
-        onChange={(_, val) => {
-          setTab(val);
-        }}
-        aria-label="template tabs example"
-      >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
-        <Tab label="Item Four" />
-        <Tab label="Item Five" />
-        <Tab label="Item Six" />
-      </Tabs>
-      <TabPanel value={tab} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={tab} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={tab} index={2}>
-        Item Three
-      </TabPanel>
-    </WrapperBox>
-  );
-}
-
-const WrappedLabelsTemplate = () => {
-  const [value, setValue] = useState("one");
-
-  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-  return (
-    <WrapperBox>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="wrapped label tabs example"
-      >
-        <Tab
-          value="one"
-          label="New Arrivals in the Longest Text of Nonfiction that should appear in the next line"
-          wrapped
-        />
-        <Tab value="two" label="Item Two" />
-        <Tab value="three" label="Item Three" />
-      </Tabs>
-    </WrapperBox>
-  );
-};
-
-function StateTabsTemplate(args: TabsProps) {
-  const [value, setValue] = useState(2);
-
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  return (
-    <WrapperBox>
-      <Tabs
-        {...args}
-        value={value}
-        onChange={handleChange}
-        aria-label="disabled tabs example"
-      >
-        <Tab label="Active" />
-        <Tab label="Disabled" disabled />
-        <Tab label="Loading" loading />
-      </Tabs>
-    </WrapperBox>
-  );
-}
-
-function CounterTabsTemplate() {
+/* ─── Main Tab ─── */
+const MainTabStory = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   return (
-    <WrapperBox>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="counter position tabs example"
-      >
+    <Stack spacing={2}>
+      <Tabs value={value} onChange={(_, v) => setValue(v)} type="main">
         <Tab
+          label="Tab"
           icon={
             <Typography
               variant="subtitle1"
-              color={theme.palette.vars.baseTextWeak}
-            >
-              10
-            </Typography>
-          }
-          iconPosition="start"
-          label="start"
-        />
-        <Tab
-          icon={
-            <Typography
-              variant="subtitle1"
-              color={theme.palette.vars.baseTextWeak}
+              sx={{ color: theme.palette.vars.baseTextWeak }}
             >
               10
             </Typography>
           }
           iconPosition="end"
-          label="end"
+        />
+        <Tab
+          label="Tab"
+          icon={
+            <Typography
+              variant="subtitle1"
+              sx={{ color: theme.palette.vars.baseTextWeak }}
+            >
+              10
+            </Typography>
+          }
+          iconPosition="end"
+        />
+        <Tab
+          label="Tab"
+          icon={
+            <Typography
+              variant="subtitle1"
+              sx={{ color: theme.palette.vars.baseTextWeak }}
+            >
+              10
+            </Typography>
+          }
+          iconPosition="end"
+        />
+        <Tab
+          label="Tab"
+          icon={
+            <Typography
+              variant="subtitle1"
+              sx={{ color: theme.palette.vars.baseTextWeak }}
+            >
+              10
+            </Typography>
+          }
+          iconPosition="end"
+        />
+        <Tab
+          label="Tab"
+          icon={
+            <Typography
+              variant="subtitle1"
+              sx={{ color: theme.palette.vars.baseTextWeak }}
+            >
+              10
+            </Typography>
+          }
+          iconPosition="end"
+        />
+        <Tab
+          label="Tab"
+          icon={
+            <Typography
+              variant="subtitle1"
+              sx={{ color: theme.palette.vars.baseTextWeak }}
+            >
+              10
+            </Typography>
+          }
+          iconPosition="end"
         />
       </Tabs>
-    </WrapperBox>
+    </Stack>
   );
-}
+};
 
-function IconTabsTemplate() {
+export const MainTab: Story = {
+  name: "Main Tab",
+  render: () => <MainTabStory />,
+};
+
+/* ─── Subtab ─── */
+const SubtabStory = () => {
+  const theme = useTheme();
   const [value, setValue] = useState(0);
-
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   return (
-    <WrapperBox>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="icon position tabs example"
-      >
-        <Tab icon={<PhoneMissedIcon />} iconPosition="start" label="start" />
-        <Tab icon={<FavoriteIcon />} iconPosition="end" label="end" />
-      </Tabs>
-    </WrapperBox>
-  );
-}
-
-function IconTabs() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
-      <Tab icon={<PhoneIcon />} aria-label="phone" />
-      <Tab icon={<FavoriteIcon />} aria-label="favorite" />
-      <Tab icon={<PersonPinIcon />} aria-label="person" />
+    <Tabs value={value} onChange={(_, v) => setValue(v)} type="subTab">
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
+      <Tab
+        label="Tab"
+        icon={
+          <Typography
+            variant="subtitle1"
+            sx={{ color: theme.palette.vars.baseTextWeak }}
+          >
+            10
+          </Typography>
+        }
+        iconPosition="end"
+      />
     </Tabs>
   );
-}
-
-export const BasicTabs: Story = {
-  render: Template,
-  args: {
-    variant: "standard",
-    textColor: "primary",
-  },
 };
 
-export const WrappedLabels: Story = {
-  render: WrappedLabelsTemplate,
-  args: {
-    variant: "standard",
-  },
+export const Subtab: Story = {
+  name: "Subtab",
+  render: () => <SubtabStory />,
 };
 
-export const StatesTab: Story = {
-  render: StateTabsTemplate,
-  args: {
-    variant: "standard",
-  },
+/* ─── Toggle Tab ─── */
+const ToggleTabStory = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <Tabs value={value} onChange={(_, v) => setValue(v)} type="toggleTab">
+      <Tab label="Tab" />
+      <Tab label="Tab" />
+      <Tab label="Tab" />
+      <Tab label="Tab" />
+      <Tab label="Tab" />
+      <Tab label="Tab" />
+    </Tabs>
+  );
 };
 
-export const VerticalTabs: Story = {
-  render: Template,
-  args: {
-    variant: "standard",
-    orientation: "vertical",
-  },
+export const ToggleTab: Story = {
+  name: "Toggle Tab",
+  render: () => <ToggleTabStory />,
 };
 
-export const ColoredTab: Story = {
-  render: Template,
-  args: {
-    variant: "standard",
-    textColor: "secondary",
-    indicatorColor: "secondary",
-  },
+/* ─── States ─── */
+const StatesStory = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <Stack spacing={3}>
+      <Tabs value={value} onChange={(_, v) => setValue(v)} type="main">
+        <Tab label="Active" />
+        <Tab label="Disabled" disabled />
+        <Tab label="Loading" loading />
+      </Tabs>
+    </Stack>
+  );
 };
 
-export const CenteredTabs: Story = {
-  render: Template,
-  args: {
-    variant: "standard",
-    centered: true,
-  },
+export const States: Story = {
+  name: "States",
+  render: () => <StatesStory />,
 };
 
-export const ScrollableTabsButtonAuto: Story = {
-  render: Template,
-  args: {
-    variant: "scrollable",
-    scrollButtons: "auto",
-  },
+/* ─── With Icon ─── */
+const WithIconStory = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <Tabs value={value} onChange={(_, v) => setValue(v)} type="main">
+      <Tab icon={<ManageAccountsIcon />} aria-label="icon only" />
+      <Tab icon={<ManageAccountsIcon />} iconPosition="start" label="Tab" />
+      <Tab icon={<ManageAccountsIcon />} iconPosition="end" label="Tab" />
+    </Tabs>
+  );
 };
 
-export const ScrollableVerticalTabsButtonAuto: Story = {
-  render: Template,
-  args: {
-    orientation: "vertical",
-    variant: "scrollable",
-    scrollButtons: "auto",
-  },
+export const WithIcon: Story = {
+  name: "With Icon",
+  render: () => <WithIconStory />,
 };
 
-export const IconTabAndPosition = IconTabsTemplate.bind({});
+/* ─── Tabs with Subtabs ─── */
+const TabsWithSubtabsStory = () => {
+  const [mainVal, setMainVal] = useState(0);
+  const [subVal, setSubVal] = useState(0);
+  return (
+    <Stack>
+      <Tabs value={mainVal} onChange={(_, v) => setMainVal(v)} type="main">
+        {["Tab", "Tab", "Tab", "Tab", "Tab", "Tab"].map((t, i) => (
+          <Tab key={i} label={t} />
+        ))}
+      </Tabs>
+      <Box
+        sx={(theme) => ({
+          borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+        })}
+      >
+        <Tabs value={subVal} onChange={(_, v) => setSubVal(v)} type="subTab">
+          {["Tab", "Tab", "Tab", "Tab", "Tab", "Tab"].map((t, i) => (
+            <Tab key={i} label={t} />
+          ))}
+        </Tabs>
+      </Box>
+    </Stack>
+  );
+};
 
-export const CounterTabsAndPosition = CounterTabsTemplate.bind({});
+export const TabsWithSubtabs: Story = {
+  name: "Tabs with Subtabs",
+  render: () => <TabsWithSubtabsStory />,
+};
 
-export const IconTab = IconTabs.bind({});
+/* ─── Vertical ─── */
+const VerticalStory = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <Box sx={{ display: "flex", height: 200 }}>
+      <Tabs
+        value={value}
+        onChange={(_, v) => setValue(v)}
+        orientation="vertical"
+        type="main"
+      >
+        <Tab label="Tab" />
+        <Tab label="Tab" />
+        <Tab label="Tab" />
+      </Tabs>
+    </Box>
+  );
+};
+
+export const Vertical: Story = {
+  name: "Vertical",
+  render: () => <VerticalStory />,
+};

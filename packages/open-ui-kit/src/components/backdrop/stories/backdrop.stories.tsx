@@ -12,6 +12,7 @@ const meta: Meta<typeof Backdrop> = {
   component: Backdrop,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader

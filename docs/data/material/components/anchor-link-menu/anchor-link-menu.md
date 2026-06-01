@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Anchor Link Menu component
 githubLabel: 'component: anchor-link-menu'
 githubSource: packages/open-ui-kit/src/components/anchor-link-menu

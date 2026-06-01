@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Code Block component
 githubLabel: 'component: code-block'
 githubSource: packages/open-ui-kit/src/components/code-block

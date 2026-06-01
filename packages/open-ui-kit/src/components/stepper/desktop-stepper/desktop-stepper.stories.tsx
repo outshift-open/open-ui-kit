@@ -2,17 +2,17 @@ import type { Meta } from "@storybook/react-vite";
 import * as React from "react";
 import {
   Box,
-  Button,
   Step,
   StepLabel,
   Stepper,
   StepperProps,
   Typography,
 } from "@mui/material";
+import { Button } from "@/components/button";
 import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof Stepper> = {
-  title: "DEV/Stepper/Desktop",
+  title: "Components/Stepper/Desktop",
   component: Stepper,
   tags: ["autodocs"],
 };
@@ -79,7 +79,9 @@ function DesktopStepperComponent(args: StepperProps) {
           <Typography>All steps completed - you&apos;re finished</Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button variant="tertariary" onClick={handleReset}>
+              Reset
+            </Button>
           </Box>
         </React.Fragment>
       ) : (
@@ -87,14 +89,14 @@ function DesktopStepperComponent(args: StepperProps) {
           <Typography>Step {activeStep + 1}</Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
-              color="inherit"
+              variant="secondary"
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1, textTransform: "none" }}
+              sx={{ mr: 1 }}
             >
               Back
             </Button>
-            <Button onClick={handleNext} sx={{ textTransform: "none" }}>
+            <Button variant="primary" onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Finish" : "Continue"}
             </Button>
           </Box>

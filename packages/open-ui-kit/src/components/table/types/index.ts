@@ -72,7 +72,7 @@ interface HeaderTooltipMeta {
   headerTooltip?: ReactNode;
 }
 
-export {
+export type {
   AtomicTypes,
   ExportProps,
   TableProps,

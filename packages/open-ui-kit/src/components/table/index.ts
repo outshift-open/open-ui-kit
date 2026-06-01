@@ -8,6 +8,7 @@ export { CreateTableInstance, Table } from "./components/table";
 export type {
   AtomicTypes,
   ExportProps,
+  HeaderTooltipMeta,
   TableRow,
   TableProps,
   TopToolbarProps,

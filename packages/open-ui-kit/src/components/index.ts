@@ -20,7 +20,7 @@ export * from "./code-block";
 export * from "./copy-button";
 export * from "./date-time";
 export * from "./divider";
-export * from "./drawer-shell";
+export * from "./side-drawer";
 export * from "./nested-menu";
 export * from "./empty-state";
 export * from "./floating-button";
@@ -30,17 +30,28 @@ export * from "./header";
 export * from "./icon";
 export * from "./indicator-badge";
 export * from "./link";
+export * from "./list";
+export * from "./key-value-pairs";
+export * from "./loading-states";
 export * from "./loading-error-state";
 export * from "./dialog";
 export * from "./menu";
+export * from "./message";
+export * from "./navigation";
 export * from "./overflow-tooltip";
 export * from "./path-display";
-export * from "./search-field";
+export * from "./picker";
+export * from "./popover";
+export * from "./radio";
+export * from "./search-input";
+export * from "./select";
+export * from "./skeleton";
 export * from "./severity-bar";
 export * from "./severity-badge";
 export * from "./severity-badge-label";
-export * from "./sidebar";
+export * from "./slider";
 export * from "./spinner";
+export * from "./stepper";
 export * from "./table";
 export * from "./tabs";
 export * from "./tags";
@@ -48,12 +59,13 @@ export * from "./input-field";
 export * from "./toast";
 export * from "./toggle";
 export * from "./tooltip";
+export * from "./upload";
 export * from "./view-switcher";
 export * from "./widget";
 export * from "./scroll-area";
 export * from "./pagination";
 
-// MUI exports
+// MUI exports — only primitives with no local wrapper
 export {
   Box,
   Stack,
@@ -61,18 +73,8 @@ export {
   Grid,
   IconButton,
   Stepper,
-  Slider,
-  Skeleton,
-  Dialog,
-  Select,
-  Radio,
-  List,
-  ListItem,
-  ListItemButton,
-  Drawer,
   Container,
   Paper,
   ButtonGroup,
-  RadioGroup,
   Fab,
 } from "@mui/material";

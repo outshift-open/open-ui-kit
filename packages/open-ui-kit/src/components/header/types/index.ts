@@ -5,41 +5,61 @@
  */
 
 import type { SearchFieldProps } from "@/components/search-field";
-import { SxProps, Theme } from "@mui/material";
-import React, { ReactNode } from "react";
+import type { SxProps, Theme } from "@mui/material";
+import type { ReactElement, ReactNode } from "react";
 
 export interface GlobalSearchItem {
+  /** Stable result id returned to `onSelect`. */
   id: string;
+  /** Primary result text shown in the search dropdown. */
   label: string;
+  /** Optional secondary result text shown below the label. */
   subtitle?: string;
+  /** Optional leading icon for the result row. */
   icon?: ReactNode;
 }
 
 export interface GlobalSearchGroup {
+  /** Stable group key for grouped search results. */
   key: string;
+  /** Group label shown as a dropdown subheader. */
   label: string;
+  /** Search results contained in this group. */
   items: GlobalSearchItem[];
 }
 
 export interface GlobalSearchProps {
+  /** Search field placeholder text. */
   placeholder?: string;
+  /** Controlled search text. */
   value?: string;
+  /** Grouped results displayed while searching. */
   groups?: GlobalSearchGroup[];
+  /** Called when search text changes. */
   onSearch?: (value: string) => void;
+  /** Called when a result is selected from the dropdown. */
   onSelect?: (item: GlobalSearchItem) => void;
+  /** Called when the search clear action is triggered. */
   onClear?: () => void;
+  /** Search field width. */
   width?: string | number;
 }
 
-// Prop type for individual action items
 export interface HeaderAction {
-  id: string; // A unique identifier for the key prop
+  /** Stable id used as the React key. */
+  id: string;
+  /** Tooltip text shown on hover/focus. */
   tooltip?: string;
-  icon: React.ReactElement; // The icon component, e.g., <BookIcon />
+  /** Icon element rendered inside the action button. */
+  icon: ReactElement;
+  /** Click handler for button-like actions. */
   onClick?: () => void;
-  href?: string; // For external or internal links
-  target?: string; // e.g., '_blank'
-  "aria-label": string; // For accessibility
+  /** Optional link target for anchor-like actions. */
+  href?: string;
+  /** Optional anchor target, for example `_blank`. */
+  target?: string;
+  /** Accessible label for the icon-only action. */
+  "aria-label": string;
 }
 
 export interface HeaderProps {
@@ -94,8 +114,8 @@ export interface HeaderProps {
   sx?: SxProps<Theme>;
 
   /**
-   * Whether to use a divider between the logo and title.
-   * @default false
+   * Whether to show a divider before the user section.
+   * @default true
    */
-  useDivider?: boolean; // Whether to use a divider between the logo and title
+  useDivider?: boolean;
 }

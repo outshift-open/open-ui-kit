@@ -1,22 +1,26 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
-import {
-  OverflowTooltip,
-  OverflowTooltipProps,
-} from "../components/overflow-tooltip";
+import { Box, Typography } from "@mui/material";
+import { OverflowTooltip } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof OverflowTooltip> = {
-  title: "Components/OverflowTooltip",
+  title: "Components/Overflow Tooltip",
   component: OverflowTooltip,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="OverflowTooltip is a component that displays a tooltip when the text overflows its container. It is useful for displaying long text in a limited space."
+          blurb="Overflow Tooltip shows a tooltip only when the text content overflows its container. It supports end-truncation (default) and start-truncation for path-like strings."
           guideLink=""
-          importLine="import { OverflowTooltip } from '@open-ui-kit/core';"
+          importLine='import { OverflowTooltip } from "@open-ui-kit/core";'
         />
       ),
     },
@@ -27,57 +31,37 @@ export default meta;
 
 type Story = StoryObj<typeof OverflowTooltip>;
 
-const USERNAME = "John Doe John Doe John Doe John Doe John Doe John Doe";
+const LONG_NAME = "John Doe John Doe John Doe John Doe John Doe John Doe";
+const LONG_PATH = "./path/to/a/really/long/file/name/.git";
 
-function Template(args: OverflowTooltipProps) {
-  return (
-    <Stack spacing={2}>
-      {/* overflow  */}
-      <Box height="20px" display="flex">
-        <Typography
-          variant="body2"
-          marginRight={1}
-          component="div"
-          maxWidth={100}
-        >
-          <OverflowTooltip {...args} />
-        </Typography>
-      </Box>
-      {/* RTL overflow */}
-      <Box height="20px" display="flex">
-        <Typography
-          variant="body2"
-          marginRight={1}
-          component="div"
-          maxWidth={100}
-        >
-          <OverflowTooltip
-            {...args}
-            value="./path/to/a/really/long/file/name"
-            someLongText="./path/to/a/really/long/file/name/.git"
-            ellipsisDirection="start"
-          />
-        </Typography>
-      </Box>
-      {/* no overflow */}
-      <Box height="20px" display="flex">
-        <Typography
-          variant="body2"
-          marginRight={1}
-          component="div"
-          maxWidth={100}
-        >
-          <OverflowTooltip {...args} value="John Doe" someLongText="John Doe" />
-        </Typography>
-      </Box>
-    </Stack>
-  );
-}
+export const Overflowing: Story = {
+  render: () => (
+    <Box maxWidth={120}>
+      <Typography variant="body2" component="div">
+        <OverflowTooltip value={LONG_NAME}>{LONG_NAME}</OverflowTooltip>
+      </Typography>
+    </Box>
+  ),
+};
 
-export const SimpleOverflowTooltip: Story = {
-  render: Template,
-  args: {
-    value: USERNAME,
-    someLongText: USERNAME,
-  },
+export const NotOverflowing: Story = {
+  render: () => (
+    <Box maxWidth={200}>
+      <Typography variant="body2" component="div">
+        <OverflowTooltip value="John Doe">John Doe</OverflowTooltip>
+      </Typography>
+    </Box>
+  ),
+};
+
+export const StartTruncation: Story = {
+  render: () => (
+    <Box maxWidth={120}>
+      <Typography variant="body2" component="div">
+        <OverflowTooltip value={LONG_PATH} ellipsisDirection="start">
+          {LONG_PATH}
+        </OverflowTooltip>
+      </Typography>
+    </Box>
+  ),
 };

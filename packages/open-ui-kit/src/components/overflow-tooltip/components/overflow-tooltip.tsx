@@ -5,32 +5,26 @@
  */
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { Tooltip } from "@/components/tooltip";
 import { rtlWrapperStyle, baseWrapperStyle, spanStyle } from "../styles";
-import { Tooltip, TooltipProps } from "@/components/tooltip";
+import type { OverflowTooltipProps } from "../types";
 
-// Define props
-export interface OverflowTooltipProps
-  extends Omit<TooltipProps, "title" | "children"> {
-  value: React.ReactNode;
-  someLongText: React.ReactNode;
-  ellipsisDirection?: "start" | "end";
-  styleText?: React.CSSProperties;
-}
+export type { OverflowTooltipProps };
 
 export const OverflowTooltip = ({
   value,
-  someLongText,
+  children,
   ellipsisDirection = "end",
   styleText,
   ...rest
 }: OverflowTooltipProps) => {
   const textElementRef = useRef<HTMLDivElement | null>(null);
-  const [hoverStatus, setHover] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
 
   const compareSize = useCallback(() => {
     const el = textElementRef.current;
     if (!el) return;
-    setHover(el.scrollWidth > el.clientWidth);
+    setIsOverflowing(el.scrollWidth > el.clientWidth);
   }, []);
 
   useEffect(() => {
@@ -39,22 +33,20 @@ export const OverflowTooltip = ({
 
     compareSize();
 
-    const ro = new ResizeObserver(() => {
-      compareSize();
-    });
+    const ro = new ResizeObserver(compareSize);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [value, someLongText, ellipsisDirection, compareSize]);
+  }, [value, children, ellipsisDirection, compareSize]);
 
   return (
-    <Tooltip {...rest} disableHoverListener={!hoverStatus} title={value}>
+    <Tooltip {...rest} disableHoverListener={!isOverflowing} title={value}>
       <div
         ref={textElementRef}
         style={
           ellipsisDirection === "start" ? rtlWrapperStyle : baseWrapperStyle
         }
       >
-        <span style={{ ...spanStyle, ...styleText }}>{someLongText}</span>
+        <span style={{ ...spanStyle, ...styleText }}>{children}</span>
       </div>
     </Tooltip>
   );

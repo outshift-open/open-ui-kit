@@ -12,7 +12,10 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { Footer } from "../components/footer";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
+import { Footer } from "..";
+import { styles } from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(
@@ -70,5 +73,22 @@ describe("Footer", () => {
         true,
       ),
     ).not.toThrow();
+  });
+
+  it("uses light footer tokens", () => {
+    expect(styles.container(lightTheme)).toMatchObject({
+      backgroundColor: lightTheme.palette.vars.baseBackgroundStrong,
+      borderTop: `1px solid ${lightTheme.palette.vars.baseBorderDefault}`,
+      minHeight: "48px",
+      px: "32px",
+      py: "16px",
+    });
+  });
+
+  it("uses dark footer tokens", () => {
+    expect(styles.container(darkTheme)).toMatchObject({
+      backgroundColor: darkTheme.palette.vars.baseBackgroundStrong,
+      borderTop: `1px solid ${darkTheme.palette.vars.baseBorderDefault}`,
+    });
   });
 });

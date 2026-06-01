@@ -8,10 +8,10 @@ import React from "react";
 import { Stack, useTheme } from "@mui/material";
 import { Virtuoso } from "react-virtuoso";
 import { EmptyState } from "@/components/empty-state";
-import { SearchField } from "@/components/search-field";
+import { SearchInput } from "@/components/search-input";
 import { SelectNode } from "./select-node";
 import { SelectNodeListItem } from "./select-node-list-item";
-import { defaultPopperContentStyle } from "../styles/styles";
+import { defaultPopperContentStyle } from "../styles";
 import { AugmentedSelectNodeType } from "@/types";
 import { buildNodeLabelElement } from "../utils/utils";
 
@@ -55,11 +55,13 @@ export const NestedMenuListbox = ({
       direction="column"
     >
       {isSearchFieldEnabled && (
-        <SearchField
+        <SearchInput
           sx={{ padding: "8px 16px" }}
-          onChangeCallback={(text) => setSearchText?.(text)}
+          onChangeCallback={(text: string) => setSearchText?.(text)}
           placeholder={searchPlaceholder}
-          onClick={(event) => event.stopPropagation()}
+          onClick={(event: React.MouseEvent<HTMLInputElement>) =>
+            event.stopPropagation()
+          }
         />
       )}
       {onSelectAllChange && !hasNoMatching && (

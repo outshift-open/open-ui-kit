@@ -44,7 +44,7 @@ export function MaterialVsCustomToggle({
           setCustomized(false);
         }}
       >
-        Material Design
+        Default theme
       </Button>
       <Button
         size="small"

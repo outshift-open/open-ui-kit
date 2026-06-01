@@ -7,7 +7,7 @@
 import { ListItem, ListItemProps, Typography, useTheme } from "@mui/material";
 import { ComponentProps, ReactElement } from "react";
 import { SelectNode } from "./select-node";
-import { selectNodeListItemStyle } from "../styles/styles";
+import { selectNodeListItemStyle } from "../styles";
 
 interface SelectNodeListItemProps {
   isLeaf: boolean;

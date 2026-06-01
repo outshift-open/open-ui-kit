@@ -115,8 +115,7 @@ export function ComponentsApiContent(props: ComponentsApiContentProps) {
     const { classDescriptions, propDescriptions, slotDescriptions } =
       descriptions[key][userLanguage];
 
-    const defaultPropsLink =
-      "/material-ui/customization/theme-components/#theme-default-props";
+    const defaultPropsLink = "/open-ui-kit-core/getting-started/usage/";
     const slotGuideLink = "";
 
     // The `ref` is forwarded to the root element.

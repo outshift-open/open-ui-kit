@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Activity Timeline component
 githubLabel: 'component: activity-timeline'
 githubSource: packages/open-ui-kit/src/components/activity-timeline

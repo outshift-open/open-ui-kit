@@ -131,7 +131,7 @@ export default function ComponentPageTabs(props) {
             aria-current={activeTab === linkTab.key ? "page" : undefined}
             className={
               linkTab.key.includes("api") ? "skip-algolia-crawler" : ""
-            } // Details: https://github.com/mui/material-ui/pull/37539
+            }
             sx={{
               color: activeTab === linkTab.key ? "primary.main" : "inherit",
             }}

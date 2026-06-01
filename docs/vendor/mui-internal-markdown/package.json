@@ -1,8 +1,8 @@
 {
   "name": "@mui/internal-markdown",
   "version": "3.0.8",
-  "author": "MUI Team",
-  "description": "MUI markdown parser. This is an internal package not meant for general use.",
+  "author": "Open UI Kit maintainers",
+  "description": "Open UI Kit markdown parser. This is an internal package not meant for general use.",
   "main": "./index.mjs",
   "browser": "./index.mjs",
   "types": "./index.d.mts",
@@ -17,8 +17,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mui/material-ui.git",
-    "directory": "packages-internal/markdown"
+    "url": "git+https://github.com/outshift-open/open-ui-kit.git",
+    "directory": "docs/vendor/mui-internal-markdown"
   },
   "scripts": {
     "release:publish": "pnpm publish --tag latest",

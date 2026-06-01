@@ -4,29 +4,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  InputAdornment,
-  Stack,
-  SxProps,
-  Theme,
-  Typography,
-} from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { InputAdornment, Stack, Typography } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { InputField } from "../components/input-field";
+import { InputField } from "..";
+import { getStoryFocusedSx, getStoryNegativeSx } from "../styles";
 
 const DocsPage = () => (
   <DocsHeader
+    title="InputField"
     blurb="Input fields allow users to input or configure information."
-    guideLink=""
     includeStories={true}
-    importLine='import { InputField } from "@open-ui-kit/core";'
+    importLine={`import { InputField } from "@open-ui-kit/core";`}
   />
 );
 
 const meta: Meta = {
   title: "Components/InputField",
+  component: InputField,
   parameters: {
     actions: { argTypesRegex: null },
     controls: { disable: true },
@@ -46,18 +42,6 @@ const getClearAdornment = () => (
   </InputAdornment>
 );
 
-const focusedSx: SxProps<Theme> = (theme) => ({
-  "& .MuiInput-root": {
-    borderColor: theme.palette.vars.controlBorderActive,
-  },
-});
-
-const negativeSx: SxProps<Theme> = (theme) => ({
-  "& .MuiInput-root": {
-    borderColor: theme.palette.vars.negativeBorderActive,
-  },
-});
-
 const SizesExample = () => (
   <Stack
     direction="row"
@@ -65,17 +49,33 @@ const SizesExample = () => (
     alignItems="flex-start"
     sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
   >
-    <InputField
-      label="Label"
-      placeholder={placeholder}
-      sx={{ width: "280px" }}
-    />
-    <InputField
-      label="Label"
-      placeholder={placeholder}
-      size="small"
-      sx={{ width: "280px" }}
-    />
+    <Stack spacing={2}>
+      <Typography
+        variant="body2"
+        sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+      >
+        Large
+      </Typography>
+      <InputField
+        label="Label"
+        placeholder={placeholder}
+        sx={{ width: "280px" }}
+      />
+    </Stack>
+    <Stack spacing={2}>
+      <Typography
+        variant="body2"
+        sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+      >
+        Medium
+      </Typography>
+      <InputField
+        label="Label"
+        placeholder={placeholder}
+        size="small"
+        sx={{ width: "280px" }}
+      />
+    </Stack>
   </Stack>
 );
 
@@ -88,10 +88,10 @@ const BuildingBlocksExample = () => (
   >
     <Stack spacing={3} sx={{ width: "280px" }}>
       <InputField placeholder={placeholder} />
-      <InputField placeholder={placeholder} sx={focusedSx} />
+      <InputField placeholder={placeholder} sx={getStoryFocusedSx} />
       <InputField
         placeholder={placeholder}
-        sx={focusedSx}
+        sx={getStoryFocusedSx}
         slotProps={{ input: { endAdornment: getClearAdornment() } }}
       />
       <InputField
@@ -102,13 +102,16 @@ const BuildingBlocksExample = () => (
       <InputField
         placeholder={placeholder}
         error
-        sx={negativeSx}
+        sx={getStoryNegativeSx}
         slotProps={{ input: { endAdornment: getClearAdornment() } }}
       />
       <InputField placeholder={placeholder} disabled />
     </Stack>
     <Stack spacing={6} sx={{ minWidth: "360px" }}>
-      <Typography variant="body1" color="text.secondary">
+      <Typography
+        variant="body1"
+        sx={(theme) => ({ color: theme.palette.vars.baseTextWeak })}
+      >
         Placeholder text
       </Typography>
       <Typography

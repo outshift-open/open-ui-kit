@@ -4,12 +4,9 @@ const os = require("os");
  * See the docs of the Netlify environment variables:
  * https://docs.netlify.com/configure-builds/environment-variables/#build-metadata.
  *
- * A few comments:
- * - process.env.CONTEXT === 'production' means that the branch in Netlify was configured as production.
- *   For example, the `master` branch of the Core team is considered a `production` build on Netlify based
- *   on https://app.netlify.com/sites/material-ui/settings/deploys#branches.
- * - Each team has different site https://app.netlify.com/teams/mui/sites.
- *   The following logic must be compatible with all of them.
+ * process.env.CONTEXT === 'production' means that the branch in Netlify was
+ * configured as production. GitHub Pages builds do not set these variables, so
+ * local and Pages builds fall back to the development defaults.
  */
 let DEPLOY_ENV = "development";
 
@@ -72,7 +69,7 @@ function withDocsInfra(nextConfig) {
       // URL representing the unique URL for an individual deploy, e.g.
       // https://5b243e66dd6a547b4fee73ae--petsof.netlify.app
       NETLIFY_DEPLOY_URL: process.env.DEPLOY_URL,
-      // Name of the site, its Netlify subdomain; for example, material-ui-docs
+      // Name of the Netlify site if this app is ever deployed there.
       NETLIFY_SITE_NAME: process.env.SITE_NAME,
       // For template images
       TEMPLATE_IMAGE_URL: "",

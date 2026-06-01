@@ -5,14 +5,9 @@
  */
 
 import React from "react";
-import type {
-  SxProps,
-  TextFieldProps as MuiTextFieldProps,
-  Theme,
-} from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
 import { StyledInputField } from "./elements";
-
-export type InputFieldProps = MuiTextFieldProps;
+import type { InputFieldProps } from "../types";
 
 const toSxArray = (sx: SxProps<Theme> | undefined) =>
   Array.isArray(sx) ? sx : sx ? [sx] : [];

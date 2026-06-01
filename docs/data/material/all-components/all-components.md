@@ -24,15 +24,3 @@ Use it as the quick map for component docs, examples, and implementation notes.
 ## Navigation
 
 {{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "navigation"}}
-
-## Layout
-
-{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "layout"}}
-
-## Utils
-
-{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "utils"}}
-
-## Lab
-
-{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "lab"}}

@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TagAvatarSize, TagBackgroundColorVariants, TagStatus } from "./types";
-import type { TagStatusStyle } from "./types";
 export * from "./components/tag";
 export * from "./utils";
-export { TagAvatarSize, TagBackgroundColorVariants, TagStatusStyle, TagStatus };
+export { TagAvatarSize, TagBackgroundColorVariants, TagStatus } from "./types";
+export type { TagStatusStyle } from "./types";

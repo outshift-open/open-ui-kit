@@ -8,10 +8,7 @@ import { Theme, Typography } from "@mui/material";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { AugmentedSelectNodeType } from "@/types";
 import { ellipsisStyle, formatNodeValue } from "@/common";
-import {
-  overflowTooltipPopperStyle,
-  searchMatchTextStyle,
-} from "../styles/styles";
+import { overflowTooltipPopperStyle, searchMatchTextStyle } from "../styles";
 
 export const buildNodeLabelElement = (
   selectNode: AugmentedSelectNodeType,
@@ -42,7 +39,6 @@ export const buildNodeLabelElement = (
     <Typography variant="body2" sx={ellipsisStyle} component="div">
       <OverflowTooltip
         value={nodeLabel}
-        someLongText={nodeLabelElement}
         slotProps={{
           popper: {
             sx: {
@@ -55,7 +51,9 @@ export const buildNodeLabelElement = (
             },
           },
         }}
-      />
+      >
+        {nodeLabelElement}
+      </OverflowTooltip>
     </Typography>
   );
 };

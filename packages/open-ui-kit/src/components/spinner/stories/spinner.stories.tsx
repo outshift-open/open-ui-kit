@@ -1,26 +1,24 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Divider, Stack } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Spinner, SpinnerProps } from "../components/spinner";
-
-/**
- * ### Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a process.
-
-Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a form, or saving updates.
-
-Determinate indicators display how long an operation will take.
-Indeterminate indicators visualize an unspecified wait time.
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
+
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Stack, Typography } from "@mui/material";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Spinner } from "../components/spinner";
 
 const meta: Meta<typeof Spinner> = {
   title: "Components/Spinner",
   component: Spinner,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a process."
+          blurb="Spinners express an unspecified wait time or display the length of a process. Use the size prop to control dimensions."
           guideLink=""
           importLine='import { Spinner } from "@open-ui-kit/core";'
         />
@@ -28,33 +26,42 @@ const meta: Meta<typeof Spinner> = {
     },
   },
 };
+
 export default meta;
 type Story = StoryObj<typeof Spinner>;
 
-export const SpinnerComponent: Story = {
-  render: (args: SpinnerProps) => {
-    return (
-      <Stack spacing={4} direction="row" alignItems={"center"}>
-        <Box>
-          <Spinner {...args} size={40} />
-          <p>large</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={24} />
-          <p>medium</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={20} />
-          <p>small</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={16} />
-          <p>extra small</p>
-        </Box>
-      </Stack>
-    );
-  },
+const sizes = [
+  { label: "Large", size: 40 },
+  { label: "Medium", size: 24 },
+  { label: "Small", size: 20 },
+  { label: "Extra Small", size: 16 },
+];
+
+export const Sizes: Story = {
+  name: "Sizes",
+  render: () => (
+    <Stack direction="row" spacing={4} alignItems="center">
+      {sizes.map(({ label, size }) => (
+        <Stack key={size} spacing={1} alignItems="center">
+          <Spinner size={size} />
+          <Typography
+            variant="caption"
+            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+          >
+            {label}
+          </Typography>
+        </Stack>
+      ))}
+    </Stack>
+  ),
+};
+
+export const PrimaryColor: Story = {
+  name: "Primary",
+  render: () => <Spinner size={40} color="primary" />,
+};
+
+export const SecondaryColor: Story = {
+  name: "Secondary",
+  render: () => <Spinner size={40} color="secondary" />,
 };

@@ -129,7 +129,7 @@ function ProductItem({
 
 const coreProducts = [
   {
-    id: "material-ui",
+    id: "open-ui-kit-core",
     name: "Open UI Kit Core",
     description: "Core React components and design tokens.",
     icon: <OpenUiKitLogomarkIcon width={14} height={14} sx={logoColor} />,

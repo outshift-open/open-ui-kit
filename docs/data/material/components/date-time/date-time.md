@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Date Time component
 githubLabel: 'component: date-time'
 githubSource: packages/open-ui-kit/src/components/date-time

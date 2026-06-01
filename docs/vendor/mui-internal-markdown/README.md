@@ -1,6 +1,6 @@
 # @mui-internal/markdown
 
-MUI markdown parser and webpack loader.
+Open UI Kit markdown parser and webpack loader.
 This is an internal package not meant for general use.
 
 ## Release

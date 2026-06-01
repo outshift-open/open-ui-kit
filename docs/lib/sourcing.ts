@@ -53,21 +53,15 @@ export function getCaseStudyPost(filePath: string): BlogPost {
   };
 }
 
-// Avoid typos in the blog markdown pages.
-// https://www.notion.so/mui-org/Blog-247ec2bff5fa46e799ef06a693c94917
+// Avoid typos if blog markdown pages are restored later.
 const ALLOWED_TAGS = [
   "Company",
   "Developer Survey",
   "Guide",
   "Product",
   "Tech",
-  // Product tags
-  "Material UI",
-  "Base UI",
-  "Pigment CSS",
-  "Joy UI",
-  "MUI X",
-  "Toolpad",
+  "Open UI Kit",
+  "Open UI Kit Core",
 ];
 
 export const getAllBlogPosts = () => {

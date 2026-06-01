@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 import { faker } from "@faker-js/faker";
 import {
   MRT_ColumnDef,
@@ -35,10 +34,8 @@ const meta: Meta<typeof Table> = {
   title: "Components/Table",
   component: Table,
   tags: ["autodocs"],
-  args: {
-    onRowLinkClick: fn(),
-  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader

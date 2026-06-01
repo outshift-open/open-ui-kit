@@ -16,14 +16,21 @@ import {
   useTheme,
 } from "@mui/material";
 import { useRef, useState } from "react";
-import { SearchField } from "@/components/search-field";
+import { SearchInput } from "@/components/search-input";
 import type {
   GlobalSearchGroup,
   GlobalSearchItem,
   GlobalSearchProps,
 } from "../types";
+import {
+  getGlobalSearchInputStyles,
+  getGlobalSearchItemIconStyles,
+  getGlobalSearchItemStyles,
+  getGlobalSearchPaperStyles,
+  getGlobalSearchSubheaderStyles,
+} from "../styles";
 
-export const GlobalSearchField = ({
+export const GlobalSearchInput = ({
   placeholder = "Search",
   value,
   groups = [],
@@ -53,28 +60,18 @@ export const GlobalSearchField = ({
     onClear?.();
   };
 
-  // keep open in sync when groups update externally
   const shouldOpen = open && (value?.length ?? 0) > 0 && hasResults;
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <Box ref={anchorRef} sx={{ position: "relative", width }}>
-        <SearchField
+        <SearchInput
           fullWidth
           placeholder={placeholder}
           value={value}
           onChangeCallback={handleChange}
           onClear={handleClear}
-          sx={{
-            "& .MuiInput-root": {
-              width: "100%",
-              height: "36px",
-              borderRadius: "4px",
-              marginTop: 0,
-              border: "none",
-              backgroundColor: theme.palette.vars.baseBackgroundWeak,
-            },
-          }}
+          sx={getGlobalSearchInputStyles(theme)}
         />
 
         <Popper
@@ -86,34 +83,14 @@ export const GlobalSearchField = ({
             width: anchorRef.current?.offsetWidth ?? "auto",
           }}
         >
-          <Paper
-            elevation={0}
-            sx={{
-              mt: "4px",
-              width: "100%",
-              maxHeight: "400px",
-              overflowY: "auto",
-              border: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-              borderRadius: "8px",
-              backgroundColor: theme.palette.vars.controlBackgroundWeak,
-              boxShadow: theme.shadows[2],
-            }}
-          >
+          <Paper elevation={0} sx={getGlobalSearchPaperStyles(theme)}>
             {groups.map((group: GlobalSearchGroup) => {
               if (group.items.length === 0) return null;
               return (
                 <List key={group.key} disablePadding>
                   <ListSubheader
                     disableSticky
-                    sx={{
-                      backgroundColor: theme.palette.vars.controlBackgroundWeak,
-                      color: theme.palette.vars.baseTextWeak,
-                      ...theme.typography.captionMedium,
-                      lineHeight: "32px",
-                      padding: "0 16px",
-                      letterSpacing: "0.4px",
-                      textTransform: "uppercase",
-                    }}
+                    sx={getGlobalSearchSubheaderStyles(theme)}
                   >
                     {group.label}
                   </ListSubheader>
@@ -122,25 +99,10 @@ export const GlobalSearchField = ({
                     <ListItemButton
                       key={item.id}
                       onClick={() => handleSelect(item)}
-                      sx={{
-                        padding: "8px 16px",
-                        gap: "12px",
-                        minHeight: "40px",
-                        "&:hover": {
-                          backgroundColor:
-                            theme.palette.vars.baseBackgroundHover,
-                        },
-                      }}
+                      sx={getGlobalSearchItemStyles(theme)}
                     >
                       {item.icon && (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            color: theme.palette.vars.baseTextWeak,
-                            flexShrink: 0,
-                          }}
-                        >
+                        <Box sx={getGlobalSearchItemIconStyles(theme)}>
                           {item.icon}
                         </Box>
                       )}

@@ -224,8 +224,8 @@ export const getTagStyle = ({
         height: hasAvatar ? "40px" : "32px",
         ...theme.typography.body2Semibold,
         "& .MuiChip-label": {
-          paddingRight: "12px",
-          paddingLeft: "12px",
+          paddingRight: "8px",
+          paddingLeft: "8px",
         },
         "& .MuiChip-deleteIcon": {
           fontSize: "20px",

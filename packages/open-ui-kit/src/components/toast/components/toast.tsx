@@ -7,8 +7,9 @@
 import { toast as sonnerToast } from "sonner";
 import { ToastType } from "../types";
 import { IconToast, StyledToast } from "./elements";
-import { AlertProps, Box, Button, IconButton, Typography } from "@mui/material";
+import { AlertProps, Box, IconButton, Typography } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
+import { Button } from "@/components/button";
 import React from "react";
 
 export interface ToastProps
@@ -22,16 +23,24 @@ export interface ToastProps
     | "id"
     | "icon"
   > {
+  /** Unique id used when dismissing via sonner. */
   id: string;
+  /** Visual type — controls icon and left border color. */
   type?: ToastType;
-  title: string;
+  /** Bold title line. */
+  title?: string;
+  /** Body description text. */
   description?: string;
+  /** Whether to show the close (X) button. */
   showCloseButton?: boolean;
+  /** When true, close button hides the toast via React state. When false, dismisses via sonner. */
   useNativeClose?: boolean;
+  /** Optional action button below the description. */
   action?: {
     label: string;
     onClick: () => void;
   };
+  /** Slot for custom action content when `action` is not used. */
   customActions?: React.ReactNode;
 }
 
@@ -60,7 +69,7 @@ export const Toast = ({
       action={
         showCloseButton && (
           <IconButton
-            sx={{ width: "24px", height: "24px" }}
+            sx={{ width: "24px", height: "24px", padding: 0 }}
             onClick={() =>
               useNativeClose ? setShow(false) : sonnerToast.dismiss(id)
             }
@@ -78,12 +87,7 @@ export const Toast = ({
       }
       icon={<IconToast type={type} />}
     >
-      <Box
-        flexDirection="column"
-        gap="8px"
-        display="flex"
-        justifyContent="start"
-      >
+      <Box display="flex" flexDirection="column" gap="4px">
         {title && (
           <Typography
             variant="subtitle1"
@@ -92,29 +96,27 @@ export const Toast = ({
             {title}
           </Typography>
         )}
-        <Typography
-          variant="body2"
-          sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
-        >
-          {description}
-        </Typography>
+        {description && (
+          <Typography
+            variant="body2"
+            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+          >
+            {description}
+          </Typography>
+        )}
         {action && (
           <Button
-            onClick={action.onClick}
             variant="tertariary"
+            size="small"
+            onClick={action.onClick}
             sx={{
               padding: 0,
-              minWidth: "1px",
+              minWidth: 0,
               width: "fit-content",
-              "&.MuiButton-sizeSmall": {
-                padding: 0,
-              },
+              height: "auto",
             }}
-            size="small"
           >
-            <Typography fontSize={"14px"} fontWeight={600}>
-              {action.label}
-            </Typography>
+            {action.label}
           </Button>
         )}
         {customActions && !action && <>{customActions}</>}

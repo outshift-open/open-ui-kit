@@ -7,7 +7,7 @@
 import { IconButton, Stack, SvgIconProps } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
 import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
-import { iconStyle, selectNodeStyle } from "../styles/styles";
+import { iconStyle, selectNodeStyle } from "../styles";
 import { EMPTY_FUNCTION } from "@/common";
 
 export interface SelectNodeProps {

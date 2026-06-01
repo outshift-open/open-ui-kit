@@ -25,4 +25,4 @@ yarn workspace docs build
 Getting started content lives in `docs/data/material/getting-started`.
 Routes for those pages live in `docs/pages/open-ui-kit-core/getting-started`.
 
-Component pages are still based on the copied Material UI docs structure and will be cleaned separately.
+Component pages are being migrated category by category so the docs match the Open UI Kit package surface.

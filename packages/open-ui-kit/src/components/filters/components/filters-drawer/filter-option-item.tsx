@@ -66,7 +66,6 @@ export const FilterOptionItem = ({
       <Typography variant="body2">
         <OverflowTooltip
           value={text}
-          someLongText={text}
           componentsProps={{
             tooltip: {
               sx: {
@@ -76,7 +75,9 @@ export const FilterOptionItem = ({
               },
             },
           }}
-        />
+        >
+          {text}
+        </OverflowTooltip>
       </Typography>
     );
   };

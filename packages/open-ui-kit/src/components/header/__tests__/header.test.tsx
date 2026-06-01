@@ -8,7 +8,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { Header } from "../components/header";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
+import { Header } from "..";
+import {
+  getCustomSearchInputStyles,
+  getActionButtonStyles,
+  getHeaderStyles,
+  getStoryBetaStyles,
+} from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -93,5 +101,56 @@ describe("Header", () => {
   it("renders as header element", () => {
     const { container } = wrap(<Header logo={<MockLogo />} />);
     expect(container.querySelector("header")).toBeInTheDocument();
+  });
+
+  it("uses light header tokens", () => {
+    expect(getHeaderStyles(lightTheme, "static")).toMatchObject({
+      backgroundColor: lightTheme.palette.vars.baseBackgroundStrong,
+      borderBottom: `1px solid ${lightTheme.palette.vars.baseBorderDefault}`,
+      height: "56px",
+      padding: "10px 32px",
+      position: "static",
+    });
+  });
+
+  it("uses dark header tokens", () => {
+    expect(getHeaderStyles(darkTheme, "static")).toMatchObject({
+      backgroundColor: darkTheme.palette.vars.baseBackgroundStrong,
+      borderBottom: `1px solid ${darkTheme.palette.vars.baseBorderDefault}`,
+    });
+  });
+
+  it("uses tokenized custom search styles", () => {
+    expect(getCustomSearchInputStyles(lightTheme)).toMatchObject({
+      padding: 0,
+      "& .MuiInput-root": expect.objectContaining({
+        backgroundColor: lightTheme.palette.vars.baseBackgroundWeak,
+        height: "36px",
+        width: "360px",
+      }),
+    });
+  });
+
+  it("uses product header icon styles for icon and svg action children", () => {
+    expect(getActionButtonStyles(lightTheme)).toMatchObject({
+      color: lightTheme.palette.vars.brandIconPrimaryDefault,
+      width: "24px",
+      height: "24px",
+      borderRadius: "4px",
+      "& .MuiIcon-root, & .MuiSvgIcon-root": {
+        color: "currentColor",
+        fontSize: "24px",
+        width: "24px",
+        height: "24px",
+      },
+    });
+  });
+
+  it("uses tokenized beta label styles", () => {
+    expect(getStoryBetaStyles(darkTheme)).toMatchObject({
+      backgroundColor: darkTheme.palette.vars.interactivePrimaryWeakDefault,
+      color: darkTheme.palette.vars.baseTextDefault,
+      height: "20px",
+    });
   });
 });

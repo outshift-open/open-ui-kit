@@ -5,7 +5,7 @@ import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { Step, Stepper, StepLabel } from "@mui/material";
 
 const meta: Meta<typeof Step> = {
-  title: "DEV/Stepper/Step",
+  title: "Components/Stepper/Step",
   component: Step,
   tags: ["autodocs"],
 };

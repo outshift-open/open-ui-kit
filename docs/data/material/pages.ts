@@ -35,12 +35,7 @@ const pages: MuiPage[] = [
         pathname: "/open-ui-kit-core/components/inputs",
         subheader: "inputs",
         children: [
-          { pathname: "/open-ui-kit-core/react-autocomplete" },
           { pathname: "/open-ui-kit-core/react-button" },
-          {
-            pathname: "/open-ui-kit-core/react-button-group",
-            title: "Button Group",
-          },
           { pathname: "/open-ui-kit-core/react-checkbox" },
           {
             pathname: "/open-ui-kit-core/react-date-time",
@@ -50,26 +45,6 @@ const pages: MuiPage[] = [
           {
             pathname: "/open-ui-kit-core/react-floating-action-button",
             title: "Floating Button",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-radio-button",
-            title: "Radio Group",
-          },
-          { pathname: "/open-ui-kit-core/react-rating" },
-          { pathname: "/open-ui-kit-core/react-select" },
-          { pathname: "/open-ui-kit-core/react-slider" },
-          { pathname: "/open-ui-kit-core/react-switch" },
-          {
-            pathname: "/open-ui-kit-core/react-text-field",
-            title: "Text Field",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-transfer-list",
-            title: "Transfer List",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-toggle-button",
-            title: "Toggle Button",
           },
         ],
       },
@@ -91,34 +66,20 @@ const pages: MuiPage[] = [
             pathname: "/open-ui-kit-core/react-copy-button",
             title: "Copy Button",
           },
-          { pathname: "/open-ui-kit-core/react-chip" },
           { pathname: "/open-ui-kit-core/react-divider" },
           {
             pathname: "/open-ui-kit-core/react-empty-state",
             title: "Empty State",
           },
-          { pathname: "/open-ui-kit-core/icons" },
-          {
-            pathname: "/open-ui-kit-core/material-icons",
-            title: "Material Icons",
-          },
-          { pathname: "/open-ui-kit-core/react-list" },
-          { pathname: "/open-ui-kit-core/react-table" },
-          { pathname: "/open-ui-kit-core/react-tooltip" },
-          { pathname: "/open-ui-kit-core/react-typography" },
         ],
       },
       {
         pathname: "/open-ui-kit-core/components/feedback",
         subheader: "feedback",
         children: [
-          { pathname: "/open-ui-kit-core/react-alert" },
           { pathname: "/open-ui-kit-core/react-banner" },
           { pathname: "/open-ui-kit-core/react-backdrop" },
           { pathname: "/open-ui-kit-core/react-dialog" },
-          { pathname: "/open-ui-kit-core/react-progress" },
-          { pathname: "/open-ui-kit-core/react-skeleton" },
-          { pathname: "/open-ui-kit-core/react-snackbar" },
         ],
       },
       {
@@ -126,9 +87,7 @@ const pages: MuiPage[] = [
         subheader: "surfaces",
         children: [
           { pathname: "/open-ui-kit-core/react-accordion" },
-          { pathname: "/open-ui-kit-core/react-app-bar", title: "App Bar" },
           { pathname: "/open-ui-kit-core/react-card" },
-          { pathname: "/open-ui-kit-core/react-paper" },
         ],
       },
       {
@@ -139,78 +98,7 @@ const pages: MuiPage[] = [
             pathname: "/open-ui-kit-core/react-anchor-link-menu",
             title: "Anchor Link Menu",
           },
-          {
-            pathname: "/open-ui-kit-core/react-bottom-navigation",
-            title: "Bottom Navigation",
-          },
           { pathname: "/open-ui-kit-core/react-breadcrumbs" },
-          { pathname: "/open-ui-kit-core/react-drawer" },
-          { pathname: "/open-ui-kit-core/react-link" },
-          { pathname: "/open-ui-kit-core/react-menu" },
-          { pathname: "/open-ui-kit-core/react-pagination" },
-          {
-            pathname: "/open-ui-kit-core/react-speed-dial",
-            title: "Speed Dial",
-          },
-          { pathname: "/open-ui-kit-core/react-stepper" },
-          { pathname: "/open-ui-kit-core/react-tabs" },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/layout",
-        subheader: "layout",
-        children: [
-          { pathname: "/open-ui-kit-core/react-box" },
-          { pathname: "/open-ui-kit-core/react-container" },
-          { pathname: "/open-ui-kit-core/react-grid" },
-          { pathname: "/open-ui-kit-core/react-stack" },
-          {
-            pathname: "/open-ui-kit-core/react-image-list",
-            title: "Image List",
-          },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/utils",
-        subheader: "utils",
-        children: [
-          {
-            pathname: "/open-ui-kit-core/react-click-away-listener",
-            title: "Click-Away Listener",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-css-baseline",
-            title: "CSS Baseline",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-init-color-scheme-script",
-            title: "InitColorSchemeScript",
-          },
-          { pathname: "/open-ui-kit-core/react-modal" },
-          { pathname: "/open-ui-kit-core/react-no-ssr", title: "No SSR" },
-          { pathname: "/open-ui-kit-core/react-popover" },
-          { pathname: "/open-ui-kit-core/react-popper" },
-          { pathname: "/open-ui-kit-core/react-portal" },
-          {
-            pathname: "/open-ui-kit-core/react-textarea-autosize",
-            title: "Textarea Autosize",
-          },
-          { pathname: "/open-ui-kit-core/transitions" },
-          {
-            pathname: "/open-ui-kit-core/react-use-media-query",
-            title: "useMediaQuery",
-          },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core",
-        subheader: "lab",
-        children: [
-          {
-            pathname: "/open-ui-kit-core/about-the-lab",
-            title: "About the lab 🧪",
-          },
-          { pathname: "/open-ui-kit-core/react-masonry" },
         ],
       },
     ],

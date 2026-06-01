@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Filters component
 githubLabel: 'component: filters'
 githubSource: packages/open-ui-kit/src/components/filters

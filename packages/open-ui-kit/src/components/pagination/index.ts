@@ -4,5 +4,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type { PaginationProps } from "./components/pagination";
 export { Pagination } from "./components/pagination";
+export type { PaginationProps } from "./types";

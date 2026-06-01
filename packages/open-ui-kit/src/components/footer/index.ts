@@ -5,4 +5,4 @@
  */
 
 export { Footer } from "./components/footer";
-export type { FooterProps } from "./components/footer";
+export type { FooterProps } from "./types";

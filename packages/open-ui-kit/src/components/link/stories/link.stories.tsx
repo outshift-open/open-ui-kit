@@ -1,27 +1,36 @@
-import { BrowserRouter } from "react-router-dom";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack } from "@mui/material";
-import GridViewIcon from "@mui/icons-material/GridView";
-import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Link } from "../components/link";
-import { GeneralSize } from "@/common";
-import { LinkColorEnum, LinkType } from "../types";
-
-/**
- *  ### Link represent custom component with link and optional icon.
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
+
+import { BrowserRouter } from "react-router-dom";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { GeneralSize, IconPosition } from "@/common";
+import { Link as LinkIcon } from "@/custom-icons";
+import { Link } from "../components/link";
+import {
+  getLinkColor,
+  getStoryGridStyles,
+  getStoryLabelStyles,
+} from "../styles";
+import { LinkColorEnum, LinkState, LinkType } from "../types";
+
 const meta: Meta<typeof Link> = {
   title: "Components/Link",
   component: Link,
-  tags: ["autodocs"],
-  args: { size: GeneralSize.Small, Icon: GridViewIcon },
   parameters: {
+    actions: { argTypesRegex: null },
+    controls: { disable: true },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Link is a component that represents a clickable link with optional icon and text. It can be used to navigate to different routes or perform actions."
-          guideLink="#"
-          importLine='import { Link } from "@open-ui-kit/core";'
+          title="Link"
+          blurb="Links navigate users to another route or resource and can include optional leading or trailing icons."
+          importLine={`import { Link } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -29,118 +38,166 @@ const meta: Meta<typeof Link> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-type Story = StoryObj<typeof Link>;
+const linkTypes = [
+  { label: "underline-regular", value: LinkType.UnderlineRegular, bold: false },
+  {
+    label: "standalone- regular",
+    value: LinkType.StandaloneRegular,
+    bold: false,
+  },
+  { label: "standalone- bold", value: LinkType.StandaloneBold, bold: false },
+  { label: "underlined- bold", value: LinkType.UnderlineRegular, bold: true },
+] as const;
 
-export const Example: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <Stack spacing={2}>
-        <Link {...args}>Hello</Link>
-      </Stack>
-    </BrowserRouter>
-  ),
+const iconPositions = [
+  { label: "no-icon", value: IconPosition.NoIcon },
+  { label: "left-icon", value: IconPosition.LeftIcon },
+  { label: "right-icon", value: IconPosition.RightIcon },
+] as const;
+
+const sizes = [
+  { label: "size l", value: GeneralSize.Large },
+  { label: "size m", value: GeneralSize.Medium },
+  { label: "size s", value: GeneralSize.Small },
+] as const;
+
+const states: LinkState[] = ["default", "hover", "pressed", "disabled"];
+
+const StoryLabel = ({ children }: { children: React.ReactNode }) => (
+  <Typography component="span" sx={(theme) => getStoryLabelStyles(theme)}>
+    {children}
+  </Typography>
+);
+
+const StoryHeaderLabel = ({
+  children,
+  span = 1,
+}: {
+  children: React.ReactNode;
+  span?: number;
+}) => (
+  <Box sx={{ gridColumn: `span ${span}` }}>
+    <StoryLabel>{children}</StoryLabel>
+  </Box>
+);
+
+const LinkSample = ({
+  color,
+  iconPosition,
+  linkType,
+  size,
+  state,
+}: {
+  color: LinkColorEnum;
+  iconPosition: IconPosition;
+  linkType: LinkType;
+  size: GeneralSize;
+  state: LinkState | "focus";
+}) => {
+  const theme = useTheme();
+  const visualState = state === "focus" ? "default" : state;
+  const isDisabled = state === "disabled";
+
+  return (
+    <Link
+      Icon={LinkIcon}
+      color={color}
+      disabled={isDisabled}
+      href="#"
+      iconPosition={iconPosition}
+      linkType={linkType}
+      size={size}
+      sx={{
+        color: getLinkColor(theme, color, visualState),
+        textDecoration:
+          isDisabled || linkType === LinkType.StandaloneRegular
+            ? state === "hover" || state === "pressed"
+              ? "underline"
+              : "none"
+            : "underline",
+        ...(state === "focus" && {
+          outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
+          outlineOffset: "1px",
+        }),
+      }}
+    >
+      Link
+    </Link>
+  );
 };
 
-export const Ellipsis: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <Stack spacing={2}>
-        <Box sx={{ width: "100px" }}>
-          <Link {...args} ellipsis>
-            Longer Longer link text
-          </Link>
-        </Box>
-      </Stack>
-    </BrowserRouter>
-  ),
-};
+const LinkMatrix = ({ color }: { color: LinkColorEnum }) => (
+  <Stack gap={3}>
+    <StoryLabel>{color}</StoryLabel>
+    <Box sx={getStoryGridStyles()}>
+      <Box />
+      <Box />
+      {linkTypes.map(({ label }) => (
+        <StoryHeaderLabel key={label} span={3}>
+          {label}
+        </StoryHeaderLabel>
+      ))}
+      <Box />
+      <Box />
+      {linkTypes.flatMap(({ label }) =>
+        iconPositions.map(({ label: iconLabel }) => (
+          <StoryLabel key={`${label}-${iconLabel}`}>{iconLabel}</StoryLabel>
+        )),
+      )}
 
-export const LinkSizes: Story = {
+      {sizes.flatMap(({ label: sizeLabel, value: size }) =>
+        [...states, "focus" as const].flatMap((state, stateIndex) => [
+          stateIndex === 0 ? (
+            <StoryLabel key={`${color}-${sizeLabel}`}>{sizeLabel}</StoryLabel>
+          ) : (
+            <Box key={`${color}-${sizeLabel}-empty-${state}`} />
+          ),
+          <StoryLabel key={`${color}-${sizeLabel}-${state}-label`}>
+            state {state}
+          </StoryLabel>,
+          ...linkTypes.flatMap(({ value, bold }) =>
+            iconPositions.map(({ value: iconPosition }) => (
+              <LinkSample
+                key={`${color}-${sizeLabel}-${state}-${value}-${bold}-${iconPosition}`}
+                color={color}
+                iconPosition={iconPosition}
+                linkType={bold ? LinkType.StandaloneBold : value}
+                size={size}
+                state={state}
+              />
+            )),
+          ),
+        ]),
+      )}
+    </Box>
+  </Stack>
+);
+
+export const Default: Story = {
   render: () => (
     <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link size={GeneralSize.Small} Icon={GridViewIcon}>
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-        <Link size={GeneralSize.Large} Icon={GridViewIcon}>
-          Hello
-        </Link>
+      <Stack gap={8}>
+        <LinkMatrix color={LinkColorEnum.Primary} />
+        <LinkMatrix color={LinkColorEnum.Secondary} />
       </Stack>
     </BrowserRouter>
   ),
 };
 
-export const Colors: Story = {
+export const Primary: Story = {
   render: () => (
     <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link color={LinkColorEnum.Primary} Icon={GridViewIcon}>
-          Hello (Primary)
-        </Link>
-        <Link color={LinkColorEnum.Secondary} Icon={GridViewIcon}>
-          Hello (Secondary)
-        </Link>
-        <Link disabled color={LinkColorEnum.Primary} Icon={GridViewIcon}>
-          Hello (Primary) disabled
-        </Link>
-        <Link disabled color={LinkColorEnum.Secondary} Icon={GridViewIcon}>
-          Hello (Secondary) disabled
-        </Link>
-      </Stack>
+      <LinkMatrix color={LinkColorEnum.Primary} />
     </BrowserRouter>
   ),
 };
 
-export const IconVariants: Story = {
+export const Secondary: Story = {
   render: () => (
     <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link color={LinkColorEnum.Primary} size={GeneralSize.Medium}>
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          // iconPosition="right-icon"
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          // iconPosition="left-icon"
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-      </Stack>
-    </BrowserRouter>
-  ),
-};
-
-export const LinkTypes: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link Icon={GridViewIcon} linkType={LinkType.UnderlineRegular}>
-          Hello (type: UnderlineRegular)
-        </Link>
-        <Link Icon={GridViewIcon} linkType={LinkType.StandaloneRegular}>
-          Hello (type: StandaloneRegular)
-        </Link>
-        <Link Icon={GridViewIcon} linkType={LinkType.StandaloneBold}>
-          Hello (type: StandaloneBold)
-        </Link>
-      </Stack>
+      <LinkMatrix color={LinkColorEnum.Secondary} />
     </BrowserRouter>
   ),
 };

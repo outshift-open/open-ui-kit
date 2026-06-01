@@ -66,7 +66,7 @@ export interface DocsAppProps {
    */
   productIdentifier: MuiPageContext["productIdentifier"];
   /**
-   * Product identifier string (e.g. 'material-ui')
+   * Product identifier string (e.g. 'open-ui-kit-core')
    */
   productId: MuiPageContext["productId"];
   /**
@@ -74,7 +74,7 @@ export interface DocsAppProps {
    */
   productCategoryId: MuiPageContext["productCategoryId"];
   /**
-   * Display name for the product (e.g. 'Material UI')
+   * Display name for the product (e.g. 'Open UI Kit Core')
    */
   demoDisplayName: DemoContextValue["productDisplayName"];
   /**
@@ -154,8 +154,11 @@ function DocsApp(props: DocsAppProps) {
     <React.Fragment>
       <NextHead>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <meta name="mui:productId" content={productId} />
-        <meta name="mui:productCategoryId" content={productCategoryId} />
+        <meta name="open-ui-kit:productId" content={productId} />
+        <meta
+          name="open-ui-kit:productCategoryId"
+          content={productCategoryId}
+        />
       </NextHead>
       <DocsProvider
         config={docsConfig}

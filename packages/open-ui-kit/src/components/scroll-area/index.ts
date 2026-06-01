@@ -4,4 +4,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export * from "./components/scroll-area";
+export { ScrollArea } from "./components/scroll-area";
+export type { ScrollAreaProps } from "./types";

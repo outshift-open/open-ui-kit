@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
-import { MenuItem } from "../components/menu-item";
+import { MenuItem } from "..";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
@@ -15,9 +15,11 @@ const meta: Meta<typeof MenuItem> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Menu Item"
           blurb="MenuItem is a component that can be used to create menu items, either as simple text or as links with optional icons."
           guideLink="#"
           importLine="import { MenuItem } from '@open-ui-kit/core';"
+          includeStories
         />
       ),
     },

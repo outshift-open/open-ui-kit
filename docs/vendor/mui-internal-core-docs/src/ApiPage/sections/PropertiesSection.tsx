@@ -21,7 +21,7 @@ import { type PropertyDefinition } from "../definitions";
 type PropertiesSectionProps = (
   | {
       properties: {
-        // isProPlan and isPremiumPlan are added for the MUI X interface documentation.
+        // isProPlan and isPremiumPlan are optional plan metadata from generated docs.
         [name: string]: PropsTableItem & {
           isProPlan?: true;
           isPremiumPlan?: true;

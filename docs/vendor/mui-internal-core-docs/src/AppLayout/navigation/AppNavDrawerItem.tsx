@@ -225,7 +225,7 @@ const ItemButtonIcon = styled(KeyboardArrowRightRoundedIcon, {
 })<{ open: boolean }>({
   fontSize: "1rem",
   "&&:last-child": {
-    // overrides https://github.com/mui/material-ui/blob/ca7c5c63e64b6a7f55255981f1836a565927b56c/docs/src/modules/brandingTheme.ts#L757-L759
+    // Keep the trailing icon aligned with the compact navigation row.
     marginLeft: 0,
   },
   variants: [

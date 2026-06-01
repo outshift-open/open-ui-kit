@@ -72,7 +72,7 @@ function handleMouseOver(event: MouseEvent) {
   if (as === null) {
     return;
   }
-  // The copied MUI docs used Next's singleton router here. In this local docs app
+  // The copied docs shell used Next's singleton router here. In this local docs app
   // it can be undefined during hydration, so let the browser handle preloading.
 }
 

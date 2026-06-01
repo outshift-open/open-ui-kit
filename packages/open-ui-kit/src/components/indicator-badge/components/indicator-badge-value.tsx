@@ -5,11 +5,7 @@
  */
 
 import { IndicatorBadgeValueBar } from "./elements";
-
-export interface IndicatorBadgeValueProps {
-  color: string;
-  isActive?: boolean;
-}
+import type { IndicatorBadgeValueProps } from "../types";
 
 export const IndicatorBadgeValue = ({
   color,

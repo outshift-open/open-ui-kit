@@ -5,62 +5,54 @@
  */
 
 import { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { AgntcyBrand } from "@/custom-icons";
 import { BrowserRouter } from "react-router-dom";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Footer } from "../components/footer";
+import { Footer } from "..";
 
-const ProductNode = () =>
-  React.createElement(
-    Stack,
-    {
-      direction: "row",
-      alignItems: "center",
-      gap: "6px",
-      flexWrap: "nowrap",
-      sx: { whiteSpace: "nowrap" },
-    },
-    React.createElement(
-      Typography,
-      {
-        variant: "caption",
-        sx: (theme) => ({
-          color: theme.palette.vars.baseTextDefault,
-          whiteSpace: "nowrap",
-        }),
-      },
-      `\u00A9 ${new Date().getFullYear()} Cisco Systems Inc. \u2022 powered by`,
-    ),
-    React.createElement(AgntcyBrand, {
-      sx: { width: 105, height: 24, flexShrink: 0 },
-    }),
-    React.createElement(
-      Typography,
-      {
-        variant: "caption",
-        sx: (theme) => ({
-          color: theme.palette.vars.baseTextDefault,
-          whiteSpace: "nowrap",
-        }),
-      },
-      "\u2022 This product is currently in beta. Expect ongoing changes.",
-    ),
-  );
+const ProductNode = () => (
+  <Stack
+    direction="row"
+    alignItems="center"
+    gap="6px"
+    flexWrap="nowrap"
+    sx={{ whiteSpace: "nowrap" }}
+  >
+    <Typography
+      variant="caption"
+      sx={(theme) => ({
+        color: theme.palette.vars.baseTextDefault,
+        whiteSpace: "nowrap",
+      })}
+    >
+      {`© ${new Date().getFullYear()} Cisco Systems Inc. • powered by`}
+    </Typography>
+    <AgntcyBrand sx={{ width: 64, height: 16, flexShrink: 0 }} />
+    <Typography
+      variant="caption"
+      sx={(theme) => ({
+        color: theme.palette.vars.baseTextDefault,
+        whiteSpace: "nowrap",
+      })}
+    >
+      • This product is currently in beta. Expect ongoing changes.
+    </Typography>
+  </Stack>
+);
 
 const meta: Meta<typeof Footer> = {
   title: "Components/Footer",
   component: Footer,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
     docs: {
       page: () => (
         <DocsHeader
+          title="Footer"
           blurb="Footer displays product information, copyright, and navigation links. The left side accepts a custom productNode for rich branding; the right side renders an array of links."
-          guideLink=""
           importLine={`import { Footer } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -71,6 +63,7 @@ export default meta;
 type Story = StoryObj<typeof Footer>;
 
 export const Default: Story = {
+  name: "Footer - Product",
   render: () => (
     <BrowserRouter>
       <Footer

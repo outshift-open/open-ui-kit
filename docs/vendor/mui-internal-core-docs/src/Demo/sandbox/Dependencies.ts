@@ -26,7 +26,7 @@ function addTypeDeps(
 ): void {
   const packagesWithDTPackage = Object.keys(deps)
     .filter((name) => !packagesWithBundledTypes.includes(name))
-    // All the MUI packages come with bundled types
+    // Packages from these scopes come with bundled types.
     .filter((name) => !muiNpmOrgs.some((org) => name.startsWith(org)));
 
   packagesWithDTPackage.forEach((name) => {
@@ -60,18 +60,15 @@ export function SandboxDependencies(
    * @param packageName - The name of a package living inside this repository.
    * @return string - A valid version for a dependency entry in a package.json
    */
-  function getMuiPackageVersion(packageName: string): string {
-    if (
-      commitRef === undefined ||
-      process.env.SOURCE_CODE_REPO !== "https://github.com/mui/material-ui"
-    ) {
+  function getBundledPackageVersion(packageName: string): string {
+    if (commitRef === undefined) {
       if (packageName === "joy") {
         return "latest";
       }
       // #npm-tag-reference
       return "latest";
     }
-    return `https://pkg.pr.new/mui/material-ui/@mui/${packageName}@${commitRef}`;
+    return "latest";
   }
 
   function extractDependencies() {
@@ -110,15 +107,15 @@ export function SandboxDependencies(
       "react-dom": "latest",
       "@emotion/react": "latest",
       "@emotion/styled": "latest",
-      "@mui/material": getMuiPackageVersion("material"),
-      "@mui/icons-material": getMuiPackageVersion("icons-material"),
-      "@mui/lab": getMuiPackageVersion("lab"),
-      "@mui/styled-engine": getMuiPackageVersion("styled-engine"),
-      "@mui/system": getMuiPackageVersion("system"),
-      "@mui/private-theming": getMuiPackageVersion("theming"),
-      "@mui/private-classnames": getMuiPackageVersion("classnames"),
-      "@mui/utils": getMuiPackageVersion("utils"),
-      "@mui/material-nextjs": getMuiPackageVersion("material-nextjs"),
+      "@mui/material": getBundledPackageVersion("material"),
+      "@mui/icons-material": getBundledPackageVersion("icons-material"),
+      "@mui/lab": getBundledPackageVersion("lab"),
+      "@mui/styled-engine": getBundledPackageVersion("styled-engine"),
+      "@mui/system": getBundledPackageVersion("system"),
+      "@mui/private-theming": getBundledPackageVersion("theming"),
+      "@mui/private-classnames": getBundledPackageVersion("classnames"),
+      "@mui/utils": getBundledPackageVersion("utils"),
+      "@mui/material-nextjs": getBundledPackageVersion("material-nextjs"),
     };
 
     // Allow product-specific version overrides via context config

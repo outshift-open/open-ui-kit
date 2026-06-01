@@ -1,17 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import {
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuProps,
-  ListSubheader,
-} from "@mui/material";
+import { ListItemIcon, ListItemText } from "@mui/material";
 import { Star } from "@mui/icons-material";
-import { MenuItem } from "../components/menu-item";
 import { Button } from "@/components/button";
-import { Divider } from "@mui/material";
+import { Divider } from "@/components/divider";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Menu, MenuItem, MenuSubheader, type MenuProps } from "..";
 
 const meta: Meta<typeof Menu> = {
   title: "Components/Menu/Menu",
@@ -21,9 +15,11 @@ const meta: Meta<typeof Menu> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Menu"
           blurb="Menu is a component that displays a list of choices on a temporary surface. It appears when the user interacts with a button or other control."
           guideLink=""
           importLine={`import { Menu, MenuItem } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -123,7 +119,7 @@ export const Destructive: Story = {
   args: {
     children: [
       <MenuItem key="1">Menu Item 1</MenuItem>,
-      <MenuItem key="2" className="MuiMenuItem-destructive">
+      <MenuItem key="2" destructive>
         Delete
       </MenuItem>,
     ],
@@ -133,14 +129,22 @@ export const Destructive: Story = {
 export const SizeMedium: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => <MenuItem key={x}>Menu Item {x}</MenuItem>),
+    children: [1, 2, 3].map((x) => (
+      <MenuItem key={x} size="medium">
+        Menu Item {x}
+      </MenuItem>
+    )),
   },
 };
 
 export const SizeSmall: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => <MenuItem key={x}>Menu Item {x}</MenuItem>),
+    children: [1, 2, 3].map((x) => (
+      <MenuItem key={x} size="small">
+        Menu Item {x}
+      </MenuItem>
+    )),
   },
 };
 
@@ -148,10 +152,10 @@ export const WithCategories: Story = {
   render: MenuStory,
   args: {
     children: [
-      <ListSubheader key="cat1">Category 1</ListSubheader>,
+      <MenuSubheader key="cat1">Category 1</MenuSubheader>,
       <MenuItem key="1">Menu Item 1</MenuItem>,
       <MenuItem key="2">Menu Item 2</MenuItem>,
-      <ListSubheader key="cat2">Category 2</ListSubheader>,
+      <MenuSubheader key="cat2">Category 2</MenuSubheader>,
       <MenuItem key="3">Menu Item 3</MenuItem>,
       <MenuItem key="4">Menu Item 4</MenuItem>,
     ],

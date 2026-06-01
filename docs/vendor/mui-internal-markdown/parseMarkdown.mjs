@@ -46,7 +46,7 @@ function escape(html, encode) {
 }
 
 function checkUrlHealth(href, linkText, context) {
-  const url = new URL(href, "https://mui.com/");
+  const url = new URL(href, "https://open-ui-kit.outshift.ai/");
 
   if (/\/{2,}$/.test(url.pathname)) {
     throw new Error(
@@ -60,17 +60,17 @@ function checkUrlHealth(href, linkText, context) {
     );
   }
 
-  // External links to MUI, ignore
-  if (url.host !== "mui.com") {
+  // External links to other websites are ignored.
+  if (url.host !== "open-ui-kit.outshift.ai") {
     return;
   }
 
   /**
    * Break for links like:
-   * /material-ui/customization/theming
+   * /open-ui-kit-core/getting-started/installation
    *
    * It needs to be:
-   * /material-ui/customization/theming/
+   * /open-ui-kit-core/getting-started/installation/
    */
   if (!url.pathname.endsWith("/")) {
     throw new Error(
@@ -91,10 +91,10 @@ function checkUrlHealth(href, linkText, context) {
   ) {
     /**
      * Break for links like:
-     * material-ui/customization/theming/
+     * open-ui-kit-core/getting-started/installation/
      *
      * It needs to be:
-     * /material-ui/customization/theming/
+     * /open-ui-kit-core/getting-started/installation/
      */
     if (href[0] !== "/") {
       throw new Error(
@@ -213,7 +213,7 @@ function getCodeblock(content) {
     return undefined;
   }
   // The regexes below have a negative lookahead to prevent ReDoS
-  // See https://github.com/mui/material-ui/issues/44078
+  // Keep the regexes conservative when parsing codeblock attributes.
   const storageKey = content.match(
     /^<codeblock (?!<codeblock )[^>]*storageKey=["|'](?!storageKey=["|'])(\S*)["|'].*>/m,
   )?.[1];
@@ -264,7 +264,7 @@ function renderMarkdown(markdown) {
     .replace(/\r?\n/g, " ");
 }
 
-// Help rank mui.com on component searches first.
+// Help rank component pages first in search results.
 const noSEOadvantage = [
   "https://m2.material.io/",
   "https://m3.material.io/",
@@ -410,10 +410,7 @@ function createRender(context) {
         finalHref = `/${userLanguage}${href}`;
       }
 
-      // This logic turns link like:
-      // https://github.com/mui/material-ui/blob/-/packages/mui-joy/src/styles/components.d.ts
-      // into a permalink:
-      // https://github.com/mui/material-ui/blob/v5.11.15/packages/mui-joy/src/styles/components.d.ts
+      // This logic turns source links with a placeholder version into permalinks.
       if (finalHref.startsWith(`${options.env.SOURCE_CODE_REPO}/blob/-/`)) {
         finalHref = finalHref.replace(
           `${options.env.SOURCE_CODE_REPO}/blob/-/`,

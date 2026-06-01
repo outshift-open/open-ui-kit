@@ -65,7 +65,6 @@ export const Tags = ({
           value={
             customizeTooltip ? customizeTooltip(firstNode) : firstNodeLabel
           }
-          someLongText={firstNodeLabel}
           slotProps={{
             popper: {
               sx: {
@@ -73,7 +72,9 @@ export const Tags = ({
               },
             },
           }}
-        />
+        >
+          {firstNodeLabel}
+        </OverflowTooltip>
       </Tag>
     );
 

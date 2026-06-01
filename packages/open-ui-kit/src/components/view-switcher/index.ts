@@ -8,6 +8,7 @@ export type {
   ViewSwitcherOption,
   ViewSwitcherOptionObject,
   ViewSwitcherOptionProperties,
+  ViewSwitcherProps,
   ViewSwitcherSize,
 } from "./types";
 export { ViewSwitcher } from "./components/view-switcher";

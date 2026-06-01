@@ -4,47 +4,48 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  MenuItem as MuiMenuItem,
-  MenuItemProps as MuiMenuItemProps,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
+import type { CSSProperties } from "react";
 import { IconPosition } from "@/common";
-import { Link, LinkProps, LinkType } from "@/components/link";
-
-export interface MenuItemProps extends MuiMenuItemProps {
-  href?: LinkProps["href"];
-  openInNewTab?: boolean;
-  ellipsis?: boolean;
-  iconPosition?: LinkProps["iconPosition"];
-  Icon?: LinkProps["Icon"];
-}
+import { Link, LinkType } from "@/components/link";
+import { getMenuItemLabelStyles, getMenuItemLinkStyles } from "../styles";
+import type { MenuItemProps } from "../types";
+import { StyledMenuItem } from "./elements";
 
 export const MenuItem = ({
   children,
+  destructive = false,
   disabled = false,
   ellipsis = false,
   href,
   Icon,
   iconPosition = IconPosition.NoIcon,
   openInNewTab = false,
+  size = "large",
+  sx,
   ...props
 }: MenuItemProps) => {
   if (!href) {
     return (
-      <MuiMenuItem disabled={disabled} {...props}>
+      <StyledMenuItem
+        destructive={destructive}
+        disabled={disabled}
+        sizeVariant={size}
+        sx={sx}
+        {...props}
+      >
         {children}
-      </MuiMenuItem>
+      </StyledMenuItem>
     );
   }
 
   return (
-    <MuiMenuItem
+    <StyledMenuItem
+      destructive={destructive}
+      disabled={disabled}
+      sizeVariant={size}
       {...props}
-      sx={[
-        { padding: 0 },
-        ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
-      ]}
+      sx={[{ padding: 0 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       <Link
         disabled={disabled}
@@ -54,21 +55,12 @@ export const MenuItem = ({
         Icon={Icon}
         openInNewTab={openInNewTab}
         linkType={LinkType.StandaloneRegular}
-        style={{
-          height: "100%",
-          width: "100%",
-          padding: "8px 16px",
-          justifyContent: "flex-start",
-          alignItems: "center",
-        }}
+        style={getMenuItemLinkStyles() as CSSProperties}
       >
-        <Typography
-          variant="body1"
-          sx={{ height: "fit-content", display: "flex", alignItems: "center" }}
-        >
+        <Typography variant="body1" sx={getMenuItemLabelStyles()}>
           {children}
         </Typography>
       </Link>
-    </MuiMenuItem>
+    </StyledMenuItem>
   );
 };

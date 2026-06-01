@@ -8,9 +8,16 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { NestedMenuListbox } from "../components/nested-menu-listbox";
 import { SelectNode } from "../components/select-node";
 import { AugmentedSelectNodeType } from "@/types";
+import {
+  getNestedMenuPopoverPaperStyles,
+  getNestedMenuTriggerButtonStyles,
+  selectNodeStyle,
+} from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -117,6 +124,37 @@ describe("NestedMenu", () => {
 
     it("renders in dark mode without throwing", () => {
       expect(() => wrap(<SelectNode {...baseProps} />, true)).not.toThrow();
+    });
+  });
+
+  describe("token styles", () => {
+    it("uses light nested menu tokens", () => {
+      expect(getNestedMenuPopoverPaperStyles(lightTheme)).toMatchObject({
+        width: "480px",
+        maxHeight: "375px",
+        backgroundColor: lightTheme.palette.vars.controlBackgroundWeak,
+        border: `2px solid ${lightTheme.palette.vars.controlBorderActive}`,
+      });
+      expect(getNestedMenuTriggerButtonStyles(lightTheme)).toMatchObject({
+        color: lightTheme.palette.vars.baseTextWeak,
+      });
+    });
+
+    it("uses dark nested menu tokens", () => {
+      expect(getNestedMenuPopoverPaperStyles(darkTheme)).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.controlBackgroundWeak,
+        border: `2px solid ${darkTheme.palette.vars.controlBorderActive}`,
+      });
+      expect(getNestedMenuTriggerButtonStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.baseTextWeak,
+      });
+    });
+
+    it("uses expected nesting offset", () => {
+      expect(selectNodeStyle(2)).toMatchObject({
+        marginLeft: "64px",
+        gap: "8px",
+      });
     });
   });
 });

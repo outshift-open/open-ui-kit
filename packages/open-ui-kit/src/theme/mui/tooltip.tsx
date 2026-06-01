@@ -5,6 +5,11 @@
  */
 
 import { Components, Theme } from "@mui/material";
+import { grey800, grey50 } from "../style/color-palette";
+
+// Tooltip is always dark regardless of theme — intentional inversion.
+const tooltipBg = grey800;
+const tooltipText = grey50;
 
 export const tooltipComponent = (theme: Theme): Components => {
   return {
@@ -12,11 +17,12 @@ export const tooltipComponent = (theme: Theme): Components => {
       styleOverrides: {
         tooltip: {
           ...theme.typography.captionMedium,
-          backgroundColor: theme.palette.vars.inactiveBackgroundActive,
-          color: theme.palette.vars.baseTextInverse,
+          backgroundColor: tooltipBg,
+          color: tooltipText,
+          borderRadius: "4px",
         },
         arrow: {
-          color: theme.palette.vars.inactiveBackgroundActive,
+          color: tooltipBg,
         },
       },
     },

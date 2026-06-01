@@ -13,46 +13,51 @@ import {
 } from "@mui/material";
 
 export interface SpinnerProps extends CircularProgressProps {
+  /** Props forwarded to the wrapping Box element. */
   boxProps?: BoxProps;
 }
 
-export const Spinner = ({ boxProps, ...props }: SpinnerProps) => {
+export const Spinner = ({
+  boxProps,
+  size = 40,
+  sx,
+  ...props
+}: SpinnerProps) => {
+  const { sx: boxSx, ...restBoxProps } = boxProps ?? {};
+
   return (
     <Box
-      sx={{
-        position: "relative",
-        width: props?.size,
-        height: props?.size,
-        ...boxProps?.sx,
-      }}
-      {...boxProps}
+      sx={[
+        { position: "relative", width: size, height: size },
+        ...(Array.isArray(boxSx) ? boxSx : boxSx ? [boxSx] : []),
+      ]}
+      {...restBoxProps}
     >
       <CircularProgress
-        sx={{
-          ...props.sx,
-          opacity: 0.2,
-        }}
-        size={40}
-        {...props}
+        sx={[{ opacity: 0.2 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+        size={size}
         value={100}
         variant="determinate"
+        {...props}
       />
       <CircularProgress
-        sx={{
-          ...props.sx,
-          animationDuration: "1s",
-          position: "absolute",
-          left: 0,
-          top: typeof props?.size === "number" && props.size < 17 ? 2 : 0,
-          [`& .${circularProgressClasses.circle}`]: {
-            strokeLinecap: "round",
-            strokeDasharray: "31.4, 94.2",
+        sx={[
+          {
+            animationDuration: "1s",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            [`& .${circularProgressClasses.circle}`]: {
+              strokeLinecap: "round",
+              strokeDasharray: "31.4, 94.2",
+            },
           },
-        }}
-        size={40}
-        {...props}
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
+        size={size}
         disableShrink
         variant="indeterminate"
+        {...props}
       />
     </Box>
   );

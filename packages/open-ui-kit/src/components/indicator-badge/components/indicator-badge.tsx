@@ -4,22 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  IndicatorBadgeValue,
-  IndicatorBadgeValueProps,
-} from "./indicator-badge-value";
+import { IndicatorBadgeValue } from "./indicator-badge-value";
 import {
   IndicatorBadgeBackdrop,
   IndicatorBadgeContainer,
   IndicatorBadgeValueStack,
 } from "./elements";
-
-const INDICATOR_BADGE_VALUES_COUNT = 4;
-
-export interface IndicatorBadgeProps
-  extends Pick<IndicatorBadgeValueProps, "color"> {
-  value: 0 | 1 | 2 | 3 | 4;
-}
+import { INDICATOR_BADGE_VALUES_COUNT } from "../styles";
+import type { IndicatorBadgeProps } from "../types";
 
 export const IndicatorBadge = ({
   color,

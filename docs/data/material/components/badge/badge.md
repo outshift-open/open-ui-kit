@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Badge component
 githubLabel: 'component: badge'
 githubSource: packages/open-ui-kit/src/components/badge

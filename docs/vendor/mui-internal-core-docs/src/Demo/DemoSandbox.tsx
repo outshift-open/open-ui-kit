@@ -32,8 +32,8 @@ interface MaterialIframeWrapperProps {
 }
 
 /**
- * Default iframe wrapper for Material UI demos.
- * Creates a Material theme and injects its CSS variables.
+ * Default iframe wrapper for component demos.
+ * Creates a theme and injects its CSS variables.
  */
 function MaterialIframeWrapper({
   children,
@@ -291,7 +291,7 @@ function DemoSandboxInner(props: DemoSandboxProps) {
   return (
     <DemoErrorBoundary name={name} onResetDemoClick={onResetDemoClick} t={t}>
       {isolated ? (
-        // Place ThemeProvider from MUI System here to disconnect the theme inheritance for Material UI and Joy UI
+        // Place ThemeProvider here to disconnect the theme inheritance.
         // The demo will need to handle the ThemeProvider itself.
         <SystemThemeProvider
           theme={(upperTheme) => ({

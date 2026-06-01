@@ -6,15 +6,7 @@
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import {
-  Badge,
-  Box,
-  Chip,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import {
   AccountCircleOutlined,
   ExpandMore,
@@ -26,42 +18,33 @@ import {
   PersonOutlineOutlined,
 } from "@mui/icons-material";
 import { Button } from "@/components/button";
+import { Menu, MenuItem } from "@/components/menu";
 import { OutshiftBrand } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import Header from "../components/header";
-import { GlobalSearchGroup, GlobalSearchItem, HeaderAction } from "../types";
+import { Header } from "..";
+import type {
+  GlobalSearchGroup,
+  GlobalSearchItem,
+  HeaderAction,
+} from "../types";
+import {
+  getStoryBetaStyles,
+  getStoryMenuItemStyles,
+  getStoryMenuPaperStyles,
+  getStoryTitleStyles,
+} from "../styles";
 
-/* ─── Title block: "Agent Directory" + "Beta" chip ─── */
 const AppTitle = () => (
   <Stack direction="row" alignItems="center" gap={1}>
-    <Typography
-      sx={(theme) => ({
-        fontFamily: "Inter, sans-serif",
-        fontWeight: 400,
-        fontSize: "18px",
-        lineHeight: "18px",
-        color: theme.palette.vars.baseTextStrong,
-      })}
-    >
+    <Typography sx={(theme) => getStoryTitleStyles(theme)}>
       Agent Directory
     </Typography>
-    <Chip
-      label="Beta"
-      size="small"
-      sx={(theme) => ({
-        height: "20px",
-        fontSize: "12px",
-        fontWeight: 600,
-        borderRadius: "12px",
-        backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
-        color: theme.palette.vars.baseTextDefault,
-        "& .MuiChip-label": { padding: "0 8px" },
-      })}
-    />
+    <Box component="span" sx={(theme) => getStoryBetaStyles(theme)}>
+      Beta
+    </Box>
   </Stack>
 );
 
-/* ─── User section dropdown ─── */
 const UserSection = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -118,29 +101,11 @@ const UserSection = () => {
         onClose={() => setAnchorEl(null)}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        sx={(theme) => ({
-          mt: "8px",
-          "& .MuiPaper-root": {
-            borderRadius: "8px",
-            border: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-            boxShadow: theme.shadows[4],
-            minWidth: "160px",
-            padding: "4px",
-          },
-          "& .MuiList-root": { padding: 0 },
-        })}
+        sx={(theme) => getStoryMenuPaperStyles(theme)}
       >
         <MenuItem
           onClick={() => setAnchorEl(null)}
-          sx={(theme) => ({
-            borderRadius: "6px",
-            gap: "8px",
-            padding: "8px 12px",
-            color: theme.palette.vars.baseTextDefault,
-            "&:hover": {
-              backgroundColor: theme.palette.vars.baseBackgroundHover,
-            },
-          })}
+          sx={(theme) => getStoryMenuItemStyles(theme)}
         >
           <PersonOutlineOutlined
             sx={(theme) => ({
@@ -157,15 +122,7 @@ const UserSection = () => {
         </MenuItem>
         <MenuItem
           onClick={() => setAnchorEl(null)}
-          sx={(theme) => ({
-            borderRadius: "6px",
-            gap: "8px",
-            padding: "8px 12px",
-            color: theme.palette.vars.baseTextDefault,
-            "&:hover": {
-              backgroundColor: theme.palette.vars.baseBackgroundHover,
-            },
-          })}
+          sx={(theme) => getStoryMenuItemStyles(theme)}
         >
           <LogoutOutlined
             sx={(theme) => ({
@@ -185,7 +142,6 @@ const UserSection = () => {
   );
 };
 
-/* ─── Module-level stable constants (avoids re-render on every render call) ─── */
 const allGroups: GlobalSearchGroup[] = [
   {
     key: "agents",
@@ -237,42 +193,47 @@ const defaultActions: HeaderAction[] = [
   {
     id: "notifications",
     icon: (
-      <Badge
-        badgeContent="1"
+      <Box
         sx={{
-          "& .MuiBadge-badge": (theme) => ({
+          position: "relative",
+          display: "inline-flex",
+          "&::after": (theme) => ({
+            alignItems: "center",
             backgroundColor:
               theme.palette.vars.interactivePrimaryDefaultDefault,
-            color: "#fff",
+            color: theme.palette.vars.baseTextInverse,
+            borderRadius: "50%",
+            content: '"1"',
+            display: "flex",
             fontSize: "10px",
-            minWidth: "16px",
             height: "16px",
-            top: "-2px",
-            right: "-2px",
+            justifyContent: "center",
+            minWidth: "16px",
+            position: "absolute",
+            right: "-6px",
+            top: "-8px",
           }),
         }}
       >
         <NotificationsNone />
-      </Badge>
+      </Box>
     ),
     tooltip: "Notifications",
     "aria-label": "notifications",
   },
 ];
 
-/* ─── Meta ─── */
 const meta: Meta<typeof Header> = {
   title: "Components/Header",
   component: Header,
-  tags: ["autodocs"],
   parameters: {
     actions: { argTypesRegex: null },
     layout: "fullscreen",
     docs: {
       page: () => (
         <DocsHeader
+          title="Header"
           blurb="Header is a responsive and configurable component for application layouts. It includes slots for a logo, title, search, actions, and user profile."
-          guideLink=""
           importLine={`import { Header } from "@open-ui-kit/core";`}
           includeStories={true}
         />
@@ -292,8 +253,8 @@ const meta: Meta<typeof Header> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/* ─── Default ─── */
 export const Default: Story = {
+  name: "Main component",
   render: () => (
     <Header
       position="static"
@@ -310,7 +271,6 @@ export const Default: Story = {
   ),
 };
 
-/* ─── Interactive global search ─── */
 const GlobalSearchStory = () => {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<GlobalSearchItem | null>(null);
@@ -359,12 +319,12 @@ const GlobalSearchStory = () => {
 };
 
 export const WithGlobalSearch: Story = {
+  name: "Interactive global search",
   render: () => <GlobalSearchStory />,
 };
 
-/* ─── Minimal ─── */
 export const Minimal: Story = {
-  name: "Minimal — Logo + User",
+  name: "Item dropdown",
   render: () => (
     <Header
       position="static"

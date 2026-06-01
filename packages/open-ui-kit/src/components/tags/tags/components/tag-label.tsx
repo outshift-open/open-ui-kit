@@ -18,7 +18,6 @@ const TagLabel = ({ customizeTooltip, node, nodeLabel }: TagLabelProps) => {
   return (
     <OverflowTooltip
       value={customizeTooltip ? customizeTooltip(node) : nodeLabel}
-      someLongText={nodeLabel}
       slotProps={{
         popper: {
           sx: {
@@ -26,7 +25,9 @@ const TagLabel = ({ customizeTooltip, node, nodeLabel }: TagLabelProps) => {
           },
         },
       }}
-    />
+    >
+      {nodeLabel}
+    </OverflowTooltip>
   );
 };
 

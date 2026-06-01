@@ -3,7 +3,7 @@ import type { Meta } from "@storybook/react-vite";
 import { StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof StepLabel> = {
-  title: "DEV/Stepper/StepLabel",
+  title: "Components/Stepper/StepLabel",
   component: StepLabel,
   tags: ["autodocs"],
 };

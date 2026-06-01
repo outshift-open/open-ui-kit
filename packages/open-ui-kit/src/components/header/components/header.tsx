@@ -4,9 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Divider, IconButton, Stack } from "@mui/material";
-import { HeaderAction, HeaderProps } from "../types";
+import { Box, IconButton, Stack } from "@mui/material";
+import type { HeaderAction, HeaderProps } from "../types";
+import { getActionButtonStyles, getHeaderStyles } from "../styles";
 import { Tooltip } from "@/components/tooltip";
+import { Divider } from "@/components/divider";
 import { CustomSearchField } from "./custom-search-field";
 import { GlobalSearchField } from "./global-search-field";
 
@@ -26,33 +28,15 @@ export const Header = ({
     <Box
       component="header"
       sx={[
-        (theme) => ({
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px 32px",
-          height: "56px",
-          width: "100%",
-          boxSizing: "border-box",
-          position,
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: theme.zIndex.appBar,
-          backgroundColor: theme.palette.vars.baseBackgroundStrong,
-          borderBottom: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-        }),
+        (theme) => getHeaderStyles(theme, position),
         ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
       ]}
     >
-      {/* Left Section */}
       <Stack direction="row" alignItems="center" gap={1}>
         {logo}
         {title}
       </Stack>
 
-      {/* Right Section */}
       <Stack direction="row" gap={2} alignItems="center">
         {customSearchNode ? (
           customSearchNode
@@ -70,14 +54,10 @@ export const Header = ({
             key={action.id}
           >
             <IconButton
-              sx={(theme) => ({
-                color: theme.palette.vars.brandIconPrimaryDefault,
-                width: "24px",
-                height: "24px",
-                padding: 0,
-              })}
-              href={action.href ?? ""}
-              target={action.target}
+              sx={(theme) => getActionButtonStyles(theme)}
+              {...(action.href
+                ? { href: action.href, target: action.target }
+                : {})}
               onClick={action.onClick}
               aria-label={action["aria-label"]}
             >

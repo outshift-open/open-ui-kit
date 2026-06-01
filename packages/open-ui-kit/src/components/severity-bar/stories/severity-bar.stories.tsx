@@ -1,22 +1,26 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { Severity } from "@/common";
-import { SeverityBar } from "../components/severity-bar";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { SeverityBar } from "../components/severity-bar";
 
-/**
- *  ### A color indicator severity badge. Either works with Severity types or with a value score system.
- */
 const meta: Meta<typeof SeverityBar> = {
-  title: "Components/SeverityBar",
+  title: "Components/Severity/Bar",
   component: SeverityBar,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Severity bars display compact severity levels."
-          guideLink="#"
+          blurb="SeverityBar renders a compact colored vertical bar sized 4×32px, using the severity level to determine the fill color."
+          guideLink=""
           importLine='import { SeverityBar } from "@open-ui-kit/core";'
         />
       ),
@@ -25,19 +29,15 @@ const meta: Meta<typeof SeverityBar> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof SeverityBar>;
 
-type SeverityBarStory = StoryObj<typeof SeverityBar>;
-
-export const Example: SeverityBarStory = {
-  render: (args) => <SeverityBar {...args} />,
-};
-
-export const ExampleBySeverityType: SeverityBarStory = {
+export const AllSeverities: Story = {
+  name: "All Severities",
   render: () => (
-    <Stack direction={"row"} spacing={3}>
-      {Object.keys(Severity).map((severity) => {
-        return <SeverityBar key={severity} severity={severity as Severity} />;
-      })}
+    <Stack direction="row" spacing={3} alignItems="center">
+      {Object.values(Severity).map((severity) => (
+        <SeverityBar key={severity} severity={severity} />
+      ))}
     </Stack>
   ),
 };

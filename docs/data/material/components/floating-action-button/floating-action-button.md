@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Floating Button component
 githubLabel: 'component: floating-button'
 githubSource: packages/open-ui-kit/src/components/floating-button

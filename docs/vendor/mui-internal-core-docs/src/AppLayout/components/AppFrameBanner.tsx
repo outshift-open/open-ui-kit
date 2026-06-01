@@ -35,8 +35,8 @@ export function AppFrameBanner() {
     message = `Help shape the Open UI Kit roadmap. Share feedback with the maintainers.`;
     href = "https://github.com/outshift-open/open-ui-kit/issues";
   } else if (mounted && isBlackFriday()) {
-    message = `Black Friday is here! Don't miss out on the best offers of the year.`;
-    href = "https://mui.com/store/bundles/?deal=black-friday&from=docs";
+    message = `Open UI Kit docs are ready for review. Share feedback with the maintainers.`;
+    href = "https://github.com/outshift-open/open-ui-kit/issues";
   } else if (newVersion) {
     message = `Open UI Kit docs are now available. Start with the overview.`;
     href = "/open-ui-kit-core/";

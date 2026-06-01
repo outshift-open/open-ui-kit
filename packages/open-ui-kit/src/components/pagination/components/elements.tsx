@@ -7,15 +7,16 @@
 import { styled, Pagination, type PaginationProps } from "@mui/material";
 import type { ComponentType } from "react";
 
-export const SytledPagination = styled(Pagination)(({ theme, variant }) => ({
+export const StyledPagination = styled(Pagination)(({ theme, variant }) => ({
   "& .MuiPaginationItem-root": {
     ...theme.typography.body2,
+    color: theme.palette.vars?.controlIconDefault,
     "&:hover": {
-      backgroundColor: theme.palette.vars.controlBorderStrong,
+      backgroundColor: theme.palette.vars?.controlBorderStrong,
     },
     "&.Mui-selected": {
-      backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
-      color: theme.palette.vars.baseTextInverse,
+      backgroundColor: theme.palette.vars?.interactivePrimaryDefaultActive,
+      color: theme.palette.vars?.baseTextInverse,
     },
     "&.Mui-disabled": {
       backgroundColor: "transparent !important",
@@ -24,15 +25,16 @@ export const SytledPagination = styled(Pagination)(({ theme, variant }) => ({
   ...(variant === "outlined" && {
     "& .MuiPaginationItem-root": {
       ...theme.typography.body2,
+      color: theme.palette.vars?.controlIconDefault,
       backgroundColor: "transparent",
-      border: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+      border: `1px solid ${theme.palette.vars?.controlBorderStrong}`,
       "&:hover": {
-        backgroundColor: theme.palette.vars.controlBorderStrong,
+        backgroundColor: theme.palette.vars?.controlBorderStrong,
       },
       "&.Mui-selected": {
-        backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
-        color: theme.palette.vars.baseTextInverse,
-        border: `1px solid ${theme.palette.vars.interactivePrimaryDefaultActive}`,
+        backgroundColor: theme.palette.vars?.interactivePrimaryDefaultActive,
+        color: theme.palette.vars?.baseTextInverse,
+        border: `1px solid ${theme.palette.vars?.interactivePrimaryDefaultActive}`,
       },
     },
   }),

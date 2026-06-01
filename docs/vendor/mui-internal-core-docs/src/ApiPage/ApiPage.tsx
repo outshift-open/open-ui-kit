@@ -125,10 +125,8 @@ export function ApiPage(props: ApiPageProps) {
     ? [...classes].sort((c1, c2) => c1.className.localeCompare(c2.className))
     : [];
 
-  const defaultPropsLink =
-    "/material-ui/customization/theme-components/#theme-default-props";
-  const styleOverridesLink =
-    "/material-ui/customization/theme-components/#theme-style-overrides";
+  const defaultPropsLink = "/open-ui-kit-core/getting-started/usage/";
+  const styleOverridesLink = "/open-ui-kit-core/getting-started/usage/";
 
   const {
     componentDescription,

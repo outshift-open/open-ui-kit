@@ -23,11 +23,6 @@ export const inputComponents = (theme: Theme): Components => {
         },
       },
       styleOverrides: {
-        root: {
-          "& .MuiSelect-select": {
-            backgroundColor: theme.palette.vars.controlBackgroundDefault,
-          },
-        },
         icon: {
           color: theme.palette.vars.controlIconWeak,
           transform: "rotate(180deg)",

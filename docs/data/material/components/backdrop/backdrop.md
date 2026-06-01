@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Backdrop component
 githubLabel: 'component: backdrop'
 githubSource: packages/open-ui-kit/src/components/backdrop

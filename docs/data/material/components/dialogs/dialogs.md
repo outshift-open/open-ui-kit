@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Dialog component
 githubLabel: 'component: dialog'
 githubSource: packages/open-ui-kit/src/components/dialog

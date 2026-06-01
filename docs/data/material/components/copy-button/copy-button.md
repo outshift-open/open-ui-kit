@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Copy Button component
 githubLabel: 'component: copy-button'
 githubSource: packages/open-ui-kit/src/components/copy-button

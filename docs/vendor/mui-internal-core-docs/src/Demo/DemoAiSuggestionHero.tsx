@@ -54,7 +54,7 @@ export interface DemoAiSuggestionHeroProps {
   onSuccess?: (url: string) => void;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_MUI_CHAT_API_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_OPEN_UI_KIT_CHAT_API_BASE_URL;
 
 interface SuggestionButtonProps {
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -124,11 +124,11 @@ export function DemoAiSuggestionHero({
         },
         body: JSON.stringify({
           ...params,
-          type: "mui-docs",
+          type: "open-ui-kit-docs",
         }),
       });
       if (!response.ok) {
-        throw new Error("Failed to open in MUI Chat");
+        throw new Error("Failed to open chat");
       }
       const data = await response.json();
       if (onSuccess) {

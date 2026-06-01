@@ -4,7 +4,7 @@ export const CODE_VARIANTS = {
 };
 
 export const CODE_STYLING = {
-  SYSTEM: "MUI System",
+  SYSTEM: "System styles",
   TAILWIND: "Tailwind",
   CSS: "CSS",
 };

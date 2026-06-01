@@ -1,5 +1,5 @@
 ---
-productId: material-ui
+productId: open-ui-kit-core
 title: React Banner component
 githubLabel: 'component: banner'
 githubSource: packages/open-ui-kit/src/components/banner

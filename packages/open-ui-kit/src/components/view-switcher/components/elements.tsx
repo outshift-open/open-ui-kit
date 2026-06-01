@@ -4,16 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, styled, useTheme, type BoxProps } from "@mui/material";
+import { Box, styled, type BoxProps } from "@mui/material";
 import type { ButtonHTMLAttributes, ComponentType } from "react";
 import { ViewSwitcherSize } from "../types";
 
-export const StyledBox = styled(Box)(
-  ({ fullWidth }: { fullWidth?: boolean }) => ({
-    display: fullWidth ? "flex" : "inline-block",
-    borderRadius: "8px",
-  }),
-) as ComponentType<BoxProps & { fullWidth?: boolean }>;
+export const StyledBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "fullWidth",
+})(({ fullWidth }: { fullWidth?: boolean }) => ({
+  display: fullWidth ? "flex" : "inline-flex",
+  flexDirection: "row",
+  alignItems: "center",
+  padding: "2px",
+  gap: "2px",
+  borderRadius: "8px",
+})) as ComponentType<BoxProps & { fullWidth?: boolean }>;
 
 export type ViewSwitcherStyledButtonProps =
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,78 +28,78 @@ export type ViewSwitcherStyledButtonProps =
     isIconOnly: boolean;
   };
 
-export const StyledButton = styled("button")(
-  ({
-    size,
-    disabled,
-    selected,
-    isIconOnly,
-  }: {
-    fullWidth?: boolean;
-    size?: ViewSwitcherSize;
-    disabled?: boolean;
-    selected: boolean;
-    isIconOnly: boolean;
-  }) => {
-    const theme = useTheme();
-    return {
-      cursor: disabled ? "not-allowed" : "pointer",
-      pointerEvents: disabled ? "none" : "all",
+export const StyledButton = styled("button", {
+  shouldForwardProp: (prop) =>
+    !["selected", "isIconOnly", "fullWidth"].includes(prop as string),
+})<{
+  fullWidth?: boolean;
+  size?: ViewSwitcherSize;
+  disabled?: boolean;
+  selected: boolean;
+  isIconOnly: boolean;
+}>(({ theme, size, disabled, selected, isIconOnly }) => ({
+  cursor: disabled ? "not-allowed" : "pointer",
+  pointerEvents: disabled ? "none" : "all",
 
-      display: "inline-flex",
-      flex: 1,
-      alignContent: "center",
-      justifyContent: "center",
-      alignItems: "center",
+  display: "inline-flex",
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
 
-      padding: isIconOnly ? "4px" : size === "sm" ? "4px 8px" : "4px 12px",
+  height: size === "sm" ? "24px" : "28px",
+  padding: isIconOnly
+    ? size === "sm"
+      ? "4px"
+      : "4px 8px"
+    : size === "sm"
+      ? "4px 8px"
+      : "4px 12px",
+  gap: "8px",
 
-      fontSize: size === "sm" ? "12px" : "14px",
-      fontWeight: 600,
-      lineHeight: size === "sm" ? "16px" : "20px",
-      color: disabled
-        ? theme.palette.vars.baseTextDisabled
-        : selected
-          ? theme.palette.vars.baseTextStrong
-          : theme.palette.vars.baseTextDefault,
+  fontFamily: "Inter, sans-serif",
+  fontSize: size === "sm" ? "12px" : "14px",
+  fontWeight: 600,
+  lineHeight: size === "sm" ? "16px" : "20px",
+  textAlign: "center",
 
-      backgroundColor: disabled
-        ? theme.palette.vars.controlBackgroundDisabled
-        : selected
-          ? theme.palette.vars.controlBackgroundDefault
-          : theme.palette.vars.controlBackgroundDefault,
+  color: disabled
+    ? theme.palette.vars.baseTextDisabled
+    : selected
+      ? theme.palette.vars.baseTextStrong
+      : theme.palette.vars.baseTextDefault,
 
-      border: `2px solid ${disabled ? theme.palette.vars.controlBorderMedium : selected ? theme.palette.vars.interactiveTertiaryActive : theme.palette.vars.controlBorderMedium}`,
-      borderRadius: 0,
-      borderRightWidth: 0,
+  backgroundColor: disabled
+    ? theme.palette.vars.controlBackgroundWeak
+    : selected
+      ? theme.palette.vars.controlBackgroundDefault
+      : theme.palette.vars.controlBackgroundDefault,
 
-      "&:first-child": {
-        borderTopLeftRadius: "8px",
-        borderBottomLeftRadius: "8px",
-      },
+  border:
+    selected && !disabled
+      ? `2px solid ${theme.palette.vars.interactiveTertiaryActive}`
+      : "2px solid transparent",
 
-      "&:last-child": {
-        borderRightWidth: "2px",
-        borderTopRightRadius: "8px",
-        borderBottomRightRadius: "8px",
-      },
+  borderRadius: 0,
 
-      "&:hover": {
-        backgroundColor: theme.palette.vars.baseBackgroundHover,
-        color: theme.palette.vars.baseTextStrong,
-      },
-
-      "&.osd-view-switcher-option-selected": {
-        borderWidth: "2px",
-        "& + .osd-view-switcher-option": {
-          borderLeftWidth: 0,
-        },
-      },
-
-      "& > .view-switcher-option-icon": {
-        fontSize: size === "sm" ? "16px" : "20px",
-        fill: theme.palette.vars.controlIconDefault,
-      },
-    };
+  "&:first-of-type": {
+    borderTopLeftRadius: "6px",
+    borderBottomLeftRadius: "6px",
   },
-) as ComponentType<ViewSwitcherStyledButtonProps>;
+
+  "&:last-of-type": {
+    borderTopRightRadius: "6px",
+    borderBottomRightRadius: "6px",
+  },
+
+  "&:hover:not(:disabled)": {
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
+    color: theme.palette.vars.baseTextStrong,
+  },
+
+  "& > .view-switcher-option-icon": {
+    fontSize: size === "sm" ? "16px" : "20px",
+    fill: disabled
+      ? theme.palette.vars.baseTextDisabled
+      : theme.palette.vars.controlIconDefault,
+  },
+})) as ComponentType<ViewSwitcherStyledButtonProps>;

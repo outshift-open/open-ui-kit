@@ -4,19 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  PaginationProps as MuiPaginationProps,
-  PaginationItem,
-} from "@mui/material";
-import { SytledPagination } from "./elements";
+import { PaginationItem } from "@mui/material";
 import { SkipNextOutlined, SkipPreviousOutlined } from "@mui/icons-material";
+import { StyledPagination } from "./elements";
+import type { PaginationProps } from "../types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface PaginationProps extends MuiPaginationProps {}
+export type { PaginationProps };
 
 export const Pagination = (props: PaginationProps) => {
   return (
-    <SytledPagination
+    <StyledPagination
       renderItem={(item) => (
         <PaginationItem
           slots={{ first: SkipPreviousOutlined, last: SkipNextOutlined }}

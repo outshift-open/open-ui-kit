@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 import { CODE_VARIANTS, stylingSolutionMapping } from "../constants";
 import { useSetCodeVariant } from "../codeVariant";
 import { useTranslate } from "../i18n";
-import { OpenInMUIChatButton } from "./OpenInMUIChatButton";
+import { OpenInChatButton } from "./OpenInChatButton";
 import { useDemoContext } from "../DemoContext";
 import * as codeSandbox from "./sandbox/CodeSandbox";
 import * as stackBlitz from "./sandbox/StackBlitz";
@@ -186,7 +186,7 @@ function useToolbar(
       // eslint-disable-next-line no-lonely-if
       if (process.env.NODE_ENV !== "production") {
         console.error(
-          "MUI: The toolbar contains a focusable element that is not controlled by the toolbar. " +
+          "Docs: The toolbar contains a focusable element that is not controlled by the toolbar. " +
             "Make sure you have attached `getControlProps(index)` to every focusable element within this toolbar.",
         );
       }
@@ -198,7 +198,7 @@ function useToolbar(
     handleToolbarFocus = (event: React.FocusEvent) => {
       if (findControlIndex(event.target) === -1) {
         console.error(
-          "MUI: The toolbar contains a focusable element that is not controlled by the toolbar. " +
+          "Docs: The toolbar contains a focusable element that is not controlled by the toolbar. " +
             "Make sure you have attached `getControlProps(index)` to every focusable element within this toolbar.",
         );
       }
@@ -448,10 +448,10 @@ export function DemoToolbar(props: DemoToolbarProps) {
   return (
     <React.Fragment>
       <Root aria-label={t("demoToolbarLabel")} {...toolbarProps}>
-        <OpenInMUIChatButton
-          data-ga-event-category="mui-chat"
+        <OpenInChatButton
+          data-ga-event-category="open-ui-kit-chat"
           data-ga-event-label={demo.gaLabel}
-          data-ga-event-action="open-in-mui-chat"
+          data-ga-event-action="open-in-chat"
           demoData={demoData as unknown as SandboxDemoData}
         />
         <Fade in={codeOpen}>

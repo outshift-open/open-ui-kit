@@ -72,10 +72,10 @@ function GoogleAnalytics() {
 
       // https://developers.google.com/analytics/devguides/collection/ga4/views?client_type=gtag
       const productIdMeta = document.querySelector(
-        'meta[name="mui:productId"]',
+        'meta[name="open-ui-kit:productId"]',
       ) as HTMLMetaElement | null;
       const productCategoryIdMeta = document.querySelector(
-        'meta[name="mui:productCategoryId"]',
+        'meta[name="open-ui-kit:productCategoryId"]',
       ) as HTMLMetaElement | null;
       window.gtag("event", "page_view", {
         page_title: document.title,

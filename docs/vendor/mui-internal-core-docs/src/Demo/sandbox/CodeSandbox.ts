@@ -166,7 +166,7 @@ ReactDOM.createRoot(document.querySelector("#root")${type}).render(
         (prev, curr) => `${prev}\n${curr}`,
         "",
       ),
-      productId: "material-ui",
+      productId: "open-ui-kit-core",
     },
     {
       commitRef: process.env.PULL_REQUEST_ID

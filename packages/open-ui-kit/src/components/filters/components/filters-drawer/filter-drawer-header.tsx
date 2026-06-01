@@ -8,7 +8,7 @@ import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { getStyles } from "./styles";
 import type { AssetsData } from "../../types";
 import { CloseOutlined } from "@mui/icons-material";
-import { SearchField } from "@/components/search-field";
+import { SearchInput } from "@/components/search-input";
 
 interface FilterDrawerHeaderProps {
   activeFiltersCount: number;
@@ -57,7 +57,7 @@ export const FilterDrawerHeader = ({
           </IconButton>
         </Stack>
         {buildSummaryText()}
-        <SearchField
+        <SearchInput
           disabled={isLoading}
           sx={styles.searchField}
           placeholder="Search Filter"

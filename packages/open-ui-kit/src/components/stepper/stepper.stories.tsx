@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Box,
-  Button,
   Step,
   StepLabel,
   Stepper,
   StepperProps,
   Typography,
 } from "@mui/material";
+import { Button } from "@/components/button";
 import React from "react";
 
 const meta: Meta<typeof Stepper> = {
-  title: "DEV/Stepper",
+  title: "Components/Stepper/MUI Stepper",
   component: Stepper,
   tags: ["autodocs"],
 };
@@ -81,7 +81,11 @@ const SimpleStepperComponent = (args: StepperProps) => {
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset} sx={{ marginRight: "auto" }}>
+            <Button
+              variant="tertariary"
+              onClick={handleReset}
+              sx={{ marginRight: "auto" }}
+            >
               Reset
             </Button>
           </Box>
@@ -90,14 +94,14 @@ const SimpleStepperComponent = (args: StepperProps) => {
         <>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
-              color="inherit"
+              variant="secondary"
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1, textTransform: "none" }}
+              sx={{ mr: 1 }}
             >
               Back
             </Button>
-            <Button onClick={handleNext} sx={{ textTransform: "none" }}>
+            <Button variant="primary" onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>
