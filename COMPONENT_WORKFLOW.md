@@ -5,12 +5,16 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 
 ## 1. Collect source material
 
-- Read `/Users/rafaelsi/Desktop/helper.css`.
-- Check for design exports in `~/Downloads/`:
+- Read the CSS files provided by the user for this component:
+  - Light: `<ComponentName>.css`
+  - Dark: `<ComponentName dark>.css`
+  These are the primary token reference for this component.
+- Read `/Users/rafaelsi/Desktop/helper.css` as a supplementary token reference.
+- Read the Figma screenshots from `~/Desktop/open-ui-kit-figma/`:
   - Light: `<ComponentName>.png`
   - Dark: `<ComponentName> - Dark.png`
+- The PNGs are the visual source of truth. The user-provided CSS files are the token source of truth.
 - If Figma MCP is available, pull metadata, screenshot, and design context from the Figma node.
-- If Figma MCP is blocked or rate-limited, use `helper.css` plus exported PNGs as the source of truth.
 
 ## 2. Remove MUI overrides
 
@@ -39,15 +43,17 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 
 ## 4. QA light theme
 
-- Compare every CSS property in `elements.tsx` against `helper.css`.
-- Resolve every token: token to palette constant to hex.
-- Check colors, typography, padding, gaps, sizes, border radius, borders, shadows, margins, opacity, and focus, hover, disabled, active, and error states.
+- Compare every CSS property in the component against the user-provided CSS and `helper.css`.
+- Resolve every token: token → palette constant → hex. Verify the hex matches the reference.
+- Check: colors, typography, padding, gaps, sizes, border radius, borders, shadows, margins, opacity, and all states: focus, hover, disabled, active, error.
+- Fix every mismatch found. Do not move on with open deltas.
 
 ## 5. QA dark theme
 
-- Repeat the same full-property check against dark theme tokens.
+- Repeat the same full-property check for dark theme tokens against the user-provided CSS and `helper.css`.
 - Verify dark colors resolve to the expected dark values.
 - Never assume a token is correct just because the light theme works.
+- Fix every mismatch found. Do not move on with open deltas.
 
 ## 6. Clean pass
 
@@ -83,7 +89,7 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 
 ## 10. Design check
 
-- Read the light and dark PNGs from `~/Downloads/`.
+- Read the light and dark PNGs from `~/Desktop/open-ui-kit-figma/`.
 - Open the component Storybook docs page, usually:
   `http://localhost:6006/?path=/docs/components-<component-name>--docs`.
 - Take a screenshot of the rendered Storybook docs or stories and use it as the implementation render for visual QA.
@@ -147,14 +153,14 @@ Follow the steps in order. Do not skip the final review or compact final resume.
   - stable class and selector usage
   - no Storybook-only hacks in production code
   - tests cover risky behavior, not implementation trivia
-- Report findings first if any exist, ordered by severity with file and line references.
-- If no issues are found, say that clearly and mention remaining test or design risks.
+- Fix every finding before moving on. There are no deferred items.
+- The component is not done until this review finds nothing to fix.
 
 ## 15. Compact final resume
 
-- End with a short summary of what changed, what was verified, and any remaining risks.
-- Keep it compact: mention only the files or areas that matter, focused checks that passed, and blockers that need follow-up.
-- Do not repeat the full workflow checklist unless the user asks for it.
+- End with a short summary of what changed and what was verified.
+- Confirm: lint ✓, typecheck ✓, tests ✓, Storybook matches Figma in both themes ✓, all states correct ✓, all code quality rules met ✓.
+- Do not list remaining risks — there should be none. If any exist, go back and fix them first.
 
 ## Test plan defaults
 
@@ -162,4 +168,4 @@ Follow the steps in order. Do not skip the final review or compact final resume.
 - Run Prettier on touched files and focused lint checks where practical.
 - Run story or type syntax checks when lightweight enough.
 - Avoid full repo test runs unless explicitly requested.
-- For visual QA, compare the Storybook screenshot against exported PNGs and `helper.css`.
+- For visual QA, compare the Storybook screenshot against the exported PNGs in `~/Desktop/open-ui-kit-figma/` and the user-provided CSS. Use `helper.css` as a supplementary token reference.

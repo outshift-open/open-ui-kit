@@ -5,7 +5,7 @@
  */
 
 import { Stack, SxProps } from "@mui/material";
-import { Widget, IWidgetProps } from "@/components";
+import { Widget, IWidgetProps } from "@/components/widget";
 import { ChartTypeComponents } from "../common/chart-type-components";
 import {
   ChartType,

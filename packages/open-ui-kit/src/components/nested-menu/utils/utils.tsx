@@ -6,8 +6,9 @@
 
 import { Theme, Typography } from "@mui/material";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
-import { AugmentedSelectNodeType } from "@/types";
-import { ellipsisStyle, formatNodeValue } from "@/common";
+import { AugmentedSelectNodeType } from "@/components/nested-menu";
+import { ellipsisStyle } from "@/theme/style/common";
+import { formatNodeValue } from "../utils/treeSelect";
 import { overflowTooltipPopperStyle, searchMatchTextStyle } from "../styles";
 
 export const buildNodeLabelElement = (

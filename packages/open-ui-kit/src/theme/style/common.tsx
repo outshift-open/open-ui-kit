@@ -4,16 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BreakpointsOptions, Theme } from "@mui/material";
+import { BreakpointsOptions } from "@mui/material";
+import type { CSSProperties } from "react";
 import { TOOLBAR_MINIMUM_HEIGHT } from "./constants";
-import { typography } from "./typography";
-
-export const listItemCommonStyles = (theme: Theme) => {
-  return {
-    ...(typography.body1 as object),
-    color: theme.palette.grey[50],
-  };
-};
 
 /** Pixel widths for each named breakpoint (required keys; aligns with `BreakpointOverrides` in `types/theme.ts`). */
 export type AppBreakpointValues = {
@@ -56,4 +49,10 @@ export const commonMixins = {
 export const snackbarTopRightCommonStyles = {
   top: "76px",
   right: "24px",
+};
+
+export const ellipsisStyle: CSSProperties = {
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 };

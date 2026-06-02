@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AugmentedSelectNodeType } from "@/types";
-import { formatNodeValue } from "@/common";
+import { AugmentedSelectNodeType } from "@/components/nested-menu";
+import { formatNodeValue } from "@/components/nested-menu";
 import { Typography } from "@mui/material";
 import { Tooltip } from "@/components/tooltip";
 

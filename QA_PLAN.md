@@ -3,17 +3,29 @@
 ## Purpose
 
 Visual and functional QA of every component in the library against the official Figma designs.
-The source of truth for all visual decisions is the screenshots in `~/Downloads/` (light + dark variants).
+The source of truth for all visual decisions is the screenshots in `~/Desktop/open-ui-kit-figma/` (light + dark variants).
 Where no Figma screenshot exists for a component, the existing library style tokens are authoritative.
 
-> **Scope exclusions:** Charts (`src/charts/`), Templates (`src/templates/`), and Foundations are out of scope for this QA pass.
+> **How the loop works:**
+> 1. Codex runs through the queue autonomously — no interaction needed between components
+> 2. For Tier 0 Foundations: CSS and screenshots are already in `~/Desktop/open-ui-kit-figma/` — Codex reads them directly
+> 3. For Tier 1+: Codex looks for `<ComponentName>.css` and `<ComponentName dark>.css` in `~/Desktop/open-ui-kit-figma/`
+> 4. Every bug, delta, and risk found must be fixed before moving on. No deferred items. One pass, fully done.
+> 5. Codex only pauses and asks the user when: a required CSS file or screenshot is missing, or a decision requires human judgement
+>
+> **Only stop and ask the user when:**
+> - A required CSS file or Figma PNG is missing — state exactly which file and wait
+> - A fix requires a design decision that cannot be inferred from the CSS or Figma screenshots
+> - Never ask for confirmation to proceed, never ask "should I continue?" — just keep going
+
+> **Scope exclusions:** Charts (`src/charts/`) and Templates (`src/templates/`) are out of scope.
 
 ---
 
 ## Ground Rules
 
 ### Visual fidelity
-1. **Figma screenshots in `~/Downloads/` are the one and only source of truth.** Every pixel decision — color, spacing, border radius, typography, icon size, shadow — must match the Figma PNG. When in doubt, the Figma wins, not the current implementation.
+1. **Figma screenshots in `~/Desktop/open-ui-kit-figma/` are the one and only source of truth.** Every pixel decision — color, spacing, border radius, typography, icon size, shadow — must match the Figma PNG. When in doubt, the Figma wins, not the current implementation.
 2. **Both themes are mandatory.** Every component must be verified in light mode AND dark mode. A component is not done until both pass.
 3. **Compare in Storybook.** Start Storybook (`yarn storybook` → `http://localhost:6006`). Use the docs URL pattern: `http://localhost:6006/?path=/docs/components-<name>--docs`. Screenshot the canvas and diff against the Figma PNG side-by-side.
 4. **Check every state shown in Figma.** Default, hover, focus, active, disabled, error/negative, loading, empty, selected, indeterminate — if the Figma shows it, it must be verified.
@@ -32,13 +44,13 @@ Where no Figma screenshot exists for a component, the existing library style tok
     - No `any` types without justification
     - Props forwarded via `...rest` where appropriate
     - `aria-label` on icon-only interactive elements
-11. **Do NOT use `helper.css`.** Use `~/Desktop/test.css` for any CSS reference file.
+11. **CSS files are provided by the user per component** as `<ComponentName>.css` (light) and `<ComponentName dark>.css` (dark). Use `/Users/rafaelsi/Desktop/helper.css` as a supplementary token reference.
 
 ---
 
 ## Figma Screenshot Inventory
 
-All files live in `~/Downloads/`. Format: `<Component>.png` (light), `<Component> - Dark.png` (dark).
+All files live in `~/Desktop/open-ui-kit-figma/`. Format: `<Component>.png` (light), `<Component> - Dark.png` (dark).
 
 | Component | Light PNG | Dark PNG |
 |---|---|---|
@@ -102,12 +114,19 @@ For each component, complete every item. Mark `[x]` when done, `[!]` when a bug 
 ### Inspection Protocol (run for every component)
 
 ```
+⚠️  BEFORE STARTING: verify all required files exist.
+  - If a Figma PNG is listed for this component and is missing → STOP. Tell the user which file is
+    missing and wait. Do not proceed without it.
+  - If a CSS file is expected and has not been provided → STOP. Ask the user for it and wait.
+  - Only continue once every required file is confirmed present.
+
 STEP 1 — VISUAL (light mode)
   a. Open Storybook story at http://localhost:6006/?path=/docs/components-<name>--docs
   b. Set theme to light mode
   c. Screenshot the canvas
-  d. Open ~/Downloads/<Component>.png (Figma light reference)
-  e. Compare pixel-by-pixel:
+  d. Open ~/Desktop/open-ui-kit-figma/<Component>.png (Figma light reference)
+  e. Read <ComponentName>.css (user-provided light CSS) — use as token reference
+  f. Compare pixel-by-pixel:
      - Background color (exact token match)
      - Text color, font family, size, weight, line-height, letter-spacing
      - Border color, width, radius (all four corners)
@@ -121,8 +140,9 @@ STEP 1 — VISUAL (light mode)
 STEP 2 — VISUAL (dark mode)
   a. Switch Storybook to dark mode
   b. Screenshot the canvas
-  c. Open ~/Downloads/<Component> - Dark.png (Figma dark reference)
-  d. Repeat all checks from Step 1e
+  c. Open ~/Desktop/open-ui-kit-figma/<Component> - Dark.png (Figma dark reference)
+  d. Read <ComponentName dark>.css (user-provided dark CSS) — use as token reference
+  e. Repeat all checks from Step 1f
 
 STEP 3 — STATE COVERAGE
   For every state shown in the Figma screenshots, verify in Storybook:
@@ -141,10 +161,27 @@ STEP 4 — FUNCTIONALITY
   - onChange / onClose / onSelect / other callbacks fire with correct arguments
   - Controlled and uncontrolled modes work (if both are supported)
   - Animations/transitions are smooth and match Figma motion intent
-  - Responsive layout does not break at narrow container widths
   - Tooltips / popovers appear at correct position (check all arrow positions)
   - Overflow text truncates with tooltip as expected
   - Forms: required validation, error state display, accessible error messages
+
+STEP 4b — RESPONSIVENESS
+  The library breakpoints are defined in src/theme/style/common.tsx:
+    xs: 0px | sm: 600px | md: 1024px | lg: 1440px | xl: 1920px | xxl: 2560px
+
+  Resize the Storybook canvas / browser window and verify at these widths:
+  - xs/mobile:  360px  (below sm breakpoint)
+  - sm/tablet:  600px  (sm breakpoint)
+  - md/desktop: 1024px (md breakpoint)
+  - lg/wide:    1440px (lg breakpoint)
+  Check:
+  - No content overflows its container or gets clipped
+  - No horizontal scrollbar appears unexpectedly
+  - Layout reflows correctly (stacked vs side-by-side, truncation, wrapping)
+  - Touch targets are at least 44×44px on mobile widths
+  - Text remains legible — no font size below 12px
+  - Components that have mobile/desktop variants (e.g. stepper) switch at the correct breakpoint
+  - Fix any layout break before moving on
 
 STEP 5 — ACCESSIBILITY
   - All interactive elements are keyboard-reachable
@@ -154,269 +191,326 @@ STEP 5 — ACCESSIBILITY
   - Screen reader: role and state announced correctly (use browser a11y tree)
 
 STEP 6 — CODE QUALITY
-  a. Open component source file(s)
+  a. Open ALL files in the component directory recursively — including every sub-directory
+     (e.g. tags/tag/, tags/tags/, stepper/desktop-stepper/, stepper/step/, etc.).
+     Every sub-component is in scope for this QA pass.
   b. Verify all colors use theme.palette.vars.* — no hard-coded hex
   c. Verify sx array merge pattern (consumer sx always wins)
   d. No empty functions without eslint-disable comment
+  e. Check src/theme/mui/ for a matching override file (e.g. src/theme/mui/button.tsx for button).
+     If one exists: move any visual styleOverrides into the local component, then delete them from
+     the MUI override file. If the file is empty after removal, delete it and remove its
+     import/spread from src/theme/mui/index.ts. Only theme-level defaultProps are acceptable
+     in MUI overrides — visual styles belong in the component.
   e. No unused imports or variables
   f. Props forwarded correctly; aria-label on icon-only elements
   g. Run: yarn lint            → must exit 0, 0 warnings
   h. Run: yarn typecheck       → must exit 0
   i. Run: yarn test --testPathPattern=<component-name>  → all tests pass
 
-STEP 7 — LOG RESULT
-  - If all checks pass → mark [x] in the queue below
-  - If any check fails → open a bug entry in the Bug Log section
+STEP 7 — FIX EVERYTHING, THEN MARK DONE
+  - Every delta, bug, and risk found in steps 1–6 MUST be fixed before this component is done.
+  - No deferred items. No "remaining risks". Fix it now.
+  - If a fix requires CSS values not yet provided, ask the user before proceeding.
+  - Once all checks pass with zero issues → mark [x] in the queue.
+  - A component is done when: lint exit 0, typecheck exit 0, all tests pass,
+    Storybook matches Figma in both themes, all states correct, all code quality
+    rules met. Nothing less.
 ```
 
 ---
 
 ## Component QA Queue
 
-Work through components in this order (highest usage / most complex first).
+**Workflow per item — fully autonomous, one pass, fully done:**
+1. Codex picks up the next item from the queue
+2. Codex looks for the CSS files in `~/Desktop/open-ui-kit-figma/` — if missing, stops and asks the user, otherwise proceeds immediately
+3. Codex runs the full QA + fix cycle (`COMPONENT_WORKFLOW.md`) — fixes every issue found, no exceptions
+4. Codex confirms the component is 100% clean: lint ✓, typecheck ✓, tests ✓, Storybook matches Figma ✓
+5. Moves to the next item automatically — no permission needed
 
-### Tier 1 — Core interactive components
+**Only pause and ask the user when a required file is missing or a design decision cannot be inferred.**
 
-- [ ] **Button** — `~/Downloads/Button.png` / `Button - Dark.png`
-  - States: default, hover, focus, active, disabled
-  - Variants: primary, secondary, ghost, danger
-  - Sizes: small, medium, large
+Mark `[x]` when 100% done. There is no `[!]` — everything gets fixed in the same pass.
 
-- [ ] **Input Field** — `~/Downloads/Input Field.png` / `Input Field - Dark.png`
+---
+
+### Tier 0 — Foundations (start here)
+
+CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-figma/`. Codex reads them directly — no need for the user to provide them. Apply the full inspection protocol and `COMPONENT_WORKFLOW.md` fix steps. Also covers all `src/` directories outside `components/` that are in scope.
+
+- [ ] **Colors** — `src/theme/style/color-palette.ts` + `src/colors/` + `theme.palette.vars.*`
+  - CSS: `~/Desktop/open-ui-kit-figma/colors.css`
+  - Screenshots: `~/Desktop/open-ui-kit-figma/Outshift Palette.png` / `Styles.png`
+  - All palette constants resolve to correct hex in both themes
+  - All `theme.palette.vars.*` tokens wired in light and dark `themeOptions`
+  - No orphaned constants (defined but never referenced as tokens)
+  - `src/colors/color-palette-section.tsx` and `colors.mdx` render correctly
+  - Story covers the full color ramp for each palette group in both themes
+
+- [ ] **Elevation** — `src/components/elevation/`
+  - CSS: `~/Desktop/open-ui-kit-figma/styles.css`
+  - Screenshots: `~/Desktop/open-ui-kit-figma/Styles.png`
+  - Shadow scale matches design system elevation levels
+  - Each level renders correctly in light and dark mode
+  - Shadow values via tokens — no hard-coded values
+  - Story covers all levels
+
+- [ ] **Gradients** — `src/components/gradients/` + `src/colors/gradient-section.tsx`
+  - CSS: `~/Desktop/open-ui-kit-figma/graphics.css`
+  - Screenshots: `~/Desktop/open-ui-kit-figma/Graphics.png`
+  - All gradient definitions use palette constants or tokens — no hard-coded hex
+  - `src/colors/gradients.mdx` renders correctly
+  - Story renders each gradient in both themes without errors
+
+- [ ] **Iconography** — `src/custom-icons/` (885 icons) + `src/icons/` + `src/components/icon/`
+  - CSS: `~/Desktop/open-ui-kit-figma/icons.css`
+  - Screenshots: `~/Desktop/open-ui-kit-figma/Icons.png` / `Icons.svg` / `Graphics.png`
+  - Every icon in `src/custom-icons/` must use `fill="currentColor"` — no hard-coded hex fills
+  - Every icon forwards `SvgIconProps` via `{...props}` so consumers can override size and color
+  - Icon sizing via `fontSize` prop inheritance, not fixed px width/height
+  - All custom icons exported from `src/custom-icons/index.ts` (or equivalent barrel)
+  - All custom icons importable from the library's public barrel
+  - `src/icons/icon-gallery.tsx` and `icons.mdx` render the full gallery without errors
+  - Story covers: size variants (small/medium/large), color inheritance via `sx` and `color` prop, both themes
+
+- [ ] **Typography** — `src/typography/` + `src/fonts/` + `src/components/typography/`
+  - CSS: `~/Desktop/open-ui-kit-figma/typography.css`
+  - Screenshots: `~/Desktop/open-ui-kit-figma/Typography Styles - Venture Theme.png`
+  - Font files in `src/fonts/` (Inter + SharpSans) load correctly — no 404s in browser network tab
+  - All MUI `Typography` variant props exposed: `h1`–`h6`, `body1`, `body2`, `subtitle1`, `subtitle2`, `caption`, `overline`, `button`
+  - Font family, size, weight, line-height, letter-spacing match the type scale in the CSS
+  - `src/typography/typography-row.tsx` and `typography.mdx` render correctly
+  - Component exported from the public barrel
+  - `sx` array merge pattern applied
+  - Story covers every variant in both light and dark mode
+
+- [ ] **Theme** — `src/theme/` (light, dark, MUI overrides, style tokens)
+  - CSS: `~/Desktop/open-ui-kit-figma/colors.css` + `styles.css` (supplementary)
+  - `src/theme/light/` and `src/theme/dark/` — all `themeOptions` wired correctly
+  - `src/theme/style/` — all token files (`color-palette.ts`, `common.tsx`, `gradients.ts`, etc.) are consistent and up to date
+  - `src/theme-provider/` — ThemeProvider wraps correctly, mode toggle works
+  - **`src/theme/mui/` — audit every file. The goal is zero visual overrides here.**
+    Current files: `backdrop.tsx`, `button.tsx`, `circular-progress.tsx`, `input.tsx`, `list.tsx`,
+    `radio.tsx`, `skeleton.tsx`, `snack-bar.tsx`, `switch.tsx`, `tab.tsx`, `tabs.tsx`, `tooltip.tsx`
+    For each file ask: does the component have a local wrapper in `src/components/`?
+    - YES → move the visual styles into the local wrapper, delete them from the MUI override file.
+      If the MUI file becomes empty (or only has `defaultProps` that are truly theme-level), delete it
+      and remove its import/spread from `index.ts`.
+    - NO → keep the override but flag it for future component migration.
+    Only `defaultProps` that set library-wide defaults (e.g. `disableRipple: true`) are acceptable
+    in MUI overrides. Visual `styleOverrides` belong in component files.
+
+- [ ] **Illustrations** — `src/custom-illustrations/`
+  - All illustration components render without errors in both themes
+  - SVG fills use `currentColor` or explicit theme tokens — no hard-coded hex
+  - All illustrations are importable from their `index.ts`
+  - Illustrations used in `empty-state` match the Figma empty-state screenshots
+
+- [ ] **Common / Shared** — `src/common/` + `src/types/`
+  - `src/common/constants.ts`, `types.ts`, `utils/` — no unused exports, no stale types
+  - All shared types and utilities used across components are correctly typed
+  - `yarn typecheck` passes with no errors originating from these files
+
+---
+
+### Tier 1 — Core interactive
+
+- [ ] **accordion** — `Accordion.png` / `Accordion - Dark.png`
+  - Collapsed / expanded states, chevron rotation, border and divider
+
+- [ ] **button** — `Button.png` / `Button - Dark.png`
+  - Variants: primary, secondary, ghost, danger; sizes: small/medium/large
+  - States: default, hover, focus, active, disabled, loading
+
+- [ ] **checkbox** — `Checkbox.png` / `Checkbox - Dark.png`
+  - States: unchecked, checked, indeterminate, disabled; label alignment
+
+- [ ] **input-field** — `Input Field.png` / `Input Field - Dark.png`
   - States: default, hover, focus, error, disabled
-  - Label, helper text, error text typography
-  - Border tokens: `controlBorderDefault/Hover/Active/Negative/Disabled`
+  - Label, helper text, error text; border tokens
 
-- [ ] **Search Input** — `~/Downloads/Search input.png` / `Search input - dark.png`
-  - Clear button presence/absence
-  - Focus ring
-  - Placeholder color
+- [ ] **radio** — `Radio button.png` / `Radio button - Dark.png`
+  - States: unselected, selected, disabled; label via FormControlLabel
 
-- [ ] **Select** — `~/Downloads/Select.png` / `Select - Dark.png`
-  - Closed state, open dropdown
-  - States: default, hover, active, disabled, error
-  - Border tokens
+- [ ] **search-input** — `Search input.png` / `Search input - dark.png`
+  - Clear button, focus ring, placeholder color
 
-- [ ] **Checkbox** — `~/Downloads/Checkbox.png` / `Checkbox - Dark.png`
-  - States: unchecked, checked, indeterminate, disabled
-  - Label typography alignment
+- [ ] **select** — `Select.png` / `Select - Dark.png`
+  - Closed and open states; default, hover, active, disabled, error
 
-- [ ] **Radio Button** — `~/Downloads/Radio button.png` / `Radio button - Dark.png`
-  - States: unselected, selected, disabled
-  - Label alignment via FormControlLabel
+- [ ] **slider** — `Slider.png` / `Slider - Dark.png`
+  - Track, thumb, value label; default, hover, active, disabled; range variant
 
-- [ ] **Toggle** — `~/Downloads/Toggle.png` / `Toggle - Dark.png`
-  - On/off states, disabled state
-  - Track and thumb colors
+- [ ] **tabs** — `Tabs.png` / `Tabs - Dark.png`
+  - Main / subTab / toggleTab; default, hover, selected, disabled, loading; indicator
 
-- [ ] **Slider** — `~/Downloads/Slider.png` / `Slider - Dark.png`
-  - Track, thumb, value label
-  - States: default, hover, active, disabled
+- [ ] **toggle** — `Toggle.png` / `Toggle - Dark.png`
+  - On/off, disabled, hover; track and thumb color tokens
 
-- [ ] **Tabs** — `~/Downloads/Tabs.png` / `Tabs - Dark.png`
-  - Active, inactive, hover, disabled tab
-  - Indicator color and thickness
+---
 
-- [ ] **Accordion** — `~/Downloads/Accordion.png` / `Accordion - Dark.png`
-  - Collapsed / expanded states
-  - Chevron rotation
-  - Border and divider
+### Tier 2 — Overlay / modal
 
-### Tier 2 — Overlay / modal components
+- [ ] **actions-dialog** — `Dialog.png` / `Dialog - Dark.png`
+  - Title, body, actions layout; close button; sizes
 
-- [ ] **Dialog** — `~/Downloads/Dialog.png` / `Dialog - Dark.png`
-  - Title, body, actions layout
-  - Close button
-  - Backdrop opacity
+- [ ] **dialog** — `Dialog.png` / `Dialog - Dark.png`
+  - Title, body, actions layout; close button; backdrop opacity
 
-- [ ] **Popover** — `~/Downloads/Popover.png` / `Popover - Dark.png`
-  - Arrow triangle at all 6 positions
-  - Paper background token
-  - Shadow
-  - Close button (when showCloseButton=true)
-  - Title / body / actions slots
+- [ ] **menu** — `Menu.png` / `Menu - Dark.png`
+  - Item hover, dividers, disabled item; shadow token (dark-aware); sizes
 
-- [ ] **Tooltip** — `~/Downloads/Tooltip.png` / `Tooltip - Dark.png`
-  - Background and text colors
-  - Arrow
-  - Max-width truncation
+- [ ] **nested-menu** — `Nested Menu.png` / `Nested Menu - Dark.png`
+  - Full tree: parent, child, grandchild; submenu trigger; shadow token (dark-aware)
 
-- [ ] **Menu** — `~/Downloads/Menu.png` / `Menu - Dark.png`
-  - Item hover state
-  - Dividers
-  - Disabled item
+- [ ] **popover** — `Popover.png` / `Popover - Dark.png`
+  - Arrow at all 6 positions; paper background token; shadow; close button; title/body/actions slots
 
-- [ ] **Nested Menu** — `~/Downloads/Nested Menu.png` / `Nested Menu - Dark.png`
-  - Submenu trigger, placement
-  - Active parent highlight
+- [ ] **side-drawer** — `Side Drawer.png` / `Side Drawer - dark.png`
+  - Header, content, footer layout; close, favorite, nav buttons; severity bar
 
-- [ ] **Side Drawer** — `~/Downloads/Side Drawer.png` / `Side Drawer - dark.png`
-  - Header, content, footer layout
-  - Close button
-  - Backdrop
+- [ ] **toast** — `Toast.png` / `Toast - Dark.png`
+  - Variants: default, success, error, warning, info; close button; action button
 
-- [ ] **Toast** — `~/Downloads/Toast.png` / `Toast - Dark.png`
-  - Variants: success, warning, error, info
-  - Close button
-  - Auto-dismiss
+- [ ] **tooltip** — `Tooltip.png` / `Tooltip - Dark.png`
+  - Background and text colors; arrow; all placement positions
 
-### Tier 3 — Display / layout components
+---
 
-- [ ] **Card** — `~/Downloads/Cards.png` / `Cards - Dark.png`
-  - Background, border-radius, shadow
-  - Header / content / actions slots
+### Tier 3 — Display / layout
 
-- [ ] **Banner** — `~/Downloads/Banner.png` / `Banner - Dark.png`
-  - Variants: info, warning, error, success
-  - Dismiss button
+- [ ] **avatar** — `Avatar.png` / `Avatar - Dark.png`
+  - Sizes, fallback initials, image variant
 
-- [ ] **Badge & Notification** — `~/Downloads/Badge & Notification.png` / `Badge & Notification - Dark.png`
-  - Dot vs count variants
-  - Position (top-right, etc.)
-  - Colors per severity
+- [ ] **backdrop** — `_backdrop.png` *(dark missing)*
+  - Opacity, z-index layering
 
-- [ ] **Avatar** — `~/Downloads/Avatar.png` / `Avatar - Dark.png`
-  - Sizes
-  - Fallback initials
-  - Image variant
+- [ ] **badge** — `Badge & Notification.png` / `Badge & Notification - Dark.png`
+  - Dot vs count variants; position; colors per severity
 
-- [ ] **Breadcrumbs** — `~/Downloads/Breadcrumb.png` / `Breadcrumb - Dark.png`
-  - Separator color
-  - Active vs inactive link color
-  - Truncation
+- [ ] **banner** — `Banner.png` / `Banner - Dark.png`
+  - Variants: info, warning, error, success; dismiss button
 
-- [ ] **Divider** — `~/Downloads/Divider.png` / `Divider - Dark.png`
-  - Horizontal / vertical
-  - Color token
+- [ ] **breadcrumbs** — `Breadcrumb.png` / `Breadcrumb - Dark.png`
+  - Separator, active vs inactive link, truncation
 
-- [ ] **Link** — `~/Downloads/Link.png` / `Link (1).png`
-  - Default, hover, visited, disabled
-  - Underline behavior
+- [ ] **card** — `Cards.png` / `Cards - Dark.png`
+  - Background, border-radius, shadow; header/content/actions slots
 
-- [ ] **Tags** — `~/Downloads/Tag.png` / `Tag - Dark.png`
-  - Sizes, colors per variant
-  - Removable (close button) state
+- [ ] **copy-button** — *(no Figma PNG — token audit + story check)*
+  - Icon, tooltip, success state; token compliance
 
-- [ ] **Pagination** — `~/Downloads/Pagination.png` / `Pagination - Dark.png`
-  - Active page highlight
-  - Prev/next disabled states
-  - Icon color token `controlIconDefault`
+- [ ] **divider** — `Divider.png` / `Divider - Dark.png`
+  - Horizontal / vertical; color token
 
-- [ ] **Stepper** — `~/Downloads/Stepper.png` / `Stepper - Dark.png`
-  - Active, completed, upcoming step styles
-  - Connector line
+- [ ] **empty-state** — `Empty State.png` / `Empty State - Dark.png`
+  - Illustration; variants: info, error, no-data; CTA button
 
-- [ ] **Empty State** — `~/Downloads/Empty State.png` / `Empty State - Dark.png`
-  - Illustration
-  - Variants: info, error, no-data
-  - CTA button
+- [ ] **indicator-badge** — *(no Figma PNG — token audit + story check)*
+  - Dot color, position; token compliance
 
-- [ ] **Loading States** — `~/Downloads/Loading States.png` / `Loading States (1).png`
-  - Spinner colors
-  - Skeleton wave animation
-  - Overlay variant
+- [ ] **link** — `Link.png` / `Link (1).png` *(dark missing)*
+  - Default, hover, visited, disabled; underline behavior
 
-### Tier 4 — Complex / composite components
+- [ ] **loading-states** — `Loading States.png` / `Loading States (1).png` *(dark missing)*
+  - Spinner colors, skeleton wave animation, overlay variant
 
-- [ ] **Table** — `~/Downloads/Tables.png` / `Tables - Dark.png`
-  - Header background
-  - Row hover
-  - Sorted column highlight
-  - Striped rows (if applicable)
-  - Pagination integration
+- [ ] **message** — `Message.png` / `Message - Dark.png`
+  - Variants: info, warning, error, success; icon alignment; dismiss
 
-- [ ] **Filters** — `~/Downloads/Filters.png` / `Filters - Dark.png`
-  - Filter bar layout
-  - Search input integration
-  - Applied filter chips
-  - Filter drawer
+- [ ] **pagination** — `Pagination.png` / `Pagination - Dark.png`
+  - Active page highlight; prev/next disabled; icon color token `controlIconDefault`
 
-- [ ] **Navigation** — `~/Downloads/Navigation.png` / `Navigation - Dark.png`
-  - Active item highlight
-  - Collapsed sidebar state
-  - Icon alignment
+- [ ] **severity-badge** — *(no Figma PNG — token audit + story check)*
+  - Color per severity level; token compliance
 
-- [ ] **Header** — `~/Downloads/Header - Product Light.png` / `Header - Product Dark.png`
-  - Logo placement
-  - Action buttons
-  - Background token
+- [ ] **severity-badge-label** — *(no Figma PNG — token audit + story check)*
+  - Color per severity level; token compliance
 
-- [ ] **Footer** — *(light missing)* / `~/Downloads/Footer - Product Dark.png`
-  - Links layout
-  - Background token
+- [ ] **severity-bar** — *(no Figma PNG — token audit + story check)*
+  - Color per severity level; token compliance
 
-- [ ] **Activity Timeline** — `~/Downloads/Activity timeline.png` / `Activity timeline - Dark.png`
-  - Icon per event type
-  - Connector line
-  - Timestamp typography
+- [ ] **stepper** — `Stepper.png` / `Stepper - Dark.png`
+  - Sub-components: `desktop-stepper/`, `mobile-stepper/`, `step/`, `step-label/` — all in scope
+  - Active, completed, upcoming step styles; connector line; desktop vs mobile layouts
 
-- [ ] **Anchor Link Menu** — `~/Downloads/Anchor link menu.png` / `Anchor link menu - Dark.png`
-  - Active section highlight
-  - Scroll-spy behavior
+- [ ] **tags** — `Tag.png` / `Tag - Dark.png`
+  - Sub-components: `tags/tag/` (single Tag) and `tags/tags/` (Tag collection with overflow)
+  - Sizes, colors per variant; removable close button; overflow truncation in tags/tags/
 
-- [ ] **Key Value Pairs** — `~/Downloads/Key value pairs.png` / `Key value pairs - dark.png`
-  - Label / value layout
-  - Alignment variants
+---
 
-- [ ] **Message** — `~/Downloads/Message.png` / `Message - Dark.png`
-  - Variants: info, warning, error, success
-  - Icon alignment
-  - Dismiss
+### Tier 4 — Utility / behaviour
 
-- [ ] **Date & Time Picker** — `~/Downloads/Date & time picker.png` / `Date & time picker - Dark.png`
-  - Calendar grid layout
-  - Selected date highlight
-  - Disabled dates
-  - Time picker (if applicable)
+- [ ] **list** — *(no Figma PNG — token audit + story check)*
+  - `List`, `ListItem`, `ListItemButton` hover state; divider; token compliance
 
-- [ ] **Upload** — `~/Downloads/Upload.png` / `Upload - Dark.png`
-  - Drag-and-drop zone
-  - File list item
-  - Progress / error states
+- [ ] **loading-error-state** — *(no Figma PNG — token audit + story check)*
+  - Spinner / skeleton / custom loading; error state; empty state; render function children
 
-- [ ] **Code Block** — `~/Downloads/Code block.png` / `Code block - Dark.png`
-  - Syntax highlight colors
-  - Copy button
-  - Line numbers
+- [ ] **overflow-tooltip** — *(no Figma PNG — token audit + story check)*
+  - Overflow trigger; start/end truncation; no tooltip when not overflowing
 
-- [ ] **Picker** — `~/Downloads/Picker.png` / `Picker - Dark.png`
-  - PickerItem states: default, hover, selected, disabled
-  - 3 sizes (small / medium / large)
-  - 2 layouts (vertical / horizontal)
-  - Border colors: hover `lightOrange200`, selected `lightOrange800`
+- [ ] **path-display** — *(no Figma PNG — token audit + story check)*
+  - Truncation, tooltip on overflow; token compliance
 
-- [ ] **View Switcher** — `~/Downloads/View switcher.png` / `View switcher - Dark.png`
-  - Active/inactive states
-  - Icon and label alignment
+- [ ] **picker** — `Picker.png` / `Picker - Dark.png`
+  - States: default, hover, selected, disabled
+  - 3 sizes (small/medium/large); 2 layouts (vertical/horizontal)
+  - Hover border: `lightOrange200`; selected border: `lightOrange800`
 
-- [ ] **Floating Button** — `~/Downloads/Floating button.png` / `Floating button - Dark.png`
-  - FAB shadow
-  - Icon centering
-  - Hover / active states
+- [ ] **scroll-area** — *(no Figma PNG — token audit + story check)*
+  - Scrollbar visibility; custom scrollbar color token
 
-- [ ] **Backdrop** — `~/Downloads/_backdrop.png`
-  - Opacity
-  - Z-index layering
+- [ ] **skeleton** — *(no Figma PNG — token audit + story check)*
+  - Wave animation; shape variants; token compliance
 
-### Tier 5 — No Figma reference (token-style audit only)
+- [ ] **spinner** — *(no Figma PNG — token audit + story check)*
+  - Size variants; color token; token compliance
 
-For these components: verify token usage in source, check story renders without visual errors in both themes.
+- [ ] **view-switcher** — `View switcher.png` / `View switcher - Dark.png`
+  - Active/inactive states; icon and label alignment
 
-- [ ] **Copy Button** — check icon, tooltip, success state
-- [ ] **Elevation** — check shadow scale story
-- [ ] **Gradients** — check gradient story renders
-- [ ] **Icon** — SvgIcon sizing, color token inheritance
-- [ ] **Indicator Badge** — dot color, position
-- [ ] **List** — `List`, `ListItem`, `ListItemButton` hover state, divider
-- [ ] **Loading Error State** — spinner/skeleton/custom loading variants, error state, empty state, render function children
-- [ ] **Overflow Tooltip** — overflow trigger, start/end truncation, no tooltip when not overflowing
-- [ ] **Path Display** — truncation, tooltip on overflow
-- [ ] **Scroll Area** — scrollbar visibility, custom scrollbar color token
-- [ ] **Severity Badge / Label / Bar** — color per severity level
-- [ ] **Skeleton** — wave animation, shape variants
-- [ ] **Spinner** — size variants, color token
-- [ ] **Typography** — all variants (h1–h6, body1/2, caption, overline) match design scale
-- [ ] **Widget** — card-like container, token compliance
+---
+
+### Tier 5 — Complex / composite
+
+- [ ] **activity-timeline** — `Activity timeline.png` / `Activity timeline - Dark.png`
+  - Icon per event type; connector line; timestamp typography
+
+- [ ] **anchor-link-menu** — `Anchor link menu.png` / `Anchor link menu - Dark.png`
+  - Active section highlight; scroll-spy behavior
+
+- [ ] **code-block** — `Code block.png` / `Code block - Dark.png`
+  - Syntax highlight colors; copy button; line numbers
+
+- [ ] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
+  - Calendar grid, selected date, disabled dates, time picker
+
+- [ ] **filters** — `Filters.png` / `Filters - Dark.png`
+  - Filter bar layout; search input integration; applied filter chips; filter drawer
+
+- [ ] **floating-button** — `Floating button.png` / `Floating button - Dark.png`
+  - FAB shadow; icon centering; hover/active states
+
+- [ ] **footer** — *(light missing)* / `Footer - Product Dark.png`
+  - Links layout; background token
+
+- [ ] **header** — `Header - Product Light.png` / `Header - Product Dark.png`
+  - Logo placement; action buttons; background token
+
+- [ ] **key-value-pairs** — `Key value pairs.png` / `Key value pairs - dark.png`
+  - Label/value layout; alignment variants
+
+- [ ] **navigation** — `Navigation.png` / `Navigation - Dark.png`
+  - Active item highlight; collapsed sidebar state; icon alignment
+
+- [ ] **table** — `Tables.png` / `Tables - Dark.png`
+  - Header background; row hover; sorted column; striped rows; pagination integration
+
+- [ ] **upload** — `Upload.png` / `Upload - Dark.png`
+  - Drag-and-drop zone; file list item; progress/error states
 
 ---
 
@@ -428,7 +522,7 @@ When a delta is found, log it here with this format:
 ### [Component] [Theme] — <short title>
 
 - **Story:** <story name in Storybook>
-- **Figma ref:** ~/Downloads/<file>.png
+- **Figma ref:** ~/Desktop/open-ui-kit-figma/<file>.png
 - **Expected:** <what Figma shows>
 - **Actual:** <what Storybook shows>
 - **Root cause:** <token name / hard-coded value / wrong variant>
@@ -488,12 +582,17 @@ These must all be true before a component is marked done:
 
 ## Definition of Done
 
-A component passes QA when:
-- [ ] Light mode screenshot matches Figma within acceptable tolerance (no color, spacing, or state deviations)
-- [ ] Dark mode screenshot matches Figma (or library token style if no dark Figma exists)
-- [ ] All interactive states present and correct
+A component passes QA when **all** of the following are true:
+- [ ] Light mode Storybook screenshot matches Figma — no color, spacing, or state deviations
+- [ ] Dark mode Storybook screenshot matches Figma (or library token style if no dark Figma exists)
+- [ ] All interactive states present and correct (hover, focus, active, disabled, error, loading, selected)
+- [ ] All variants and sizes shown in Figma are present and correct
+- [ ] **Responsive** — layout is correct at 320px, 768px, and 1280px; no overflow, no broken layout, touch targets ≥ 44px on mobile
 - [ ] All colors sourced from `theme.palette.vars.*` tokens (no hard-coded hex)
-- [ ] No TypeScript errors (`yarn typecheck`)
-- [ ] No lint errors (`yarn lint`)
-- [ ] Unit tests pass (`yarn test --testPathPattern=<component>`)
-- [ ] Story renders without console errors in both themes
+- [ ] `sx` array merge pattern used — consumer `sx` always wins
+- [ ] All sub-directories inside the component folder inspected and fixed
+- [ ] `yarn lint` → exit 0, zero warnings
+- [ ] `yarn typecheck` → exit 0
+- [ ] `yarn test --testPathPattern=<component>` → all tests pass
+- [ ] Story renders without console errors in both light and dark themes
+- [ ] `COMPONENT_WORKFLOW.md` steps 13–15 completed (final verification, code review, resume)

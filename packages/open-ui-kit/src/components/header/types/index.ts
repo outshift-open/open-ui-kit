@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { SearchFieldProps } from "@/components/search-field";
+import type { SearchInputProps } from "@/components/search-input";
 import type { SxProps, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 
@@ -84,7 +84,7 @@ export interface HeaderProps {
    * Configuration object for the basic search field.
    * If undefined, the search field will not be rendered.
    */
-  searchProps?: SearchFieldProps;
+  searchProps?: SearchInputProps;
 
   /**
    * A custom search field component to override both search variants.

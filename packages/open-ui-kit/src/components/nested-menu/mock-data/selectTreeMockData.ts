@@ -13,7 +13,7 @@ import {
   Docker2,
   DockerCompose,
 } from "@/custom-icons";
-import { AugmentedSelectNodeType } from "@/types";
+import { AugmentedSelectNodeType } from "@/components/nested-menu";
 
 export const selectTreeExample: Array<AugmentedSelectNodeType> = [
   {

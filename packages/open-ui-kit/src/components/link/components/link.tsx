@@ -16,7 +16,8 @@ import {
 } from "../styles";
 import { LinkColorEnum, LinkProps, LinkType } from "../types";
 import { Box, Stack, useTheme, Typography } from "@mui/material";
-import { ellipsisStyle, GeneralSize, IconPosition } from "@/common";
+import { ellipsisStyle } from "@/theme/style/common";
+import { GeneralSize, IconPosition } from "@/common";
 
 export const Link = ({
   Icon,

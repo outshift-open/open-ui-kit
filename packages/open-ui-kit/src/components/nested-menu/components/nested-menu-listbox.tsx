@@ -12,7 +12,7 @@ import { SearchInput } from "@/components/search-input";
 import { SelectNode } from "./select-node";
 import { SelectNodeListItem } from "./select-node-list-item";
 import { defaultPopperContentStyle } from "../styles";
-import { AugmentedSelectNodeType } from "@/types";
+import { AugmentedSelectNodeType } from "@/components/nested-menu";
 import { buildNodeLabelElement } from "../utils/utils";
 
 interface NestedMenuListboxProps {

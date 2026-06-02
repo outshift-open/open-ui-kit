@@ -2,8 +2,8 @@ import { Checkbox, Stack, Typography } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { AWSIcon } from "@/custom-icons";
-import { SelectNodeType } from "@/types";
-import { baseSelectTree } from "@/common";
+import { SelectNodeType } from "@/components/nested-menu";
+import { baseSelectTree } from "@/components/nested-menu/mock-data/selectTreeMockData";
 import { Tags } from "..";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 

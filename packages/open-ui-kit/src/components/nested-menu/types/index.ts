@@ -6,7 +6,8 @@
 
 import type { ReactNode } from "react";
 import type { ButtonProps, SvgIconProps, SxProps } from "@mui/material";
-import type { AugmentedSelectNodeType } from "@/types";
+import type { AugmentedSelectNodeType } from "./select-tree";
+export * from "./select-tree";
 
 export interface NestedMenuProps {
   /** Content rendered inside the trigger button. */

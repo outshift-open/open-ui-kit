@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useMemo } from "react";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import type { AugmentedSelectNodeType } from "@/types";
+import type { AugmentedSelectNodeType } from "@/components/nested-menu";
 import { NestedMenu, useNestedMenu } from "..";
 
 const meta: Meta<typeof NestedMenu> = {

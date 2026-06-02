@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import "../typography.css";
 import React from "react";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import { darkTheme } from "@/theme/dark/dark-theme";

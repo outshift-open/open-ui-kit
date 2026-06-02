@@ -5,8 +5,12 @@
  */
 
 import { Stack } from "@mui/material";
-import { AugmentedSelectNodeType, SelectNodeType } from "@/types";
-import { formatNodeValue, GeneralSize } from "@/common";
+import {
+  AugmentedSelectNodeType,
+  SelectNodeType,
+} from "@/components/nested-menu";
+import { formatNodeValue } from "@/components/nested-menu";
+import { GeneralSize } from "@/common";
 import TagLabel from "./tag-label";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { Tag } from "@/components/tags/tag";

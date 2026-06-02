@@ -5,6 +5,7 @@
  */
 
 import { Box, IconButton, styled } from "@mui/material";
+import type { BoxProps, IconButtonProps } from "@mui/material";
 import type { MessageType } from "../types";
 import {
   getMessageActionStyles,
@@ -16,7 +17,9 @@ import {
   getMessageTitleStyles,
 } from "../styles";
 
-export const StyledMessageRoot = styled(Box, {
+export const StyledMessageRoot: React.ComponentType<
+  BoxProps & { messageType: MessageType; hasTitle: boolean; hasAction: boolean }
+> = styled(Box, {
   shouldForwardProp: (prop) =>
     prop !== "messageType" && prop !== "hasTitle" && prop !== "hasAction",
 })<{
@@ -27,7 +30,9 @@ export const StyledMessageRoot = styled(Box, {
   getMessageRootStyles(theme, messageType, hasTitle, hasAction),
 );
 
-export const StyledMessageContent = styled(Box, {
+export const StyledMessageContent: React.ComponentType<
+  BoxProps & { messageType: MessageType; hasTitle: boolean; hasAction: boolean }
+> = styled(Box, {
   shouldForwardProp: (prop) =>
     prop !== "messageType" && prop !== "hasTitle" && prop !== "hasAction",
 })<{ messageType: MessageType; hasTitle: boolean; hasAction: boolean }>(
@@ -35,24 +40,25 @@ export const StyledMessageContent = styled(Box, {
     getMessageContentStyles(messageType, hasTitle, hasAction),
 );
 
-export const StyledMessageTitle = styled("p")(({ theme }) =>
-  getMessageTitleStyles(theme),
-);
+export const StyledMessageTitle: React.ComponentType<
+  React.HTMLAttributes<HTMLParagraphElement>
+> = styled("p")(({ theme }) => getMessageTitleStyles(theme));
 
-export const StyledMessageTitleRow = styled(Box, {
+export const StyledMessageTitleRow: React.ComponentType<
+  BoxProps & { messageType: MessageType }
+> = styled(Box, {
   shouldForwardProp: (prop) => prop !== "messageType",
 })<{ messageType: MessageType }>(({ messageType }) =>
   getMessageTitleRowStyles(messageType),
 );
 
-export const StyledMessageText = styled("p")(({ theme }) =>
-  getMessageTextStyles(theme),
-);
+export const StyledMessageText: React.ComponentType<
+  React.HTMLAttributes<HTMLParagraphElement>
+> = styled("p")(({ theme }) => getMessageTextStyles(theme));
 
-export const StyledMessageAction = styled("button")(({ theme }) =>
-  getMessageActionStyles(theme),
-);
+export const StyledMessageAction: React.ComponentType<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> = styled("button")(({ theme }) => getMessageActionStyles(theme));
 
-export const StyledMessageCloseButton = styled(IconButton)(({ theme }) =>
-  getMessageCloseStyles(theme),
-);
+export const StyledMessageCloseButton: React.ComponentType<IconButtonProps> =
+  styled(IconButton)(({ theme }) => getMessageCloseStyles(theme));

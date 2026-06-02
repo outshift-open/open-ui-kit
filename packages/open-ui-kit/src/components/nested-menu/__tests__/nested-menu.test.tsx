@@ -12,7 +12,7 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { NestedMenuListbox } from "../components/nested-menu-listbox";
 import { SelectNode } from "../components/select-node";
-import { AugmentedSelectNodeType } from "@/types";
+import { AugmentedSelectNodeType } from "@/components/nested-menu";
 import {
   getNestedMenuPopoverPaperStyles,
   getNestedMenuTriggerButtonStyles,

@@ -28,7 +28,7 @@ export const getColorBySeverity = (
   };
   return severity in severitiesToColors
     ? severitiesToColors[severity]
-    : theme.palette.info.main;
+    : theme.palette.vars.neutralBackgroundDefault;
 };
 
 export const normalizeSeverity = (severity: unknown): Severity => {

@@ -61,9 +61,9 @@ export * from "./toggle";
 export * from "./tooltip";
 export * from "./upload";
 export * from "./view-switcher";
-export * from "./widget";
 export * from "./scroll-area";
 export * from "./pagination";
+export * from "./path-display";
 
 // MUI exports — only primitives with no local wrapper
 export {
@@ -72,9 +72,7 @@ export {
   Typography,
   Grid,
   IconButton,
-  Stepper,
   Container,
   Paper,
   ButtonGroup,
-  Fab,
 } from "@mui/material";

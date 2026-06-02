@@ -4,7 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AugmentedSelectNodeType, FlattenSelectTreeArgs } from "@/types";
+import {
+  AugmentedSelectNodeType,
+  FlattenSelectTreeArgs,
+} from "@/components/nested-menu";
 
 export const flattenSelectTreeWithoutSearch = (
   rootNode: AugmentedSelectNodeType[],

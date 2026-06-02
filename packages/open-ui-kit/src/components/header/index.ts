@@ -6,4 +6,4 @@
 
 export * from "./types";
 export * from "./components/header";
-export { GlobalSearchField } from "./components/global-search-field";
+export { GlobalSearchInput } from "./components/global-search-field";

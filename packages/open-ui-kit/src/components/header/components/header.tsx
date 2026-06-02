@@ -9,8 +9,8 @@ import type { HeaderAction, HeaderProps } from "../types";
 import { getActionButtonStyles, getHeaderStyles } from "../styles";
 import { Tooltip } from "@/components/tooltip";
 import { Divider } from "@/components/divider";
-import { CustomSearchField } from "./custom-search-field";
-import { GlobalSearchField } from "./global-search-field";
+import { CustomSearchInput } from "./custom-search-field";
+import { GlobalSearchInput } from "./global-search-field";
 
 export const Header = ({
   logo,
@@ -41,9 +41,9 @@ export const Header = ({
         {customSearchNode ? (
           customSearchNode
         ) : globalSearchProps ? (
-          <GlobalSearchField {...globalSearchProps} />
+          <GlobalSearchInput {...globalSearchProps} />
         ) : (
-          searchProps && <CustomSearchField {...searchProps} />
+          searchProps && <CustomSearchInput {...searchProps} />
         )}
 
         {actions.map((action: HeaderAction) => (

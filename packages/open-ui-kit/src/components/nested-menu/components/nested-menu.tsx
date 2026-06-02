@@ -6,7 +6,7 @@
 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { useRef, useState } from "react";
-import { isLeaf } from "@/common";
+import { isLeaf } from "../utils/treeSelect";
 import { NestedMenuListbox } from "./nested-menu-listbox";
 import { SelectNode } from "./select-node";
 import { SelectNodeListItem } from "./select-node-list-item";

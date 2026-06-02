@@ -5,7 +5,7 @@
  */
 
 import { OverflowTooltip } from "@/components/overflow-tooltip";
-import { SelectNodeType } from "@/types";
+import { SelectNodeType } from "@/components/nested-menu";
 
 interface TagLabelProps {
   node: SelectNodeType;

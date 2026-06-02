@@ -5,5 +5,4 @@
  */
 
 export * from "./palette";
-export * from "./select-tree";
 export * from "./vars";
