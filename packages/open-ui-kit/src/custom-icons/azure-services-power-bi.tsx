@@ -16,7 +16,7 @@ export function AzureServicesPowerBI(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M18.816 3.186h-4.772a.743.743 0 0 0-.742.743v3.743h-2.943a.743.743 0 0 0-.743.742v3.772H6.73a.743.743 0 0 0-.743.743v7.514c0 .41.333.743.743.743h12.086c.41 0 .743-.333.743-.743V3.929a.743.743 0 0 0-.743-.743Z"
         />
       </svg>

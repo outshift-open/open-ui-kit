@@ -16,7 +16,7 @@ export function Exclamation(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M11.25 15.214V3h1.929v12.214H11.25Zm0 5.786v-1.929h1.929V21H11.25Z"
         />
       </svg>

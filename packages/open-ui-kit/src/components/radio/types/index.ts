@@ -12,10 +12,11 @@ import type {
 import type { ReactNode } from "react";
 
 export interface RadioButtonProps extends MuiRadioProps {
-  /** Label text displayed beside the radio button. */
+  /** Optional content displayed beside the radio control via FormControlLabel. */
   label?: ReactNode;
-  /** Props forwarded to the wrapping FormControlLabel when label is provided. */
+  /** Props forwarded to FormControlLabel when `label` is provided; its `sx` is merged after internal styles. */
   formControlLabelProps?: Omit<FormControlLabelProps, "control" | "label">;
 }
 
+/** Props for grouping RadioButton options into a single-choice set. */
 export type RadioGroupProps = MuiRadioGroupProps;

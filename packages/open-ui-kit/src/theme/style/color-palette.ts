@@ -15,6 +15,10 @@ export const surfaceLight600 = "#dae3f8";
 export const surfaceLight700 = "#d5dff7";
 export const surfaceLight800 = "#d1dbf6";
 export const surfaceLight900 = "#c8d5f5";
+export const surfaceLight50Alpha40 = "#fbfcfe66";
+export const surfaceLight800Alpha40 = "#d1dbf666";
+export const surfaceLight900Alpha40 = "#c8d5f566";
+export const surfaceLight900Alpha10 = "#c8d5f519";
 
 // Surface Dark
 export const surfaceDark50 = "#4f628d";
@@ -27,6 +31,9 @@ export const surfaceDark600 = "#062242";
 export const surfaceDark700 = "#001c3b";
 export const surfaceDark800 = "#041930";
 export const surfaceDark900 = "#00142b";
+export const surfaceDark800Alpha40 = "#04193066";
+export const surfaceDark900Alpha40 = "#00142b66";
+export const surfaceDark900Alpha10 = "#00142b19";
 
 // Blue
 export const blue50 = "#e8f1ff";
@@ -41,9 +48,11 @@ export const blue800 = "#003796";
 export const blue900 = "#002786";
 export const blueAlpha40 = "#0051af66";
 export const blueAlpha10 = "#0051af19";
+export const blueFocusRingWeak = "#cce1ff";
+export const blueFocusRingStrong = "#3e84e5";
 
 // Light Blue
-export const lightBlue50 = "#edfbff";
+export const lightBlue50 = "#edfcff";
 export const lightBlue100 = "#bcf2ff";
 export const lightBlue200 = "#8fe9ff";
 export const lightBlue300 = "#62e0ff";
@@ -142,7 +151,7 @@ export const yellowAlpha40 = "#ffe65966";
 export const yellowAlpha10 = "#ffe65919";
 
 // Green
-export const green50 = "#eafbf6";
+export const green50 = "#ebfbf7";
 export const green100 = "#b3eadd";
 export const green200 = "#80dcc6";
 export const green300 = "#4dceaf";
@@ -238,6 +247,24 @@ export const outshiftLogoLightOrange = "#fbaf45";
 export const outshiftBlue = "#0051af";
 export const outshiftMidnightBlue = "#0d274d";
 export const agentcyYellow = "#fbaf45";
+
+// Illustrations
+export const illustrationShell = "#1e2939";
+export const illustrationRing = "#2e3e57";
+export const illustrationSurface = "#233043";
+export const illustrationSurfaceSubtle = "#2e3640";
+export const illustrationStroke = "#384d6b";
+export const illustrationGradientStart = "#384c6b";
+export const illustrationGradientEnd = "#2a3a50";
+export const illustrationInfoGradientStart = "#834dd7";
+export const illustrationInfoGradientMiddle = "#7670d5";
+export const illustrationInfoGradientEnd = "#58c0d0";
+export const illustrationPositiveGradientStart = "#1ac1e5";
+export const illustrationPositiveGradientMiddle = "#4cc9b2";
+export const illustrationPositiveGradientEnd = "#a7d755";
+export const illustrationNegativeGradientStart = "#e09e89";
+export const illustrationWarningGradientStart = "#ff9900";
+export const illustrationWarningGradientEnd = "#c8511b";
 export const outshiftOrange = "#fb861f";
 export const agentcyBlue = "#187adc";
 export const agentcyDarkBlue = "#00142b";
@@ -261,6 +288,34 @@ export const brandColors = {
   outshiftLogoOrange,
   outshiftLogoDark,
 };
+
+export const gradientStopColors = {
+  illustrationBlueStart: "#214694",
+  illustrationBlueMiddle: "#3169a8",
+  illustrationBlueEnd: "#56bad5",
+  illustrationRainbowRed: "#ba4d5f",
+  illustrationRainbowOrange: "#df875d",
+  illustrationRainbowYellow: "#eab069",
+  illustrationRainbowGreen: "#8cbdac",
+  illustrationRainbowTeal: "#58c0d0",
+  illustrationPurpleStart: "#834dd7",
+  illustrationPurpleMiddle: "#7670d5",
+  illustrationGreenStart: "#1ac1e5",
+  illustrationGreenMiddle: "#4cc9b2",
+  illustrationGreenEnd: "#a7d755",
+  illustrationLightBlueStart: "#00dff0",
+  illustrationLightBlueMiddle: "#00aff0",
+  illustrationLightBlueEnd: "#006df0",
+  illustrationPinkStart: "#e09e89",
+  illustrationPinkEnd: "#c0328a",
+  illustrationOrangeStart: "#ff9900",
+  illustrationOrangeEnd: "#c8511b",
+  primaryOrange: "#ff6d2e",
+  primaryPurple: "#341686",
+  secondaryBlueWeak: "#80a8d7",
+  secondaryBlueStrong: "#021d60",
+  secondaryBlueHoverWeak: "#b3cbe7",
+} as const;
 
 // Light Mode Box Shadows
 export const lightModeCardLifted = "0px 4px 4px rgba(200, 213, 245, 0.33)";

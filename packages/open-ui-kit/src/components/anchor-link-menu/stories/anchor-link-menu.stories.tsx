@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { AnchorLinkMenu } from "../components/anchor-link-menu";
 import { AnchorLinkMenuItemComponent } from "../components/anchor-link-menu-item";

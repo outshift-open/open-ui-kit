@@ -16,7 +16,7 @@ export function SizeUp(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M4 20.5v-6.857h1.714v5.143h5.143V20.5H4Zm14.286-9.143V6.214h-5.143V4.5H20v6.857h-1.714Z"
         />
       </svg>

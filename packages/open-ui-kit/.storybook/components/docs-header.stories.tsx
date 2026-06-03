@@ -6,7 +6,7 @@ import { Banner } from "@/components/banner";
 import { Button } from "@/components/button";
 import { CopyButton } from "@/components/copy-button";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 
 type DocsHeaderBanner = {
   content: ReactNode;
@@ -73,9 +73,11 @@ const ImportLine = ({ text }: { text: string }) => {
           letterSpacing: 0,
           lineHeight: 1.5,
           minWidth: 0,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
+          overflow: { xs: "visible", md: "hidden" },
+          overflowWrap: { xs: "anywhere", md: "normal" },
+          textOverflow: { xs: "clip", md: "ellipsis" },
+          whiteSpace: { xs: "normal", md: "nowrap" },
+          wordBreak: { xs: "break-word", md: "normal" },
         })}
       >
         {importMatch ? (
@@ -97,7 +99,12 @@ const ImportLine = ({ text }: { text: string }) => {
             >
               {importMatch[3]}
             </Box>{" "}
-            <Box component="span" sx={{ color: "#6c9b2f" }}>
+            <Box
+              component="span"
+              sx={(theme) => ({
+                color: theme.palette.vars.successTextDefault,
+              })}
+            >
               {importMatch[4]};
             </Box>
           </>
@@ -113,12 +120,22 @@ const ImportLine = ({ text }: { text: string }) => {
           border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
           borderRadius: "8px",
           flexShrink: 0,
-          height: 36,
-          width: 36,
+          height: 44,
+          width: 44,
         })}
       />
     </Box>
   );
+};
+
+const getInitialDarkMode = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return new URLSearchParams(window.location.search)
+    .get("globals")
+    ?.includes("theme:dark");
 };
 
 export const DocsHeader = ({
@@ -132,7 +149,7 @@ export const DocsHeader = ({
   const hasGuideLink = Boolean(guideLink?.trim());
 
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
       <Stack component="header" gap={3.5} sx={{ mb: 5 }}>
         <Box
           sx={(theme) => ({
@@ -153,19 +170,35 @@ export const DocsHeader = ({
           })}
         >
           <Stack gap={1.5} sx={{ minWidth: 0, width: "100%" }}>
-            <Box
-              sx={(theme) => ({
-                "& h1": {
-                  color: theme.palette.vars.interactiveSecondaryDefaultActive,
+            {title ? (
+              <Typography
+                component="h1"
+                sx={(theme) => ({
+                  color: theme.palette.vars.baseTextStrong,
                   fontSize: { xs: 40, md: 50 },
+                  fontWeight: 700,
                   letterSpacing: 0,
                   lineHeight: 1.04,
                   margin: 0,
-                },
-              })}
-            >
-              {title ? <Title>{title}</Title> : <Title />}
-            </Box>
+                })}
+              >
+                {title}
+              </Typography>
+            ) : (
+              <Box
+                sx={(theme) => ({
+                  "& h1": {
+                    color: theme.palette.vars.baseTextStrong,
+                    fontSize: { xs: 40, md: 50 },
+                    letterSpacing: 0,
+                    lineHeight: 1.04,
+                    margin: 0,
+                  },
+                })}
+              >
+                <Title />
+              </Box>
+            )}
             <Typography
               variant="subtitle2"
               sx={(theme) => ({

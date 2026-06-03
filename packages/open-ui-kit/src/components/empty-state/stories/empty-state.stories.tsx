@@ -4,17 +4,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { GeneralSize } from "@/common";
+import { Box, Stack } from "@/components";
 import { EmptyState } from "..";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof EmptyState> = {
   title: "Components/EmptyState",
   component: EmptyState,
+  decorators: [
+    (Story) => (
+      <Box
+        sx={(theme) => ({
+          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          boxSizing: "border-box",
+          p: 3,
+        })}
+      >
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
+    layout: "fullscreen",
     docs: {
       page: () => (
         <DocsHeader
@@ -120,7 +134,8 @@ export const RequiredBriefDescription: Story = {
       direction="row"
       justifyContent="center"
       sx={{
-        width: "860px",
+        maxWidth: "860px",
+        width: "100%",
         borderRadius: "4px",
         backgroundColor: (theme) => theme.palette.vars.controlBackgroundDefault,
         padding: "12px",

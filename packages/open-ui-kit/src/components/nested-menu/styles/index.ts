@@ -5,7 +5,6 @@
  */
 
 import type { Theme } from "@mui/material";
-import { lightModeCardSubtle } from "@/theme/style/color-palette";
 
 export const defaultPopperContentStyle = {
   width: "480px",
@@ -51,7 +50,7 @@ export const getNestedMenuPopoverPaperStyles = (theme: Theme) => ({
   padding: "8px 0px",
   backgroundColor: theme.palette.vars.controlBackgroundWeak,
   border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-  boxShadow: lightModeCardSubtle,
+  boxShadow: theme.shadows[2],
   borderRadius: "4px",
   "& .MuiStack-root": {
     padding: "0px",

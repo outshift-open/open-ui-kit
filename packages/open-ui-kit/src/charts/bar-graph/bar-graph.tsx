@@ -182,7 +182,7 @@ export const BarGraph = ({
           overflow="hidden"
           bottom={0}
           sx={{
-            backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+            backgroundColor: theme.palette.vars.baseBackgroundWeak,
           }}
           flexShrink={0}
         >

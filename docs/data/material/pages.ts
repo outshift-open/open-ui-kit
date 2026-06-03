@@ -1,5 +1,35 @@
 import { standardNavIcons } from "@mui/internal-core-docs/AppLayout";
 import { MuiPage } from "@mui/internal-core-docs/MuiPage";
+import {
+  getOpenUIKitComponentsByCategory,
+  openUIKitCategoryTitles,
+  type OpenUIKitComponentCategory,
+} from "docs/src/open-ui-kit-component-registry";
+
+const componentCategories: OpenUIKitComponentCategory[] = [
+  "inputs",
+  "data-display",
+  "charts",
+  "feedback",
+  "layout",
+  "templates",
+  "surfaces",
+  "navigation",
+];
+
+function getComponentCategoryPage(
+  category: OpenUIKitComponentCategory,
+): MuiPage {
+  return {
+    pathname: `/open-ui-kit-core/components/${category}`,
+    title: openUIKitCategoryTitles[category],
+    subheader: category,
+    children: getOpenUIKitComponentsByCategory(category).map((component) => ({
+      pathname: `/open-ui-kit-core/react-${component.routeSlug}`,
+      title: component.title,
+    })),
+  };
+}
 
 const pages: MuiPage[] = [
   {
@@ -31,76 +61,7 @@ const pages: MuiPage[] = [
     title: "Components",
     children: [
       { pathname: "/open-ui-kit-core/all-components", title: "All components" },
-      {
-        pathname: "/open-ui-kit-core/components/inputs",
-        subheader: "inputs",
-        children: [
-          { pathname: "/open-ui-kit-core/react-button" },
-          { pathname: "/open-ui-kit-core/react-checkbox" },
-          {
-            pathname: "/open-ui-kit-core/react-date-time",
-            title: "Date Time",
-          },
-          { pathname: "/open-ui-kit-core/react-filters" },
-          {
-            pathname: "/open-ui-kit-core/react-floating-action-button",
-            title: "Floating Button",
-          },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/data-display",
-        subheader: "data-display",
-        children: [
-          {
-            pathname: "/open-ui-kit-core/react-activity-timeline",
-            title: "Activity Timeline",
-          },
-          { pathname: "/open-ui-kit-core/react-avatar" },
-          { pathname: "/open-ui-kit-core/react-badge" },
-          {
-            pathname: "/open-ui-kit-core/react-code-block",
-            title: "Code Block",
-          },
-          {
-            pathname: "/open-ui-kit-core/react-copy-button",
-            title: "Copy Button",
-          },
-          { pathname: "/open-ui-kit-core/react-divider" },
-          {
-            pathname: "/open-ui-kit-core/react-empty-state",
-            title: "Empty State",
-          },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/feedback",
-        subheader: "feedback",
-        children: [
-          { pathname: "/open-ui-kit-core/react-banner" },
-          { pathname: "/open-ui-kit-core/react-backdrop" },
-          { pathname: "/open-ui-kit-core/react-dialog" },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/surfaces",
-        subheader: "surfaces",
-        children: [
-          { pathname: "/open-ui-kit-core/react-accordion" },
-          { pathname: "/open-ui-kit-core/react-card" },
-        ],
-      },
-      {
-        pathname: "/open-ui-kit-core/components/navigation",
-        subheader: "navigation",
-        children: [
-          {
-            pathname: "/open-ui-kit-core/react-anchor-link-menu",
-            title: "Anchor Link Menu",
-          },
-          { pathname: "/open-ui-kit-core/react-breadcrumbs" },
-        ],
-      },
+      ...componentCategories.map(getComponentCategoryPage),
     ],
   },
   {

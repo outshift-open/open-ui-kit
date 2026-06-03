@@ -11,10 +11,6 @@ import {
   type BoxProps,
   type TypographyProps,
 } from "@mui/material";
-import {
-  darkModeCardFloating,
-  lightModeCardFloating,
-} from "@/theme/style/color-palette";
 import type { ComponentPropsWithoutRef, ComponentType } from "react";
 
 export const StyledAnchorLinkMenuContainer = styled(Box)(() => ({
@@ -37,10 +33,7 @@ export const StyledAnchorLinkMenuFloatingContainer = styled(Box)(
     gap: "8px",
     padding: "8px",
     width: "240px",
-    boxShadow:
-      theme.palette.mode === "dark"
-        ? darkModeCardFloating
-        : lightModeCardFloating,
+    boxShadow: theme.shadows[4],
   }),
 ) as ComponentType<BoxProps>;
 

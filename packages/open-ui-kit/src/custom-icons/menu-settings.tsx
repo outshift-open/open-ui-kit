@@ -16,14 +16,14 @@ export function MenuSettings(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill="#777D85"
+          fill="currentColor"
           fillRule="evenodd"
           d="M2 6a1 1 0 0 1 1-1h18a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1ZM2 12a1 1 0 0 1 1-1h18a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1ZM2 18a1 1 0 0 1 1-1h18a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Z"
           clipRule="evenodd"
         />
-        <circle cx="17" cy="6" r="2" fill="#E8E9EA" />
-        <circle cx="7" cy="12" r="2" fill="#E8E9EA" />
-        <circle cx="17" cy="18" r="2" fill="#E8E9EA" />
+        <circle cx="17" cy="6" r="2" fill="currentColor" />
+        <circle cx="7" cy="12" r="2" fill="currentColor" />
+        <circle cx="17" cy="18" r="2" fill="currentColor" />
       </svg>
     </SvgIcon>
   );

@@ -62,7 +62,11 @@ export const EmptyState = ({
       justifyContent={"center"}
       {...containerProps}
       sx={[
-        { padding: sizeToContainerPaddingMapping[size] },
+        {
+          flexWrap: direction === "row" ? "wrap" : "nowrap",
+          maxWidth: "100%",
+          padding: sizeToContainerPaddingMapping[size],
+        },
         ...(Array.isArray(containerProps?.sx)
           ? containerProps.sx
           : containerProps?.sx
@@ -82,13 +86,18 @@ export const EmptyState = ({
         gap={"16px"}
         alignItems={directionToFlexAlignmentMapping[direction]}
         justifyContent={"center"}
+        sx={{ maxWidth: "100%", minWidth: 0 }}
       >
         <Stack
           direction={"column"}
           gap={sizeToSecondaryFlexGapSizeMapping[size]}
           alignItems={directionToFlexAlignmentMapping[direction]}
           justifyContent={"center"}
-          sx={{ maxWidth: getTextMaxWidth(size, direction) }}
+          sx={{
+            maxWidth: getTextMaxWidth(size, direction),
+            minWidth: 0,
+            width: "100%",
+          }}
         >
           {title && size !== GeneralSize.Small && (
             <Typography
@@ -115,7 +124,12 @@ export const EmptyState = ({
           )}
         </Stack>
         {(showAction || showSecondaryAction) && (
-          <Stack direction="row" gap="16px" alignItems="flex-start">
+          <Stack
+            direction="row"
+            gap="16px"
+            alignItems="flex-start"
+            flexWrap="wrap"
+          >
             {showAction && (
               <Button
                 variant="primary"

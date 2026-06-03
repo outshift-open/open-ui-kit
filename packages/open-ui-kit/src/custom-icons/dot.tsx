@@ -15,7 +15,7 @@ export function Dot(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <circle cx="12" cy="12.5" r="2" fill={props.fill ?? "currentColor"} />
+        <circle cx="12" cy="12.5" r="2" fill="currentColor" />
       </svg>
     </SvgIcon>
   );

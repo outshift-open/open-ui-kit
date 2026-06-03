@@ -14,13 +14,8 @@ import {
   Edit as EditIcon,
 } from "@mui/icons-material";
 import { BrowserRouter } from "react-router-dom";
-import {
-  Box,
-  Button,
-  LinearProgress,
-  ListItemIcon,
-  Typography,
-} from "@mui/material";
+import { LinearProgress, ListItemIcon } from "@mui/material";
+import { Box, Button, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";

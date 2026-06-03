@@ -16,7 +16,7 @@ export function InfoBold(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M12.002 3c.482 0 .894.172 1.236.515.341.343.512.755.512 1.237 0 .482-.172.894-.515 1.236a1.691 1.691 0 0 1-1.237.512 1.68 1.68 0 0 1-1.236-.515 1.69 1.69 0 0 1-.512-1.237c0-.482.172-.894.515-1.236A1.691 1.691 0 0 1 12.002 3Zm1.748 6v12h-3.5V9h3.5Z"
         />
       </svg>

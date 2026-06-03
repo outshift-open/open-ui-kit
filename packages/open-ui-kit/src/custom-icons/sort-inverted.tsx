@@ -15,10 +15,7 @@ export function SortInverted(props: SvgIconProps) {
         height="24"
         fill="none"
       >
-        <path
-          fill={props.fill ?? "currentColor"}
-          d="M3 11h12v2H3m0 5v-2h18v2M3 6h6v2H3V6Z"
-        />
+        <path fill="currentColor" d="M3 11h12v2H3m0 5v-2h18v2M3 6h6v2H3V6Z" />
       </svg>
     </SvgIcon>
   );

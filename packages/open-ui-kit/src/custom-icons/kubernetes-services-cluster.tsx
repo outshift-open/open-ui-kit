@@ -16,9 +16,9 @@ export function KubernetesServicesCluster(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
-          stroke="#E8E9EA"
+          stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth=".11"

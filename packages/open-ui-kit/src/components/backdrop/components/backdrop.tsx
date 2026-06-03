@@ -5,8 +5,22 @@
  */
 
 import { Backdrop as MuiBackdrop } from "@mui/material";
+import { surfaceDarkPalette } from "@/theme/style/color-palette";
 import type { BackdropProps } from "../types";
 
-export const Backdrop = (props: BackdropProps) => {
-  return <MuiBackdrop {...props} />;
+export const Backdrop = ({ sx, ...props }: BackdropProps) => {
+  return (
+    <MuiBackdrop
+      sx={[
+        {
+          backgroundColor: `${surfaceDarkPalette[900]}80`,
+          "&.MuiBackdrop-invisible": {
+            backgroundColor: "transparent",
+          },
+        },
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
+      {...props}
+    />
+  );
 };

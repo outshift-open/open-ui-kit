@@ -5,7 +5,7 @@
  */
 
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@/components";
 import { AgntcyBrand } from "@/custom-icons";
 import { BrowserRouter } from "react-router-dom";
 import { DocsHeader } from "storybook/components/docs-header.stories";

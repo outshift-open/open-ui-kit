@@ -5,37 +5,11 @@
  */
 
 import { Components, Theme } from "@mui/material";
-import { KeyboardArrowUp, TriangleUpOutline } from "@/custom-icons";
+import { KeyboardArrowUp } from "@/custom-icons";
 
 export const inputComponents = (theme: Theme): Components => {
   return {
-    MuiSelect: {
-      defaultProps: {
-        IconComponent: TriangleUpOutline,
-        MenuProps: {
-          slotProps: {
-            paper: {
-              sx: {
-                marginTop: "4px",
-              },
-            },
-          },
-        },
-      },
-      styleOverrides: {
-        icon: {
-          color: theme.palette.vars.controlIconWeak,
-          transform: "rotate(180deg)",
-          paddingLeft: "6px",
-          width: "auto",
-        },
-        iconOpen: {
-          transform: "rotate(0deg)",
-          paddingRight: "6px",
-        },
-      },
-    },
-
+    // No local Autocomplete wrapper exists yet; keep primitive-level defaults here.
     MuiAutocomplete: {
       defaultProps: {
         popupIcon: <KeyboardArrowUp />,

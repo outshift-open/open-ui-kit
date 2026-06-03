@@ -5,7 +5,6 @@
  */
 
 import { Theme } from "@mui/material";
-import { lightOrange200, lightOrange800 } from "@/theme/style/color-palette";
 import type { PickerDisplay, PickerSize } from "../types";
 
 const ICON_SIZE: Record<PickerSize, string> = {
@@ -54,9 +53,8 @@ export const getPickerItemStyles = (
     ? theme.palette.vars?.controlBackgroundDisabled
     : theme.palette.vars?.controlBackgroundDefault;
 
-  // selected: lightOrange800 (#fb962e); dark mode same palette constant
   const borderColor = selected
-    ? lightOrange800
+    ? theme.palette.vars?.interactiveTertiaryActive
     : disabled
       ? theme.palette.vars?.controlBorderDisabled
       : theme.palette.vars?.controlBorderDefault;
@@ -82,8 +80,7 @@ export const getPickerItemStyles = (
     transition: "border-color 0.15s",
 
     "&:hover:not([disabled])": {
-      // hover border: lightOrange200 (#ffd7a2) per design
-      borderColor: lightOrange200,
+      borderColor: theme.palette.vars?.interactiveTertiaryHover,
       "& .picker-icon": {
         color: theme.palette.vars?.controlIconStrong,
       },

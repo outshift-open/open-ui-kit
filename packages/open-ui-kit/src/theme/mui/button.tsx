@@ -21,6 +21,7 @@ export const buttonComponent = (theme: Theme): Components => {
         size: "medium",
       },
     },
+    // No local IconButton wrapper exists yet; keep primitive-level defaults here.
     MuiIconButton: {
       styleOverrides: {
         root: {

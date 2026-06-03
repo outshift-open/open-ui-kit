@@ -4,154 +4,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import { Box, Stack, Typography } from "@/components";
+import { CopyButton } from "@/components/copy-button";
+import { ThemeProvider } from "@/theme-provider/theme-provider";
+import type { Theme } from "@mui/material/styles";
+import type { ComponentProps } from "react";
 
-interface TypographyVariant {
+export interface TypographyVariant {
   token: string;
   label: string;
-  fontFamily: string;
-  fontWeight: number | string;
+  usage: string;
+  family: string;
+  fontWeight: number;
+  fontWeightLabel: string;
   fontSize: string;
   lineHeight: string;
   letterSpacing?: string;
-  sample?: string;
-}
-
-interface TypographyRowProps {
-  variant: TypographyVariant;
-}
-
-function MetaCell({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ minWidth: 90 }}>
-      <div
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontWeight: 600,
-          fontSize: 10,
-          lineHeight: "14px",
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          opacity: 0.45,
-          marginBottom: 2,
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          fontFamily: "'SF Mono', 'Fira Code', monospace",
-          fontWeight: 400,
-          fontSize: 12,
-          lineHeight: "16px",
-          opacity: 0.75,
-        }}
-      >
-        {value}
-      </div>
-    </div>
-  );
-}
-
-function TypographyRow({ variant }: TypographyRowProps) {
-  const [copied, setCopied] = useState(false);
-
-  const {
-    token,
-    label,
-    fontFamily,
-    fontWeight,
-    fontSize,
-    lineHeight,
-    letterSpacing,
-    sample,
-  } = variant;
-
-  const sampleText = sample ?? label;
-
-  const sampleStyle: React.CSSProperties = {
-    fontFamily,
-    fontWeight: fontWeight as number,
-    fontSize,
-    lineHeight,
-    letterSpacing: letterSpacing ?? "normal",
-    margin: 0,
-    flex: "1 1 260px",
-    minWidth: 0,
-    wordBreak: "break-word",
-  };
-
-  function handleCopy() {
-    navigator.clipboard.writeText(token).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
-    });
-  }
-
-  const shortFamily = fontFamily.split(",")[0].replace(/'/g, "").trim();
-  const weightLabel = String(fontWeight);
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 32,
-        padding: "20px 0",
-        borderBottom: "1px solid rgba(128,128,128,0.12)",
-        flexWrap: "wrap",
-      }}
-    >
-      <p style={sampleStyle}>{sampleText}</p>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 24,
-          flexShrink: 0,
-          flexWrap: "wrap",
-        }}
-      >
-        <MetaCell label="Token" value={token} />
-        <MetaCell label="Family" value={shortFamily} />
-        <MetaCell label="Weight" value={weightLabel} />
-        <MetaCell label="Size" value={fontSize} />
-        <MetaCell label="Line" value={lineHeight} />
-        {letterSpacing && <MetaCell label="Tracking" value={letterSpacing} />}
-        <button
-          onClick={handleCopy}
-          title="Copy token name"
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 11,
-            fontWeight: 500,
-            padding: "4px 10px",
-            borderRadius: 4,
-            border: "1px solid rgba(128,128,128,0.25)",
-            background: copied ? "#e6f7f0" : "transparent",
-            color: copied ? "#1a7a4a" : "inherit",
-            cursor: "pointer",
-            transition: "all 0.1s",
-            whiteSpace: "nowrap",
-          }}
-          onMouseEnter={(e) => {
-            if (!copied) {
-              (e.currentTarget as HTMLButtonElement).style.borderColor =
-                "rgba(128,128,128,0.5)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!copied) {
-              (e.currentTarget as HTMLButtonElement).style.borderColor =
-                "rgba(128,128,128,0.25)";
-            }
-          }}
-        >
-          {copied ? "Copied!" : "Copy token"}
-        </button>
-      </div>
-    </div>
-  );
+  variant?: ComponentProps<typeof Typography>["variant"];
 }
 
 interface TypographySectionProps {
@@ -160,50 +29,194 @@ interface TypographySectionProps {
   variants: TypographyVariant[];
 }
 
-export function TypographySection({
+const metadataLabelSx = (theme: Theme) => ({
+  color: theme.palette.vars.baseTextMedium,
+  fontWeight: 600,
+  minWidth: 64,
+});
+
+function getInitialDarkMode() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return new URLSearchParams(window.location.search)
+    .get("globals")
+    ?.includes("theme:dark");
+}
+
+function MetaLine({ label, value }: { label: string; value: string }) {
+  return (
+    <Stack direction="row" gap={1.5} sx={{ alignItems: "baseline" }}>
+      <Typography variant="captionSemibold" sx={metadataLabelSx}>
+        {label}
+      </Typography>
+      <Typography
+        variant="caption"
+        sx={(theme) => ({
+          color: theme.palette.vars.baseTextDefault,
+        })}
+      >
+        {value}
+      </Typography>
+    </Stack>
+  );
+}
+
+function TypographyRow({ variant }: { variant: TypographyVariant }) {
+  const {
+    token,
+    label,
+    usage,
+    family,
+    fontWeight,
+    fontWeightLabel,
+    fontSize,
+    lineHeight,
+    letterSpacing,
+    variant: muiVariant,
+  } = variant;
+
+  return (
+    <Box
+      sx={(theme) => ({
+        borderBottom: `1px solid ${theme.palette.vars.baseBorderMedium}`,
+        py: { xs: 3, md: 4 },
+        "&:last-of-type": {
+          borderBottom: 0,
+        },
+      })}
+    >
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        gap={{ xs: 2, md: 4 }}
+        sx={{ justifyContent: "space-between" }}
+      >
+        <Typography
+          component="p"
+          variant={muiVariant}
+          sx={(theme) => ({
+            color: theme.palette.vars.baseTextStrong,
+            flex: "1 1 auto",
+            fontFamily: family,
+            fontSize,
+            fontWeight,
+            letterSpacing: letterSpacing ?? 0,
+            lineHeight,
+            m: 0,
+            minWidth: 0,
+            overflowWrap: "anywhere",
+          })}
+        >
+          {label}
+        </Typography>
+        <Typography
+          variant="captionSemibold"
+          sx={(theme) => ({
+            color: theme.palette.vars.baseTextDefault,
+            flex: { xs: "0 1 auto", md: "0 1 440px" },
+            maxWidth: 440,
+          })}
+        >
+          {usage}
+        </Typography>
+      </Stack>
+
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        gap={{ xs: 1.25, sm: 4 }}
+        sx={{
+          alignItems: { xs: "flex-start", sm: "center" },
+          mt: 2,
+        }}
+      >
+        <Stack gap={1.25} sx={{ minWidth: 160 }}>
+          <MetaLine label="Family" value={fontWeightLabel} />
+          <MetaLine label="Size" value={fontSize} />
+          <MetaLine label="Line height" value={lineHeight} />
+          {letterSpacing && <MetaLine label="Tracking" value={letterSpacing} />}
+        </Stack>
+        <CopyButton
+          text={token}
+          size="medium"
+          disableMargin
+          copyLabel={`Copy ${token} token`}
+          copiedLabel={`${token} copied`}
+          sx={(theme) => ({
+            border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+            borderRadius: "8px",
+            height: 44,
+            width: 44,
+          })}
+        />
+      </Stack>
+    </Box>
+  );
+}
+
+function TypographySectionContent({
   title,
   description,
   variants,
 }: TypographySectionProps) {
   return (
-    <div style={{ marginBottom: 56 }}>
-      <div
-        style={{
-          borderTop: "2px solid rgba(128,128,128,0.2)",
-          paddingTop: 20,
-          marginBottom: 4,
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
-            fontWeight: 700,
-            fontSize: 20,
-            margin: "0 0 4px",
-            letterSpacing: "-0.01em",
-          }}
+    <Box
+      sx={(theme) => ({
+        backgroundColor: theme.palette.vars.baseBackgroundStrong,
+        borderRadius: { xs: "12px", md: 0 },
+        mb: 6,
+        p: { xs: 2, md: 0 },
+      })}
+    >
+      <Stack gap={3}>
+        <Box
+          sx={(theme) => ({
+            borderTop: `2px solid ${theme.palette.vars.baseBorderStrong}`,
+            pt: 3,
+          })}
         >
-          {title}
-        </h2>
-        {description && (
-          <p
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: 13,
-              lineHeight: "18px",
-              opacity: 0.5,
-              margin: "0 0 4px",
-            }}
+          <Typography
+            component="h2"
+            variant="h5"
+            sx={(theme) => ({
+              color: theme.palette.vars.baseTextDefault,
+              m: 0,
+            })}
           >
-            {description}
-          </p>
-        )}
-      </div>
-      {variants.map((v) => (
-        <TypographyRow key={v.token} variant={v} />
-      ))}
-    </div>
+            {title}
+          </Typography>
+          {description && (
+            <Typography
+              variant="body2"
+              sx={(theme) => ({
+                color: theme.palette.vars.baseTextStrong,
+                mt: 1,
+              })}
+            >
+              {description}
+            </Typography>
+          )}
+        </Box>
+        <Box
+          sx={(theme) => ({
+            backgroundColor: theme.palette.vars.controlBackgroundDefault,
+            borderRadius: "16px",
+            px: { xs: 2, md: 3 },
+          })}
+        >
+          {variants.map((variant) => (
+            <TypographyRow key={variant.token} variant={variant} />
+          ))}
+        </Box>
+      </Stack>
+    </Box>
   );
 }
 
-export type { TypographyVariant };
+export function TypographySection(props: TypographySectionProps) {
+  return (
+    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
+      <TypographySectionContent {...props} />
+    </ThemeProvider>
+  );
+}

@@ -16,7 +16,7 @@ export function MoveTop(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M9 20.5v-6H5l7-7 7 7h-4v6H9Zm-4-14v-2h14v2H5Z"
         />
       </svg>

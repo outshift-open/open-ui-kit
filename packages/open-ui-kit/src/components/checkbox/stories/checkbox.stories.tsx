@@ -1,16 +1,68 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FormControlLabel, Stack, Typography } from "@mui/material";
-import { Checkbox } from "../components/checkbox";
-import type { CheckboxProps } from "../types";
+import { Box, Stack, Typography, Checkbox } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import type { CheckboxProps } from "../types";
 
-type CheckState = "Unchecked" | "Checked" | "Mixed";
-type VisualState = "Default" | "Hover" | "Disabled";
+type CheckState = "unchecked" | "checked" | "mixed";
+type VisualState = "default" | "hover" | "disabled";
 
-const meta: Meta<typeof Checkbox> = {
+const defaultArgs = {
+  defaultChecked: false,
+  disabled: false,
+  indeterminate: false,
+  inputProps: {
+    "aria-label": "Select option",
+  },
+} satisfies CheckboxProps;
+
+const meta: Meta<CheckboxProps> = {
   title: "Components/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
+  args: defaultArgs,
+  argTypes: {
+    checked: {
+      control: "boolean",
+    },
+    defaultChecked: {
+      control: "boolean",
+    },
+    disabled: {
+      control: "boolean",
+    },
+    indeterminate: {
+      control: "boolean",
+    },
+    inputProps: {
+      control: false,
+    },
+    name: {
+      control: "text",
+    },
+    onChange: {
+      control: false,
+    },
+    sx: {
+      control: false,
+    },
+    value: {
+      control: "text",
+    },
+  },
+  decorators: [
+    (Story) => (
+      <Box
+        sx={(theme) => ({
+          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          boxSizing: "border-box",
+          color: theme.palette.vars.baseTextDefault,
+          p: 3,
+        })}
+      >
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
     docs: {
       page: () => (
@@ -27,23 +79,38 @@ const meta: Meta<typeof Checkbox> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Checkbox>;
 
-const checkStates: CheckState[] = ["Unchecked", "Checked", "Mixed"];
-const visualStates: VisualState[] = ["Default", "Hover", "Disabled"];
+type Story = StoryObj<CheckboxProps>;
 
-const getCheckboxProps = (
+const stateLabel: Record<CheckState, string> = {
+  unchecked: "Unchecked",
+  checked: "Checked",
+  mixed: "Mixed",
+};
+
+const checkboxStateProps = (
   checkState: CheckState,
-  visualState: VisualState,
-): CheckboxProps => ({
-  defaultChecked: checkState === "Checked",
-  disabled: visualState === "Disabled",
-  indeterminate: checkState === "Mixed",
-  sx: (theme) => ({
-    color:
-      visualState === "Hover" ? theme.palette.vars.controlIconHover : undefined,
-  }),
-});
+  visualState: VisualState = "default",
+): CheckboxProps => {
+  const props: CheckboxProps = {
+    defaultChecked: checkState === "checked",
+    disabled: visualState === "disabled",
+    indeterminate: checkState === "mixed",
+    inputProps: {
+      "aria-label": stateLabel[checkState],
+    },
+  };
+
+  if (visualState === "hover") {
+    props.sx = (theme) => ({
+      "&&": {
+        color: theme.palette.vars.controlIconHover,
+      },
+    });
+  }
+
+  return props;
+};
 
 const LabelText = ({
   children,
@@ -65,107 +132,132 @@ const LabelText = ({
 );
 
 const LabeledCheckbox = ({
-  checkState,
-  visualState,
-}: {
-  checkState: CheckState;
-  visualState: VisualState;
+  checkState = "unchecked",
+  visualState = "default",
+  label = "Label",
+  sx,
+  ...args
+}: CheckboxProps & {
+  checkState?: CheckState;
+  label?: string;
+  visualState?: VisualState;
 }) => {
-  const disabled = visualState === "Disabled";
+  const stateProps = checkboxStateProps(checkState, visualState);
+  const disabled = visualState === "disabled" || args.disabled;
 
   return (
-    <FormControlLabel
-      control={<Checkbox {...getCheckboxProps(checkState, visualState)} />}
-      label={<LabelText disabled={disabled}>Label</LabelText>}
-      sx={{ gap: "4px", m: 0 }}
-    />
+    <Stack
+      component="label"
+      direction="row"
+      gap={0.5}
+      sx={{
+        alignItems: "flex-start",
+        cursor: disabled ? "default" : "pointer",
+        minHeight: { xs: 44, sm: 24 },
+      }}
+    >
+      <Checkbox
+        {...args}
+        {...stateProps}
+        disabled={disabled}
+        sx={[
+          ...(Array.isArray(stateProps.sx)
+            ? stateProps.sx
+            : stateProps.sx
+              ? [stateProps.sx]
+              : []),
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
+      />
+      <LabelText disabled={disabled}>{label}</LabelText>
+    </Stack>
   );
 };
 
-const ColumnLabel = ({ children }: { children: string }) => (
-  <Typography variant="body2" sx={{ minWidth: 104 }}>
-    {children}
-  </Typography>
-);
+const checkStates = ["unchecked", "checked", "mixed"] as const;
+const visualStates = ["default", "hover", "disabled"] as const;
 
-const RowLabel = ({ children }: { children: string }) => (
-  <Typography variant="body2" sx={{ textAlign: "right", width: 112 }}>
-    {children}
-  </Typography>
-);
-
-const StatesMatrix = ({ labels }: { labels: boolean }) => (
-  <Stack gap={2}>
-    <Stack direction="row" gap={5} sx={{ pl: "112px" }}>
-      {visualStates.map((visualState) => (
-        <ColumnLabel key={visualState}>{visualState}</ColumnLabel>
-      ))}
-    </Stack>
-    {checkStates.map((checkState) => (
-      <Stack
-        key={checkState}
-        direction="row"
-        gap={5}
-        sx={{ alignItems: "center" }}
-      >
-        <RowLabel>{checkState}</RowLabel>
-        {visualStates.map((visualState) =>
-          labels ? (
-            <LabeledCheckbox
-              key={visualState}
-              checkState={checkState}
-              visualState={visualState}
-            />
-          ) : (
-            <Checkbox
-              key={visualState}
-              {...getCheckboxProps(checkState, visualState)}
-            />
-          ),
-        )}
-      </Stack>
-    ))}
-  </Stack>
-);
-
-export const States: Story = {
-  render: () => (
-    <Stack direction="row" gap={12} sx={{ flexWrap: "wrap" }}>
-      <Stack gap={2}>
-        <Typography variant="body1Semibold">States</Typography>
-        <StatesMatrix labels />
-      </Stack>
-      <Stack gap={2}>
-        <Typography variant="body1Semibold">Building blocks</Typography>
-        <StatesMatrix labels={false} />
-      </Stack>
-    </Stack>
-  ),
-};
-
-export const Unchecked: Story = {
-  render: () => (
-    <LabeledCheckbox checkState="Unchecked" visualState="Default" />
-  ),
+export const Default: Story = {
+  args: defaultArgs,
+  render: (args) => <Checkbox {...args} />,
 };
 
 export const Checked: Story = {
-  render: () => <LabeledCheckbox checkState="Checked" visualState="Default" />,
+  args: {
+    ...defaultArgs,
+    defaultChecked: true,
+  },
+  render: (args) => <Checkbox {...args} />,
 };
 
-export const Mixed: Story = {
-  render: () => <LabeledCheckbox checkState="Mixed" visualState="Default" />,
+export const Indeterminate: Story = {
+  args: {
+    ...defaultArgs,
+    indeterminate: true,
+  },
+  render: (args) => <Checkbox {...args} />,
+};
+
+export const WithLabel: Story = {
+  args: defaultArgs,
+  render: (args) => <LabeledCheckbox {...args} />,
 };
 
 export const Disabled: Story = {
-  render: () => (
+  render: (args) => (
     <Stack gap={1}>
       {checkStates.map((checkState) => (
         <LabeledCheckbox
           key={checkState}
+          {...args}
           checkState={checkState}
-          visualState="Disabled"
+          visualState="disabled"
         />
+      ))}
+    </Stack>
+  ),
+};
+
+export const Hover: Story = {
+  render: (args) => (
+    <Stack gap={1}>
+      {checkStates.map((checkState) => (
+        <LabeledCheckbox
+          key={checkState}
+          {...args}
+          checkState={checkState}
+          visualState="hover"
+        />
+      ))}
+    </Stack>
+  ),
+};
+
+export const BareStates: Story = {
+  render: (args) => (
+    <Stack
+      direction="row"
+      gap={3}
+      sx={{ alignItems: "center", flexWrap: "wrap" }}
+    >
+      {visualStates.map((visualState) => (
+        <Stack key={visualState} gap={1}>
+          <Typography variant="body2Semibold">{visualState}</Typography>
+          {checkStates.map((checkState) => (
+            <Stack
+              key={checkState}
+              direction="row"
+              gap={1}
+              sx={{ alignItems: "center" }}
+            >
+              <Checkbox
+                {...args}
+                {...checkboxStateProps(checkState, visualState)}
+              />
+              <Typography variant="body2">{stateLabel[checkState]}</Typography>
+            </Stack>
+          ))}
+        </Stack>
       ))}
     </Stack>
   ),

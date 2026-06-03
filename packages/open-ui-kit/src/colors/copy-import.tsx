@@ -5,6 +5,13 @@
  */
 
 import { useState } from "react";
+import {
+  green10,
+  green40,
+  green500,
+  greyAlpha10,
+  greyAlpha40,
+} from "@/theme/style/color-palette";
 
 interface CopyImportProps {
   code: string;
@@ -28,7 +35,7 @@ export function CopyImport({ code }: CopyImportProps) {
         gap: 8,
         padding: "6px 10px 6px 12px",
         borderRadius: 6,
-        border: "1px solid rgba(128,128,128,0.2)",
+        border: `1px solid ${greyAlpha10}`,
         marginBottom: 48,
         maxWidth: "100%",
       }}
@@ -53,13 +60,13 @@ export function CopyImport({ code }: CopyImportProps) {
           gap: 4,
           padding: "3px 8px",
           borderRadius: 4,
-          border: `1px solid ${copied ? "rgba(0,185,141,0.4)" : "rgba(128,128,128,0.35)"}`,
-          background: copied ? "rgba(0,185,141,0.1)" : "rgba(128,128,128,0.06)",
+          border: `1px solid ${copied ? green40 : greyAlpha40}`,
+          background: copied ? green10 : greyAlpha10,
           cursor: "pointer",
           fontSize: 11,
           fontFamily: "Inter, sans-serif",
           fontWeight: 500,
-          color: copied ? "#00b98d" : "inherit",
+          color: copied ? green500 : "inherit",
           transition: "all 0.15s",
           whiteSpace: "nowrap",
           flexShrink: 0,
@@ -67,17 +74,17 @@ export function CopyImport({ code }: CopyImportProps) {
         onMouseEnter={(e) => {
           if (!copied) {
             (e.currentTarget as HTMLButtonElement).style.background =
-              "rgba(128,128,128,0.12)";
+              greyAlpha10;
             (e.currentTarget as HTMLButtonElement).style.borderColor =
-              "rgba(128,128,128,0.5)";
+              greyAlpha40;
           }
         }}
         onMouseLeave={(e) => {
           if (!copied) {
             (e.currentTarget as HTMLButtonElement).style.background =
-              "rgba(128,128,128,0.06)";
+              greyAlpha10;
             (e.currentTarget as HTMLButtonElement).style.borderColor =
-              "rgba(128,128,128,0.35)";
+              greyAlpha40;
           }
         }}
       >
@@ -86,7 +93,7 @@ export function CopyImport({ code }: CopyImportProps) {
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path
                 d="M2 6l3 3 5-5"
-                stroke="#00b98d"
+                stroke={green500}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"

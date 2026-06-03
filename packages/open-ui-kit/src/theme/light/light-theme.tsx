@@ -18,7 +18,9 @@ import {
   lightModeCardSubtle,
   lightModeCardRaised,
   lightModeCardFloating,
-  lightModeSideDrawer,
+  lightModeFooterBottom,
+  lightModeSideDrawerLeft,
+  lightModeSideDrawerRight,
 } from "@/theme/style/color-palette";
 import {
   createTheme,
@@ -31,18 +33,9 @@ import { commonMixins, breakpoints } from "@/theme/style/common";
 import { typography } from "@/theme/style/typography";
 import { lightVars } from "./light-vars";
 import {
-  backdropComponent,
   buttonComponent,
-  circularProgressComponent,
   inputComponents,
-  listComponent,
-  radioComponent,
-  skeletonComponent,
   snackbarComponent,
-  switchComponent,
-  tabComponent,
-  tabsComponent,
-  tooltipComponent,
 } from "@/theme/mui";
 
 export const shadows: Shadows = [
@@ -51,8 +44,10 @@ export const shadows: Shadows = [
   lightModeCardSubtle,
   lightModeCardRaised,
   lightModeCardFloating,
-  lightModeSideDrawer,
-  ...Array(20).fill("none"),
+  lightModeSideDrawerRight,
+  lightModeSideDrawerLeft,
+  lightModeFooterBottom,
+  ...Array(17).fill("none"),
 ] as Shadows;
 
 const palette: PaletteOptions = {
@@ -97,18 +92,9 @@ const theme: Theme = createTheme({
 const lightThemeOptions: ThemeOptions = {
   shadows,
   components: {
-    ...backdropComponent(theme),
     ...buttonComponent(theme),
-    ...circularProgressComponent(theme),
     ...inputComponents(theme),
-    ...listComponent(theme),
-    ...radioComponent(theme),
-    ...skeletonComponent(theme),
     ...snackbarComponent(theme),
-    ...switchComponent(theme),
-    ...tabComponent(theme),
-    ...tabsComponent(theme),
-    ...tooltipComponent(theme),
   },
 };
 

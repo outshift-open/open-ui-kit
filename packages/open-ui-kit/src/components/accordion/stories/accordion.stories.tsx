@@ -1,19 +1,145 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowForward, GridView, Hub } from "@mui/icons-material";
-import { Box, Stack, Typography } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
+import { ArrowForward, Github, ImageGrid } from "@/custom-icons";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Accordion } from "../components/accordion";
 import type { AccordionProps } from "../types";
+
+const contentSlot = (
+  <Box
+    sx={{
+      alignItems: "center",
+      border: (theme) => `1px dashed ${theme.palette.vars.accentHDefault}`,
+      borderRadius: "2px",
+      color: (theme) => theme.palette.vars.accentHDefault,
+      display: "flex",
+      fontSize: "12px",
+      height: "30px",
+      justifyContent: "center",
+      lineHeight: "120%",
+      width: "100%",
+    }}
+  >
+    Content
+  </Box>
+);
+
+const instanceSlot = (
+  <Box
+    component="span"
+    sx={{
+      border: (theme) => `1px dashed ${theme.palette.vars.accentHDefault}`,
+      borderRadius: "2px",
+      color: (theme) => theme.palette.vars.accentHDefault,
+      fontSize: "12px",
+      lineHeight: "120%",
+      px: 0.5,
+    }}
+  >
+    Instance
+  </Box>
+);
+
+const storyWidth = {
+  large: 300,
+  medium: 234,
+} as const;
+
+const defaultArgs = {
+  arrowPosition: "left",
+  children: contentSlot,
+  defaultExpanded: true,
+  size: "large",
+  subTitle: "Text",
+  title: "Title",
+} satisfies AccordionProps;
 
 const meta: Meta<AccordionProps> = {
   title: "Components/Accordion",
   component: Accordion,
   tags: ["autodocs"],
+  args: defaultArgs,
+  argTypes: {
+    accordionSummaryProps: {
+      control: false,
+    },
+    action: {
+      control: false,
+    },
+    arrowPosition: {
+      control: "radio",
+      options: ["left", "right"],
+    },
+    children: {
+      control: false,
+    },
+    contained: {
+      control: "boolean",
+    },
+    detailsContentBoxProps: {
+      control: false,
+    },
+    disabled: {
+      control: "boolean",
+    },
+    endSlot: {
+      control: false,
+    },
+    expanded: {
+      control: "boolean",
+    },
+    showDivider: {
+      control: "boolean",
+    },
+    size: {
+      control: "radio",
+      options: ["large", "medium"],
+    },
+    subTitle: {
+      control: "text",
+    },
+    subTitleEndIcon: {
+      control: false,
+    },
+    subTitleSlot: {
+      control: false,
+    },
+    subTitleStartIcon: {
+      control: false,
+    },
+    title: {
+      control: "text",
+    },
+    titleEndIcon: {
+      control: false,
+    },
+    titleSlot: {
+      control: false,
+    },
+    titleStartIcon: {
+      control: false,
+    },
+  },
+  decorators: [
+    (Story) => (
+      <Box
+        sx={(theme) => ({
+          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          boxSizing: "border-box",
+          color: theme.palette.vars.baseTextDefault,
+          p: 3,
+        })}
+      >
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Accordions are used to show and hide content. They can be used to organize content into sections, allowing users to expand and collapse sections as needed."
+          blurb="Accordions show and hide content inside compact page sections. They support left or right chevrons, contained treatments, summary slots, and grouped layouts."
           guideLink=""
           includeStories={true}
           importLine='import { Accordion } from "@open-ui-kit/core";'
@@ -27,314 +153,155 @@ export default meta;
 
 type Story = StoryObj<AccordionProps>;
 
-const contentSlot = (
-  <Box
-    sx={{
-      alignItems: "center",
-      border: "1px dashed #9747FF",
-      borderRadius: "2px",
-      color: "#9747FF",
-      display: "flex",
-      fontSize: "12px",
-      height: "30px",
-      justifyContent: "center",
-      lineHeight: "120%",
-      width: "100%",
-    }}
-  >
-    content
+const ConstrainedAccordion = (props: AccordionProps) => (
+  <Box sx={{ maxWidth: "100%", width: storyWidth[props.size ?? "large"] }}>
+    <Accordion {...props} />
   </Box>
 );
 
-const instanceSlot = (
-  <Box
-    component="span"
-    sx={{
-      border: "1px dashed #9747FF",
-      borderRadius: "2px",
-      color: "#9747FF",
-      fontSize: "12px",
-      lineHeight: "120%",
-      px: 0.5,
-    }}
-  >
-    instance Slot
-  </Box>
+const renderConstrainedAccordion = (args: Partial<AccordionProps>) => (
+  <ConstrainedAccordion {...defaultArgs} {...args} />
 );
 
-const sectionLabel = (label: string) => (
-  <Typography
-    variant="caption"
-    sx={{
-      alignSelf: "flex-start",
-      bgcolor: "#D4B3FF",
-      borderRadius: "4px",
-      color: "#4C00AE",
-      fontWeight: 500,
-      px: 0.5,
-      py: 0.25,
-    }}
-  >
-    {label}
-  </Typography>
-);
-
-const storyWidth = {
-  large: 300,
-  medium: 234,
-} as const;
-
-type StoryAccordionProps = Partial<AccordionProps> & { focused?: boolean };
-
-const renderAccordion = ({
-  focused = false,
-  accordionSummaryProps,
-  children = contentSlot,
-  title = "Title",
-  subTitle = "Text",
-  ...props
-}: StoryAccordionProps) => (
-  <Accordion
-    title={title}
-    subTitle={subTitle}
-    defaultExpanded
-    {...props}
-    accordionSummaryProps={{
-      ...(focused ? { className: "Mui-focusVisible" } : {}),
-      ...accordionSummaryProps,
-    }}
-  >
-    {children}
-  </Accordion>
-);
-
-const StateColumn = ({
-  arrowPosition,
-  size = "large",
-  contained = false,
-}: Pick<AccordionProps, "arrowPosition" | "size" | "contained">) => (
-  <Stack gap={size === "medium" && !contained ? 0 : 2} width={storyWidth[size]}>
-    {renderAccordion({ arrowPosition, size, contained })}
-    {renderAccordion({ arrowPosition, size, contained })}
-    {renderAccordion({ arrowPosition, size, contained, disabled: true })}
-    {renderAccordion({ arrowPosition, size, contained, focused: true })}
-  </Stack>
-);
-
-const ExtrasGrid = () => (
-  <Stack
-    gap={4}
-    sx={(theme) => ({
-      backgroundColor: theme.palette.vars.baseBackgroundMedium,
-      border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-      borderRadius: "8px",
-      p: 4,
-      width: 620,
-    })}
-  >
-    <Stack gap={2}>
-      {sectionLabel("show dividers")}
-      <Stack direction="row" gap={3}>
-        {renderAccordion({ size: "large", showDivider: true })}
-        {renderAccordion({ size: "medium", showDivider: true })}
-      </Stack>
-    </Stack>
-    <Stack gap={2}>
-      {sectionLabel("show icons")}
-      <Stack direction="row" gap={3}>
-        {renderAccordion({
-          size: "large",
-          titleStartIcon: <GridView fontSize="small" />,
-          titleEndIcon: <Hub fontSize="small" />,
-          subTitleStartIcon: <GridView fontSize="small" />,
-          subTitleEndIcon: <Hub fontSize="small" />,
-        })}
-        {renderAccordion({
-          size: "medium",
-          titleStartIcon: <GridView fontSize="small" />,
-          subTitleEndIcon: <Hub fontSize="small" />,
-        })}
-      </Stack>
-    </Stack>
-    <Stack gap={2}>
-      {sectionLabel("show link")}
-      <Stack direction="row" gap={3}>
-        {renderAccordion({
-          action: (
-            <Typography variant="body2Semibold" color="primary">
-              Link
-            </Typography>
-          ),
-          endSlot: <ArrowForward fontSize="small" />,
-        })}
-        {renderAccordion({
-          size: "medium",
-          action: (
-            <Typography variant="body2Semibold" color="primary">
-              Link
-            </Typography>
-          ),
-          endSlot: <ArrowForward fontSize="small" />,
-        })}
-      </Stack>
-    </Stack>
-    <Stack gap={2}>
-      {sectionLabel("option instances")}
-      {renderAccordion({
-        showDivider: true,
-        titleSlot: instanceSlot,
-        subTitleSlot: instanceSlot,
-        endSlot: instanceSlot,
-      })}
-      {renderAccordion({
-        size: "medium",
-        showDivider: true,
-        titleSlot: instanceSlot,
-        subTitleSlot: instanceSlot,
-        endSlot: instanceSlot,
-      })}
-    </Stack>
-    <Stack gap={2}>
-      {sectionLabel("option two text")}
-      {renderAccordion({
-        title: "Title",
-        subTitle: "Text",
-        showDivider: true,
-        action: <Typography variant="h6">Text</Typography>,
-        endSlot: <Typography variant="h6">Text</Typography>,
-      })}
-      {renderAccordion({
-        size: "medium",
-        title: "Title",
-        subTitle: "Text",
-        showDivider: true,
-        action: <Typography variant="body2Semibold">Text</Typography>,
-        endSlot: <Typography variant="body2Semibold">Text</Typography>,
-      })}
-    </Stack>
-  </Stack>
-);
+const stateSummaryProps = (
+  state: "focus" | "hover",
+  summaryProps: AccordionProps["accordionSummaryProps"] = {},
+): AccordionProps["accordionSummaryProps"] => ({
+  ...summaryProps,
+  className: [
+    state === "focus" ? "Mui-focusVisible" : "",
+    summaryProps.className,
+  ]
+    .filter(Boolean)
+    .join(" "),
+  sx: [
+    ...(state === "hover"
+      ? [
+          (theme: Theme) => ({
+            ".MuiAccordionSummary-expandIconWrapper": {
+              color: theme.palette.vars.controlIconStrong,
+            },
+          }),
+        ]
+      : []),
+    ...(Array.isArray(summaryProps.sx)
+      ? summaryProps.sx
+      : summaryProps.sx
+        ? [summaryProps.sx]
+        : []),
+  ],
+});
 
 export const Default: Story = {
-  render: () => (
-    <Stack gap={6} alignItems="flex-start">
-      <Stack gap={5}>
-        <Stack direction="row" gap={5}>
-          <Stack gap={2}>
-            {sectionLabel("arrow left")}
-            {sectionLabel("Default Large")}
-            <StateColumn arrowPosition="left" size="large" />
-          </Stack>
-          <Stack gap={2}>
-            {sectionLabel("arrow right")}
-            {sectionLabel("Default Large")}
-            <StateColumn arrowPosition="right" size="large" />
-          </Stack>
-        </Stack>
-        <Stack direction="row" gap={5}>
-          <Stack gap={2}>
-            {sectionLabel("Default Medium")}
-            <StateColumn arrowPosition="left" size="medium" />
-          </Stack>
-          <Stack gap={2}>
-            {sectionLabel("Default Medium")}
-            <StateColumn arrowPosition="right" size="medium" />
-          </Stack>
-        </Stack>
-        <Stack direction="row" gap={5}>
-          <Stack gap={2}>
-            {sectionLabel("Contained Medium")}
-            <StateColumn arrowPosition="left" size="medium" contained />
-          </Stack>
-          <Stack gap={2}>
-            {sectionLabel("Contained Medium")}
-            <StateColumn arrowPosition="right" size="medium" contained />
-          </Stack>
-        </Stack>
-      </Stack>
-      <Stack direction="row" gap={5} alignItems="flex-start">
-        <Stack gap={5}>
-          {sectionLabel("Extras")}
-          <ExtrasGrid />
-        </Stack>
-        <Stack gap={2} width={300}>
-          {sectionLabel("group")}
-          {renderAccordion({ arrowPosition: "left" })}
-          {renderAccordion({ arrowPosition: "left" })}
-          {renderAccordion({ arrowPosition: "left" })}
-          {renderAccordion({ arrowPosition: "left" })}
-          {renderAccordion({ arrowPosition: "left", size: "medium" })}
-          {renderAccordion({ arrowPosition: "right", size: "medium" })}
-          {renderAccordion({ arrowPosition: "right", size: "medium" })}
-          {renderAccordion({ arrowPosition: "right", size: "medium" })}
-          {renderAccordion({
-            arrowPosition: "left",
-            size: "medium",
-            contained: true,
-          })}
-          {renderAccordion({
-            arrowPosition: "right",
-            size: "medium",
-            contained: true,
-          })}
-          {renderAccordion({
-            arrowPosition: "right",
-            size: "medium",
-            contained: true,
-          })}
-          {renderAccordion({
-            arrowPosition: "right",
-            size: "medium",
-            contained: true,
-          })}
-        </Stack>
-      </Stack>
-    </Stack>
-  ),
+  args: defaultArgs,
+  render: renderConstrainedAccordion,
 };
 
-export const ArrowLeft: Story = {
-  name: "arrow left",
-  render: () => <StateColumn arrowPosition="left" size="large" />,
+export const Medium: Story = {
+  args: {
+    ...defaultArgs,
+    size: "medium",
+  },
+  render: renderConstrainedAccordion,
 };
 
 export const ArrowRight: Story = {
-  name: "arrow right",
-  render: () => <StateColumn arrowPosition="right" size="large" />,
+  args: {
+    ...defaultArgs,
+    arrowPosition: "right",
+  },
+  render: renderConstrainedAccordion,
 };
 
-export const DefaultMedium: Story = {
-  render: () => <StateColumn arrowPosition="left" size="medium" />,
+export const Contained: Story = {
+  args: {
+    ...defaultArgs,
+    contained: true,
+    size: "medium",
+  },
+  render: renderConstrainedAccordion,
 };
 
-export const ContainedMedium: Story = {
-  render: () => <StateColumn arrowPosition="left" size="medium" contained />,
+export const Hover: Story = {
+  args: {
+    ...defaultArgs,
+    accordionSummaryProps: stateSummaryProps("hover"),
+  },
+  render: renderConstrainedAccordion,
 };
 
-export const Extras: Story = {
-  render: () => <ExtrasGrid />,
+export const Focused: Story = {
+  args: {
+    ...defaultArgs,
+    accordionSummaryProps: stateSummaryProps("focus"),
+  },
+  render: renderConstrainedAccordion,
+};
+
+export const Disabled: Story = {
+  args: {
+    ...defaultArgs,
+    disabled: true,
+  },
+  render: renderConstrainedAccordion,
+};
+
+export const WithIcons: Story = {
+  args: {
+    ...defaultArgs,
+    showDivider: true,
+    subTitleEndIcon: <Github fontSize="small" />,
+    subTitleStartIcon: <ImageGrid fontSize="small" />,
+    titleEndIcon: <Github fontSize="small" />,
+    titleStartIcon: <ImageGrid fontSize="small" />,
+  },
+  render: renderConstrainedAccordion,
+};
+
+export const WithAction: Story = {
+  args: {
+    ...defaultArgs,
+    action: (
+      <Typography variant="body2Semibold" color="primary">
+        Link
+      </Typography>
+    ),
+    endSlot: <ArrowForward fontSize="small" />,
+    showDivider: true,
+  },
+  render: renderConstrainedAccordion,
+};
+
+export const WithSlots: Story = {
+  args: {
+    ...defaultArgs,
+    endSlot: instanceSlot,
+    showDivider: true,
+    subTitleSlot: instanceSlot,
+    titleSlot: instanceSlot,
+  },
+  render: (args) => (
+    <Box sx={{ maxWidth: "100%", width: 620 }}>
+      <Accordion {...defaultArgs} {...args} />
+    </Box>
+  ),
 };
 
 export const Group: Story = {
-  name: "group",
   render: () => (
-    <Stack gap={2} width={300}>
-      {renderAccordion({ arrowPosition: "left" })}
-      {renderAccordion({ arrowPosition: "left" })}
-      {renderAccordion({ arrowPosition: "left" })}
-      {renderAccordion({ arrowPosition: "left" })}
-      {renderAccordion({ arrowPosition: "left", size: "medium" })}
-      {renderAccordion({ arrowPosition: "right", size: "medium" })}
-      {renderAccordion({
-        arrowPosition: "right",
-        size: "medium",
-        contained: true,
-      })}
-      {renderAccordion({
-        arrowPosition: "right",
-        size: "medium",
-        contained: true,
-      })}
+    <Stack gap={2} sx={{ maxWidth: "100%", width: 300 }}>
+      <Accordion title="Overview" subTitle="Ready" defaultExpanded>
+        {contentSlot}
+      </Accordion>
+      <Accordion title="Configuration" subTitle="Draft">
+        {contentSlot}
+      </Accordion>
+      <Accordion title="Validation" subTitle="Blocked" disabled>
+        {contentSlot}
+      </Accordion>
+      <Accordion title="Deployment" subTitle="Queued" contained size="medium">
+        {contentSlot}
+      </Accordion>
     </Stack>
   ),
 };

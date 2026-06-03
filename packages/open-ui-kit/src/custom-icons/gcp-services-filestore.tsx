@@ -16,11 +16,11 @@ export function GCPServicesFilestore(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M8.525 12.615h7.2l-1.8 2h-3.6l-1.8-2ZM7.625 4.615h9l.9 2h-10.8l.9-2ZM4.925 7.615h14.4l.9 2h-16.2l.9-2Z"
         />
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M21.125 20.615v-9h-5.4l-1.8 3h-3.6l-1.8-3h-5.4v9h18Z"
         />
       </svg>

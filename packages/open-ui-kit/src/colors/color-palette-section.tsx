@@ -5,6 +5,13 @@
  */
 
 import { useState } from "react";
+import {
+  grey0,
+  grey500,
+  surfaceDark900,
+  surfaceLight50,
+  surfaceLight100,
+} from "@/theme/style/color-palette";
 
 export interface SwatchItem {
   token: string;
@@ -24,9 +31,87 @@ function isLight(hex: string): boolean {
   return r * 0.299 + g * 0.587 + b * 0.114 > 155;
 }
 
+function tokenTextColor(token: string, value: string): string {
+  const suffix = token.split("-").pop() ?? "";
+  const numericSuffix = Number(suffix.replace("%", ""));
+
+  if (
+    token.startsWith("green-") ||
+    token.startsWith("light-blue-") ||
+    token.startsWith("light-orange-") ||
+    token.startsWith("yellow-")
+  ) {
+    return surfaceDark900;
+  }
+
+  if (token.startsWith("teal-") && numericSuffix >= 700) {
+    return surfaceLight100;
+  }
+
+  if (token.startsWith("lavender-") && numericSuffix >= 700) {
+    return grey0;
+  }
+
+  if (token.startsWith("pink-") && numericSuffix >= 600) {
+    return surfaceLight100;
+  }
+
+  return isLight(value) ? surfaceDark900 : surfaceLight50;
+}
+
+function formatTokenKey(key: string, prefix: string) {
+  if (key === "alpha40" || (prefix === "green" && key === "40")) {
+    return "40%";
+  }
+
+  if (key === "alpha10" || (prefix === "green" && key === "10")) {
+    return "10%";
+  }
+
+  return key;
+}
+
+function swatchOrder(key: string, prefix: string) {
+  const alphaOrder = [
+    "0",
+    "50",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+    "40",
+    "10",
+    "alpha40",
+    "alpha10",
+  ];
+  const rampOrder = [
+    "0",
+    "10",
+    "50",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ];
+  const order = prefix === "green" ? alphaOrder : rampOrder;
+
+  const index = order.indexOf(key);
+  return index === -1 ? order.length : index;
+}
+
 function Swatch({ token, value }: SwatchItem) {
   const [copied, setCopied] = useState(false);
-  const textColor = isLight(value) ? "#3C4551" : "#FFFFFF";
+  const textColor = tokenTextColor(token, value);
 
   function handleCopy() {
     navigator.clipboard.writeText(value).then(() => {
@@ -36,65 +121,62 @@ function Swatch({ token, value }: SwatchItem) {
   }
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleCopy}
+      aria-label={`Copy ${token} ${value}`}
       title="Click to copy hex"
       style={{
-        width: 200,
-        flexShrink: 0,
-        borderRadius: 8,
+        width: "100%",
+        border: 0,
+        height: 50,
+        boxSizing: "border-box",
+        display: "flex",
+        alignItems: "center",
+        paddingLeft: 24,
         overflow: "hidden",
-        border: "1px solid rgba(0,0,0,0.07)",
+        background: value,
         cursor: "pointer",
-        transition: "transform 0.1s, box-shadow 0.1s",
+        transition: "filter 0.12s ease",
+        appearance: "none",
+        textAlign: "left",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform =
-          "translateY(-2px)";
-        (e.currentTarget as HTMLDivElement).style.boxShadow =
-          "0 4px 12px rgba(0,0,0,0.12)";
+        (e.currentTarget as HTMLButtonElement).style.filter =
+          "brightness(0.98)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+        (e.currentTarget as HTMLButtonElement).style.filter = "none";
       }}
     >
-      <div style={{ background: value, height: 80 }} />
-      <div
-        style={{
-          padding: "8px 10px 10px",
-          background: value,
-          borderTop: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
+      <div>
         <div
           style={{
             fontFamily: "Inter, sans-serif",
             fontWeight: 600,
-            fontSize: 11,
+            fontSize: 14,
             color: textColor,
-            lineHeight: "15px",
-            marginBottom: 2,
+            lineHeight: "20px",
           }}
         >
           {token}
         </div>
         <div
           style={{
-            fontFamily: "'SF Mono', 'Fira Code', monospace",
+            fontFamily: "Inter, sans-serif",
             fontWeight: 400,
-            fontSize: 10,
+            fontSize: 11,
             color: textColor,
-            opacity: copied ? 1 : 0.65,
+            opacity: copied ? 1 : 0.68,
             lineHeight: "14px",
             textTransform: "uppercase",
-            letterSpacing: "0.04em",
+            letterSpacing: 0,
           }}
         >
           {copied ? "Copied!" : value}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -103,30 +185,23 @@ export function ColorPaletteSection({
   swatches,
 }: ColorPaletteSectionProps) {
   return (
-    <div style={{ marginBottom: 56 }}>
-      <h2
+    <div style={{ width: "100%", maxWidth: 248 }}>
+      <div
+        role="heading"
+        aria-level={3}
         style={{
-          fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
-          fontWeight: 700,
-          fontSize: 20,
-          marginBottom: 12,
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 600,
+          fontSize: 14,
+          marginBottom: 16,
           marginTop: 0,
-          letterSpacing: "-0.01em",
+          lineHeight: "20px",
+          color: grey500,
         }}
       >
         {title}
-        <span
-          style={{
-            fontWeight: 400,
-            fontSize: 13,
-            opacity: 0.45,
-            marginLeft: 10,
-          }}
-        >
-          {swatches.length} tokens
-        </span>
-      </h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         {swatches.map((s) => (
           <Swatch key={s.token} token={s.token} value={s.value} />
         ))}
@@ -139,8 +214,13 @@ export function paletteToSwatches(
   palette: Record<string | number, string>,
   prefix: string,
 ): SwatchItem[] {
-  return Object.entries(palette).map(([key, value]) => ({
-    token: `${prefix}-${key}`,
-    value,
-  }));
+  return Object.entries(palette)
+    .sort(
+      ([left], [right]) =>
+        swatchOrder(left, prefix) - swatchOrder(right, prefix),
+    )
+    .map(([key, value]) => ({
+      token: `${prefix}-${formatTokenKey(key, prefix)}`,
+      value,
+    }));
 }

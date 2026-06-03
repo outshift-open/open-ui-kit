@@ -4,63 +4,59 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Box,
-  BoxProps,
-  TabProps,
-  Tabs as MuiTabs,
-  TabsProps as MuiTabsProps,
-  useTheme,
-} from "@mui/material";
+import { Box, Tabs as MuiTabs, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import {
   boxTabs,
-  groupSubTabs,
-  groupTabs,
-  toggleTabs,
+  getTabsBoxStyles,
+  getTabsFrameStyles,
   toggleTabsBox,
 } from "../styles";
-
-export type TabsType = "main" | "subTab" | "toggleTab";
-
-export interface TabsProps extends MuiTabsProps {
-  type?: TabsType;
-  boxProps?: BoxProps;
-}
+import type { TabProps, TabsProps } from "../types";
 
 export const Tabs = ({
   type = "main",
   sx,
   children,
   boxProps,
+  orientation = "horizontal",
   ...props
 }: TabsProps) => {
   const theme = useTheme();
-
-  const styleTabs = useMemo(() => {
-    if (type === "main") {
-      return groupTabs;
-    } else if (type === "subTab") {
-      return groupSubTabs;
-    } else if (type === "toggleTab") {
-      return toggleTabs;
-    }
-    return {};
-  }, [type]);
+  const { sx: boxSx, ...restBoxProps } = boxProps ?? {};
 
   const styleBox = useMemo(() => {
     if (type === "toggleTab") {
       return {
         ...toggleTabsBox,
-        backgroundColor: theme.palette.vars.controlBackgroundWeak,
+        backgroundColor: theme.palette.vars.controlBackgroundDefault,
+        borderColor: theme.palette.vars.controlBorderDefault,
       };
     }
     return boxTabs;
-  }, [theme.palette.vars.controlBackgroundWeak, type]);
+  }, [
+    theme.palette.vars.controlBackgroundDefault,
+    theme.palette.vars.controlBorderDefault,
+    type,
+  ]);
 
   return (
-    <Box sx={{ ...styleBox, ...boxProps?.sx }} {...boxProps}>
-      <MuiTabs sx={{ ...styleTabs, ...sx }} {...props}>
+    <Box
+      sx={[
+        styleBox,
+        getTabsBoxStyles(),
+        ...(Array.isArray(boxSx) ? boxSx : boxSx ? [boxSx] : []),
+      ]}
+      {...restBoxProps}
+    >
+      <MuiTabs
+        orientation={orientation}
+        sx={[
+          getTabsFrameStyles(theme, type, orientation),
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
+        {...props}
+      >
         {React.Children.map(children, (child) =>
           React.isValidElement(child)
             ? React.cloneElement(child, { type } as TabProps)

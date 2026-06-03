@@ -5,7 +5,7 @@
  */
 
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack } from "@mui/material";
+import { Stack } from "@/components";
 import { Skeleton } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 

@@ -6,7 +6,7 @@
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import {
   AccountCircleOutlined,
   ExpandMore,

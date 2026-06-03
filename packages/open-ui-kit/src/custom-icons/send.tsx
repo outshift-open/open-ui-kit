@@ -16,7 +16,7 @@ export function Send(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M3 20V4l19 8-19 8Zm1.5-2.325L18.1 12 4.5 6.25v4.2L10.55 12 4.5 13.5v4.175Z"
         />
       </svg>

@@ -1,6 +1,15 @@
 import { Box, Divider, useTheme } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { LineChart, LineChartProps } from "./line-chart";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import {
+  green500,
+  grey50,
+  yellow500,
+  red500,
+} from "@/theme/style/color-palette";
+
+const chartBlue = "#3a95ff";
 
 import LINE_DATA from "./story-data";
 import { DotProps } from "recharts";
@@ -9,17 +18,22 @@ const meta: Meta<typeof LineChart> = {
   title: "Charts/Line Chart",
   component: LineChart,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="LineChart displays time-series or continuous data as one or more lines. Pass categories to control line colors."
+          guideLink="#"
+          importLine='import { LineChart } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof LineChart>;
-
-const green500 = "#00b98d";
-const grey50 = "e8e9ea";
-const yellow500 = "#ffe659";
-const blue500 = "#3a95ff";
-const bordeaux500 = "#c62953";
 
 const CustomizedDot = ({ cx, cy }: DotProps) => {
   return (
@@ -38,8 +52,8 @@ const LINE_CHART_TYPES: Record<string, LineChartProps> = {
   standard: {
     data: LINE_DATA,
     categories: [
-      { name: "Critical", color: bordeaux500 },
-      { name: "New", color: blue500 },
+      { name: "Critical", color: red500 },
+      { name: "New", color: chartBlue },
       { name: "Total", color: grey50 },
       { name: "Resolved", color: green500 },
     ],
@@ -58,8 +72,8 @@ const LINE_CHART_TYPES: Record<string, LineChartProps> = {
     data: LINE_DATA,
     yAxisProps: { domain: ["auto", 500] },
     categories: [
-      { name: "Critical", color: bordeaux500 },
-      { name: "New", color: blue500 },
+      { name: "Critical", color: red500 },
+      { name: "New", color: chartBlue },
       { name: "Total", color: grey50 },
       { name: "Resolved", color: green500 },
       { name: "Info", color: yellow500 },

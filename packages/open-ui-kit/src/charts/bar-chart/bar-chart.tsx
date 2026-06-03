@@ -80,8 +80,8 @@ export const BarChart = ({
           radius={4}
           minPointSize={10}
           background={{
-            fill: theme.palette.vars.baseBackgroundMedium,
-            radius: 4,
+            fill: theme.palette.vars.baseBorderDefault,
+            radius: 100,
           }}
         >
           {adjustedData.map((dataItem, i) => (

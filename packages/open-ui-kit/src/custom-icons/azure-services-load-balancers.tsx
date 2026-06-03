@@ -15,7 +15,7 @@ export function AzureServicesLoadBalancers(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <g fill="#E8E9EA" clipPath="url(#a)">
+        <g fill="currentColor" clipPath="url(#a)">
           <path
             fillRule="evenodd"
             d="m12.344 3.366-8.39 8.39a.6.6 0 0 0 0 .86l8.4 8.4a.6.6 0 0 0 .84 0l8.4-8.4a.599.599 0 0 0 0-.86l-8.39-8.39a.6.6 0 0 0-.86 0Zm2.06 8.81a1.62 1.62 0 1 1-3.24 0 1.62 1.62 0 0 1 3.24 0Z"
@@ -26,7 +26,7 @@ export function AzureServicesLoadBalancers(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.773 3.186h18v18h-18z" />
+            <path fill="currentColor" d="M3.773 3.186h18v18h-18z" />
           </clipPath>
         </defs>
       </svg>

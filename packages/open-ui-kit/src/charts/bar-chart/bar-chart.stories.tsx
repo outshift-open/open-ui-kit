@@ -1,6 +1,19 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { BarChart } from "./bar-chart";
 import { Box, Divider, useTheme } from "@mui/material";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import {
+  green500,
+  yellow500,
+  orange500,
+  red500,
+} from "@/theme/style/color-palette";
 
 /**
  *  ### Bar charts express quantities through a bar's length, using a common baseline.
@@ -9,16 +22,22 @@ const meta: Meta<typeof BarChart> = {
   title: "Charts/Bar Chart",
   component: BarChart,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars align left; empty slots are hidden."
+          guideLink="#"
+          importLine='import { BarChart } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof BarChart>;
-
-const green500 = "#00b98d";
-const yellow500 = "#ffe659";
-const red500 = "#f2643d";
-const bordeaux500 = "#c62953";
 
 const getBarCountTypes = () => {
   return {
@@ -27,8 +46,8 @@ const getBarCountTypes = () => {
       data: [
         { name: "Group A", value: 500, color: green500 },
         { name: "Group D", value: 400, color: yellow500 },
-        { name: "Group F", value: 300, color: red500 },
-        { name: "Group G", value: 150, color: bordeaux500 },
+        { name: "Group F", value: 300, color: orange500 },
+        { name: "Group G", value: 150, color: red500 },
       ],
     },
     minimum: {
@@ -45,9 +64,9 @@ const getBarCountTypes = () => {
         { name: "Group A", value: 500, color: green500 },
         { name: "Group D", value: 400, color: yellow500 },
         { name: "Group D", value: 380, color: yellow500 },
-        { name: "Group F", value: 300, color: red500 },
-        { name: "Group F", value: 280, color: red500 },
-        { name: "Group G", value: 150, color: bordeaux500 },
+        { name: "Group F", value: 300, color: orange500 },
+        { name: "Group F", value: 280, color: orange500 },
+        { name: "Group G", value: 150, color: red500 },
       ],
     },
   };

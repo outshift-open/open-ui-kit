@@ -5,7 +5,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { GeneralSize, Severity } from "@/common";
 import { CopyButton } from "@/components/copy-button";

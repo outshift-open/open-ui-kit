@@ -15,24 +15,15 @@ export function GCPServicesStorageBucket(props: SvgIconProps) {
         height="25"
         fill="none"
       >
+        <path fill="currentColor" d="M21.125 5.415h-18v6.3h18v-6.3Z" />
+        <path fill="currentColor" d="M21.125 5.415h-1.8v6.3h1.8v-6.3Z" />
         <path
-          fill={props.fill ?? "currentColor"}
-          d="M21.125 5.415h-18v6.3h18v-6.3Z"
-        />
-        <path
-          fill={props.fill ?? "currentColor"}
-          d="M21.125 5.415h-1.8v6.3h1.8v-6.3Z"
-        />
-        <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M21.125 5.415h-1.8v6.3l1.8-6.3ZM4.925 5.415h-1.8v6.3h1.8v-6.3ZM12.125 8.115h-5.4v.9h5.4v-.9ZM17.525 8.565a1.35 1.35 0 1 0-2.7 0 1.35 1.35 0 0 0 2.7 0ZM21.125 13.515h-18v6.3h18v-6.3Z"
         />
+        <path fill="currentColor" d="M21.125 13.515h-1.8v6.3h1.8v-6.3Z" />
         <path
-          fill={props.fill ?? "currentColor"}
-          d="M21.125 13.515h-1.8v6.3h1.8v-6.3Z"
-        />
-        <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M21.125 13.515h-1.8v6.3l1.8-6.3ZM4.925 13.515h-1.8v6.3h1.8v-6.3ZM12.125 16.215h-5.4v.9h5.4v-.9ZM17.525 16.665a1.35 1.35 0 1 0-2.7 0 1.35 1.35 0 0 0 2.7 0Z"
         />
       </svg>

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { InputProps } from "@mui/material";
+import type { InputProps } from "@mui/material";
 import type { InputFieldProps } from "@/components/input-field";
 
 export interface SearchInputProps extends Omit<InputFieldProps, "inputProps"> {

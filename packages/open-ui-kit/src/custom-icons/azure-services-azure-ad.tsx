@@ -16,7 +16,7 @@ export function AzureServicesAzureAD(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="m5.383 12.716 7.32-8.72 7.47 8.73-7.47 4.72-7.32-4.73Zm-.6.66 7.92 5.14 8.06-5.16 1.01 1.18-9.07 5.84-8.93-5.84 1.01-1.16Z"
           clipRule="evenodd"

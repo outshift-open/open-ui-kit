@@ -16,7 +16,7 @@ export function DoubleArrowForward(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="m6.05 19 5.25-7-5.25-7H7.9l5.25 7-5.25 7H6.05Zm6.3 0 5.25-7-5.25-7h1.85l5.25 7-5.25 7h-1.85Z"
         />
       </svg>

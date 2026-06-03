@@ -11,6 +11,10 @@ import type {
 
 export type { SelectChangeEvent };
 
-// Re-export MUI SelectProps directly — the generic signature is complex and wrapping it
-// causes TypeScript to lose inherited props (value, disabled, size, sx, etc).
-export type SelectProps<T = unknown> = MuiSelectProps<T>;
+// Keep MUI's generic SelectProps intact while adding library-specific clear affordance hooks.
+export type SelectProps<T = unknown> = MuiSelectProps<T> & {
+  /** Shows a clear button for single-value selected states. */
+  clearable?: boolean;
+  /** Called when the clear button is clicked. Controlled consumers should reset their value here. */
+  onClear?: () => void;
+};

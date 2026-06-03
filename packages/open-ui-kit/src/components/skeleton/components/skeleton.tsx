@@ -9,6 +9,24 @@ import type { SkeletonProps } from "../types";
 
 export type { SkeletonProps };
 
-export const Skeleton = ({ animation = "wave", ...props }: SkeletonProps) => (
-  <MuiSkeleton animation={animation} {...props} />
+export const Skeleton = ({
+  animation = "wave",
+  sx,
+  ...props
+}: SkeletonProps) => (
+  <MuiSkeleton
+    animation={animation}
+    sx={[
+      (theme) => ({
+        "&.MuiSkeleton-wave": {
+          backgroundColor: theme.palette.vars.baseBackgroundWeak,
+          "&::after": {
+            background: `linear-gradient(90deg, transparent, ${theme.palette.vars.controlBorderWeak}, transparent)`,
+          },
+        },
+      }),
+      ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+    ]}
+    {...props}
+  />
 );

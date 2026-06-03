@@ -5,7 +5,7 @@
  */
 
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from "@/components";
 import { ScrollArea } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 

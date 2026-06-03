@@ -16,7 +16,7 @@ export function Info(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M12.929 8.786V21H11V8.786h1.929Zm0-5.786v1.929H11V3h1.929Z"
         />
       </svg>

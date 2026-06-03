@@ -10,7 +10,6 @@ import {
   ButtonProps as MuiButtonProps,
   styled,
 } from "@mui/material";
-import { lightBluePalette } from "@/theme/style/color-palette";
 
 export const StyledButton = styled(MuiButton)(({ theme }) => ({
   color: theme.palette.vars.baseTextInverse,
@@ -44,15 +43,19 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
     fontFamily: "Inter, sans-serif",
     fontWeight: 600,
     fontSize: "16px",
-    lineHeight: "20px",
+    lineHeight: "125%",
     height: "40px",
     padding: "10px 16px",
   },
+  "&.MuiButton-sizeLarge:has(.MuiButton-startIcon), &.MuiButton-sizeLarge:has(.MuiButton-endIcon)":
+    {
+      padding: "8px 16px",
+    },
   "&.MuiButton-sizeMedium": {
     fontFamily: "Inter, sans-serif",
     fontWeight: 600,
     fontSize: "14px",
-    lineHeight: "18px",
+    lineHeight: "125%",
     height: "32px",
     padding: "7px 16px",
   },
@@ -60,9 +63,9 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
     fontFamily: "Inter, sans-serif",
     fontWeight: 600,
     fontSize: "14px",
-    lineHeight: "18px",
+    lineHeight: "125%",
     height: "24px",
-    padding: "2px 12px",
+    padding: "3px 12px",
   },
   "&.MuiButton-sizeLarge svg": {
     fontSize: "24px",
@@ -98,7 +101,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       border: `1px solid ${theme.palette.vars.interactivePrimaryDefaultDefault}`,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
     },
     "&.MuiButton-loading": {
@@ -122,7 +125,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       border: `1px solid ${theme.palette.vars.interactiveSecondaryDefaultDefault}`,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
       background: theme.palette.vars.interactiveSecondaryDefaultDefault,
     },
@@ -145,7 +148,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       color: theme.palette.vars.interactiveTextInActive,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
     },
     "&.Mui-disabled": {
@@ -170,7 +173,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       color: theme.palette.vars.interactivePrimaryDefaultActive,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
     },
     "&.Mui-disabled": {
@@ -198,7 +201,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       border: `1px solid ${theme.palette.vars.negativeBorderDefault}`,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
     },
     "&.MuiButton-loading": {
@@ -221,7 +224,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       color: theme.palette.vars.negativeBackgroundActive,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
       color: theme.palette.vars.negativeBackgroundActive,
       border: `2px solid ${theme.palette.vars.negativeBackgroundActive}`,
@@ -248,7 +251,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
       color: theme.palette.vars.negativeBackgroundActive,
     },
     "&:focus-visible": {
-      outline: `2px solid ${lightBluePalette[900]}`,
+      outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
       outlineOffset: "2px",
     },
     "&.Mui-disabled": {

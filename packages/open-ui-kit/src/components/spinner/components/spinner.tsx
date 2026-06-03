@@ -10,6 +10,7 @@ import {
   CircularProgress,
   circularProgressClasses,
   CircularProgressProps,
+  type Theme,
 } from "@mui/material";
 
 export interface SpinnerProps extends CircularProgressProps {
@@ -24,6 +25,15 @@ export const Spinner = ({
   ...props
 }: SpinnerProps) => {
   const { sx: boxSx, ...restBoxProps } = boxProps ?? {};
+  const colorSx = (theme: Theme) => ({
+    [`&.MuiCircularProgress-colorPrimary .${circularProgressClasses.circle}`]: {
+      color: theme.palette.vars.interactivePrimaryDefaultDefault,
+    },
+    [`&.MuiCircularProgress-colorSecondary .${circularProgressClasses.circle}`]:
+      {
+        color: theme.palette.vars.interactiveSecondaryDefaultDefault,
+      },
+  });
 
   return (
     <Box
@@ -34,7 +44,11 @@ export const Spinner = ({
       {...restBoxProps}
     >
       <CircularProgress
-        sx={[{ opacity: 0.2 }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+        sx={[
+          colorSx,
+          { opacity: 0.2 },
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
         size={size}
         value={100}
         variant="determinate"
@@ -42,6 +56,7 @@ export const Spinner = ({
       />
       <CircularProgress
         sx={[
+          colorSx,
           {
             animationDuration: "1s",
             position: "absolute",

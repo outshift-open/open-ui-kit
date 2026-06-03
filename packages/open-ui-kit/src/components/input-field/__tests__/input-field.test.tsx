@@ -23,6 +23,8 @@ const renderInputField = (
     </ThemeProvider>,
   );
 
+const normalizeHex = (hex: string) => hex.toUpperCase();
+
 describe("InputField", () => {
   describe("rendering", () => {
     it("renders a label and placeholder", () => {
@@ -76,6 +78,15 @@ describe("InputField", () => {
           border: `2px solid ${lightTheme.palette.vars.controlBorderDefault}`,
           borderRadius: "4px",
           backgroundColor: lightTheme.palette.vars.controlBackgroundDefault,
+          "&:hover:not(.Mui-disabled, .Mui-error, .Mui-focused)": {
+            borderColor: lightTheme.palette.vars.controlBorderHover,
+          },
+          "&.Mui-error:not(.Mui-disabled)": {
+            borderColor: lightTheme.palette.vars.controlBorderNegative,
+          },
+        }),
+        "& .MuiFormHelperText-root": expect.objectContaining({
+          color: lightTheme.palette.vars.baseTextWeak,
         }),
       });
     });
@@ -89,9 +100,72 @@ describe("InputField", () => {
             borderColor: darkTheme.palette.vars.controlBorderActive,
           },
           "&.Mui-error:not(.Mui-disabled)": {
-            borderColor: darkTheme.palette.vars.negativeBorderActive,
+            borderColor: darkTheme.palette.vars.controlBorderNegative,
           },
         }),
+        "& .MuiInput-input": expect.objectContaining({
+          color: darkTheme.palette.vars.baseTextDefault,
+          "&::placeholder": {
+            color: darkTheme.palette.vars.baseTextWeak,
+            opacity: 1,
+          },
+        }),
+      });
+    });
+
+    it("uses exact CSS token mappings for light and dark negative borders", () => {
+      expect(normalizeHex(lightTheme.palette.vars.controlBorderNegative)).toBe(
+        "#C0244C",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.controlBorderNegative)).toBe(
+        "#C62953",
+      );
+      expect(getInputFieldStyles(lightTheme)["& .MuiInput-root"]).toMatchObject(
+        {
+          "&.Mui-error:not(.Mui-disabled)": {
+            borderColor: lightTheme.palette.vars.controlBorderNegative,
+          },
+        },
+      );
+      expect(getInputFieldStyles(darkTheme)["& .MuiInput-root"]).toMatchObject({
+        "&.Mui-error:not(.Mui-disabled)": {
+          borderColor: darkTheme.palette.vars.controlBorderNegative,
+        },
+      });
+    });
+
+    it("uses exact CSS token mappings for disabled controls", () => {
+      expect(
+        normalizeHex(lightTheme.palette.vars.controlBackgroundDisabled),
+      ).toBe("#F5F8FD");
+      expect(normalizeHex(lightTheme.palette.vars.controlBorderDisabled)).toBe(
+        "#E8EEFB",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.baseTextDisabled)).toBe(
+        "#C5C7CB",
+      );
+      expect(
+        normalizeHex(darkTheme.palette.vars.controlBackgroundDisabled),
+      ).toBe("#0D274D");
+      expect(normalizeHex(darkTheme.palette.vars.controlBorderDisabled)).toBe(
+        "#263B62",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.baseTextDisabled)).toBe(
+        "#777D85",
+      );
+      expect(getInputFieldStyles(lightTheme)["& .MuiInput-root"]).toMatchObject(
+        {
+          "&.Mui-disabled": {
+            borderColor: lightTheme.palette.vars.controlBorderDisabled,
+            backgroundColor: lightTheme.palette.vars.controlBackgroundDisabled,
+          },
+        },
+      );
+      expect(getInputFieldStyles(darkTheme)["& .MuiInput-root"]).toMatchObject({
+        "&.Mui-disabled": {
+          borderColor: darkTheme.palette.vars.controlBorderDisabled,
+          backgroundColor: darkTheme.palette.vars.controlBackgroundDisabled,
+        },
       });
     });
 

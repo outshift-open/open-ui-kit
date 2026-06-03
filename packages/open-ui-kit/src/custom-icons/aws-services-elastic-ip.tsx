@@ -17,13 +17,13 @@ export function AWSServicesElasticIP(props: SvgIconProps) {
       >
         <g clipPath="url(#a)">
           <path
-            fill="#E8E9EA"
+            fill="currentColor"
             d="m21.658 11.557-2.714-2.919-.973.866 1.722 1.859h-8.368a3.785 3.785 0 1 0 0 1.284h8.368l-1.722 1.858.973.866 2.714-2.919a.632.632 0 0 0 0-.895Zm-11.53.438a2.51 2.51 0 1 1-2.51-2.51 2.52 2.52 0 0 1 2.51 2.51Z"
           />
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.834 8.21h18v7.58h-18z" />
+            <path fill="currentColor" d="M3.834 8.21h18v7.58h-18z" />
           </clipPath>
         </defs>
       </svg>

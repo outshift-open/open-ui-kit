@@ -5,25 +5,46 @@
  */
 
 import { Spinner } from "@/components/spinner";
-import { TabProps as MuiTabProps, Tab as MuiTab } from "@mui/material";
+import { Tab as MuiTab, useTheme } from "@mui/material";
+import { getTabStyles } from "../styles";
+import type { TabProps } from "../types";
 
-export const Tab = ({ loading, ...props }: MuiTabProps) => {
+export const Tab = ({
+  loading,
+  sx,
+  type = "main",
+  label,
+  ...props
+}: TabProps) => {
+  const theme = useTheme();
+  const internalSx = getTabStyles(theme, type);
+
   if (loading) {
     return (
       <MuiTab
         iconPosition="start"
         icon={<Spinner size={20} color="secondary" />}
-        label="Loading"
-        sx={{
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          ...props.sx,
-        }}
+        label={label}
+        sx={[
+          internalSx,
+          {
+            alignItems: "center",
+            display: "flex",
+            gap: "8px",
+            justifyContent: "center",
+          },
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
         {...props}
       />
     );
   }
-  return <MuiTab {...props} />;
+
+  return (
+    <MuiTab
+      label={label}
+      sx={[internalSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+      {...props}
+    />
+  );
 };

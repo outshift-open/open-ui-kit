@@ -12,6 +12,7 @@ export interface VarsType {
   agentcyYellow: string;
   agentcyBlue: string;
   agentcyDarkBlue: string;
+  baseTextDark: string;
   baseTextStrong: string;
   baseTextDefault: string;
   baseTextMedium: string;
@@ -41,8 +42,10 @@ export interface VarsType {
   brandBackgroundPrimaryMedium: string;
   brandBackgroundSecondaryDefault: string;
   brandLogoPrimary: string;
+  brandLogoSecondary: string;
   brandTextPrimary: string;
   brandTextSecondary: string;
+  brandTextTertiary: string;
   controlBackgroundDefault: string;
   controlBackgroundDisabled: string;
   controlBackgroundWeak: string;
@@ -62,6 +65,8 @@ export interface VarsType {
   controlIconHover: string;
   controlIconActive: string;
   controlIconDisabled: string;
+  controlFocusRingWeak: string;
+  controlFocusRingStrong: string;
   interactivePrimaryDefaultDefault: string;
   interactivePrimaryDefaultHover: string;
   interactivePrimaryDefaultActive: string;

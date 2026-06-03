@@ -15,7 +15,7 @@ export function MinusBold(props: SvgIconProps) {
         height="24"
         fill="none"
       >
-        <path fill={props.fill ?? "currentColor"} d="M20 14H4v-4h16" />
+        <path fill="currentColor" d="M20 14H4v-4h16" />
       </svg>
     </SvgIcon>
   );

@@ -16,11 +16,11 @@ export function AzureServicesMachineLearning(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M19.974 21.186h-14.4l-1.165-4.341h16.73l-1.165 4.34Z"
         />
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M10.55 3.186v6.776l-6.14 6.883 1.164 4.34 9.423-11.223V3.186H10.55Z"
         />
       </svg>

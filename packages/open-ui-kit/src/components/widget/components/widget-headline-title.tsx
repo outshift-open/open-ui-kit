@@ -65,7 +65,7 @@ export const WidgetHeadlineTitle = ({
             alignItems="center"
             onClick={onLabelClick}
             sx={{
-              color: (theme) => theme.palette.vars.baseTextDefault,
+              color: (theme) => theme.palette.vars.baseTextStrong,
               ...(onLabelClick && {
                 "&:hover": {
                   cursor: "pointer",

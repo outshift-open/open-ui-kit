@@ -13,9 +13,21 @@ Use it as the quick map for component docs, examples, and implementation notes.
 
 {{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "data-display"}}
 
+## Charts
+
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "charts"}}
+
 ## Feedback
 
 {{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "feedback"}}
+
+## Layout
+
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "layout"}}
+
+## Templates
+
+{{"component": "modules/components/OpenUIKitComponents/OpenUIKitComponentSection.js", "category": "templates"}}
 
 ## Surfaces
 

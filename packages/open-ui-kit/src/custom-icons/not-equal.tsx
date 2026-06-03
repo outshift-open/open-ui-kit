@@ -11,7 +11,7 @@ export function NotEqual(props: SvgIconProps) {
     <SvgIcon {...props} viewBox="0 0 16 16">
       <path
         d="M 2.728e-12,0 L 16,16"
-        stroke="#3C4551"
+        stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
       />

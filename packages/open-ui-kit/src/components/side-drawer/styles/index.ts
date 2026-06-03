@@ -26,6 +26,7 @@ export const sideDrawerHeaderBoxStyle = (hasActionButtons: boolean) => ({
   gap: HEADER_COLUMN_GAP,
   position: "sticky",
   top: "0px",
+  zIndex: 1,
 });
 
 export const navigationIconStyle = (isDisabled = false, theme: Theme) => ({
@@ -41,8 +42,7 @@ export const closeButtonStyle = (theme: Theme) => ({
 export const sideDrawerPaperStyle = (isFullHeight: boolean, theme: Theme) => ({
   backgroundColor: theme.palette.vars.baseBackgroundMedium,
   width: DRAWER_WIDTH,
-  boxShadow:
-    " 0px 4px 4px 0px rgba(0, 0, 0, 0.30), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);",
+  boxShadow: theme.shadows[5],
   alignItems: isFullHeight ? "center" : undefined,
   justifyContent: isFullHeight ? "center" : undefined,
   overflow: "hidden",

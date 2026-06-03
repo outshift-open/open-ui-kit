@@ -5,7 +5,6 @@
  */
 
 import type { CSSObject, Theme } from "@mui/material";
-import { lightModeCardSubtle } from "@/theme/style/color-palette";
 import type { MenuItemSize } from "../types";
 
 const getSizeStyles = (theme: Theme, size: MenuItemSize): CSSObject => {
@@ -41,7 +40,7 @@ export const getMenuPaperStyles = (
   padding: "8px 0px",
   borderRadius: "8px",
   border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-  boxShadow: lightModeCardSubtle,
+  boxShadow: theme.shadows[2],
   ...(width ? { width } : {}),
 });
 

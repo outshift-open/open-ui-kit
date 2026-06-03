@@ -4,11 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Switch, SwitchProps } from "@mui/material";
+import { Switch, useTheme } from "@mui/material";
+import { getToggleStyles } from "../styles";
+import type { ToggleProps } from "../types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ToggleProps extends SwitchProps {}
+export const Toggle = ({ sx, ...props }: ToggleProps) => {
+  const theme = useTheme();
 
-export const Toggle = (props: ToggleProps) => (
-  <Switch disableRipple {...props} />
-);
+  return (
+    <Switch
+      disableRipple
+      sx={[
+        getToggleStyles(theme),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
+      {...props}
+    />
+  );
+};

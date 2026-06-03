@@ -16,7 +16,7 @@ export function AzureServicesAzureServiceBus(props: SvgIconProps) {
         fill="none"
       >
         <g
-          fill="#E8E9EA"
+          fill="currentColor"
           fillRule="evenodd"
           clipPath="url(#a)"
           clipRule="evenodd"
@@ -26,7 +26,7 @@ export function AzureServicesAzureServiceBus(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.773 3.186h18v18h-18z" />
+            <path fill="currentColor" d="M3.773 3.186h18v18h-18z" />
           </clipPath>
         </defs>
       </svg>

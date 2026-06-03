@@ -63,7 +63,7 @@ export const Message = ({
       hasTitle={hasTitle}
       hasAction={hasAction}
       role="status"
-      sx={sx}
+      sx={Array.isArray(sx) ? sx : sx ? [sx] : []}
       {...props}
     >
       <MessageIcon type={type} />

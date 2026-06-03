@@ -15,7 +15,7 @@ export function AzureCategoryManagementGovernance(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <g fill="#E8E9EA" clipPath="url(#a)">
+        <g fill="currentColor" clipPath="url(#a)">
           <path d="M12.959 20.842c4.694 0 8.5-3.792 8.5-8.47 0-4.678-3.806-8.47-8.5-8.47s-8.5 3.792-8.5 8.47c0 4.678 3.806 8.47 8.5 8.47Z" />
           <path d="M12.959 19.742c4.087 0 7.4-3.3 7.4-7.37s-3.314-7.37-7.4-7.37c-4.087 0-7.4 3.3-7.4 7.37s3.313 7.37 7.4 7.37Z" />
           <path
@@ -31,7 +31,7 @@ export function AzureCategoryManagementGovernance(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.959 3.372h18v18h-18z" />
+            <path fill="currentColor" d="M3.959 3.372h18v18h-18z" />
           </clipPath>
         </defs>
       </svg>

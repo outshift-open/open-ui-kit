@@ -16,7 +16,7 @@ export function GCPCategoryManagementGovernance(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="M3.58 9.202h1.683V19.307h4.21v.842h10.948v-3.368H9.474v.842H6.948v-4.21h2.526v.842H20.42v-3.369H9.474v.842H6.948V9.202h1.684V4.149H3.579v5.053Zm5.894-.842H20.42V4.992H9.474V8.36Z"
           clipRule="evenodd"

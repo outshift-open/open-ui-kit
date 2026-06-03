@@ -15,7 +15,7 @@ export function AzureServicesDisks(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <g fill="#E8E9EA" clipPath="url(#a)">
+        <g fill="currentColor" clipPath="url(#a)">
           <path d="M19.575 12.587c-1.319-.5-3.05-.854-4.999-.991l-1.22 2.26a6.958 6.958 0 0 1 1.552.249l4.667-1.518ZM5.583 17.139c1.356.58 3.237.995 5.378 1.146l1.428-2.642a7.663 7.663 0 0 1-1.569-.208L5.583 17.14Z" />
           <path
             fillRule="evenodd"
@@ -36,7 +36,7 @@ export function AzureServicesDisks(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.362 4.186h18.822v16H3.362z" />
+            <path fill="currentColor" d="M3.362 4.186h18.822v16H3.362z" />
           </clipPath>
         </defs>
       </svg>

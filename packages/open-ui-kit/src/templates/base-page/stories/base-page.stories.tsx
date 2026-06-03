@@ -1,8 +1,15 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { BasePage, BasePageProps } from "../components/base-page";
-import { Box, Button } from "@mui/material";
+import { BasePage } from "../components/base-page";
+import { Box, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { BrowserRouter } from "react-router-dom";
+import { Button } from "@/components/button";
 
 const meta: Meta<typeof BasePage> = {
   title: "Templates/BasePage",
@@ -41,99 +48,143 @@ const meta: Meta<typeof BasePage> = {
 export default meta;
 type Story = StoryObj<typeof BasePage>;
 
-const TemplateBasePage = (args: BasePageProps) => (
-  <BasePage {...args}>{args.children}</BasePage>
+const SampleContent = () => (
+  <Box sx={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+    {[1, 2, 3].map((i) => (
+      <Box
+        key={i}
+        sx={(theme) => ({
+          borderRadius: "8px",
+          border: `1px solid ${theme.palette.divider}`,
+          padding: "16px",
+        })}
+      >
+        <Typography
+          variant="h6"
+          sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+        >
+          Section {i}
+        </Typography>
+        <Box
+          sx={(theme) => ({
+            height: "24px",
+            backgroundColor: theme.palette.vars.baseBackgroundStrong,
+            borderRadius: "4px",
+            mt: 1,
+          })}
+        />
+      </Box>
+    ))}
+  </Box>
 );
 
 export const Default: Story = {
-  render: (args) => (
-    <TemplateBasePage {...args}>{args.children}</TemplateBasePage>
-  ),
+  render: (args) => <BasePage {...args} />,
   args: {
-    title: "Default Page",
-    description: "This is a default page description.",
-    children: <Box>Page content goes here.</Box>,
+    title: "Page Title",
+    description: "Description",
+    children: <SampleContent />,
   },
 };
 
 export const WithSubNav: Story = {
   render: (args) => (
     <BrowserRouter>
-      <TemplateBasePage {...args}>{args.children}</TemplateBasePage>
+      <BasePage {...args} />
     </BrowserRouter>
   ),
   args: {
-    title: "Page with SubNav",
-    description: "This page includes a sub-navigation.",
+    title: "Page Title",
+    description: "Description",
     subNav: [
-      { href: "/section/page/tab1", label: "Tab 1" },
-      { href: "/section/page/tab2", label: "Tab 2" },
-      { href: "/section/page/tab3", label: "Tab 3" },
+      { href: "/tab1", label: "Tab 10" },
+      { href: "/tab2", label: "Tab 10" },
+      { href: "/tab3", label: "Tab 10" },
+      { href: "/tab4", label: "Tab 10" },
+      { href: "/tab5", label: "Tab 10" },
     ],
-    children: <Box>Page content with sub-navigation goes here..</Box>,
+    children: <SampleContent />,
   },
 };
 
 export const WithBreadcrumbs: Story = {
   render: (args) => (
     <BrowserRouter>
-      <TemplateBasePage {...args}>{args.children}</TemplateBasePage>
+      <BasePage {...args} />
     </BrowserRouter>
   ),
   args: {
-    title: "Page with Breadcrumbs",
-    description: "This page includes breadcrumbs for navigation.",
+    title: "Page Title",
+    description: "Description",
     breadcrumbs: [
       { text: "Home", link: "/" },
       { text: "Section", link: "/section" },
-      { text: "Page", link: "/section/page" },
     ],
-    children: <Box>Page content with breadcrumb goes here.</Box>,
+    children: <SampleContent />,
   },
 };
 
 export const WithRightSideItems: Story = {
   render: (args) => (
-    <TemplateBasePage {...args}>{args.children}</TemplateBasePage>
+    <BrowserRouter>
+      <BasePage {...args} />
+    </BrowserRouter>
   ),
   args: {
-    title: "Page with Right Side Items",
-    description: "This page includes items on the right side.",
+    title: "Page Title",
+    description: "Description",
+    breadcrumbs: [{ text: "Home", link: "/" }],
     rightSideItems: (
       <>
-        <Button disableElevation>Action 1</Button>
-        <Button variant="outlined">Action 2</Button>
+        <Button variant="primary" size="small">
+          button-link
+        </Button>
+        <Button variant="secondary" size="small">
+          button-link
+        </Button>
+        <Button variant="outlined" size="small">
+          button-link
+        </Button>
       </>
     ),
-    children: <Box>Page content with right side items goes here.</Box>,
+    children: <SampleContent />,
   },
 };
 
 export const AllProps: Story = {
   render: (args) => (
     <BrowserRouter>
-      <TemplateBasePage {...args}>{args.children}</TemplateBasePage>
+      <BasePage {...args} />
     </BrowserRouter>
   ),
   args: {
-    title: "Page with All Props",
-    description: "This page demonstrates all available props.",
+    title: "Page Title",
+    description: "Description",
     subNav: [
-      { href: "/section/page/tab1", label: "Tab 1" },
-      { href: "/section/page/tab2", label: "Tab 2" },
-      { href: "/section/page/tab3", label: "Tab 3" },
+      { href: "/tab1", label: "Tab 10" },
+      { href: "/tab2", label: "Tab 10" },
+      { href: "/tab3", label: "Tab 10" },
+      { href: "/tab4", label: "Tab 10" },
+      { href: "/tab5", label: "Tab 10" },
+      { href: "/tab6", label: "Tab 10" },
     ],
-    breadcrumbs: [
-      { text: "Home", link: "/" },
-      { text: "Section", link: "/section" },
-      { text: "Page", link: "/section/page" },
-    ],
+    breadcrumbs: [{ text: "Home", link: "/" }],
     rightSideItems: (
       <>
-        <Button disableElevation>Action 1</Button>
-        <Button variant="outlined">Action 2</Button>
+        <Button variant="primary" size="small">
+          button-link
+        </Button>
+        <Button variant="secondary" size="small">
+          button-link
+        </Button>
+        <Button variant="outlined" size="small">
+          button-link
+        </Button>
+        <Button variant="outlined" size="small">
+          button-link
+        </Button>
       </>
     ),
-    children: <Box>Page content with all props goes here.</Box>,
+    children: <SampleContent />,
   },
 };

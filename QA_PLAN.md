@@ -2,8 +2,11 @@
 
 ## Purpose
 
+**You are a front-end developer building this component library.** Your job is to make the implementation match the design system exactly. The CSS files are your engineering specification — every property is a requirement. The Figma screenshots confirm your work after the fact.
+
 Visual and functional QA of every component in the library against the official Figma designs.
-The source of truth for all visual decisions is the screenshots in `~/Desktop/open-ui-kit-figma/` (light + dark variants).
+The CSS files (`<Component>.css` / `<Component dark>.css`) are the primary source of truth for all style values.
+The Figma screenshots are the final visual QA check.
 Where no Figma screenshot exists for a component, the existing library style tokens are authoritative.
 
 > **How the loop works:**
@@ -25,7 +28,9 @@ Where no Figma screenshot exists for a component, the existing library style tok
 ## Ground Rules
 
 ### Visual fidelity
-1. **Figma screenshots in `~/Desktop/open-ui-kit-figma/` are the one and only source of truth.** Every pixel decision — color, spacing, border radius, typography, icon size, shadow — must match the Figma PNG. When in doubt, the Figma wins, not the current implementation.
+1. **CSS files are the primary source of truth.** The `<Component>.css` and `<Component dark>.css` files define every style value — colors, spacing, border-radius, typography, icon sizes, shadows, and all interactive states. Implement from the CSS exactly. Resolve every token to hex and verify it matches. When in doubt, the CSS wins.
+   **Figma screenshots are the final visual QA check.** After implementing from CSS, read the PNG to catch any remaining discrepancy (layout, composition, proportions). If the PNG reveals a delta, fix it. If a PNG contradicts the CSS, **the CSS wins** unless it is clearly a rendering artifact.
+   > *Example:* If the CSS says `bottom: 0` for a tab indicator bar, the bar must sit flush with the baseline — trust the CSS value, do not rely on a casual reading of the PNG.
 2. **Both themes are mandatory.** Every component must be verified in light mode AND dark mode. A component is not done until both pass.
 3. **Compare in Storybook.** Start Storybook (`yarn storybook` → `http://localhost:6006`). Use the docs URL pattern: `http://localhost:6006/?path=/docs/components-<name>--docs`. Screenshot the canvas and diff against the Figma PNG side-by-side.
 4. **Check every state shown in Figma.** Default, hover, focus, active, disabled, error/negative, loading, empty, selected, indeterminate — if the Figma shows it, it must be verified.
@@ -45,6 +50,7 @@ Where no Figma screenshot exists for a component, the existing library style tok
     - Props forwarded via `...rest` where appropriate
     - `aria-label` on icon-only interactive elements
 11. **CSS files are provided by the user per component** as `<ComponentName>.css` (light) and `<ComponentName dark>.css` (dark). Use `/Users/rafaelsi/Desktop/helper.css` as a supplementary token reference.
+12. **Stories demonstrate the component API, not the Figma layout.** Each story covers one meaningful prop state or variant. Use `args`/`argTypes` for knob-driven controls. Name stories after states and variants: `Default`, `Disabled`, `Error`, `WithIcon`, `Sizes` — not Figma frame names. Use the Figma PNG only as a guide for which states to cover, not as content to copy verbatim. Use realistic but minimal content.
 
 ---
 
@@ -120,13 +126,33 @@ For each component, complete every item. Mark `[x]` when done, `[!]` when a bug 
   - If a CSS file is expected and has not been provided → STOP. Ask the user for it and wait.
   - Only continue once every required file is confirmed present.
 
-STEP 1 — VISUAL (light mode)
-  a. Open Storybook story at http://localhost:6006/?path=/docs/components-<name>--docs
-  b. Set theme to light mode
-  c. Screenshot the canvas
-  d. Open ~/Desktop/open-ui-kit-figma/<Component>.png (Figma light reference)
-  e. Read <ComponentName>.css (user-provided light CSS) — use as token reference
-  f. Compare pixel-by-pixel:
+⚡ PARALLELISE WHERE SAFE.
+  When a component has independent sub-directories (e.g. tags/tag/ and tags/tags/), process them
+  concurrently. Read CSS and PNG files in parallel. Run `yarn lint && yarn typecheck` as one command.
+  Goal: keep each component pass under 20 minutes.
+
+STEP 1 — CSS IMPLEMENTATION (primary — do this before opening Storybook)
+  a. Read <ComponentName>.css — this is the specification. Implement every property exactly.
+  b. Read <ComponentName dark>.css — implement every dark-theme property.
+  c. Read helper.css for supplementary token resolution.
+  d. Resolve every token: theme.palette.vars.* → palette constant → hex. Verify the hex matches.
+  e. Check: colors, typography (family, size, weight, line-height, letter-spacing), padding, gaps,
+     sizes, border-radius, border color/width, shadows, margins, opacity, and all states:
+     focus, hover, disabled, active, error.
+  f. Pay attention to alignment — e.g. if CSS says `bottom: 0` for an indicator, the element must
+     sit exactly on the baseline. Trust the CSS value, not a visual impression.
+  g. Fix every delta before proceeding to Step 2.
+
+STEP 2 — VISUAL QA (final check — after CSS implementation is complete)
+  a. Open Storybook at http://localhost:6006/?path=/docs/components-<name>--docs
+  b. Set theme to light mode; screenshot the canvas
+  c. Read ~/Desktop/open-ui-kit-figma/<Component>.png (Figma light reference)
+  d. Compare — if anything in the screenshot differs from the implementation, fix it
+  e. Switch to dark mode; screenshot the canvas
+  f. Read ~/Desktop/open-ui-kit-figma/<Component> - Dark.png (Figma dark reference)
+  g. Compare and fix any remaining delta
+  h. CSS values are authoritative — if a PNG appears ambiguous, trust the CSS
+  Pixel-by-pixel check list:
      - Background color (exact token match)
      - Text color, font family, size, weight, line-height, letter-spacing
      - Border color, width, radius (all four corners)
@@ -136,13 +162,6 @@ STEP 1 — VISUAL (light mode)
      - Focus ring color and width
      - Placeholder text color
      - Scrollbar styling (if applicable)
-
-STEP 2 — VISUAL (dark mode)
-  a. Switch Storybook to dark mode
-  b. Screenshot the canvas
-  c. Open ~/Desktop/open-ui-kit-figma/<Component> - Dark.png (Figma dark reference)
-  d. Read <ComponentName dark>.css (user-provided dark CSS) — use as token reference
-  e. Repeat all checks from Step 1f
 
 STEP 3 — STATE COVERAGE
   For every state shown in the Figma screenshots, verify in Storybook:
@@ -204,9 +223,9 @@ STEP 6 — CODE QUALITY
      in MUI overrides — visual styles belong in the component.
   e. No unused imports or variables
   f. Props forwarded correctly; aria-label on icon-only elements
-  g. Run: yarn lint            → must exit 0, 0 warnings
-  h. Run: yarn typecheck       → must exit 0
-  i. Run: yarn test --testPathPattern=<component-name>  → all tests pass
+  g. Run: yarn lint && yarn typecheck   → both must exit 0, 0 warnings (one command, one round-trip)
+  h. ⚠️  Run ONLY: yarn test --testPathPattern=<component-name>  → all tests pass
+     NEVER run `yarn test` without --testPathPattern — it will exhaust machine memory.
 
 STEP 7 — FIX EVERYTHING, THEN MARK DONE
   - Every delta, bug, and risk found in steps 1–6 MUST be fixed before this component is done.
@@ -239,7 +258,7 @@ Mark `[x]` when 100% done. There is no `[!]` — everything gets fixed in the sa
 
 CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-figma/`. Codex reads them directly — no need for the user to provide them. Apply the full inspection protocol and `COMPONENT_WORKFLOW.md` fix steps. Also covers all `src/` directories outside `components/` that are in scope.
 
-- [ ] **Colors** — `src/theme/style/color-palette.ts` + `src/colors/` + `theme.palette.vars.*`
+- [x] **Colors** — `src/theme/style/color-palette.ts` + `src/colors/` + `theme.palette.vars.*`
   - CSS: `~/Desktop/open-ui-kit-figma/colors.css`
   - Screenshots: `~/Desktop/open-ui-kit-figma/Outshift Palette.png` / `Styles.png`
   - All palette constants resolve to correct hex in both themes
@@ -248,7 +267,7 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
   - `src/colors/color-palette-section.tsx` and `colors.mdx` render correctly
   - Story covers the full color ramp for each palette group in both themes
 
-- [ ] **Elevation** — `src/components/elevation/`
+- [x] **Elevation** — `src/components/elevation/`
   - CSS: `~/Desktop/open-ui-kit-figma/styles.css`
   - Screenshots: `~/Desktop/open-ui-kit-figma/Styles.png`
   - Shadow scale matches design system elevation levels
@@ -256,14 +275,14 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
   - Shadow values via tokens — no hard-coded values
   - Story covers all levels
 
-- [ ] **Gradients** — `src/components/gradients/` + `src/colors/gradient-section.tsx`
+- [x] **Gradients** — `src/components/gradients/` + `src/colors/gradient-section.tsx`
   - CSS: `~/Desktop/open-ui-kit-figma/graphics.css`
   - Screenshots: `~/Desktop/open-ui-kit-figma/Graphics.png`
   - All gradient definitions use palette constants or tokens — no hard-coded hex
   - `src/colors/gradients.mdx` renders correctly
   - Story renders each gradient in both themes without errors
 
-- [ ] **Iconography** — `src/custom-icons/` (885 icons) + `src/icons/` + `src/components/icon/`
+- [x] **Iconography** — `src/custom-icons/` (885 icons) + `src/icons/` + `src/components/icon/`
   - CSS: `~/Desktop/open-ui-kit-figma/icons.css`
   - Screenshots: `~/Desktop/open-ui-kit-figma/Icons.png` / `Icons.svg` / `Graphics.png`
   - Every icon in `src/custom-icons/` must use `fill="currentColor"` — no hard-coded hex fills
@@ -274,7 +293,7 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
   - `src/icons/icon-gallery.tsx` and `icons.mdx` render the full gallery without errors
   - Story covers: size variants (small/medium/large), color inheritance via `sx` and `color` prop, both themes
 
-- [ ] **Typography** — `src/typography/` + `src/fonts/` + `src/components/typography/`
+- [x] **Typography** — `src/typography/` + `src/fonts/` + `src/components/typography/`
   - CSS: `~/Desktop/open-ui-kit-figma/typography.css`
   - Screenshots: `~/Desktop/open-ui-kit-figma/Typography Styles - Venture Theme.png`
   - Font files in `src/fonts/` (Inter + SharpSans) load correctly — no 404s in browser network tab
@@ -285,7 +304,7 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
   - `sx` array merge pattern applied
   - Story covers every variant in both light and dark mode
 
-- [ ] **Theme** — `src/theme/` (light, dark, MUI overrides, style tokens)
+- [x] **Theme** — `src/theme/` (light, dark, MUI overrides, style tokens)
   - CSS: `~/Desktop/open-ui-kit-figma/colors.css` + `styles.css` (supplementary)
   - `src/theme/light/` and `src/theme/dark/` — all `themeOptions` wired correctly
   - `src/theme/style/` — all token files (`color-palette.ts`, `common.tsx`, `gradients.ts`, etc.) are consistent and up to date
@@ -301,13 +320,13 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
     Only `defaultProps` that set library-wide defaults (e.g. `disableRipple: true`) are acceptable
     in MUI overrides. Visual `styleOverrides` belong in component files.
 
-- [ ] **Illustrations** — `src/custom-illustrations/`
+- [x] **Illustrations** — `src/custom-illustrations/`
   - All illustration components render without errors in both themes
   - SVG fills use `currentColor` or explicit theme tokens — no hard-coded hex
   - All illustrations are importable from their `index.ts`
   - Illustrations used in `empty-state` match the Figma empty-state screenshots
 
-- [ ] **Common / Shared** — `src/common/` + `src/types/`
+- [x] **Common / Shared** — `src/common/` + `src/types/`
   - `src/common/constants.ts`, `types.ts`, `utils/` — no unused exports, no stale types
   - All shared types and utilities used across components are correctly typed
   - `yarn typecheck` passes with no errors originating from these files
@@ -316,36 +335,36 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 
 ### Tier 1 — Core interactive
 
-- [ ] **accordion** — `Accordion.png` / `Accordion - Dark.png`
+- [x] **accordion** — `Accordion.png` / `Accordion - Dark.png`
   - Collapsed / expanded states, chevron rotation, border and divider
 
-- [ ] **button** — `Button.png` / `Button - Dark.png`
+- [x] **button** — `Button.png` / `Button - Dark.png`
   - Variants: primary, secondary, ghost, danger; sizes: small/medium/large
   - States: default, hover, focus, active, disabled, loading
 
-- [ ] **checkbox** — `Checkbox.png` / `Checkbox - Dark.png`
+- [x] **checkbox** — `Checkbox.png` / `Checkbox - Dark.png`
   - States: unchecked, checked, indeterminate, disabled; label alignment
 
-- [ ] **input-field** — `Input Field.png` / `Input Field - Dark.png`
+- [x] **input-field** — `Input Field.png` / `Input Field - Dark.png`
   - States: default, hover, focus, error, disabled
   - Label, helper text, error text; border tokens
 
-- [ ] **radio** — `Radio button.png` / `Radio button - Dark.png`
+- [x] **radio** — `Radio button.png` / `Radio button - Dark.png`
   - States: unselected, selected, disabled; label via FormControlLabel
 
-- [ ] **search-input** — `Search input.png` / `Search input - dark.png`
+- [x] **search-input** — `Search input.png` / `Search input - dark.png`
   - Clear button, focus ring, placeholder color
 
-- [ ] **select** — `Select.png` / `Select - Dark.png`
+- [x] **select** — `Select.png` / `Select - Dark.png`
   - Closed and open states; default, hover, active, disabled, error
 
-- [ ] **slider** — `Slider.png` / `Slider - Dark.png`
+- [x] **slider** — `Slider.png` / `Slider - Dark.png`
   - Track, thumb, value label; default, hover, active, disabled; range variant
 
-- [ ] **tabs** — `Tabs.png` / `Tabs - Dark.png`
+- [x] **tabs** — `Tabs.png` / `Tabs - Dark.png`
   - Main / subTab / toggleTab; default, hover, selected, disabled, loading; indicator
 
-- [ ] **toggle** — `Toggle.png` / `Toggle - Dark.png`
+- [x] **toggle** — `Toggle.png` / `Toggle - Dark.png`
   - On/off, disabled, hover; track and thumb color tokens
 
 ---
@@ -544,16 +563,15 @@ When a delta is found, log it here with this format:
 yarn storybook          # http://localhost:6006
 # Direct docs URL: http://localhost:6006/?path=/docs/components-<kebab-name>--docs
 
-# Lint — must exit 0, zero warnings (--max-warnings=0 enforced)
-yarn lint
-yarn lint:fix           # auto-fix what's fixable
+# Lint + typecheck — run together, one round-trip
+yarn lint && yarn typecheck
 
-# TypeScript — must exit 0
-yarn typecheck
+# Auto-fix lint issues
+yarn lint:fix
 
-# Run a single component's tests (NEVER run all at once — kills the machine)
+# ⚠️  ALWAYS scope tests — NEVER run `yarn test` alone (kills the machine)
 yarn test --testPathPattern=<component-name>
-# Example:
+# Examples:
 yarn test --testPathPattern=radio-button
 yarn test --testPathPattern=side-drawer
 

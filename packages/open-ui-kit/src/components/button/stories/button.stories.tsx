@@ -1,53 +1,80 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
-import GridViewIcon from "@mui/icons-material/GridView";
+import { ImageGrid } from "@/custom-icons";
+import { Box, Stack } from "@/components";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Button } from "../components/button";
 import type { ButtonProps } from "../types";
-import { DocsHeader } from "storybook/components/docs-header.stories";
 
 type ButtonVariant = NonNullable<ButtonProps["variant"]>;
-type ButtonSize = NonNullable<ButtonProps["size"]>;
-type ButtonState = "default" | "hover" | "pressed" | "disabled" | "focus";
-type IconExample = "no icon" | "left icon" | "right icon" | "icon alone";
+type ButtonState = "default" | "hover" | "pressed" | "focus";
 
-const variants: Array<{
-  label: string;
-  variant: ButtonVariant;
-  color?: ButtonProps["color"];
-}> = [
-  { label: "Primary", variant: "primary" },
-  { label: "Secondary", variant: "secondary" },
-  { label: "Outlined", variant: "outlined" },
-  { label: "Tertiary", variant: "tertariary" },
-  { label: "Irreversible Primary", variant: "primary", color: "negative" },
-  { label: "Irreversible Outlined", variant: "outlined", color: "negative" },
-  { label: "Irreversible Tertiary", variant: "tertariary", color: "negative" },
-];
+const defaultArgs = {
+  children: "button-link",
+  color: "default",
+  size: "medium",
+  variant: "primary",
+} satisfies ButtonProps;
 
-const sizes: ButtonSize[] = ["large", "medium", "small"];
-const states: ButtonState[] = [
-  "default",
-  "hover",
-  "pressed",
-  "disabled",
-  "focus",
-];
-const iconExamples: IconExample[] = [
-  "no icon",
-  "left icon",
-  "right icon",
-  "icon alone",
-];
-
-const meta: Meta<typeof Button> = {
+const meta: Meta<ButtonProps> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
+  args: defaultArgs,
+  argTypes: {
+    children: {
+      control: "text",
+    },
+    color: {
+      control: "radio",
+      options: ["default", "negative"],
+    },
+    disabled: {
+      control: "boolean",
+    },
+    endIcon: {
+      control: false,
+    },
+    loading: {
+      control: "boolean",
+    },
+    loadingPosition: {
+      control: "radio",
+      options: ["start", "end", "center"],
+    },
+    size: {
+      control: "radio",
+      options: ["small", "medium", "large"],
+    },
+    startIcon: {
+      control: false,
+    },
+    sx: {
+      control: false,
+    },
+    variant: {
+      control: "radio",
+      options: ["primary", "secondary", "outlined", "tertariary"],
+    },
+  },
+  decorators: [
+    (Story) => (
+      <Box
+        sx={(theme) => ({
+          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          boxSizing: "border-box",
+          color: theme.palette.vars.baseTextDefault,
+          p: 3,
+        })}
+      >
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Buttons allow users to take actions and make choices with a single tap. They communicate actions that users can take and are typically placed throughout the UI in places like modal windows, forms, cards, and toolbars."
+          blurb="Buttons let people trigger a single action. Use primary for the main action, secondary for inverse emphasis, outlined for supporting actions, tertiary for low-emphasis actions, and negative for destructive actions."
           guideLink=""
           importLine='import { Button } from "@open-ui-kit/core";'
           title="Button"
@@ -59,266 +86,281 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<ButtonProps>;
 
-const figmaLabel = (label: string) => (
-  <Typography
-    variant="caption"
-    sx={{
-      bgcolor: "#D4B3FF",
-      borderRadius: "4px",
-      color: "#4C00AE",
-      fontWeight: 500,
-      px: 0.5,
-      py: 0.25,
-      width: "fit-content",
-      whiteSpace: "nowrap",
-    }}
-  >
-    {label}
-  </Typography>
-);
+const buttonStateSx =
+  (
+    state: ButtonState,
+    variant: ButtonVariant = "primary",
+    color: ButtonProps["color"] = "default",
+    size: ButtonProps["size"] = "medium",
+  ): ButtonProps["sx"] =>
+  (theme) => {
+    const activeHorizontalPadding = size === "small" ? "11px" : "15px";
 
-const stateSx = (
-  state: ButtonState,
-  variant: ButtonVariant,
-  color?: ButtonProps["color"],
-): ButtonProps["sx"] => {
-  if (state === "focus") {
-    return (theme) => ({
-      outline: `2px solid ${theme.palette.vars.excellentBorderDefault}`,
-      outlineOffset: "2px",
-    });
-  }
+    if (state === "focus") {
+      return {
+        "&&": {
+          outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,
+          outlineOffset: "2px",
+        },
+      };
+    }
 
-  if (state === "hover") {
-    return (theme) => {
-      if (color === "negative") {
-        return variant === "tertariary"
-          ? { color: theme.palette.vars.negativeBackgroundHover }
-          : {
-              backgroundColor:
-                variant === "outlined"
-                  ? "transparent"
-                  : theme.palette.vars.negativeBackgroundHover,
-              borderColor:
-                variant === "outlined"
-                  ? theme.palette.vars.negativeBackgroundHover
-                  : undefined,
-              color:
-                variant === "outlined"
-                  ? theme.palette.vars.negativeBackgroundHover
-                  : theme.palette.vars.baseTextInverse,
-            };
-      }
-
-      if (variant === "primary") {
-        return {
-          backgroundColor: theme.palette.vars.interactivePrimaryDefaultHover,
-        };
-      }
-      if (variant === "secondary") {
-        return {
-          backgroundColor: theme.palette.vars.interactiveSecondaryDefaultHover,
-        };
-      }
+    if (color === "negative") {
       if (variant === "outlined") {
         return {
-          borderColor: theme.palette.vars.interactiveTertiaryHover,
-          color: theme.palette.vars.interactiveTextInHover,
+          "&&":
+            state === "hover"
+              ? {
+                  borderColor: theme.palette.vars.negativeBorderHover,
+                  color: theme.palette.vars.negativeTextHover,
+                }
+              : {
+                  borderColor: theme.palette.vars.negativeBorderActive,
+                  color: theme.palette.vars.negativeTextActive,
+                },
         };
       }
 
-      return { color: theme.palette.vars.interactivePrimaryDefaultHover };
+      if (variant === "tertariary") {
+        return {
+          "&&": {
+            color:
+              state === "hover"
+                ? theme.palette.vars.negativeTextHover
+                : theme.palette.vars.negativeTextActive,
+          },
+        };
+      }
+
+      return {
+        "&&": {
+          backgroundColor:
+            state === "hover"
+              ? theme.palette.vars.negativeBackgroundHover
+              : theme.palette.vars.negativeBackgroundActive,
+          border:
+            state === "pressed"
+              ? `1px solid ${theme.palette.vars.negativeBorderDefault}`
+              : undefined,
+          color: theme.palette.vars.baseTextInverse,
+          paddingLeft:
+            state === "pressed" ? activeHorizontalPadding : undefined,
+          paddingRight:
+            state === "pressed" ? activeHorizontalPadding : undefined,
+        },
+      };
+    }
+
+    if (variant === "secondary") {
+      return {
+        "&&": {
+          backgroundColor:
+            state === "hover"
+              ? theme.palette.vars.interactiveSecondaryDefaultHover
+              : theme.palette.vars.interactiveSecondaryDefaultActive,
+          border:
+            state === "pressed"
+              ? `1px solid ${theme.palette.vars.interactiveSecondaryDefaultDefault}`
+              : undefined,
+        },
+      };
+    }
+
+    if (variant === "outlined") {
+      return {
+        "&&": {
+          borderColor:
+            state === "hover"
+              ? theme.palette.vars.interactiveTertiaryHover
+              : theme.palette.vars.interactiveTertiaryActive,
+          color:
+            state === "hover"
+              ? theme.palette.vars.interactiveTextInHover
+              : theme.palette.vars.interactiveTextInActive,
+        },
+      };
+    }
+
+    if (variant === "tertariary") {
+      return {
+        "&&": {
+          color:
+            state === "hover"
+              ? theme.palette.vars.interactivePrimaryDefaultHover
+              : theme.palette.vars.interactivePrimaryDefaultActive,
+        },
+      };
+    }
+
+    return {
+      "&&": {
+        backgroundColor:
+          state === "hover"
+            ? theme.palette.vars.interactivePrimaryDefaultHover
+            : theme.palette.vars.interactivePrimaryDefaultActive,
+        border:
+          state === "pressed"
+            ? `1px solid ${theme.palette.vars.interactivePrimaryDefaultDefault}`
+            : undefined,
+        paddingLeft: state === "pressed" ? activeHorizontalPadding : undefined,
+        paddingRight: state === "pressed" ? activeHorizontalPadding : undefined,
+      },
     };
-  }
+  };
 
-  if (state === "pressed") {
-    return (theme) => {
-      if (color === "negative") {
-        return variant === "tertariary"
-          ? { color: theme.palette.vars.negativeBackgroundActive }
-          : {
-              backgroundColor:
-                variant === "outlined"
-                  ? "transparent"
-                  : theme.palette.vars.negativeBackgroundActive,
-              borderColor:
-                variant === "outlined"
-                  ? theme.palette.vars.negativeBackgroundActive
-                  : theme.palette.vars.negativeBorderDefault,
-              color:
-                variant === "outlined"
-                  ? theme.palette.vars.negativeBackgroundActive
-                  : theme.palette.vars.baseTextInverse,
-            };
-      }
-
-      if (variant === "primary") {
-        return {
-          backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
-          border: `1px solid ${theme.palette.vars.interactivePrimaryDefaultDefault}`,
-        };
-      }
-      if (variant === "secondary") {
-        return {
-          backgroundColor: theme.palette.vars.interactiveSecondaryDefaultActive,
-          border: `1px solid ${theme.palette.vars.interactiveSecondaryDefaultDefault}`,
-        };
-      }
-      if (variant === "outlined") {
-        return {
-          borderColor: theme.palette.vars.interactiveTertiaryActive,
-          color: theme.palette.vars.interactiveTextInActive,
-        };
-      }
-
-      return { color: theme.palette.vars.interactivePrimaryDefaultActive };
-    };
-  }
-
-  return undefined;
-};
-
-const ExampleButton = ({
-  iconExample,
+const RenderButton = ({
   state = "default",
-  color,
-  disabled,
-  endIcon,
-  startIcon,
   sx,
   variant = "primary",
-  ...props
-}: ButtonProps & {
-  iconExample: IconExample;
-  state?: ButtonState;
-}) => {
-  const icon = <GridViewIcon />;
-  const content = iconExample === "icon alone" ? icon : "button-link";
-  const internalSx = stateSx(state, variant, color);
+  color = "default",
+  size = "medium",
+  ...args
+}: ButtonProps & { state?: ButtonState }) => {
+  const stateSx =
+    state === "default"
+      ? undefined
+      : buttonStateSx(state, variant, color, size);
 
   return (
     <Button
-      {...props}
+      {...args}
       color={color}
-      disabled={state === "disabled" || disabled}
-      endIcon={iconExample === "right icon" ? (endIcon ?? icon) : undefined}
-      startIcon={iconExample === "left icon" ? (startIcon ?? icon) : undefined}
+      size={size}
       sx={[
-        ...(Array.isArray(internalSx)
-          ? internalSx
-          : internalSx
-            ? [internalSx]
-            : []),
+        ...(Array.isArray(stateSx) ? stateSx : stateSx ? [stateSx] : []),
         ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
       ]}
       variant={variant}
-    >
-      {content}
-    </Button>
+    />
   );
 };
 
-const VariantMatrix = ({
-  variant,
-  color,
-}: {
-  variant: ButtonVariant;
-  color?: ButtonProps["color"];
-}) => (
-  <Stack gap={3}>
-    {sizes.map((size) => (
-      <Stack key={size} gap={1.5}>
-        {figmaLabel(`Size ${size}`)}
-        {states.map((state) => (
-          <Stack key={state} direction="row" gap={2} sx={{ flexWrap: "wrap" }}>
-            <Box sx={{ width: 72 }}>{figmaLabel(`state ${state}`)}</Box>
-            {iconExamples.map((iconExample) => (
-              <ExampleButton
-                key={iconExample}
-                color={color}
-                iconExample={iconExample}
-                size={size}
-                state={state}
-                variant={variant}
-              />
-            ))}
-          </Stack>
-        ))}
-        <Stack direction="row" gap={2} sx={{ pl: 11 }}>
-          <Button
-            color={color}
-            loading
-            loadingPosition="start"
-            size={size}
-            startIcon={<GridViewIcon />}
-            variant={variant}
-          >
-            button-link
-          </Button>
-        </Stack>
-      </Stack>
-    ))}
-  </Stack>
-);
+const sizes = ["large", "medium", "small"] as const;
+const variants: Array<{ label: string; variant: ButtonVariant }> = [
+  { label: "Primary", variant: "primary" },
+  { label: "Secondary", variant: "secondary" },
+  { label: "Outlined", variant: "outlined" },
+  { label: "Tertiary", variant: "tertariary" },
+];
 
 export const Default: Story = {
-  render: () => (
-    <Stack gap={5}>
-      <Stack
-        direction="row"
-        gap={5}
-        sx={{ alignItems: "flex-start", flexWrap: "wrap" }}
-      >
-        {variants.slice(0, 4).map(({ label, variant, color }) => (
-          <Stack key={label} gap={2}>
-            {figmaLabel(label)}
-            <VariantMatrix color={color} variant={variant} />
-          </Stack>
-        ))}
-      </Stack>
-      <Stack gap={2}>
-        {figmaLabel("Irreversible")}
-        <Stack
-          direction="row"
-          gap={5}
-          sx={{ alignItems: "flex-start", flexWrap: "wrap" }}
-        >
-          {variants.slice(4).map(({ label, variant, color }) => (
-            <Stack key={label} gap={2}>
-              {figmaLabel(label)}
-              <VariantMatrix color={color} variant={variant} />
-            </Stack>
-          ))}
-        </Stack>
-      </Stack>
+  args: defaultArgs,
+  render: (args) => <RenderButton {...args} />,
+};
+
+export const Secondary: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "secondary",
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+export const Outlined: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "outlined",
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+export const Tertiary: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "tertariary",
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <Stack
+      direction="row"
+      gap={2}
+      sx={{ alignItems: "center", flexWrap: "wrap" }}
+    >
+      {sizes.map((size) => (
+        <RenderButton key={size} {...defaultArgs} {...args} size={size}>
+          {size}
+        </RenderButton>
+      ))}
     </Stack>
   ),
 };
 
-export const Primary: Story = {
-  render: () => <VariantMatrix variant="primary" />,
+export const WithIcons: Story = {
+  args: {
+    ...defaultArgs,
+    endIcon: <ImageGrid />,
+    startIcon: <ImageGrid />,
+    size: "large",
+  },
+  render: (args) => <RenderButton {...args} />,
 };
 
-export const Secondary: Story = {
-  render: () => <VariantMatrix variant="secondary" />,
+export const IconOnly: Story = {
+  args: {
+    ...defaultArgs,
+    children: <ImageGrid aria-label="Grid" />,
+  },
+  render: (args) => <RenderButton {...args} />,
 };
 
-export const Outlined: Story = {
-  render: () => <VariantMatrix variant="outlined" />,
+export const Disabled: Story = {
+  args: {
+    ...defaultArgs,
+    disabled: true,
+  },
+  render: (args) => <RenderButton {...args} />,
 };
 
-export const Tertiary: Story = {
-  render: () => <VariantMatrix variant="tertariary" />,
+export const Loading: Story = {
+  args: {
+    ...defaultArgs,
+    loading: true,
+    loadingPosition: "start",
+    startIcon: <ImageGrid />,
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+export const Hover: Story = {
+  args: defaultArgs,
+  render: (args) => <RenderButton {...args} state="hover" />,
+};
+
+export const Pressed: Story = {
+  args: defaultArgs,
+  render: (args) => <RenderButton {...args} state="pressed" />,
+};
+
+export const Focused: Story = {
+  args: defaultArgs,
+  render: (args) => <RenderButton {...args} state="focus" />,
 };
 
 export const Irreversible: Story = {
-  render: () => (
-    <Stack direction="row" gap={5} sx={{ alignItems: "flex-start" }}>
-      <VariantMatrix color="negative" variant="primary" />
-      <VariantMatrix color="negative" variant="outlined" />
-      <VariantMatrix color="negative" variant="tertariary" />
+  render: (args) => (
+    <Stack
+      direction="row"
+      gap={2}
+      sx={{ alignItems: "center", flexWrap: "wrap" }}
+    >
+      {variants
+        .filter(({ variant }) => variant !== "secondary")
+        .map(({ label, variant }) => (
+          <RenderButton
+            key={variant}
+            {...defaultArgs}
+            {...args}
+            color="negative"
+            variant={variant}
+          >
+            {label}
+          </RenderButton>
+        ))}
     </Stack>
   ),
 };

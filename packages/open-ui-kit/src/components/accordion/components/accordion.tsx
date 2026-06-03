@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ChevronRight } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import { KeyboardArrowRight } from "@/custom-icons";
 import type { AccordionProps } from "../types";
 import {
   StyledAccordion,
@@ -38,6 +38,7 @@ export const Accordion = ({
   ...props
 }: AccordionProps) => {
   const textVariant = size === "large" ? "h6" : "body2Semibold";
+  const summaryTextLineHeight = size === "large" ? "24px" : "20px";
   const mediumSize = size === "medium";
   const shouldShowDivider = showDivider ?? (mediumSize && !contained);
 
@@ -45,7 +46,8 @@ export const Accordion = ({
     <StyledAccordion {...props} mediumSize={mediumSize} contained={contained}>
       <StyledAccordionSummary
         aria-controls="panel-content"
-        expandIcon={<ChevronRight fontSize="small" />}
+        disableRipple
+        expandIcon={<KeyboardArrowRight fontSize="small" />}
         {...accordionSummaryProps}
         contained={contained}
         arrowPosition={arrowPosition}
@@ -61,6 +63,7 @@ export const Accordion = ({
                 textVariant === "h6"
                   ? theme.palette.vars.baseTextStrong
                   : theme.palette.vars.baseTextDefault,
+              lineHeight: summaryTextLineHeight,
               ".Mui-disabled &": {
                 color: theme.palette.vars.baseTextDisabled,
               },
@@ -84,6 +87,7 @@ export const Accordion = ({
                     textVariant === "h6"
                       ? theme.palette.vars.baseTextStrong
                       : theme.palette.vars.baseTextDefault,
+                  lineHeight: summaryTextLineHeight,
                   ".Mui-disabled &": {
                     color: theme.palette.vars.baseTextDisabled,
                   },

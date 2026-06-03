@@ -64,7 +64,7 @@ export const Breadcrumbs = ({
                 mergeCollapsedIconSlotProps(collapsedIconSlotProps(ownerState))
             : mergeCollapsedIconSlotProps(collapsedIconSlotProps),
       }}
-      sx={sx}
+      sx={Array.isArray(sx) ? sx : sx ? [sx] : []}
       maxItems={maximumNumberOfVisibleBreadcrumbs}
     >
       {items.map((item, idx) => {

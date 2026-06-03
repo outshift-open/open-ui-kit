@@ -17,13 +17,13 @@ export function CrossBold(props: SvgIconProps) {
       >
         <g clipPath="url(#a)">
           <path
-            fill="#E8E9EA"
+            fill="currentColor"
             d="m20.105 7.241-4.882 4.79 4.79 4.88-3.255 3.194-4.789-4.882-4.881 4.79-3.193-3.255 4.881-4.789-4.79-4.881 3.255-3.193 4.79 4.881 4.88-4.789 3.194 3.254Z"
           />
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M0 0h24v24H0z" />
+            <path fill="currentColor" d="M0 0h24v24H0z" />
           </clipPath>
         </defs>
       </svg>

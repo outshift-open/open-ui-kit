@@ -4,55 +4,67 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Stack, Typography } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack, Typography } from "@/components";
 import {
-  lightModeCardLifted,
-  lightModeCardSubtle,
-  lightModeCardRaised,
-  lightModeCardFloating,
-  lightModeSideDrawerRight,
-  lightModeSideDrawerLeft,
-  lightModeFooterBottom,
-  darkModeCardLifted,
-  darkModeCardSubtle,
-  darkModeCardRaised,
   darkModeCardFloating,
-  darkModeSideDrawerRight,
-  darkModeSideDrawerLeft,
+  darkModeCardLifted,
+  darkModeCardRaised,
+  darkModeCardSubtle,
   darkModeFooterBottom,
-  surfaceLight300,
+  darkModeSideDrawerLeft,
+  darkModeSideDrawerRight,
+  grey50,
+  grey500,
+  lightModeCardFloating,
+  lightModeCardLifted,
+  lightModeCardRaised,
+  lightModeCardSubtle,
+  lightModeFooterBottom,
+  lightModeSideDrawerLeft,
+  lightModeSideDrawerRight,
   surfaceDark600,
+  surfaceLight100,
+  surfaceLight300,
 } from "@/theme/style/color-palette";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const lightShadows = [
-  { label: "Drawer / Right", shadow: lightModeSideDrawerRight },
-  { label: "Drawer / Left", shadow: lightModeSideDrawerLeft },
-  { label: "Card / Lifted", shadow: lightModeCardLifted },
-  { label: "Card / Subtle", shadow: lightModeCardSubtle },
-  { label: "Card / Raised", shadow: lightModeCardRaised },
-  { label: "Card / Floating", shadow: lightModeCardFloating },
-  { label: "Footer / Bottom", shadow: lightModeFooterBottom },
+type ShadowSpec = {
+  label: string;
+  shadow: string;
+  width: number;
+};
+
+const lightShadows: ShadowSpec[] = [
+  { label: "Drawer\nRight", shadow: lightModeSideDrawerRight, width: 107 },
+  { label: "Drawer\nLeft", shadow: lightModeSideDrawerLeft, width: 107 },
+  { label: "Lifted", shadow: lightModeCardLifted, width: 94 },
+  { label: "Subtle", shadow: lightModeCardSubtle, width: 98 },
+  { label: "Raised", shadow: lightModeCardRaised, width: 100 },
+  { label: "Floating", shadow: lightModeCardFloating, width: 113 },
+  { label: "Bottom\nfooter", shadow: lightModeFooterBottom, width: 108 },
 ];
 
-const darkShadows = [
-  { label: "Drawer / Right", shadow: darkModeSideDrawerRight },
-  { label: "Drawer / Left", shadow: darkModeSideDrawerLeft },
-  { label: "Card / Lifted", shadow: darkModeCardLifted },
-  { label: "Card / Subtle", shadow: darkModeCardSubtle },
-  { label: "Card / Raised", shadow: darkModeCardRaised },
-  { label: "Card / Floating", shadow: darkModeCardFloating },
-  { label: "Footer / Bottom", shadow: darkModeFooterBottom },
+const darkShadows: ShadowSpec[] = [
+  { label: "Drawer\nRight", shadow: darkModeSideDrawerRight, width: 107 },
+  { label: "Drawer\nLeft", shadow: darkModeSideDrawerLeft, width: 107 },
+  { label: "Lifted", shadow: darkModeCardLifted, width: 94 },
+  { label: "Subtle", shadow: darkModeCardSubtle, width: 98 },
+  { label: "Raised", shadow: darkModeCardRaised, width: 100 },
+  { label: "Floating", shadow: darkModeCardFloating, width: 113 },
+  { label: "Bottom\nfooter", shadow: darkModeFooterBottom, width: 108 },
 ];
 
 function ShadowCard({
   label,
   shadow,
+  width,
   bg,
   textColor,
 }: {
   label: string;
   shadow: string;
+  width: number;
   bg: string;
   textColor: string;
 }) {
@@ -63,7 +75,7 @@ function ShadowCard({
         justifyContent: "center",
         alignItems: "center",
         padding: "30px 20px",
-        width: 107,
+        width,
         height: 116,
         background: bg,
         boxShadow: shadow,
@@ -72,11 +84,14 @@ function ShadowCard({
       }}
     >
       <Typography
-        variant="body2"
-        fontWeight={700}
+        variant="headingSubSection"
         textAlign="center"
         color={textColor}
-        sx={{ fontSize: 18, lineHeight: "22px" }}
+        sx={{
+          letterSpacing: 0,
+          lineHeight: "22px",
+          whiteSpace: "pre-line",
+        }}
       >
         {label}
       </Typography>
@@ -85,62 +100,80 @@ function ShadowCard({
 }
 
 const ElevationDemo = () => (
-  <Stack gap="36px" sx={{ p: 4 }}>
-    <Stack gap="8px">
-      <Typography variant="h6" fontWeight={700}>
-        Elevation
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        Box shadows define elevation levels for cards, drawers, and footers.
-      </Typography>
-    </Stack>
+  <Box
+    sx={{
+      backgroundColor: surfaceLight100,
+      boxSizing: "border-box",
+      p: { xs: "32px 24px", md: "64px" },
+      width: "100%",
+    }}
+  >
+    <Stack gap="36px" sx={{ maxWidth: 824 }}>
+      <Stack gap="8px">
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          color={grey500}
+          sx={{ letterSpacing: 0, lineHeight: "24px" }}
+        >
+          Elevation
+        </Typography>
+        <Typography variant="body2" color={grey500}>
+          Used to elevate cards, side panels.
+        </Typography>
+      </Stack>
 
-    <Stack gap="8px">
-      <Typography variant="body2" fontWeight={600} color="text.secondary">
-        Light Mode
-      </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {lightShadows.map(({ label, shadow }) => (
+        {lightShadows.map(({ label, shadow, width }) => (
           <ShadowCard
             key={label}
             label={label}
             shadow={shadow}
+            width={width}
             bg={surfaceLight300}
-            textColor="#3C4551"
+            textColor={grey500}
           />
         ))}
       </Box>
-    </Stack>
 
-    <Stack gap="8px">
-      <Typography variant="body2" fontWeight={600} color="text.secondary">
-        Dark Mode
-      </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {darkShadows.map(({ label, shadow }) => (
+        {darkShadows.map(({ label, shadow, width }) => (
           <ShadowCard
             key={label}
             label={label}
             shadow={shadow}
+            width={width}
             bg={surfaceDark600}
-            textColor="#E8E9EA"
+            textColor={grey50}
           />
         ))}
       </Box>
     </Stack>
-  </Stack>
+  </Box>
 );
 
 const meta: Meta = {
   title: "Foundations/Elevation",
   component: ElevationDemo,
   parameters: {
+    actions: { argTypesRegex: null },
     layout: "fullscreen",
+    docs: {
+      page: () => (
+        <DocsHeader
+          title="Elevation"
+          blurb="Used to elevate cards, side panels."
+          importLine='import { lightTheme, darkTheme } from "@open-ui-kit/core";'
+        />
+      ),
+    },
   },
 };
 
 export default meta;
 
-type Story = StoryObj;
+type Story = StoryObj<typeof ElevationDemo>;
 
-export const All: Story = {};
+export const All: Story = {
+  render: () => <ElevationDemo />,
+};

@@ -15,24 +15,9 @@ export function Loading(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <circle
-          cx="3.818"
-          cy="13.045"
-          r="1.636"
-          fill={props.fill ?? "currentColor"}
-        />
-        <circle
-          cx="10.909"
-          cy="13.045"
-          r="2.182"
-          fill={props.fill ?? "currentColor"}
-        />
-        <circle
-          cx="19.091"
-          cy="13.045"
-          r="2.727"
-          fill={props.fill ?? "currentColor"}
-        />
+        <circle cx="3.818" cy="13.045" r="1.636" fill="currentColor" />
+        <circle cx="10.909" cy="13.045" r="2.182" fill="currentColor" />
+        <circle cx="19.091" cy="13.045" r="2.727" fill="currentColor" />
       </svg>
     </SvgIcon>
   );

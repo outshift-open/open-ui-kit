@@ -4,12 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IconButton, InputAdornment, useTheme } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { IconButton, InputAdornment, useTheme } from "@mui/material";
 import { InputField } from "@/components/input-field";
-import { clearButtonStyle, clearIconStyle, searchIconStyle } from "../styles";
+import { CloseCircleOutline, Search } from "@/custom-icons";
+import {
+  clearButtonStyle,
+  clearIconStyle,
+  getSearchInputStyles,
+  searchIconStyle,
+} from "../styles";
 import type { SearchInputProps } from "../types";
 
 export type { SearchInputProps };
@@ -49,7 +53,7 @@ export const SearchInput = ({
         ...inputProps,
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon sx={searchIconStyle(theme)} />
+            <Search sx={searchIconStyle(theme)} />
           </InputAdornment>
         ),
         endAdornment: (
@@ -60,7 +64,7 @@ export const SearchInput = ({
               sx={clearButtonStyle(!!value.length)}
               data-testid="clear-button"
             >
-              <HighlightOffIcon sx={clearIconStyle(theme)} />
+              <CloseCircleOutline sx={clearIconStyle(theme)} />
             </IconButton>
             {extendEndAdornment}
           </InputAdornment>
@@ -77,12 +81,7 @@ export const SearchInput = ({
       placeholder="Search"
       {...props}
       sx={[
-        {
-          padding: 0,
-          "& .MuiInput-root": {
-            marginTop: 0,
-          },
-        },
+        (theme) => getSearchInputStyles(theme, !!value.length, props.size),
         ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
       ]}
       slotProps={computedSlotProps}

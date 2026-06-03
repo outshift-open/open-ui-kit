@@ -5,11 +5,16 @@
  */
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { Accordion } from "../components/accordion";
+
+const accordionStorySource = () =>
+  readFileSync(join(__dirname, "../stories/accordion.stories.tsx"), "utf8");
 
 const renderAccordion = (
   props: React.ComponentProps<typeof Accordion>,
@@ -73,7 +78,9 @@ describe("Accordion", () => {
       const user = userEvent.setup();
       renderAccordion({ title: "Title", children: <p>Content</p> });
       const button = screen.getByRole("button", { name: /title/i });
-      await user.click(button);
+      await act(async () => {
+        await user.click(button);
+      });
       expect(button).toHaveAttribute("aria-expanded", "true");
     });
 
@@ -85,7 +92,9 @@ describe("Accordion", () => {
         children: <p>Content</p>,
       });
       const button = screen.getByRole("button", { name: /title/i });
-      await user.click(button);
+      await act(async () => {
+        await user.click(button);
+      });
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
@@ -97,7 +106,9 @@ describe("Accordion", () => {
         onChange,
         children: <p>Content</p>,
       });
-      await user.click(screen.getByRole("button", { name: /title/i }));
+      await act(async () => {
+        await user.click(screen.getByRole("button", { name: /title/i }));
+      });
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith(expect.anything(), true);
     });
@@ -112,7 +123,9 @@ describe("Accordion", () => {
         children: <p>Content</p>,
       });
       const button = screen.getByRole("button", { name: /title/i });
-      await user.click(button);
+      await act(async () => {
+        await user.click(button);
+      });
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
@@ -131,8 +144,12 @@ describe("Accordion", () => {
       const user = userEvent.setup();
       renderAccordion({ title: "Title", children: <p>Content</p> });
       const button = screen.getByRole("button", { name: /title/i });
-      button.focus();
-      await user.keyboard("{Enter}");
+      await act(async () => {
+        button.focus();
+      });
+      await act(async () => {
+        await user.keyboard("{Enter}");
+      });
       expect(button).toHaveAttribute("aria-expanded", "true");
     });
 
@@ -140,8 +157,12 @@ describe("Accordion", () => {
       const user = userEvent.setup();
       renderAccordion({ title: "Title", children: <p>Content</p> });
       const button = screen.getByRole("button", { name: /title/i });
-      button.focus();
-      await user.keyboard(" ");
+      await act(async () => {
+        button.focus();
+      });
+      await act(async () => {
+        await user.keyboard(" ");
+      });
       expect(button).toHaveAttribute("aria-expanded", "true");
     });
   });
@@ -151,6 +172,32 @@ describe("Accordion", () => {
       renderAccordion({ title: "Title", children: <p>Content</p> });
       // large variant uses H6 typography — rendered as h6 by MUI
       expect(screen.getByRole("heading", { level: 6 })).toBeInTheDocument();
+    });
+
+    it("uses the accordion CSS line-height for summary text sizes", () => {
+      const { rerender } = render(
+        <ThemeProvider>
+          <Accordion title="Large title">
+            <p>Content</p>
+          </Accordion>
+        </ThemeProvider>,
+      );
+
+      expect(screen.getByText("Large title")).toHaveStyle({
+        lineHeight: "24px",
+      });
+
+      rerender(
+        <ThemeProvider>
+          <Accordion title="Medium title" size="medium">
+            <p>Content</p>
+          </Accordion>
+        </ThemeProvider>,
+      );
+
+      expect(screen.getByText("Medium title")).toHaveStyle({
+        lineHeight: "20px",
+      });
     });
 
     it("does not render an h6 heading for size medium", () => {
@@ -266,6 +313,20 @@ describe("Accordion", () => {
           true,
         ),
       ).not.toThrow();
+    });
+  });
+
+  describe("storybook api documentation", () => {
+    it("documents the default state with args and controls", () => {
+      const storySource = accordionStorySource();
+
+      expect(storySource).toContain("argTypes:");
+      expect(storySource).toContain("arrowPosition:");
+      expect(storySource).toContain("contained:");
+      expect(storySource).toContain("disabled:");
+      expect(storySource).toContain("expanded:");
+      expect(storySource).toContain("size:");
+      expect(storySource).toMatch(/export const Default:[\s\S]*args:/);
     });
   });
 });

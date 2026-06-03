@@ -16,7 +16,7 @@ export function GCPServicesCloudRun(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="m9.13 4.615 2.662 7.995h7.987L9.13 4.615ZM19.78 12.61h-7.988L9.13 20.616l10.65-8.004ZM4.47 20.615l2.672-1.34 1.988-6.664H6.467l-1.996 8.004ZM4.47 4.615l1.998 7.995H9.13L7.142 5.947 4.47 4.615Z"
           clipRule="evenodd"

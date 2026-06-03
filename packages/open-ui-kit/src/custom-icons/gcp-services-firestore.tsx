@@ -16,7 +16,7 @@ export function GCPServicesFirestore(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="m20.225 13.515-8.1-3.6v3.6l8.1 3.6v-3.6Zm0-6.3-8.1-3.6v3.6l8.1 3.6v-3.6ZM4.025 7.215l8.1-3.6v3.6l-8.1 3.6v-3.6ZM4.025 13.515l8.1-3.6v3.6l-8.1 3.6v-3.6ZM12.125 18.015l3.033-1.35 4.059 1.8-7.092 3.15v-3.6Z"
         />
       </svg>

@@ -15,7 +15,7 @@ export function AzureServicesRoleAssignment(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <g fill="#E8E9EA" clipPath="url(#a)">
+        <g fill="currentColor" clipPath="url(#a)">
           <path d="M11.125 12.445a4.16 4.16 0 0 1-2.26-.66l2.18 5.83 2.22-5.79a4.199 4.199 0 0 1-2.14.62Z" />
           <path
             fillRule="evenodd"
@@ -30,7 +30,7 @@ export function AzureServicesRoleAssignment(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.125 3.615h18v18h-18z" />
+            <path fill="currentColor" d="M3.125 3.615h18v18h-18z" />
           </clipPath>
         </defs>
       </svg>

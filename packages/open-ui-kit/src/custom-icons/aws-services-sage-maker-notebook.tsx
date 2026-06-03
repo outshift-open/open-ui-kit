@@ -16,8 +16,8 @@ export function AWSServicesSageMakerNotebook(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
-          stroke="#E8E9EA"
+          fill="currentColor"
+          stroke="currentColor"
           strokeWidth=".05"
           d="M6.895 3.975H6.87V5.87H5.788v.777H6.87v1.137H5.788v.777H6.87v1.156H5.788v.778H6.87v1.14H5.788v.778H6.87v1.112H5.788v.778H6.87v1.126H5.788v.778H6.87v1.156H5.788v.778H6.87v1.884h13.009V3.975H6.894Zm1.848 1.894H7.648V4.753H19.1v14.494H7.648V18.14H8.768v-.777H7.648v-1.156H8.768v-.778H7.648v-1.126H8.768v-.778H7.648v-1.112H8.768v-.777H7.648v-1.141H8.768v-.778H7.648V8.56H8.768v-.777H7.648V6.647H8.768v-.778h-.025Zm1.362.753v.025H17.322v-.778H10.105v.753Zm0 2.324v.025H17.322v-.777H10.105v.752Zm0 2.305v.025H17.322v-.778H10.105v.753Zm0 2.324v.025h3.653v-.778h-3.653v.753Z"
         />

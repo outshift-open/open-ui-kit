@@ -106,18 +106,18 @@ export const Link = ({
       {...props}
     >
       <Stack
-        sx={{ ...linkStackStyle(size), ...(ellipsis ? { width: "100%" } : {}) }}
+        sx={[linkStackStyle(size), ...(ellipsis ? [{ width: "100%" }] : [])]}
       >
         {iconPosition === IconPosition.LeftIcon && Icon && (
           <Icon sx={iconStyle[size]} />
         )}
         <Typography
           component="span"
-          sx={{
-            ...getLinkTypographyStyles(size, linkType, theme),
-            ...fontStyle,
-            ...(ellipsis ? ellipsisStyle : {}),
-          }}
+          sx={[
+            getLinkTypographyStyles(size, linkType, theme),
+            ...(fontStyle ? [fontStyle] : []),
+            ...(ellipsis ? [ellipsisStyle] : []),
+          ]}
         >
           {children}
         </Typography>

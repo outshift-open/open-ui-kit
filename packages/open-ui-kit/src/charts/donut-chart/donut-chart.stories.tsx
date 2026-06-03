@@ -1,11 +1,29 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Box, Grid, Stack } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { DonutChart } from "./donut-chart";
 
 const meta: Meta<typeof DonutChart> = {
   title: "Charts/Donut Chart",
   component: DonutChart,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="DonutChart shows proportions of categorical data. The center displays the total value. Slice colors are set per data item."
+          guideLink="#"
+          importLine='import { DonutChart } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
   argTypes: {
     data: {
       description:

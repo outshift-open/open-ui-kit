@@ -7,9 +7,6 @@
 import type { CSSObject, Theme } from "@mui/material";
 import type { NavigationItemState } from "../types";
 
-const drawerShadow =
-  "8px 0px 12px rgba(200, 213, 245, 0.1), 4px 0px 4px rgba(200, 213, 245, 0.1)";
-
 export const getNavigationFrameStyles = (): CSSObject => ({
   display: "flex",
   alignItems: "flex-start",
@@ -195,7 +192,7 @@ export const getNavigationDrawerStyles = (theme: Theme): CSSObject => ({
   minHeight: "640px",
   backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
   borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  boxShadow: drawerShadow,
+  boxShadow: theme.shadows[6],
 });
 
 export const getNavigationDrawerHeaderStyles = (theme: Theme): CSSObject => ({

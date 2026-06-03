@@ -11,20 +11,24 @@ export const styles = (theme: Theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
+    boxShadow: theme.shadows[1],
+    borderRadius: "8px",
     padding: "0px",
     "&:hover": {
-      backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+      backgroundColor: theme.palette.vars.baseBackgroundWeak,
     },
   } as CSSProperties,
 
   horizontalCard: {
     overflow: "visible",
-    backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
+    boxShadow: theme.shadows[1],
+    borderRadius: "8px",
     padding: "0px",
     width: "360px",
     "&:hover": {
-      backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+      backgroundColor: theme.palette.vars.baseBackgroundWeak,
     },
   } as CSSProperties,
 
@@ -50,8 +54,8 @@ export const styles = (theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottom: `1px solid ${theme.palette.vars.inactiveBorderHover}`,
-    padding: "12px 16px",
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    padding: "16px",
     width: "100%",
   } as CSSProperties,
 

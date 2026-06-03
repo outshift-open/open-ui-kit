@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box } from "@mui/material";
+import { Box } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Upload } from "../components/upload";
 import type { UploadFile } from "../types";

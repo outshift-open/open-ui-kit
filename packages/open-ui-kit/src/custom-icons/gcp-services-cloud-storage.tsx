@@ -15,12 +15,9 @@ export function GCPServicesCloudStorage(props: SvgIconProps) {
         height="25"
         fill="none"
       >
+        <path fill="currentColor" d="M21.125 5.465h-1.8v6.3h1.8v-6.3Z" />
         <path
-          fill={props.fill ?? "currentColor"}
-          d="M21.125 5.465h-1.8v6.3h1.8v-6.3Z"
-        />
-        <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="M21.125 5.465v6.3h-18v-6.3h18Zm-3.6 3.15a1.35 1.35 0 1 0-2.7 0 1.35 1.35 0 0 0 2.7 0Zm-5.4-.45h-5.4v.9h5.4v-.9ZM19.325 13.465h1.8v6.3h-18v-6.3h16.2Zm-1.8 3.15a1.35 1.35 0 1 0-2.7 0 1.35 1.35 0 0 0 2.7 0Zm-5.4-.45h-5.4v.9h5.4v-.9Z"
           clipRule="evenodd"

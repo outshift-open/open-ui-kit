@@ -1,7 +1,17 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Divider, useTheme } from "@mui/material";
 import { BarGraph } from "./bar-graph";
 import { Stack, Typography } from "@mui/material";
+import { green500, orange500, red700 } from "@/theme/style/color-palette";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+
+const chartOrange = "#ffaf45";
 
 import { AWSServicesCloudWatch } from "@/custom-icons";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
@@ -14,16 +24,23 @@ const meta: Meta<typeof BarGraph> = {
   title: "Charts/Bar Graph",
   component: BarGraph,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="BarGraph displays stacked horizontal bars for comparing multiple categories across items. Pass bars to define each category key and color."
+          guideLink="#"
+          importLine='import { BarGraph } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof BarGraph>;
 
-const green500 = "#00b98d";
-const red500 = "#f2643d";
-const bordeaux700 = "#b91f42";
-const orange500 = "#ffaf45";
 const graphs2_200 = "#EE8B97";
 const graphs2_300 = "#E96A8D";
 const graphs2_400 = "#DB5087";
@@ -99,9 +116,9 @@ const customLabelComponent = (
 const barGraphDataWithCustomLabel = {
   headers: ["Services", "Health Breakdown"],
   bars: [
-    { key: "Critical", color: bordeaux700 },
-    { key: "High", color: red500 },
-    { key: "Medium", color: orange500 },
+    { key: "Critical", color: red700 },
+    { key: "High", color: orange500 },
+    { key: "Medium", color: chartOrange },
     { key: "Low", color: green500 },
   ],
   data: [

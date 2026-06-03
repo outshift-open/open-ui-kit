@@ -4,9 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Stack, Typography } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack, Typography } from "@/components";
+import {
+  grey0,
+  grey500,
+  surfaceDark900,
+  surfaceLight100,
+} from "@/theme/style/color-palette";
 import { gradientsPalette } from "@/theme/style/gradients";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 function GradientSwatch({
   label,
@@ -24,16 +31,14 @@ function GradientSwatch({
           width: 248,
           height: 50,
           background: gradient,
-          borderRadius: "4px",
           display: "flex",
           alignItems: "center",
           pl: "24px",
         }}
       >
         <Typography
-          variant="body2"
-          fontWeight={600}
-          color={light ? "#00142B" : "#FFFFFF"}
+          variant="body2Semibold"
+          color={light ? surfaceDark900 : grey0}
           noWrap
         >
           {label}
@@ -52,7 +57,7 @@ function GradientGroup({
 }) {
   return (
     <Stack gap="18px">
-      <Typography variant="body2" fontWeight={600} color="text.secondary">
+      <Typography variant="body2Semibold" color={grey500}>
         {title}
       </Typography>
       <Stack gap="0px">
@@ -74,13 +79,27 @@ const GradientsDemo = () => {
     gradientsPalette;
 
   return (
-    <Stack gap="36px" sx={{ p: 4 }}>
+    <Stack
+      gap="36px"
+      sx={{
+        backgroundColor: surfaceLight100,
+        boxSizing: "border-box",
+        p: { xs: "32px 24px", md: "64px" },
+        width: "100%",
+      }}
+    >
       <Stack gap="8px">
-        <Typography variant="h6" fontWeight={700}>
-          Accent colors
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          color={grey500}
+          sx={{ letterSpacing: 0, lineHeight: "24px" }}
+        >
+          Gradients
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Interactive gradients for buttons and CTAs.
+        <Typography variant="body2" color={grey500}>
+          Gradients are used occasionally for branded CTAs and for
+          illustrations.
         </Typography>
       </Stack>
 
@@ -123,15 +142,6 @@ const GradientsDemo = () => {
         />
       </Box>
 
-      <Stack gap="8px">
-        <Typography variant="h6" fontWeight={700}>
-          Illustration gradients
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Decorative gradients for illustrations and backgrounds.
-        </Typography>
-      </Stack>
-
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: "40px" }}>
         <GradientGroup
           title="Purple"
@@ -166,7 +176,7 @@ const GradientsDemo = () => {
           ]}
         />
         <GradientGroup
-          title="Background Light"
+          title="Main Background Light"
           items={[
             {
               label: "gradient-bg-light",
@@ -176,7 +186,7 @@ const GradientsDemo = () => {
           ]}
         />
         <GradientGroup
-          title="Background Dark"
+          title="Main Background Dark"
           items={[{ label: "gradient-bg-dark", gradient: background.dark }]}
         />
       </Box>
@@ -184,16 +194,28 @@ const GradientsDemo = () => {
   );
 };
 
-const meta: Meta = {
+const meta: Meta<typeof GradientsDemo> = {
   title: "Foundations/Gradients",
   component: GradientsDemo,
   parameters: {
+    actions: { argTypesRegex: null },
     layout: "fullscreen",
+    docs: {
+      page: () => (
+        <DocsHeader
+          title="Gradients"
+          blurb="Gradients are used occasionally for branded CTAs and for illustrations."
+          importLine='import { gradientsPalette } from "@open-ui-kit/core";'
+        />
+      ),
+    },
   },
 };
 
 export default meta;
 
-type Story = StoryObj;
+type Story = StoryObj<typeof GradientsDemo>;
 
-export const All: Story = {};
+export const All: Story = {
+  render: () => <GradientsDemo />,
+};

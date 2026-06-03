@@ -4,11 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import type { SvgIconProps } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
+import { ThemeProvider } from "@/theme-provider/theme-provider";
+
+type IconComponent = React.ComponentType<SvgIconProps>;
 
 interface IconTileProps {
   name: string;
-  Icon: React.ComponentType<{ fill?: string; color?: string }>;
+  Icon: IconComponent;
 }
 
 function IconTile({ name, Icon }: IconTileProps) {
@@ -22,133 +27,149 @@ function IconTile({ name, Icon }: IconTileProps) {
   }
 
   return (
-    <div
+    <Box
+      component="button"
+      type="button"
       onClick={handleCopy}
       title={`Click to copy: ${name}`}
-      style={{
+      aria-label={`Copy ${name} icon export name`}
+      sx={(theme) => ({
+        alignItems: "center",
+        backgroundColor: copied
+          ? theme.palette.vars.successBackgroundWeak
+          : "transparent",
+        border: `1px solid ${
+          copied
+            ? theme.palette.vars.successBorderDefault
+            : theme.palette.vars.controlBorderWeak
+        }`,
+        borderRadius: "8px",
+        color: copied
+          ? theme.palette.vars.successTextDefault
+          : theme.palette.vars.controlIconDefault,
+        cursor: "pointer",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        gap: 8,
-        padding: "16px 8px 12px",
-        width: 96,
-        borderRadius: 8,
-        cursor: "pointer",
-        border: "1px solid transparent",
-        transition: "background 0.1s, border-color 0.1s",
-        background: copied ? "#e6f7f0" : "transparent",
-        borderColor: copied ? "#a3d9bf" : "transparent",
-      }}
-      onMouseEnter={(e) => {
-        if (!copied) {
-          const el = e.currentTarget as HTMLDivElement;
-          el.style.background = "rgba(128,128,128,0.07)";
-          el.style.borderColor = "rgba(128,128,128,0.15)";
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!copied) {
-          const el = e.currentTarget as HTMLDivElement;
-          el.style.background = "transparent";
-          el.style.borderColor = "transparent";
-        }
-      }}
+        font: "inherit",
+        gap: 1,
+        justifyContent: "center",
+        minHeight: 96,
+        minWidth: 96,
+        p: 1.5,
+        transition:
+          "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
+        width: 104,
+        "&:hover": {
+          backgroundColor: copied
+            ? theme.palette.vars.successBackgroundWeak
+            : theme.palette.vars.baseBackgroundHover,
+          borderColor: copied
+            ? theme.palette.vars.successBorderDefault
+            : theme.palette.vars.controlBorderHover,
+        },
+        "&:focus-visible": {
+          borderColor: theme.palette.vars.controlBorderActive,
+          outline: `2px solid ${theme.palette.vars.controlBorderActive}`,
+          outlineOffset: 2,
+        },
+      })}
     >
-      <div
-        style={{
-          width: 24,
-          height: 24,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-        }}
-      >
-        <Icon />
-      </div>
-      <span
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: 10,
-          lineHeight: "13px",
-          textAlign: "center",
-          opacity: copied ? 1 : 0.5,
-          color: copied ? "#1a7a4a" : "inherit",
-          wordBreak: "break-word",
+      <Icon sx={{ fontSize: 24 }} />
+      <Typography
+        component="span"
+        variant="caption"
+        sx={(theme) => ({
+          color: copied
+            ? theme.palette.vars.successTextDefault
+            : theme.palette.vars.baseTextWeak,
+          lineHeight: "14px",
           maxWidth: "100%",
-        }}
+          overflowWrap: "anywhere",
+          textAlign: "center",
+        })}
       >
         {copied ? "Copied!" : name}
-      </span>
-    </div>
+      </Typography>
+    </Box>
   );
 }
 
 interface IconSectionProps {
   title: string;
   description?: string;
-  icons: [string, React.ComponentType<{ fill?: string; color?: string }>][];
+  icons: [string, IconComponent][];
 }
 
 export function IconSection({ title, description, icons }: IconSectionProps) {
   return (
-    <div style={{ marginBottom: 48 }}>
-      <div
-        style={{
-          borderTop: "2px solid rgba(128,128,128,0.2)",
-          paddingTop: 20,
-          marginBottom: 16,
-        }}
+    <Stack gap={2} sx={{ mb: 6 }}>
+      <Box
+        sx={(theme) => ({
+          borderTop: `1px solid ${theme.palette.vars.baseBorderDefault}`,
+          pt: 2.5,
+        })}
       >
-        <h2
-          style={{
-            fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
-            fontWeight: 700,
-            fontSize: 20,
-            margin: "0 0 4px",
-            letterSpacing: "-0.01em",
-          }}
-        >
-          {title}
-          <span
-            style={{
-              fontWeight: 400,
-              fontSize: 13,
-              opacity: 0.4,
-              marginLeft: 10,
-            }}
+        <Stack direction="row" gap={1.25} sx={{ alignItems: "baseline" }}>
+          <Typography
+            component="h2"
+            variant="h6"
+            sx={(theme) => ({
+              color: theme.palette.vars.baseTextStrong,
+              m: 0,
+            })}
+          >
+            {title}
+          </Typography>
+          <Typography
+            component="span"
+            variant="caption"
+            sx={(theme) => ({
+              color: theme.palette.vars.baseTextWeak,
+            })}
           >
             {icons.length} icons
-          </span>
-        </h2>
+          </Typography>
+        </Stack>
         {description && (
-          <p
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: 13,
-              opacity: 0.5,
-              margin: 0,
-              lineHeight: "18px",
-            }}
+          <Typography
+            variant="body2"
+            sx={(theme) => ({
+              color: theme.palette.vars.baseTextMedium,
+              mt: 0.5,
+            })}
           >
             {description}
-          </p>
+          </Typography>
         )}
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+      </Box>
+      <Box
+        sx={{
+          display: "grid",
+          gap: 1,
+          gridTemplateColumns:
+            "repeat(auto-fill, minmax(min(104px, 100%), 104px))",
+        }}
+      >
         {icons.map(([name, Icon]) => (
           <IconTile key={name} name={name} Icon={Icon} />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 }
 
 interface IconGalleryViewProps {
-  allIcons: Record<
-    string,
-    React.ComponentType<{ fill?: string; color?: string }>
-  >;
+  allIcons: Record<string, IconComponent>;
+}
+
+function getInitialDarkMode() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return new URLSearchParams(window.location.search)
+    .get("globals")
+    ?.includes("theme:dark");
 }
 
 const CLOUD_PREFIXES = [
@@ -163,16 +184,16 @@ const CLOUD_PREFIXES = [
 ];
 
 function isCloudIcon(name: string) {
-  return CLOUD_PREFIXES.some((p) => name.startsWith(p));
+  return CLOUD_PREFIXES.some((prefix) => name.startsWith(prefix));
 }
 
 export function IconGalleryView({ allIcons }: IconGalleryViewProps) {
   const [search, setSearch] = useState("");
 
-  const entries = Object.entries(allIcons) as [
-    string,
-    React.ComponentType<{ fill?: string; color?: string }>,
-  ][];
+  const entries = useMemo(
+    () => Object.entries(allIcons) as [string, IconComponent][],
+    [allIcons],
+  );
 
   const filtered = search
     ? entries.filter(([name]) =>
@@ -184,46 +205,85 @@ export function IconGalleryView({ allIcons }: IconGalleryViewProps) {
   const cloudIcons = entries.filter(([name]) => isCloudIcon(name));
 
   return (
-    <div>
-      <div style={{ marginBottom: 40, position: "relative" }}>
-        <input
+    <Box
+      sx={(theme) => ({
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? theme.palette.vars.baseBackgroundWeak
+            : "transparent",
+        maxWidth: 1120,
+      })}
+    >
+      <Box sx={{ mb: 5, position: "relative" }}>
+        <Box
+          component="input"
           type="text"
-          placeholder="Search icons…"
+          placeholder="Search icons..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            width: "100%",
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(event.target.value)
+          }
+          aria-label="Search icons"
+          sx={(theme) => ({
+            backgroundColor: theme.palette.vars.controlBackgroundDefault,
+            border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+            borderRadius: "8px",
             boxSizing: "border-box",
-            padding: "10px 16px",
+            color: theme.palette.vars.baseTextDefault,
             fontFamily: "Inter, sans-serif",
             fontSize: 14,
-            borderRadius: 8,
-            border: "1px solid rgba(128,128,128,0.3)",
-            background: "transparent",
+            height: 44,
+            lineHeight: "20px",
             outline: "none",
-          }}
+            px: 2,
+            pr: search ? 6 : 2,
+            width: "100%",
+            "&::placeholder": {
+              color: theme.palette.vars.baseTextWeak,
+              opacity: 1,
+            },
+            "&:focus": {
+              borderColor: theme.palette.vars.controlBorderActive,
+              boxShadow: `0 0 0 2px ${theme.palette.vars.controlBorderActive}`,
+            },
+          })}
         />
         {search && (
-          <button
+          <Box
+            component="button"
+            type="button"
             onClick={() => setSearch("")}
-            style={{
-              position: "absolute",
-              right: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "none",
-              border: "none",
+            aria-label="Clear icon search"
+            sx={(theme) => ({
+              alignItems: "center",
+              backgroundColor: "transparent",
+              border: 0,
+              borderRadius: "8px",
+              color: theme.palette.vars.controlIconDefault,
               cursor: "pointer",
-              fontSize: 16,
-              opacity: 0.4,
-              padding: 0,
+              display: "flex",
+              fontSize: 18,
+              height: 44,
+              justifyContent: "center",
               lineHeight: 1,
-            }}
+              p: 0,
+              position: "absolute",
+              right: 0,
+              top: 0,
+              width: 44,
+              "&:hover": {
+                color: theme.palette.vars.controlIconHover,
+              },
+              "&:focus-visible": {
+                outline: `2px solid ${theme.palette.vars.controlBorderActive}`,
+                outlineOffset: -4,
+              },
+            })}
           >
-            ✕
-          </button>
+            x
+          </Box>
         )}
-      </div>
+      </Box>
 
       {filtered ? (
         <IconSection
@@ -244,6 +304,14 @@ export function IconGalleryView({ allIcons }: IconGalleryViewProps) {
           />
         </>
       )}
-    </div>
+    </Box>
+  );
+}
+
+export function IconGalleryDocs({ allIcons }: IconGalleryViewProps) {
+  return (
+    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
+      <IconGalleryView allIcons={allIcons} />
+    </ThemeProvider>
   );
 }

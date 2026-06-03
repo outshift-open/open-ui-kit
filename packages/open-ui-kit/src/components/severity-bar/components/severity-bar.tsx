@@ -30,7 +30,7 @@ export const SeverityBar = ({
   return (
     <SeverityBarIcon
       fill={getColorBySeverity(severity, theme)}
-      sx={{ ...barStyle, ...sx }}
+      sx={[barStyle, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     />
   );
 };

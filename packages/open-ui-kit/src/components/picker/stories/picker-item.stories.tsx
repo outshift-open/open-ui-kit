@@ -5,7 +5,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box } from "@mui/material";
+import { Box } from "@/components";
 import AppsIcon from "@mui/icons-material/Apps";
 import { PickerItem } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";

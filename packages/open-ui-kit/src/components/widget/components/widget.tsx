@@ -49,11 +49,11 @@ export const Widget = ({
   return (
     <Card
       data-rosey-urn={dataRoseyUrn}
-      sx={{
-        ...(isHorizontal ? styles(theme).horizontalCard : styles(theme).card),
-        ...sx,
-        overflow: "visible",
-      }}
+      sx={[
+        isHorizontal ? styles(theme).horizontalCard : styles(theme).card,
+        { overflow: "visible" },
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
     >
       {label && (
         <WidgetHeadline

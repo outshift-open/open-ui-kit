@@ -16,7 +16,7 @@ export function Scan(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           d="M17 22.5v-2h3v-3h2V21c0 .4-.2.7-.5 1-.3.3-.7.5-1 .5H17Zm-10 0H3.5c-.4 0-.7-.2-1-.5-.3-.3-.5-.7-.5-1v-3.5h2v3h3v2Zm10-20h3.5c.4 0 .7.2 1 .5.3.3.5.6.5 1v3.5h-2v-3h-3v-2Zm-10 0v2H4v3H2V4c0-.4.2-.7.5-1 .3-.3.6-.5 1-.5H7Zm12 9H5v2h14v-2Z"
         />
       </svg>

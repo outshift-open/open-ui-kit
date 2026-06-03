@@ -16,7 +16,7 @@ export function KubernetesServicesDeployment(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="M3.97 12.663a7.791 7.791 0 0 0 8.148 7.37l-.146-3.083a4.705 4.705 0 1 1 4.458-5.194h-2.574l2.45 5.994 5.653-5.994h-2.576l.142-.01a7.79 7.79 0 0 0-15.555.917Z"
           clipRule="evenodd"

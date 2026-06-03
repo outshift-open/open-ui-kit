@@ -7,7 +7,7 @@
 import type { ButtonProps } from "../types";
 import { StyledButton } from "./elements";
 
-/** Spark button wrapper with tokenized variants, sizes, icon spacing, and states. */
+/** Open UI Kit button wrapper with tokenized variants, sizes, icon spacing, and states. */
 export const Button = ({ disableRipple = true, ...props }: ButtonProps) => (
   <StyledButton disableRipple={disableRipple} {...props} />
 );

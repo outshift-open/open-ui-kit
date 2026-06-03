@@ -39,7 +39,7 @@ export const Popover = ({
   ...props
 }: PopoverProps) => {
   const theme = useTheme();
-  const bg = theme.palette.vars?.controlBackgroundDefault ?? "#fbfcfe";
+  const bg = theme.palette.vars.controlBackgroundDefault;
 
   return (
     <MuiPopover

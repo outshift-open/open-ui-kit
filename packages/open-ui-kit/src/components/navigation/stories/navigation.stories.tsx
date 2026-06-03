@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import {
   Navigation,

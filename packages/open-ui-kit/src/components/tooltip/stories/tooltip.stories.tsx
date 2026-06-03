@@ -5,7 +5,8 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
+import { forwardRef, type HTMLAttributes } from "react";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Button } from "@/components/button";
 import { Tooltip } from "../components/tooltip";
@@ -32,9 +33,14 @@ const meta: Meta<typeof Tooltip> = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-const TriggerChip = ({ label }: { label: string }) => (
+const TriggerChip = forwardRef<
+  HTMLSpanElement,
+  { label: string } & HTMLAttributes<HTMLSpanElement>
+>(({ label, ...props }, ref) => (
   <Box
+    ref={ref}
     component="span"
+    {...props}
     sx={(theme) => ({
       display: "inline-flex",
       alignItems: "center",
@@ -53,7 +59,9 @@ const TriggerChip = ({ label }: { label: string }) => (
       {label}
     </Typography>
   </Box>
-);
+));
+
+TriggerChip.displayName = "TriggerChip";
 
 /* ─── Size Medium — all positions ─── */
 export const SizeMedium: Story = {
@@ -118,17 +126,54 @@ export const SizeLarge: Story = {
   ),
 };
 
-/* ─── Interactive ─── */
+/* ─── Interactive — hover the button to trigger the tooltip ─── */
 export const Interactive: Story = {
   name: "Interactive",
-  render: () => (
-    <Stack direction="row" spacing={4} sx={{ p: 4 }}>
-      <Tooltip title="Medium tooltip" arrow>
-        <Button variant="secondary">Hover me (M)</Button>
-      </Tooltip>
-      <Tooltip title="Large tooltip" size={TooltipSize.Large} arrow>
-        <Button variant="secondary">Hover me (L)</Button>
-      </Tooltip>
-    </Stack>
-  ),
+  args: {
+    title: "Tooltip text",
+    placement: "top",
+    size: TooltipSize.Medium,
+    arrow: true,
+  },
+  argTypes: {
+    title: { control: "text" },
+    placement: {
+      control: "select",
+      options: [
+        "top-start",
+        "top",
+        "top-end",
+        "bottom-start",
+        "bottom",
+        "bottom-end",
+        "left",
+        "right",
+      ],
+    },
+    size: {
+      control: "radio",
+      options: [TooltipSize.Medium, TooltipSize.Large],
+    },
+    arrow: { control: "boolean" },
+    // Exclude controlled-mode props so MUI uses uncontrolled hover behaviour
+    open: { table: { disable: true } },
+    onClose: { table: { disable: true } },
+    onOpen: { table: { disable: true } },
+  },
+  render: ({ open, ...args }) => {
+    void open;
+
+    return (
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ p: 8, minHeight: "200px" }}
+      >
+        <Tooltip {...args}>
+          <Button variant="secondary">Hover me</Button>
+        </Tooltip>
+      </Stack>
+    );
+  },
 };

@@ -5,7 +5,6 @@
  */
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
-import { greyPalette } from "@/theme/style/color-palette";
 
 export function KubernetesCategoryNone(props: SvgIconProps) {
   return (
@@ -17,10 +16,10 @@ export function KubernetesCategoryNone(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? greyPalette[50]}
+          fill="currentColor"
           fillRule="evenodd"
           clipRule="evenodd"
-          stroke="#E8E9EA"
+          stroke="currentColor"
           strokeWidth="0.11"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
 import { Hub } from "@mui/icons-material";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";

@@ -4,10 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export function VulArrowUp(props: SvgIconProps) {
-  const theme = useTheme();
   return (
     <SvgIcon {...props}>
       <svg
@@ -19,7 +18,7 @@ export function VulArrowUp(props: SvgIconProps) {
       >
         <path
           d="M4.1333 12L5.5433 13.41L11.1333 7.83L11.1333 20L13.1333 20L13.1333 7.83L18.7133 13.42L20.1333 12L12.1333 4L4.1333 12Z"
-          fill={props?.fill || theme.palette.grey[50]}
+          fill="currentColor"
         />
       </svg>
     </SvgIcon>

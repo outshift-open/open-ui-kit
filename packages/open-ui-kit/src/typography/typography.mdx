@@ -1,95 +1,226 @@
 import { Meta } from "@storybook/addon-docs/blocks";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { TypographySection } from "./typography-row";
-import { CopyImport } from "@/colors/copy-import";
 
 <Meta title="Foundations/Typography" />
 
-<div style={{ maxWidth: 960, padding: "64px 0 96px" }}>
-
-<style>{`
-  .ouk-page-title {
-    font-family: 'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 56px !important;
-    margin-bottom: 12px !important;
-    margin-top: 0 !important;
-    line-height: 1.05 !important;
-    letter-spacing: -0.02em !important;
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-  }
-`}</style>
-
-<h1 className="ouk-page-title">Typography</h1>
-
-<p style={{
-  fontFamily: "Inter, sans-serif",
-  fontSize: 15,
-  opacity: 0.6,
-  marginBottom: 8,
-  maxWidth: 560,
-  lineHeight: 1.7,
-  marginTop: 0,
-}}>
-  Open UI Kit type scale — headings in Sharp Sans, body and UI in Inter.
-  Click "Copy token" to copy the MUI variant name for use with the Typography component.
-</p>
-
-<CopyImport code={`import { Typography } from "@open-ui-kit/core"`} />
-
-<hr style={{ border: "none", borderTop: "1px solid rgba(128,128,128,0.15)", marginBottom: 56 }} />
+<DocsHeader
+  title="Type"
+  blurb="Open UI Kit uses modern, clean sans serif and monospace font families to make screens of precise and exacting technical information easy to scan."
+  importLine='import { Typography } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
 
 <TypographySection
-  title="Headings"
-  description="Sharp Sans, 700 weight. Used for page titles and section headers."
+  title="Headline Titles"
+  description="Open UI Kit uses Sharp Sans and Inter typefaces for headings and body copy."
   variants={[
-    { token: "h1", label: "H1 — Display", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "60px", lineHeight: "64px", sample: "The quick brown fox" },
-    { token: "h2", label: "H2 — Title", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "48px", lineHeight: "52px", sample: "The quick brown fox" },
-    { token: "h3", label: "H3 — Heading", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "36px", lineHeight: "44px", sample: "The quick brown fox" },
-    { token: "h4", label: "H4 — Subheading", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "28px", lineHeight: "36px", sample: "The quick brown fox jumps" },
-    { token: "h5", label: "H5 — Section", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "24px", lineHeight: "32px", sample: "The quick brown fox jumps over" },
-    { token: "h6", label: "H6 — Sub-section", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "20px", lineHeight: "28px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "headingSubSection", label: "Heading Sub-section", fontFamily: "Sharp Sans, sans-serif", fontWeight: 700, fontSize: "16px", lineHeight: "22px", sample: "The quick brown fox jumps over the lazy dog" },
+    {
+      token: "h1",
+      label: "Title h1",
+      usage: "Used for large banners, illustrations or promotional content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "60px",
+      lineHeight: "64px",
+      variant: "h1",
+    },
+    {
+      token: "h2",
+      label: "Title h2",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "48px",
+      lineHeight: "52px",
+      variant: "h2",
+    },
+    {
+      token: "h3",
+      label: "Title h3",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "36px",
+      lineHeight: "44px",
+      variant: "h3",
+    },
+    {
+      token: "h4",
+      label: "Title h4",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "28px",
+      lineHeight: "36px",
+      variant: "h4",
+    },
+    {
+      token: "h5",
+      label: "Title h5",
+      usage: "Used for page titles, modal title, and drawer title.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "24px",
+      lineHeight: "32px",
+      variant: "h5",
+    },
+    {
+      token: "h6",
+      label: "Title h6",
+      usage: "Used for section titles, accordion headers, and first-level titles within a container.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "20px",
+      lineHeight: "28px",
+      variant: "h6",
+    },
+    {
+      token: "headingSubSection",
+      label: "Title h7",
+      usage: "Used for sub-section titles, and second-level titles within a container.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "18px",
+      lineHeight: "28px",
+      variant: "headingSubSection",
+    },
   ]}
 />
 
 <TypographySection
-  title="Subtitle"
-  description="Inter, 500 weight. Used for labels and secondary headings."
+  title="Subtitles"
   variants={[
-    { token: "subtitle1", label: "Subtitle 1", fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "24px", letterSpacing: "0.15px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "subtitle2", label: "Subtitle 2", fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: "14px", lineHeight: "20px", letterSpacing: "0.1px", sample: "The quick brown fox jumps over the lazy dog" },
+    {
+      token: "subtitle1",
+      label: "Subtitle 1",
+      usage: "Used for first-level titles within a sub container or subsection.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "16px",
+      lineHeight: "24px",
+      letterSpacing: "0.15px",
+      variant: "subtitle1",
+    },
+    {
+      token: "subtitle2",
+      label: "Subtitle 2",
+      usage: "Used for first-level titles within a sub container or subsection.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "14px",
+      lineHeight: "20px",
+      letterSpacing: "0.1px",
+      variant: "subtitle2",
+    },
   ]}
 />
 
 <TypographySection
   title="Body"
-  description="Inter, regular and semibold. Used for paragraph text and content."
   variants={[
-    { token: "body1", label: "Body 1", fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "16px", lineHeight: "24px", letterSpacing: "0.5px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "body1Semibold", label: "Body 1 Semibold", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "16px", lineHeight: "24px", letterSpacing: "0px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "body2", label: "Body 2", fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", letterSpacing: "0.25px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "body2Semibold", label: "Body 2 Semibold", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "14px", lineHeight: "20px", letterSpacing: "0px", sample: "The quick brown fox jumps over the lazy dog" },
+    {
+      token: "body1Semibold",
+      label: "Body 1 SemiBold",
+      usage: "Used for first-level titles within a sub container or subsection, and to section paragraphs.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Semibold",
+      fontSize: "16px",
+      lineHeight: "24px",
+      variant: "body1Semibold",
+    },
+    {
+      token: "body2Semibold",
+      label: "Body 2 SemiBold",
+      usage: "Used for first-level titles within a sub container or subsection, and to section paragraphs.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Semibold",
+      fontSize: "14px",
+      lineHeight: "20px",
+      variant: "body2Semibold",
+    },
+    {
+      token: "body1",
+      label: "Body 1",
+      usage: "Used for first-level paragraph text.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "16px",
+      lineHeight: "24px",
+      letterSpacing: "0.5px",
+      variant: "body1",
+    },
+    {
+      token: "body2",
+      label: "Body 2",
+      usage: "Used for second-level paragraph text.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "14px",
+      lineHeight: "20px",
+      letterSpacing: "0.25px",
+      variant: "body2",
+    },
+    {
+      token: "captionSemibold",
+      label: "Caption Bold",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Bold",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "captionSemibold",
+    },
+    {
+      token: "captionMedium",
+      label: "Caption Medium",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "captionMedium",
+    },
+    {
+      token: "caption",
+      label: "Caption",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "caption",
+    },
+    {
+      token: "overline",
+      label: "Caption Small",
+      usage: "Smallest text, only used when necessary.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "10px",
+      lineHeight: "12px",
+      letterSpacing: "0.4px",
+      variant: "overline",
+    },
   ]}
 />
-
-<TypographySection
-  title="Caption"
-  description="Inter, 12px. Used for helper text, timestamps, and fine print."
-  variants={[
-    { token: "caption", label: "Caption", fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "12px", lineHeight: "16px", letterSpacing: "0.4px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "captionMedium", label: "Caption Medium", fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: "12px", lineHeight: "16px", letterSpacing: "0.4px", sample: "The quick brown fox jumps over the lazy dog" },
-    { token: "captionSemibold", label: "Caption Semibold", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "12px", lineHeight: "16px", sample: "The quick brown fox jumps over the lazy dog" },
-  ]}
-/>
-
-<TypographySection
-  title="UI"
-  description="Inter, used for interactive elements and labels."
-  variants={[
-    { token: "button", label: "Button", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "12px", lineHeight: "16px", sample: "Button label" },
-    { token: "overline", label: "Overline", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "10px", lineHeight: "16px", letterSpacing: "0.4px", sample: "OVERLINE LABEL" },
-  ]}
-/>
-
-</div>

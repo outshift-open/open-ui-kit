@@ -1,5 +1,12 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { HorizontalBarChart } from "./horizontal-bar-chart";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ChartDataItem } from "../common/types";
 import {
   AWSCloudFormation,
@@ -13,6 +20,17 @@ const meta: Meta<typeof HorizontalBarChart> = {
   title: "Charts/HorizontalBarChart",
   component: HorizontalBarChart,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="HorizontalBarChart displays items as horizontal progress bars. Bar width is proportional to the item's value relative to the maximum."
+          guideLink="#"
+          importLine='import { HorizontalBarChart } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
 };
 
 export default meta;

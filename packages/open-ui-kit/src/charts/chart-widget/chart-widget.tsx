@@ -45,12 +45,11 @@ export const ChartWidget = ({
   dataRoseyUrn,
   ...rest
 }: IChartWidgetProps) => {
-  const combinedSx = {
-    ...(type === ChartType.BAR_GRAPH
-      ? { position: "relative" }
-      : (sx as SxProps)),
-    ...(generalWidgetStyle as SxProps),
-  } as SxProps;
+  const combinedSx = [
+    type === ChartType.BAR_GRAPH ? { position: "relative" } : {},
+    generalWidgetStyle ?? {},
+    ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+  ] as SxProps;
 
   const ChartComponent = ChartTypeComponents[type];
   return (

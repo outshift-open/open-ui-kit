@@ -13,6 +13,13 @@ import {
   surfaceDark800,
   surfaceDark900,
   surfaceDarkPalette,
+  darkModeCardFloating,
+  darkModeCardLifted,
+  darkModeCardRaised,
+  darkModeCardSubtle,
+  darkModeFooterBottom,
+  darkModeSideDrawerLeft,
+  darkModeSideDrawerRight,
 } from "@/theme/style/color-palette";
 import { breakpoints, commonMixins } from "@/theme/style/common";
 import { typography } from "@/theme/style/typography";
@@ -25,28 +32,21 @@ import {
 } from "@mui/material";
 import { darkVars } from "./dark-vars";
 import {
-  backdropComponent,
   buttonComponent,
-  circularProgressComponent,
   inputComponents,
-  listComponent,
-  radioComponent,
-  skeletonComponent,
   snackbarComponent,
-  switchComponent,
-  tabComponent,
-  tabsComponent,
-  tooltipComponent,
 } from "@/theme/mui";
 
 export const shadows: Shadows = [
   `none`,
-  `0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)`,
-  `0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)`,
-  `0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)`,
-  `0px 2px 3px 0px rgba(0, 0, 0, 0.30), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)`,
-  `0px 4px 4px 0px rgba(0, 0, 0, 0.30), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)`,
-  ...Array(20).fill("none"),
+  darkModeCardLifted,
+  darkModeCardSubtle,
+  darkModeCardRaised,
+  darkModeCardFloating,
+  darkModeSideDrawerRight,
+  darkModeSideDrawerLeft,
+  darkModeFooterBottom,
+  ...Array(17).fill("none"),
 ] as Shadows;
 
 const palette: PaletteOptions = {
@@ -66,9 +66,9 @@ const palette: PaletteOptions = {
   grey: greyPalette,
   vars: darkVars,
   text: {
-    primary: "rgba(255, 255, 255, 0.87)",
-    secondary: "#849FC8",
-    disabled: "rgba(255, 255, 255, 0.45)",
+    primary: darkVars.baseTextStrong,
+    secondary: darkVars.baseTextDefault,
+    disabled: darkVars.baseTextDisabled,
   },
   background: {
     paper: surfaceDark800,
@@ -91,18 +91,9 @@ const theme: Theme = createTheme({
 const darkThemeOptions: ThemeOptions = {
   shadows,
   components: {
-    ...backdropComponent(theme),
     ...buttonComponent(theme),
-    ...circularProgressComponent(theme),
     ...inputComponents(theme),
-    ...listComponent(theme),
-    ...radioComponent(theme),
-    ...skeletonComponent(theme),
     ...snackbarComponent(theme),
-    ...switchComponent(theme),
-    ...tabComponent(theme),
-    ...tabsComponent(theme),
-    ...tooltipComponent(theme),
     MuiCssBaseline: {
       styleOverrides: {
         html: {

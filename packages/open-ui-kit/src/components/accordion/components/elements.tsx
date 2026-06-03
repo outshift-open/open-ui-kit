@@ -73,6 +73,12 @@ export const StyledAccordionSummary = styled(AccordionSummary, {
   "&.Mui-expanded": {
     minHeight: "unset",
   },
+  "@media (max-width: 600px)": {
+    minHeight: "44px",
+    "&.Mui-expanded": {
+      minHeight: "44px",
+    },
+  },
   "&.Mui-focusVisible, &:focus-visible": {
     backgroundColor: contained
       ? theme.palette.vars.baseBackgroundWeak

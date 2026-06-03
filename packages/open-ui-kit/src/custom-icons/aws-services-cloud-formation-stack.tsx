@@ -16,8 +16,8 @@ export function AWSServicesCloudFormationStack(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
-          stroke="#E8E9EA"
+          fill="currentColor"
+          stroke="currentColor"
           strokeWidth=".05"
           d="M4.809 8.864v.025H20.859V3.975H4.809v4.889Zm8.272 5.41v.025H20.859V9.384H13.081V14.274Zm-8.272 0v.025H12.587V9.384H4.809V14.274Zm11.136 5.408v.025H20.858V14.793h-4.915v4.889Zm-5.727 0v.025H15.45V14.793H10.218v4.889Zm-5.409 0v.025H9.723V14.793H4.81v4.889ZM20.08 4.754V8.11H5.588V4.754H20.08Zm0 5.408v3.358h-6.22v-3.358h6.22Zm-8.272 0v3.358h-6.22v-3.358h6.22Zm8.272 5.409v3.357h-3.357v-3.357h3.357Zm-5.408 0v3.357h-3.676v-3.357h3.676Zm-5.727 0v3.357H5.588v-3.357h3.357Z"
         />

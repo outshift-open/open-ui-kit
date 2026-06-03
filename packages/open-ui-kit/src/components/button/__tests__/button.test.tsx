@@ -7,7 +7,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import GridViewIcon from "@mui/icons-material/GridView";
+import { ImageGrid } from "@/custom-icons";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { Button } from "../components/button";
 
@@ -80,6 +80,53 @@ describe("Button", () => {
         renderButton({ size: "large", children: "Large" }),
       ).not.toThrow();
     });
+
+    it("matches the CSS-specified typography and padding for size and icon states", () => {
+      const { rerender } = render(
+        <ThemeProvider>
+          <Button size="medium">Medium</Button>
+        </ThemeProvider>,
+      );
+
+      const mediumButton = screen.getByRole("button", { name: "Medium" });
+      expect(window.getComputedStyle(mediumButton).lineHeight).toBe("125%");
+      expect(mediumButton).toHaveStyle({
+        paddingBottom: "7px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        paddingTop: "7px",
+      });
+
+      rerender(
+        <ThemeProvider>
+          <Button size="small">Small</Button>
+        </ThemeProvider>,
+      );
+
+      const smallButton = screen.getByRole("button", { name: "Small" });
+      expect(window.getComputedStyle(smallButton).lineHeight).toBe("125%");
+      expect(smallButton).toHaveStyle({
+        paddingBottom: "3px",
+        paddingLeft: "12px",
+        paddingRight: "12px",
+        paddingTop: "3px",
+      });
+
+      rerender(
+        <ThemeProvider>
+          <Button size="large" startIcon={<ImageGrid />}>
+            Large icon
+          </Button>
+        </ThemeProvider>,
+      );
+
+      expect(screen.getByRole("button", { name: "Large icon" })).toHaveStyle({
+        paddingBottom: "8px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        paddingTop: "8px",
+      });
+    });
   });
 
   describe("negative color", () => {
@@ -142,7 +189,7 @@ describe("Button", () => {
       expect(() =>
         renderButton({
           variant: "primary",
-          startIcon: <GridViewIcon />,
+          startIcon: <ImageGrid />,
           children: "Icon",
         }),
       ).not.toThrow();
@@ -152,7 +199,7 @@ describe("Button", () => {
       expect(() =>
         renderButton({
           variant: "primary",
-          endIcon: <GridViewIcon />,
+          endIcon: <ImageGrid />,
           children: "Icon",
         }),
       ).not.toThrow();
@@ -160,7 +207,7 @@ describe("Button", () => {
 
     it("renders icon-only without throwing", () => {
       expect(() =>
-        renderButton({ variant: "primary", children: <GridViewIcon /> }),
+        renderButton({ variant: "primary", children: <ImageGrid /> }),
       ).not.toThrow();
     });
   });

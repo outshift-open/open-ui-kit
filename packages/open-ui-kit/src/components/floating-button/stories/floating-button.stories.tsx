@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack } from "@mui/material";
+import { Stack } from "@/components";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Hub } from "@mui/icons-material";
 import { FloatingButton } from "..";

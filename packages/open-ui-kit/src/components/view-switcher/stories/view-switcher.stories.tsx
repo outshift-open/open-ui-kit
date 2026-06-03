@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack } from "@mui/material";
+import { Stack } from "@/components";
 import { Dashboard1, SettingsMenuProfile, User } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ViewSwitcher } from "../components/view-switcher";

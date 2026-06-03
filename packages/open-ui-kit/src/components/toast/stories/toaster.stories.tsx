@@ -1,5 +1,12 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
+import { Button } from "@/components/button";
 import { Toaster, ToasterProps } from "../components/toaster";
 import { toast } from "../components/toast";
 import { DocsHeader } from "storybook/components/docs-header.stories";

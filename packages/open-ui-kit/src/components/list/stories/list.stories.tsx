@@ -15,8 +15,8 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Divider,
 } from "../";
+import { Divider } from "@/components/divider";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof List> = {

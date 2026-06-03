@@ -12,12 +12,8 @@ import {
   TabsProps,
 } from "@/components";
 import { ReactNode, useCallback, useEffect } from "react";
-import {
-  Box,
-  BoxProps,
-  Typography,
-  TabProps as MuiTabProps,
-} from "@mui/material";
+import type { BoxProps, TabProps as MuiTabProps } from "@mui/material";
+import { Box, Typography } from "@/components";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -71,98 +67,97 @@ export const BasePage = ({
 
   return (
     <Box
-      sx={{
-        padding: "24px 16px 64px 16px",
-        overflow: "hidden scroll",
-        ...containerProps?.sx,
-      }}
+      sx={[
+        { padding: "24px 32px 64px" },
+        ...(Array.isArray(containerProps?.sx)
+          ? containerProps.sx
+          : containerProps?.sx
+            ? [containerProps.sx]
+            : []),
+      ]}
       {...containerProps}
     >
-      {useBreadcrumbs && breadcrumbs ? (
+      {showHeader && (
         <Box
           display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          maxWidth="100%"
-          overflow="hidden"
+          flexDirection="column"
+          gap="16px"
+          pb={2}
+          mb={1}
+          borderBottom={!subNav ? 1 : 0}
+          borderColor="divider"
         >
-          <Breadcrumbs items={breadcrumbs} />
-        </Box>
-      ) : null}
-      <Box>
-        {showHeader && (
+          {useBreadcrumbs && breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
           <Box
             display="flex"
-            flexDirection="column"
             justifyContent="space-between"
-            gap={1}
-            pb={1}
-            mb={1}
-            borderBottom={!subNav ? 1 : 0}
-            borderColor="divider"
+            alignItems="center"
+            flexWrap="wrap"
+            gap="16px"
           >
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              flexWrap="wrap"
-              gap={1}
-            >
-              <Box display="flex" flexDirection="column" gap={0.5} flexGrow={1}>
+            <Box display="flex" flexDirection="column" gap={0.5} flexGrow={1}>
+              <Typography
+                variant="h5"
+                component="h1"
+                fontWeight="bold"
+                sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+              >
+                {title}
+              </Typography>
+              {description && (
                 <Typography
-                  variant="h5"
-                  component="h1"
-                  fontWeight="bold"
-                  sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+                  variant="body1"
+                  sx={(theme) => ({
+                    color: theme.palette.vars.baseTextDefault,
+                  })}
                 >
-                  {title}
+                  {description}
                 </Typography>
-                {description && (
-                  <Typography variant="body2">{description}</Typography>
-                )}
-              </Box>
-              {rightSideItems && (
-                <Box display="flex" gap={2} flexWrap="wrap">
-                  {rightSideItems}
-                </Box>
               )}
             </Box>
+            {rightSideItems && (
+              <Box display="flex" gap="8px" flexWrap="wrap">
+                {rightSideItems}
+              </Box>
+            )}
           </Box>
-        )}
-        <Box
-          sx={{
-            maxWidth: "100%",
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            height: "auto",
-          }}
-          display="flex"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          gap={2.5}
-        >
-          {subNav && (
-            <Tabs
-              value={tab}
-              onChange={handleChange}
-              role="navigation"
-              {...tabsProps}
-            >
-              {subNav.map((item, idx) => {
-                return (
-                  <Tab
-                    key={`item-tab-${idx}`}
-                    component={Link}
-                    aria-current={item.selected && "page"}
-                    {...item}
-                    to={item.href || "#"}
-                  />
-                );
-              })}
-            </Tabs>
-          )}
-          {children}
         </Box>
+      )}
+      {subNav && (
+        <Box
+          sx={(theme) => ({
+            borderBottom: `1px solid ${theme.palette.divider}`,
+            mb: 4,
+          })}
+        >
+          <Tabs
+            value={tab}
+            onChange={handleChange}
+            role="navigation"
+            {...tabsProps}
+          >
+            {subNav.map((item, idx) => {
+              return (
+                <Tab
+                  key={`item-tab-${idx}`}
+                  component={Link}
+                  aria-current={item.selected && "page"}
+                  {...item}
+                  to={item.href || "#"}
+                />
+              );
+            })}
+          </Tabs>
+        </Box>
+      )}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "32px",
+        }}
+      >
+        {children}
       </Box>
     </Box>
   );

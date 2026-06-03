@@ -20,7 +20,12 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
-import { RadioButton, RadioGroup } from "../components/radio-button";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
+import { RadioButton, RadioGroup } from "../";
+import { getRadioButtonStyles, getRadioLabelStyles } from "../styles";
+
+const normalizeHex = (value: string) => value.toLowerCase();
 
 const renderRadio = (
   props: Partial<React.ComponentProps<typeof RadioButton>> = {},
@@ -97,12 +102,104 @@ describe("RadioButton", () => {
   });
 
   describe("token usage", () => {
-    it("renders in light mode without error", () => {
-      expect(() => renderRadio({ label: "Light" }, false)).not.toThrow();
+    it("maps light mode radio colors to the CSS reference tokens", () => {
+      expect(normalizeHex(lightTheme.palette.vars.controlIconDefault)).toBe(
+        "#3c4551",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.controlIconHover)).toBe(
+        "#0051af",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.controlIconActive)).toBe(
+        "#0051af",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.controlIconDisabled)).toBe(
+        "#c5c7cb",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.baseTextDefault)).toBe(
+        "#3c4551",
+      );
+      expect(normalizeHex(lightTheme.palette.vars.baseTextDisabled)).toBe(
+        "#c5c7cb",
+      );
+
+      expect(getRadioButtonStyles(lightTheme)).toMatchObject({
+        height: "24px",
+        padding: 0,
+        width: "24px",
+        color: lightTheme.palette.vars.controlIconDefault,
+        "&:hover": {
+          backgroundColor: "transparent",
+          color: lightTheme.palette.vars.controlIconHover,
+        },
+        "&.Mui-checked": {
+          color: lightTheme.palette.vars.controlIconActive,
+        },
+        "&.Mui-disabled": {
+          color: lightTheme.palette.vars.controlIconDisabled,
+        },
+        "& svg": {
+          height: "18px",
+          width: "18px",
+        },
+        "@media (max-width: 600px)": {
+          height: "44px",
+          width: "44px",
+        },
+      });
     });
 
-    it("renders in dark mode without error", () => {
-      expect(() => renderRadio({ label: "Dark" }, true)).not.toThrow();
+    it("maps dark mode radio colors to the CSS reference tokens", () => {
+      expect(normalizeHex(darkTheme.palette.vars.controlIconDefault)).toBe(
+        "#e8e9ea",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.controlIconHover)).toBe(
+        "#12c1ff",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.controlIconActive)).toBe(
+        "#12c1ff",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.controlIconDisabled)).toBe(
+        "#777d85",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.baseTextDefault)).toBe(
+        "#e8e9ea",
+      );
+      expect(normalizeHex(darkTheme.palette.vars.baseTextDisabled)).toBe(
+        "#777d85",
+      );
+
+      expect(getRadioButtonStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.controlIconDefault,
+        "&:hover": {
+          backgroundColor: "transparent",
+          color: darkTheme.palette.vars.controlIconHover,
+        },
+        "&.Mui-checked": {
+          color: darkTheme.palette.vars.controlIconActive,
+        },
+        "&.Mui-disabled": {
+          color: darkTheme.palette.vars.controlIconDisabled,
+        },
+      });
+    });
+
+    it("uses the CSS label spacing and typography tokens", () => {
+      expect(getRadioLabelStyles(lightTheme)).toMatchObject({
+        alignItems: "flex-start",
+        gap: "4px",
+        margin: 0,
+        "& .MuiFormControlLabel-label": {
+          color: lightTheme.palette.vars.baseTextDefault,
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 400,
+          fontSize: "14px",
+          lineHeight: "20px",
+          letterSpacing: "0.25px",
+        },
+        "& .MuiFormControlLabel-label.Mui-disabled": {
+          color: lightTheme.palette.vars.baseTextDisabled,
+        },
+      });
     });
   });
 });

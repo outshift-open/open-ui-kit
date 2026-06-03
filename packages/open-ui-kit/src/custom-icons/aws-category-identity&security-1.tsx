@@ -16,7 +16,7 @@ export function AWSCategoryIdentitySecurity1(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
           fillRule="evenodd"
           d="M11.438 18.24h1.124V6.99h-1.124v11.25ZM5.811 6.94v7.216c.017.19.495 5.589 6.187 6.334 5.692-.745 6.17-6.145 6.188-6.375V6.94l-6.188-2.2-6.187 2.2ZM12 21.615a.494.494 0 0 1-.07-.005c-6.686-.823-7.236-7.334-7.241-7.4l-.002-7.642c0-.234.149-.443.373-.523l6.75-2.398a.572.572 0 0 1 .38 0l6.75 2.398c.224.08.372.289.372.523v7.602c-.006.106-.556 6.617-7.242 7.44a.494.494 0 0 1-.07.005Z"
           clipRule="evenodd"

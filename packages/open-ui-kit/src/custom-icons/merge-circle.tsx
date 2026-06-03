@@ -16,7 +16,7 @@ export function MergeCircle(props: SvgIconProps) {
         fill="none"
       >
         <path
-          fill={props.fill ?? "#fff"}
+          fill="currentColor"
           d="m20.97 3.97 1.06 1.06L15.06 12l6.97 6.97-1.06 1.06-7.28-7.28H4.81l1.72 1.72-1.06 1.06L1.94 12l3.53-3.53 1.06 1.06-1.72 1.72h8.88l7.28-7.28Z"
         />
       </svg>

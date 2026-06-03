@@ -80,7 +80,7 @@ export const getInputFieldStyles = (theme: Theme): CSSObject => ({
     },
 
     "&.Mui-error:not(.Mui-disabled)": {
-      borderColor: theme.palette.vars.negativeBorderActive,
+      borderColor: theme.palette.vars.controlBorderNegative,
     },
 
     "&.Mui-disabled": {
@@ -95,6 +95,18 @@ export const getInputFieldStyles = (theme: Theme): CSSObject => ({
     "&.MuiInputBase-sizeSmall": {
       height: "36px",
       padding: "6px 16px",
+    },
+
+    "@media (max-width: 600px)": {
+      height: "44px",
+
+      "&.MuiInputBase-sizeSmall": {
+        height: "44px",
+      },
+
+      "&.MuiInputBase-multiline": {
+        minHeight: "44px",
+      },
     },
 
     "&.MuiInputBase-multiline": {
@@ -136,14 +148,14 @@ export const getInputFieldStyles = (theme: Theme): CSSObject => ({
     ...theme.typography.caption,
     marginTop: "4px",
     marginLeft: "1px",
-    color: theme.palette.vars.baseTextDefault,
+    color: theme.palette.vars.baseTextWeak,
 
     "&.Mui-disabled": {
-      color: theme.palette.vars.baseTextWeak,
+      color: theme.palette.vars.baseTextDisabled,
     },
 
     "&:not(.Mui-disabled).Mui-error": {
-      color: theme.palette.vars.baseTextDefault,
+      color: theme.palette.vars.baseTextWeak,
     },
   },
 });
@@ -155,9 +167,16 @@ export const getStoryFocusedSx = (theme: Theme) =>
     },
   }) satisfies SxProps<Theme>;
 
+export const getStoryHoverSx = (theme: Theme) =>
+  ({
+    "& .MuiInput-root": {
+      borderColor: theme.palette.vars.controlBorderHover,
+    },
+  }) satisfies SxProps<Theme>;
+
 export const getStoryNegativeSx = (theme: Theme) =>
   ({
     "& .MuiInput-root": {
-      borderColor: theme.palette.vars.negativeBorderActive,
+      borderColor: theme.palette.vars.controlBorderNegative,
     },
   }) satisfies SxProps<Theme>;

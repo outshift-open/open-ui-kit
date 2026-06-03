@@ -5,10 +5,6 @@
  */
 
 import type { SxProps, Theme } from "@mui/material/styles";
-import {
-  darkModeCardLifted,
-  lightModeCardLifted,
-} from "@/theme/style/color-palette";
 
 export type DateTimePickerSharedSlotProps = {
   leftArrowIcon: { sx: SxProps<Theme> };
@@ -29,8 +25,7 @@ export const getSharedStyle = (theme: Theme) =>
   ({
     border: `2px solid ${theme.palette.vars.controlBorderActive}`,
     borderRadius: "8px",
-    boxShadow:
-      theme.palette.mode === "dark" ? darkModeCardLifted : lightModeCardLifted,
+    boxShadow: theme.shadows[1],
     padding: "16px",
     backgroundColor: theme.palette.vars.controlBackgroundWeak,
     "& .MuiDayCalendar-weekDayLabel": {

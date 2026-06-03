@@ -18,7 +18,7 @@ export function TrendArrow(props: SvgIconProps) {
       >
         <path
           d="M-1.74846e-07 8L4 -6.99382e-08L8 8L-1.74846e-07 8Z"
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
         />
       </svg>
       ;

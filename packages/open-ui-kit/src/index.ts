@@ -7,6 +7,8 @@
 import "./types/theme";
 
 export * from "./components";
+export * from "./charts";
+export * from "./templates";
 export * as Icons from "./custom-icons";
 export * from "./custom-illustrations";
 export * from "./common";

@@ -18,7 +18,7 @@ export function AzureDevops(props: SvgIconProps) {
       >
         <path
           d="M20 3.74571V15.9057L15 20L7.25 17.1786V19.9743L2.86286 14.2457L15.65 15.2429V4.29429L20 3.74571ZM15.7371 4.35714L8.56286 0V2.85857L1.97571 4.79429L0 7.32857V13.0843L2.82571 14.3314V6.95571L15.7371 4.35714Z"
-          fill={props.fill ?? "currentColor"}
+          fill="currentColor"
         />
       </svg>
     </SvgIcon>

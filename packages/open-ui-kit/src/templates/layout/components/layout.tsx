@@ -4,21 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Box,
-  Drawer,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Drawer } from "@mui/material";
+import { Box } from "@/components";
 import { Header, HeaderProps } from "@/components";
+
+const NAV_WIDTH = 264;
+const HEADER_HEIGHT = 56;
 
 export interface LayoutProps {
   content?: React.ReactNode;
   showHeader?: boolean;
   headerProps?: HeaderProps;
   showSideNav?: boolean;
+  sideNav?: React.ReactNode;
 }
 
 export const Layout = ({
@@ -26,42 +24,68 @@ export const Layout = ({
   showSideNav = true,
   headerProps,
   content,
+  sideNav,
 }: LayoutProps) => {
-  const theme = useTheme();
-  const defaultLayoutWidth = 240;
-  const collapsedLayoutWidth = 56;
-  const isCollapsed = useMediaQuery(theme.breakpoints.down("sm"), {
-    noSsr: true,
-  });
-
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
       {showHeader && (
-        <Header logo={headerProps?.logo ?? <></>} {...headerProps} />
+        <Header
+          logo={headerProps?.logo ?? <></>}
+          {...headerProps}
+          position="fixed"
+          sx={[
+            (theme) => ({
+              height: `${HEADER_HEIGHT}px`,
+              borderBottom: `1px solid ${theme.palette.divider}`,
+              zIndex: theme.zIndex.drawer + 1,
+            }),
+            ...(Array.isArray(headerProps?.sx)
+              ? headerProps.sx
+              : headerProps?.sx
+                ? [headerProps.sx]
+                : []),
+          ]}
+        />
       )}
       {showSideNav && (
         <Drawer
           variant="permanent"
           sx={(theme) => ({
-            width: isCollapsed ? collapsedLayoutWidth : defaultLayoutWidth,
+            width: NAV_WIDTH,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: isCollapsed ? collapsedLayoutWidth : defaultLayoutWidth,
+              width: NAV_WIDTH,
               boxSizing: "border-box",
-              transition: "width 0.3s",
+              top: showHeader ? `${HEADER_HEIGHT}px` : 0,
+              height: showHeader ? `calc(100vh - ${HEADER_HEIGHT}px)` : "100vh",
+              borderRight: `1px solid ${theme.palette.divider}`,
               backgroundColor: theme.palette.vars.baseBackgroundStrong,
+              overflowX: "hidden",
             },
           })}
         >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <Typography variant="body1">Side Navigation</Typography>
+          <Box
+            sx={{
+              padding: "32px 24px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              height: "100%",
+            }}
+          >
+            {sideNav}
           </Box>
         </Drawer>
       )}
       <Box
-        pt={showHeader ? 7.5 : 0}
-        sx={{ flexGrow: 1, overflow: "hidden scroll" }}
+        component="main"
+        sx={{
+          flexGrow: 1,
+          marginLeft: showSideNav ? `${NAV_WIDTH}px` : 0,
+          marginTop: showHeader ? `${HEADER_HEIGHT}px` : 0,
+          minHeight: showHeader ? `calc(100vh - ${HEADER_HEIGHT}px)` : "100vh",
+          overflow: "auto",
+        }}
       >
         {content}
       </Box>

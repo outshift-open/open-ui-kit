@@ -84,14 +84,14 @@ export const popoverTitleStyles = (theme: Theme) => ({
   fontWeight: 600,
   fontSize: "14px",
   lineHeight: "20px",
-  color: theme.palette.vars?.controlIconDefault,
+  color: theme.palette.vars?.baseTextStrong,
 });
 
 export const popoverBodyStyles = (theme: Theme) => ({
   fontSize: "14px",
   lineHeight: "20px",
   letterSpacing: "0.25px",
-  color: theme.palette.vars?.controlIconMedium,
+  color: theme.palette.vars?.baseTextDefault,
 });
 
 export const popoverActionsStyles = {

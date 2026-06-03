@@ -2,6 +2,14 @@ import { Grid, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { ChartCategoryItem, ChartType } from "../common/types";
 import {
+  green500,
+  orange500,
+  red500,
+  yellow500,
+} from "@/theme/style/color-palette";
+
+const chartBlue = "#3a95ff";
+import {
   AWSServicesS3Bucket,
   AWSServicesRedshift,
   AWSServicesCloudFormation,
@@ -12,6 +20,7 @@ import {
   GCPServicesCloudBuild,
 } from "@/custom-icons";
 import { ChartWidget } from "./chart-widget";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
 /**
  *  ### Gauge charts give a way to quickly see how well a given metric is performing against a target goal.
@@ -20,6 +29,17 @@ const meta: Meta<typeof ChartWidget> = {
   title: "Charts/Chart Widget",
   component: ChartWidget,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          blurb="ChartWidget wraps any chart type in a card shell with a headline label, optional tooltip, loading skeleton, and empty state."
+          guideLink="#"
+          importLine='import { ChartWidget } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
   argTypes: {
     label: {
       description: "Headline label of the chart widget.",
@@ -46,11 +66,6 @@ export default meta;
 
 type Story = StoryObj<typeof ChartWidget>;
 
-const green500 = "#00b98d";
-const red500 = "#f2643d";
-const blue500 = "#3a95ff";
-const bordeaux500 = "#c62953";
-const yellow500 = "#ffe659";
 const graphs2_200 = "#EE8B97";
 const graphs2_300 = "#E96A8D";
 const graphs2_400 = "#DB5087";
@@ -58,8 +73,8 @@ const graphs2_400 = "#DB5087";
 const barData = [
   { name: "Group A", value: 500, color: green500 },
   { name: "Group D", value: 400, color: yellow500 },
-  { name: "Group F", value: 300, color: red500 },
-  { name: "Group G", value: 150, color: bordeaux500 },
+  { name: "Group F", value: 300, color: orange500 },
+  { name: "Group G", value: 150, color: red500 },
 ];
 
 const barDataHorizontal = [
@@ -73,10 +88,10 @@ const barDataHorizontal = [
   {
     name: "Group F",
     value: 300,
-    color: red500,
+    color: orange500,
     icon: AWSServicesCloudFormation,
   },
-  { name: "Group G", value: 150, color: bordeaux500, icon: AWSServicesRDS },
+  { name: "Group G", value: 150, color: red500, icon: AWSServicesRDS },
 ];
 
 const donutData = [
@@ -86,13 +101,13 @@ const donutData = [
   { name: "Group D", value: 200, color: "#FF8042" },
 ];
 
-const gaugeData = [{ name: "Group A", value: 20, color: bordeaux500 }];
+const gaugeData = [{ name: "Group A", value: 20, color: red500 }];
 
 const categories = [
   { name: "Resolved", color: green500, icon: <GCPServicesCloudBuild /> },
-  { name: "Critical", color: bordeaux500, icon: <Docker2 /> },
+  { name: "Critical", color: red500, icon: <Docker2 /> },
   { name: "New", color: yellow500, icon: <DockerCompose /> },
-  { name: "Total", color: blue500, icon: <Crossplane /> },
+  { name: "Total", color: chartBlue, icon: <Crossplane /> },
 ];
 
 const lineData: ChartCategoryItem[] = [

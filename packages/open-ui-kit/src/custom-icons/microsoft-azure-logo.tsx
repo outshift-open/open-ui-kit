@@ -13,7 +13,7 @@ export const MicrosoftAzure = (props: SvgIconProps) => {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M 0,13.535 L 5.19,4.893 L 11.25,0 L 4.68,13.548 L 4.68,13.535 L 0,13.535 M 13.99,13.376 L 9.11,7.743 L 11.65,0.968 L 20,15 L 4.5,15 L 13.99,13.376"
-        fill="white"
+        fill="currentColor"
       />
     </SvgIcon>
   );
@@ -26,7 +26,7 @@ export const MicrosoftAzureColored = (props: SvgIconProps) => {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M 0,13.535 L 5.19,4.893 L 11.25,0 L 4.68,13.548 L 4.68,13.535 L 0,13.535 M 13.99,13.376 L 9.11,7.743 L 11.65,0.968 L 20,15 L 4.5,15 L 13.99,13.376"
-        fill="#0089D6"
+        fill="currentColor"
       />
     </SvgIcon>
   );

@@ -16,7 +16,7 @@ export function KubernetesServicesNamespace(props: SvgIconProps) {
         fill="none"
       >
         <path
-          stroke="#E8E9EA"
+          stroke="currentColor"
           strokeDasharray="3.02 1.51"
           strokeLinejoin="round"
           strokeMiterlimit="10"

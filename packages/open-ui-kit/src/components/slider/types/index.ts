@@ -4,6 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SliderProps as MuiSliderProps } from "@mui/material";
+import type { SliderProps as MuiSliderProps } from "@mui/material";
 
 export type SliderProps = MuiSliderProps;

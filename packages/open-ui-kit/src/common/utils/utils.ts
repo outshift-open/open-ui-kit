@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import { Severity } from "../types";
 import { SEVERITY_VALUE } from "../constants";
 
@@ -33,8 +33,9 @@ export const getColorBySeverity = (
 
 export const normalizeSeverity = (severity: unknown): Severity => {
   if (typeof severity === "string") {
-    return severity.toUpperCase() in Severity
-      ? (severity.toUpperCase() as Severity)
+    const normalizedSeverity = severity.toUpperCase();
+    return Object.values(Severity).includes(normalizedSeverity as Severity)
+      ? (normalizedSeverity as Severity)
       : Severity.INFORMATION;
   } else if (typeof severity === "number") {
     const severityArray = [
@@ -44,7 +45,9 @@ export const normalizeSeverity = (severity: unknown): Severity => {
       Severity.HIGH,
       Severity.CRITICAL,
     ];
-    return severity in severityArray
+    return Number.isInteger(severity) &&
+      severity >= 0 &&
+      severity < severityArray.length
       ? severityArray[severity]
       : Severity.INFORMATION;
   }

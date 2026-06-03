@@ -77,7 +77,7 @@ export const WithActions: Story = {
       showCloseButton
       actions={
         <>
-          <Button variant="ghost">Button link</Button>
+          <Button variant="tertariary">Button link</Button>
           <Button variant="primary">Button</Button>
         </>
       }

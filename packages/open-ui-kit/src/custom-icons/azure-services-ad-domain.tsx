@@ -15,7 +15,7 @@ export function AzureServicesADDomain(props: SvgIconProps) {
         height="25"
         fill="none"
       >
-        <g fill="#E8E9EA" clipPath="url(#a)">
+        <g fill="currentColor" clipPath="url(#a)">
           <path d="m4.783 13.416 7.92 5.14 8.06-5.16 1.01 1.17-9.07 5.85-8.93-5.84 1.01-1.16Z" />
           <path d="m5.384 12.756 7.32-8.72 7.47 8.73-7.47 4.72-7.32-4.73Z" />
           <path d="M12.704 4.036v13.45l-7.32-4.73 7.32-8.72Z" />
@@ -27,7 +27,7 @@ export function AzureServicesADDomain(props: SvgIconProps) {
         </g>
         <defs>
           <clipPath id="a">
-            <path fill="#fff" d="M3.773 3.186h18v18h-18z" />
+            <path fill="currentColor" d="M3.773 3.186h18v18h-18z" />
           </clipPath>
         </defs>
       </svg>

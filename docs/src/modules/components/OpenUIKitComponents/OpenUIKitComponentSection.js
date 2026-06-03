@@ -3,16 +3,7 @@ import { InfoCard } from "@mui/internal-core-docs/InfoCard";
 import { pageToTitle } from "@mui/internal-core-docs/helpers";
 import ExtensionRoundedIcon from "@mui/icons-material/ExtensionRounded";
 import pages from "docs/data/material/pages";
-
-const categoryDescriptions = {
-  inputs: "Actions, choices, filters, and form controls.",
-  "data-display": "Reusable patterns for content, metadata, and status.",
-  feedback: "Messages, overlays, and loading states.",
-  surfaces: "Containers and disclosure patterns for product layouts.",
-  navigation: "Wayfinding components for moving through interfaces.",
-  layout: "Responsive primitives for arranging product screens.",
-  utils: "Lower-level helpers used to compose advanced experiences.",
-};
+import { openUIKitCategoryDescriptions } from "docs/src/open-ui-kit-component-registry";
 
 function getComponentGroups() {
   return (
@@ -53,7 +44,7 @@ export default function OpenUIKitComponentSection({ category }) {
             <InfoCard
               link={`${page.pathname}/`}
               title={title}
-              description={categoryDescriptions[group.subheader]}
+              description={openUIKitCategoryDescriptions[group.subheader]}
               icon={<ExtensionRoundedIcon color="primary" />}
             />
           </Grid>

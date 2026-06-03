@@ -18,7 +18,7 @@ export function TriangleUpOutline(props: SvgIconProps) {
       >
         <path
           d="M12 8.295L6 14.295L7.41 15.705L12 11.125L16.59 15.705L18 14.295L12 8.295Z"
-          fill={props.fill ?? "#9EA2A8"}
+          fill="currentColor"
         />
       </svg>
     </SvgIcon>

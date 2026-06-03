@@ -7,8 +7,14 @@
 import {
   Tooltip as MuiTooltip,
   TooltipProps as MuiTooltipProps,
+  type Theme,
 } from "@mui/material";
-import { largeTooltipStyles, mediumTooltipStyles } from "../styles";
+import {
+  baseTooltipStyles,
+  largeTooltipStyles,
+  mediumTooltipStyles,
+  tooltipArrowStyles,
+} from "../styles";
 import { TooltipSize } from "../types";
 
 export interface TooltipProps extends MuiTooltipProps {
@@ -29,11 +35,25 @@ const tooltipPopper = {
 export const tooltipSlotProps = {
   [TooltipSize.Medium]: {
     popper: tooltipPopper,
-    tooltip: { sx: mediumTooltipStyles },
+    arrow: { sx: tooltipArrowStyles },
+    tooltip: {
+      sx: (theme: Theme) => ({
+        ...theme.typography.captionMedium,
+        ...baseTooltipStyles,
+        ...mediumTooltipStyles,
+      }),
+    },
   },
   [TooltipSize.Large]: {
     popper: tooltipPopper,
-    tooltip: { sx: largeTooltipStyles },
+    arrow: { sx: tooltipArrowStyles },
+    tooltip: {
+      sx: (theme: Theme) => ({
+        ...theme.typography.captionMedium,
+        ...baseTooltipStyles,
+        ...largeTooltipStyles,
+      }),
+    },
   },
 };
 

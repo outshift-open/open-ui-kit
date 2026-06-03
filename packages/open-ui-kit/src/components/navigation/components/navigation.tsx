@@ -132,7 +132,10 @@ export const Navigation = ({
     : [];
 
   return (
-    <StyledNavigationFrame sx={sx} {...props}>
+    <StyledNavigationFrame
+      sx={Array.isArray(sx) ? sx : sx ? [sx] : []}
+      {...props}
+    >
       <StyledNavigationRoot compact={isCompact}>
         <StyledNavigationContent compact={isCompact}>
           <StyledNavigationSwitcher
@@ -240,7 +243,10 @@ export const NavigationDrawer = ({
   title = "Headline",
   ...props
 }: NavigationDrawerProps) => (
-  <StyledNavigationDrawer sx={sx} {...props}>
+  <StyledNavigationDrawer
+    sx={Array.isArray(sx) ? sx : sx ? [sx] : []}
+    {...props}
+  >
     <StyledNavigationDrawerHeader>
       <StyledNavigationDrawerTitle>{title}</StyledNavigationDrawerTitle>
       <StyledNavigationCloseButton
@@ -289,7 +295,10 @@ export const NavigationSubNavigation = ({
   sx,
   ...props
 }: NavigationSubNavigationProps) => (
-  <StyledNavigationDrawer sx={sx} {...props}>
+  <StyledNavigationDrawer
+    sx={Array.isArray(sx) ? sx : sx ? [sx] : []}
+    {...props}
+  >
     <StyledNavigationDrawerHeader>
       <StyledNavigationDrawerTitle>{headline}</StyledNavigationDrawerTitle>
       <StyledNavigationCloseButton
