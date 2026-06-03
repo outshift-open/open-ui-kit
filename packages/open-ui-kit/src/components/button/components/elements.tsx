@@ -22,7 +22,7 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
   "& .MuiButton-endIcon": {
     marginRight: "0px",
   },
-  "&:has(>svg:only-child)": {
+  "&.OuiButton-iconOnly": {
     "&.MuiButton-sizeLarge": {
       padding: "8px",
       minWidth: "40px",
@@ -47,10 +47,9 @@ export const StyledButton = styled(MuiButton)(({ theme }) => ({
     height: "40px",
     padding: "10px 16px",
   },
-  "&.MuiButton-sizeLarge:has(.MuiButton-startIcon), &.MuiButton-sizeLarge:has(.MuiButton-endIcon)":
-    {
-      padding: "8px 16px",
-    },
+  "&.OuiButton-hasIcon.MuiButton-sizeLarge": {
+    padding: "8px 16px",
+  },
   "&.MuiButton-sizeMedium": {
     fontFamily: "Inter, sans-serif",
     fontWeight: 600,
