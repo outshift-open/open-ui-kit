@@ -21,7 +21,7 @@ module.exports = {
     [
       "@semantic-release/npm",
       {
-        pkgRoot: "packages/open-ui-kit/dist",
+        pkgRoot: "packages/open-ui-kit",
       },
     ],
     [
