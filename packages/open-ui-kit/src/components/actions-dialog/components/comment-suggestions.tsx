@@ -33,9 +33,7 @@ export const CommentSuggestions = ({
                 ? TagBackgroundColorVariants.Secondary
                 : TagBackgroundColorVariants.Primary
             }
-            sx={{
-              width: "max-content",
-            }}
+            sx={styles.styledSuggestionTag}
             onClick={() => {
               setSelectedSuggestion(suggestion);
             }}

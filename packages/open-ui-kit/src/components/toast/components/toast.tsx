@@ -5,44 +5,22 @@
  */
 
 import { toast as sonnerToast } from "sonner";
-import { ToastType } from "../types";
+import type { ToastProps } from "../types";
 import { IconToast, StyledToast } from "./elements";
-import { AlertProps, Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
 import { Button } from "@/components/button";
 import React from "react";
-
-export interface ToastProps
-  extends Omit<
-    AlertProps,
-    | "variant"
-    | "severity"
-    | "children"
-    | "iconMapping"
-    | "action"
-    | "id"
-    | "icon"
-  > {
-  /** Unique id used when dismissing via sonner. */
-  id: string;
-  /** Visual type — controls icon and left border color. */
-  type?: ToastType;
-  /** Bold title line. */
-  title?: string;
-  /** Body description text. */
-  description?: string;
-  /** Whether to show the close (X) button. */
-  showCloseButton?: boolean;
-  /** When true, close button hides the toast via React state. When false, dismisses via sonner. */
-  useNativeClose?: boolean;
-  /** Optional action button below the description. */
-  action?: {
-    label: string;
-    onClick: () => void;
-  };
-  /** Slot for custom action content when `action` is not used. */
-  customActions?: React.ReactNode;
-}
+import {
+  toastActionButtonStyle,
+  toastCloseButtonStyle,
+  toastCloseIconStyle,
+  toastContentStyle,
+  toastDescriptionStyle,
+  toastInnerStyle,
+  toastTitleStyle,
+  toastTopRowStyle,
+} from "../styles";
 
 export const Toast = ({
   type = "default",
@@ -61,60 +39,55 @@ export const Toast = ({
     return null;
   }
 
+  const closeButton = showCloseButton ? (
+    <IconButton
+      sx={toastCloseButtonStyle}
+      onClick={() =>
+        useNativeClose ? setShow(false) : sonnerToast.dismiss(id)
+      }
+      aria-label="Close toast"
+    >
+      <CloseOutlined sx={toastCloseIconStyle} />
+    </IconButton>
+  ) : null;
+
   return (
     <StyledToast
       {...props}
       id={id}
       type={type}
-      action={
-        showCloseButton && (
-          <IconButton
-            sx={{ width: "24px", height: "24px", padding: 0 }}
-            onClick={() =>
-              useNativeClose ? setShow(false) : sonnerToast.dismiss(id)
-            }
-            aria-label="close"
-          >
-            <CloseOutlined
-              sx={(theme) => ({
-                color: theme.palette.vars.controlIconDefault,
-                width: "18px",
-                height: "18px",
-              })}
-            />
-          </IconButton>
-        )
-      }
+      hasTitle={Boolean(title)}
+      hasAction={Boolean(action)}
       icon={<IconToast type={type} />}
     >
-      <Box display="flex" flexDirection="column" gap="4px">
-        {title && (
-          <Typography
-            variant="subtitle1"
-            sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
-          >
-            {title}
-          </Typography>
-        )}
-        {description && (
-          <Typography
-            variant="body2"
-            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
-          >
-            {description}
-          </Typography>
-        )}
+      <Box sx={toastInnerStyle}>
+        <Box sx={toastContentStyle}>
+          <Box sx={toastTopRowStyle}>
+            {title ? (
+              <Typography variant="subtitle1" sx={toastTitleStyle}>
+                {title}
+              </Typography>
+            ) : (
+              description && (
+                <Typography variant="body2" sx={toastDescriptionStyle}>
+                  {description}
+                </Typography>
+              )
+            )}
+            {closeButton}
+          </Box>
+          {title && description && (
+            <Typography variant="body2" sx={toastDescriptionStyle}>
+              {description}
+            </Typography>
+          )}
+        </Box>
         {action && (
           <Button
             variant="tertariary"
             size="small"
             onClick={action.onClick}
-            sx={{
-              padding: 0,
-              minWidth: 0,
-              width: "fit-content",
-              height: "auto",
-            }}
+            sx={toastActionButtonStyle}
           >
             {action.label}
           </Button>

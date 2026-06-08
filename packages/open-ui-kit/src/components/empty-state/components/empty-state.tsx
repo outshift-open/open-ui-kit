@@ -17,11 +17,13 @@ import {
   getTextMaxWidth,
   sizeToTitleVariantMapping,
   sizeToTitleLineHeightMapping,
+  sizeToTitleFontSizeMapping,
   sizeToDescriptionVariantMapping,
   directionToTextAlignmentMapping,
   sizeToActionSizeMapping,
-  sizeToContainerPaddingMapping,
   sizeToRowGapMapping,
+  getContainerPadding,
+  getIllustrationAccentColor,
 } from "../styles";
 import type { EmptyStateProps } from "../types";
 
@@ -29,6 +31,7 @@ export const EmptyState = ({
   variant = "info",
   direction = "column",
   size = GeneralSize.Large,
+  hideIllustration = false,
   title = "",
   description = DefaultDescription,
   actionCallback,
@@ -63,9 +66,10 @@ export const EmptyState = ({
       {...containerProps}
       sx={[
         {
+          boxSizing: "border-box",
           flexWrap: direction === "row" ? "wrap" : "nowrap",
           maxWidth: "100%",
-          padding: sizeToContainerPaddingMapping[size],
+          padding: getContainerPadding(size, direction),
         },
         ...(Array.isArray(containerProps?.sx)
           ? containerProps.sx
@@ -74,13 +78,19 @@ export const EmptyState = ({
             : []),
       ]}
     >
-      <Illustration
-        sx={{
-          width: sizeToIllustrationSizeMapping[size],
-          height: sizeToIllustrationSizeMapping[size],
-          flexShrink: 0,
-        }}
-      />
+      {!hideIllustration && (
+        <Illustration
+          sx={{
+            width: sizeToIllustrationSizeMapping[size],
+            height: sizeToIllustrationSizeMapping[size],
+            flexShrink: 0,
+            "--empty-state-illustration-accent": getIllustrationAccentColor(
+              theme,
+              variant,
+            ),
+          }}
+        />
+      )}
       <Stack
         direction={"column"}
         gap={"16px"}
@@ -105,6 +115,7 @@ export const EmptyState = ({
               sx={{
                 color: theme.palette.vars.baseTextStrong,
                 textAlign: directionToTextAlignmentMapping[direction],
+                fontSize: sizeToTitleFontSizeMapping[size],
                 lineHeight: sizeToTitleLineHeightMapping[size],
               }}
             >

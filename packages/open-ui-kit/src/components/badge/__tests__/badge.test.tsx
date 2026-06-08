@@ -9,7 +9,10 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Mail } from "@mui/icons-material";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkVars } from "@/theme/dark/dark-vars";
+import { lightVars } from "@/theme/light/light-vars";
 import { Badge } from "../components/badge";
+import { BADGE_TYPES } from "../styles";
 
 const renderBadge = (props: React.ComponentProps<typeof Badge>, dark = false) =>
   render(
@@ -17,6 +20,12 @@ const renderBadge = (props: React.ComponentProps<typeof Badge>, dark = false) =>
       <Badge {...props} />
     </ThemeProvider>,
   );
+
+const getRequiredElement = (container: HTMLElement, selector: string) => {
+  const element = container.querySelector(selector);
+  expect(element).toBeInTheDocument();
+  return element as HTMLElement;
+};
 
 describe("Badge", () => {
   describe("rendering", () => {
@@ -31,19 +40,7 @@ describe("Badge", () => {
     });
 
     it("renders all type variants without error", () => {
-      const types = [
-        "default",
-        "excellent",
-        "neutral",
-        "error",
-        "warning",
-        "info",
-        "success",
-        "inactive",
-        "moderate",
-        "severe",
-      ] as const;
-      types.forEach((type) => {
+      BADGE_TYPES.forEach((type) => {
         const { unmount } = renderBadge({ content: "1", type });
         expect(screen.getByText("1")).toBeInTheDocument();
         unmount();
@@ -75,61 +72,93 @@ describe("Badge", () => {
   });
 
   describe("light theme token coverage", () => {
-    it("renders default badge with a background (not transparent)", () => {
+    it("renders default badge with exact CSS token values", () => {
       const { container } = renderBadge({ content: "1", type: "default" });
-      // controlBackgroundMedium resolves to a non-transparent color in light theme
-      const badge = container.querySelector(".MuiBadge-root");
-      expect(badge).toBeInTheDocument();
+      const badge = getRequiredElement(container, ".MuiBadge-root");
+      expect(lightVars.controlBackgroundMedium).toBe("#e3eafa");
+      expect(lightVars.baseTextDark).toBe("#00142b");
+      expect(window.getComputedStyle(badge).backgroundColor).toBe(
+        "rgb(227, 234, 250)",
+      );
+      expect(window.getComputedStyle(badge).color).toBe("rgb(0, 20, 43)");
     });
 
-    it("renders warning badge without throwing", () => {
-      expect(() =>
-        renderBadge({ content: "1", type: "warning" }),
-      ).not.toThrow();
+    it("renders light theme status colors from tokens", () => {
+      const { container } = renderBadge({ content: "1", type: "excellent" });
+      const badge = getRequiredElement(container, ".MuiBadge-root");
+      expect(lightVars.excellentBackgroundDefault).toBe("#17c7ff");
+      expect(lightVars.excellentTextInDefault).toBe("#edfcff");
+      expect(window.getComputedStyle(badge).backgroundColor).toBe(
+        "rgb(23, 199, 255)",
+      );
+      expect(window.getComputedStyle(badge).color).toBe("rgb(237, 252, 255)");
     });
 
-    it("renders moderate badge without throwing", () => {
-      expect(() =>
-        renderBadge({ content: "1", type: "moderate" }),
-      ).not.toThrow();
+    it("uses strong text for light warning and moderate badges", () => {
+      const { container } = renderBadge({ content: "1", type: "moderate" });
+      const badge = getRequiredElement(container, ".MuiBadge-root");
+      expect(lightVars.moderateBackgroundDefault).toBe("#ffe351");
+      expect(window.getComputedStyle(badge).backgroundColor).toBe(
+        "rgb(255, 227, 81)",
+      );
+      expect(window.getComputedStyle(badge).color).toBe("rgb(0, 20, 43)");
     });
   });
 
   describe("dark theme token coverage", () => {
-    it("renders default badge in dark mode without throwing", () => {
-      expect(() =>
-        renderBadge({ content: "1", type: "default" }, true),
-      ).not.toThrow();
+    it("renders default badge with exact dark CSS token values", () => {
+      const { container } = renderBadge(
+        { content: "1", type: "default" },
+        true,
+      );
+      const badge = getRequiredElement(container, ".MuiBadge-root");
+      expect(darkVars.controlBackgroundMedium).toBe("#31466e");
+      expect(darkVars.baseTextStrong).toBe("#ffffff");
+      expect(window.getComputedStyle(badge).backgroundColor).toBe(
+        "rgb(49, 70, 110)",
+      );
+      expect(window.getComputedStyle(badge).color).toBe("rgb(255, 255, 255)");
     });
 
-    it("renders warning badge in dark mode without throwing", () => {
-      expect(() =>
-        renderBadge({ content: "1", type: "warning" }, true),
-      ).not.toThrow();
-    });
-
-    it("renders moderate badge in dark mode without throwing", () => {
-      expect(() =>
-        renderBadge({ content: "1", type: "moderate" }, true),
-      ).not.toThrow();
+    it("renders dark theme status colors from tokens", () => {
+      const { container } = renderBadge(
+        { content: "1", type: "success" },
+        true,
+      );
+      const badge = getRequiredElement(container, ".MuiBadge-root");
+      expect(darkVars.successBackgroundDefault).toBe("#00b98d");
+      expect(darkVars.successTextInDefault).toBe("#ebfbf7");
+      expect(window.getComputedStyle(badge).backgroundColor).toBe(
+        "rgb(0, 185, 141)",
+      );
+      expect(window.getComputedStyle(badge).color).toBe("rgb(235, 251, 247)");
     });
 
     it("renders all types in dark mode without throwing", () => {
-      const types = [
-        "default",
-        "excellent",
-        "neutral",
-        "error",
-        "warning",
-        "info",
-        "success",
-        "inactive",
-        "moderate",
-        "severe",
-      ] as const;
-      types.forEach((type) => {
+      BADGE_TYPES.forEach((type) => {
         expect(() => renderBadge({ content: "1", type }, true)).not.toThrow();
       });
+    });
+  });
+
+  describe("notification mode styles", () => {
+    it("uses the CSS-sized child icon and notification bubble", () => {
+      const { container } = renderBadge({
+        content: <Mail aria-label="mail" />,
+        notificationContent: 3,
+        type: "info",
+      });
+      const root = getRequiredElement(container, ".MuiBadge-root");
+      const icon = screen.getByLabelText("mail");
+      const bubble = getRequiredElement(container, ".MuiBadge-badge");
+      expect(window.getComputedStyle(root).width).toBe("24px");
+      expect(window.getComputedStyle(root).height).toBe("24px");
+      expect(window.getComputedStyle(icon).width).toBe("24px");
+      expect(window.getComputedStyle(icon).height).toBe("24px");
+      expect(window.getComputedStyle(icon).color).toBe("rgb(24, 122, 220)");
+      expect(window.getComputedStyle(bubble).backgroundColor).toBe(
+        "rgb(156, 78, 234)",
+      );
     });
   });
 

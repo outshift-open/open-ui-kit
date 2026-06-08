@@ -14,7 +14,11 @@ export const DialogTitle = ({ children, ...props }: DialogTitleProps) => {
       variant="h5"
       {...props}
       sx={[
-        { padding: 0, color: theme.palette.vars.baseTextStrong },
+        {
+          padding: 0,
+          lineHeight: "30px",
+          color: theme.palette.vars.baseTextStrong,
+        },
         ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
       ]}
     >

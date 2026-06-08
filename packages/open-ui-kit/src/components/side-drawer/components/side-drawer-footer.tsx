@@ -9,12 +9,9 @@ import { Button } from "@/components/button";
 import { ArrowForward } from "@mui/icons-material";
 import { EMPTY_FUNCTION } from "@/common";
 import { footerContainerStyle } from "../styles";
+import type { SideDrawerFooterProps } from "../types";
 
-export interface SideDrawerFooterProps {
-  pageName?: string;
-  hideGotoPage?: boolean;
-  onGotoPage?: () => void;
-}
+export type { SideDrawerFooterProps };
 
 const SideDrawerFooter = ({
   pageName = "",

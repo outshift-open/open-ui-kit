@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme, Typography } from "@mui/material";
+import { type Theme, Typography } from "@mui/material";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { AugmentedSelectNodeType } from "@/components/nested-menu";
 import { ellipsisStyle } from "@/theme/style/common";
@@ -37,7 +37,7 @@ export const buildNodeLabelElement = (
   }
 
   return (
-    <Typography variant="body2" sx={ellipsisStyle} component="div">
+    <Typography variant="body1" sx={ellipsisStyle} component="div">
       <OverflowTooltip
         value={nodeLabel}
         slotProps={{

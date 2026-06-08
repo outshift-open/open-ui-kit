@@ -20,7 +20,17 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { Popover } from "../components/popover";
+import {
+  getArrowStyles,
+  getPopoverContentStyles,
+  getPopoverPaperStyles,
+  popoverBodyStyles,
+  popoverTextStyles,
+  popoverTitleStyles,
+} from "../styles";
 
 const anchor = document.createElement("div");
 document.body.appendChild(anchor);
@@ -69,6 +79,11 @@ describe("Popover", () => {
     it("renders action buttons", () => {
       renderPopover({ actions: <button>Confirm</button> });
       expect(screen.getByText("Confirm")).toBeInTheDocument();
+    });
+
+    it("renders an optional icon", () => {
+      renderPopover({ icon: <span data-testid="popover-icon" /> });
+      expect(screen.getByTestId("popover-icon")).toBeInTheDocument();
     });
   });
 
@@ -128,6 +143,77 @@ describe("Popover", () => {
 
     it("renders in dark mode without error", () => {
       expect(() => renderPopover({ title: "Dark" }, true)).not.toThrow();
+    });
+
+    it("uses light mode design tokens", () => {
+      expect(getPopoverPaperStyles(lightTheme)).toMatchObject({
+        width: "228px",
+        background: lightTheme.palette.vars.controlBackgroundDefault,
+        borderRadius: "6px",
+        boxShadow: "none",
+        overflow: "visible",
+      });
+      expect(getPopoverPaperStyles(lightTheme, "large")).toMatchObject({
+        width: "360px",
+      });
+      expect(getPopoverContentStyles(lightTheme)).toMatchObject({
+        background: lightTheme.palette.vars.controlBackgroundDefault,
+        border: "0px solid transparent",
+        borderRadius: "6px",
+        gap: "16px",
+        padding: "12px 16px",
+      });
+      expect(getPopoverContentStyles(lightTheme, true)).toMatchObject({
+        border: `2px solid ${lightTheme.palette.vars.controlBorderActive}`,
+      });
+      expect(popoverTitleStyles(lightTheme)).toMatchObject({
+        color: lightTheme.palette.vars.baseTextStrong,
+        fontSize: "14px",
+        fontWeight: 600,
+        letterSpacing: "0px",
+        lineHeight: "20px",
+      });
+      expect(popoverBodyStyles(lightTheme)).toMatchObject({
+        color: lightTheme.palette.vars.baseTextDefault,
+        fontSize: "14px",
+        letterSpacing: "0.25px",
+        lineHeight: "20px",
+      });
+      expect(popoverTextStyles).toMatchObject({
+        gap: "4px",
+      });
+      expect(
+        getArrowStyles(
+          "bottom-center",
+          lightTheme.palette.vars.controlBorderActive,
+        ),
+      ).toMatchObject({
+        background: lightTheme.palette.vars.controlBorderActive,
+      });
+      expect(lightTheme.palette.vars.controlBackgroundDefault).toBe("#fbfcfe");
+      expect(lightTheme.palette.vars.controlBorderActive).toBe("#0051af");
+      expect(lightTheme.palette.vars.baseTextStrong).toBe("#00142b");
+      expect(lightTheme.palette.vars.baseTextDefault).toBe("#3c4551");
+    });
+
+    it("uses dark mode design tokens", () => {
+      expect(getPopoverPaperStyles(darkTheme)).toMatchObject({
+        background: darkTheme.palette.vars.controlBackgroundDefault,
+      });
+      expect(getPopoverContentStyles(darkTheme, true)).toMatchObject({
+        background: darkTheme.palette.vars.controlBackgroundDefault,
+        border: `2px solid ${darkTheme.palette.vars.controlBorderActive}`,
+      });
+      expect(popoverTitleStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.baseTextStrong,
+      });
+      expect(popoverBodyStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.baseTextDefault,
+      });
+      expect(darkTheme.palette.vars.controlBackgroundDefault).toBe("#183056");
+      expect(darkTheme.palette.vars.controlBorderActive).toBe("#12c1ff");
+      expect(darkTheme.palette.vars.baseTextStrong).toBe("#ffffff");
+      expect(darkTheme.palette.vars.baseTextDefault).toBe("#e8e9ea");
     });
   });
 });

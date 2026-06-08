@@ -13,9 +13,7 @@ export const StyledBox = styled(Box, {
 })(({ fullWidth }: { fullWidth?: boolean }) => ({
   display: fullWidth ? "flex" : "inline-flex",
   flexDirection: "row",
-  alignItems: "center",
-  padding: "2px",
-  gap: "2px",
+  alignItems: "stretch",
   borderRadius: "8px",
 })) as ComponentType<BoxProps & { fullWidth?: boolean }>;
 
@@ -43,10 +41,13 @@ export const StyledButton = styled("button", {
 
   display: "inline-flex",
   flex: 1,
+  minWidth: "max-content",
   alignItems: "center",
   justifyContent: "center",
+  whiteSpace: "nowrap",
 
-  height: size === "sm" ? "24px" : "28px",
+  height: size === "sm" ? "28px" : "32px",
+
   padding: isIconOnly
     ? size === "sm"
       ? "4px"
@@ -54,7 +55,6 @@ export const StyledButton = styled("button", {
     : size === "sm"
       ? "4px 8px"
       : "4px 12px",
-  gap: "8px",
 
   fontFamily: "Inter, sans-serif",
   fontSize: size === "sm" ? "12px" : "14px",
@@ -70,16 +70,16 @@ export const StyledButton = styled("button", {
 
   backgroundColor: disabled
     ? theme.palette.vars.controlBackgroundWeak
-    : selected
-      ? theme.palette.vars.controlBackgroundDefault
-      : theme.palette.vars.controlBackgroundDefault,
+    : theme.palette.vars.controlBackgroundDefault,
 
-  border:
+  border: `2px solid ${
     selected && !disabled
-      ? `2px solid ${theme.palette.vars.interactiveTertiaryActive}`
-      : "2px solid transparent",
-
+      ? theme.palette.vars.interactiveTertiaryActive
+      : theme.palette.vars.controlBorderMedium
+  }`,
   borderRadius: 0,
+  // collapse right border by default; selected keeps its own right border
+  ...(!selected && { borderRightWidth: 0 }),
 
   "&:first-of-type": {
     borderTopLeftRadius: "6px",
@@ -87,8 +87,17 @@ export const StyledButton = styled("button", {
   },
 
   "&:last-of-type": {
+    borderRightWidth: "2px",
     borderTopRightRadius: "6px",
     borderBottomRightRadius: "6px",
+  },
+
+  // selected: raise above neighbours; sibling after selected suppresses its left border
+  "&.osd-view-switcher-option-selected": {
+    zIndex: 1,
+    "& + button": {
+      borderLeftWidth: 0,
+    },
   },
 
   "&:hover:not(:disabled)": {

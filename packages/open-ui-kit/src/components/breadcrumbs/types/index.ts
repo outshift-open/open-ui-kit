@@ -30,6 +30,6 @@ export interface BreadcrumbsProps extends MUIBreadcrumbsProps {
   type?: LinkType;
   /** Link size used for breadcrumb labels. */
   size?: GeneralSize;
-  /** Maximum number of visible breadcrumbs before MUI collapses the middle items. */
+  /** Maximum number of visible breadcrumbs before middle items move into the collapsed menu. */
   maximumNumberOfVisibleBreadcrumbs?: number;
 }

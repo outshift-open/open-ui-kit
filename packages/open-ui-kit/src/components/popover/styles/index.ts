@@ -4,17 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material";
 import {
   lightModeCardFloating,
   darkModeCardFloating,
 } from "@/theme/style/color-palette";
-import type { PopoverArrowPosition } from "../types";
+import type { PopoverArrowPosition, PopoverSize } from "../types";
 
 const ARROW_SIZE = 16; // px — width of the arrow triangle
 const ARROW_HALF = ARROW_SIZE / 2;
 const ARROW_HEIGHT = 8; // px — height of the arrow triangle
 const ARROW_OFFSET = 12; // px — distance from left/right edge for non-center arrows
+const popoverWidthBySize: Record<PopoverSize, string> = {
+  medium: "228px",
+  large: "360px",
+};
 
 /** Outer padding added to the paper to make room for the arrow. */
 export const getArrowPadding = (position?: PopoverArrowPosition) => {
@@ -55,9 +59,15 @@ export const getArrowStyles = (position: PopoverArrowPosition, bg: string) => {
   };
 };
 
-export const getPopoverPaperStyles = (theme: Theme) => ({
+export const getPopoverPaperStyles = (
+  theme: Theme,
+  size: PopoverSize = "medium",
+) => ({
+  boxSizing: "border-box",
+  width: popoverWidthBySize[size],
   background: theme.palette.vars?.controlBackgroundDefault,
   borderRadius: "6px",
+  boxShadow: "none",
   filter:
     theme.palette.mode === "dark"
       ? `drop-shadow(${darkModeCardFloating})`
@@ -65,11 +75,47 @@ export const getPopoverPaperStyles = (theme: Theme) => ({
   overflow: "visible",
 });
 
-export const popoverContentStyles = {
+export const getPopoverContentStyles = (
+  theme: Theme,
+  featureHighlight = false,
+) => ({
+  boxSizing: "border-box",
+  display: "flex",
+  flexDirection: "row" as const,
+  justifyContent: "flex-end",
+  alignItems: "flex-start",
+  gap: "16px",
+  padding: "12px 16px",
+  width: "100%",
+  background: theme.palette.vars?.controlBackgroundDefault,
+  border: featureHighlight
+    ? `2px solid ${theme.palette.vars?.controlBorderActive}`
+    : "0px solid transparent",
+  borderRadius: "6px",
+});
+
+export const popoverColumnStyles = {
   display: "flex",
   flexDirection: "column" as const,
+  alignItems: "flex-start",
   gap: "12px",
-  padding: "12px 16px",
+  flex: 1,
+  minWidth: 0,
+};
+
+export const popoverTextStyles = {
+  display: "flex",
+  flexDirection: "column" as const,
+  alignItems: "flex-start",
+  gap: "4px",
+  alignSelf: "stretch",
+};
+
+export const popoverIconStyles = {
+  display: "flex",
+  alignItems: "flex-start",
+  flexShrink: 0,
+  paddingTop: "1px",
 };
 
 export const popoverHeaderStyles = {
@@ -84,6 +130,7 @@ export const popoverTitleStyles = (theme: Theme) => ({
   fontWeight: 600,
   fontSize: "14px",
   lineHeight: "20px",
+  letterSpacing: "0px",
   color: theme.palette.vars?.baseTextStrong,
 });
 
@@ -100,6 +147,7 @@ export const popoverActionsStyles = {
   justifyContent: "flex-end",
   alignItems: "center",
   gap: "12px",
+  width: "100%",
 };
 
 export const closeButtonStyles = {

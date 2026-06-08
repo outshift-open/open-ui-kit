@@ -24,7 +24,7 @@ export interface CopyButtonStylesProps {
   left?: string;
   /** Right offset used when `position="right"`. Defaults to `16px`. */
   right?: string;
-  /** Removes the default outer margin used when the button sits inside code blocks. */
+  /** Keeps the button flush with surrounding code-block layout; retained for compatibility. */
   disableMargin?: boolean;
 }
 
@@ -35,6 +35,8 @@ export interface CopyButtonProps
   text: string;
   /** Callback fired after the text is copied. */
   onCopy?: () => void;
+  /** Controls the copied visual state. Leave unset to use the built-in temporary success state after click. */
+  copied?: boolean;
   /** Tooltip placement around the icon button. Defaults to `top`. */
   tooltipPlacement?: TooltipProps["placement"];
   /** Tooltip label before a successful copy. Defaults to `Copy`. */

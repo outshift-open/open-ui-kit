@@ -16,11 +16,14 @@ import {
   closeButtonStyles,
   getArrowPadding,
   getArrowStyles,
+  getPopoverContentStyles,
   getPopoverPaperStyles,
   popoverActionsStyles,
   popoverBodyStyles,
-  popoverContentStyles,
+  popoverColumnStyles,
   popoverHeaderStyles,
+  popoverIconStyles,
+  popoverTextStyles,
   popoverTitleStyles,
 } from "../styles";
 import type { PopoverProps } from "../types";
@@ -31,7 +34,10 @@ export const Popover = ({
   title,
   body,
   actions,
+  icon,
   showCloseButton = false,
+  featureHighlight = false,
+  size = "medium",
   arrowPosition,
   paperSx,
   onClose,
@@ -39,7 +45,9 @@ export const Popover = ({
   ...props
 }: PopoverProps) => {
   const theme = useTheme();
-  const bg = theme.palette.vars.controlBackgroundDefault;
+  const bg = featureHighlight
+    ? theme.palette.vars.controlBorderActive
+    : theme.palette.vars.controlBackgroundDefault;
 
   return (
     <MuiPopover
@@ -48,7 +56,7 @@ export const Popover = ({
       slotProps={{
         paper: {
           sx: [
-            getPopoverPaperStyles(theme),
+            getPopoverPaperStyles(theme, size),
             getArrowPadding(arrowPosition),
             ...(Array.isArray(paperSx) ? paperSx : paperSx ? [paperSx] : []),
           ],
@@ -63,32 +71,42 @@ export const Popover = ({
         />
       )}
       {children ?? (
-        <Box sx={popoverContentStyles}>
-          {(title || showCloseButton) && (
-            <Box sx={popoverHeaderStyles}>
-              {title && (
-                <Typography component="div" sx={popoverTitleStyles(theme)}>
-                  {title}
-                </Typography>
-              )}
-              {showCloseButton && (
-                <IconButton
-                  aria-label="Close popover"
-                  size="small"
-                  onClick={() => onClose?.({}, "escapeKeyDown")}
-                  sx={closeButtonStyles}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              )}
-            </Box>
-          )}
-          {body && (
-            <Typography component="div" sx={popoverBodyStyles(theme)}>
-              {body}
-            </Typography>
-          )}
-          {actions && <Box sx={popoverActionsStyles}>{actions}</Box>}
+        <Box sx={getPopoverContentStyles(theme, featureHighlight)}>
+          {icon && <Box sx={popoverIconStyles}>{icon}</Box>}
+          <Box sx={popoverColumnStyles}>
+            {(title || body || showCloseButton) && (
+              <Box sx={popoverTextStyles}>
+                {(title || showCloseButton) && (
+                  <Box sx={popoverHeaderStyles}>
+                    {title && (
+                      <Typography
+                        component="div"
+                        sx={popoverTitleStyles(theme)}
+                      >
+                        {title}
+                      </Typography>
+                    )}
+                    {showCloseButton && (
+                      <IconButton
+                        aria-label="Close popover"
+                        size="small"
+                        onClick={() => onClose?.({}, "escapeKeyDown")}
+                        sx={closeButtonStyles}
+                      >
+                        <CloseIcon fontSize="small" />
+                      </IconButton>
+                    )}
+                  </Box>
+                )}
+                {body && (
+                  <Typography component="div" sx={popoverBodyStyles(theme)}>
+                    {body}
+                  </Typography>
+                )}
+              </Box>
+            )}
+            {actions && <Box sx={popoverActionsStyles}>{actions}</Box>}
+          </Box>
         </Box>
       )}
     </MuiPopover>

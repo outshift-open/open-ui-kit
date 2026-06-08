@@ -1,16 +1,26 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@/components";
+import { Button } from "@/components/button";
+import { Spinner } from "@/components/spinner";
 import { Backdrop } from "../components/backdrop";
 import type { BackdropProps } from "../types";
-import { Button } from "../../button";
-import { Spinner } from "../../spinner";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta: Meta<typeof Backdrop> = {
+const meta = {
   title: "Components/Backdrop",
   component: Backdrop,
   tags: ["autodocs"],
+  args: {
+    invisible: false,
+  },
+  argTypes: {
+    children: { table: { disable: true } },
+    invisible: { control: "boolean" },
+    onClick: { table: { disable: true } },
+    open: { table: { disable: true } },
+    sx: { control: false },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
@@ -23,7 +33,7 @@ const meta: Meta<typeof Backdrop> = {
       ),
     },
   },
-};
+} satisfies Meta<typeof Backdrop>;
 
 export default meta;
 type Story = StoryObj<typeof Backdrop>;
@@ -39,19 +49,14 @@ const BackdropWithState = ({
       <Button variant="primary" onClick={() => setOpen(true)}>
         Show backdrop
       </Button>
-      <Backdrop
-        {...args}
-        open={open}
-        onClick={() => setOpen(false)}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
+      <Backdrop {...args} open={open} onClick={() => setOpen(false)}>
         {children}
       </Backdrop>
     </>
   );
 };
 
-export const WithSpinner: Story = {
+export const Default: Story = {
   parameters: {
     docs: {
       description: {
@@ -60,8 +65,8 @@ export const WithSpinner: Story = {
       },
     },
   },
-  render: () => (
-    <BackdropWithState>
+  render: (args) => (
+    <BackdropWithState {...args}>
       <Spinner color="inherit" />
     </BackdropWithState>
   ),
@@ -76,11 +81,14 @@ export const WithMessage: Story = {
       },
     },
   },
-  render: () => (
-    <BackdropWithState>
+  render: (args) => (
+    <BackdropWithState {...args}>
       <Stack alignItems="center" spacing={2}>
         <Spinner color="inherit" />
-        <Typography color="white" variant="body2">
+        <Typography
+          sx={(theme) => ({ color: theme.palette.vars.baseTextInverse })}
+          variant="body2"
+        >
           Processing, please wait…
         </Typography>
       </Stack>
@@ -97,8 +105,11 @@ export const Invisible: Story = {
       },
     },
   },
-  render: () => (
-    <BackdropWithState invisible>
+  args: {
+    invisible: true,
+  },
+  render: (args) => (
+    <BackdropWithState {...args}>
       <Typography color="text.primary" variant="body2">
         Click anywhere to dismiss
       </Typography>

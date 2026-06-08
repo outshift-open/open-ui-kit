@@ -76,7 +76,7 @@ export const getLinkTypographyStyles = (
         ? theme.typography.fontWeightSemiBold
         : theme.typography.fontWeightRegular,
     lineHeight: lineHeights[size],
-    letterSpacing: 0,
+    letterSpacing: "0px",
   };
 };
 

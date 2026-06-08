@@ -30,7 +30,7 @@ export const Warning = (props: SvgIconProps) => {
           height="120"
           rx="13.5"
           transform="rotate(25 69.9644 11)"
-          fill={lightOrange600}
+          fill={`var(--empty-state-illustration-accent, ${lightOrange600})`}
         />
         <rect
           opacity="0.3"
@@ -40,7 +40,7 @@ export const Warning = (props: SvgIconProps) => {
           height="90"
           rx="13.5"
           transform="rotate(25 195.285 65.75)"
-          fill={lightOrange600}
+          fill={`var(--empty-state-illustration-accent, ${lightOrange600})`}
         />
         <rect
           opacity="0.3"
@@ -50,7 +50,7 @@ export const Warning = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 28.3662 147.5)"
-          fill={lightOrange600}
+          fill={`var(--empty-state-illustration-accent, ${lightOrange600})`}
         />
         <path
           d="M178.242 148.562L124.678 55.9371C123.396 53.7094 121.549 51.859 119.324 50.5724C117.098 49.2858 114.573 48.6083 112.003 48.6083C109.433 48.6083 106.908 49.2858 104.682 50.5724C102.457 51.859 100.61 53.7094 99.3281 55.9371L45.764 148.562C44.4628 150.778 43.7713 153.3 43.7597 155.87C43.7481 158.44 44.4168 160.967 45.6979 163.195C46.979 165.423 48.827 167.273 51.054 168.556C53.2811 169.839 55.808 170.509 58.3781 170.5H165.628C168.198 170.509 170.725 169.839 172.952 168.556C175.179 167.273 177.027 165.423 178.308 163.195C179.589 160.967 180.258 158.44 180.246 155.87C180.235 153.3 179.543 150.778 178.242 148.562Z"

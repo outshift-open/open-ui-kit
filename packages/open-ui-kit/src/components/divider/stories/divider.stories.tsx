@@ -1,11 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack } from "@mui/material";
-import { Divider } from "..";
+import { Box, Divider, Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Divider> = {
   title: "Components/Divider",
   component: Divider,
+  args: {
+    orientation: "horizontal",
+  },
+  argTypes: {
+    orientation: {
+      control: "radio",
+      options: ["horizontal", "vertical"],
+      description: "Direction of the divider line.",
+    },
+    variant: {
+      control: "radio",
+      options: [undefined, "bold"],
+      description: "Line weight. Default is 1px; bold is 2px.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -23,8 +37,7 @@ const meta: Meta<typeof Divider> = {
 export default meta;
 type Story = StoryObj<typeof Divider>;
 
-export const Horizontal1px: Story = {
-  name: "Direction=Horizontal, Weight=1px",
+export const Default: Story = {
   render: (args) => (
     <Box sx={{ width: "220px" }}>
       <Divider {...args} orientation="horizontal" />
@@ -32,8 +45,10 @@ export const Horizontal1px: Story = {
   ),
 };
 
-export const Horizontal2px: Story = {
-  name: "Direction=Horizontal, Weight=2px",
+export const Bold: Story = {
+  args: {
+    variant: "bold",
+  },
   render: (args) => (
     <Box sx={{ width: "220px" }}>
       <Divider {...args} orientation="horizontal" variant="bold" />
@@ -41,8 +56,10 @@ export const Horizontal2px: Story = {
   ),
 };
 
-export const Vertical1px: Story = {
-  name: "Direction=Vertical, Weight=1px",
+export const Vertical: Story = {
+  args: {
+    orientation: "vertical",
+  },
   render: (args) => (
     <Box sx={{ height: "120px", display: "flex" }}>
       <Divider {...args} orientation="vertical" />
@@ -50,8 +67,11 @@ export const Vertical1px: Story = {
   ),
 };
 
-export const Vertical2px: Story = {
-  name: "Direction=Vertical, Weight=2px",
+export const VerticalBold: Story = {
+  args: {
+    orientation: "vertical",
+    variant: "bold",
+  },
   render: (args) => (
     <Box sx={{ height: "120px", display: "flex" }}>
       <Divider {...args} orientation="vertical" variant="bold" />
@@ -60,7 +80,6 @@ export const Vertical2px: Story = {
 };
 
 export const StickerSheet: Story = {
-  name: "Divider",
   render: (args) => (
     <Stack
       direction="row"

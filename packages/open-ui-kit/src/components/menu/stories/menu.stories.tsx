@@ -1,16 +1,41 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { ListItemIcon, ListItemText } from "@mui/material";
-import { Star } from "@mui/icons-material";
 import { Button } from "@/components/button";
 import { Divider } from "@/components/divider";
+import { Icon } from "@/components/icon";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Menu, MenuItem, MenuSubheader, type MenuProps } from "..";
 
 const meta: Meta<typeof Menu> = {
   title: "Components/Menu/Menu",
   component: Menu,
-  tags: ["autodocs"],
+  args: {
+    width: 180,
+  },
+  argTypes: {
+    anchorEl: {
+      table: { disable: true },
+    },
+    children: {
+      table: { disable: true },
+    },
+    onClose: {
+      table: { disable: true },
+    },
+    open: {
+      table: { disable: true },
+    },
+    width: {
+      control: "number",
+      description: "Optional menu paper width.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -30,7 +55,7 @@ export default meta;
 
 type Story = StoryObj<typeof Menu>;
 
-const MenuStory = (args: MenuProps) => {
+const MenuStory = ({ children, width, ...args }: MenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -39,17 +64,19 @@ const MenuStory = (args: MenuProps) => {
       <Button
         variant="primary"
         id="basic-button"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
       >
         Open Menu
       </Button>
       <Menu
+        {...args}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={() => setAnchorEl(null)}
+        width={width}
       >
-        {args.children}
+        {children}
       </Menu>
     </>
   );
@@ -58,32 +85,53 @@ const MenuStory = (args: MenuProps) => {
 export const Default: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => <MenuItem key={x}>Menu Item {x}</MenuItem>),
+    children: [1, 2, 3].map((item) => (
+      <MenuItem key={item}>Menu item {item}</MenuItem>
+    )),
   },
 };
 
-export const WithSelected: Story = {
+export const Selected: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} selected={x === 2}>
-        Menu Item {x}
+    children: [1, 2, 3].map((item) => (
+      <MenuItem key={item} selected={item === 2}>
+        Menu item {item}
       </MenuItem>
     )),
   },
 };
 
-export const WithIcons: Story = {
+export const Disabled: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x}>
-        <ListItemIcon>
-          <Star fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Item with icon</ListItemText>
-      </MenuItem>
-    )),
+    children: [
+      <MenuItem key="view">View details</MenuItem>,
+      <MenuItem key="disabled" disabled>
+        Disabled item
+      </MenuItem>,
+      <MenuItem key="settings">Settings</MenuItem>,
+    ],
+  },
+};
+
+export const WithIcon: Story = {
+  render: MenuStory,
+  args: {
+    children: [
+      <MenuItem key="favorite">
+        <Icon fontSize="small">star</Icon>
+        Favorite
+      </MenuItem>,
+      <MenuItem key="archive">
+        <Icon fontSize="small">archive</Icon>
+        Archive
+      </MenuItem>,
+      <MenuItem key="settings">
+        <Icon fontSize="small">settings</Icon>
+        Settings
+      </MenuItem>,
+    ],
   },
 };
 
@@ -91,73 +139,45 @@ export const WithDivider: Story = {
   render: MenuStory,
   args: {
     children: [
-      <MenuItem key="1">Menu Item 1</MenuItem>,
-      <MenuItem key="2" selected>
-        Menu Item 2
-      </MenuItem>,
+      <MenuItem key="profile">Profile</MenuItem>,
+      <MenuItem key="billing">Billing</MenuItem>,
       <Divider key="divider" />,
-      <MenuItem key="3">Menu Item 3</MenuItem>,
-    ],
-  },
-};
-
-export const WithDisabled: Story = {
-  render: MenuStory,
-  args: {
-    children: [
-      <MenuItem key="1">Menu Item 1</MenuItem>,
-      <MenuItem key="2" disabled>
-        Menu Item 2 (disabled)
-      </MenuItem>,
-      <MenuItem key="3">Menu Item 3</MenuItem>,
-    ],
-  },
-};
-
-export const Destructive: Story = {
-  render: MenuStory,
-  args: {
-    children: [
-      <MenuItem key="1">Menu Item 1</MenuItem>,
-      <MenuItem key="2" destructive>
-        Delete
+      <MenuItem key="logout" destructive>
+        Sign out
       </MenuItem>,
     ],
   },
 };
 
-export const SizeMedium: Story = {
+export const Sizes: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} size="medium">
-        Menu Item {x}
-      </MenuItem>
-    )),
+    width: 160,
+    children: [
+      <MenuItem key="large" size="large">
+        Large item
+      </MenuItem>,
+      <MenuItem key="medium" size="medium">
+        Medium item
+      </MenuItem>,
+      <MenuItem key="small" size="small">
+        Small item
+      </MenuItem>,
+    ],
   },
 };
 
-export const SizeSmall: Story = {
-  render: MenuStory,
-  args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} size="small">
-        Menu Item {x}
-      </MenuItem>
-    )),
-  },
-};
-
-export const WithCategories: Story = {
+export const WithSubheaders: Story = {
   render: MenuStory,
   args: {
     children: [
-      <MenuSubheader key="cat1">Category 1</MenuSubheader>,
-      <MenuItem key="1">Menu Item 1</MenuItem>,
-      <MenuItem key="2">Menu Item 2</MenuItem>,
-      <MenuSubheader key="cat2">Category 2</MenuSubheader>,
-      <MenuItem key="3">Menu Item 3</MenuItem>,
-      <MenuItem key="4">Menu Item 4</MenuItem>,
+      <MenuSubheader key="actions">Actions</MenuSubheader>,
+      <MenuItem key="run">Run scan</MenuItem>,
+      <MenuItem key="pause">Pause scan</MenuItem>,
+      <MenuSubheader key="admin">Admin</MenuSubheader>,
+      <MenuItem key="delete" destructive>
+        Delete scan
+      </MenuItem>,
     ],
   },
 };

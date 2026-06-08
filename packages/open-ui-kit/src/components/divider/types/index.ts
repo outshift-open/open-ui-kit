@@ -6,5 +6,12 @@
 
 import type { DividerProps as MuiDividerProps } from "@mui/material";
 
-/** Props for the divider line used to separate content areas. */
-export type DividerProps = MuiDividerProps;
+/** Visual weight of the divider line. */
+export type DividerVariant = MuiDividerProps["variant"] | "bold";
+
+export interface DividerProps extends Omit<MuiDividerProps, "variant"> {
+  /** Direction of the divider line. Horizontal is the default. */
+  orientation?: MuiDividerProps["orientation"];
+  /** Visual weight of the divider. Use `bold` for the 2px design-system line. */
+  variant?: DividerVariant;
+}

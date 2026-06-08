@@ -12,6 +12,12 @@ import { getMenuItemLabelStyles, getMenuItemLinkStyles } from "../styles";
 import type { MenuItemProps } from "../types";
 import { StyledMenuItem } from "./elements";
 
+const typographyVariantBySize = {
+  large: "body1",
+  medium: "body2",
+  small: "caption",
+} as const;
+
 export const MenuItem = ({
   children,
   destructive = false,
@@ -55,9 +61,13 @@ export const MenuItem = ({
         Icon={Icon}
         openInNewTab={openInNewTab}
         linkType={LinkType.StandaloneRegular}
-        style={getMenuItemLinkStyles() as CSSProperties}
+        customizeColor={() => "inherit"}
+        style={getMenuItemLinkStyles(size) as CSSProperties}
       >
-        <Typography variant="body1" sx={getMenuItemLabelStyles()}>
+        <Typography
+          variant={typographyVariantBySize[size]}
+          sx={(theme) => getMenuItemLabelStyles(theme, size)}
+        >
           {children}
         </Typography>
       </Link>

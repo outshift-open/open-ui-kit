@@ -20,31 +20,38 @@ import {
   TypographyProps,
   styled,
 } from "@mui/material";
-export const StyledCard = styled(MuiCard)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  padding: "16px",
-  gap: "12px",
-  borderRadius: "8px",
-  backgroundImage: "none",
-  backgroundColor: theme.palette.vars.baseBackgroundWeak,
-  boxShadow: theme.shadows[1],
-  boxSizing: "border-box",
+import {
+  cardActiveStyles,
+  cardDisabledStyles,
+  cardInteractiveStyles,
+  cardRootStyles,
+} from "../styles";
+
+export const StyledCard = styled(MuiCard, {
+  shouldForwardProp: (prop) => prop !== "disabled",
+})<{ disabled?: boolean }>(({ theme }) => ({
+  ...cardRootStyles(theme),
   "&:hover": {
     backgroundColor: theme.palette.vars.baseBackgroundWeak,
   },
-})) as ComponentType<MuiCardProps>;
+  '&[aria-disabled="true"]': cardDisabledStyles(theme),
+})) as ComponentType<MuiCardProps & { disabled?: boolean }>;
 
 export const StyledCardActionArea = styled(MuiCardActionArea)(({ theme }) => ({
   borderRadius: "8px",
-  "&:hover": {
-    outline: `1px solid ${theme.palette.vars.controlBorderHover}`,
+  "&:hover .MuiCard-root, &:focus-visible .MuiCard-root": {
+    ...cardInteractiveStyles(theme),
     "& .MuiCardActionArea-focusHighlight": {
       opacity: 0,
     },
   },
+  "&:active .MuiCard-root": cardActiveStyles(theme),
+  "&.Mui-disabled .MuiCard-root": cardDisabledStyles(theme),
+  "& .MuiCardActionArea-focusHighlight": {
+    opacity: 0,
+  },
   "&:focus-visible": {
-    outline: `1px solid ${theme.palette.vars.controlBorderActive}`,
+    outline: "none",
     "& .MuiCardActionArea-focusHighlight": {
       opacity: 0,
     },
@@ -61,6 +68,10 @@ export const StyledCardHeader = styled(MuiCardHeader)(({ theme }) => ({
     ...theme.typography.captionMedium,
     color: theme.palette.vars.baseTextMedium,
   },
+  '[aria-disabled="true"] & .MuiCardHeader-title, [aria-disabled="true"] & .MuiCardHeader-subheader':
+    {
+      color: theme.palette.vars.baseTextDisabled,
+    },
 })) as ComponentType<MuiCardHeaderProps>;
 
 export const StyledCardContent = styled(MuiCardContent)(() => ({
@@ -76,8 +87,14 @@ export const StyledCardActions = styled(MuiCardActions)(() => ({
 
 export const StyledCardDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextDefault,
+  '[aria-disabled="true"] &': {
+    color: theme.palette.vars.baseTextDisabled,
+  },
 })) as ComponentType<TypographyProps>;
 
 export const StyledCardSubheader = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextMedium,
+  '[aria-disabled="true"] &': {
+    color: theme.palette.vars.baseTextDisabled,
+  },
 })) as ComponentType<TypographyProps>;

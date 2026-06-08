@@ -1,3 +1,9 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -9,7 +15,7 @@ import {
   DialogContentText,
   DialogProps,
 } from "..";
-import { Stack } from "@mui/material";
+import { Stack } from "@/components";
 import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { CodeBlock } from "@/components/code-block";
@@ -18,6 +24,9 @@ import { DocsHeader } from "storybook/components/docs-header.stories";
 const meta: Meta<typeof Dialog> = {
   title: "Components/Dialog",
   component: Dialog,
+  args: {
+    maxWidth: "sm",
+  },
   parameters: {
     docs: {
       page: () => (
@@ -31,9 +40,24 @@ const meta: Meta<typeof Dialog> = {
     },
   },
   argTypes: {
+    open: {
+      table: { disable: true },
+    },
+    onClose: {
+      table: { disable: true },
+    },
+    children: {
+      table: { disable: true },
+    },
+    fullWidth: {
+      control: "boolean",
+      description: "Stretches the dialog paper to the selected size preset.",
+    },
     maxWidth: {
+      control: "select",
+      options: ["sm", "md", "lg"],
       description:
-        "Dialog **content width** preset (MUI). This string is **not** the same as layout viewport breakpoints (`theme.breakpoints`). See the **Dialog sizes** story.",
+        "Dialog content width preset. sm maps to 480px, md to 720px, and lg to 1200px with responsive viewport constraints.",
     },
   },
 };

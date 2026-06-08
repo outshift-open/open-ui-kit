@@ -16,11 +16,12 @@ import {
   styled,
 } from "@mui/material";
 import type { ComponentType } from "react";
-import { breakpointValues } from "@/theme/style/common";
 import {
   darkModeCardLifted,
   lightModeCardLifted,
 } from "@/theme/style/color-palette";
+
+const dialogMaxWidth = "calc(100vw - 80px)";
 
 export const StyledDialog: ComponentType<DialogProps> = styled(MuiDialog)(
   ({ theme }) => ({
@@ -36,14 +37,21 @@ export const StyledDialog: ComponentType<DialogProps> = styled(MuiDialog)(
           ? darkModeCardLifted
           : lightModeCardLifted,
     },
+    "& .MuiDialog-paperWidthSm": {
+      width: "480px",
+      maxWidth: dialogMaxWidth,
+    },
     "& .MuiDialog-paperWidthMd": {
-      maxWidth: breakpointValues.sm,
+      width: "720px",
+      maxWidth: dialogMaxWidth,
     },
     "& .MuiDialog-paperWidthLg": {
-      maxWidth: breakpointValues.md,
+      width: "1200px",
+      maxWidth: dialogMaxWidth,
     },
     "& .MuiDialog-paperWidthXl": {
-      maxWidth: breakpointValues.lg,
+      width: "1200px",
+      maxWidth: dialogMaxWidth,
     },
   }),
 );
@@ -57,7 +65,7 @@ export const StyledDialogContent: ComponentType<DialogContentProps> = styled(
 export const StyledDialogActions: ComponentType<DialogActionsProps> = styled(
   MuiDialogActions,
 )({
-  alignItems: "center",
+  alignItems: "flex-end",
   justifyContent: "flex-end",
   gap: "16px",
   padding: "8px 0 0",

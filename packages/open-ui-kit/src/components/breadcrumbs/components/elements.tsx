@@ -11,38 +11,15 @@ import {
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import type { ComponentType } from "react";
+import {
+  getBreadcrumbsRootStyles,
+  getBreadcrumbSeparatorIconStyles,
+} from "../styles";
 
-export const StyledBreadcrumbs = styled(MuiBreadcrumbs)(({ theme }) => ({
-  lineHeight: "20px",
-  "& .MuiBreadcrumbs-separator": {
-    marginLeft: "4px",
-    marginRight: "4px",
-  },
-  "& .MuiButtonBase-root": {
-    backgroundColor: "transparent",
-    margin: 0,
-    width: "20px",
-    height: "20px",
-  },
-  "& .MuiButtonBase-root:hover": {
-    backgroundColor: "initial",
-  },
-  "& .MuiBreadcrumbs-li, & .MuiBreadcrumbs-li > a": {
-    verticalAlign: "middle",
-    display: "flex",
-    alignItems: "center",
-  },
-  "& .MuiBreadcrumbs-ol": {
-    flexWrap: "nowrap",
-    alignItems: "center",
-  },
-  "& .MuiBreadcrumbs-separator > svg": {
-    color: theme.palette.vars.interactiveSecondaryDefaultDefault,
-    width: "20px",
-    height: "20px",
-  },
-})) as ComponentType<BreadcrumbsProps>;
+export const StyledBreadcrumbs = styled(MuiBreadcrumbs)(({ theme }) =>
+  getBreadcrumbsRootStyles(theme),
+) as ComponentType<BreadcrumbsProps>;
 
 export const BreadcrumbSeparator = () => (
-  <ChevronRightIcon sx={{ width: "20px", height: "20px" }} />
+  <ChevronRightIcon sx={getBreadcrumbSeparatorIconStyles()} />
 );

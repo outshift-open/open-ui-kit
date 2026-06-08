@@ -5,21 +5,20 @@
  */
 
 import { Toaster as Sonner } from "sonner";
+import type { ToasterProps } from "../types";
 
-export type ToasterProps = React.ComponentProps<typeof Sonner>;
-
-export const Toaster = ({ ...props }: ToasterProps) => {
+export const Toaster = ({ toastOptions, ...props }: ToasterProps) => {
   return (
     <Sonner
       position="top-right"
       offset={16}
       expand
       visibleToasts={3}
+      {...props}
       toastOptions={{
         duration: 2500,
-        ...props.toastOptions,
+        ...toastOptions,
       }}
-      {...props}
     />
   );
 };

@@ -371,59 +371,59 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 
 ### Tier 2 — Overlay / modal
 
-- [ ] **actions-dialog** — `Dialog.png` / `Dialog - Dark.png`
+- [x] **actions-dialog** — `Dialog.png` / `Dialog - Dark.png`
   - Title, body, actions layout; close button; sizes
 
-- [ ] **dialog** — `Dialog.png` / `Dialog - Dark.png`
+- [x] **dialog** — `Dialog.png` / `Dialog - Dark.png`
   - Title, body, actions layout; close button; backdrop opacity
 
-- [ ] **menu** — `Menu.png` / `Menu - Dark.png`
+- [x] **menu** — `Menu.png` / `Menu - Dark.png`
   - Item hover, dividers, disabled item; shadow token (dark-aware); sizes
 
-- [ ] **nested-menu** — `Nested Menu.png` / `Nested Menu - Dark.png`
+- [x] **nested-menu** — `Nested Menu.png` / `Nested Menu - Dark.png`
   - Full tree: parent, child, grandchild; submenu trigger; shadow token (dark-aware)
 
-- [ ] **popover** — `Popover.png` / `Popover - Dark.png`
+- [x] **popover** — `Popover.png` / `Popover - Dark.png`
   - Arrow at all 6 positions; paper background token; shadow; close button; title/body/actions slots
 
-- [ ] **side-drawer** — `Side Drawer.png` / `Side Drawer - dark.png`
+- [x] **side-drawer** — `Side Drawer.png` / `Side Drawer - dark.png`
   - Header, content, footer layout; close, favorite, nav buttons; severity bar
 
-- [ ] **toast** — `Toast.png` / `Toast - Dark.png`
+- [x] **toast** — `Toast.png` / `Toast - Dark.png`
   - Variants: default, success, error, warning, info; close button; action button
 
-- [ ] **tooltip** — `Tooltip.png` / `Tooltip - Dark.png`
+- [x] **tooltip** — `Tooltip.png` / `Tooltip - Dark.png`
   - Background and text colors; arrow; all placement positions
 
 ---
 
 ### Tier 3 — Display / layout
 
-- [ ] **avatar** — `Avatar.png` / `Avatar - Dark.png`
+- [x] **avatar** — `Avatar.png` / `Avatar - Dark.png`
   - Sizes, fallback initials, image variant
 
-- [ ] **backdrop** — `_backdrop.png` *(dark missing)*
+- [x] **backdrop** — `_backdrop.png` *(light-only QA; no dark CSS/PNG exists)*
   - Opacity, z-index layering
 
-- [ ] **badge** — `Badge & Notification.png` / `Badge & Notification - Dark.png`
+- [x] **badge** — `Badge & Notification.png` / `Badge & Notification - Dark.png`
   - Dot vs count variants; position; colors per severity
 
-- [ ] **banner** — `Banner.png` / `Banner - Dark.png`
+- [x] **banner** — `Banner.png` / `Banner - Dark.png`
   - Variants: info, warning, error, success; dismiss button
 
-- [ ] **breadcrumbs** — `Breadcrumb.png` / `Breadcrumb - Dark.png`
+- [x] **breadcrumbs** — `Breadcrumb.png` / `Breadcrumb - Dark.png`
   - Separator, active vs inactive link, truncation
 
-- [ ] **card** — `Cards.png` / `Cards - Dark.png`
+- [x] **card** — `Cards.png` / `Cards - Dark.png`
   - Background, border-radius, shadow; header/content/actions slots
 
-- [ ] **copy-button** — *(no Figma PNG — token audit + story check)*
+- [x] **copy-button** — *(no Figma PNG — token audit + story check)*
   - Icon, tooltip, success state; token compliance
 
-- [ ] **divider** — `Divider.png` / `Divider - Dark.png`
+- [x] **divider** — `Divider.png` / `Divider - Dark.png`
   - Horizontal / vertical; color token
 
-- [ ] **empty-state** — `Empty State.png` / `Empty State - Dark.png`
+- [x] **empty-state** — `Empty State.png` / `Empty State - Dark.png`
   - Illustration; variants: info, error, no-data; CTA button
 
 - [ ] **indicator-badge** — *(no Figma PNG — token audit + story check)*

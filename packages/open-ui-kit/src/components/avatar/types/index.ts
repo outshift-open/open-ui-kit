@@ -4,9 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type {
+  AvatarGroupProps as MuiAvatarGroupProps,
+  AvatarProps as MuiAvatarProps,
+} from "@mui/material";
 import type { ReactNode } from "react";
 
-export interface AvatarProps {
+export interface AvatarProps extends Omit<MuiAvatarProps, "children"> {
   /** Controls the avatar diameter. Large is 40px and medium is 32px. */
   size?: "L" | "M";
   /** Image source used when the avatar should represent a person or entity photo. */
@@ -19,7 +23,8 @@ export interface AvatarProps {
   icon?: ReactNode;
 }
 
-export interface AvatarGroupProps {
+export interface AvatarGroupProps
+  extends Omit<MuiAvatarGroupProps, "children"> {
   /** Controls the size applied to every avatar in the group. */
   size?: "L" | "M";
   /** Avatar children to stack with the configured group overlap. */

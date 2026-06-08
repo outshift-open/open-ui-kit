@@ -4,16 +4,51 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { GeneralSize } from "@/common";
-import { Box, Stack } from "@/components";
-import { EmptyState } from "..";
+import { Box, EmptyState, Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof EmptyState> = {
   title: "Components/EmptyState",
   component: EmptyState,
+  args: {
+    description: "No matches found",
+    direction: "column",
+    size: GeneralSize.Large,
+    variant: "info",
+    hideIllustration: false,
+  },
+  argTypes: {
+    variant: {
+      control: "radio",
+      options: ["info", "positive", "warning", "negative"],
+      description: "Illustration tone.",
+    },
+    direction: {
+      control: "radio",
+      options: ["column", "row"],
+      description: "Places the illustration above or beside the text.",
+    },
+    size: {
+      control: "radio",
+      options: [GeneralSize.Large, GeneralSize.Medium, GeneralSize.Small],
+      description: "Controls illustration, spacing, typography, and actions.",
+    },
+    hideIllustration: {
+      control: "boolean",
+      description: "Hides the illustration for compact text-only states.",
+    },
+    title: {
+      control: "text",
+      description: "Heading text. Hidden for small size.",
+    },
+    description: {
+      control: "text",
+      description: "Supporting empty-state message.",
+    },
+  },
   decorators: [
     (Story) => (
       <Box
@@ -52,108 +87,112 @@ const actionProps = {
   secondaryActionTitle: "button-link",
 };
 
-export const TypeLarge: Story = {
-  name: "Type=Large",
-  render: () => (
+export const Default: Story = {
+  args: {
+    title: "Heading",
+    description:
+      "Description about what this page is for and what the user can do.",
+    ...actionProps,
+  },
+  render: (args) => (
     <Stack direction="row" gap="48px" flexWrap="wrap" alignItems="flex-start">
-      <EmptyState
-        variant="info"
-        size={GeneralSize.Large}
-        direction="column"
-        title="Heading"
-        description="Description about what this page is for and what the user can do."
-        {...actionProps}
-      />
+      <EmptyState {...args} size={GeneralSize.Large} direction="column" />
     </Stack>
   ),
 };
 
-export const TypeMedium: Story = {
-  name: "Type=Medium",
-  render: () => (
+export const Medium: Story = {
+  args: {
+    title: "Heading",
+    description: "No matches found",
+    size: GeneralSize.Medium,
+    ...actionProps,
+  },
+  render: (args) => (
     <Stack direction="row" gap="48px" flexWrap="wrap" alignItems="flex-start">
-      <EmptyState
-        variant="info"
-        size={GeneralSize.Medium}
-        direction="column"
-        title="Heading"
-        description="No matches found"
-        {...actionProps}
-      />
+      <EmptyState {...args} direction="column" />
     </Stack>
   ),
 };
 
-export const TypeSmall: Story = {
-  name: "Type=Small",
-  render: () => (
+export const Small: Story = {
+  args: {
+    description: "No matches found",
+    size: GeneralSize.Small,
+  },
+  render: (args) => (
     <Stack direction="row" gap="48px" flexWrap="wrap" alignItems="flex-start">
-      <EmptyState
-        variant="info"
-        size={GeneralSize.Small}
-        description="No matches found"
-      />
+      <EmptyState {...args} direction="column" />
     </Stack>
   ),
 };
 
-export const TypeSmallHorizontal: Story = {
-  name: "Type=Small Horizontal",
-  render: () => (
+export const SmallHorizontal: Story = {
+  args: {
+    description: "No matches found",
+    direction: "row",
+    size: GeneralSize.Small,
+  },
+  render: (args) => (
     <Stack direction="row" gap="48px" flexWrap="wrap" alignItems="flex-start">
-      <EmptyState
-        variant="info"
-        size={GeneralSize.Small}
-        direction="row"
-        description="No matches found"
-      />
+      <EmptyState {...args} />
     </Stack>
   ),
 };
 
-export const TypeLargeHorizontal: Story = {
-  name: "Type=Large Horizontal",
-  render: () => (
+export const Horizontal: Story = {
+  args: {
+    title: "Heading",
+    description:
+      "Description about what this page is for and what the user can do.",
+    direction: "row",
+    size: GeneralSize.Large,
+    ...actionProps,
+  },
+  render: (args) => (
     <Stack direction="column" gap="36px">
-      <EmptyState
-        variant="info"
-        size={GeneralSize.Large}
-        direction="row"
-        title="Heading"
-        description="Description about what this page is for and what the user can do."
-        {...actionProps}
-      />
+      <EmptyState {...args} />
     </Stack>
   ),
 };
 
-export const RequiredBriefDescription: Story = {
-  name: "Empty state with required brief description",
-  render: () => (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      sx={{
+export const EmptyBox: Story = {
+  args: {
+    description: "Empty state with required brief description",
+    hideIllustration: true,
+    direction: "row",
+    size: GeneralSize.Large,
+  },
+  render: (args) => (
+    <Box
+      sx={(theme) => ({
+        alignItems: "center",
+        backgroundColor: theme.palette.vars.baseBackgroundMedium,
+        borderRadius: "6px",
+        boxSizing: "border-box",
+        display: "flex",
+        height: "48px",
+        justifyContent: "center",
         maxWidth: "860px",
+        padding: "12px 16px",
         width: "100%",
-        borderRadius: "4px",
-        backgroundColor: (theme) => theme.palette.vars.controlBackgroundDefault,
-        padding: "12px",
-      }}
+      })}
     >
       <EmptyState
-        variant="info"
-        size={GeneralSize.Small}
-        direction="row"
-        description="Empty state with required brief description"
-        containerProps={{ sx: { padding: 0 } }}
+        {...args}
+        containerProps={{
+          sx: {
+            height: "24px",
+            padding: 0,
+            width: "100%",
+          },
+        }}
       />
-    </Stack>
+    </Box>
   ),
 };
 
 export const Illustrations: Story = {
-  name: "Empty state illustrations",
   render: () => (
     <Stack direction="row" gap="64px" flexWrap="wrap" alignItems="center">
       <EmptyState variant="info" size={GeneralSize.Large} />

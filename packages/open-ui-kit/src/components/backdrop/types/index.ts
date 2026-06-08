@@ -6,4 +6,9 @@
 
 import type { BackdropProps as MuiBackdropProps } from "@mui/material";
 
-export type BackdropProps = MuiBackdropProps;
+export interface BackdropProps extends MuiBackdropProps {
+  /** Controls whether the backdrop is mounted and visible. */
+  open: boolean;
+  /** Removes the dimmed overlay while preserving the backdrop interaction layer. */
+  invisible?: boolean;
+}

@@ -5,17 +5,41 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack } from "@mui/material";
+import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Toast } from "../components/toast";
+import type { ToastProps, ToastType } from "../types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => {};
+const description =
+  "Message description Lorem ip10m dolor 20t amet, 30ns ete tur 40 dipsci 50elitr";
+const action = { label: "Button", onClick: () => undefined };
 
-const meta: Meta<typeof Toast> = {
+const meta = {
   title: "Components/Toast/Toast",
   component: Toast,
   tags: ["autodocs"],
+  args: {
+    id: "default",
+    type: "default",
+    title: "Title",
+    description,
+    showCloseButton: true,
+    useNativeClose: true,
+    action,
+  },
+  argTypes: {
+    id: { table: { disable: true } },
+    type: {
+      control: "select",
+      options: ["default", "success", "error", "warning", "info"],
+    },
+    title: { control: "text" },
+    description: { control: "text" },
+    showCloseButton: { control: "boolean" },
+    useNativeClose: { control: "boolean" },
+    action: { control: false },
+    customActions: { control: false },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
@@ -28,80 +52,94 @@ const meta: Meta<typeof Toast> = {
       ),
     },
   },
-};
+} satisfies Meta<typeof Toast>;
 
 export default meta;
 type Story = StoryObj<typeof Toast>;
 
-const description =
-  "Message description Lorem ip10m dolor 20t amet, 30ns ete tur 40 dipsci 50elitr";
-const action = { label: "Button", onClick: noop };
-
-/* ─── All types — with title ─── */
-export const WithTitle: Story = {
-  name: "With Title",
-  render: () => (
-    <Stack spacing={2} sx={{ width: "320px" }}>
-      {(["default", "success", "error", "warning", "info"] as const).map(
-        (type) => (
-          <Toast
-            key={type}
-            id={type}
-            type={type}
-            title="Title"
-            description={description}
-            action={action}
-          />
-        ),
-      )}
-    </Stack>
-  ),
-};
-
-/* ─── All types — no title ─── */
-export const NoTitle: Story = {
-  name: "No Title",
-  render: () => (
-    <Stack spacing={2} sx={{ width: "320px" }}>
-      {(["default", "success", "error", "warning", "info"] as const).map(
-        (type) => (
-          <Toast
-            key={type}
-            id={type}
-            type={type}
-            description={description}
-            action={action}
-          />
-        ),
-      )}
-    </Stack>
-  ),
-};
-
-/* ─── Default ─── */
 export const Default: Story = {
-  name: "Default",
-  render: () => (
-    <Toast
-      id="default"
-      title="Title"
-      description={description}
-      action={action}
-      sx={{ width: "320px" }}
-    />
+  args: {
+    id: "default",
+  },
+};
+
+export const WithoutTitle: Story = {
+  args: {
+    id: "without-title",
+    title: undefined,
+  },
+};
+
+export const Success: Story = {
+  args: {
+    id: "success",
+    type: "success",
+  },
+};
+
+export const Error: Story = {
+  args: {
+    id: "error",
+    type: "error",
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    id: "warning",
+    type: "warning",
+  },
+};
+
+export const Info: Story = {
+  args: {
+    id: "info",
+    type: "info",
+  },
+};
+
+export const WithoutCloseButton: Story = {
+  args: {
+    id: "without-close",
+    showCloseButton: false,
+  },
+};
+
+export const WithoutAction: Story = {
+  args: {
+    id: "without-action",
+    action: undefined,
+  },
+};
+
+export const AllTypes: Story = {
+  render: (args: ToastProps) => (
+    <Stack spacing={2} sx={{ width: "320px" }}>
+      {(["default", "success", "error", "warning", "info"] as ToastType[]).map(
+        (type) => (
+          <Toast {...args} key={type} id={`all-types-${type}`} type={type} />
+        ),
+      )}
+    </Stack>
   ),
 };
 
-/* ─── Without close button ─── */
-export const NoCloseButton: Story = {
-  name: "No Close Button",
-  render: () => (
-    <Toast
-      id="no-close"
-      title="Title"
-      description={description}
-      showCloseButton={false}
-      sx={{ width: "320px" }}
-    />
+export const AllTypesWithoutTitle: Story = {
+  args: {
+    title: undefined,
+  },
+  render: (args: ToastProps) => (
+    <Stack spacing={2} sx={{ width: "320px" }}>
+      {(["default", "success", "error", "warning", "info"] as ToastType[]).map(
+        (type) => (
+          <Toast
+            {...args}
+            key={type}
+            id={`all-types-without-title-${type}`}
+            type={type}
+          />
+        ),
+      )}
+    </Stack>
   ),
 };

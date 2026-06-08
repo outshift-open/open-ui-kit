@@ -14,8 +14,10 @@ import type {
   TypographyProps,
 } from "@mui/material";
 
-/** Flexible surface used to group related information and actions. */
-export type CardProps = MuiCardProps;
+export interface CardProps extends MuiCardProps {
+  /** Applies the disabled card treatment and marks the grouped content unavailable. */
+  disabled?: boolean;
+}
 
 /** Clickable wrapper for interactive cards. */
 export type CardActionAreaProps = MuiCardActionAreaProps;

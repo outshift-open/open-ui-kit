@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -11,21 +10,26 @@ import {
   InsertPhotoOutlined,
   StarBorder,
 } from "@mui/icons-material";
-import { Box, Skeleton, Stack, Typography } from "@mui/material";
-import { Badge } from "@/components/badge";
-import { Button } from "@/components/button";
-import { Link, LinkType } from "@/components/link";
-import { DocsHeader } from "storybook/components/docs-header.stories";
 import {
+  Badge,
+  Box,
+  Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
+  CardDescription,
   CardHeader,
-} from "../components/card";
-import CardDescription from "../components/card-description";
+  Link,
+  LinkType,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@/components";
+import { cardActiveStyles, cardSkeletonStyles } from "../styles";
+import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta: Meta<typeof Card> = {
+const meta = {
   title: "Components/Card",
   component: Card,
   tags: ["autodocs"],
@@ -36,6 +40,18 @@ const meta: Meta<typeof Card> = {
       </BrowserRouter>
     ),
   ],
+  args: {
+    disabled: false,
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+      description: "Applies the disabled card treatment.",
+    },
+    sx: {
+      control: false,
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -49,20 +65,14 @@ const meta: Meta<typeof Card> = {
       ),
     },
   },
-};
+} satisfies Meta<typeof Card>;
 
 export default meta;
 
-type Story = StoryObj<typeof Card>;
+type Story = StoryObj<typeof meta>;
 
 const cardWidth = 318;
-
-const Stat = ({ icon, label }: { icon: ReactNode; label: string }) => (
-  <Stack direction="row" gap={0.5} sx={{ alignItems: "center" }}>
-    {icon}
-    <Typography variant="captionMedium">{label}</Typography>
-  </Stack>
-);
+const horizontalCardWidth = 820;
 
 const CardStats = () => (
   <Stack
@@ -73,95 +83,51 @@ const CardStats = () => (
       color: theme.palette.vars.baseTextMedium,
     })}
   >
-    <Stat
-      icon={<CheckCircleOutline color="success" sx={{ fontSize: 16 }} />}
-      label=""
-    />
-    <Stat icon={<GridView sx={{ fontSize: 16 }} />} label="" />
-    <Stat icon={<StarBorder sx={{ fontSize: 16 }} />} label="10k" />
-    <Stat icon={<Download sx={{ fontSize: 16 }} />} label="10k" />
+    <CheckCircleOutline color="success" sx={{ fontSize: 16 }} />
+    <GridView sx={{ fontSize: 16 }} />
+    <StarBorder sx={{ fontSize: 16 }} />
+    <Typography variant="subtitle2">10k</Typography>
+    <Download sx={{ fontSize: 16 }} />
+    <Typography variant="subtitle2">10k</Typography>
   </Stack>
 );
 
-const StrategyCard = ({
-  disabled = false,
-  loading = false,
-  outlined = false,
-}: {
-  disabled?: boolean;
-  loading?: boolean;
-  outlined?: boolean;
-}) => (
-  <Card
-    sx={(theme) => ({
-      minHeight: 172,
-      opacity: disabled ? 0.35 : 1,
-      outline: outlined
-        ? `1px solid ${theme.palette.vars.controlBorderActive}`
-        : 0,
-      width: cardWidth,
-    })}
-  >
-    {loading ? (
-      <Stack gap={1}>
-        <Skeleton height={20} variant="rounded" />
-        <Skeleton height={72} variant="rounded" />
-        <Skeleton height={20} variant="rounded" />
-      </Stack>
-    ) : (
-      <>
-        <Stack direction="row" gap={1} sx={{ alignItems: "flex-start" }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Stack
-              direction="row"
-              gap={0.5}
-              sx={(theme) => ({
-                alignItems: "center",
-                color: theme.palette.vars.baseTextMedium,
-              })}
-            >
-              <GridView sx={{ fontSize: 14 }} />
-              <Typography variant="captionMedium">Agent</Typography>
-            </Stack>
-            <CardHeader
-              title="Marketing strategy manager"
-              subheader="March 26, 2025 • by Cisco"
-            />
-          </Box>
-          <BookmarkBorder sx={{ fontSize: 20 }} />
+const StrategyCardContent = () => (
+  <>
+    <Stack direction="row" gap={1} sx={{ alignItems: "flex-start" }}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Stack
+          direction="row"
+          gap={0.25}
+          sx={(theme) => ({
+            alignItems: "center",
+            color: theme.palette.vars.baseTextMedium,
+          })}
+        >
+          <GridView sx={{ fontSize: 14 }} />
+          <Typography variant="captionMedium">Agent</Typography>
         </Stack>
-        <CardContent>
-          <CardDescription>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-          </CardDescription>
-        </CardContent>
-        <CardActions>
-          <CardStats />
-        </CardActions>
-      </>
-    )}
-  </Card>
+        <CardHeader
+          title="Marketing strategy manager"
+          subheader="March 26, 2025 • by Cisco"
+        />
+      </Box>
+      <BookmarkBorder sx={{ fontSize: 20 }} />
+    </Stack>
+    <CardContent>
+      <CardDescription>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+      </CardDescription>
+    </CardContent>
+    <CardActions>
+      <CardStats />
+    </CardActions>
+  </>
 );
 
-const ImportCard = ({
-  disabled = false,
-  outlined = false,
-}: {
-  disabled?: boolean;
-  outlined?: boolean;
-}) => (
-  <Card
-    sx={(theme) => ({
-      minHeight: 228,
-      opacity: disabled ? 0.35 : 1,
-      outline: outlined
-        ? `1px solid ${theme.palette.vars.controlBorderActive}`
-        : 0,
-      textAlign: "center",
-      width: cardWidth,
-    })}
-  >
-    <Stack gap={1} sx={{ alignItems: "center" }}>
+const ImportCardContent = () => (
+  <>
+    <Stack gap={1} sx={{ alignItems: "center", textAlign: "center" }}>
       <Box
         sx={(theme) => ({
           alignItems: "center",
@@ -185,166 +151,129 @@ const ImportCard = ({
     </Stack>
     <CardContent>
       <CardDescription>
-        Already have a configuration? Upload it and we will convert it to Agent
-        Directory Record format.
+        Already have a configuration? Upload it and convert it to a directory
+        record.
       </CardDescription>
     </CardContent>
-    <CardActions sx={{ justifyContent: "flex-end" }}>
+    <CardActions sx={{ alignSelf: "stretch", justifyContent: "flex-end" }}>
       <Button endIcon={<ArrowForward />} size="small" variant="tertariary">
         Get Started
       </Button>
     </CardActions>
-  </Card>
+  </>
 );
 
-const HorizontalStrategyCard = ({
-  outlined = false,
-}: {
-  outlined?: boolean;
-}) => (
-  <Card
-    sx={(theme) => ({
-      minHeight: 72,
-      outline: outlined
-        ? `1px solid ${theme.palette.vars.controlBorderActive}`
-        : 0,
-      width: 1186,
-    })}
-  >
-    <Stack direction="row" gap={2} sx={{ alignItems: "center" }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <CardHeader
-          title="Marketing strategy manager"
-          subheader="March 26, 2025"
-        />
-        <CardDescription>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </CardDescription>
-      </Box>
-      <CardStats />
-      <BookmarkBorder sx={{ fontSize: 20 }} />
-    </Stack>
-  </Card>
-);
+export const Default: Story = {
+  args: {
+    children: <StrategyCardContent />,
+    sx: { minHeight: 172, width: cardWidth },
+  },
+};
 
-const MetricCard = ({ outlined = false }: { outlined?: boolean }) => (
-  <Card
-    sx={(theme) => ({
-      outline: outlined
-        ? `1px solid ${theme.palette.vars.controlBorderActive}`
-        : 0,
-      width: 244,
-    })}
-  >
-    <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-      <Typography variant="captionSemibold">Headline not clickable</Typography>
-      <InfoOutlined sx={{ fontSize: 14 }} />
-      <Badge content="0%" type="success" />
-    </Stack>
-    <Stack
-      direction="row"
-      sx={{ alignItems: "flex-end", justifyContent: "space-between" }}
-    >
-      <Typography variant="h5">100</Typography>
-      <Stack sx={{ alignItems: "flex-end" }}>
-        <Typography variant="body2">Text</Typography>
-        <Link href="#" linkType={LinkType.StandaloneRegular}>
-          Link
-        </Link>
-      </Stack>
-    </Stack>
-  </Card>
-);
-
-export const BasicInteractive: Story = {
+export const Interactive: Story = {
   render: () => (
-    <Stack gap={4}>
-      <Stack direction="row" gap={4} sx={{ flexWrap: "wrap" }}>
-        <StrategyCard />
-        <CardActionArea sx={{ borderRadius: "8px", width: cardWidth }}>
-          <StrategyCard outlined />
-        </CardActionArea>
-        <StrategyCard loading />
-        <StrategyCard disabled />
-      </Stack>
-      <Stack direction="row" gap={4} sx={{ flexWrap: "wrap" }}>
-        <ImportCard />
-        <CardActionArea sx={{ borderRadius: "8px", width: cardWidth }}>
-          <ImportCard outlined />
-        </CardActionArea>
-        <ImportCard disabled />
-      </Stack>
-      <Stack gap={2}>
-        <HorizontalStrategyCard />
-        <CardActionArea sx={{ borderRadius: "8px", width: 1186 }}>
-          <HorizontalStrategyCard outlined />
-        </CardActionArea>
-      </Stack>
-      <Stack direction="row" gap={8} sx={{ flexWrap: "wrap" }}>
-        <MetricCard />
-        <MetricCard outlined />
-      </Stack>
-    </Stack>
+    <CardActionArea sx={{ borderRadius: "8px", width: cardWidth }}>
+      <Card sx={{ minHeight: 172 }}>
+        <StrategyCardContent />
+      </Card>
+    </CardActionArea>
   ),
 };
 
-export const ContentBlocks: Story = {
+export const Active: Story = {
+  args: {
+    children: <StrategyCardContent />,
+    sx: [
+      (theme) => ({
+        ...cardActiveStyles(theme),
+        minHeight: 172,
+        width: cardWidth,
+      }),
+    ],
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: <StrategyCardContent />,
+    disabled: true,
+    sx: { minHeight: 168, width: cardWidth },
+  },
+};
+
+export const Loading: Story = {
   render: () => (
-    <Card sx={{ width: 420 }}>
-      <CardContent>
-        <Stack gap={2}>
-          <Stack direction="row" gap={1} sx={{ flexWrap: "wrap" }}>
-            <Typography variant="body2">Total: #</Typography>
-            {["Text", "Text", "Text", "Text", "Text"].map((label, index) => (
-              <Badge key={index} content={label} type="info" />
-            ))}
-          </Stack>
-          <Stack direction="row" gap={1} sx={{ flexWrap: "wrap" }}>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <Badge key={index} content="Tag" />
-            ))}
-          </Stack>
-          <Stack>
-            <Typography variant="body2">Text</Typography>
-            <Link href="#" linkType={LinkType.StandaloneRegular}>
-              Link
-            </Link>
-          </Stack>
-          <Stack gap={1}>
-            <Typography variant="body1Semibold">CodeMate</Typography>
-            <CardDescription>Lorem ipsum</CardDescription>
-          </Stack>
-          <Stack direction="row" gap={1}>
-            <Button size="small" variant="primary">
-              Add
-            </Button>
-            <Button
-              endIcon={<ArrowForward />}
-              size="small"
-              variant="tertariary"
-            >
-              More info
-            </Button>
-          </Stack>
-        </Stack>
-      </CardContent>
+    <Card sx={{ minHeight: 150, width: cardWidth }}>
+      <Stack gap={1.5} sx={{ alignSelf: "stretch" }}>
+        <Skeleton
+          height={86}
+          variant="rounded"
+          sx={[(theme) => ({ ...cardSkeletonStyles(theme), borderRadius: 2 })]}
+        />
+        <Skeleton
+          height={20}
+          variant="rounded"
+          sx={[(theme) => ({ ...cardSkeletonStyles(theme), borderRadius: 1 })]}
+        />
+      </Stack>
     </Card>
   ),
 };
 
-export const HeaderExamples: Story = {
+export const WithActions: Story = {
   render: () => (
-    <Stack direction="row" gap={4} sx={{ flexWrap: "wrap" }}>
-      <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-        <Typography variant="body1Semibold">Headline clickable</Typography>
-        <GridView sx={{ fontSize: 16 }} />
-        <InfoOutlined sx={{ fontSize: 16 }} />
+    <Card sx={{ minHeight: 228, textAlign: "center", width: cardWidth }}>
+      <ImportCardContent />
+    </Card>
+  ),
+};
+
+export const Horizontal: Story = {
+  render: () => (
+    <Card sx={{ minHeight: 72, width: horizontalCardWidth }}>
+      <Stack
+        direction="row"
+        gap={2}
+        sx={{ alignItems: "center", alignSelf: "stretch" }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          <CardHeader
+            title="Marketing strategy manager"
+            subheader="March 26, 2025"
+          />
+          <CardDescription>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          </CardDescription>
+        </Box>
+        <CardStats />
+        <BookmarkBorder sx={{ fontSize: 20 }} />
       </Stack>
+    </Card>
+  ),
+};
+
+export const Metrics: Story = {
+  render: () => (
+    <Card sx={{ width: 244 }}>
       <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-        <Typography variant="body1Semibold">Headline not clickable</Typography>
-        <GridView sx={{ fontSize: 16 }} />
-        <InfoOutlined sx={{ fontSize: 16 }} />
+        <Typography variant="captionSemibold">
+          Headline not clickable
+        </Typography>
+        <InfoOutlined sx={{ fontSize: 14 }} />
+        <Badge content="0%" type="success" />
       </Stack>
-    </Stack>
+      <Stack
+        direction="row"
+        sx={{ alignItems: "flex-end", justifyContent: "space-between" }}
+      >
+        <Typography variant="h5">100</Typography>
+        <Stack sx={{ alignItems: "flex-end" }}>
+          <Typography variant="body2">Text</Typography>
+          <Link href="#" linkType={LinkType.StandaloneRegular}>
+            Link
+          </Link>
+        </Stack>
+      </Stack>
+    </Card>
   ),
 };

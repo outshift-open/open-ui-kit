@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Mail } from "@mui/icons-material";
+import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Badge } from "../components/badge";
 import type { BadgeProps } from "../types";
-import { Stack } from "@mui/material";
+import { BADGE_TYPES } from "../styles";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -20,29 +21,40 @@ const meta: Meta<typeof Badge> = {
       ),
     },
   },
+  args: {
+    type: "default",
+    content: "1",
+  },
+  argTypes: {
+    type: {
+      control: "select",
+      options: BADGE_TYPES,
+    },
+    content: {
+      control: "text",
+    },
+    notificationContent: {
+      control: "text",
+    },
+    styleBadge: {
+      table: { disable: true },
+    },
+    styleContent: {
+      table: { disable: true },
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-const ALL_TYPES = [
-  "default",
-  "excellent",
-  "neutral",
-  "error",
-  "warning",
-  "info",
-  "success",
-  "inactive",
-  "moderate",
-  "severe",
-] as const;
+export const Default: Story = {};
 
-export const Standard: Story = {
+export const Types: Story = {
   render: (args: BadgeProps) => (
-    <Stack direction="row" spacing={2}>
-      {ALL_TYPES.map((type) => (
+    <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+      {BADGE_TYPES.map((type) => (
         <Badge key={type} {...args} type={type} content={1} />
       ))}
     </Stack>
@@ -51,8 +63,8 @@ export const Standard: Story = {
 
 export const Notification: Story = {
   render: (args: BadgeProps) => (
-    <Stack direction="row" spacing={2}>
-      {ALL_TYPES.map((type) => (
+    <Stack direction="row" spacing={4} useFlexGap flexWrap="wrap">
+      {BADGE_TYPES.map((type) => (
         <Badge
           key={type}
           {...args}
@@ -63,4 +75,11 @@ export const Notification: Story = {
       ))}
     </Stack>
   ),
+};
+
+export const WithLongLabel: Story = {
+  args: {
+    type: "info",
+    content: "Beta",
+  },
 };

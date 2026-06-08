@@ -31,7 +31,7 @@ export const Info = (props: SvgIconProps) => {
           height="120"
           rx="13.5"
           transform="rotate(25 52.7144 80.75)"
-          fill={purple600}
+          fill={`var(--empty-state-illustration-accent, ${purple600})`}
         />
         <rect
           opacity="0.3"
@@ -41,7 +41,7 @@ export const Info = (props: SvgIconProps) => {
           height="90"
           rx="13.5"
           transform="rotate(25 46.0356 2)"
-          fill={purple600}
+          fill={`var(--empty-state-illustration-accent, ${purple600})`}
         />
         <rect
           opacity="0.3"
@@ -51,7 +51,7 @@ export const Info = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 188.116 119)"
-          fill={purple600}
+          fill={`var(--empty-state-illustration-accent, ${purple600})`}
         />
         <path
           d="M151 53.5H73C67.8283 53.5 62.8684 55.5545 59.2114 59.2114C55.5545 62.8684 53.5 67.8283 53.5 73V151C53.5 156.172 55.5545 161.132 59.2114 164.789C62.8684 168.446 67.8283 170.5 73 170.5H151C156.172 170.5 161.132 168.446 164.789 164.789C168.446 161.132 170.5 156.172 170.5 151V73C170.5 67.8283 168.446 62.8684 164.789 59.2114C161.132 55.5545 156.172 53.5 151 53.5Z"

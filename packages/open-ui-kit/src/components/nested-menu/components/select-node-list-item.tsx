@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ListItem, ListItemProps, Typography, useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import { ComponentProps, ReactElement } from "react";
+import { ListItem, type ListItemProps } from "@/components/list";
 import { SelectNode } from "./select-node";
 import { selectNodeListItemStyle } from "../styles";
 

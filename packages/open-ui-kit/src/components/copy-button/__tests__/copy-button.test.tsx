@@ -7,7 +7,10 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { CopyButton } from "../components/copy-button";
+import { styles } from "../styles";
 import type { CopyButtonProps } from "../types";
 
 jest.mock("copy-to-clipboard", () => jest.fn(() => true));
@@ -55,9 +58,71 @@ describe("CopyButton", () => {
       await act(async () => {
         fireEvent.click(btn);
       });
+      const doneIcon = document.querySelector(
+        '[data-testid="DoneRoundedIcon"]',
+      );
+      expect(doneIcon).toBeInTheDocument();
+      expect(doneIcon).toHaveStyle({
+        color: lightTheme.palette.vars.successIconDefault,
+      });
+    });
+
+    it("shows the checkmark icon after clicking in dark mode", async () => {
+      renderCopyButton({}, true);
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button"));
+      });
+      const doneIcon = document.querySelector(
+        '[data-testid="DoneRoundedIcon"]',
+      );
+      expect(doneIcon).toBeInTheDocument();
+      expect(doneIcon).toHaveStyle({
+        color: darkTheme.palette.vars.successIconDefault,
+      });
+    });
+
+    it("supports a controlled copied state", () => {
+      renderCopyButton({ copied: true });
       expect(
         document.querySelector('[data-testid="DoneRoundedIcon"]'),
       ).toBeInTheDocument();
+    });
+
+    it("keeps the copy icon when copied is controlled false", async () => {
+      renderCopyButton({ copied: false });
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button"));
+      });
+      expect(
+        document.querySelector('[data-testid="DoneRoundedIcon"]'),
+      ).not.toBeInTheDocument();
+    });
+
+    it("copies the provided text when clicked", async () => {
+      const copy = jest.requireMock("copy-to-clipboard");
+      renderCopyButton({ text: "exact text" });
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button"));
+      });
+      expect(copy).toHaveBeenCalledWith("exact text");
+    });
+
+    it("resets the copied state after the timeout", async () => {
+      jest.useFakeTimers();
+      renderCopyButton();
+      await act(async () => {
+        fireEvent.click(screen.getByRole("button"));
+      });
+      expect(
+        document.querySelector('[data-testid="DoneRoundedIcon"]'),
+      ).toBeInTheDocument();
+      act(() => {
+        jest.advanceTimersByTime(2000);
+      });
+      expect(
+        document.querySelector('[data-testid="DoneRoundedIcon"]'),
+      ).not.toBeInTheDocument();
+      jest.useRealTimers();
     });
   });
 
@@ -72,6 +137,86 @@ describe("CopyButton", () => {
 
     it("renders size=small without throwing", () => {
       expect(() => renderCopyButton({ size: "small" })).not.toThrow();
+    });
+  });
+
+  describe("CodeBlock design token styles", () => {
+    it("maps light sizes to the CodeBlock CSS values", () => {
+      expect(styles({ size: "small", theme: lightTheme })).toEqual(
+        expect.objectContaining({
+          border: "none",
+          color: "#062242",
+          height: "16px",
+          margin: 0,
+          minWidth: "16px",
+          padding: 0,
+          width: "16px",
+        }),
+      );
+      expect(styles({ size: "medium", theme: lightTheme })).toEqual(
+        expect.objectContaining({
+          border: "none",
+          height: "20px",
+          minWidth: "20px",
+          width: "20px",
+        }),
+      );
+      expect(styles({ size: "large", theme: lightTheme })).toEqual(
+        expect.objectContaining({
+          border: "1px solid #d5dff7",
+          height: "32px",
+          minWidth: "32px",
+          width: "32px",
+        }),
+      );
+    });
+
+    it("maps dark sizes to the CodeBlock CSS values", () => {
+      expect(styles({ size: "small", theme: darkTheme })).toEqual(
+        expect.objectContaining({
+          border: "none",
+          color: "#e8eefb",
+          height: "16px",
+          margin: 0,
+          minWidth: "16px",
+          width: "16px",
+        }),
+      );
+      expect(styles({ size: "large", theme: darkTheme })).toEqual(
+        expect.objectContaining({
+          border: "1px solid #4f628d",
+          height: "32px",
+          minWidth: "32px",
+          width: "32px",
+        }),
+      );
+    });
+
+    it("uses CodeBlock hover tokens in both themes", () => {
+      expect(styles({ size: "large", theme: lightTheme })["&:hover"]).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#dae3f8",
+          border: "1px solid #d5dff7",
+          color: "#263b62",
+        }),
+      );
+      expect(styles({ size: "large", theme: darkTheme })["&:hover"]).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#0d274d",
+          border: "1px solid #4f628d",
+          color: "#fbfcfe",
+        }),
+      );
+    });
+
+    it("renders the large button with the CodeBlock square dimensions", () => {
+      renderCopyButton({ size: "large" });
+      expect(screen.getByRole("button")).toHaveStyle({
+        border: "1px solid #d5dff7",
+        height: "32px",
+        margin: "0",
+        width: "32px",
+      });
     });
   });
 
