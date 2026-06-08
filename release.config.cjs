@@ -19,9 +19,16 @@ module.exports = {
       },
     ],
     [
+      "@semantic-release/exec",
+      {
+        prepareCmd:
+          "node scripts/prepare-release-package.cjs ${nextRelease.version}",
+      },
+    ],
+    [
       "@semantic-release/npm",
       {
-        pkgRoot: "packages/open-ui-kit",
+        pkgRoot: "packages/open-ui-kit/dist",
       },
     ],
     [

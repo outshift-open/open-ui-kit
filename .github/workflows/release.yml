@@ -31,6 +31,8 @@ jobs:
         run: yarn install
       - name: Build package
         run: yarn lib:build
+      - name: Prepare release package
+        run: node scripts/prepare-release-package.cjs
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
