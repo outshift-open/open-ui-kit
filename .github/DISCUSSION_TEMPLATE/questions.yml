@@ -6,7 +6,7 @@ body:
       value: |
         Thank you for asking a question! Please fill out the sections below to help us assist you better.
 
-        💡 **Tip**: Check our [Storybook documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com) first!
+        💡 **Tip**: Check our [Storybook documentation](https://open-ui-kit.outshift.ai) first!
 
   - type: textarea
     id: question

@@ -5,7 +5,7 @@
 ## 🔗 Related Issue
 
 <!-- Link to the issue this PR addresses -->
-Closes #(issue number)
+Closes #
 
 ## 🧪 Type of Change
 
@@ -22,8 +22,9 @@ Closes #(issue number)
 ## 🧪 Testing
 
 <!-- Describe the tests you ran and how to reproduce them -->
-- [ ] Unit tests pass (`yarn test`)
-- [ ] Storybook builds successfully (`yarn storybook`)
+- [ ] Focused tests pass (`yarn test --testPathPattern=<component-or-area>`)
+- [ ] Lint and typecheck pass (`yarn lint && yarn typecheck`)
+- [ ] Storybook builds successfully (`yarn storybook:build`)
 - [ ] Manual testing completed
 - [ ] Cross-browser testing (if applicable)
 
@@ -76,6 +77,7 @@ Closes #(issue number)
 - [ ] Existing tests still pass
 - [ ] No TypeScript errors
 - [ ] No accessibility violations
+- [ ] Full unscoped `yarn test` was not run locally
 - [ ] PR title follows [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## 📸 Screenshots

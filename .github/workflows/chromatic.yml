@@ -1,21 +1,40 @@
 name: Chromatic
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
+  checks: write
+  statuses: write
 
 jobs:
   chromatic-deployment:
     name: Chromatic
     runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 👈 Required to retrieve git history
+          fetch-depth: 0
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
