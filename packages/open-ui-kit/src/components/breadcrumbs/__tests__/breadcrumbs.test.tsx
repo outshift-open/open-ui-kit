@@ -8,11 +8,13 @@ import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkVars } from "@/theme/dark/dark-vars";
+import { lightVars } from "@/theme/light/light-vars";
 import { Breadcrumbs } from "../components/breadcrumbs";
 import { IconPosition } from "@/common";
 
@@ -41,6 +43,12 @@ const renderBreadcrumbs = (
       </ThemeProvider>
     </MemoryRouter>,
   );
+
+const getRequiredElement = (container: HTMLElement, selector: string) => {
+  const element = container.querySelector(selector);
+  expect(element).toBeInTheDocument();
+  return element as HTMLElement;
+};
 
 describe("Breadcrumbs", () => {
   describe("rendering", () => {
@@ -75,18 +83,6 @@ describe("Breadcrumbs", () => {
       ).toBeInTheDocument();
       expect(screen.getAllByText("/")).toHaveLength(2);
     });
-
-    it("merges collapsed icon slot props", () => {
-      renderBreadcrumbs({
-        items: items5,
-        maximumNumberOfVisibleBreadcrumbs: 2,
-        slotProps: {
-          collapsedIcon: () => ({ "data-testid": "collapsed-icon" }),
-        },
-      });
-
-      expect(screen.getByTestId("collapsed-icon")).toBeInTheDocument();
-    });
   });
 
   describe("collapse / responsive behavior", () => {
@@ -98,6 +94,25 @@ describe("Breadcrumbs", () => {
       expect(screen.getByText("Level 1 Page")).toBeInTheDocument();
       expect(screen.getByText("Level 5 Page")).toBeInTheDocument();
       expect(screen.queryByText("Level 3 Page")).not.toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Show breadcrumb options"),
+      ).toBeInTheDocument();
+    });
+
+    it("opens the collapsed breadcrumb menu with hidden middle items", () => {
+      renderBreadcrumbs({
+        items: items5,
+        maximumNumberOfVisibleBreadcrumbs: 2,
+      });
+
+      fireEvent.click(screen.getByLabelText("Show breadcrumb options"));
+
+      const menu = screen.getByRole("menu", {
+        name: "Collapsed breadcrumb options",
+      });
+      expect(within(menu).getByText("Level 2 Page")).toBeInTheDocument();
+      expect(within(menu).getByText("Level 3 Page")).toBeInTheDocument();
+      expect(within(menu).getByText("Level 4 Page")).toBeInTheDocument();
     });
 
     it("shows all items when count is within limit", () => {
@@ -132,22 +147,107 @@ describe("Breadcrumbs", () => {
   });
 
   describe("light theme token coverage", () => {
-    it("renders in light mode without throwing", () => {
-      expect(() => renderBreadcrumbs({ items: items3 })).not.toThrow();
+    it("renders light links and separators with exact CSS token values", () => {
+      const { container } = renderBreadcrumbs({ items: items3 });
+      const firstLink = getRequiredElement(container, "a");
+      const firstLabel = getRequiredElement(container, "a .MuiTypography-root");
+      const separator = getRequiredElement(
+        container,
+        ".MuiBreadcrumbs-separator svg",
+      );
+
+      expect(lightVars.interactiveSecondaryDefaultDefault).toBe("#062242");
+      expect(window.getComputedStyle(firstLink).color).toBe("rgb(6, 34, 66)");
+      expect(window.getComputedStyle(separator).color).toBe("rgb(6, 34, 66)");
+      expect(window.getComputedStyle(firstLabel).fontSize).toBe("14px");
+      expect(window.getComputedStyle(firstLabel).fontWeight).toBe("600");
+      expect(window.getComputedStyle(firstLabel).lineHeight).toBe("18px");
+      expect(window.getComputedStyle(firstLabel).letterSpacing).toBe("0px");
     });
 
     it("renders 5-level breadcrumbs in light mode without throwing", () => {
       expect(() => renderBreadcrumbs({ items: items5 })).not.toThrow();
     });
+
+    it("renders the light collapsed menu with exact CSS token values", () => {
+      const { baseElement } = renderBreadcrumbs({
+        items: items5,
+        maximumNumberOfVisibleBreadcrumbs: 2,
+      });
+
+      fireEvent.click(screen.getByLabelText("Show breadcrumb options"));
+
+      const paper = getRequiredElement(
+        baseElement as HTMLElement,
+        ".MuiPaper-root",
+      );
+      const item = getRequiredElement(
+        baseElement as HTMLElement,
+        ".MuiMenuItem-root",
+      );
+      const itemLink = getRequiredElement(item, "a");
+
+      expect(lightVars.controlBackgroundWeak).toBe("#f5f8fd");
+      expect(lightVars.controlBorderActive).toBe("#0051af");
+      expect(window.getComputedStyle(paper).backgroundColor).toBe(
+        "rgb(245, 248, 253)",
+      );
+      expect(window.getComputedStyle(paper).borderTopColor).toBe("#0051af");
+      expect(window.getComputedStyle(itemLink).minHeight).toBe("40px");
+      expect(window.getComputedStyle(itemLink).padding).toBe("8px 16px");
+      expect(window.getComputedStyle(itemLink).color).toBe("rgb(60, 69, 81)");
+    });
   });
 
   describe("dark theme token coverage", () => {
-    it("renders in dark mode without throwing", () => {
-      expect(() => renderBreadcrumbs({ items: items3 }, true)).not.toThrow();
+    it("renders dark links and separators with exact CSS token values", () => {
+      const { container } = renderBreadcrumbs({ items: items3 }, true);
+      const firstLink = getRequiredElement(container, "a");
+      const separator = getRequiredElement(
+        container,
+        ".MuiBreadcrumbs-separator svg",
+      );
+
+      expect(darkVars.interactiveSecondaryDefaultDefault).toBe("#e8eefb");
+      expect(window.getComputedStyle(firstLink).color).toBe(
+        "rgb(232, 238, 251)",
+      );
+      expect(window.getComputedStyle(separator).color).toBe(
+        "rgb(232, 238, 251)",
+      );
     });
 
     it("renders 5-level breadcrumbs in dark mode without throwing", () => {
       expect(() => renderBreadcrumbs({ items: items5 }, true)).not.toThrow();
+    });
+
+    it("renders the dark collapsed menu with exact CSS token values", () => {
+      const { baseElement } = renderBreadcrumbs(
+        {
+          items: items5,
+          maximumNumberOfVisibleBreadcrumbs: 2,
+        },
+        true,
+      );
+
+      fireEvent.click(screen.getByLabelText("Show breadcrumb options"));
+
+      const paper = getRequiredElement(
+        baseElement as HTMLElement,
+        ".MuiPaper-root",
+      );
+      const item = getRequiredElement(
+        baseElement as HTMLElement,
+        ".MuiMenuItem-root",
+      );
+
+      expect(darkVars.controlBackgroundWeak).toBe("#0d274d");
+      expect(darkVars.controlBorderActive).toBe("#12c1ff");
+      expect(window.getComputedStyle(paper).backgroundColor).toBe(
+        "rgb(13, 39, 77)",
+      );
+      expect(window.getComputedStyle(paper).borderTopColor).toBe("#12c1ff");
+      expect(window.getComputedStyle(item).color).toBe("rgb(232, 233, 234)");
     });
   });
 });

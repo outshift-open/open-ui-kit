@@ -22,7 +22,18 @@ import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { Severity } from "@/common";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { SideDrawer } from "../components/side-drawer";
+import {
+  dividerStyle,
+  footerContainerStyle,
+  sideDrawerContentContainerStyle,
+  sideDrawerHeaderBoxStyle,
+  sideDrawerPaperStyle,
+  headerLabelStyle,
+  headerTitleStyle,
+} from "../styles";
 
 const renderDrawer = (
   props: Partial<React.ComponentProps<typeof SideDrawer>> = {},
@@ -73,6 +84,13 @@ describe("SideDrawer", () => {
       expect(screen.getByLabelText("drawer close")).toBeInTheDocument();
     });
 
+    it("renders favorite button with an accessible name", () => {
+      renderDrawer({ titleText: "Drawer" });
+      expect(
+        screen.getByRole("button", { name: "Add to favorites" }),
+      ).toBeInTheDocument();
+    });
+
     it("hides footer when hideFooter=true", () => {
       renderDrawer({ titleText: "Drawer", hideFooter: true });
       expect(screen.queryByText(/Go to/)).not.toBeInTheDocument();
@@ -95,6 +113,74 @@ describe("SideDrawer", () => {
 
     it("renders dark theme without throwing", () => {
       expect(() => renderDrawer({ titleText: "Dark" }, true)).not.toThrow();
+    });
+
+    it("uses light theme drawer layout tokens", () => {
+      const xl = lightTheme.breakpoints.up("xl");
+
+      expect(sideDrawerPaperStyle(false, lightTheme)).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+        width: "840px",
+        minWidth: "840px",
+        boxShadow: "none",
+        filter:
+          "drop-shadow(-8px 0px 12px rgba(200, 213, 245, 0.1)) drop-shadow(-4px 0px 4px rgba(200, 213, 245, 0.1))",
+        overflow: "hidden",
+        padding: 0,
+        [xl]: {
+          width: "50vw",
+        },
+      });
+      expect(sideDrawerHeaderBoxStyle(true, lightTheme)).toMatchObject({
+        width: "100%",
+        height: "137px",
+        padding: "24px 32px 0px 32px",
+        gap: "24px",
+        backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+      });
+      expect(headerTitleStyle).toMatchObject({
+        gap: "8px",
+      });
+      expect(headerLabelStyle(true, lightTheme)).toMatchObject({
+        color: lightTheme.palette.vars.baseTextStrong,
+        height: "30px",
+        lineHeight: "30px",
+      });
+      expect(sideDrawerContentContainerStyle(true)).toMatchObject({
+        width: "100%",
+        padding: "32px",
+        gap: "24px",
+        backgroundColor: "inherit",
+      });
+      expect(footerContainerStyle(lightTheme)).toMatchObject({
+        width: "100%",
+        height: "72px",
+        padding: "16px 32px",
+        backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+        borderTop: `1px solid ${lightTheme.palette.vars.baseBorderStrong}`,
+      });
+      expect(lightTheme.palette.vars.baseBackgroundMedium).toBe("#f5f8fd");
+      expect(lightTheme.palette.vars.baseBorderStrong).toBe("#c8d5f5");
+    });
+
+    it("uses dark theme drawer layout tokens", () => {
+      expect(sideDrawerPaperStyle(false, darkTheme)).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+        filter:
+          "drop-shadow(-8px 0px 12px rgba(21, 29, 40, 0.1)) drop-shadow(-4px 0px 4px rgba(21, 29, 40, 0.1))",
+      });
+      expect(sideDrawerHeaderBoxStyle(true, darkTheme)).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+      });
+      expect(footerContainerStyle(darkTheme)).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+        borderTop: `1px solid ${darkTheme.palette.vars.baseBorderStrong}`,
+      });
+      expect(dividerStyle(darkTheme)["&.MuiDivider-root"]).toMatchObject({
+        background: darkTheme.palette.vars.baseBorderStrong,
+      });
+      expect(darkTheme.palette.vars.baseBackgroundMedium).toBe("#062242");
+      expect(darkTheme.palette.vars.baseBorderStrong).toBe("#4f628d");
     });
   });
 });

@@ -31,7 +31,7 @@ export const Positive = (props: SvgIconProps) => {
           height="120"
           rx="13.5"
           transform="rotate(25 69.9644 11)"
-          fill={green600}
+          fill={`var(--empty-state-illustration-accent, ${green600})`}
         />
         <rect
           opacity="0.3"
@@ -41,7 +41,7 @@ export const Positive = (props: SvgIconProps) => {
           height="90"
           rx="13.5"
           transform="rotate(25 195.285 65.75)"
-          fill={green600}
+          fill={`var(--empty-state-illustration-accent, ${green600})`}
         />
         <rect
           opacity="0.3"
@@ -51,7 +51,7 @@ export const Positive = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 28.3662 147.5)"
-          fill={green600}
+          fill={`var(--empty-state-illustration-accent, ${green600})`}
         />
         <circle
           cx="112"

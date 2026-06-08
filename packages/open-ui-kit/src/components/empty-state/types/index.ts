@@ -21,6 +21,8 @@ export interface EmptyStateProps {
   direction?: EmptyStateDirection;
   /** Controls illustration, typography, spacing, and action button size. */
   size?: GeneralSize;
+  /** Hides the illustration for compact text-only empty states. */
+  hideIllustration?: boolean;
   /** Main heading. Hidden automatically for the small size. */
   title?: string;
   /** Supporting message shown below the title or beside the small illustration. */

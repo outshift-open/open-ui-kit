@@ -5,11 +5,12 @@
  */
 
 import React, { RefObject, useCallback } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+import type { SxProps, Theme } from "@mui/material";
 import type { ActionsDialogProps } from "../types";
 import { styles } from "../styles";
 import { DialogActions } from "@/components/dialog";
 import { Button } from "@/components/button";
+import { Spinner } from "@/components/spinner";
 
 interface FooterElementProps {
   dismissRef: RefObject<HTMLInputElement>;
@@ -63,11 +64,9 @@ export const FooterElement = ({
         size="medium"
         disabled={mutationLoading}
         startIcon={
-          mutationLoading ? (
-            <CircularProgress color="inherit" size={16} />
-          ) : undefined
+          mutationLoading ? <Spinner color="inherit" size={16} /> : undefined
         }
-        sx={styles.styledConfirmButton}
+        sx={styles.styledConfirmButton as SxProps<Theme>}
       >
         Confirm
       </Button>

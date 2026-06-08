@@ -9,4 +9,5 @@ export type {
   PopoverProps,
   PopoverOrigin,
   PopoverArrowPosition,
+  PopoverSize,
 } from "./types";

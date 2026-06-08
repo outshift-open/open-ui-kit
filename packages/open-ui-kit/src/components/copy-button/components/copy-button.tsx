@@ -25,6 +25,7 @@ export const CopyButton = ({
   right,
   disableMargin,
   onCopy,
+  copied,
   tooltipPlacement = "top",
   copyLabel = "Copy",
   copiedLabel = "Copied",
@@ -33,10 +34,11 @@ export const CopyButton = ({
 }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
   const theme = useTheme();
+  const showCopiedState = copied ?? isCopied;
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null;
-    if (isCopied) {
+    if (isCopied && copied === undefined) {
       timeout = setTimeout(() => {
         setIsCopied(false);
       }, TIMEOUT);
@@ -46,7 +48,7 @@ export const CopyButton = ({
         clearTimeout(timeout);
       }
     };
-  }, [isCopied]);
+  }, [copied, isCopied]);
 
   const handleOnCopy = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
@@ -60,7 +62,7 @@ export const CopyButton = ({
 
   return (
     <Tooltip
-      title={isCopied ? copiedLabel : copyLabel}
+      title={showCopiedState ? copiedLabel : copyLabel}
       placement={tooltipPlacement}
       arrow
     >
@@ -75,10 +77,12 @@ export const CopyButton = ({
         onClick={handleOnCopy}
         disableRipple={props.disableRipple ?? true}
       >
-        {isCopied ? (
-          <DoneRoundedIcon color="success" />
+        {showCopiedState ? (
+          <DoneRoundedIcon
+            sx={{ color: theme.palette.vars.successIconDefault }}
+          />
         ) : (
-          <Copy fill={theme.palette.vars.interactiveSecondaryDefaultDefault} />
+          <Copy sx={{ color: "inherit" }} />
         )}
       </IconButton>
     </Tooltip>

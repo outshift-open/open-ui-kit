@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
+import { Box, CopyButton, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { CopyButton } from "../components/copy-button";
 
 const meta: Meta<typeof CopyButton> = {
   title: "Components/CopyButton",
@@ -40,6 +39,10 @@ const meta: Meta<typeof CopyButton> = {
     copiedLabel: {
       control: "text",
       description: "Tooltip label shown after copying.",
+    },
+    copied: {
+      control: "boolean",
+      description: "Controls the copied success state.",
     },
   },
   parameters: {
@@ -84,7 +87,19 @@ const Swatch = ({
 
 export const Default: Story = {
   render: (args) => (
-    <Box sx={{ padding: 4 }}>
+    <Box sx={{ padding: 2 }}>
+      <CopyButton {...args} />
+    </Box>
+  ),
+};
+
+export const SuccessState: Story = {
+  args: {
+    copied: true,
+    copiedLabel: "Copied",
+  },
+  render: (args) => (
+    <Box sx={{ padding: 2 }}>
       <CopyButton {...args} />
     </Box>
   ),
@@ -92,7 +107,7 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: (args) => (
-    <Stack direction="row" gap={4} alignItems="center" padding={4}>
+    <Stack direction="row" gap={4} alignItems="center" padding={2}>
       <Swatch title="Small">
         <CopyButton {...args} size="small" disableMargin />
       </Swatch>
@@ -126,7 +141,7 @@ export const Position: Story = {
 
 export const TooltipPlacements: Story = {
   render: (args) => (
-    <Stack direction="row" gap={4} alignItems="center" padding={4}>
+    <Stack direction="row" gap={4} alignItems="center" padding={2}>
       {(["top", "right", "bottom", "left"] as const).map((placement) => (
         <Swatch key={placement} title={placement}>
           <CopyButton

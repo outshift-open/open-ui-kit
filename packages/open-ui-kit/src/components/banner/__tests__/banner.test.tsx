@@ -8,7 +8,10 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkVars } from "@/theme/dark/dark-vars";
+import { lightVars } from "@/theme/light/light-vars";
 import { Banner } from "../components/banner";
+import { BANNER_STATUSES } from "../styles";
 
 const renderBanner = (
   props: React.ComponentProps<typeof Banner>,
@@ -19,6 +22,12 @@ const renderBanner = (
       <Banner {...props} />
     </ThemeProvider>,
   );
+
+const getRequiredElement = (container: HTMLElement, selector: string) => {
+  const element = container.querySelector(selector);
+  expect(element).toBeInTheDocument();
+  return element as HTMLElement;
+};
 
 describe("Banner", () => {
   describe("rendering", () => {
@@ -33,14 +42,7 @@ describe("Banner", () => {
     });
 
     it("renders all status variants without error", () => {
-      const statuses = [
-        "negative",
-        "warning",
-        "success",
-        "info",
-        "excellent",
-      ] as const;
-      statuses.forEach((status) => {
+      BANNER_STATUSES.forEach((status) => {
         const { unmount } = renderBanner({ text: "msg", status });
         expect(screen.getByText("msg")).toBeInTheDocument();
         unmount();
@@ -75,45 +77,89 @@ describe("Banner", () => {
   });
 
   describe("light theme token coverage", () => {
-    it("renders negative banner without throwing", () => {
-      expect(() =>
-        renderBanner({ text: "msg", status: "negative" }),
-      ).not.toThrow();
+    it("renders negative banner with exact CSS token values", () => {
+      const { container } = renderBanner({ text: "msg", status: "negative" });
+      const banner = getRequiredElement(container, ".MuiAlert-root");
+      const icon = getRequiredElement(container, ".MuiAlert-icon");
+      expect(lightVars.negativeBackgroundWeak).toBe("#f8e5ea");
+      expect(lightVars.negativeBorderDefault).toBe("#c0244c");
+      expect(lightVars.negativeTextDefault).toBe("#c0244c");
+      expect(window.getComputedStyle(banner).backgroundColor).toBe(
+        "rgb(248, 229, 234)",
+      );
+      expect(window.getComputedStyle(banner).borderTopColor).toBe("#c0244c");
+      expect(window.getComputedStyle(banner).height).toBe("40px");
+      expect(window.getComputedStyle(banner).width).toBe("800px");
+      expect(window.getComputedStyle(banner).padding).toBe("8px 4px 8px 12px");
+      expect(window.getComputedStyle(icon).color).toBe("rgb(192, 36, 76)");
+      expect(window.getComputedStyle(banner).color).toBe("rgb(192, 36, 76)");
     });
 
-    it("renders warning banner without throwing", () => {
-      expect(() =>
-        renderBanner({ text: "msg", status: "warning" }),
-      ).not.toThrow();
-    });
+    it("renders light success, info, warning, and branded colors from tokens", () => {
+      const expectations = [
+        {
+          status: "warning" as const,
+          background: "rgb(253, 236, 232)",
+          border: "#f05c37",
+          text: "rgb(240, 92, 55)",
+        },
+        {
+          status: "success" as const,
+          background: "rgb(235, 251, 247)",
+          border: "#00b285",
+          text: "rgb(0, 178, 133)",
+        },
+        {
+          status: "info" as const,
+          background: "rgb(232, 241, 255)",
+          border: "#004ba8",
+          text: "rgb(0, 75, 168)",
+        },
+        {
+          status: "excellent" as const,
+          background: "rgb(237, 252, 255)",
+          border: "#17c7ff",
+          text: "rgb(60, 69, 81)",
+        },
+      ];
 
-    it("renders success banner without throwing", () => {
-      expect(() =>
-        renderBanner({ text: "msg", status: "success" }),
-      ).not.toThrow();
-    });
-
-    it("renders info banner without throwing", () => {
-      expect(() => renderBanner({ text: "msg", status: "info" })).not.toThrow();
-    });
-
-    it("renders excellent banner without throwing", () => {
-      expect(() =>
-        renderBanner({ text: "msg", status: "excellent" }),
-      ).not.toThrow();
+      expectations.forEach(({ status, background, border, text }) => {
+        const { container, unmount } = renderBanner({ text: "msg", status });
+        const banner = getRequiredElement(container, ".MuiAlert-root");
+        expect(window.getComputedStyle(banner).backgroundColor).toBe(
+          background,
+        );
+        expect(window.getComputedStyle(banner).borderTopColor).toBe(border);
+        expect(window.getComputedStyle(banner).color).toBe(text);
+        unmount();
+      });
     });
   });
 
   describe("dark theme token coverage", () => {
-    it("renders all statuses in dark mode without throwing", () => {
-      const statuses = [
-        "negative",
-        "warning",
-        "success",
-        "info",
-        "excellent",
-      ] as const;
-      statuses.forEach((status) => {
+    it("renders dark negative banner with exact CSS token values", () => {
+      const { container } = renderBanner(
+        { text: "msg", status: "negative" },
+        true,
+      );
+      const banner = getRequiredElement(container, ".MuiAlert-root");
+      const icon = getRequiredElement(container, ".MuiAlert-icon");
+      const action = getRequiredElement(container, ".MuiAlert-action");
+      expect(darkVars.negativeBackgroundWeak).toBe("#c6295319");
+      expect(darkVars.negativeBorderDefault).toBe("#c62953");
+      expect(darkVars.negativeIconDefault).toBe("#cf496d");
+      expect(darkVars.negativeTextDefault).toBe("#eebfcb");
+      expect(window.getComputedStyle(banner).backgroundColor).toBe(
+        "rgba(198, 41, 83, 0.098)",
+      );
+      expect(window.getComputedStyle(banner).borderTopColor).toBe("#c62953");
+      expect(window.getComputedStyle(icon).color).toBe("rgb(207, 73, 109)");
+      expect(window.getComputedStyle(banner).color).toBe("rgb(238, 191, 203)");
+      expect(window.getComputedStyle(action).color).toBe("rgb(232, 233, 234)");
+    });
+
+    it("renders dark status variants without throwing", () => {
+      BANNER_STATUSES.forEach((status) => {
         expect(() => renderBanner({ text: "msg", status }, true)).not.toThrow();
       });
     });

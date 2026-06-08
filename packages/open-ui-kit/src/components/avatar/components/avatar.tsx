@@ -14,11 +14,12 @@ export const Avatar = ({
   alt,
   initials,
   icon,
+  ...props
 }: AvatarProps) => {
   const hasImage = !!src;
 
   return (
-    <StyledAvatar avatarSize={size} hasImage={hasImage}>
+    <StyledAvatar avatarSize={size} hasImage={hasImage} {...props}>
       {hasImage ? (
         <>
           <Box

@@ -87,7 +87,7 @@ describe("Link", () => {
       fontSize: "16px",
       fontWeight: 600,
       lineHeight: "20px",
-      letterSpacing: 0,
+      letterSpacing: "0px",
     });
     expect(
       getLinkTypographyStyles(

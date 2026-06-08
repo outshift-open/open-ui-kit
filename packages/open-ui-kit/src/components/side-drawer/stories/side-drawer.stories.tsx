@@ -6,13 +6,15 @@
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Stack, Typography } from "@/components";
+import { useTheme } from "@/theme-provider/theme-provider";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import { Severity } from "@/common";
 import { Button } from "@/components/button";
 import { BrowserRouter } from "react-router-dom";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { SideDrawer, SideDrawerProps } from "../components/side-drawer";
+import { SideDrawer } from "../components/side-drawer";
+import type { SideDrawerProps } from "../types";
 
 const meta: Meta<typeof SideDrawer> = {
   title: "Components/SideDrawer",
@@ -26,9 +28,31 @@ const meta: Meta<typeof SideDrawer> = {
           blurb="SideDrawer is a right-anchored side drawer with a header (title, severity bar, navigation, actions), scrollable content area, and optional footer."
           guideLink=""
           importLine='import { SideDrawer } from "@open-ui-kit/core";'
+          includeStories
         />
       ),
     },
+  },
+  argTypes: {
+    severity: {
+      control: "select",
+      options: Object.values(Severity),
+    },
+    isLoading: { control: "boolean" },
+    isError: { control: "boolean" },
+    hideFooter: { control: "boolean" },
+    hideFavorite: { control: "boolean" },
+    hideCopyBtn: { control: "boolean" },
+    hideTitleAction: { control: "boolean" },
+    hidePrev: { control: "boolean" },
+    hideNext: { control: "boolean" },
+  },
+  args: {
+    titleText: "Drawer title H5",
+    severity: Severity.CRITICAL,
+    pageName: "finding",
+    isLoading: false,
+    isError: false,
   },
 };
 
@@ -52,12 +76,12 @@ const longContent = Array.from({ length: 20 }, (_, i) => (
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
-const exampleActionButtons = [
-  <Button key="dismiss" variant="secondary" size="small" onClick={noop}>
-    Dismiss
+const exampleActionButtons: SideDrawerProps["actionButtons"] = [
+  <Button key="dismiss" variant="secondary" size="medium" onClick={noop}>
+    button-link
   </Button>,
-  <Button key="create" variant="secondary" size="small" onClick={noop}>
-    Create Jira Ticket
+  <Button key="create" variant="secondary" size="medium" onClick={noop}>
+    button-link
   </Button>,
 ];
 
@@ -89,72 +113,56 @@ const DrawerComponent = ({ children, ...props }: SideDrawerProps) => {
 };
 
 export const Default: Story = {
-  name: "Default",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
-    titleText: "Drawer Title",
-    severity: Severity.INFORMATION,
-    isLoading: false,
     actionButtons: exampleActionButtons,
-    pageName: "finding",
   },
 };
 
 export const Scrollable: Story = {
-  name: "Scrollable Content",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: longContent,
     titleText: "Scrollable Drawer",
-    isLoading: false,
-    pageName: "issue",
   },
 };
 
 export const WithoutFooter: Story = {
-  name: "Without Footer",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
     titleText: "No Footer",
     hideFooter: true,
-    isLoading: false,
-    pageName: "issue",
   },
 };
 
 export const WithoutTitleAction: Story = {
-  name: "Without Title Action",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
     titleText: "No Title Icon",
     hideTitleAction: true,
-    isLoading: false,
-    pageName: "issue",
   },
 };
 
 export const LoadingState: Story = {
   name: "Loading",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
     titleText: "Loading Drawer",
     isLoading: true,
-    pageName: "finding",
   },
 };
 
 export const ErrorState: Story = {
   name: "Error",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
     titleText: "Error Drawer",
     isError: true,
-    pageName: "finding",
   },
 };
 
@@ -183,13 +191,11 @@ const DrawerTitle = () => {
 
 export const ComplexTitle: Story = {
   name: "Complex Title Node",
-  render: DrawerComponent,
+  render: (args) => <DrawerComponent {...args} />,
   args: {
     children: shortContent,
     titleNode: <DrawerTitle />,
-    isLoading: false,
     actionButtons: exampleActionButtons,
-    pageName: "finding",
     hideTitleAction: true,
     customDividerStyle: { display: "none" },
   },

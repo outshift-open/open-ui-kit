@@ -5,9 +5,13 @@
  */
 
 import type { CSSObject, Theme } from "@mui/material";
+import { lightModeCardSubtle } from "@/theme/style/color-palette";
 import type { MenuItemSize } from "../types";
 
-const getSizeStyles = (theme: Theme, size: MenuItemSize): CSSObject => {
+export const getMenuItemSizeStyles = (
+  theme: Theme,
+  size: MenuItemSize,
+): CSSObject => {
   if (size === "small") {
     return {
       ...theme.typography.caption,
@@ -40,7 +44,10 @@ export const getMenuPaperStyles = (
   padding: "8px 0px",
   borderRadius: "8px",
   border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-  boxShadow: theme.shadows[2],
+  boxShadow: lightModeCardSubtle,
+  "& .MuiMenu-list": {
+    padding: 0,
+  },
   ...(width ? { width } : {}),
 });
 
@@ -49,7 +56,7 @@ export const getMenuItemStyles = (
   size: MenuItemSize = "large",
   destructive = false,
 ): CSSObject => ({
-  ...getSizeStyles(theme, size),
+  ...getMenuItemSizeStyles(theme, size),
   color: destructive
     ? theme.palette.vars.negativeTextDefault
     : theme.palette.vars.baseTextDefault,
@@ -60,7 +67,7 @@ export const getMenuItemStyles = (
   },
   "&.Mui-selected": {
     backgroundColor: theme.palette.vars.controlBackgroundMedium,
-    color: theme.palette.vars.interactivePrimaryDefaultDefault,
+    color: theme.palette.vars.controlBorderActive,
   },
   "&.Mui-selected:hover": {
     backgroundColor: theme.palette.vars.controlBackgroundMedium,
@@ -71,15 +78,26 @@ export const getMenuItemStyles = (
   },
 });
 
-export const getMenuItemLinkStyles = (): CSSObject => ({
+export const getMenuItemLinkStyles = (
+  size: MenuItemSize = "large",
+): CSSObject => ({
+  color: "inherit",
   height: "100%",
   width: "100%",
-  padding: "8px 16px",
+  padding:
+    size === "small" ? "4px 12px" : size === "medium" ? "6px 16px" : "8px 16px",
+  minHeight: size === "small" ? "24px" : size === "medium" ? "32px" : "40px",
   justifyContent: "flex-start",
   alignItems: "center",
 });
 
-export const getMenuItemLabelStyles = (): CSSObject => ({
+export const getMenuItemLabelStyles = (
+  theme: Theme,
+  size: MenuItemSize = "large",
+): CSSObject => ({
+  ...getMenuItemSizeStyles(theme, size),
+  minHeight: undefined,
+  padding: 0,
   height: "fit-content",
   display: "flex",
   alignItems: "center",

@@ -9,9 +9,13 @@ import { StyledAvatarGroup } from "./elements";
 import { Avatar } from "./avatar";
 import type { AvatarGroupProps, AvatarProps } from "../types";
 
-export const AvatarGroup = ({ size = "L", children }: AvatarGroupProps) => {
+export const AvatarGroup = ({
+  size = "L",
+  children,
+  ...props
+}: AvatarGroupProps) => {
   return (
-    <StyledAvatarGroup avatarSize={size}>
+    <StyledAvatarGroup avatarSize={size} {...props}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement<AvatarProps>(child)) return child;
         return <Avatar {...child.props} size={size} />;

@@ -171,9 +171,9 @@ export const getTabsFrameStyles = (
   "& .MuiTabs-indicator": {
     backgroundColor: theme.palette.vars.interactiveSecondaryDefaultActive,
     borderRadius: "100px",
-    bottom: orientation === "horizontal" ? 0 : undefined,
+    bottom: orientation === "horizontal" ? "-1px" : undefined,
     height: "3px",
-    right: orientation === "vertical" ? 0 : undefined,
+    right: orientation === "vertical" ? "-1px" : undefined,
     width: orientation === "vertical" ? "3px" : undefined,
     zIndex: 1,
     ...(type === "toggleTab" && { display: "none" }),

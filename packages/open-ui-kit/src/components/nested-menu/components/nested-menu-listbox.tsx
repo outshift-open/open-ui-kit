@@ -11,7 +11,10 @@ import { EmptyState } from "@/components/empty-state";
 import { SearchInput } from "@/components/search-input";
 import { SelectNode } from "./select-node";
 import { SelectNodeListItem } from "./select-node-list-item";
-import { defaultPopperContentStyle } from "../styles";
+import {
+  defaultPopperContentStyle,
+  getNestedMenuRowsMaxHeight,
+} from "../styles";
 import { AugmentedSelectNodeType } from "@/components/nested-menu";
 import { buildNodeLabelElement } from "../utils/utils";
 
@@ -41,7 +44,10 @@ export const NestedMenuListbox = ({
   const theme = useTheme();
 
   const optionlist = React.Children.toArray(children);
-  const totalHeight = Math.min(40 * optionlist.length, 375);
+  const totalHeight = Math.min(
+    40 * optionlist.length,
+    parseInt(getNestedMenuRowsMaxHeight(), 10),
+  );
   const hasNoMatching = !optionlist.length && !!searchText;
   const nodeLabel = buildNodeLabelElement(selectAllNode, searchText, theme);
   return (
@@ -56,7 +62,7 @@ export const NestedMenuListbox = ({
     >
       {isSearchFieldEnabled && (
         <SearchInput
-          sx={{ padding: "8px 16px" }}
+          sx={{ boxSizing: "border-box", padding: "8px 16px", width: "100%" }}
           onChangeCallback={(text: string) => setSearchText?.(text)}
           placeholder={searchPlaceholder}
           onClick={(event: React.MouseEvent<HTMLInputElement>) =>

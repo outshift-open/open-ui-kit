@@ -6,23 +6,40 @@
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import PersonIcon from "@mui/icons-material/Person";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import type { ReactNode } from "react";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Avatar } from "../components/avatar";
 import { AvatarGroup } from "../components/avatar-group";
+import type { AvatarProps } from "../types";
 
-const meta: Meta<typeof Avatar> = {
+const avatarImage = "/assets/img.png";
+
+const meta: Meta<AvatarProps> = {
   title: "Components/Avatar",
   component: Avatar,
   tags: ["autodocs"],
+  args: {
+    initials: "WW",
+    size: "L",
+  },
+  argTypes: {
+    alt: { control: "text" },
+    icon: { table: { disable: true } },
+    initials: { control: "text" },
+    size: {
+      control: "radio",
+      options: ["L", "M"],
+    },
+    src: { control: "text" },
+  },
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
           blurb="Avatars represent a user or entity with an image, initials, or icon."
           guideLink=""
-          includeStories={true}
+          includeStories
           importLine='import { Avatar, AvatarGroup } from "@open-ui-kit/core";'
           title="Avatar"
         />
@@ -33,25 +50,21 @@ const meta: Meta<typeof Avatar> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Avatar>;
+type Story = StoryObj<AvatarProps>;
 
-const avatarImage = "/assets/img.png";
-
-const figmaLabel = (label: string) => (
-  <Typography
-    variant="caption"
-    sx={{
-      alignSelf: "flex-start",
-      bgcolor: "#D4B3FF",
-      borderRadius: "4px",
-      color: "#4C00AE",
-      fontWeight: 500,
-      px: 0.5,
-      py: 0.25,
-    }}
-  >
-    {label}
-  </Typography>
+const StoryRow = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => (
+  <Stack direction="row" gap={2} alignItems="center">
+    <Typography variant="body2Semibold" sx={{ minWidth: 72 }}>
+      {label}
+    </Typography>
+    {children}
+  </Stack>
 );
 
 const HoverState = ({ children }: { children: ReactNode }) => (
@@ -73,95 +86,95 @@ const HoverState = ({ children }: { children: ReactNode }) => (
   </Box>
 );
 
-const AvatarStateRow = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) => (
-  <Stack direction="row" gap={3} sx={{ alignItems: "center" }}>
-    {figmaLabel(label)}
-    {children}
-    <HoverState>{children}</HoverState>
-  </Stack>
-);
-
-const VariantRows = ({ size }: { size: "L" | "M" }) => (
-  <Stack gap={2}>
-    <AvatarStateRow label={`${size} Image`}>
-      <Avatar size={size} src={avatarImage} alt="Wade Wilson" />
-    </AvatarStateRow>
-    <AvatarStateRow label={`${size} Text`}>
-      <Avatar size={size} initials="WW" />
-    </AvatarStateRow>
-    <AvatarStateRow label={`${size} Icon`}>
-      <Avatar size={size} icon={<PersonIcon />} />
-    </AvatarStateRow>
-  </Stack>
-);
-
-const GroupExample = ({ size }: { size: "L" | "M" }) => (
-  <Stack gap={1}>
-    {figmaLabel(size === "L" ? "Large" : "Medium")}
-    <AvatarGroup size={size}>
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-      <Avatar initials="WW" />
-    </AvatarGroup>
-  </Stack>
+const DemoGroup = ({ size }: { size: "L" | "M" }) => (
+  <AvatarGroup size={size}>
+    <Avatar initials="WW" />
+    <Avatar initials="VW" />
+    <Avatar initials="AA" />
+    <Avatar initials="BB" />
+    <Avatar initials="CC" />
+    <Avatar initials="DD" />
+    <Avatar initials="EE" />
+  </AvatarGroup>
 );
 
 export const Default: Story = {
-  render: () => (
-    <Stack direction="row" gap={10} sx={{ alignItems: "flex-start" }}>
-      <Stack gap={6}>
-        <VariantRows size="L" />
-        <VariantRows size="M" />
-      </Stack>
+  render: (args) => <Avatar {...args} />,
+};
 
-      <Stack gap={4}>
-        <GroupExample size="L" />
-        <GroupExample size="M" />
-      </Stack>
+export const Image: Story = {
+  args: {
+    alt: "Wade Wilson",
+    src: avatarImage,
+  },
+  render: (args) => <Avatar {...args} />,
+};
+
+export const Initials: Story = {
+  args: {
+    initials: "WW",
+  },
+  render: (args) => <Avatar {...args} />,
+};
+
+export const Icon: Story = {
+  args: {
+    initials: undefined,
+  },
+  render: (args) => <Avatar {...args} icon={<PersonIcon />} />,
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <Stack gap={2} alignItems="flex-start">
+      <StoryRow label="Large">
+        <Avatar size="L" initials="WW" />
+        <Avatar size="L" src={avatarImage} alt="Wade Wilson" />
+        <Avatar size="L" icon={<PersonIcon />} />
+      </StoryRow>
+      <StoryRow label="Medium">
+        <Avatar size="M" initials="WW" />
+        <Avatar size="M" src={avatarImage} alt="Wade Wilson" />
+        <Avatar size="M" icon={<PersonIcon />} />
+      </StoryRow>
     </Stack>
   ),
 };
 
-export const LImage: Story = {
-  render: () => <Avatar size="L" src={avatarImage} alt="Wade Wilson" />,
+export const HoverStates: Story = {
+  render: () => (
+    <Stack gap={2} alignItems="flex-start">
+      <StoryRow label="Image">
+        <Avatar size="L" src={avatarImage} alt="Wade Wilson" />
+        <HoverState>
+          <Avatar size="L" src={avatarImage} alt="Wade Wilson" />
+        </HoverState>
+      </StoryRow>
+      <StoryRow label="Initials">
+        <Avatar size="L" initials="WW" />
+        <HoverState>
+          <Avatar size="L" initials="WW" />
+        </HoverState>
+      </StoryRow>
+      <StoryRow label="Icon">
+        <Avatar size="L" icon={<PersonIcon />} />
+        <HoverState>
+          <Avatar size="L" icon={<PersonIcon />} />
+        </HoverState>
+      </StoryRow>
+    </Stack>
+  ),
 };
 
-export const LText: Story = {
-  render: () => <Avatar size="L" initials="WW" />,
-};
-
-export const LIcon: Story = {
-  render: () => <Avatar size="L" icon={<PersonIcon />} />,
-};
-
-export const MImage: Story = {
-  render: () => <Avatar size="M" src={avatarImage} alt="Wade Wilson" />,
-};
-
-export const MText: Story = {
-  render: () => <Avatar size="M" initials="WW" />,
-};
-
-export const MIcon: Story = {
-  render: () => <Avatar size="M" icon={<PersonIcon />} />,
-};
-
-export const LargeGroup: Story = {
-  name: "Large",
-  render: () => <GroupExample size="L" />,
-};
-
-export const MediumGroup: Story = {
-  name: "Medium",
-  render: () => <GroupExample size="M" />,
+export const Groups: Story = {
+  render: () => (
+    <Stack gap={3} alignItems="flex-start">
+      <StoryRow label="Large">
+        <DemoGroup size="L" />
+      </StoryRow>
+      <StoryRow label="Medium">
+        <DemoGroup size="M" />
+      </StoryRow>
+    </Stack>
+  ),
 };

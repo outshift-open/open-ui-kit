@@ -14,6 +14,9 @@ import type { ReactNode } from "react";
 
 export type { PopoverOrigin };
 
+/** Popover content width. Use `large` for wider confirmation/content panels. */
+export type PopoverSize = "medium" | "large";
+
 /**
  * Where the directional arrow tip is rendered relative to the popover panel.
  * Use together with `anchorOrigin` / `transformOrigin` to align the arrow
@@ -34,8 +37,14 @@ export interface PopoverProps extends Omit<MuiPopoverProps, "title"> {
   body?: ReactNode;
   /** Action elements (e.g. Buttons) rendered at the bottom-right of the popover. */
   actions?: ReactNode;
+  /** Optional icon rendered before the title/body column. */
+  icon?: ReactNode;
   /** When true, shows a close (×) button in the top-right corner. */
   showCloseButton?: boolean;
+  /** Adds the active feature-highlight border and arrow styling. */
+  featureHighlight?: boolean;
+  /** Content width. Defaults to the compact `medium` popover. */
+  size?: PopoverSize;
   /**
    * Renders a directional arrow on the popover panel pointing toward the anchor.
    * Omit for a plain panel with no arrow.

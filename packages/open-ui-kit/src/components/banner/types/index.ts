@@ -23,6 +23,8 @@ export interface BannerProps
   status?: StatusBanner;
   /** Banner message content. */
   text: ReactNode;
+  /** Optional icon shown before the message. Defaults to a status icon. */
+  icon?: ReactNode;
   /** Shows the dismiss button and wires `onClose` when enabled. */
   showCloseButton?: boolean;
 }

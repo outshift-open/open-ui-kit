@@ -4,22 +4,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { grey800, grey50 } from "@/theme/style/color-palette";
+import type { CSSObject, Theme } from "@mui/material";
 
-export const baseTooltipStyles = {
-  backgroundColor: grey800,
+export const baseTooltipStyles = (theme: Theme): CSSObject => ({
+  ...theme.typography.captionMedium,
+  backgroundColor: theme.palette.vars.inactiveBackgroundActive,
   borderRadius: "4px",
-  color: grey50,
-};
+  boxSizing: "border-box",
+  color: theme.palette.vars.baseTextInverse,
+  maxWidth: "none",
+});
 
-export const tooltipArrowStyles = {
-  color: grey800,
-};
+export const tooltipArrowStyles = (theme: Theme): CSSObject => ({
+  color: theme.palette.vars.inactiveBackgroundActive,
+  height: "6px",
+  width: "10px",
+  "&::before": {
+    backgroundColor: "currentColor",
+    borderRadius: "1px",
+    height: "6px",
+    width: "10px",
+  },
+});
 
-export const largeTooltipStyles = {
+export const largeTooltipStyles: CSSObject = {
+  height: "32px",
   padding: "8px 12px",
 };
 
-export const mediumTooltipStyles = {
+export const mediumTooltipStyles: CSSObject = {
+  height: "20px",
   padding: "2px 8px",
 };

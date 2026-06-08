@@ -57,11 +57,13 @@ export const BodyElement = ({
   }, [selectedSuggestion, commentRef, setError]);
 
   return (
-    <Box>
-      <Typography variant="body2">{bodyText}</Typography>
+    <Box sx={styles.styledBody}>
+      <Typography variant="body2" sx={styles.styledBodyText}>
+        {bodyText}
+      </Typography>
       {useCommentSuggestions && (
-        <>
-          <Typography variant="body2" mt="16px" mb="8px">
+        <Box sx={styles.styledCommentSection}>
+          <Typography variant="body2" sx={styles.styledBodyText}>
             Add comment{" "}
             {commentSuggestions && commentSuggestions?.length > 0
               ? "or choose a matching reason from the list:"
@@ -69,10 +71,7 @@ export const BodyElement = ({
           </Typography>
           <InputField
             inputRef={commentRef}
-            sx={(theme) => ({
-              backgroundColor: theme.palette.vars.controlBackgroundDefault,
-              ...styles.styledTextArea,
-            })}
+            sx={styles.styledTextArea}
             variant="standard"
             multiline={true}
             placeholder="Inform your teammates of the rationale behind this action"
@@ -87,17 +86,14 @@ export const BodyElement = ({
               selectedSuggestion={selectedSuggestion}
             />
           )}
-        </>
+        </Box>
       )}
       {includeDismissCheckbox && (
-        <Box
-          sx={{
-            ...styles.styledDismiss,
-            marginTop: useCommentSuggestions ? 0 : "16px",
-          }}
-        >
+        <Box sx={styles.styledDismiss}>
           <Checkbox inputRef={dismissRef} />
-          <Typography variant="body2">{dismissCheckboxText}</Typography>
+          <Typography variant="body2" sx={styles.styledBodyText}>
+            {dismissCheckboxText}
+          </Typography>
         </Box>
       )}
     </Box>

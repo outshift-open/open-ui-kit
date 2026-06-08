@@ -8,30 +8,20 @@ import {
   Box,
   CircularProgress,
   Drawer as MuiDrawer,
-  DrawerProps as MuiDrawerProps,
   useTheme,
-  SxProps,
 } from "@mui/material";
 import {
   sideDrawerContentContainerStyle,
   sideDrawerPaperStyle,
 } from "../styles";
 import { useCallback } from "react";
-import { SideDrawerHeader, SideDrawerHeaderProps } from "./side-drawer-header";
-import SideDrawerFooter, { SideDrawerFooterProps } from "./side-drawer-footer";
+import { SideDrawerHeader } from "./side-drawer-header";
+import SideDrawerFooter from "./side-drawer-footer";
 import { EMPTY_FUNCTION } from "@/common";
 import { LoadingErrorState } from "@/components/loading-error-state";
+import type { SideDrawerProps } from "../types";
 
-export interface SideDrawerProps
-  extends Omit<MuiDrawerProps, "onClose">,
-    SideDrawerHeaderProps,
-    SideDrawerFooterProps {
-  title?: string;
-  isLoading?: boolean;
-  isError?: boolean;
-  hideFooter?: boolean;
-  paperProps?: SxProps;
-}
+export type { SideDrawerProps };
 
 export const SideDrawer = ({
   children,
@@ -81,10 +71,14 @@ export const SideDrawer = ({
       onClose={onCloseCallback}
       slotProps={{
         paper: {
-          sx: {
-            ...sideDrawerPaperStyle(isLoading || isError, theme),
-            ...paperProps,
-          },
+          sx: [
+            sideDrawerPaperStyle(isLoading || isError, theme),
+            ...(Array.isArray(paperProps)
+              ? paperProps
+              : paperProps
+                ? [paperProps]
+                : []),
+          ],
         },
       }}
       {...props}

@@ -10,6 +10,8 @@ import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
 import { EmptyState } from "..";
 import { GeneralSize } from "@/common";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -80,6 +82,39 @@ describe("EmptyState", () => {
       );
       expect(screen.queryByText("Should not appear")).not.toBeInTheDocument();
     });
+
+    it("uses the CSS padding for small column and small row layouts", () => {
+      const { container: columnContainer } = wrap(
+        <EmptyState size={GeneralSize.Small} description="No matches found" />,
+      );
+      expect(columnContainer.firstChild).toHaveStyle({
+        padding: "4px 12px 8px",
+      });
+
+      const { container: rowContainer } = wrap(
+        <EmptyState
+          direction="row"
+          size={GeneralSize.Small}
+          description="No matches found"
+        />,
+      );
+      expect(rowContainer.firstChild).toHaveStyle({ padding: "0px" });
+    });
+
+    it("uses the CSS typography for the medium heading", () => {
+      wrap(
+        <EmptyState
+          size={GeneralSize.Medium}
+          title="Heading"
+          description="No matches found"
+        />,
+      );
+
+      expect(screen.getByText("Heading")).toHaveStyle({
+        fontSize: "16px",
+        lineHeight: "22px",
+      });
+    });
   });
 
   describe("directions", () => {
@@ -105,6 +140,15 @@ describe("EmptyState", () => {
     it("renders description", () => {
       wrap(<EmptyState description="My description" />);
       expect(screen.getByText("My description")).toBeInTheDocument();
+    });
+
+    it("can hide the illustration for text-only empty states", () => {
+      const { container } = wrap(
+        <EmptyState hideIllustration description="No content yet" />,
+      );
+
+      expect(screen.getByText("No content yet")).toBeInTheDocument();
+      expect(container.querySelector("svg")).not.toBeInTheDocument();
     });
 
     it("renders action button when actionCallback and actionTitle provided", () => {
@@ -179,6 +223,22 @@ describe("EmptyState", () => {
       });
       expect(screen.getByText("No matches found")).toHaveStyle({
         color: "rgb(197, 199, 203)",
+      });
+    });
+
+    it("uses light illustration accent tokens", () => {
+      const { container } = wrap(<EmptyState variant="info" />);
+      expect(container.querySelector("svg")).toHaveStyle({
+        "--empty-state-illustration-accent":
+          lightTheme.palette.vars.infoBackgroundDefault,
+      });
+    });
+
+    it("uses dark illustration accent tokens", () => {
+      const { container } = wrap(<EmptyState variant="negative" />, true);
+      expect(container.querySelector("svg")).toHaveStyle({
+        "--empty-state-illustration-accent":
+          darkTheme.palette.vars.negativeIconDefault,
       });
     });
   });

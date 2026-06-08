@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box } from "@/components";
 import { Button } from "@/components/button";
-import { Toaster, ToasterProps } from "../components/toaster";
+import { Toaster } from "../components/toaster";
+import type { ToasterProps } from "../types";
 import { toast } from "../components/toast";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
@@ -37,12 +38,11 @@ const ToasterComponent = (args: ToasterProps) => {
     toast({
       type: "info",
       title: "Custom Toast",
-      description: "You can customize the content and actions.",
+      description:
+        "You can customize the content, timing, and actions for each toast notification.",
       action: {
         label: "Button",
-        onClick: () => {
-          console.log("Toast button clicked");
-        },
+        onClick: () => undefined,
       },
     });
   };

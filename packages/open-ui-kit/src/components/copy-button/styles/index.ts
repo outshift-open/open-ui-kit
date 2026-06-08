@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Theme } from "@mui/material";
+import type { CSSObject, Theme } from "@mui/material";
 import type { CopyButtonSize, CopyButtonStylesProps } from "../types";
 
 const sizeTokens: Record<
@@ -17,7 +17,7 @@ const sizeTokens: Record<
 };
 
 interface CopyButtonStyleOptions extends CopyButtonStylesProps {
-  theme?: Theme;
+  theme: Theme;
 }
 
 export const styles = ({
@@ -27,31 +27,41 @@ export const styles = ({
   top = "16px",
   left,
   right,
-  disableMargin = false,
-}: CopyButtonStyleOptions) => {
+}: CopyButtonStyleOptions): CSSObject => {
   const t = sizeTokens[size];
   return {
+    alignItems: "center",
     borderRadius: "4px",
-    padding: t.padding,
-    margin: disableMargin ? 0 : "16px",
-    width: t.box,
-    height: t.box,
-    minWidth: t.box,
     border: t.hasBorder
-      ? `1px solid ${theme?.palette.vars.controlBorderDefault}`
+      ? `1px solid ${theme.palette.vars.controlBorderDefault}`
       : "none",
+    color: theme.palette.vars.interactiveSecondaryDefaultDefault,
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+    height: t.box,
+    justifyContent: "center",
+    margin: 0,
+    minWidth: t.box,
+    padding: t.padding,
+    width: t.box,
     ...(position && { position: "absolute", top }),
     ...(position === "left" && { left: left ?? "16px" }),
     ...(position === "right" && { right: right ?? "16px" }),
     "&:hover": {
       border: t.hasBorder
-        ? `1px solid ${theme?.palette.vars.controlBorderDefault}`
+        ? `1px solid ${theme.palette.vars.controlBorderDefault}`
         : "none",
-      backgroundColor: theme?.palette.vars.interactiveSecondaryWeakDefault,
+      backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+      color: theme.palette.vars.interactiveSecondaryDefaultHover,
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${theme.palette.vars.controlFocusRingStrong}`,
+      outlineOffset: "2px",
     },
     "&.MuiSvgIcon-root, svg": {
-      width: t.icon,
       height: t.icon,
+      width: t.icon,
     },
   };
 };

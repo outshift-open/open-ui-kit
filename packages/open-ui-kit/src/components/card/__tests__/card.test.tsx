@@ -8,6 +8,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import {
   Card,
   CardHeader,
@@ -17,6 +19,12 @@ import {
 } from "../components/card";
 import CardDescription from "../components/card-description";
 import CardSubheader from "../components/card-subheader";
+import {
+  cardActiveStyles,
+  cardDisabledStyles,
+  cardInteractiveStyles,
+  cardRootStyles,
+} from "../styles";
 
 const renderCard = (ui: React.ReactElement, dark = false) =>
   render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
@@ -96,6 +104,91 @@ describe("Card", () => {
         </CardActionArea>,
       );
       expect(screen.getByRole("button")).toBeInTheDocument();
+    });
+  });
+
+  describe("design token styles", () => {
+    it("maps light card surface tokens to the Figma CSS values", () => {
+      expect(cardRootStyles(lightTheme)).toEqual(
+        expect.objectContaining({
+          alignItems: "flex-start",
+          backgroundColor: "#fbfcfe",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 4px rgba(200, 213, 245, 0.33)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          justifyContent: "center",
+          padding: "16px",
+        }),
+      );
+      expect(cardInteractiveStyles(lightTheme)).toEqual({
+        border: "1px solid #0051af",
+      });
+      expect(cardActiveStyles(lightTheme)).toEqual({
+        border: "1px solid #0051af",
+        boxShadow: "0px 2px 5px rgba(200, 213, 245, 0.4)",
+      });
+      expect(cardDisabledStyles(lightTheme)).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#f5f8fd",
+          border: "1px solid #e8eefb",
+          boxShadow: "0px 2px 5px rgba(200, 213, 245, 0.4)",
+          color: "#c5c7cb",
+        }),
+      );
+    });
+
+    it("maps dark card surface tokens to the Figma CSS values", () => {
+      expect(cardRootStyles(darkTheme)).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#183056",
+          boxShadow: "0px 4px 4px rgba(6, 34, 66, 0.33)",
+          color: "#e8e9ea",
+        }),
+      );
+      expect(cardInteractiveStyles(darkTheme)).toEqual({
+        border: "1px solid #12c1ff",
+      });
+      expect(cardActiveStyles(darkTheme)).toEqual({
+        border: "1px solid #12c1ff",
+        boxShadow: "0px 2px 5px rgba(6, 34, 66, 0.4)",
+      });
+      expect(cardDisabledStyles(darkTheme)).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#0d274d",
+          border: "1px solid #263b62",
+          boxShadow: "0px 2px 5px rgba(6, 34, 66, 0.4)",
+          color: "#777d85",
+        }),
+      );
+    });
+
+    it("applies disabled state through the public disabled prop", () => {
+      renderCard(
+        <Card data-testid="card" disabled>
+          <CardHeader title="Disabled title" subheader="Disabled subheader" />
+        </Card>,
+      );
+
+      expect(screen.getByTestId("card")).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
+      expect(screen.getByTestId("card")).toHaveStyle({
+        backgroundColor: "#f5f8fd",
+        border: "1px solid #e8eefb",
+      });
+    });
+
+    it("lets consumer sx override internal card spacing", () => {
+      renderCard(
+        <Card data-testid="card" sx={{ padding: "24px" }}>
+          Content
+        </Card>,
+      );
+
+      expect(screen.getByTestId("card")).toHaveStyle({ padding: "24px" });
     });
   });
 

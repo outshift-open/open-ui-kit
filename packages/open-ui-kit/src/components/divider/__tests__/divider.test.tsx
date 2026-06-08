@@ -8,6 +8,8 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { Divider } from "../components/divider";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
@@ -40,6 +42,7 @@ describe("Divider", () => {
       expect(container.firstChild).toHaveStyle(
         "background-color: rgb(213, 223, 247)",
       );
+      expect(lightTheme.palette.vars.controlBorderDefault).toBe("#d5dff7");
     });
 
     it("renders horizontal and vertical dimensions from the design", () => {
@@ -56,16 +59,36 @@ describe("Divider", () => {
 
       expect(horizontal.firstChild).toHaveStyle({
         height: "1px",
+        margin: "0",
         width: "100%",
       });
-      expect(vertical.firstChild).toHaveStyle({ height: "100%", width: "1px" });
+      expect(vertical.firstChild).toHaveStyle({
+        height: "100%",
+        margin: "0",
+        width: "1px",
+      });
       expect(boldHorizontal.firstChild).toHaveStyle({
         height: "2px",
+        margin: "0",
         width: "100%",
       });
       expect(boldVertical.firstChild).toHaveStyle({
         height: "100%",
+        margin: "0",
         width: "2px",
+      });
+    });
+
+    it("uses the CSS reference shape", () => {
+      const { container } = wrap(<Divider orientation="horizontal" />);
+      expect(container.firstChild).toHaveStyle({
+        alignItems: "flex-start",
+        border: "0",
+        borderRadius: "100px",
+        display: "flex",
+        flexDirection: "column",
+        isolation: "isolate",
+        padding: "0",
       });
     });
   });
@@ -100,6 +123,7 @@ describe("Divider", () => {
       expect(container.firstChild).toHaveStyle(
         "background-color: rgb(79, 98, 141)",
       );
+      expect(darkTheme.palette.vars.controlBorderDefault).toBe("#4f628d");
     });
   });
 });

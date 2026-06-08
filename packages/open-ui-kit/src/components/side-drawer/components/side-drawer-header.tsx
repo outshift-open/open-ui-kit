@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CSSProperties } from "react";
 import { Stack, Typography, Box, Divider, useTheme } from "@mui/material";
 import { Button } from "@/components/button";
 import {
@@ -21,7 +20,7 @@ import {
   dividerStyle,
   titleSeparatorStyle,
 } from "../styles";
-import { EMPTY_FUNCTION, Severity } from "@/common";
+import { EMPTY_FUNCTION } from "@/common";
 import {
   ArrowBackIOS,
   ArrowForwardIOS,
@@ -35,31 +34,9 @@ import { CopyButton } from "@/components/copy-button";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { SeverityBar } from "@/components/severity-bar";
 import { Tooltip, TooltipSize } from "@/components/tooltip";
+import type { SideDrawerHeaderProps } from "../types";
 
-export interface SideDrawerHeaderProps {
-  titleText?: string;
-  titleNode?: React.ReactNode;
-  titleAction?: JSX.Element;
-  severity?: Severity;
-  copyURL: string;
-  customDividerStyle?: CSSProperties;
-  isFavorite?: boolean;
-  actionButtons?: Array<JSX.Element>;
-  disablePrev?: boolean;
-  disableNext?: boolean;
-  hidePrev?: boolean;
-  hideNext?: boolean;
-  hideTitleAction?: boolean;
-  hideFavorite?: boolean;
-  hideCopyBtn?: boolean;
-  hideActionButtons?: boolean;
-  onPrev?: () => void;
-  onNext?: () => void;
-  onClose?: (event?: React.MouseEvent<HTMLElement>) => void;
-  onFavorite?: () => void;
-  onTitleAction?: () => void;
-  onCopyLink?: (link: string) => void;
-}
+export type { SideDrawerHeaderProps };
 
 export const SideDrawerHeader = ({
   titleText,
@@ -88,7 +65,7 @@ export const SideDrawerHeader = ({
   const theme = useTheme();
 
   return (
-    <Box sx={sideDrawerHeaderBoxStyle(!hideActionButtons)}>
+    <Box sx={sideDrawerHeaderBoxStyle(!hideActionButtons, theme)}>
       <Stack sx={headerContainerStyle}>
         <Stack sx={headerTitleContainerStyle}>
           {severity && <SeverityBar severity={severity} />}
@@ -110,19 +87,22 @@ export const SideDrawerHeader = ({
             {!hideTitleAction &&
               (titleAction ?? (
                 <Tooltip title="Open in a new tab" size={TooltipSize.Large}>
-                  <Button
-                    onClick={onTitleAction}
-                    size={"medium"}
-                    sx={{
-                      "&.MuiButton-sizeMedium": {
-                        color:
-                          theme.palette.vars.interactiveSecondaryDefaultDefault,
-                      },
-                    }}
-                    aria-label="drawer open in new tab"
-                  >
-                    <OpenInNewTab />
-                  </Button>
+                  <span>
+                    <Button
+                      onClick={onTitleAction}
+                      size={"medium"}
+                      sx={{
+                        "&.MuiButton-sizeMedium": {
+                          color:
+                            theme.palette.vars
+                              .interactiveSecondaryDefaultDefault,
+                        },
+                      }}
+                      aria-label="drawer open in new tab"
+                    >
+                      <OpenInNewTab />
+                    </Button>
+                  </span>
                 </Tooltip>
               ))}
           </Stack>
@@ -171,6 +151,9 @@ export const SideDrawerHeader = ({
                   variant="secondary"
                   onClick={onFavorite}
                   sx={{ padding: "6px", minWidth: "unset" }}
+                  aria-label={
+                    isFavorite ? "Remove from favorites" : "Add to favorites"
+                  }
                 >
                   {isFavorite ? (
                     <Star sx={{ height: "20px", width: "20px" }} />
@@ -182,7 +165,7 @@ export const SideDrawerHeader = ({
             </Tooltip>
           )}
           {!hideCopyBtn && (
-            <CopyButton text={copyURL} onCopy={() => onCopyLink} />
+            <CopyButton text={copyURL} onCopy={() => onCopyLink(copyURL)} />
           )}
         </Stack>
       )}

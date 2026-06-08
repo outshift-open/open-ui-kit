@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IconButton, Stack, SvgIconProps } from "@mui/material";
+import { IconButton, Stack, type SvgIconProps } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
 import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
 import { iconStyle, selectNodeStyle } from "../styles";

@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack } from "@mui/material";
+import { CheckCircleOutline } from "@mui/icons-material";
+import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Banner } from "../components/banner";
 import type { BannerProps } from "../types";
+import { BANNER_STATUSES } from "../styles";
 
 const meta: Meta<typeof Banner> = {
   title: "Components/Banner",
@@ -12,11 +14,37 @@ const meta: Meta<typeof Banner> = {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="An banner displays a short, important message in a way that attracts the user's attention without interrupting the user's task."
+          blurb="A banner displays a short, important message in a way that attracts the user's attention without interrupting the user's task."
           guideLink=""
           importLine={`import { Banner } from "@open-ui-kit/core";`}
         />
       ),
+    },
+  },
+  args: {
+    status: "info",
+    text: "Due to a planned update, the website will be temporarily down",
+    showCloseButton: true,
+  },
+  argTypes: {
+    status: {
+      control: "select",
+      options: BANNER_STATUSES,
+    },
+    text: {
+      control: "text",
+    },
+    showCloseButton: {
+      control: "boolean",
+    },
+    icon: {
+      table: { disable: true },
+    },
+    onClose: {
+      table: { disable: true },
+    },
+    sx: {
+      table: { disable: true },
     },
   },
 };
@@ -25,69 +53,54 @@ export default meta;
 
 type Story = StoryObj<typeof Banner>;
 
-const ALL_STATUSES = [
-  "negative",
-  "warning",
-  "success",
-  "info",
-  "excellent",
-] as const;
-
 export const Error: Story = {
-  render: () => (
-    <Banner
-      status="negative"
-      text="Due to a planned update, the website will be temporarily down"
-    />
-  ),
+  args: {
+    status: "negative",
+  },
 };
 
 export const Warning: Story = {
-  render: () => (
-    <Banner
-      status="warning"
-      text="Due to a planned update, the website will be temporarily down"
-    />
-  ),
+  args: {
+    status: "warning",
+  },
 };
 
 export const Success: Story = {
-  render: () => (
-    <Banner
-      status="success"
-      text="Due to a planned update, the website will be temporarily down"
-    />
-  ),
+  args: {
+    status: "success",
+  },
 };
 
 export const Info: Story = {
-  render: () => (
-    <Banner
-      status="info"
-      text="Due to a planned update, the website will be temporarily down"
-    />
-  ),
+  args: {
+    status: "info",
+  },
 };
 
 export const Branded: Story = {
-  render: () => (
-    <Banner
-      status="excellent"
-      text="Due to a planned update, the website will be temporarily down"
-    />
-  ),
+  args: {
+    status: "excellent",
+  },
+};
+
+export const WithoutClose: Story = {
+  args: {
+    showCloseButton: false,
+  },
+};
+
+export const WithCustomIcon: Story = {
+  args: {
+    status: "success",
+    icon: <CheckCircleOutline aria-label="custom success icon" />,
+  },
 };
 
 export const AllVariants: Story = {
   render: (args: BannerProps) => (
     <Stack direction="column" spacing={2}>
-      {ALL_STATUSES.map((status) => (
-        <Banner
-          key={status}
-          {...args}
-          status={status}
-          text="Due to a planned update, the website will be temporarily down"
-        />
+      {BANNER_STATUSES.map((status) => (
+        <Banner key={status} {...args} status={status} />
       ))}
     </Stack>
   ),

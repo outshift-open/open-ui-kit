@@ -5,10 +5,16 @@
  */
 
 import type { Theme } from "@mui/material";
+import { lightModeCardSubtle } from "@/theme/style/color-palette";
+
+const nestedMenuWidth = "480px";
+const nestedMenuRowsMaxHeight = "400px";
+const nestedMenuContentMaxHeight = "456px";
+const nestedMenuPaperMaxHeight = "472px";
 
 export const defaultPopperContentStyle = {
-  width: "480px",
-  maxHeight: "375px",
+  width: nestedMenuWidth,
+  maxHeight: nestedMenuContentMaxHeight,
 };
 
 export const selectNodeListItemStyle = {
@@ -44,13 +50,13 @@ export const searchMatchTextStyle = (theme: Theme) => ({
 });
 
 export const getNestedMenuPopoverPaperStyles = (theme: Theme) => ({
-  width: "480px",
-  maxHeight: "375px",
+  width: nestedMenuWidth,
+  maxHeight: nestedMenuPaperMaxHeight,
   overflowY: "auto",
   padding: "8px 0px",
   backgroundColor: theme.palette.vars.controlBackgroundWeak,
   border: `2px solid ${theme.palette.vars.controlBorderActive}`,
-  boxShadow: theme.shadows[2],
+  boxShadow: lightModeCardSubtle,
   borderRadius: "4px",
   "& .MuiStack-root": {
     padding: "0px",
@@ -59,7 +65,9 @@ export const getNestedMenuPopoverPaperStyles = (theme: Theme) => ({
     marginTop: "0px",
   },
   "& .MuiTextField-root": {
-    padding: "0px 16px 8px 16px",
+    boxSizing: "border-box",
+    padding: "8px 16px",
+    width: "100%",
   },
   "& .MuiListItem-root": {
     background: "transparent",
@@ -75,10 +83,16 @@ export const getNestedMenuPopoverPaperStyles = (theme: Theme) => ({
   },
 });
 
+export const getNestedMenuRowsMaxHeight = () => nestedMenuRowsMaxHeight;
+
 export const getNestedMenuTriggerButtonStyles = (theme: Theme) => ({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "space-between",
   backgroundColor: `${theme.palette.vars.controlBackgroundDefault} !important`,
   border: `2px solid ${theme.palette.vars.controlBorderDefault} !important`,
   color: theme.palette.vars.baseTextWeak,
+  whiteSpace: "nowrap",
   "&:hover": {
     border: `2px solid ${theme.palette.vars.controlBorderHover} !important`,
   },
@@ -102,9 +116,10 @@ export const getNestedMenuTriggerButtonStyles = (theme: Theme) => ({
 
 export const getNestedMenuTriggerContentStyles = () => ({
   display: "flex",
-  alignContent: "center",
-  width: "100%",
+  alignItems: "center",
   justifyContent: "space-between",
+  gap: "8px",
+  width: "100%",
 });
 
 export const getNestedMenuTriggerIconStyles = () => ({

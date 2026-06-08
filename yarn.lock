@@ -4729,7 +4729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-ui-kit/core@workspace:*, @open-ui-kit/core@workspace:packages/open-ui-kit":
+"@open-ui-kit/core@npm:*, @open-ui-kit/core@workspace:packages/open-ui-kit":
   version: 0.0.0-use.local
   resolution: "@open-ui-kit/core@workspace:packages/open-ui-kit"
   dependencies:
@@ -22537,7 +22537,7 @@ __metadata:
     "@emotion/styled": "npm:latest"
     "@mui/icons-material": "npm:latest"
     "@mui/material": "npm:latest"
-    "@open-ui-kit/core": "workspace:*"
+    "@open-ui-kit/core": "npm:*"
     "@types/react": "npm:^18.2.56"
     "@types/react-dom": "npm:^18.2.19"
     "@vitejs/plugin-react": "npm:^4.2.1"

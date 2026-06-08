@@ -29,7 +29,7 @@ export const StyledAvatar = styled(MuiAvatar, {
     fontSize: avatarSize === "L" ? "16px" : "12px",
     fontWeight: 600,
     lineHeight: "133%",
-    letterSpacing: avatarSize === "L" ? "0.15px" : undefined,
+    letterSpacing: avatarSize === "L" ? "0.15px" : "normal",
     cursor: "default",
     position: "relative",
     overflow: "hidden",
@@ -69,7 +69,7 @@ export const AvatarImageOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   inset: 0,
   opacity: 0,
-  backgroundColor: `color-mix(in srgb, ${theme.palette.vars.brandIconPrimaryStrong} 10%, transparent)`,
+  backgroundColor: theme.palette.vars.interactivePrimaryWeakDisabled,
   pointerEvents: "none",
   transition: "opacity 0.2s",
 })) as ComponentType<BoxProps>;
@@ -91,7 +91,7 @@ export const StyledAvatarGroup = styled(MuiAvatarGroup, {
     color: theme.palette.vars.brandIconPrimaryDefault,
     fontSize: avatarSize === "L" ? "16px" : "12px",
     fontWeight: 600,
-    letterSpacing: avatarSize === "L" ? "0.15px" : undefined,
+    letterSpacing: avatarSize === "L" ? "0.15px" : "normal",
     lineHeight: "133%",
     marginLeft: avatarSize === "L" ? -16 : -8,
     "&:first-of-type": {

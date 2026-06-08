@@ -9,6 +9,7 @@ import { FooterElement } from "./footer-element";
 import { BodyElement } from "./body-element";
 import { Dialog, DialogSubtitle, DialogTitle } from "@/components/dialog";
 import type { ActionsDialogProps } from "../types";
+import { styles } from "../styles";
 
 export const ActionsDialog = ({
   open,
@@ -44,7 +45,7 @@ export const ActionsDialog = ({
       onClose={handleClose}
       PaperProps={{
         sx: [
-          { width: "570px" },
+          styles.styledPaper,
           ...(Array.isArray(styleModal)
             ? styleModal
             : styleModal

@@ -31,7 +31,7 @@ export const Negative = (props: SvgIconProps) => {
           height="120"
           rx="13.5"
           transform="rotate(25 200 34.25)"
-          fill={red600}
+          fill={`var(--empty-state-illustration-accent, ${red600})`}
         />
         <rect
           opacity="0.3"
@@ -41,7 +41,7 @@ export const Negative = (props: SvgIconProps) => {
           height="90"
           rx="13.5"
           transform="rotate(25 37.0356 92)"
-          fill={red600}
+          fill={`var(--empty-state-illustration-accent, ${red600})`}
         />
         <rect
           opacity="0.3"
@@ -51,7 +51,7 @@ export const Negative = (props: SvgIconProps) => {
           height="48.1906"
           rx="13.5"
           transform="rotate(25 68.1152 -1)"
-          fill={red600}
+          fill={`var(--empty-state-illustration-accent, ${red600})`}
         />
         <path
           d="M103.13 46.1083C108.611 42.9639 115.389 42.9639 120.87 46.1083L166.641 72.3652C172.049 75.4677 175.375 81.1618 175.375 87.3191V136.681C175.375 142.838 172.049 148.532 166.641 151.635L120.87 177.892C115.389 181.036 108.611 181.036 103.13 177.892L57.3589 151.635C51.9506 148.532 48.625 142.838 48.625 136.681V87.3191C48.625 81.1618 51.9506 75.4677 57.3589 72.3652L103.13 46.1083Z"

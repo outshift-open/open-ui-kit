@@ -5,6 +5,8 @@
  */
 
 export { SideDrawer } from "./components/side-drawer";
-export type { SideDrawerProps } from "./components/side-drawer";
-export type { SideDrawerHeaderProps } from "./components/side-drawer-header";
-export type { SideDrawerFooterProps } from "./components/side-drawer-footer";
+export type {
+  SideDrawerProps,
+  SideDrawerHeaderProps,
+  SideDrawerFooterProps,
+} from "./types";

@@ -138,7 +138,7 @@ describe("Tabs", () => {
           backgroundColor:
             lightTheme.palette.vars.interactiveSecondaryDefaultActive,
           borderRadius: "100px",
-          bottom: 0,
+          bottom: "-1px",
           height: "3px",
         },
       });
@@ -163,7 +163,7 @@ describe("Tabs", () => {
           backgroundColor:
             darkTheme.palette.vars.interactiveSecondaryDefaultActive,
           borderRadius: "100px",
-          bottom: 0,
+          bottom: "-1px",
           height: "3px",
         },
       });

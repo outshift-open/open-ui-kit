@@ -4,22 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Tooltip as MuiTooltip,
-  TooltipProps as MuiTooltipProps,
-  type Theme,
-} from "@mui/material";
+import { Tooltip as MuiTooltip, type Theme } from "@mui/material";
 import {
   baseTooltipStyles,
   largeTooltipStyles,
   mediumTooltipStyles,
   tooltipArrowStyles,
 } from "../styles";
-import { TooltipSize } from "../types";
-
-export interface TooltipProps extends MuiTooltipProps {
-  size?: TooltipSize;
-}
+import { TooltipSize, type TooltipProps } from "../types";
 
 const tooltipPopper = {
   modifiers: [
@@ -30,6 +22,13 @@ const tooltipPopper = {
       },
     },
   ],
+  sx: {
+    '&[data-popper-placement*="left"] .MuiTooltip-arrow, &[data-popper-placement*="right"] .MuiTooltip-arrow':
+      {
+        height: "10px",
+        width: "6px",
+      },
+  },
 };
 
 export const tooltipSlotProps = {
@@ -38,8 +37,7 @@ export const tooltipSlotProps = {
     arrow: { sx: tooltipArrowStyles },
     tooltip: {
       sx: (theme: Theme) => ({
-        ...theme.typography.captionMedium,
-        ...baseTooltipStyles,
+        ...baseTooltipStyles(theme),
         ...mediumTooltipStyles,
       }),
     },
@@ -49,8 +47,7 @@ export const tooltipSlotProps = {
     arrow: { sx: tooltipArrowStyles },
     tooltip: {
       sx: (theme: Theme) => ({
-        ...theme.typography.captionMedium,
-        ...baseTooltipStyles,
+        ...baseTooltipStyles(theme),
         ...largeTooltipStyles,
       }),
     },

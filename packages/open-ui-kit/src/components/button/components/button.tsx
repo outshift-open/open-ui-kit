@@ -8,12 +8,41 @@ import { Children, isValidElement } from "react";
 import type { ButtonProps } from "../types";
 import { StyledButton } from "./elements";
 
-const hasSingleElementChild = (children: ButtonProps["children"]) => {
+const getSingleElementChild = (children: ButtonProps["children"]) => {
   try {
-    return isValidElement(Children.only(children));
+    const child = Children.only(children);
+    return isValidElement(child) ? child : null;
   } catch {
+    return null;
+  }
+};
+
+const isIconOnlyChild = (children: ButtonProps["children"]) => {
+  const child = getSingleElementChild(children);
+
+  if (!child) {
     return false;
   }
+
+  const type = child.type;
+
+  if (typeof type === "string") {
+    return type === "svg" || type === "img";
+  }
+
+  const componentType = type as {
+    displayName?: string;
+    muiName?: string;
+    name?: string;
+  };
+  const componentName =
+    componentType.muiName ?? componentType.displayName ?? componentType.name;
+
+  if (componentName === "SvgIcon" || componentName?.endsWith("Icon")) {
+    return true;
+  }
+
+  return child.props.children == null;
 };
 
 /** Open UI Kit button wrapper with tokenized variants, sizes, icon spacing, and states. */
@@ -26,7 +55,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const hasIcon = Boolean(startIcon || endIcon);
-  const isIconOnly = !hasIcon && hasSingleElementChild(children);
+  const isIconOnly = !hasIcon && isIconOnlyChild(children);
   const buttonClassName = [
     className,
     hasIcon ? "OuiButton-hasIcon" : null,

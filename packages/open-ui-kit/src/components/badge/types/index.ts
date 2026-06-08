@@ -25,12 +25,12 @@ export type BadgeType =
 export interface BadgeProps {
   /** Visual status color family for the badge. */
   type?: BadgeType;
-  /** Optional notification value rendered inside the badge bubble. */
+  /** Optional value rendered in the small bubble when the badge wraps another element. */
   notificationContent?: ReactNode;
-  /** Main badge label or wrapped child content. */
+  /** Badge label, or the wrapped child when `notificationContent` is provided. */
   content: ReactNode;
-  /** Style overrides for the MUI badge root. */
+  /** Style overrides for the badge root. Use sparingly to preserve badge sizing. */
   styleBadge?: MuiBadgeProps["sx"];
-  /** Style overrides for the badge label typography. */
+  /** Style overrides for the visible badge text. */
   styleContent?: TypographyProps["sx"];
 }

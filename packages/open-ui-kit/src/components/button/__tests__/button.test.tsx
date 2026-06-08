@@ -210,6 +210,30 @@ describe("Button", () => {
         renderButton({ variant: "primary", children: <ImageGrid /> }),
       ).not.toThrow();
     });
+
+    it("only applies icon-only sizing to icon-like children", () => {
+      const { rerender } = render(
+        <ThemeProvider>
+          <Button variant="primary">
+            <span>Wrapped label</span>
+          </Button>
+        </ThemeProvider>,
+      );
+
+      expect(
+        screen.getByRole("button", { name: "Wrapped label" }),
+      ).not.toHaveClass("OuiButton-iconOnly");
+
+      rerender(
+        <ThemeProvider>
+          <Button variant="primary">
+            <ImageGrid />
+          </Button>
+        </ThemeProvider>,
+      );
+
+      expect(screen.getByRole("button")).toHaveClass("OuiButton-iconOnly");
+    });
   });
 
   describe("light theme token coverage", () => {

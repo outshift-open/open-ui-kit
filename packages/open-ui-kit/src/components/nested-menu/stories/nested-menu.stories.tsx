@@ -1,6 +1,6 @@
-import { Stack, Typography } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useMemo } from "react";
+import { Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import type { AugmentedSelectNodeType } from "@/components/nested-menu";
 import { NestedMenu, useNestedMenu } from "..";
@@ -40,6 +40,7 @@ const createTreeData = (): AugmentedSelectNodeType[] => [
     isSelectable: true,
     isExpanded: true,
     childNodes: [
+      { value: "Item child", isSelectable: true },
       { value: "Item child", isSelectable: true },
       { value: "Item child", isSelectable: true },
       { value: "Item child", isSelectable: true },
@@ -98,7 +99,9 @@ const NestedMenuExample = ({
       <NestedMenu
         buttonContent="Select"
         flattenedTreeOptions={
-          flattenedTreeOptions.flattenedSelectTreeWithSearch
+          searchTextDebounced
+            ? flattenedTreeOptions.flattenedSelectTreeWithSearch
+            : flattenedTreeOptions.flattenedSelectTreeWithoutSearch
         }
         isIconAllowed={false}
         isSearchFieldEnabled={isSearchFieldEnabled}
