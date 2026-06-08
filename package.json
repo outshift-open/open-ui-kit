@@ -51,7 +51,7 @@
     "license:check": "turbo run license:check --filter=@open-ui-kit/scripts",
     "prettier": "prettier --check --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
     "prettier:fix": "prettier --write --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
-    "postinstall": "husky install",
+    "lint-staged": "lint-staged",
     "prepublish": "yarn build",
     "prepare": "husky",
     "semantic-release": "semantic-release"
