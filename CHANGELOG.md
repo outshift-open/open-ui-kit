@@ -1,3 +1,18 @@
+# [2.0.0-beta.2](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-06-09)
+
+
+### Bug Fixes
+
+* use workspace package in playground ([b56ac91](https://github.com/outshift-open/open-ui-kit/commit/b56ac919ead637c1e17cd1d880a440244b839fc4))
+* use workspace package in playground ([431167a](https://github.com/outshift-open/open-ui-kit/commit/431167ac58edf5f946c75d5d6823c1838fdf7a20))
+
+
+### Features
+
+* start refactor ([b9d6f86](https://github.com/outshift-open/open-ui-kit/commit/b9d6f867dc9e947e66baaf59e5bfaa4a38fcbe70))
+* start refactor ([f8cf035](https://github.com/outshift-open/open-ui-kit/commit/f8cf0354bad837de55322847d55365930b48244e))
+* start refactor ([c6e511f](https://github.com/outshift-open/open-ui-kit/commit/c6e511f5ac9192e35ba8642bcd18bcc50427257a))
+
 # [2.0.0-beta.1](https://github.com/outshift-open/open-ui-kit/compare/v1.6.0...v2.0.0-beta.1) (2026-06-08)
 
 
