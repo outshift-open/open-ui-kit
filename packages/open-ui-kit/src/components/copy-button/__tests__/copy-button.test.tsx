@@ -6,7 +6,7 @@
 
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { CopyButton } from "../components/copy-button";
@@ -17,7 +17,7 @@ jest.mock("copy-to-clipboard", () => jest.fn(() => true));
 
 const renderCopyButton = (props: Partial<CopyButtonProps> = {}, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <CopyButton text="copy me" {...props} />
     </ThemeProvider>,
   );

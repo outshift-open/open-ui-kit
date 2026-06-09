@@ -7,7 +7,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { IndicatorBadge } from "..";
@@ -24,7 +24,7 @@ const renderIndicatorBadge = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <IndicatorBadge {...props} />
     </ThemeProvider>,
   );
@@ -49,6 +49,30 @@ describe("IndicatorBadge", () => {
         value: 2,
       });
       expect(screen.getAllByTestId("indicator-badge-bar")).toHaveLength(4);
+    });
+
+    it("uses the compact badge geometry", () => {
+      const { container } = renderIndicatorBadge({
+        color: lightTheme.palette.vars.negativeBackgroundActive,
+        value: 3,
+      });
+      const badge = screen.getByRole("img", {
+        name: "Indicator badge value 3 of 4",
+      });
+      const backdrop = container.querySelector(".MuiBox-root > .MuiBox-root");
+
+      expect(badge).toHaveStyle({
+        width: "24px",
+        height: "24px",
+        display: "flex",
+        position: "relative",
+      });
+      expect(backdrop).toHaveStyle({
+        width: "inherit",
+        height: "inherit",
+        borderRadius: "4px",
+        opacity: "0.1",
+      });
     });
   });
 

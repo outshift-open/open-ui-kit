@@ -7,7 +7,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { GeneralSize } from "@/common";
 import { Tag } from "../components/tag";
 import { TagBackgroundColorVariants, TagStatus } from "../types";
@@ -19,7 +19,7 @@ const renderTag = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Tag {...props}>{props.children ?? "Tag"}</Tag>
     </ThemeProvider>,
   );

@@ -7,7 +7,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Message } from "..";
@@ -20,7 +20,11 @@ import {
 } from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
-  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {ui}
+    </ThemeProvider>,
+  );
 
 describe("Message", () => {
   it("renders message content", () => {

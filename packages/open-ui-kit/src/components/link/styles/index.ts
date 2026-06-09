@@ -14,8 +14,11 @@ enum LinkStackGap {
   large = "4px",
 }
 
-export const linkStackStyle = (size: GeneralSize): CSSObject => ({
-  gap: LinkStackGap[size],
+export const linkStackStyle = (
+  size: GeneralSize,
+  hasIcon = false,
+): CSSObject => ({
+  gap: hasIcon && size === GeneralSize.Small ? "4px" : LinkStackGap[size],
   flexDirection: "row",
   alignItems: "center",
   border: "none",
@@ -63,9 +66,9 @@ export const getLinkTypographyStyles = (
     [GeneralSize.Small]: "12px",
   };
   const lineHeights = {
-    [GeneralSize.Large]: "20px",
-    [GeneralSize.Medium]: "18px",
-    [GeneralSize.Small]: "15px",
+    [GeneralSize.Large]: "125%",
+    [GeneralSize.Medium]: "125%",
+    [GeneralSize.Small]: "125%",
   };
 
   return {
@@ -94,6 +97,7 @@ export const getLinkRootStyles = ({
   theme: Theme;
 }): CSSObject => {
   const colors = getLinkColors(theme, color);
+  const isUnderlined = linkType === "underlineRegular";
 
   return {
     color: disabled ? colors.disabled : colors.default,
@@ -101,21 +105,25 @@ export const getLinkRootStyles = ({
     width: ellipsis ? "100%" : "fit-content",
     maxWidth: ellipsis ? "100%" : undefined,
     justifyContent: "center",
-    textDecoration: disabled
-      ? "none"
-      : linkType === "underlineRegular"
-        ? "underline"
-        : "none",
+    textDecoration: isUnderlined ? "underline" : "none",
     pointerEvents: disabled ? "none" : "auto",
     borderRadius: "4px",
     outline: 0,
     "&:hover": {
       color: disabled ? colors.disabled : colors.hover,
-      textDecoration: disabled ? "none" : "underline",
+      textDecoration: disabled
+        ? isUnderlined
+          ? "underline"
+          : "none"
+        : "underline",
     },
     "&:active": {
       color: disabled ? colors.disabled : colors.pressed,
-      textDecoration: disabled ? "none" : "underline",
+      textDecoration: disabled
+        ? isUnderlined
+          ? "underline"
+          : "none"
+        : "underline",
     },
     "&:focus-visible": {
       outline: `2px solid ${theme.palette.vars.excellentBorderActive}`,

@@ -7,7 +7,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Severity } from "@/common";
 import { SeverityBar } from "../components/severity-bar";
 
@@ -16,7 +16,7 @@ const renderBar = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <SeverityBar {...props} />
     </ThemeProvider>,
   );

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
+import { ThemeMode, ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import {
   Container,
   Box,
@@ -28,7 +28,8 @@ function Copyright() {
 }
 
 function AppContent() {
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
+  const modeIsDark = mode === ThemeMode.Dark;
   return (
     <Container maxWidth="md">
       <FormControlLabel
@@ -38,13 +39,13 @@ function AppContent() {
         }}
         control={
           <Switch
-            checked={isDarkMode}
+            checked={modeIsDark}
             onChange={toggleTheme}
-            name="isDarkMode"
+            name="themeMode"
             color="primary"
           />
         }
-        label={`Dark Mode: ${isDarkMode ? "On" : "Off"}`}
+        label={`Dark Mode: ${modeIsDark ? "On" : "Off"}`}
       />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" sx={{ mb: 2 }} align="center">

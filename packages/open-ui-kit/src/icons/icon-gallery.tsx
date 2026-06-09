@@ -7,7 +7,7 @@
 import React, { useMemo, useState } from "react";
 import type { SvgIconProps } from "@mui/material";
 import { Box, Stack, Typography } from "@/components";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 
 type IconComponent = React.ComponentType<SvgIconProps>;
 
@@ -310,7 +310,9 @@ export function IconGalleryView({ allIcons }: IconGalleryViewProps) {
 
 export function IconGalleryDocs({ allIcons }: IconGalleryViewProps) {
   return (
-    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
+    <ThemeProvider
+      defaultMode={getInitialDarkMode() ? ThemeMode.Dark : ThemeMode.Light}
+    >
       <IconGalleryView allIcons={allIcons} />
     </ThemeProvider>
   );

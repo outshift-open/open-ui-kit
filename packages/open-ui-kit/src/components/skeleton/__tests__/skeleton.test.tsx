@@ -19,7 +19,7 @@ global.ResizeObserver = class ResizeObserver {
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Skeleton } from "../components/skeleton";
 
 const renderSkeleton = (
@@ -27,7 +27,7 @@ const renderSkeleton = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Skeleton {...props} />
     </ThemeProvider>,
   );

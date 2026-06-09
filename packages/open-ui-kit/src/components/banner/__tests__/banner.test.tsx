@@ -7,7 +7,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkVars } from "@/theme/dark/dark-vars";
 import { lightVars } from "@/theme/light/light-vars";
 import { Banner } from "../components/banner";
@@ -18,7 +18,7 @@ const renderBanner = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Banner {...props} />
     </ThemeProvider>,
   );

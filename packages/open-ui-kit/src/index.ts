@@ -18,6 +18,7 @@ export { lightVars } from "./theme/light/light-vars";
 export { darkVars } from "./theme/dark/dark-vars";
 export type { VarsType } from "./types/vars";
 export {
+  ThemeMode,
   ThemeProvider,
   useTheme,
   useThemeMode,

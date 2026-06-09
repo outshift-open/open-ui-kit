@@ -21,7 +21,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Table } from "../components/table";
 import { MRT_ColumnDef } from "material-react-table";
 
@@ -49,7 +49,7 @@ const renderTable = (
 ) =>
   render(
     <MemoryRouter>
-      <ThemeProvider defaultDarkMode={dark}>
+      <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
         <Table
           columns={columns}
           data={rows}

@@ -50,11 +50,11 @@ Use `useThemeMode` anywhere inside the provider to toggle between the Open UI Ki
 import { Button, useThemeMode } from '@open-ui-kit/core';
 
 export function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <Button variant="outlined" onClick={toggleTheme}>
-      Use {isDarkMode ? 'light' : 'dark'} theme
+      Use {mode === 'dark' ? 'light' : 'dark'} theme
     </Button>
   );
 }

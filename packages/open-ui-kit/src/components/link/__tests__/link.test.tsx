@@ -8,7 +8,7 @@ import { TextDecoder, TextEncoder } from "util";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { GeneralSize, IconPosition } from "@/common";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Link as LinkIcon } from "@/custom-icons";
@@ -29,7 +29,7 @@ const { Link } = jest.requireActual<typeof import("..")>("..");
 
 const renderLink = (children = "Link", dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <BrowserRouter>
         <Link href="/docs">{children}</Link>
       </BrowserRouter>
@@ -86,7 +86,7 @@ describe("Link", () => {
     ).toMatchObject({
       fontSize: "16px",
       fontWeight: 600,
-      lineHeight: "20px",
+      lineHeight: "125%",
       letterSpacing: "0px",
     });
     expect(
@@ -95,14 +95,14 @@ describe("Link", () => {
         LinkType.StandaloneRegular,
         lightTheme,
       ),
-    ).toMatchObject({ fontSize: "14px", lineHeight: "18px" });
+    ).toMatchObject({ fontSize: "14px", lineHeight: "125%" });
     expect(
       getLinkTypographyStyles(
         GeneralSize.Small,
         LinkType.UnderlineRegular,
         lightTheme,
       ),
-    ).toMatchObject({ fontSize: "12px", lineHeight: "15px" });
+    ).toMatchObject({ fontSize: "12px", lineHeight: "125%" });
     expect(iconStyle[GeneralSize.Large]).toMatchObject({
       width: "24px",
       height: "24px",
@@ -121,6 +121,9 @@ describe("Link", () => {
     expect(linkStackStyle(GeneralSize.Large)).toMatchObject({ gap: "4px" });
     expect(linkStackStyle(GeneralSize.Medium)).toMatchObject({ gap: "4px" });
     expect(linkStackStyle(GeneralSize.Small)).toMatchObject({ gap: "6px" });
+    expect(linkStackStyle(GeneralSize.Small, true)).toMatchObject({
+      gap: "4px",
+    });
     expect(
       getLinkRootStyles({
         color: LinkColorEnum.Primary,
@@ -134,6 +137,34 @@ describe("Link", () => {
       "&:focus-visible": {
         outline: `2px solid ${lightTheme.palette.vars.excellentBorderActive}`,
         outlineOffset: "1px",
+      },
+    });
+    expect(
+      getLinkRootStyles({
+        color: LinkColorEnum.Primary,
+        disabled: true,
+        ellipsis: false,
+        linkType: LinkType.UnderlineRegular,
+        theme: lightTheme,
+      }),
+    ).toMatchObject({
+      textDecoration: "underline",
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    });
+    expect(
+      getLinkRootStyles({
+        color: LinkColorEnum.Primary,
+        disabled: true,
+        ellipsis: false,
+        linkType: LinkType.StandaloneRegular,
+        theme: lightTheme,
+      }),
+    ).toMatchObject({
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "none",
       },
     });
   });

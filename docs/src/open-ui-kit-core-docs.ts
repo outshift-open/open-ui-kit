@@ -1,7 +1,10 @@
 import "../../packages/open-ui-kit/src/typography.css";
 
 import * as React from "react";
-import { type ThemeProviderProps } from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
+import {
+  ThemeMode,
+  type ThemeProviderProps,
+} from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
 import { ThemeOptionsContext } from "@mui/internal-core-docs/ThemeContext";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
@@ -212,13 +215,13 @@ function getDocsDarkMode() {
 }
 
 function useDocsDarkMode(rootRef: React.RefObject<HTMLDivElement>) {
-  const [isDarkMode, setIsDarkMode] = React.useState(getDocsDarkMode);
+  const [docsModeIsDark, setDocsModeIsDark] = React.useState(getDocsDarkMode);
   const themeOptions = React.useContext(ThemeOptionsContext);
   const muiTheme = useMuiTheme();
 
   useClientLayoutEffect(() => {
     const updateDarkMode = () => {
-      setIsDarkMode(
+      setDocsModeIsDark(
         getDocsDarkMode() || getNearestDarkSurface(rootRef.current),
       );
     };
@@ -251,20 +254,23 @@ function useDocsDarkMode(rootRef: React.RefObject<HTMLDivElement>) {
   return (
     muiTheme.palette.mode === "dark" ||
     themeOptions.paletteMode === "dark" ||
-    isDarkMode
+    docsModeIsDark
   );
 }
 
 export function ThemeProvider({
-  defaultDarkMode: defaultDarkModeProp,
+  defaultMode,
+  customTheme,
   ...props
 }: ThemeProviderProps) {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const docsDarkMode = useDocsDarkMode(rootRef);
-  const defaultDarkMode = defaultDarkModeProp ?? docsDarkMode;
-  const theme = defaultDarkMode
-    ? openUiKitDarkDocsTheme
-    : openUiKitLightDocsTheme;
+  const mode = defaultMode ?? (docsDarkMode ? ThemeMode.Dark : ThemeMode.Light);
+  const theme =
+    customTheme ??
+    (mode === ThemeMode.Dark
+      ? openUiKitDarkDocsTheme
+      : openUiKitLightDocsTheme);
 
   return React.createElement(
     "div",

@@ -9,7 +9,7 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import fs from "node:fs";
 import path from "node:path";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import * as Illustrations from "..";
 
 const illustrationsDir = path.resolve(__dirname, "..");
@@ -49,7 +49,9 @@ describe("custom illustrations", () => {
     (_, Illustration) => {
       [false, true].forEach((darkMode) => {
         const { container, unmount } = render(
-          <ThemeProvider defaultDarkMode={darkMode}>
+          <ThemeProvider
+            defaultMode={darkMode ? ThemeMode.Dark : ThemeMode.Light}
+          >
             <Illustration />
           </ThemeProvider>,
         );

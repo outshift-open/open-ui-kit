@@ -20,7 +20,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Severity } from "@/common";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
@@ -41,7 +41,7 @@ const renderDrawer = (
 ) =>
   render(
     <MemoryRouter>
-      <ThemeProvider defaultDarkMode={dark}>
+      <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
         <SideDrawer
           open
           copyURL="https://example.com"

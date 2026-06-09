@@ -7,7 +7,7 @@
 import { render, screen } from "@testing-library/react";
 import { act } from "react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { lightTheme } from "@/theme/light/light-theme";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import {
@@ -31,7 +31,7 @@ const defaultProps = {
 
 const wrap = (props: Partial<ActionsDialogProps> = {}, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <ActionsDialog {...defaultProps} {...props} />
     </ThemeProvider>,
   );

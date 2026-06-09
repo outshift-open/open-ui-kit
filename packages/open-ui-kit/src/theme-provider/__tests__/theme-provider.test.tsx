@@ -6,11 +6,18 @@
 
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider, useTheme, useThemeMode } from "../theme-provider";
+import { createTheme } from "@mui/material";
+import {
+  ThemeMode,
+  ThemeProvider,
+  useTheme,
+  useThemeMode,
+} from "../theme-provider";
+import { lightVars } from "@/theme/light/light-vars";
 
 function ThemeProbe() {
   const theme = useTheme();
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <div>
@@ -18,7 +25,7 @@ function ThemeProbe() {
       <span data-testid="semantic-background">
         {theme.palette.vars.baseBackgroundStrong}
       </span>
-      <span data-testid="context-mode">{isDarkMode ? "dark" : "light"}</span>
+      <span data-testid="context-mode">{mode}</span>
       <button onClick={toggleTheme} type="button">
         Toggle theme
       </button>
@@ -27,7 +34,7 @@ function ThemeProbe() {
 }
 
 describe("ThemeProvider", () => {
-  it("uses the light theme by default", () => {
+  it("uses light theme by default", () => {
     render(
       <ThemeProvider>
         <ThemeProbe />
@@ -41,9 +48,9 @@ describe("ThemeProvider", () => {
     );
   });
 
-  it("supports dark mode and toggles between theme objects", async () => {
+  it("defaultMode={ThemeMode.Dark} starts in dark mode", () => {
     render(
-      <ThemeProvider defaultDarkMode>
+      <ThemeProvider defaultMode={ThemeMode.Dark}>
         <ThemeProbe />
       </ThemeProvider>,
     );
@@ -53,19 +60,50 @@ describe("ThemeProvider", () => {
     expect(screen.getByTestId("semantic-background")).toHaveTextContent(
       "#00142b",
     );
+  });
+
+  it("toggleTheme switches mode between Light and Dark", async () => {
+    render(
+      <ThemeProvider>
+        <ThemeProbe />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByTestId("palette-mode")).toHaveTextContent("light");
+    expect(screen.getByTestId("context-mode")).toHaveTextContent("light");
 
     await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: "Toggle theme" }));
     });
 
-    expect(screen.getByTestId("palette-mode")).toHaveTextContent("light");
-    expect(screen.getByTestId("context-mode")).toHaveTextContent("light");
+    expect(screen.getByTestId("palette-mode")).toHaveTextContent("dark");
+    expect(screen.getByTestId("context-mode")).toHaveTextContent("dark");
+  });
+
+  it("customTheme prop overrides built-in theme", () => {
+    const customTheme = createTheme({
+      palette: {
+        mode: "dark",
+        vars: {
+          ...lightVars,
+          baseBackgroundStrong: "#123456",
+        },
+      },
+    });
+
+    render(
+      <ThemeProvider customTheme={customTheme}>
+        <ThemeProbe />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByTestId("palette-mode")).toHaveTextContent("dark");
     expect(screen.getByTestId("semantic-background")).toHaveTextContent(
-      "#eff3fc",
+      "#123456",
     );
   });
 
-  it("throws when theme mode context is consumed outside ThemeProvider", () => {
+  it("throws outside ThemeProvider", () => {
     const consoleError = jest
       .spyOn(console, "error")
       .mockImplementation(() => undefined);

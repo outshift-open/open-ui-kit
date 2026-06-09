@@ -5,7 +5,7 @@ import { OpenPage } from "@/custom-icons";
 import { Banner } from "@/components/banner";
 import { Button } from "@/components/button";
 import { CopyButton } from "@/components/copy-button";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Box, Stack, Typography } from "@/components";
 
 type DocsHeaderBanner = {
@@ -149,7 +149,9 @@ export const DocsHeader = ({
   const hasGuideLink = Boolean(guideLink?.trim());
 
   return (
-    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
+    <ThemeProvider
+      defaultMode={getInitialDarkMode() ? ThemeMode.Dark : ThemeMode.Light}
+    >
       <Stack component="header" gap={3.5} sx={{ mb: 5 }}>
         <Box
           sx={(theme) => ({

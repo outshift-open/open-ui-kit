@@ -7,13 +7,17 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { AnchorLinkMenu } from "../components/anchor-link-menu";
 import { AnchorLinkMenuItemComponent } from "../components/anchor-link-menu-item";
 import { AnchorLinkMenuItem } from "../types";
 
 const renderWithTheme = (ui: React.ReactElement, dark = false) =>
-  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {ui}
+    </ThemeProvider>,
+  );
 
 const items: AnchorLinkMenuItem[] = [
   { id: "section-1", label: "Section 1" },

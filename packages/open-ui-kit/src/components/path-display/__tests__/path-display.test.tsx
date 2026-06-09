@@ -19,7 +19,7 @@ global.ResizeObserver = class ResizeObserver {
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { PathDisplay } from "../components/path-display";
 
 const renderPath = (
@@ -27,7 +27,7 @@ const renderPath = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <PathDisplay path="" {...props} />
     </ThemeProvider>,
   );
