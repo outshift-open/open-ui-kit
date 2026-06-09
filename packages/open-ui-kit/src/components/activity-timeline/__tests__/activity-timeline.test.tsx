@@ -8,9 +8,13 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
+import { getActivityTimelineDotStyle } from "../styles";
 import { ActivityTimelineStepStatus } from "../types";
+import { setStepColor } from "../utils/utils";
 
 const renderWithTheme = (ui: React.ReactElement, dark = false) =>
   render(
@@ -271,6 +275,69 @@ describe("ActivityTimelineDot", () => {
         true,
       );
       unmount();
+    });
+  });
+
+  describe("token mapping", () => {
+    it("maps light status colors to the CSS reference tokens", () => {
+      expect(
+        getActivityTimelineDotStyle(
+          ActivityTimelineStepStatus.InProgress,
+          lightTheme,
+        ),
+      ).toMatchObject({
+        background: "transparent",
+        ringColor: "#d5dff7",
+        color: "#fbab2c",
+        percent: 67,
+      });
+
+      expect(
+        getActivityTimelineDotStyle(
+          ActivityTimelineStepStatus.Complete,
+          lightTheme,
+        ),
+      ).toMatchObject({
+        background: "#fbfcfe",
+        ringColor: "#0051af",
+        color: "#0051af",
+        percent: 100,
+      });
+    });
+
+    it("maps dark status colors to the CSS reference tokens", () => {
+      expect(
+        getActivityTimelineDotStyle(
+          ActivityTimelineStepStatus.Error,
+          darkTheme,
+        ),
+      ).toMatchObject({
+        background: "#183056",
+        ringColor: "#4f628d",
+        color: "#cf496d",
+        percent: 67,
+      });
+
+      expect(
+        getActivityTimelineDotStyle(
+          ActivityTimelineStepStatus.Neutral,
+          darkTheme,
+        ),
+      ).toMatchObject({
+        background: "transparent",
+        ringColor: "#fb9f36",
+        color: "#fb9f36",
+        percent: 100,
+      });
+    });
+
+    it("maps connector colors to status tokens", () => {
+      expect(
+        setStepColor(ActivityTimelineStepStatus.Inactive, lightTheme),
+      ).toBe("#d5dff7");
+      expect(setStepColor(ActivityTimelineStepStatus.Complete, darkTheme)).toBe(
+        "#12c1ff",
+      );
     });
   });
 });

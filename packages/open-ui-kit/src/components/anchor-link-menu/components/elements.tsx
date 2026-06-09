@@ -28,6 +28,7 @@ export const StyledAnchorLinkMenuFloatingContainer = styled(Box)(
     backgroundColor: theme.palette.vars?.controlBackgroundDefault,
     border: `2px solid ${theme.palette.vars?.controlBorderDefault}`,
     borderRadius: "6px",
+    boxSizing: "border-box",
     display: "flex",
     flexDirection: "column",
     gap: "8px",
@@ -40,6 +41,7 @@ export const StyledAnchorLinkMenuFloatingContainer = styled(Box)(
 export const StyledAnchorLinkMenuItemList = styled(Box)(({ theme }) => ({
   alignItems: "flex-start",
   borderLeft: `3px solid ${theme.palette.vars?.interactivePrimaryWeakDefault}`,
+  boxSizing: "border-box",
   display: "flex",
   flexDirection: "column",
   width: "100%",
@@ -76,6 +78,10 @@ export const StyledAnchorLinkMenuItem = styled(Box, {
       color: theme.palette.vars?.interactivePrimaryDefaultActive,
     },
     "& .anchor-bar": {
+      backgroundColor: theme.palette.vars?.interactivePrimaryDefaultHover,
+      opacity: 1,
+    },
+    "& .anchor-bar-selected": {
       backgroundColor: theme.palette.vars?.interactivePrimaryDefaultActive,
     },
   },

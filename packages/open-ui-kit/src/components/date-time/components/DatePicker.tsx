@@ -9,7 +9,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useTheme } from "@mui/material";
 import type { DatePickerProps } from "../types";
-import { getSharedSlotPropsDateTimePicker, mergeSx } from "../styles";
+import {
+  getDatePickerStyle,
+  getSharedSlotPropsDateTimePicker,
+  mergeSx,
+} from "../styles";
 
 export const DatePicker = ({
   label,
@@ -24,6 +28,14 @@ export const DatePicker = ({
     typeof slotProps?.textField === "function"
       ? undefined
       : slotProps?.textField;
+  const actionBarSlotProps =
+    typeof slotProps?.actionBar === "function"
+      ? undefined
+      : slotProps?.actionBar;
+  const desktopPaperSlotProps =
+    typeof slotProps?.desktopPaper === "function"
+      ? undefined
+      : slotProps?.desktopPaper;
   const popperSlotPropsFromProps =
     typeof slotProps?.popper === "function" ? undefined : slotProps?.popper;
 
@@ -35,6 +47,10 @@ export const DatePicker = ({
         slotProps={{
           ...sharedSlotProps,
           ...slotProps,
+          desktopPaper: {
+            ...desktopPaperSlotProps,
+            sx: mergeSx(getDatePickerStyle(theme), desktopPaperSlotProps?.sx),
+          },
           textField: {
             ...textFieldSlotProps,
             placeholder: label,
@@ -48,6 +64,12 @@ export const DatePicker = ({
               textFieldStyles,
               textFieldSlotProps?.sx,
             ),
+          },
+          actionBar: {
+            ...sharedSlotProps.actionBar,
+            actions: ["cancel", "accept"],
+            ...actionBarSlotProps,
+            sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
           },
           popper: {
             modifiers: [{ name: "offset", options: { offset: [0, 12] } }],

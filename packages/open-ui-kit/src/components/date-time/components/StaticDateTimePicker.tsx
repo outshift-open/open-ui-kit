@@ -9,8 +9,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDateTimePicker as MuiStaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { useTheme } from "@mui/material";
 import {
+  getStaticDateTimePickerStyle,
   getSharedSlotPropsDateTimePicker,
-  getSharedStyle,
   getStaticPickerToolbarSlotProp,
   mergeSx,
 } from "../styles";
@@ -41,7 +41,10 @@ export const StaticDateTimePicker = (props: StaticDateTimePickerProps) => {
           } as StaticDateTimePickerProps["slotProps"]
         }
         sx={
-          mergeSx(getSharedStyle(theme), sx) as StaticDateTimePickerProps["sx"]
+          mergeSx(
+            getStaticDateTimePickerStyle(theme),
+            sx,
+          ) as StaticDateTimePickerProps["sx"]
         }
       />
     </LocalizationProvider>

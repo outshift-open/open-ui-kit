@@ -9,7 +9,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker as MuiDateTimePicker } from "@mui/x-date-pickers/TimePicker";
 import { useTheme } from "@mui/material";
 import type { TimePickerProps } from "../types";
-import { getSharedSlotPropsDateTimePicker, mergeSx } from "../styles";
+import {
+  getSharedSlotPropsDateTimePicker,
+  getTimePickerStyle,
+  mergeSx,
+} from "../styles";
 
 export const TimePicker = ({
   label,
@@ -26,6 +30,14 @@ export const TimePicker = ({
       : slotProps?.textField;
   const popperSlotPropsFromProps =
     typeof slotProps?.popper === "function" ? undefined : slotProps?.popper;
+  const desktopPaperSlotProps =
+    typeof slotProps?.desktopPaper === "function"
+      ? undefined
+      : slotProps?.desktopPaper;
+  const actionBarSlotProps =
+    typeof slotProps?.actionBar === "function"
+      ? undefined
+      : slotProps?.actionBar;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -53,6 +65,17 @@ export const TimePicker = ({
             modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
             ...popperSlotProps,
             ...popperSlotPropsFromProps,
+          },
+          desktopPaper: {
+            ...sharedSlotProps.desktopPaper,
+            ...desktopPaperSlotProps,
+            sx: mergeSx(getTimePickerStyle(theme), desktopPaperSlotProps?.sx),
+          },
+          actionBar: {
+            ...sharedSlotProps.actionBar,
+            ...actionBarSlotProps,
+            actions: actionBarSlotProps?.actions ?? ["cancel", "accept"],
+            sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
           },
         }}
       />

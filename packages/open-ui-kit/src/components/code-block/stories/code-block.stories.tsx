@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@/components";
+import { Box } from "@/components";
 import type { ReactNode } from "react";
 import { action } from "storybook/actions";
 import { DocsHeader } from "storybook/components/docs-header.stories";
@@ -74,19 +74,6 @@ const meta: Meta<typeof CodeBlock> = {
 export default meta;
 type Story = StoryObj<typeof CodeBlock>;
 
-const StorySection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) => (
-  <Stack gap={2.5}>
-    <Typography variant="h5">{title}</Typography>
-    {children}
-  </Stack>
-);
-
 const CodeBlockGrid = ({ children }: { children: ReactNode }) => (
   <Box
     sx={{
@@ -101,46 +88,7 @@ const CodeBlockGrid = ({ children }: { children: ReactNode }) => (
 );
 
 export const Default: Story = {
-  name: "Sticker sheet",
-  render: (args) => (
-    <Stack gap={5}>
-      <StorySection title="Inline code blocks">
-        <CodeBlockGrid>
-          <CodeBlock {...args} text={shortSnippet} size="medium" />
-          <CodeBlock {...args} text={shortSnippet} size="small" />
-        </CodeBlockGrid>
-      </StorySection>
-
-      <StorySection title="Multi line code blocks">
-        <CodeBlockGrid>
-          <CodeBlock {...args} text={multilineSnippet} size="medium" />
-          <CodeBlock
-            {...args}
-            text={multilineSnippet}
-            size="medium"
-            showLineNumbers
-          />
-          <CodeBlock {...args} text={multilineSnippet} size="small" />
-          <CodeBlock
-            {...args}
-            text={multilineSnippet}
-            size="small"
-            showLineNumbers
-          />
-        </CodeBlockGrid>
-      </StorySection>
-
-      <StorySection title="Block code snippets">
-        <CodeBlock
-          {...args}
-          text={wrappingSnippet}
-          showLineNumbers
-          wrapLongLines
-          header={headerButtons}
-        />
-      </StorySection>
-    </Stack>
-  ),
+  render: (args) => <CodeBlock {...args} text={shortSnippet} />,
 };
 
 export const Sizes: Story = {

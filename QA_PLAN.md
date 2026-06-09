@@ -495,16 +495,16 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 
 ### Tier 5 — Complex / composite
 
-- [ ] **activity-timeline** — `Activity timeline.png` / `Activity timeline - Dark.png`
+- [x] **activity-timeline** — `Activity timeline.png` / `Activity timeline - Dark.png`
   - Icon per event type; connector line; timestamp typography
 
-- [ ] **anchor-link-menu** — `Anchor link menu.png` / `Anchor link menu - Dark.png`
+- [x] **anchor-link-menu** — `Anchor link menu.png` / `Anchor link menu - Dark.png`
   - Active section highlight; scroll-spy behavior
 
-- [ ] **code-block** — `Code block.png` / `Code block - Dark.png`
+- [x] **code-block** — `Code block.png` / `Code block - Dark.png`
   - Syntax highlight colors; copy button; line numbers
 
-- [ ] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
+- [x] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
   - Calendar grid, selected date, disabled dates, time picker
 
 - [ ] **filters** — `Filters.png` / `Filters - Dark.png`

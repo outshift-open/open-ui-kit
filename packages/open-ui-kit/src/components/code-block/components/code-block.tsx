@@ -39,10 +39,10 @@ export const CodeBlock = (props: CodeBlockProps) => {
     ...highlighterProps
   } = props;
   const { sx: containerSx, ...restContainerProps } = containerProps ?? {};
+  const { sx: copyButtonSx, ...restCopyButtonProps } = copyButtonProps ?? {};
   const { style: codeTagStyle, ...restCodeTagProps } = codeTagProps ?? {};
-  const totalLines = (startingLineNumber ?? 0) + text.split("\n").length;
-  const maxDigits = totalLines.toString().length;
-  const lineNumberWidth = maxDigits * 12 + 16; // 12px per digit + 16px for padding
+  const lineNumberWidth = size === "small" ? 39 : 49;
+  const contentInset = size === "small" ? "12px" : "16px";
 
   const headerContent = Array.isArray(header)
     ? header.map((btn) => (
@@ -114,9 +114,23 @@ export const CodeBlock = (props: CodeBlockProps) => {
           />
         </Stack>
         <CopyButton
-          {...copyButtonProps}
+          {...restCopyButtonProps}
           text={text}
-          size={copyButtonProps?.size ?? "large"}
+          size={
+            copyButtonProps?.size ?? (size === "small" ? "medium" : "large")
+          }
+          sx={[
+            {
+              flex: "0 0 auto",
+              marginRight: contentInset,
+              marginTop: contentInset,
+            },
+            ...(Array.isArray(copyButtonSx)
+              ? copyButtonSx
+              : copyButtonSx
+                ? [copyButtonSx]
+                : []),
+          ]}
         />
       </Stack>
     </Stack>

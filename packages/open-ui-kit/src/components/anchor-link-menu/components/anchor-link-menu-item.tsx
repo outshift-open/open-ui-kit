@@ -35,7 +35,10 @@ export const AnchorLinkMenuItemComponent = ({
       subsection={subsection}
       onClick={onClick}
     >
-      <StyledAnchorBar className="anchor-bar" selected={selected} />
+      <StyledAnchorBar
+        className={selected ? "anchor-bar anchor-bar-selected" : "anchor-bar"}
+        selected={selected}
+      />
       <StyledAnchorLabel
         className={selected ? "anchor-label-selected" : "anchor-label"}
         variant="body2Semibold"

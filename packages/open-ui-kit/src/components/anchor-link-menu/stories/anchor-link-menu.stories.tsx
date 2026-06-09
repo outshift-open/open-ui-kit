@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
 import { Box, Stack, Typography } from "@/components";
+import { File, Link as LinkIcon } from "@/custom-icons";
+import { purplePalette } from "@/theme/style/color-palette";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { AnchorLinkMenu } from "../components/anchor-link-menu";
 import { AnchorLinkMenuItemComponent } from "../components/anchor-link-menu-item";
@@ -55,9 +55,9 @@ const figmaLabel = (label: string) => (
     variant="caption"
     sx={{
       alignSelf: "flex-start",
-      bgcolor: "#D4B3FF",
+      bgcolor: purplePalette[200],
       borderRadius: "4px",
-      color: "#4C00AE",
+      color: purplePalette[800],
       fontWeight: 500,
       px: 0.5,
       py: 0.25,
@@ -74,10 +74,7 @@ const FloatingTrigger = () => (
       bgcolor: theme.palette.vars.controlBackgroundDefault,
       border: `2px solid ${theme.palette.vars.controlBorderDefault}`,
       borderRadius: "100px",
-      boxShadow:
-        theme.palette.mode === "dark"
-          ? "0px 4px 12px rgba(6, 34, 66, 0.7)"
-          : "0px 4px 12px rgba(200, 213, 245, 0.7)",
+      boxShadow: theme.shadows[4],
       color: theme.palette.vars.baseTextStrong,
       display: "inline-flex",
       gap: "8px",
@@ -87,7 +84,7 @@ const FloatingTrigger = () => (
       width: "124px",
     })}
   >
-    <ArticleOutlinedIcon fontSize="small" />
+    <File fontSize="small" />
     <Typography variant="body2Semibold">Contents</Typography>
   </Box>
 );
@@ -119,7 +116,10 @@ const StatePreview = ({
             color: theme.palette.vars.interactivePrimaryDefaultActive,
           },
           "& .anchor-bar": {
-            backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
+            backgroundColor: selected
+              ? theme.palette.vars.interactivePrimaryDefaultActive
+              : theme.palette.vars.interactivePrimaryDefaultHover,
+            opacity: 1,
           },
         }),
       })}
@@ -181,7 +181,7 @@ export const Default: Story = {
         <Stack gap={2}>
           {figmaLabel("Anchor link menu item")}
           <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
-            <HubOutlinedIcon fontSize="small" />
+            <LinkIcon fontSize="small" />
             <Typography variant="body2Semibold">Anchor title</Typography>
           </Stack>
         </Stack>

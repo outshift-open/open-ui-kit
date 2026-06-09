@@ -10,7 +10,7 @@ import type { CSSProperties } from "react";
 export const containerStackStyles = (theme: Theme): CSSProperties => ({
   backgroundColor: theme.palette.vars.controlBackgroundDefault,
   border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  borderRadius: "4px",
+  borderRadius: "6px",
   position: "relative",
 });
 
@@ -20,7 +20,7 @@ export const codeTextStyle = (
   fontFamily: "'Roboto Mono', monospace",
   fontWeight: 400,
   fontSize: size === "small" ? "12px" : "14px",
-  lineHeight: size === "small" ? "16px" : "20px",
+  lineHeight: size === "small" ? "18px" : "20px",
   letterSpacing: 0,
 });
 
@@ -67,10 +67,10 @@ export const separatorFirstBox = (
 ): CSSProperties => ({
   backgroundColor: theme.palette.vars.baseBackgroundMedium,
   borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-  borderRadius: "4px 0 0 4px",
+  borderRadius: "6px 0 0 0",
   height: size === "small" ? "12px" : "16px",
   width: `${lineNumberWidth}px`,
-  minWidth: "28px",
+  minWidth: `${lineNumberWidth}px`,
 });
 
 export const separatorSecondBox = (

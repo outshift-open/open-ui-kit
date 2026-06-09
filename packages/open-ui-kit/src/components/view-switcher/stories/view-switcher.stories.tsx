@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@/components";
 import { Dashboard1, SettingsMenuProfile, User } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ViewSwitcher } from "../components/view-switcher";
+import type { ViewSwitcherProps } from "../types";
 
 const noop = () => undefined;
 
@@ -74,14 +75,33 @@ const iconOptions = [
   { icon: SettingsMenuProfile, value: "profile" },
 ] as const;
 
-/* ─── Labels — Medium ─── */
-const LabelsMediumStory = () => {
-  const [value, setValue] = useState("Option 1");
+const LabelsMediumStory = (args?: Partial<ViewSwitcherProps>) => {
+  const [value, setValue] = useState(args?.value ?? "Option 1");
+
+  useEffect(() => {
+    setValue(args?.value ?? "Option 1");
+  }, [args?.value]);
+
+  const handleChange = (nextValue: string) => {
+    setValue(nextValue);
+    args?.onChange?.(nextValue);
+  };
+
   return (
-    <ViewSwitcher options={labelOptions} value={value} onChange={setValue} />
+    <ViewSwitcher
+      {...args}
+      options={args?.options ?? labelOptions}
+      value={value}
+      onChange={handleChange}
+    />
   );
 };
 
+export const Default: Story = {
+  render: (args) => <LabelsMediumStory {...args} />,
+};
+
+/* ─── Labels — Medium ─── */
 export const LabelsMedium: Story = {
   name: "Labels — Medium",
   render: () => <LabelsMediumStory />,

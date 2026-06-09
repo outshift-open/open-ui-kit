@@ -9,8 +9,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker as MuiStaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { useTheme } from "@mui/material";
 import {
+  getDatePickerStyle,
   getSharedSlotPropsDateTimePicker,
-  getSharedStyle,
+  getStaticMonthPickerStyle,
   getStaticPickerToolbarSlotProp,
   mergeSx,
 } from "../styles";
@@ -18,18 +19,27 @@ import type { StaticDatePickerProps } from "../types";
 
 export const StaticDatePicker = (props: StaticDatePickerProps) => {
   const theme = useTheme();
-  const { slotProps, sx, ...pickerProps } = props;
+  const { slotProps, sx, views, ...pickerProps } = props;
   const toolbarSlotProps =
     typeof slotProps?.toolbar === "function" ? undefined : slotProps?.toolbar;
+  const actionBarSlotProps =
+    typeof slotProps?.actionBar === "function"
+      ? undefined
+      : slotProps?.actionBar;
+  const resolvedViews = views ?? ["year", "month", "day"];
+  const staticStyle = resolvedViews.includes("day")
+    ? getDatePickerStyle(theme)
+    : getStaticMonthPickerStyle(theme);
+  const sharedSlotProps = getSharedSlotPropsDateTimePicker(theme);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiStaticDatePicker
-        views={["year", "month", "day"]}
+        views={resolvedViews}
         {...pickerProps}
         slotProps={
           {
-            ...getSharedSlotPropsDateTimePicker(theme),
+            ...sharedSlotProps,
             ...slotProps,
             toolbar: {
               ...toolbarSlotProps,
@@ -38,9 +48,15 @@ export const StaticDatePicker = (props: StaticDatePickerProps) => {
                 toolbarSlotProps?.sx,
               ),
             },
+            actionBar: {
+              ...sharedSlotProps.actionBar,
+              actions: ["cancel", "accept"],
+              ...actionBarSlotProps,
+              sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
+            },
           } as StaticDatePickerProps["slotProps"]
         }
-        sx={mergeSx(getSharedStyle(theme), sx) as StaticDatePickerProps["sx"]}
+        sx={mergeSx(staticStyle, sx) as StaticDatePickerProps["sx"]}
       />
     </LocalizationProvider>
   );

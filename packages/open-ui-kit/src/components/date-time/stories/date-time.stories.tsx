@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import dayjs from "dayjs";
 import {
   DateTimePicker,
   DatePicker,
@@ -10,9 +11,7 @@ import {
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { useState } from "react";
 import type { DateRangePickerProps } from "../types";
-import Event from "@mui/icons-material/Event";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { Calendar, KeyboardArrowDown, KeyboardArrowUp } from "@/custom-icons";
 
 /**
  * ### The Date Time Picker component lets the user select a date and time.
@@ -20,6 +19,20 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 const meta: Meta<typeof DateTimePicker> = {
   title: "Components/DateTime",
   component: DateTimePicker,
+  argTypes: {
+    label: {
+      control: "text",
+      description: "Placeholder label shown in the picker input.",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables the picker input and trigger.",
+    },
+    readOnly: {
+      control: "boolean",
+      description: "Prevents changing the picker value.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -43,12 +56,15 @@ type TimeStory = StoryObj<typeof TimePicker>;
 type DateRangePickerStory = StoryObj<typeof DateRangePicker>;
 
 export const Default: DateTimeStory = {
-  name: "Date time picker",
+  name: "Default",
+  args: {
+    label: "Pick date and time",
+    defaultValue: dayjs("2025-08-14T00:00"),
+  },
   render: (args) => {
     return (
       <DateTimePicker
         {...args}
-        label="Pick date and time"
         textFieldStyles={{
           "& .MuiInputBase-root": { marginTop: 0, width: "240px" },
         }}
@@ -58,11 +74,14 @@ export const Default: DateTimeStory = {
 };
 
 export const DatePickerDay: DateStory = {
-  name: "Date picker - Day",
+  name: "Day picker",
+  args: {
+    label: "Pick a date",
+    defaultValue: dayjs("2025-08-14"),
+  },
   render: (args) => (
     <DatePicker
       {...args}
-      label="Pick a date"
       popperSlotProps={{
         modifiers: [
           {
@@ -77,13 +96,19 @@ export const DatePickerDay: DateStory = {
   ),
 };
 
-const DateRangePickerWrapper = (args: DateRangePickerProps) => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+const DateRangePickerWrapper = (
+  args: DateRangePickerProps & {
+    initialStartDate?: string;
+    initialEndDate?: string;
+  },
+) => {
+  const { initialStartDate = "", initialEndDate = "", ...dateRangeArgs } = args;
+  const [startDate, setStartDate] = useState(initialStartDate);
+  const [endDate, setEndDate] = useState(initialEndDate);
 
   return (
     <DateRangePicker
-      {...args}
+      {...dateRangeArgs}
       inputFieldProps={{ placeholder: "Pick a date" }}
       startDate={startDate}
       endDate={endDate}
@@ -128,11 +153,11 @@ const CustomDateRangePickerWrapper = (args: DateRangePickerProps) => {
         slotProps: {
           input: {
             readOnly: true,
-            startAdornment: <Event sx={{ marginRight: "4px" }} />,
+            startAdornment: <Calendar sx={{ marginRight: "4px" }} />,
             endAdornment: isPopoverVisible ? (
-              <KeyboardArrowUpIcon />
+              <KeyboardArrowUp />
             ) : (
-              <KeyboardArrowDownIcon />
+              <KeyboardArrowDown />
             ),
           },
         },
@@ -154,24 +179,63 @@ export const DateRange: DateRangePickerStory = {
   },
 };
 
+export const DateRangeSelected: DateRangePickerStory = {
+  name: "Date range selected",
+  render: (args) => {
+    return (
+      <DateRangePickerWrapper
+        {...args}
+        initialStartDate="8/14/2025"
+        initialEndDate="8/22/2025"
+      />
+    );
+  },
+};
+
 export const DateRangeCustom: DateRangePickerStory = {
-  name: "Date range - Custom input",
+  name: "Date range custom input",
   render: (args) => {
     return <CustomDateRangePickerWrapper {...args} />;
   },
 };
 
 export const TimePickerDefault: TimeStory = {
-  name: "Time picker - Default",
-  render: (args) => <TimePicker {...args} label="Pick a time" />,
+  name: "Time picker",
+  args: {
+    label: "Pick a time",
+    defaultValue: dayjs("2025-08-14T00:00"),
+  },
+  render: (args) => <TimePicker {...args} />,
 };
 
 export const DatePickerMonth: StaticDateStory = {
-  name: "Date picker - Month",
+  name: "Month picker",
+  args: {
+    defaultValue: dayjs("2025-08-14"),
+    openTo: "month",
+    slotProps: {
+      toolbar: { hidden: true },
+    },
+  },
   render: (args) => <StaticDatePicker {...args} views={["year", "month"]} />,
 };
 
+export const StaticDayStates: StaticDateStory = {
+  name: "Day states",
+  args: {
+    defaultValue: dayjs("2025-08-14"),
+    shouldDisableDate: (date) => date.date() < 4,
+    slotProps: {
+      toolbar: { hidden: true },
+    },
+  },
+  render: (args) => <StaticDatePicker {...args} views={["day"]} />,
+};
+
 export const StaticDateTimePickerExample: StaticDateTimeStory = {
-  name: "Date time picker - Static",
+  name: "Static date time picker",
+  args: {
+    defaultValue: dayjs("2025-08-14T12:00"),
+  },
   render: (args) => <StaticDateTimePicker orientation="landscape" {...args} />,
 };
