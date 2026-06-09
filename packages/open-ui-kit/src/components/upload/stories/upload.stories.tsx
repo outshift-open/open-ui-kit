@@ -23,6 +23,7 @@ const meta: Meta<typeof Upload> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Upload"
           blurb="Upload allows users to select or drag files for upload. Supports drag-and-drop and button trigger variants, with file list management including progress and error states."
           guideLink=""
           importLine='import { Upload } from "@open-ui-kit/core";'

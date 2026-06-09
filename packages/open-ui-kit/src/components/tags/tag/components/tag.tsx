@@ -4,24 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Chip, ChipProps, useTheme } from "@mui/material";
+import { Chip, useTheme } from "@mui/material";
 import { GeneralSize } from "@/common";
-import { TagBackgroundColorVariants, TagStatus } from "../types";
+import { TagBackgroundColorVariants } from "../types";
+import type { TagProps } from "../types";
 import { getTagStyle, selectTagStyle } from "../utils";
 
-export interface TagProps
-  extends Omit<ChipProps, "size" | "children" | "label" | "color"> {
-  color?: TagBackgroundColorVariants;
-  children: React.ReactNode;
-  size?: GeneralSize;
-  status?: TagStatus;
-}
-
 /**
- *
- * @param status - If status is provided, the tag will be styled according to the status, indepenently of the icon settings
- * @param avatar - When avatar is provided, icon is ignored and the size of the tag is bigger.
- * @returns
+ * Tag labels categorized content with optional icon, avatar, status, and deletion affordances.
  */
 export const Tag = ({
   avatar,
@@ -31,6 +21,7 @@ export const Tag = ({
   icon,
   onClick,
   size = GeneralSize.Large,
+  sx,
   ...props
 }: TagProps) => {
   const theme = useTheme();
@@ -44,17 +35,18 @@ export const Tag = ({
       onClick={onClick}
       label={children}
       {...props}
-      sx={(theme) => {
-        const tagStyle = getTagStyle({
-          clickable: !!onClick,
-          color,
-          hasAvatar: !!avatar,
-          theme,
-          size,
-          statusStyle,
-        });
-        return { ...tagStyle, ...props?.sx };
-      }}
+      sx={[
+        (theme) =>
+          getTagStyle({
+            clickable: !!onClick,
+            color,
+            hasAvatar: !!avatar,
+            theme,
+            size,
+            statusStyle,
+          }),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
     />
   );
 };

@@ -5,4 +5,10 @@
  */
 
 export { StepperPanel } from "./components/stepper-panel";
-export type { StepperPanelProps, StepperStep } from "./types";
+export { StepperModal } from "./components/stepper-modal";
+export type {
+  StepperModalProps,
+  StepperModalStep,
+  StepperPanelProps,
+  StepperStep,
+} from "./types";

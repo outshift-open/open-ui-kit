@@ -8,8 +8,6 @@ import { Box, ButtonBase, useTheme } from "@mui/material";
 import { getPickerItemStyles } from "../styles";
 import type { PickerItemProps } from "../types";
 
-export type { PickerItemProps };
-
 export const PickerItem = ({
   icon,
   label,

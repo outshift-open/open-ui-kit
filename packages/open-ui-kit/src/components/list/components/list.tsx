@@ -13,6 +13,7 @@ import {
   ListItemAvatar,
   ListSubheader as MuiListSubheader,
 } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
 import type {
   ListProps,
   ListItemProps,
@@ -20,18 +21,8 @@ import type {
   ListItemTextProps,
   ListItemIconProps,
   ListSubheaderProps,
-  SxProps,
-  Theme,
-} from "@mui/material";
+} from "../types";
 
-export type {
-  ListProps,
-  ListItemProps,
-  ListItemButtonProps,
-  ListItemTextProps,
-  ListItemIconProps,
-  ListSubheaderProps,
-};
 export { ListItemAvatar };
 
 const toSxArray = (sx: SxProps<Theme> | undefined) =>

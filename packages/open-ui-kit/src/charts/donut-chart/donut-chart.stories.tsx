@@ -17,6 +17,7 @@ const meta: Meta<typeof DonutChart> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Donut Chart"
           blurb="DonutChart shows proportions of categorical data. The center displays the total value. Slice colors are set per data item."
           guideLink="#"
           importLine='import { DonutChart } from "@open-ui-kit/core";'

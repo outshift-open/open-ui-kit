@@ -17,6 +17,7 @@ const meta: Meta<typeof Widget> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Widget"
           blurb="Widget is a versatile component that can be used to display various types of content, including headers and body elements. It supports loading states and empty states, making it suitable for dynamic data presentation."
           guideLink="#"
           importLine='import { Widget } from "@open-ui-kit/core";'

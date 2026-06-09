@@ -7,4 +7,4 @@
 export * from "./components/tag";
 export * from "./utils";
 export { TagAvatarSize, TagBackgroundColorVariants, TagStatus } from "./types";
-export type { TagStatusStyle } from "./types";
+export type { TagProps, TagStatusStyle } from "./types";

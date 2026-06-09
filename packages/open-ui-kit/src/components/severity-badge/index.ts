@@ -5,7 +5,4 @@
  */
 
 export { SeverityBadge } from "./components/severity-badge";
-export type {
-  SeverityBadgeProps,
-  SeverityBadgeScoreSystemItem,
-} from "./types/severity-badge.types";
+export type { SeverityBadgeProps, SeverityBadgeScoreSystemItem } from "./types";

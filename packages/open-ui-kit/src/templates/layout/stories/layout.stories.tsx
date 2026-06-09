@@ -23,6 +23,7 @@ const meta: Meta<typeof Layout> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Layout"
           blurb="Layout is a template for creating consistent page layouts. It includes a fixed header, side navigation, and a main content area."
           guideLink="#"
           importLine='import { Layout } from "@open-ui-kit/core";'

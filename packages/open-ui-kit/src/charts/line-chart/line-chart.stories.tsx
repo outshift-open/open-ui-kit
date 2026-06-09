@@ -22,6 +22,7 @@ const meta: Meta<typeof LineChart> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Line Chart"
           blurb="LineChart displays time-series or continuous data as one or more lines. Pass categories to control line colors."
           guideLink="#"
           importLine='import { LineChart } from "@open-ui-kit/core";'

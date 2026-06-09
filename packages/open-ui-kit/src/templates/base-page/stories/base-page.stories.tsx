@@ -36,6 +36,7 @@ const meta: Meta<typeof BasePage> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Base Page"
           blurb="BasePage is a template for creating pages with a consistent layout. It includes a header, breadcrumbs, and optional sub-navigation and right-side items."
           guideLink="#"
           importLine='import { BasePage } from "@open-ui-kit/core";'

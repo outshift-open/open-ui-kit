@@ -12,11 +12,13 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { LoadingStates } from "..";
 import {
+  DEFAULT_SPINNER_SIZES,
   getLoadingStatesRootStyles,
   getLoadingStatesSkeletonSectionStyles,
   getLoadingStatesSpinnerSectionStyles,
   getSkeletonBaseColor,
   getSkeletonShapeStyles,
+  getSkeletonWaveStyles,
 } from "../styles";
 
 const renderLoadingStates = (
@@ -59,6 +61,7 @@ describe("LoadingStates", () => {
   });
 
   it("uses expected layout spacing", () => {
+    expect(DEFAULT_SPINNER_SIZES).toEqual([40, 24, 20, 16]);
     expect(getLoadingStatesRootStyles()).toMatchObject({
       display: "flex",
       gap: "52px",
@@ -83,6 +86,11 @@ describe("LoadingStates", () => {
     expect(getSkeletonShapeStyles(lightTheme, "loading", "8px")).toMatchObject({
       backgroundColor: lightTheme.palette.vars.baseBackgroundWeak,
       borderRadius: "8px",
+    });
+    expect(getSkeletonWaveStyles(lightTheme, "loading")).toMatchObject({
+      "&::after": {
+        background: `linear-gradient(90deg, ${lightTheme.palette.vars.baseBackgroundWeak} 0%, ${lightTheme.palette.vars.controlBorderWeak} 49.7%, ${lightTheme.palette.vars.baseBackgroundWeak} 100%)`,
+      },
     });
   });
 

@@ -5,7 +5,7 @@
  */
 
 import { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import {
@@ -23,11 +23,25 @@ const meta: Meta<typeof List> = {
   title: "Components/List",
   component: List,
   tags: ["autodocs"],
+  args: {
+    disablePadding: true,
+  },
+  argTypes: {
+    dense: {
+      control: "boolean",
+      description: "Uses compact item sizing.",
+    },
+    disablePadding: {
+      control: "boolean",
+      description: "Removes default list padding.",
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="List"
           blurb="List displays a vertical sequence of items. Items support icons, secondary text, selection, hover, focus, disabled, and dense states — all styled via theme tokens."
           guideLink=""
           importLine='import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from "@open-ui-kit/core";'
@@ -41,7 +55,7 @@ export default meta;
 
 type Story = StoryObj<typeof List>;
 
-export const Basic: Story = {
+export const Default: Story = {
   render: () => (
     <List sx={{ maxWidth: 360 }}>
       <ListItem disablePadding>

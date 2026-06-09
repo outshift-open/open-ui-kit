@@ -25,6 +25,7 @@ const meta: Meta<typeof SideDrawer> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Side Drawer"
           blurb="SideDrawer is a right-anchored side drawer with a header (title, severity bar, navigation, actions), scrollable content area, and optional footer."
           guideLink=""
           importLine='import { SideDrawer } from "@open-ui-kit/core";'

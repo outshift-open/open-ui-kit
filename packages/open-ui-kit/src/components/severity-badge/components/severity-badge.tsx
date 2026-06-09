@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useTheme } from "@mui/material";
+import { useTheme } from "@/theme-provider/theme-provider";
 import {
   getIndicatorBadgeConfigurationBySeverity,
   getIndicatorBadgeConfigurationByScoreSystem,
 } from "../utils/severity-badge.utils";
-import { SeverityBadgeProps } from "../types/severity-badge.types";
+import type { SeverityBadgeProps } from "../types";
 import { IndicatorBadge } from "@/components/indicator-badge";
 
 export const SeverityBadge = ({

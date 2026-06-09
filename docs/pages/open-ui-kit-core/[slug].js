@@ -30,10 +30,13 @@ import {
   chartStatusData,
   filterGroups,
   keyValueItems,
+  listItems,
   nestedMenuTree,
-  severityDistribution,
   spiderChartData,
   spiderChartRadars,
+  stepperModalSteps,
+  stepperPanelSteps,
+  tagItems,
   tableColumns,
   tableRows,
 } from "docs/src/open-ui-kit-demo-data";
@@ -178,6 +181,14 @@ function toSentenceLabel(value) {
 }
 
 function getStorySearchRoot(component) {
+  if (component.storyPath) {
+    return path.join(
+      workspaceRoot,
+      "packages/open-ui-kit/src/components",
+      component.storyPath,
+    );
+  }
+
   if (!component.packagePath && !component.sourceUrl) {
     return null;
   }
@@ -196,6 +207,12 @@ function getStorySearchRoot(component) {
 function collectStoryFiles(directory) {
   if (!directory || !fs.existsSync(directory)) {
     return [];
+  }
+
+  const directoryStats = fs.statSync(directory);
+
+  if (directoryStats.isFile()) {
+    return directory.endsWith(".stories.tsx") ? [directory] : [];
   }
 
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -335,6 +352,75 @@ ${createConst("items", keyValueItems)}
 export function KeyValuePairsExample() {
   return <KeyValuePairs items={items} columns={2} />;
 }`,
+  list: () => `import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@open-ui-kit/core';
+
+${createConst("items", listItems)}
+
+export function ListExample() {
+  return (
+    <List sx={{ maxWidth: 360 }}>
+      {items.map((item) => (
+        <ListItem key={item.label} disablePadding>
+          <ListItemButton>
+            <ListItemText
+              primary={item.label}
+              secondary={item.secondary}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
+}`,
+  "loading-error-state":
+    () => `import { LoadingErrorState, Typography } from '@open-ui-kit/core';
+
+export function LoadingErrorStateExample() {
+  return (
+    <LoadingErrorState
+      data={{ name: 'Production API', count: 42 }}
+      error={false}
+      loading={false}
+      loadingVariant="skeleton"
+    >
+      {(data) => (
+        <Typography>
+          {data.name} loaded with {data.count} records.
+        </Typography>
+      )}
+    </LoadingErrorState>
+  );
+}`,
+  "loading-states": () => `import { LoadingStates } from '@open-ui-kit/core';
+
+export function LoadingStatesExample() {
+  return (
+    <LoadingStates
+      showSpinner
+      showSkeleton
+      skeletonStates={['loading', 'failure']}
+    />
+  );
+}`,
+  message: () => `import { Message } from '@open-ui-kit/core';
+
+export function MessageExample() {
+  return (
+    <Message
+      type="success"
+      title="Saved"
+      actionLabel="View details"
+      onActionClick={() => console.log('details')}
+    >
+      The configuration was updated successfully.
+    </Message>
+  );
+}`,
   "nested-menu":
     () => `import { NestedMenu, useNestedMenu } from '@open-ui-kit/core';
 
@@ -376,12 +462,109 @@ export function TableExample() {
     />
   );
 }`,
-  "severity-bar": () => `import { SeverityBar } from '@open-ui-kit/core';
+  tag: () => `import { GeneralSize, Tag, TagStatus } from '@open-ui-kit/core';
 
-${createConst("distribution", severityDistribution)}
+export function TagExample() {
+  return (
+    <Tag
+      size={GeneralSize.Medium}
+      status={TagStatus.Positive}
+      onDelete={() => console.log('remove tag')}
+    >
+      Production
+    </Tag>
+  );
+}`,
+  tags: () => `import { GeneralSize, Tags } from '@open-ui-kit/core';
+
+${createConst("items", tagItems)}
+
+export function TagsExample() {
+  return (
+    <Tags
+      items={items}
+      size={GeneralSize.Small}
+      maxTooltipTags={2}
+      shouldTruncate
+    />
+  );
+}`,
+  pagination: () => `import { Pagination } from '@open-ui-kit/core';
+
+export function PaginationExample() {
+  return (
+    <Pagination
+      count={7}
+      page={1}
+      showFirstButton
+      showLastButton
+      onChange={(event, page) => console.log(page)}
+    />
+  );
+}`,
+  "severity-badge":
+    () => `import { Severity, SeverityBadge } from '@open-ui-kit/core';
+
+export function SeverityBadgeExample() {
+  return (
+    <>
+      <SeverityBadge severity={Severity.CRITICAL} />
+      <SeverityBadge value={72} />
+    </>
+  );
+}`,
+  "severity-badge-label":
+    () => `import { Severity, SeverityBadgeLabel } from '@open-ui-kit/core';
+
+export function SeverityBadgeLabelExample() {
+  return (
+    <SeverityBadgeLabel
+      severity={Severity.HIGH}
+      label="Elevated risk"
+    />
+  );
+}`,
+  "severity-bar":
+    () => `import { Severity, SeverityBar } from '@open-ui-kit/core';
 
 export function SeverityBarExample() {
-  return <SeverityBar data={distribution} />;
+  return <SeverityBar severity={Severity.CRITICAL} />;
+}`,
+  "stepper-modal":
+    () => `import { Button, StepperModal } from '@open-ui-kit/core';
+
+${createConst("steps", stepperModalSteps)}
+
+export function StepperModalExample() {
+  return (
+    <StepperModal
+      open
+      title="Create policy"
+      subtitle="Optional descriptor"
+      description="Complete each step before launching the policy."
+      steps={steps}
+      activeStep={1}
+      footer={<Button size="small">Next</Button>}
+    >
+      Policy configuration content
+    </StepperModal>
+  );
+}`,
+  "stepper-panel":
+    () => `import { Button, StepperPanel } from '@open-ui-kit/core';
+
+${createConst("steps", stepperPanelSteps)}
+
+export function StepperPanelExample() {
+  return (
+    <StepperPanel
+      steps={steps}
+      activeStep={1}
+      footer={<Button size="small">Next</Button>}
+    >
+      Step content
+    </StepperPanel>
+  );
 }`,
 };
 

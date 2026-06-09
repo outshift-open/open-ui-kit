@@ -17,6 +17,7 @@ const meta: Meta<typeof GaugeChart> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Gauge Chart"
           blurb="GaugeChart shows how well a metric is performing against a target. Pass a single data item with value and color."
           guideLink="#"
           importLine='import { GaugeChart } from "@open-ui-kit/core";'

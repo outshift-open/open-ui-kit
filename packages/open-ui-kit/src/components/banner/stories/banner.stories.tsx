@@ -14,6 +14,7 @@ const meta: Meta<typeof Banner> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Banner"
           blurb="A banner displays a short, important message in a way that attracts the user's attention without interrupting the user's task."
           guideLink=""
           importLine={`import { Banner } from "@open-ui-kit/core";`}

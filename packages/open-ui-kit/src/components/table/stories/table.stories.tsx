@@ -34,6 +34,7 @@ const meta: Meta<typeof Table> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Table"
           blurb="Tables show large amounts of data in a structured format, allowing users to view, sort, filter, and interact with the data efficiently."
           guideLink=""
           importLine='import { Table } from "@open-ui-kit/core";'

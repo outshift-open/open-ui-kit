@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SxProps, Theme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
@@ -15,6 +14,7 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { GeneralSize } from "@/common";
+import type { SxProps, Theme } from "@mui/material";
 import {
   TagAvatarSize,
   TagBackgroundColorVariants,
@@ -22,103 +22,123 @@ import {
   TagStatusStyle,
 } from "../types";
 
+const getStatusBorder = (
+  theme: Theme,
+  lightBorderColor: string,
+  darkBorderColor: string,
+) =>
+  `1px solid ${
+    theme.palette.mode === "dark" ? darkBorderColor : lightBorderColor
+  }`;
+
 export const selectTagStyle = (theme: Theme) => ({
   [TagStatus.Excellent]: {
     backgroundColor: theme.palette.vars?.excellentBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.excellentBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.excellentBackgroundWeak,
+      theme.palette.vars.excellentBorderWeak,
+    ),
     icon: StarIcon,
     iconColor: theme.palette.vars?.excellentIconDefault,
   },
   [TagStatus.Positive]: {
     backgroundColor: theme.palette.vars?.successBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.successBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.successBackgroundWeak,
+      theme.palette.vars.successBorderWeak,
+    ),
     icon: CheckCircleIcon,
     iconColor: theme.palette.vars?.successIconDefault,
   },
   [TagStatus.Warning]: {
     backgroundColor: theme.palette.vars?.warningBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.warningBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.warningBackgroundWeak,
+      theme.palette.vars.warningBorderWeak,
+    ),
     icon: WarningIcon,
     iconColor: theme.palette.vars?.warningIconDefault,
   },
   [TagStatus.SevereWarning]: {
     backgroundColor: theme.palette.vars?.severeWarningBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.severeWarningBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.severeWarningBackgroundWeak,
+      theme.palette.vars.severeWarningBorderWeak,
+    ),
     icon: WarningIcon,
     iconColor: theme.palette.vars?.severeWarningIconDefault,
   },
   [TagStatus.Negative]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.negativeBackgroundWeak,
+      theme.palette.vars.negativeBorderWeak,
+    ),
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: CancelIcon,
   },
   [TagStatus.Inactive]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.inactiveBackgroundWeak,
+      theme.palette.vars.inactiveBorderWeak,
+    ),
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: RemoveCircleIcon,
   },
   [TagStatus.Disabled]: {
     backgroundColor: theme.palette.vars?.inactiveBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.inactiveBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.inactiveBackgroundWeak,
+      theme.palette.vars.inactiveBorderWeak,
+    ),
     iconColor: theme.palette.vars?.inactiveIconDefault,
     icon: BlockFlippedIcon,
   },
   [TagStatus.InProgress]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.infoBackgroundWeak,
+      theme.palette.vars.infoBorderWeak,
+    ),
     icon: ScheduleIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Info]: {
     backgroundColor: theme.palette.vars?.infoBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.infoBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.infoBackgroundWeak,
+      theme.palette.vars.infoBorderWeak,
+    ),
     icon: InfoIcon,
     iconColor: theme.palette.vars?.infoIconDefault,
   },
   [TagStatus.Allow]: {
     backgroundColor: theme.palette.vars?.neutralBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.neutralBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.neutralBackgroundWeak,
+      theme.palette.vars.neutralBorderWeak,
+    ),
     icon: CheckCircleOutlineIcon,
     iconColor: theme.palette.vars?.neutralIconDefault,
   },
   [TagStatus.Deny]: {
     backgroundColor: theme.palette.vars?.negativeBackgroundWeak,
-    border:
-      theme.palette.mode === "dark"
-        ? `1px solid ${theme.palette.vars?.negativeBorderWeak}`
-        : `none`,
+    border: getStatusBorder(
+      theme,
+      theme.palette.vars.negativeBackgroundWeak,
+      theme.palette.vars.negativeBorderWeak,
+    ),
     iconColor: theme.palette.vars?.negativeIconDefault,
     icon: BlockFlippedIcon,
   },
@@ -140,6 +160,7 @@ export const getTagStyle = ({
   statusStyle?: TagStatusStyle;
 }): SxProps<Theme> => {
   let style: SxProps<Theme> = {
+    color: theme.palette.vars.baseTextDefault,
     backgroundColor: theme.palette.vars?.[color],
     ...(clickable && {
       "&:hover": {
@@ -182,9 +203,11 @@ export const getTagStyle = ({
         },
         "& .MuiChip-avatar": {
           height: `${TagAvatarSize[size]}px`,
+          width: `${TagAvatarSize[size]}px`,
         },
         "& .MuiChip-icon": {
           height: `12px`,
+          width: `12px`,
           ...(statusStyle && {
             color: statusStyle?.iconColor,
           }),
@@ -206,9 +229,11 @@ export const getTagStyle = ({
         },
         "& .MuiChip-avatar": {
           height: `${TagAvatarSize[size]}px`,
+          width: `${TagAvatarSize[size]}px`,
         },
         "& .MuiChip-icon": {
           height: `16px`,
+          width: `16px`,
           ...(statusStyle && {
             color: statusStyle?.iconColor,
           }),
@@ -224,17 +249,19 @@ export const getTagStyle = ({
         height: hasAvatar ? "40px" : "32px",
         ...theme.typography.body2Semibold,
         "& .MuiChip-label": {
-          paddingRight: "8px",
-          paddingLeft: "8px",
+          paddingRight: "12px",
+          paddingLeft: "12px",
         },
         "& .MuiChip-deleteIcon": {
           fontSize: "20px",
         },
         "& .MuiChip-avatar": {
           height: `${TagAvatarSize[size]}px`,
+          width: `${TagAvatarSize[size]}px`,
         },
         "& .MuiChip-icon": {
           height: `20px`,
+          width: `20px`,
           ...(statusStyle && {
             color: statusStyle?.iconColor,
           }),

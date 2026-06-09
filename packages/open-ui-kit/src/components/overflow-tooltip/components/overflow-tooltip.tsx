@@ -9,8 +9,6 @@ import { Tooltip } from "@/components/tooltip";
 import { rtlWrapperStyle, baseWrapperStyle, spanStyle } from "../styles";
 import type { OverflowTooltipProps } from "../types";
 
-export type { OverflowTooltipProps };
-
 export const OverflowTooltip = ({
   value,
   children,

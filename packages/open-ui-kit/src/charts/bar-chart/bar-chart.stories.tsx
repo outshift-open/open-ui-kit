@@ -26,6 +26,7 @@ const meta: Meta<typeof BarChart> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Bar Chart"
           blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars align left; empty slots are hidden."
           guideLink="#"
           importLine='import { BarChart } from "@open-ui-kit/core";'

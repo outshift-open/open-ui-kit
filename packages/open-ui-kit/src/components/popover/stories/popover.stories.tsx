@@ -48,6 +48,7 @@ const meta: Meta<typeof Popover> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Popover"
           blurb="Popover is a floating content panel anchored to a trigger element. It supports title and body content, action buttons, icons, feature-highlight styling, and directional arrows."
           guideLink=""
           importLine='import { Popover } from "@open-ui-kit/core";'

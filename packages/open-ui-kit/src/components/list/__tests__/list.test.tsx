@@ -7,14 +7,13 @@
 import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 
-global.ResizeObserver = class ResizeObserver {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  observe() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  unobserve() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  disconnect() {}
-};
+class ResizeObserverMock {
+  observe = jest.fn();
+  unobserve = jest.fn();
+  disconnect = jest.fn();
+}
+
+global.ResizeObserver = ResizeObserverMock;
 
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -124,55 +123,66 @@ describe("List", () => {
 
   describe("token usage", () => {
     it("renders in light mode without error", () => {
-      expect(() =>
-        renderList(
-          <List>
-            <ListItem>
-              <ListItemText primary="Light" />
-            </ListItem>
-          </List>,
-          false,
-        ),
-      ).not.toThrow();
+      renderList(
+        <List>
+          <ListItem data-testid="light-item">
+            <ListItemText primary="Light" />
+          </ListItem>
+        </List>,
+      );
+
+      expect(screen.getByTestId("light-item")).toHaveStyle({
+        backgroundColor: "#fbfcfe",
+        color: "#3c4551",
+        minHeight: "40px",
+      });
     });
 
     it("renders in dark mode without error", () => {
-      expect(() =>
-        renderList(
-          <List>
-            <ListItem>
-              <ListItemText primary="Dark" />
-            </ListItem>
-          </List>,
-          true,
-        ),
-      ).not.toThrow();
+      renderList(
+        <List>
+          <ListItem data-testid="dark-item">
+            <ListItemText primary="Dark" />
+          </ListItem>
+        </List>,
+        true,
+      );
+
+      expect(screen.getByTestId("dark-item")).toHaveStyle({
+        backgroundColor: "#183056",
+        color: "#e8e9ea",
+      });
     });
 
-    it("renders selected ListItemButton without error", () => {
-      expect(() =>
-        renderList(
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton selected>
-                <ListItemText primary="Selected" />
-              </ListItemButton>
-            </ListItem>
-          </List>,
-        ),
-      ).not.toThrow();
+    it("maps selected ListItemButton to active tokens", () => {
+      renderList(
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton selected data-testid="selected-item">
+              <ListItemText primary="Selected" />
+            </ListItemButton>
+          </ListItem>
+        </List>,
+      );
+
+      expect(screen.getByTestId("selected-item")).toHaveStyle({
+        backgroundColor: "#e3eafa",
+        color: "#00142b",
+      });
     });
 
-    it("renders dense list without error", () => {
-      expect(() =>
-        renderList(
-          <List dense>
-            <ListItem>
-              <ListItemText primary="Dense" />
-            </ListItem>
-          </List>,
-        ),
-      ).not.toThrow();
+    it("maps dense list item sizing to the compact token size", () => {
+      renderList(
+        <List dense>
+          <ListItem data-testid="dense-item">
+            <ListItemText primary="Dense" />
+          </ListItem>
+        </List>,
+      );
+
+      expect(screen.getByTestId("dense-item")).toHaveStyle({
+        minHeight: "36px",
+      });
     });
   });
 });

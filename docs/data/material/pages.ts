@@ -40,6 +40,7 @@ const pages: MuiPage[] = [
       { pathname: "/open-ui-kit-core/getting-started/introduction" },
       { pathname: "/open-ui-kit-core/getting-started/installation" },
       { pathname: "/open-ui-kit-core/getting-started/usage" },
+      { pathname: "/open-ui-kit-core/getting-started/theming" },
       { pathname: "/open-ui-kit-core/getting-started/contributing" },
       {
         pathname: "/open-ui-kit-core/getting-started/developer-only",

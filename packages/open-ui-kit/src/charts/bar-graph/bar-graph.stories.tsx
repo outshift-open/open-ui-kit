@@ -28,6 +28,7 @@ const meta: Meta<typeof BarGraph> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Bar Graph"
           blurb="BarGraph displays stacked horizontal bars for comparing multiple categories across items. Pass bars to define each category key and color."
           guideLink="#"
           importLine='import { BarGraph } from "@open-ui-kit/core";'

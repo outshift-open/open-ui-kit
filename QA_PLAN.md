@@ -429,32 +429,32 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 - [x] **indicator-badge** — *(no Figma PNG — token audit + story check)*
   - Dot color, position; token compliance
 
-- [ ] **link** — `Link.png` / `Link (1).png` *(dark missing)*
+- [x] **link** — `Link.png` / `Link (1).png` *(dark missing)*
   - Default, hover, visited, disabled; underline behavior
 
-- [ ] **loading-states** — `Loading States.png` / `Loading States (1).png` *(dark missing)*
+- [x] **loading-states** — `Loading States.png` / `Loading States (1).png` *(dark missing)*
   - Spinner colors, skeleton wave animation, overlay variant
 
-- [ ] **message** — `Message.png` / `Message - Dark.png`
+- [x] **message** — `Message.png` / `Message - Dark.png`
   - Variants: info, warning, error, success; icon alignment; dismiss
 
-- [ ] **pagination** — `Pagination.png` / `Pagination - Dark.png`
+- [x] **pagination** — `Pagination.png` / `Pagination - Dark.png`
   - Active page highlight; prev/next disabled; icon color token `controlIconDefault`
 
-- [ ] **severity-badge** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-badge** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **severity-badge-label** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-badge-label** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **severity-bar** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-bar** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **stepper** — `Stepper.png` / `Stepper - Dark.png`
+- [x] **stepper** — `Stepper.png` / `Stepper - Dark.png`
   - Sub-components: `desktop-stepper/`, `mobile-stepper/`, `step/`, `step-label/` — all in scope
   - Active, completed, upcoming step styles; connector line; desktop vs mobile layouts
 
-- [ ] **tags** — `Tag.png` / `Tag - Dark.png`
+- [x] **tags** — `Tag.png` / `Tag - Dark.png`
   - Sub-components: `tags/tag/` (single Tag) and `tags/tags/` (Tag collection with overflow)
   - Sizes, colors per variant; removable close button; overflow truncation in tags/tags/
 
@@ -462,33 +462,33 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 
 ### Tier 4 — Utility / behaviour
 
-- [ ] **list** — *(no Figma PNG — token audit + story check)*
+- [x] **list** — *(no Figma PNG — token audit + story check)*
   - `List`, `ListItem`, `ListItemButton` hover state; divider; token compliance
 
-- [ ] **loading-error-state** — *(no Figma PNG — token audit + story check)*
+- [x] **loading-error-state** — *(no Figma PNG — token audit + story check)*
   - Spinner / skeleton / custom loading; error state; empty state; render function children
 
-- [ ] **overflow-tooltip** — *(no Figma PNG — token audit + story check)*
+- [x] **overflow-tooltip** — *(no Figma PNG — token audit + story check)*
   - Overflow trigger; start/end truncation; no tooltip when not overflowing
 
-- [ ] **path-display** — *(no Figma PNG — token audit + story check)*
+- [x] **path-display** — *(no Figma PNG — token audit + story check)*
   - Truncation, tooltip on overflow; token compliance
 
-- [ ] **picker** — `Picker.png` / `Picker - Dark.png`
+- [x] **picker** — `Picker.png` / `Picker - Dark.png`
   - States: default, hover, selected, disabled
   - 3 sizes (small/medium/large); 2 layouts (vertical/horizontal)
   - Hover border: `lightOrange200`; selected border: `lightOrange800`
 
-- [ ] **scroll-area** — *(no Figma PNG — token audit + story check)*
+- [x] **scroll-area** — *(no Figma PNG — token audit + story check)*
   - Scrollbar visibility; custom scrollbar color token
 
-- [ ] **skeleton** — *(no Figma PNG — token audit + story check)*
+- [x] **skeleton** — *(no Figma PNG — token audit + story check)*
   - Wave animation; shape variants; token compliance
 
-- [ ] **spinner** — *(no Figma PNG — token audit + story check)*
+- [x] **spinner** — *(no Figma PNG — token audit + story check)*
   - Size variants; color token; token compliance
 
-- [ ] **view-switcher** — `View switcher.png` / `View switcher - Dark.png`
+- [x] **view-switcher** — `View switcher.png` / `View switcher - Dark.png`
   - Active/inactive states; icon and label alignment
 
 ---

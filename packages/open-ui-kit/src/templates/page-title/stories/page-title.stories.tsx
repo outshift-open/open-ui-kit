@@ -20,6 +20,7 @@ const meta: Meta<typeof PageTitle> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Page Title"
           blurb="PageTitle is a page-level heading block that displays a title, optional breadcrumbs, optional tag/badge, and action buttons."
           guideLink="#"
           importLine='import { PageTitle } from "@open-ui-kit/core";'

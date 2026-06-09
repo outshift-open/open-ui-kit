@@ -24,6 +24,7 @@ const meta: Meta<typeof HorizontalBarChart> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Horizontal Bar Chart"
           blurb="HorizontalBarChart displays items as horizontal progress bars. Bar width is proportional to the item's value relative to the maximum."
           guideLink="#"
           importLine='import { HorizontalBarChart } from "@open-ui-kit/core";'

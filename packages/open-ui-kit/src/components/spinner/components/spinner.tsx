@@ -4,20 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Box, CircularProgress } from "@mui/material";
 import {
-  Box,
-  BoxProps,
-  CircularProgress,
-  circularProgressClasses,
-  CircularProgressProps,
-  type Theme,
-} from "@mui/material";
+  getSpinnerIndicatorStyles,
+  getSpinnerTrackStyles,
+  getSpinnerWrapperStyles,
+} from "../styles";
+import type { SpinnerProps } from "../types";
 
-export interface SpinnerProps extends CircularProgressProps {
-  /** Props forwarded to the wrapping Box element. */
-  boxProps?: BoxProps;
-}
-
+/** Tokenized two-layer circular loading indicator. */
 export const Spinner = ({
   boxProps,
   size = 40,
@@ -25,54 +20,37 @@ export const Spinner = ({
   ...props
 }: SpinnerProps) => {
   const { sx: boxSx, ...restBoxProps } = boxProps ?? {};
-  const colorSx = (theme: Theme) => ({
-    [`&.MuiCircularProgress-colorPrimary .${circularProgressClasses.circle}`]: {
-      color: theme.palette.vars.interactivePrimaryDefaultDefault,
-    },
-    [`&.MuiCircularProgress-colorSecondary .${circularProgressClasses.circle}`]:
-      {
-        color: theme.palette.vars.interactiveSecondaryDefaultDefault,
-      },
-  });
 
   return (
     <Box
+      {...restBoxProps}
+      data-slot="spinner"
       sx={[
-        { position: "relative", width: size, height: size },
+        getSpinnerWrapperStyles(size),
         ...(Array.isArray(boxSx) ? boxSx : boxSx ? [boxSx] : []),
       ]}
-      {...restBoxProps}
     >
       <CircularProgress
+        {...props}
+        data-slot="spinner-track"
+        size={size}
         sx={[
-          colorSx,
-          { opacity: 0.2 },
+          (theme) => getSpinnerTrackStyles(theme),
           ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
         ]}
-        size={size}
         value={100}
         variant="determinate"
-        {...props}
       />
       <CircularProgress
+        {...props}
+        data-slot="spinner-indicator"
+        disableShrink
+        size={size}
         sx={[
-          colorSx,
-          {
-            animationDuration: "1s",
-            position: "absolute",
-            left: 0,
-            top: 0,
-            [`& .${circularProgressClasses.circle}`]: {
-              strokeLinecap: "round",
-              strokeDasharray: "31.4, 94.2",
-            },
-          },
+          (theme) => getSpinnerIndicatorStyles(theme),
           ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
         ]}
-        size={size}
-        disableShrink
         variant="indeterminate"
-        {...props}
       />
     </Box>
   );

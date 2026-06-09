@@ -139,6 +139,7 @@ const meta: Meta<AccordionProps> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Accordion"
           blurb="Accordions show and hide content inside compact page sections. They support left or right chevrons, contained treatments, summary slots, and grouped layouts."
           guideLink=""
           includeStories={true}

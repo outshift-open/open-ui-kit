@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SelectNodeType } from "@/components/nested-menu";
 import {
   formatNodeValue,
   getChildrenOfTopLevelNode,
   mergeNodeChildrenValueToText,
 } from "@/components/nested-menu";
 import { Stack, Typography } from "@mui/material";
+import type { SelectNodeType } from "@/components/nested-menu";
 
 const LabelAndChildrenTooltipContent = ({ node }: { node: SelectNodeType }) => {
   const nodeLabel = formatNodeValue(node);

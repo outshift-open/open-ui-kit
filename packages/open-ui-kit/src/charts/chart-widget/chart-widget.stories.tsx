@@ -33,6 +33,7 @@ const meta: Meta<typeof ChartWidget> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Chart Widget"
           blurb="ChartWidget wraps any chart type in a card shell with a headline label, optional tooltip, loading skeleton, and empty state."
           guideLink="#"
           importLine='import { ChartWidget } from "@open-ui-kit/core";'

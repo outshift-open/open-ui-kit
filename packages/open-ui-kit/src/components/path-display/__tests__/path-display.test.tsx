@@ -8,22 +8,19 @@ import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 
 global.ResizeObserver = class ResizeObserver {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  observe() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  unobserve() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  disconnect() {}
+  observe = jest.fn();
+  unobserve = jest.fn();
+  disconnect = jest.fn();
 };
 
-import React from "react";
+import type { ComponentProps } from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { PathDisplay } from "../components/path-display";
 
 const renderPath = (
-  props: Partial<React.ComponentProps<typeof PathDisplay>> = {},
+  props: Partial<ComponentProps<typeof PathDisplay>> = {},
   dark = false,
 ) =>
   render(
@@ -49,6 +46,11 @@ describe("PathDisplay", () => {
       expect(screen.getByText("A / ... / D")).toBeInTheDocument();
     });
 
+    it("normalizes whitespace around path separators", () => {
+      renderPath({ path: "A / B/C  /   D" });
+      expect(screen.getByText("A / ... / D")).toBeInTheDocument();
+    });
+
     it("shows full path when exactly at numberOfLevels threshold", () => {
       renderPath({ path: "A / B / C", numberOfLevels: 3 });
       expect(screen.getByText("A / ... / C")).toBeInTheDocument();
@@ -64,9 +66,35 @@ describe("PathDisplay", () => {
       expect(screen.getByText("Company / ... / C")).toBeInTheDocument();
     });
 
+    it("removes a leading slash from short paths", () => {
+      renderPath({ path: "/Company" });
+      expect(screen.getByText("Company")).toBeInTheDocument();
+    });
+
     it("renders single segment without collapsing", () => {
       renderPath({ path: "Epsagon" });
       expect(screen.getByText("Epsagon")).toBeInTheDocument();
+    });
+
+    it("forwards typography props to the rendered text", () => {
+      renderPath({
+        path: "A / B",
+        typographyProps: { id: "path-text" },
+      });
+      expect(document.getElementById("path-text")).toHaveTextContent("A / B");
+    });
+
+    it("uses the normalized full path as the tooltip title when collapsed", () => {
+      renderPath({ path: "A / B/C  /   D" });
+      expect(screen.getByLabelText("A / B / C / D")).toBeInTheDocument();
+    });
+
+    it("forwards tooltip props", () => {
+      renderPath({
+        path: "A / B / C",
+        tooltipProps: { placement: "bottom" },
+      });
+      expect(screen.getByLabelText("A / B / C")).toBeInTheDocument();
     });
   });
 

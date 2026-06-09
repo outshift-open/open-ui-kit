@@ -45,6 +45,7 @@ const meta = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Toast"
           blurb="Toast appears temporarily and floats above the UI to provide users with non-critical updates on app processes. Supports Default, Success, Error, Warning, and Info types."
           guideLink=""
           importLine='import { Toast, toast } from "@open-ui-kit/core";'

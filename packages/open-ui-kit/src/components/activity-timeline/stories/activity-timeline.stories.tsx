@@ -18,6 +18,7 @@ const meta: Meta<typeof ActivityTimeline> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Activity Timeline"
           blurb="Activity timelines are used to visualize a sequence of events or steps in a process. They can be used to track progress, show dependencies, and highlight key milestones."
           guideLink=""
           includeStories={true}
