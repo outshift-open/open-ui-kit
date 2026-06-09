@@ -7,13 +7,17 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
 import { ActivityTimelineStepStatus } from "../types";
 
 const renderWithTheme = (ui: React.ReactElement, dark = false) =>
-  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {ui}
+    </ThemeProvider>,
+  );
 
 const steps = [
   { status: ActivityTimelineStepStatus.InProgress, title: "Step 1" },

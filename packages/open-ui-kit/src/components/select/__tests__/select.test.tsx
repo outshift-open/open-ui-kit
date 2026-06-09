@@ -21,7 +21,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { FormControl, InputLabel } from "@mui/material";
 import { MenuItem } from "@/components/menu";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Select } from "../";
@@ -36,7 +36,7 @@ const normalizeHex = (value: string) => value.toLowerCase();
 
 const renderSelect = (props: Partial<SelectProps<string>> = {}, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <FormControl>
         <InputLabel>Label</InputLabel>
         <Select<string> value="opt1" onChange={jest.fn()} {...props}>

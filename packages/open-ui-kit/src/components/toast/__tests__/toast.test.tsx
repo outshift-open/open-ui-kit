@@ -7,7 +7,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Toaster } from "../components/toaster";
@@ -61,7 +61,7 @@ const renderToast = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Toast id="test" title="Test title" {...props} />
     </ThemeProvider>,
   );

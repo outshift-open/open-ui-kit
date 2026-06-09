@@ -8,7 +8,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Mail } from "@mui/icons-material";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkVars } from "@/theme/dark/dark-vars";
 import { lightVars } from "@/theme/light/light-vars";
 import { Badge } from "../components/badge";
@@ -16,7 +16,7 @@ import { BADGE_TYPES } from "../styles";
 
 const renderBadge = (props: React.ComponentProps<typeof Badge>, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Badge {...props} />
     </ThemeProvider>,
   );

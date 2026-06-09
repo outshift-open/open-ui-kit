@@ -7,7 +7,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Slider } from "../";
@@ -25,7 +25,7 @@ const renderSlider = (
       : { "aria-label": "test slider" };
 
   return render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Slider {...accessibilityProps} {...props} />
     </ThemeProvider>,
   );

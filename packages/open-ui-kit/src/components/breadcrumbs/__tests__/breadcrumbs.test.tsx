@@ -12,7 +12,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkVars } from "@/theme/dark/dark-vars";
 import { lightVars } from "@/theme/light/light-vars";
 import { Breadcrumbs } from "../components/breadcrumbs";
@@ -38,7 +38,7 @@ const renderBreadcrumbs = (
 ) =>
   render(
     <MemoryRouter>
-      <ThemeProvider defaultDarkMode={dark}>
+      <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
         <Breadcrumbs {...props} />
       </ThemeProvider>
     </MemoryRouter>,

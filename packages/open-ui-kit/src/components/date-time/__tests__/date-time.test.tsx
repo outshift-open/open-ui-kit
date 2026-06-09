@@ -7,7 +7,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { DatePicker } from "../components/DatePicker";
 import { TimePicker } from "../components/TimePicker";
 import { DateTimePicker } from "../components/DateTimePicker";
@@ -16,7 +16,11 @@ import { StaticDatePicker } from "../components/StaticDatePicker";
 import { StaticDateTimePicker } from "../components/StaticDateTimePicker";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
-  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {ui}
+    </ThemeProvider>,
+  );
 
 describe("DatePicker", () => {
   it("renders without throwing", () => {

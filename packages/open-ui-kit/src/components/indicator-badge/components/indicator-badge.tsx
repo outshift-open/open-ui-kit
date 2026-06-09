@@ -24,7 +24,7 @@ export const IndicatorBadge = ({
     >
       <IndicatorBadgeBackdrop badgeColor={color} />
       <IndicatorBadgeValueStack>
-        {Array.from({ length: INDICATOR_BADGE_VALUES_COUNT }).map((n, i) => (
+        {Array.from({ length: INDICATOR_BADGE_VALUES_COUNT }).map((_, i) => (
           <IndicatorBadgeValue
             key={i}
             color={color}

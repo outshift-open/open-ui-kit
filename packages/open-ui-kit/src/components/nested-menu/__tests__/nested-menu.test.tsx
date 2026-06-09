@@ -7,7 +7,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { lightModeCardSubtle } from "@/theme/style/color-palette";
@@ -25,7 +25,11 @@ import {
 import { buildNodeLabelElement } from "../utils/utils";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
-  render(<ThemeProvider defaultDarkMode={dark}>{ui}</ThemeProvider>);
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {ui}
+    </ThemeProvider>,
+  );
 
 const mockSelectAllNode: AugmentedSelectNodeType = {
   value: "all",

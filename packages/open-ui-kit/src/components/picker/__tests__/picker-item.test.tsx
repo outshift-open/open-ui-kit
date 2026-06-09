@@ -20,7 +20,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AppsIcon from "@mui/icons-material/Apps";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { PickerItem } from "../components/picker-item";
 
 const renderItem = (
@@ -28,7 +28,7 @@ const renderItem = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <PickerItem icon={<AppsIcon />} label="Text" {...props} />
     </ThemeProvider>,
   );

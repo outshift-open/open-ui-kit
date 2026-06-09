@@ -6,7 +6,7 @@
 
 import { Box, Stack, Typography } from "@/components";
 import { CopyButton } from "@/components/copy-button";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import type { Theme } from "@mui/material/styles";
 import type { ComponentProps } from "react";
 
@@ -215,7 +215,9 @@ function TypographySectionContent({
 
 export function TypographySection(props: TypographySectionProps) {
   return (
-    <ThemeProvider defaultDarkMode={getInitialDarkMode()}>
+    <ThemeProvider
+      defaultMode={getInitialDarkMode() ? ThemeMode.Dark : ThemeMode.Light}
+    >
       <TypographySectionContent {...props} />
     </ThemeProvider>
   );

@@ -6,7 +6,7 @@
 
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { StepperPanel } from "../components/stepper-panel";
 
 const steps = [
@@ -17,7 +17,7 @@ const steps = [
 
 const renderStepper = (props: Record<string, unknown> = {}, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <StepperPanel steps={steps} activeStep={0} {...(props as any)}>
         <span>Content</span>

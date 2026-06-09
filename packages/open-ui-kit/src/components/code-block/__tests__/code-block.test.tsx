@@ -6,7 +6,7 @@
 
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { CodeBlock } from "../components/code-block";
 import type { CodeBlockProps } from "../types";
 
@@ -15,7 +15,7 @@ const noop = jest.fn();
 
 const renderCodeBlock = (props: Partial<CodeBlockProps> = {}, dark = false) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <CodeBlock text={CODE} {...props} />
     </ThemeProvider>,
   );

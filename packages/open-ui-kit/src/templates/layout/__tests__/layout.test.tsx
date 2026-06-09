@@ -9,7 +9,7 @@ Object.assign(global, { TextEncoder, TextDecoder });
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Layout } from "../components/layout";
 
 const renderLayout = (
@@ -17,7 +17,7 @@ const renderLayout = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Layout {...props} />
     </ThemeProvider>,
   );

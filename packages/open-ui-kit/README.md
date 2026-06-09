@@ -68,20 +68,20 @@ export function App() {
 Use `useThemeMode()` inside `ThemeProvider` to read or change the active light or dark theme.
 
 ```tsx
-import { Button, useThemeMode } from '@open-ui-kit/core';
+import { Button, ThemeMode, useThemeMode } from '@open-ui-kit/core';
 
 export function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <Button variant="outlined" onClick={toggleTheme}>
-      Use {isDarkMode ? 'light' : 'dark'} theme
+      Use {mode === ThemeMode.Dark ? 'light' : 'dark'} theme
     </Button>
   );
 }
 ```
 
-Use `defaultDarkMode` on `ThemeProvider` when an app needs to start in dark mode.
+Use `defaultMode={ThemeMode.Dark}` on `ThemeProvider` when an app needs to start in dark mode.
 
 ## Local development
 

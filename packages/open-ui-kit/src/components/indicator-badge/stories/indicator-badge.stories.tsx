@@ -5,14 +5,29 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack, Typography, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { IndicatorBadge, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { IndicatorBadge } from "..";
 import type { IndicatorBadgeValue } from "../types";
 
 const meta: Meta<typeof IndicatorBadge> = {
   title: "Components/IndicatorBadge",
   component: IndicatorBadge,
+  args: {
+    value: 3,
+  },
+  argTypes: {
+    value: {
+      control: "radio",
+      options: [0, 1, 2, 3, 4],
+      description: "Segmented value. Filled bars grow from bottom to top.",
+    },
+    color: {
+      control: false,
+      description:
+        "Resolved theme token color used by the backdrop and bar segments.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -33,7 +48,18 @@ type IndicatorBadgeStory = StoryObj<typeof IndicatorBadge>;
 
 const VALUES: IndicatorBadgeValue[] = [0, 1, 2, 3, 4];
 
-const Values = () => {
+const DefaultRender: IndicatorBadgeStory["render"] = (args) => {
+  const theme = useTheme();
+
+  return (
+    <IndicatorBadge
+      {...args}
+      color={theme.palette.vars.negativeBackgroundActive}
+    />
+  );
+};
+
+const ValuesRender = () => {
   const theme = useTheme();
   const color = theme.palette.vars.negativeBackgroundActive;
 
@@ -49,7 +75,7 @@ const Values = () => {
   );
 };
 
-const SeverityColors = () => {
+const SeverityColorsRender = () => {
   const theme = useTheme();
   const examples = [
     {
@@ -95,12 +121,14 @@ const SeverityColors = () => {
   );
 };
 
-export const ValuesStory: IndicatorBadgeStory = {
-  name: "Values",
-  render: Values,
+export const Default: IndicatorBadgeStory = {
+  render: DefaultRender,
 };
 
-export const SeverityColorsStory: IndicatorBadgeStory = {
-  name: "Severity colors",
-  render: SeverityColors,
+export const Values: IndicatorBadgeStory = {
+  render: ValuesRender,
+};
+
+export const SeverityColors: IndicatorBadgeStory = {
+  render: SeverityColorsRender,
 };

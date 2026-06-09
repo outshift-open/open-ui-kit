@@ -426,7 +426,7 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 - [x] **empty-state** — `Empty State.png` / `Empty State - Dark.png`
   - Illustration; variants: info, error, no-data; CTA button
 
-- [ ] **indicator-badge** — *(no Figma PNG — token audit + story check)*
+- [x] **indicator-badge** — *(no Figma PNG — token audit + story check)*
   - Dot color, position; token compliance
 
 - [ ] **link** — `Link.png` / `Link (1).png` *(dark missing)*

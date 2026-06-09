@@ -25,10 +25,10 @@ While Open UI Kit follows Semantic Versioning, some changes may still be breakin
 
 - Dark mode state is now owned by Open UI Kit’s `ThemeProvider`.
 - Consumers should use the exported `useThemeMode()` hook to read/control theme mode:
-  - `isDarkMode`
-  - `setIsDarkMode`
+  - `mode`
+  - `setMode`
   - `toggleTheme`
-- The provider supports `defaultDarkMode?: boolean` to seed initial mode.
+- The provider supports `defaultMode?: ThemeMode` to seed initial mode.
 
 **Why this is a breaking change**
 
@@ -40,22 +40,22 @@ While Open UI Kit follows Semantic Versioning, some changes may still be breakin
 
 ```tsx
 import React from "react";
-import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
+import { ThemeMode, ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import "@open-ui-kit/core/typography.css";
 
 function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <button type="button" onClick={toggleTheme}>
-      Switch to {isDarkMode ? "Light" : "Dark"} mode
+      Switch to {mode === ThemeMode.Dark ? "Light" : "Dark"} mode
     </button>
   );
 }
 
 export default function App() {
   return (
-    <ThemeProvider defaultDarkMode={false}>
+    <ThemeProvider defaultMode={ThemeMode.Light}>
       <ThemeToggle />
       {/* rest of your app */}
     </ThemeProvider>
@@ -67,17 +67,17 @@ export default function App() {
 
 ```tsx
 import React from "react";
-import { useThemeMode } from "@open-ui-kit/core";
+import { ThemeMode, useThemeMode } from "@open-ui-kit/core";
 
 export function ThemeModeSelect() {
-  const { isDarkMode, setIsDarkMode } = useThemeMode();
+  const { mode, setMode } = useThemeMode();
 
   return (
     <div>
-      <button type="button" disabled={!isDarkMode} onClick={() => setIsDarkMode(true)}>
+      <button type="button" disabled={mode === ThemeMode.Dark} onClick={() => setMode(ThemeMode.Dark)}>
         Dark
       </button>
-      <button type="button" disabled={isDarkMode} onClick={() => setIsDarkMode(false)}>
+      <button type="button" disabled={mode === ThemeMode.Light} onClick={() => setMode(ThemeMode.Light)}>
         Light
       </button>
     </div>
@@ -89,7 +89,7 @@ export function ThemeModeSelect() {
 
 - Wrap your app (or Storybook preview/root) with `ThemeProvider`.
 - Replace old theme-mode state/hooks with `useThemeMode()` usage.
-- If you need an initial dark mode, pass `defaultDarkMode` to `ThemeProvider`.
+- If you need an initial dark mode, pass `defaultMode={ThemeMode.Dark}` to `ThemeProvider`.
 - Ensure any component calling `useThemeMode()` is rendered *under* `ThemeProvider` (otherwise it will throw).
 
 ## Future Migration Planning

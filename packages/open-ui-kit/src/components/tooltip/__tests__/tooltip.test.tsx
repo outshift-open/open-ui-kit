@@ -9,7 +9,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Tooltip } from "../components/tooltip";
 import {
   baseTooltipStyles,
@@ -24,7 +24,7 @@ const renderTooltip = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Tooltip title="Tooltip text" open {...props}>
         <span>trigger</span>
       </Tooltip>

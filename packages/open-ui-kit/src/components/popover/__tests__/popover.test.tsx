@@ -19,7 +19,7 @@ global.ResizeObserver = class ResizeObserver {
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ThemeProvider } from "@/theme-provider/theme-provider";
+import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Popover } from "../components/popover";
@@ -40,7 +40,7 @@ const renderPopover = (
   dark = false,
 ) =>
   render(
-    <ThemeProvider defaultDarkMode={dark}>
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
       <Popover open anchorEl={anchor} {...props} />
     </ThemeProvider>,
   );

@@ -65,6 +65,7 @@ export const Link = ({
     linkType,
     theme,
   });
+  const hasIcon = iconPosition !== IconPosition.NoIcon && Boolean(Icon);
 
   return (
     <Box
@@ -106,7 +107,10 @@ export const Link = ({
       {...props}
     >
       <Stack
-        sx={[linkStackStyle(size), ...(ellipsis ? [{ width: "100%" }] : [])]}
+        sx={[
+          linkStackStyle(size, hasIcon),
+          ...(ellipsis ? [{ width: "100%" }] : []),
+        ]}
       >
         {iconPosition === IconPosition.LeftIcon && Icon && (
           <Icon sx={iconStyle[size]} />
