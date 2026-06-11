@@ -25,6 +25,7 @@ const formatBigNum = (value: number) =>
   }).format(value);
 
 export interface DonutProps extends ChartProps {
+  /** Called with the selected slice data when a donut segment is clicked. */
   handleClick?: (sliceData: ChartDataItem) => void;
 }
 

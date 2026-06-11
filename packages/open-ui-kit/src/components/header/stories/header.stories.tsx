@@ -199,19 +199,21 @@ const defaultActions: HeaderAction[] = [
           display: "inline-flex",
           "&::after": (theme) => ({
             alignItems: "center",
-            backgroundColor:
-              theme.palette.vars.interactivePrimaryDefaultDefault,
+            backgroundColor: theme.palette.vars.excellentBackgroundDefault,
             color: theme.palette.vars.baseTextInverse,
-            borderRadius: "50%",
+            borderRadius: "64px",
             content: '"1"',
             display: "flex",
             fontSize: "10px",
+            lineHeight: "16px",
             height: "16px",
             justifyContent: "center",
-            minWidth: "16px",
+            minWidth: "19px",
+            padding: "0 6.5px",
             position: "absolute",
             right: "-6px",
             top: "-8px",
+            boxSizing: "border-box",
           }),
         }}
       >
@@ -245,8 +247,19 @@ const meta: Meta<typeof Header> = {
       control: "select",
       options: ["fixed", "absolute", "sticky", "static", "relative"],
     },
+    useDivider: { control: "boolean" },
     logo: { control: { disable: true } },
+    title: { control: { disable: true } },
+    searchProps: { control: { disable: true } },
+    globalSearchProps: { control: { disable: true } },
+    customSearchNode: { control: { disable: true } },
+    actions: { control: { disable: true } },
     userSection: { control: { disable: true } },
+    sx: { control: { disable: true } },
+  },
+  args: {
+    position: "static",
+    useDivider: true,
   },
 };
 
@@ -254,10 +267,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  name: "Main component",
-  render: () => (
+  render: (args) => (
     <Header
-      position="static"
+      {...args}
       logo={<OutshiftBrand sx={{ width: 115, height: 45 }} />}
       title={<AppTitle />}
       globalSearchProps={{
@@ -319,15 +331,13 @@ const GlobalSearchStory = () => {
 };
 
 export const WithGlobalSearch: Story = {
-  name: "Interactive global search",
   render: () => <GlobalSearchStory />,
 };
 
-export const Minimal: Story = {
-  name: "Item dropdown",
-  render: () => (
+export const UserMenu: Story = {
+  render: (args) => (
     <Header
-      position="static"
+      {...args}
       logo={<OutshiftBrand sx={{ width: 115, height: 45 }} />}
       title={<AppTitle />}
       userSection={<UserSection />}

@@ -4,32 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Breadcrumbs,
-  BreadcrumbsProps,
-  Tab,
-  Tabs,
-  TabsProps,
-} from "@/components";
-import { ReactNode, useCallback, useEffect } from "react";
-import type { BoxProps, TabProps as MuiTabProps } from "@mui/material";
+import { Breadcrumbs, Tab, Tabs } from "@/components";
+import { useCallback, useEffect, useState, type SyntheticEvent } from "react";
 import { Box, Typography } from "@/components";
-import React from "react";
 import { Link } from "react-router-dom";
-
-type SubNavItem = MuiTabProps & { href?: string; selected?: boolean };
-
-export interface BasePageProps {
-  children: ReactNode;
-  containerProps?: BoxProps;
-  breadcrumbs?: BreadcrumbsProps["items"];
-  title: ReactNode;
-  description?: ReactNode;
-  rightSideItems?: ReactNode;
-  tabsProps?: TabsProps;
-  subNav?: SubNavItem[];
-  useBreadcrumbs?: boolean;
-}
+import type { BasePageProps } from "../types";
 
 export const BasePage = ({
   children,
@@ -42,22 +21,29 @@ export const BasePage = ({
   tabsProps,
   useBreadcrumbs = true,
 }: BasePageProps) => {
-  const [tab, setTab] = React.useState(0);
+  const [tab, setTab] = useState(0);
   const hideHeader = !title && !description && !rightSideItems;
   const showHeader = !hideHeader;
+  const { sx: containerSx, ...restContainerProps } = containerProps ?? {};
+  const {
+    onChange: tabsOnChange,
+    value: tabsValue,
+    ...restTabsProps
+  } = tabsProps ?? {};
 
   const handleChange = useCallback(
-    (event: React.SyntheticEvent, newValue: number) => {
+    (event: SyntheticEvent, newValue: number) => {
       setTab(newValue);
+      tabsOnChange?.(event, newValue);
     },
-    [],
+    [tabsOnChange],
   );
 
   useEffect(() => {
     if (subNav) {
       const href = window.location.href;
       const currentTab = subNav.findIndex(
-        (item) => item.href && href.includes(item.href),
+        (item) => item.selected || (item.href && href.includes(item.href)),
       );
       if (currentTab !== -1) {
         setTab(currentTab);
@@ -67,15 +53,15 @@ export const BasePage = ({
 
   return (
     <Box
+      {...restContainerProps}
       sx={[
         { padding: "24px 32px 64px" },
-        ...(Array.isArray(containerProps?.sx)
-          ? containerProps.sx
-          : containerProps?.sx
-            ? [containerProps.sx]
+        ...(Array.isArray(containerSx)
+          ? containerSx
+          : containerSx
+            ? [containerSx]
             : []),
       ]}
-      {...containerProps}
     >
       {showHeader && (
         <Box
@@ -85,7 +71,9 @@ export const BasePage = ({
           pb={2}
           mb={1}
           borderBottom={!subNav ? 1 : 0}
-          borderColor="divider"
+          sx={(theme) => ({
+            borderColor: theme.palette.vars.controlBorderStrong,
+          })}
         >
           {useBreadcrumbs && breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
           <Box
@@ -126,24 +114,27 @@ export const BasePage = ({
       {subNav && (
         <Box
           sx={(theme) => ({
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
             mb: 4,
           })}
         >
           <Tabs
-            value={tab}
+            value={tabsValue ?? tab}
             onChange={handleChange}
             role="navigation"
-            {...tabsProps}
+            {...restTabsProps}
           >
             {subNav.map((item, idx) => {
+              const { href, selected, ...tabItemProps } = item;
+
               return (
                 <Tab
                   key={`item-tab-${idx}`}
+                  {...tabItemProps}
                   component={Link}
-                  aria-current={item.selected && "page"}
-                  {...item}
-                  to={item.href || "#"}
+                  aria-current={selected ? "page" : undefined}
+                  to={href || "#"}
+                  value={idx}
                 />
               );
             })}

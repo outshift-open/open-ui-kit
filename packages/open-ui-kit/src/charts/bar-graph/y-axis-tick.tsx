@@ -5,7 +5,8 @@
  */
 
 import { ReactNode } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { graphStyles } from "./styles";
 
 export const YAxisTick = ({

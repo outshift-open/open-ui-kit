@@ -101,6 +101,7 @@ describe("FloatingButton", () => {
         border: `2px solid ${lightTheme.palette.vars.interactivePrimaryDefaultDefault} !important`,
         color: `${lightTheme.palette.vars.baseTextStrong} !important`,
         boxShadow: lightTheme.shadows[4],
+        letterSpacing: "0.1px",
       });
     });
 

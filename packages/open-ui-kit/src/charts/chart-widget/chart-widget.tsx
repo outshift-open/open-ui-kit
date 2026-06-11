@@ -4,20 +4,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack, SxProps } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import { Stack } from "@mui/material";
 import { Widget, IWidgetProps } from "@/components/widget";
 import { ChartTypeComponents } from "../common/chart-type-components";
+import { ConditionalPropsByType, ExtendedChartProps } from "../common/types";
 import {
-  ChartType,
-  ConditionalPropsByType,
-  ExtendedChartProps,
-} from "../common/types";
+  getChartWidgetBodyStyles,
+  getChartWidgetContainerStyles,
+  toSxArray,
+} from "./styles";
 
 export type IChartWidgetProps = ExtendedChartProps &
   Omit<IWidgetProps, "bodyElement"> &
   ConditionalPropsByType & {
-    sx?: SxProps;
-    generalWidgetStyle?: SxProps;
+    /** Style overrides for the outer widget card. Consumer values are applied after chart-widget defaults. */
+    sx?: SxProps<Theme>;
+    /** Shared style overrides for the outer widget card when composing several chart widgets. */
+    generalWidgetStyle?: SxProps<Theme>;
+    /** Headline text rendered in the widget header. */
     label: string;
   };
 
@@ -46,23 +51,24 @@ export const ChartWidget = ({
   ...rest
 }: IChartWidgetProps) => {
   const combinedSx = [
-    type === ChartType.BAR_GRAPH ? { position: "relative" } : {},
+    getChartWidgetContainerStyles(type),
     generalWidgetStyle ?? {},
-    ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
-  ] as SxProps;
+    ...toSxArray(sx),
+  ] as SxProps<Theme>;
 
   const ChartComponent = ChartTypeComponents[type];
+  const { sx: stackSx, ...stackProps } = stackStyle ?? {};
+
   return (
     <Widget
       dataRoseyUrn={dataRoseyUrn}
       bodyElement={
         <Stack
-          {...stackStyle}
-          sx={{
-            ...(type == ChartType.BAR_GRAPH || type == ChartType.HORIZONTAL_BAR
-              ? { ...sx }
-              : { height: isHorizontal ? "134px" : "164px", flexShrink: 0 }),
-          }}
+          {...stackProps}
+          sx={[
+            getChartWidgetBodyStyles(type, isHorizontal),
+            ...toSxArray(stackSx),
+          ]}
         >
           <ChartComponent
             data={data}

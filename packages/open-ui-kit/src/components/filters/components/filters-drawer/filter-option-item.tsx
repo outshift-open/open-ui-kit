@@ -4,16 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
 import { getStyles } from "./styles";
 import type { FilterOptionData } from "../../types";
+import { ListItem, ListItemButton, ListItemText } from "@/components/list";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 
 export interface FilterOptionProps {
@@ -57,7 +52,9 @@ export const FilterOptionItem = ({
     const text = (
       <>
         {before}
-        <span style={styles.searchMatchText}>{match}</span>
+        <Box component="span" sx={styles.searchMatchText}>
+          {match}
+        </Box>
         {after}
       </>
     );

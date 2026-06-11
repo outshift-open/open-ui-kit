@@ -4,30 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { TooltipProps } from "@/components/tooltip";
-import { Card, SxProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Card } from "@/components/card";
+import type { IWidgetProps } from "../types";
 import { styles } from "../styles/styles";
 import { WidgetHeadline } from "./widget-headline";
 import { WidgetBody } from "./widget-body";
-
-export interface IWidgetProps {
-  bodyElement: JSX.Element;
-  sx?: SxProps;
-  label?: string | JSX.Element;
-  headerChildren?: JSX.Element;
-  headerLeftChildren?: JSX.Element;
-  labelTooltip?: React.ReactNode;
-  titleTooltip?: React.ReactNode;
-  isLoading?: boolean;
-  isHorizontal?: boolean;
-  chartCustomComponent?: React.ReactNode;
-  stackStyle?: Record<string, string | number>;
-  legendCustomComponent?: React.ReactNode;
-  tooltipProps?: Partial<TooltipProps>;
-  isEmpty?: boolean;
-  onLabelClick?: () => void;
-  dataRoseyUrn?: string;
-}
 
 export const Widget = ({
   sx,

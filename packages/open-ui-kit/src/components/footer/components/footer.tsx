@@ -26,11 +26,18 @@ export const Footer = ({
       {productNode ? (
         productNode
       ) : (
-        <RouterLink
+        <Box
+          component={RouterLink}
           to={productLink}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "none" }}
+          sx={(theme) => ({
+            color: theme.palette.vars.baseTextDefault,
+            display: "inline-flex",
+            flexShrink: 0,
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          })}
         >
           <Typography
             variant="caption"
@@ -38,7 +45,7 @@ export const Footer = ({
           >
             © {new Date().getFullYear()} {productName}
           </Typography>
-        </RouterLink>
+        </Box>
       )}
       <Box sx={styles.actionsContainer}>
         {links?.map((link, index) => (

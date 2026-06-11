@@ -6,18 +6,11 @@
 
 import { Drawer } from "@mui/material";
 import { Box } from "@/components";
-import { Header, HeaderProps } from "@/components";
+import { Header } from "@/components";
+import type { LayoutProps } from "../types";
 
 const NAV_WIDTH = 264;
 const HEADER_HEIGHT = 56;
-
-export interface LayoutProps {
-  content?: React.ReactNode;
-  showHeader?: boolean;
-  headerProps?: HeaderProps;
-  showSideNav?: boolean;
-  sideNav?: React.ReactNode;
-}
 
 export const Layout = ({
   showHeader = true,
@@ -36,7 +29,7 @@ export const Layout = ({
           sx={[
             (theme) => ({
               height: `${HEADER_HEIGHT}px`,
-              borderBottom: `1px solid ${theme.palette.divider}`,
+              borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
               zIndex: theme.zIndex.drawer + 1,
             }),
             ...(Array.isArray(headerProps?.sx)
@@ -51,6 +44,7 @@ export const Layout = ({
         <Drawer
           variant="permanent"
           sx={(theme) => ({
+            display: { xs: "none", md: "block" },
             width: NAV_WIDTH,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
@@ -58,7 +52,7 @@ export const Layout = ({
               boxSizing: "border-box",
               top: showHeader ? `${HEADER_HEIGHT}px` : 0,
               height: showHeader ? `calc(100vh - ${HEADER_HEIGHT}px)` : "100vh",
-              borderRight: `1px solid ${theme.palette.divider}`,
+              borderRight: `1px solid ${theme.palette.vars.controlBorderStrong}`,
               backgroundColor: theme.palette.vars.baseBackgroundStrong,
               overflowX: "hidden",
             },
@@ -81,7 +75,7 @@ export const Layout = ({
         component="main"
         sx={{
           flexGrow: 1,
-          marginLeft: showSideNav ? `${NAV_WIDTH}px` : 0,
+          marginLeft: showSideNav ? { xs: 0, md: `${NAV_WIDTH}px` } : 0,
           marginTop: showHeader ? `${HEADER_HEIGHT}px` : 0,
           minHeight: showHeader ? `calc(100vh - ${HEADER_HEIGHT}px)` : "100vh",
           overflow: "auto",

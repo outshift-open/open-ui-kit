@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack, Typography, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Stack, Typography } from "@mui/material";
 import { styles } from "../styles/styles";
 
 export interface IGeneralWidgetBodyStatefulProps {

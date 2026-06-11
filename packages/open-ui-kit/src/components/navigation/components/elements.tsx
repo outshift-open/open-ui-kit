@@ -98,8 +98,13 @@ export const StyledNavigationItemLabel: React.ComponentType<
   React.HTMLAttributes<HTMLSpanElement>
 > = styled("span")(({ theme }) => getNavigationItemLabelStyles(theme));
 
-export const StyledNavigationCollapseButton: React.ComponentType<IconButtonProps> =
-  styled(IconButton)(({ theme }) => getNavigationCollapseButtonStyles(theme));
+export const StyledNavigationCollapseButton: React.ComponentType<
+  IconButtonProps & { compact: boolean }
+> = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "compact",
+})<{ compact: boolean }>(({ theme, compact }) =>
+  getNavigationCollapseButtonStyles(theme, compact),
+);
 
 export const StyledNavigationCloseButton: React.ComponentType<IconButtonProps> =
   styled(IconButton)(({ theme }) => getNavigationCloseButtonStyles(theme));

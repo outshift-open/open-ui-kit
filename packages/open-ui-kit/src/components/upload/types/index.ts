@@ -14,6 +14,8 @@ export interface UploadFile {
   id: string;
   /** Display name of the file. */
   name: string;
+  /** Optional thumbnail URL shown in image-oriented file rows. */
+  thumbnailSrc?: string;
   /** Upload progress 0–100, shown when status is "uploading". */
   progress?: number;
   /** Current status of the file. */
@@ -25,7 +27,7 @@ export interface UploadFile {
 export interface UploadProps {
   /** Trigger variant: drag-and-drop zone or a button. */
   variant?: "drag" | "button";
-  /** Size of the drag zone: "md" (default, padding 48px 24px) or "sm" (padding 36px 24px). Only applies to drag variant. */
+  /** Size of the drag zone and file list rows. */
   size?: "md" | "sm";
   /** Primary label inside the drag zone or button label. */
   label?: string;

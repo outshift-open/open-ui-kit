@@ -20,17 +20,22 @@ import {
 import { ChartProps } from "../common/types";
 import { LineChartTooltip, LineChartTooltipProps } from "./line-chart-tooltip";
 import { formatISODate, formatNumber } from "./utils";
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 type SafeLineProps = Omit<LineProps, "ref">;
 
 export interface LineChartProps
   extends ChartProps,
     Pick<LineChartTooltipProps, "valueFormatter"> {
+  /** Optional title shown in the default tooltip before the category values. */
   subject?: string;
+  /** Props forwarded to the Recharts X axis for domain, tick, and formatter overrides. */
   xAxisProps?: XAxisProps;
+  /** Props forwarded to the Recharts Y axis for domain, tick, and formatter overrides. */
   yAxisProps?: YAxisProps;
+  /** Props forwarded to every line series. Use for dots, active dots, and stroke overrides. */
   lineProps?: Partial<SafeLineProps>;
+  /** Props forwarded to the Cartesian grid for dash and stroke overrides. */
   gridProps?: CartesianGridProps;
 }
 
@@ -47,6 +52,8 @@ export const LineChart = ({
   gridProps,
 }: LineChartProps) => {
   const theme = useTheme();
+  const axisTextColor = theme.palette.vars.baseTextMedium;
+  const gridColor = theme.palette.vars.controlBorderMedium;
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -60,20 +67,20 @@ export const LineChart = ({
           type="category"
           axisLine={{
             strokeWidth: 1,
-            stroke: theme.palette.vars.inactiveBackgroundDefault,
+            stroke: gridColor,
           }}
           tickSize={2}
           tickLine={{
             strokeWidth: 1,
-            stroke: theme.palette.vars.inactiveBackgroundDefault,
+            stroke: gridColor,
             style: { transform: "translateY(3.5px)" },
           }}
           tick={{
             fontFamily: "Inter",
-            fontSize: 10,
-            fontWeight: 600,
+            fontSize: 12,
+            fontWeight: 400,
             letterSpacing: 0.4,
-            color: theme.palette.vars.inactiveBackgroundDefault,
+            fill: axisTextColor,
           }}
           tickMargin={8}
           minTickGap={16}
@@ -88,10 +95,10 @@ export const LineChart = ({
           tickLine={false}
           tick={{
             fontFamily: "Inter",
-            fontSize: 10,
-            fontWeight: 600,
+            fontSize: 12,
+            fontWeight: 400,
             letterSpacing: 0.4,
-            color: theme.palette.vars.inactiveBackgroundDefault,
+            fill: axisTextColor,
           }}
           tickMargin={10}
           minTickGap={14}
@@ -101,7 +108,7 @@ export const LineChart = ({
         <CartesianGrid
           vertical={false}
           strokeWidth={1}
-          stroke={theme.palette.vars.inactiveBackgroundDefault}
+          stroke={gridColor}
           {...gridProps}
         />
         {categories?.map((category) => (
@@ -112,7 +119,7 @@ export const LineChart = ({
             legendType="none"
             dot={false}
             activeDot={true}
-            strokeWidth={2}
+            strokeWidth={3}
             stroke={category.color}
             name={category.name}
             {...lineProps}
@@ -133,7 +140,7 @@ export const LineChart = ({
             cursor={{
               strokeWidth: 1,
               strokeDasharray: "5",
-              stroke: theme.palette.vars.inactiveBackgroundDefault,
+              stroke: gridColor,
             }}
           />
         )}

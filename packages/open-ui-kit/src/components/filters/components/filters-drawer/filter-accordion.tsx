@@ -10,12 +10,12 @@ import {
   AccordionDetails,
   AccordionSummary,
   List,
-  Skeleton,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
 import { Checkbox } from "@/components/checkbox";
+import { Skeleton } from "@/components/skeleton";
 
 import { getStyles } from "./styles";
 import type { FilterOptionData, FilterData } from "../../types";

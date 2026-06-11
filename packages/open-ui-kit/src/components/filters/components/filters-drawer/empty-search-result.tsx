@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { getStyles } from "./styles";
 
 interface EmptySearchResultProps {
@@ -24,7 +24,9 @@ export const EmptySearchResult = ({
     >
       Oops! We couldn&apos;t find any results that match your search:
       <br />
-      <span style={styles.emptySearchInput}>&quot;{searchValue}&quot;</span>
+      <Box component="span" sx={styles.emptySearchInput}>
+        &quot;{searchValue}&quot;
+      </Box>
       <br />
       Please try again with different filters.
     </Typography>

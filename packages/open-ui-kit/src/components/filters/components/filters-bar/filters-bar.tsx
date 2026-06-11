@@ -62,7 +62,7 @@ export const FiltersBar = ({
   };
 
   return (
-    <Stack marginTop="16px" spacing={1.5}>
+    <Stack sx={styles.root}>
       <FiltersBarActions
         onFiltersButtonClick={() => {
           onFiltersButtonClick && onFiltersButtonClick();
@@ -81,7 +81,7 @@ export const FiltersBar = ({
       />
       {isFiltersButtonVisible ? (
         <>
-          <Stack alignItems="center" direction="row" sx={styles.chipsStack}>
+          <Stack direction="row" sx={styles.chipsStack}>
             <FilterChipsContainer
               filters={filters}
               handleDelete={handleChipDelete}

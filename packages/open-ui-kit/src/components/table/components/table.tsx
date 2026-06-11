@@ -35,11 +35,89 @@ import {
   type TableDensityStyles,
 } from "../styles";
 import { Box, PaginationItem, SvgIconProps, useTheme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { EmptyState } from "@/components/empty-state";
 import { Link } from "@/components/link";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { TooltipSize } from "@/components/tooltip";
 import { withHeaderHelpTooltips } from "../utils/helpers";
+
+const toSxArray = (sx: SxProps<Theme> | undefined) =>
+  Array.isArray(sx) ? sx : sx ? [sx] : [];
+
+const mergeSx = (
+  internalStyles: SxProps<Theme>,
+  sx: SxProps<Theme> | undefined,
+): SxProps<Theme> => [internalStyles, ...toSxArray(sx)];
+
+const resolveSxToObject = (
+  sx: SxProps<Theme> | undefined,
+  theme: Theme,
+): Record<string, unknown> =>
+  toSxArray(sx).reduce<Record<string, unknown>>((mergedStyles, sxEntry) => {
+    if (!sxEntry || typeof sxEntry === "boolean") {
+      return mergedStyles;
+    }
+
+    const resolvedEntry =
+      typeof sxEntry === "function" ? sxEntry(theme) : sxEntry;
+
+    return {
+      ...mergedStyles,
+      ...(resolvedEntry as Record<string, unknown>),
+    };
+  }, {});
+
+const mergeMrtSx =
+  (
+    internalStyles: SxProps<Theme>,
+    sx: SxProps<Theme> | undefined,
+  ): SxProps<Theme> =>
+  (theme) => ({
+    ...resolveSxToObject(internalStyles, theme),
+    ...resolveSxToObject(sx, theme),
+  });
+
+type PropsWithSx = {
+  sx?: SxProps<Theme>;
+};
+
+const resolvePropsOrFunc = <TProps, TArg>(
+  propsOrFunc: TProps | ((arg: TArg) => TProps) | undefined,
+  arg: TArg,
+): TProps | undefined =>
+  typeof propsOrFunc === "function"
+    ? (propsOrFunc as (arg: TArg) => TProps)(arg)
+    : propsOrFunc;
+
+const mergeMuiSxProps = <TProps extends PropsWithSx>(
+  internalStyles: SxProps<Theme>,
+  userProps: TProps | undefined,
+): TProps & { sx: SxProps<Theme> } => {
+  const { sx, ...rest } = userProps ?? ({} as TProps);
+
+  return {
+    ...rest,
+    sx: mergeSx(internalStyles, sx),
+  } as TProps & { sx: SxProps<Theme> };
+};
+
+const mergeMrtSxProps = <TProps extends PropsWithSx>(
+  internalStyles: SxProps<Theme>,
+  userProps: TProps | undefined,
+): TProps & { sx: SxProps<Theme> } => {
+  const { sx, ...rest } = userProps ?? ({} as TProps);
+
+  return {
+    ...rest,
+    sx: mergeMrtSx(internalStyles, sx),
+  } as TProps & { sx: SxProps<Theme> };
+};
+
+const getObjectProps = <TProps,>(
+  propsOrFunc: TProps | ((...args: never[]) => TProps) | undefined,
+): TProps | undefined =>
+  typeof propsOrFunc === "function" ? undefined : propsOrFunc;
 
 /**
  * `Table` Component
@@ -252,35 +330,34 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
     // keep the load and skeletons state
     state: { isLoading, showSkeletons: isLoading, ...props.state },
     // keep styles but enable override/add additional props
-    muiTablePaperProps: {
-      sx: tableStyles.tablePaperStyle,
-      elevation: 0,
-      ...props.muiTablePaperProps,
+    muiTablePaperProps: ({ table }) => {
+      const userProps =
+        resolvePropsOrFunc(props.muiTablePaperProps, { table }) ?? {};
+      const mergedProps = mergeMrtSxProps(
+        tableStyles.tablePaperStyle,
+        userProps,
+      );
+
+      return {
+        ...mergedProps,
+        elevation: mergedProps.elevation ?? 0,
+      };
     },
-    muiTableHeadCellProps: ({ column, table }) => ({
-      sx: tableStyles.columnHeaderStyle(column, table),
-      ...props.muiTableHeadCellProps,
-    }),
-    muiTableBodyCellProps: ({ column, table }) => ({
-      sx: {
-        ...tableStyles.bodyCellStyle(column, table),
-        // TODO reuse this borderLeft styling of the first column when we will have a usecase and a design for it
-        // ...(columnScoreSeverityKey
-        //   ? {
-        //       "&:first-of-type": {
-        //         borderLeft: `2px solid ${
-        //           severityScoreToColorMapper
-        //             ? severityScoreToColorMapper(
-        //                 row.original[columnScoreSeverityKey],
-        //               )
-        //             : getHealthScoreColor(row.original[columnScoreSeverityKey])
-        //         }`,
-        //       },
-        //     }
-        //   : {}),
-      },
-      ...props.muiTableBodyCellProps,
-    }),
+    muiTableHeadCellProps: ({ column, table }) =>
+      mergeMrtSxProps(
+        tableStyles.columnHeaderStyle(column, table),
+        resolvePropsOrFunc(props.muiTableHeadCellProps, { column, table }),
+      ),
+    muiTableBodyCellProps: ({ cell, column, row, table }) =>
+      mergeMrtSxProps(
+        tableStyles.bodyCellStyle(column, table),
+        resolvePropsOrFunc(props.muiTableBodyCellProps, {
+          cell,
+          column,
+          row,
+          table,
+        }),
+      ),
     muiTableBodyRowProps: ({ table, isDetailPanel, staticRowIndex, row }) => {
       //remove border - for row that is not detail panel and  (last line in last page or last line in page )
       const rowSx =
@@ -296,46 +373,60 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
             }
           : undefined;
       // allow the user pass function or props
-      const userRowProps =
-        typeof props.muiTableBodyRowProps === "function"
-          ? props.muiTableBodyRowProps({
-              table,
-              isDetailPanel,
-              staticRowIndex,
-              row,
-            })
-          : props.muiTableBodyRowProps;
-      return {
-        ...userRowProps,
-        sx: { ...rowSx, ...userRowProps?.sx },
-      };
+      const userRowProps = resolvePropsOrFunc(props.muiTableBodyRowProps, {
+        table,
+        isDetailPanel,
+        staticRowIndex,
+        row,
+      });
+
+      return mergeMrtSxProps(rowSx ?? {}, userRowProps);
     },
-    muiDetailPanelProps: { sx: tableStyles.tableDetailsStyle },
-    muiSelectCheckboxProps: {
-      sx: tableStyles.checkBoxStyle,
-      ...props.muiSelectCheckboxProps,
-    },
-    muiExpandButtonProps: {
+    muiDetailPanelProps: ({ row, table }) =>
+      mergeMrtSxProps(
+        tableStyles.tableDetailsStyle,
+        resolvePropsOrFunc(props.muiDetailPanelProps, { row, table }),
+      ),
+    muiSelectCheckboxProps: ({ row, staticRowIndex, table }) =>
+      mergeMrtSxProps(
+        tableStyles.checkBoxStyle,
+        resolvePropsOrFunc(props.muiSelectCheckboxProps, {
+          row,
+          staticRowIndex,
+          table,
+        }),
+      ),
+    muiExpandButtonProps: ({ row, staticRowIndex, table }) => ({
+      ...mergeMrtSxProps(
+        tableStyles.expandButtonStyle,
+        resolvePropsOrFunc(props.muiExpandButtonProps, {
+          row,
+          staticRowIndex,
+          table,
+        }),
+      ),
       size: "small",
-      // sx: tableStyles.expandButtonStyle,
-      ...props.muiExpandButtonProps,
-    },
-    muiTableBodyProps: () => ({
-      sx: tableStyles.tableBodyStyle(),
-      ...props.muiTableBodyProps,
     }),
-    muiBottomToolbarProps: {
-      sx: tableStyles.tableBottomToolbarStyle,
-      ...props.muiBottomToolbarProps,
-    },
-    muiSelectAllCheckboxProps: {
-      sx: tableStyles.checkBoxStyle,
-      ...props.muiSelectAllCheckboxProps,
-    },
-    muiTableContainerProps: {
-      sx: tableStyles.tableContainerStyle,
-      ...props.muiTableContainerProps,
-    },
+    muiTableBodyProps: ({ table }) =>
+      mergeMrtSxProps(
+        tableStyles.tableBodyStyle(),
+        resolvePropsOrFunc(props.muiTableBodyProps, { table }),
+      ),
+    muiBottomToolbarProps: ({ table }) =>
+      mergeMrtSxProps(
+        tableStyles.tableBottomToolbarStyle,
+        resolvePropsOrFunc(props.muiBottomToolbarProps, { table }),
+      ),
+    muiSelectAllCheckboxProps: ({ table }) =>
+      mergeMrtSxProps(
+        tableStyles.checkBoxStyle,
+        resolvePropsOrFunc(props.muiSelectAllCheckboxProps, { table }),
+      ),
+    muiTableContainerProps: ({ table }) =>
+      mergeMrtSxProps(
+        tableStyles.tableContainerStyle,
+        resolvePropsOrFunc(props.muiTableContainerProps, { table }),
+      ),
     renderBottomToolbarCustomActions: ({ table }) => (
       <TableFooter
         totalCount={rowCount ?? data.length ?? 0}
@@ -351,7 +442,7 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
     mrtTheme: () => {
       return {
         baseBackgroundColor: theme.palette.vars.controlBackgroundMedium,
-        draggingBorderColor: theme.palette.primary[500],
+        draggingBorderColor: theme.palette.vars.brandIconPrimaryDefault,
       };
     },
     muiPaginationProps: {
@@ -363,13 +454,17 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
           slots={{ first: SkipPreviousOutlined, last: SkipNextOutlined }}
           sx={{
             ...theme.typography.body2,
+            color: theme.palette.vars.baseTextDefault,
+            minWidth: "32px",
+            width: "32px",
+            height: "32px",
+            borderRadius: "100px",
             "&:hover": {
               backgroundColor: theme.palette.vars.controlBorderStrong,
             },
             "&.Mui-selected": {
-              backgroundColor:
-                theme.palette.vars.interactivePrimaryDefaultActive,
-              color: theme.palette.vars.baseTextInverse,
+              backgroundColor: theme.palette.vars.controlBorderStrong,
+              color: theme.palette.vars.baseTextStrong,
             },
             "&.Mui-disabled": {
               backgroundColor: "transparent !important",
@@ -382,19 +477,18 @@ export const CreateTableInstance = <TData extends MRT_RowData>({
                 backgroundColor: theme.palette.vars.controlBorderStrong,
               },
               "&.Mui-selected": {
-                backgroundColor:
-                  theme.palette.vars.interactivePrimaryDefaultActive,
-                color: theme.palette.vars.baseTextInverse,
-                border: `1px solid ${theme.palette.vars.interactivePrimaryDefaultActive}`,
+                backgroundColor: theme.palette.vars.controlBorderStrong,
+                color: theme.palette.vars.baseTextStrong,
+                border: `1px solid ${theme.palette.vars.controlBorderStrong}`,
               },
             }),
           }}
         />
       ),
-      sx: {
-        marginLeft: "auto",
-      },
-      ...props.muiPaginationProps,
+      ...mergeMuiSxProps(
+        { marginLeft: "auto" },
+        getObjectProps(props.muiPaginationProps),
+      ),
     },
   });
 };

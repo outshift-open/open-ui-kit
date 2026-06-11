@@ -79,9 +79,12 @@ describe("Footer", () => {
 
   it("uses light footer tokens", () => {
     expect(styles.container(lightTheme)).toMatchObject({
+      alignItems: "flex-start",
       backgroundColor: lightTheme.palette.vars.baseBackgroundStrong,
       borderTop: `1px solid ${lightTheme.palette.vars.baseBorderDefault}`,
-      minHeight: "48px",
+      flexWrap: "nowrap",
+      gap: "16px",
+      height: "48px",
       px: "32px",
       py: "16px",
     });
@@ -91,6 +94,15 @@ describe("Footer", () => {
     expect(styles.container(darkTheme)).toMatchObject({
       backgroundColor: darkTheme.palette.vars.baseBackgroundStrong,
       borderTop: `1px solid ${darkTheme.palette.vars.baseBorderDefault}`,
+    });
+  });
+
+  it("uses CSS-specified link spacing", () => {
+    expect(styles.actionsContainer).toMatchObject({
+      alignItems: "center",
+      display: "flex",
+      flexShrink: 0,
+      gap: "16px",
     });
   });
 });

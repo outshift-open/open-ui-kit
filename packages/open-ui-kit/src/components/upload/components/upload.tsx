@@ -8,6 +8,14 @@ import { Box, Stack, Typography } from "@mui/material";
 import UploadSimpleIcon from "@mui/icons-material/FileUpload";
 import { useRef, useState } from "react";
 import { Button } from "@/components/button";
+import {
+  getUploadFileListStyles,
+  getUploadHintStyles,
+  getUploadLabelStyles,
+  getUploadRootStyles,
+  getUploadTriggerIconStyles,
+  getUploadTriggerStyles,
+} from "../styles";
 import { UploadProps } from "../types";
 import { UploadFileItem } from "./upload-file-item";
 
@@ -61,7 +69,7 @@ export const Upload = ({
   return (
     <Stack
       spacing={0}
-      sx={[{ width: "100%" }, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+      sx={[getUploadRootStyles(), ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       <input
         ref={inputRef}
@@ -82,78 +90,29 @@ export const Upload = ({
           role="button"
           tabIndex={disabled ? -1 : 0}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") triggerInput();
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              triggerInput();
+            }
           }}
           aria-disabled={disabled}
-          sx={[
-            (theme) => ({
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: size === "sm" ? "36px 24px" : "48px 24px",
-              gap: size === "sm" ? "4px" : "8px",
-              borderRadius: "8px",
-              border: `2px dashed ${
-                isDragOver
-                  ? theme.palette.vars.interactivePrimaryDefaultDefault
-                  : theme.palette.vars.controlBorderDefault
-              }`,
-              backgroundColor: isDragOver
-                ? theme.palette.vars.interactivePrimaryWeakDefault
-                : theme.palette.vars.controlBackgroundDefault,
-              cursor: disabled ? "not-allowed" : "pointer",
-              opacity: disabled ? 0.5 : 1,
-              outline: "none",
-              transition: "border-color 0.15s, background-color 0.15s",
-              "&:hover:not([aria-disabled=true])": {
-                borderColor:
-                  theme.palette.vars.interactivePrimaryDefaultDefault,
-                backgroundColor:
-                  theme.palette.vars.interactivePrimaryWeakDefault,
-              },
-              "&:focus-visible": {
-                borderColor:
-                  theme.palette.vars.interactivePrimaryDefaultDefault,
-              },
-            }),
-          ]}
+          sx={[(theme) => getUploadTriggerStyles(theme, size, isDragOver)]}
         >
           {children ?? (
             <>
               <UploadSimpleIcon
-                sx={(theme) => ({
-                  width: size === "sm" ? "16px" : "20px",
-                  height: size === "sm" ? "16px" : "20px",
-                  color: isDragOver
-                    ? theme.palette.vars.interactivePrimaryDefaultDefault
-                    : theme.palette.vars.baseTextDefault,
-                })}
+                sx={(theme) =>
+                  getUploadTriggerIconStyles(theme, size, isDragOver)
+                }
               />
               <Stack spacing={0} alignItems="center">
                 <Typography
-                  sx={(theme) => ({
-                    fontWeight: 600,
-                    fontSize: size === "sm" ? "12px" : "14px",
-                    lineHeight: size === "sm" ? "18px" : "20px",
-                    textAlign: "center",
-                    color: isDragOver
-                      ? theme.palette.vars.interactivePrimaryDefaultDefault
-                      : theme.palette.vars.baseTextDefault,
-                  })}
+                  sx={(theme) => getUploadLabelStyles(theme, size, isDragOver)}
                 >
                   {defaultDragLabel}
                 </Typography>
                 {hint && (
-                  <Typography
-                    sx={(theme) => ({
-                      fontWeight: 400,
-                      fontSize: "12px",
-                      lineHeight: "18px",
-                      textAlign: "center",
-                      color: theme.palette.vars.baseTextMedium,
-                    })}
-                  >
+                  <Typography sx={(theme) => getUploadHintStyles(theme)}>
                     {hint}
                   </Typography>
                 )}
@@ -174,11 +133,12 @@ export const Upload = ({
       )}
 
       {files.length > 0 && (
-        <Stack spacing={0} sx={{ mt: "12px" }}>
+        <Stack spacing={0} sx={getUploadFileListStyles()}>
           {files.map((file) => (
             <UploadFileItem
               key={file.id}
               file={file}
+              size={size}
               // eslint-disable-next-line @typescript-eslint/no-empty-function
               onRemove={onFileRemove ?? (() => {})}
             />

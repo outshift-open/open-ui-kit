@@ -7,23 +7,39 @@
 import { Theme } from "@mui/material";
 
 export const getStyles = (theme: Theme) => ({
+  root: {
+    marginTop: 0,
+    rowGap: "8px",
+  },
+  actionsRow: {
+    alignItems: "center",
+    columnGap: "8px",
+    flexWrap: "wrap",
+    minHeight: "40px",
+  },
+  filterButton: {
+    flexShrink: 0,
+  },
+  favoriteButton: {
+    flexShrink: 0,
+  },
   searchStack: {
-    flex: "1",
+    flex: "0 1 240px",
+    width: "240px",
   },
   searchInput: {
-    flex: "1",
+    width: "240px",
     "& .MuiInputBase-root": {
-      borderRadius: "4px 0px 0px 4px",
+      borderRadius: "4px",
     },
   },
-  searchButton: {
-    borderRadius: "0px 4px 4px 0px",
-  },
   chipsStack: {
+    alignItems: "center",
+    columnGap: "8px",
     flexWrap: "wrap",
     rowGap: "8px",
     minHeight: "32px",
-    marginTop: "12px",
+    marginTop: 0,
   },
   chipTooltip: {
     "& .MuiTooltip-tooltip": {
@@ -35,7 +51,6 @@ export const getStyles = (theme: Theme) => ({
     },
   },
   chip: {
-    marginRight: "8px",
     maxWidth: "240px",
     textTransform: "none" as const,
   },

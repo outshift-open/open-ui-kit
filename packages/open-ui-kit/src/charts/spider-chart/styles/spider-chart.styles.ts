@@ -11,8 +11,8 @@ export const StyledTooltip = styled("div")(({ theme }) => ({
   width: "max-content",
   borderRadius: "4px",
   boxShadow: theme.shadows[4],
-  color: theme.palette.vars.baseTextDefault,
-  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.vars.baseTextInverse,
+  backgroundColor: theme.palette.vars.inactiveBackgroundActive,
   padding: "2px 8px",
 })) as ComponentType<HTMLAttributes<HTMLDivElement>>;
 

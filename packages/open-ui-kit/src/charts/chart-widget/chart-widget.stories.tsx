@@ -1,35 +1,32 @@
-import { Grid, Stack } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { ChartCategoryItem, ChartType } from "../common/types";
-import {
-  green500,
-  orange500,
-  red500,
-  yellow500,
-} from "@/theme/style/color-palette";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-const chartBlue = "#3a95ff";
+import { useTheme, type Theme } from "@mui/material/styles";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { Grid, Stack } from "@/components";
 import {
-  AWSServicesS3Bucket,
-  AWSServicesRedshift,
   AWSServicesCloudFormation,
   AWSServicesRDS,
+  AWSServicesRedshift,
+  AWSServicesS3Bucket,
   Crossplane,
   Docker2,
   DockerCompose,
   GCPServicesCloudBuild,
 } from "@/custom-icons";
-import { ChartWidget } from "./chart-widget";
+import { ChartCategoryItem, ChartType } from "../common/types";
+import { ChartWidget, type IChartWidgetProps } from "./chart-widget";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-/**
- *  ### Gauge charts give a way to quickly see how well a given metric is performing against a target goal.
- */
 const meta: Meta<typeof ChartWidget> = {
   title: "Charts/Chart Widget",
   component: ChartWidget,
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
@@ -43,22 +40,44 @@ const meta: Meta<typeof ChartWidget> = {
   },
   argTypes: {
     label: {
-      description: "Headline label of the chart widget.",
+      control: "text",
+      description: "Headline label rendered in the widget header.",
     },
     labelTooltip: {
-      description: "Show an info icon with tooltip in the headline.",
+      control: "text",
+      description: "Optional tooltip content rendered next to the label.",
     },
     type: {
-      description: "Type of chart to display in the widget.",
+      control: "select",
+      description: "Chart primitive rendered inside the widget body.",
+      options: Object.values(ChartType),
     },
     data: {
-      description: "The data to be shown in the chart.",
+      control: false,
+      description: "Data passed to the selected chart primitive.",
     },
     showTooltip: {
-      description: "A flag of whether to show tooltip on chart.",
+      control: "boolean",
+      description: "Whether the wrapped chart renders its tooltip.",
     },
     categories: {
-      description: "Categories for charts that use them.",
+      control: false,
+      description:
+        "Series metadata for charts that render multiple categories.",
+    },
+    isLoading: {
+      control: "boolean",
+      description:
+        "Shows the widget loading skeleton instead of chart content.",
+    },
+    isEmpty: {
+      control: "boolean",
+      description: "Shows the widget empty state instead of chart content.",
+    },
+    isHorizontal: {
+      control: "boolean",
+      description:
+        "Uses the widget horizontal layout when the chart supports it.",
     },
   },
 };
@@ -66,50 +85,6 @@ const meta: Meta<typeof ChartWidget> = {
 export default meta;
 
 type Story = StoryObj<typeof ChartWidget>;
-
-const graphs2_200 = "#EE8B97";
-const graphs2_300 = "#E96A8D";
-const graphs2_400 = "#DB5087";
-
-const barData = [
-  { name: "Group A", value: 500, color: green500 },
-  { name: "Group D", value: 400, color: yellow500 },
-  { name: "Group F", value: 300, color: orange500 },
-  { name: "Group G", value: 150, color: red500 },
-];
-
-const barDataHorizontal = [
-  { name: "Group A", value: 500, color: green500, icon: AWSServicesS3Bucket },
-  {
-    name: "Group D",
-    value: 400,
-    color: yellow500,
-    icon: AWSServicesRedshift,
-  },
-  {
-    name: "Group F",
-    value: 300,
-    color: orange500,
-    icon: AWSServicesCloudFormation,
-  },
-  { name: "Group G", value: 150, color: red500, icon: AWSServicesRDS },
-];
-
-const donutData = [
-  { name: "Group A", value: 400, color: "#0088FE" },
-  { name: "Group B", value: 300, color: "#00C49F" },
-  { name: "Group C", value: 300, color: "#FFBB28" },
-  { name: "Group D", value: 200, color: "#FF8042" },
-];
-
-const gaugeData = [{ name: "Group A", value: 20, color: red500 }];
-
-const categories = [
-  { name: "Resolved", color: green500, icon: <GCPServicesCloudBuild /> },
-  { name: "Critical", color: red500, icon: <Docker2 /> },
-  { name: "New", color: yellow500, icon: <DockerCompose /> },
-  { name: "Total", color: chartBlue, icon: <Crossplane /> },
-];
 
 const lineData: ChartCategoryItem[] = [
   { date: "2020-01-01", Critical: 211, New: 315, Total: 130, Resolved: 140 },
@@ -131,163 +106,370 @@ const lineData: ChartCategoryItem[] = [
   { date: "2020-01-17", Critical: 425, New: 215, Total: 135, Resolved: 216 },
 ];
 
-const barGraphData = {
-  headers: ["Services", "Breakdown"],
-  bars: [
-    { key: "PCI", color: graphs2_200 },
-    { key: "PII", color: graphs2_300 },
-    { key: "PHI", color: graphs2_400 },
-  ],
-  data: [
+const getChartSamples = (theme: Theme) => {
+  const statusColors = {
+    critical: theme.palette.vars.negativeBackgroundDefault,
+    warning: theme.palette.vars.warningBackgroundDefault,
+    healthy: theme.palette.vars.successBackgroundDefault,
+    total: theme.palette.vars.accentADefault,
+  };
+
+  const barData = [
+    { name: "Healthy", value: 500, color: statusColors.healthy },
+    { name: "Warning", value: 400, color: statusColors.warning },
+    { name: "Total", value: 300, color: statusColors.total },
+    { name: "Critical", value: 150, color: statusColors.critical },
+  ];
+
+  const horizontalBarData = [
     {
-      value: "us-east1",
-      barData: {
-        PCI: 15,
-        PII: 10,
-        PHI: 10,
-      },
+      name: "Storage",
+      value: 500,
+      color: statusColors.healthy,
+      icon: AWSServicesS3Bucket,
     },
     {
-      value: "us-east2",
-      barData: {
-        PCI: 10,
-        PII: 10,
-        PHI: 10,
-      },
+      name: "Analytics",
+      value: 400,
+      color: statusColors.warning,
+      icon: AWSServicesRedshift,
     },
     {
-      value: "europe-west1",
-      barData: {
-        PCI: 7,
-        PII: 5,
-        PHI: 10,
-      },
+      name: "Templates",
+      value: 300,
+      color: statusColors.total,
+      icon: AWSServicesCloudFormation,
     },
     {
-      value: "europe-west3",
-      barData: {
-        PCI: 7,
-        PII: 5,
-        PHI: 10,
-      },
+      name: "Database",
+      value: 150,
+      color: statusColors.critical,
+      icon: AWSServicesRDS,
     },
+  ];
+
+  const donutData = [
+    { name: "Healthy", value: 400, color: statusColors.healthy },
+    { name: "Warning", value: 300, color: statusColors.warning },
+    { name: "Total", value: 300, color: statusColors.total },
+    { name: "Critical", value: 200, color: statusColors.critical },
+  ];
+
+  const gaugeData = [{ name: "Risk", value: 24, color: statusColors.critical }];
+
+  const categories = [
     {
-      value: "eu-north-1",
-      barData: {
-        PCI: 4,
-        PII: 3,
-        PHI: 10,
-      },
+      name: "Resolved",
+      color: statusColors.healthy,
+      icon: <GCPServicesCloudBuild />,
     },
-    {
-      value: "eu-north-3",
-      barData: {
-        PCI: 4,
-        PII: 3,
-        PHI: 10,
+    { name: "Critical", color: statusColors.critical, icon: <Docker2 /> },
+    { name: "New", color: statusColors.warning, icon: <DockerCompose /> },
+    { name: "Total", color: statusColors.total, icon: <Crossplane /> },
+  ];
+
+  const barGraphData = {
+    headers: ["Region", "Breakdown"],
+    bars: [
+      { key: "Critical", color: statusColors.critical },
+      { key: "Warning", color: statusColors.warning },
+      { key: "Healthy", color: statusColors.healthy },
+    ],
+    data: [
+      {
+        value: "us-east-1",
+        barData: { Critical: 15, Warning: 10, Healthy: 10 },
       },
+      {
+        value: "us-east-2",
+        barData: { Critical: 10, Warning: 10, Healthy: 10 },
+      },
+      {
+        value: "eu-west-1",
+        barData: { Critical: 7, Warning: 5, Healthy: 10 },
+      },
+      {
+        value: "eu-north-1",
+        barData: { Critical: 4, Warning: 3, Healthy: 10 },
+      },
+    ],
+  };
+
+  return {
+    barData,
+    horizontalBarData,
+    donutData,
+    gaugeData,
+    lineData,
+    categories,
+    barGraphData,
+    chartData: {
+      [ChartType.DONUT]: donutData,
+      [ChartType.LINE]: lineData,
+      [ChartType.VERTICAL_BAR]: barData,
+      [ChartType.HORIZONTAL_BAR]: horizontalBarData,
+      [ChartType.GAUGE]: gaugeData,
+      [ChartType.BAR_GRAPH]: barGraphData.data,
     },
-  ],
+  };
 };
 
-const chartData = {
-  [ChartType.DONUT]: donutData,
-  [ChartType.LINE]: lineData,
-  [ChartType.VERTICAL_BAR]: barData,
-  [ChartType.HORIZONTAL_BAR]: barDataHorizontal,
-  [ChartType.GAUGE]: gaugeData,
+type IChartWidgetStoryArgs = Partial<
+  Pick<
+    IChartWidgetProps,
+    | "isEmpty"
+    | "isHorizontal"
+    | "isLoading"
+    | "label"
+    | "labelTooltip"
+    | "showTooltip"
+  >
+> & {
+  type?: ChartType;
 };
 
-export const ChartWidgetExample: Story = {
-  render: (args) => (
-    <Stack width="262px">
+const DefaultTemplate = ({
+  isEmpty,
+  isHorizontal,
+  isLoading,
+  label = "Chart",
+  labelTooltip,
+  showTooltip,
+  type = ChartType.DONUT,
+}: IChartWidgetStoryArgs) => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+  const sharedProps = {
+    isEmpty,
+    isHorizontal,
+    isLoading,
+    label,
+    labelTooltip,
+    showTooltip,
+  };
+
+  switch (type) {
+    case ChartType.BAR_GRAPH:
+      return (
+        <Stack width="360px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.barGraphData.data}
+            bars={samples.barGraphData.bars}
+            headers={samples.barGraphData.headers}
+            type={ChartType.BAR_GRAPH}
+          />
+        </Stack>
+      );
+    case ChartType.HORIZONTAL_BAR:
+      return (
+        <Stack width="301px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.horizontalBarData}
+            categories={[{ name: "Service" }, { name: "Value" }]}
+            type={ChartType.HORIZONTAL_BAR}
+          />
+        </Stack>
+      );
+    case ChartType.LINE:
+      return (
+        <Stack width="301px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.lineData}
+            categories={samples.categories}
+            type={ChartType.LINE}
+          />
+        </Stack>
+      );
+    case ChartType.VERTICAL_BAR:
+      return (
+        <Stack width="301px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.barData}
+            type={ChartType.VERTICAL_BAR}
+          />
+        </Stack>
+      );
+    case ChartType.GAUGE:
+      return (
+        <Stack width="301px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.gaugeData}
+            type={ChartType.GAUGE}
+          />
+        </Stack>
+      );
+    case ChartType.DONUT:
+    default:
+      return (
+        <Stack width="301px">
+          <ChartWidget
+            {...sharedProps}
+            data={samples.donutData}
+            type={ChartType.DONUT}
+          />
+        </Stack>
+      );
+  }
+};
+
+const ChartTypesTemplate = () => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+
+  return (
+    <Grid container gap="16px">
+      <Stack width="301px">
+        <ChartWidget
+          label="Donut Chart"
+          data={samples.donutData}
+          type={ChartType.DONUT}
+          showTooltip
+        />
+      </Stack>
+      <Stack width="301px">
+        <ChartWidget
+          label="Gauge Chart"
+          data={samples.gaugeData}
+          type={ChartType.GAUGE}
+          showTooltip
+        />
+      </Stack>
+      <Stack width="301px">
+        <ChartWidget
+          label="Vertical Bar Chart"
+          data={samples.barData}
+          type={ChartType.VERTICAL_BAR}
+          showTooltip
+        />
+      </Stack>
+      <Stack width="301px">
+        <ChartWidget
+          label="Horizontal Bar Chart"
+          data={samples.horizontalBarData}
+          type={ChartType.HORIZONTAL_BAR}
+          categories={[{ name: "Service" }, { name: "Value" }]}
+          showTooltip
+        />
+      </Stack>
+      <Stack width="301px">
+        <ChartWidget
+          label="Line Chart"
+          data={samples.lineData}
+          categories={samples.categories}
+          type={ChartType.LINE}
+          showTooltip
+        />
+      </Stack>
+      <Stack width="360px">
+        <ChartWidget
+          label="Bar Graph"
+          data={samples.barGraphData.data}
+          headers={samples.barGraphData.headers}
+          bars={samples.barGraphData.bars}
+          type={ChartType.BAR_GRAPH}
+          showTooltip
+        />
+      </Stack>
+    </Grid>
+  );
+};
+
+const LoadingTemplate = () => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+
+  return (
+    <Stack width="301px">
       <ChartWidget
-        {...args}
-        data={chartData[args.type as keyof typeof chartData]}
+        label="Loading Chart"
+        data={samples.donutData}
+        type={ChartType.DONUT}
+        isLoading
       />
     </Stack>
-  ),
+  );
+};
+
+const EmptyStateTemplate = () => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+
+  return (
+    <Stack width="301px">
+      <ChartWidget
+        label="Empty Chart"
+        data={samples.donutData}
+        type={ChartType.DONUT}
+        isEmpty
+      />
+    </Stack>
+  );
+};
+
+const HorizontalLayoutTemplate = () => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+
+  return (
+    <ChartWidget
+      label="Horizontal Donut Chart"
+      data={samples.donutData}
+      type={ChartType.DONUT}
+      showTooltip
+      isHorizontal
+    />
+  );
+};
+
+const BarGraphTemplate = () => {
+  const theme = useTheme();
+  const samples = getChartSamples(theme);
+
+  return (
+    <Stack width="360px">
+      <ChartWidget
+        label="Bar Graph"
+        data={samples.barGraphData.data}
+        headers={samples.barGraphData.headers}
+        bars={samples.barGraphData.bars}
+        type={ChartType.BAR_GRAPH}
+        showTooltip
+      />
+    </Stack>
+  );
+};
+
+export const Default: Story = {
+  render: (args: IChartWidgetStoryArgs) => <DefaultTemplate {...args} />,
   args: {
     label: "Donut Chart",
-    labelTooltip: "Label tooltip",
-    data: donutData,
+    labelTooltip: "Chart summary",
     type: ChartType.DONUT,
     showTooltip: true,
   },
 };
 
-export const ChartWidgetTypes: Story = {
-  render: () => (
-    <Grid container gap="10px">
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Donut Chart"
-          data={donutData}
-          type={ChartType.DONUT}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Gauge Chart"
-          data={gaugeData}
-          type={ChartType.GAUGE}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Vertical Bar Chart"
-          data={barData}
-          type={ChartType.VERTICAL_BAR}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Horizontal Bar Chart"
-          data={barDataHorizontal}
-          type={ChartType.HORIZONTAL_BAR}
-          categories={[{ name: "Group" }, { name: "Value" }]}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Line Chart"
-          data={lineData}
-          categories={categories}
-          type={ChartType.LINE}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          sx={{ height: "350px" }}
-          isLoading={false}
-          label="Bar Graph"
-          data={barGraphData.data}
-          headers={barGraphData.headers}
-          bars={barGraphData.bars}
-          type={ChartType.BAR_GRAPH}
-          showTooltip
-        />
-      </Stack>
-      <Stack width="262px">
-        <ChartWidget
-          isLoading={false}
-          label="Horizontal Donut Chart"
-          data={donutData}
-          type={ChartType.DONUT}
-          showTooltip
-          isHorizontal={true}
-        />
-      </Stack>
-    </Grid>
-  ),
+export const ChartTypes: Story = {
+  render: () => <ChartTypesTemplate />,
+};
+
+export const Loading: Story = {
+  render: () => <LoadingTemplate />,
+};
+
+export const EmptyState: Story = {
+  render: () => <EmptyStateTemplate />,
+};
+
+export const HorizontalLayout: Story = {
+  render: () => <HorizontalLayoutTemplate />,
+};
+
+export const BarGraph: Story = {
+  render: () => <BarGraphTemplate />,
 };

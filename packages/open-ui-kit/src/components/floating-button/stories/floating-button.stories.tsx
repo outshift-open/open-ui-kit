@@ -5,14 +5,40 @@
  */
 
 import { Stack } from "@/components";
+import { ImageGrid } from "@/custom-icons";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Hub } from "@mui/icons-material";
-import { FloatingButton } from "..";
+import { FloatingButton, type FloatingButtonProps } from "..";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof FloatingButton> = {
   title: "Components/FloatingButton",
   component: FloatingButton,
+  args: {
+    children: "Button",
+    size: "medium",
+    variant: "primary",
+  },
+  argTypes: {
+    children: {
+      control: "text",
+      description: "Button label or icon-only child.",
+    },
+    size: {
+      control: "radio",
+      options: ["medium", "small"],
+      description: "Visual scale. Medium is 40px tall; small is 32px tall.",
+    },
+    variant: {
+      control: "radio",
+      options: ["primary", "secondary"],
+      description:
+        "Primary uses the accent border; secondary uses the neutral border.",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables the floating action.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -30,157 +56,106 @@ const meta: Meta<typeof FloatingButton> = {
 export default meta;
 type Story = StoryObj<typeof FloatingButton>;
 
-export const AllVariants: Story = {
-  name: "Floating button",
+const variants: FloatingButtonProps["variant"][] = ["primary", "secondary"];
+const sizes: FloatingButtonProps["size"][] = ["medium", "small"];
+
+export const Default: Story = {};
+
+export const Variants: Story = {
   render: () => (
-    <Stack gap={7}>
-      <Stack direction="column" gap={2.5}>
-        <Stack direction="row" gap={3} alignItems="center">
-          <FloatingButton variant="primary" size="medium">
-            Button
-          </FloatingButton>
-          <FloatingButton variant="primary" size="medium" startIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton variant="primary" size="medium" endIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton aria-label="Button" variant="primary" size="medium">
-            <Hub />
-          </FloatingButton>
-        </Stack>
-        <Stack direction="row" gap={3} alignItems="center">
-          <FloatingButton variant="secondary" size="medium">
-            Button
-          </FloatingButton>
-          <FloatingButton variant="secondary" size="medium" startIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton variant="secondary" size="medium" endIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton aria-label="Button" variant="secondary" size="medium">
-            <Hub />
-          </FloatingButton>
-        </Stack>
-      </Stack>
-      <Stack direction="column" gap={2.5}>
-        <Stack direction="row" gap={3} alignItems="center">
-          <FloatingButton variant="primary" size="small">
-            Button
-          </FloatingButton>
-          <FloatingButton variant="primary" size="small" startIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton variant="primary" size="small" endIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton aria-label="Button" variant="primary" size="small">
-            <Hub />
-          </FloatingButton>
-        </Stack>
-        <Stack direction="row" gap={3} alignItems="center">
-          <FloatingButton variant="secondary" size="small">
-            Button
-          </FloatingButton>
-          <FloatingButton variant="secondary" size="small" startIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton variant="secondary" size="small" endIcon={<Hub />}>
-            Button
-          </FloatingButton>
-          <FloatingButton aria-label="Button" variant="secondary" size="small">
-            <Hub />
-          </FloatingButton>
-        </Stack>
-      </Stack>
+    <Stack direction="row" gap={3} alignItems="center">
+      {variants.map((variant) => (
+        <FloatingButton key={variant} variant={variant}>
+          Button
+        </FloatingButton>
+      ))}
     </Stack>
   ),
 };
 
-export const ContentTextOnlyVariantPrimarySizeMedium: Story = {
-  name: "Content=Text only, Variant=Primary, Size=Medium",
-  args: {
-    variant: "primary",
-    size: "medium",
-    children: "Button",
-  },
+export const Sizes: Story = {
+  render: () => (
+    <Stack direction="row" gap={3} alignItems="center">
+      {sizes.map((size) => (
+        <FloatingButton key={size} size={size}>
+          Button
+        </FloatingButton>
+      ))}
+    </Stack>
+  ),
 };
 
-export const ContentTextOnlyVariantSecondarySizeMedium: Story = {
-  name: "Content=Text only, Variant=Secondary, Size=Medium",
-  args: {
-    variant: "secondary",
-    size: "medium",
-    children: "Button",
-  },
+export const WithIcon: Story = {
+  render: () => (
+    <Stack direction="row" gap={3} alignItems="center">
+      <FloatingButton startIcon={<ImageGrid />}>Button</FloatingButton>
+      <FloatingButton endIcon={<ImageGrid />}>Button</FloatingButton>
+    </Stack>
+  ),
 };
 
-export const ContentTextOnlyVariantPrimarySizeSmall: Story = {
-  name: "Content=Text only, Variant=Primary, Size=Small",
-  args: {
-    variant: "primary",
-    size: "small",
-    children: "Button",
-  },
+export const IconOnly: Story = {
+  render: () => (
+    <Stack direction="row" gap={3} alignItems="center">
+      {variants.map((variant) => (
+        <FloatingButton
+          key={variant}
+          aria-label={`${variant} floating action`}
+          variant={variant}
+        >
+          <ImageGrid />
+        </FloatingButton>
+      ))}
+    </Stack>
+  ),
 };
 
-export const ContentTextOnlyVariantSecondarySizeSmall: Story = {
-  name: "Content=Text only, Variant=Secondary, Size=Small",
-  args: {
-    variant: "secondary",
-    size: "small",
-    children: "Button",
-  },
-};
-
-export const ContentLeftIconVariantPrimarySizeMedium: Story = {
-  name: "Content=Left icon, Variant=Primary, Size=Medium",
-  args: {
-    variant: "primary",
-    size: "medium",
-    startIcon: <Hub />,
-    children: "Button",
-  },
-};
-
-export const ContentRightIconVariantPrimarySizeMedium: Story = {
-  name: "Content=Right icon, Variant=Primary, Size=Medium",
-  args: {
-    variant: "primary",
-    size: "medium",
-    endIcon: <Hub />,
-    children: "Button",
-  },
-};
-
-export const ContentIconOnlyVariantPrimarySizeMedium: Story = {
-  name: "Content=Icon only, Variant=Primary, Size=Medium",
-  args: {
-    "aria-label": "Button",
-    variant: "primary",
-    size: "medium",
-    children: <Hub />,
-  },
-};
-
-export const ContentIconOnlyVariantSecondarySizeMedium: Story = {
-  name: "Content=Icon only, Variant=Secondary, Size=Medium",
-  args: {
-    "aria-label": "Button",
-    variant: "secondary",
-    size: "medium",
-    children: <Hub />,
-  },
+export const Matrix: Story = {
+  render: () => (
+    <Stack gap={7}>
+      {sizes.map((size) => (
+        <Stack key={size} direction="column" gap={2.5}>
+          {variants.map((variant) => (
+            <Stack key={variant} direction="row" gap={3} alignItems="center">
+              <FloatingButton variant={variant} size={size}>
+                Button
+              </FloatingButton>
+              <FloatingButton
+                variant={variant}
+                size={size}
+                startIcon={<ImageGrid />}
+              >
+                Button
+              </FloatingButton>
+              <FloatingButton
+                variant={variant}
+                size={size}
+                endIcon={<ImageGrid />}
+              >
+                Button
+              </FloatingButton>
+              <FloatingButton
+                aria-label={`${variant} ${size} floating action`}
+                variant={variant}
+                size={size}
+              >
+                <ImageGrid />
+              </FloatingButton>
+            </Stack>
+          ))}
+        </Stack>
+      ))}
+    </Stack>
+  ),
 };
 
 export const Disabled: Story = {
   render: () => (
-    <Stack direction="row" gap={3}>
-      <FloatingButton variant="primary" size="medium" disabled>
+    <Stack direction="row" gap={3} alignItems="center">
+      <FloatingButton variant="primary" disabled>
         Button
       </FloatingButton>
-      <FloatingButton variant="secondary" size="medium" disabled>
+      <FloatingButton variant="secondary" disabled>
         Button
       </FloatingButton>
     </Stack>

@@ -4,17 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  FilterList,
-  SearchOutlined,
-  StarOutline,
-  StarOutlined,
-} from "@mui/icons-material";
 import { Box, Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getStyles } from "./styles";
 import { Button } from "@/components/button";
 import { SearchInput } from "@/components/search-input";
+import { Filter, Star, StarOutline } from "@/custom-icons";
 import type { FiltersBarActionsProps } from "../../types";
 
 export const FiltersBarActions = ({
@@ -34,11 +29,7 @@ export const FiltersBarActions = ({
   const styles = getStyles(theme);
   const [search, setSearch] = useState(initialSearchValue);
 
-  const onSearchSubmit = (value = search) => {
-    if (onSearch) {
-      onSearch(value);
-    }
-  };
+  const onSearchSubmit = (value = search) => onSearch?.(value);
 
   const isSearchDisabled = !onSearch;
 
@@ -47,13 +38,14 @@ export const FiltersBarActions = ({
   }, [searchValue]);
 
   return (
-    <Stack direction="row" columnGap="12px" height="40px">
+    <Stack direction="row" sx={styles.actionsRow}>
       {isFiltersButtonVisible && (
         <Button
           size="large"
           variant="secondary"
-          startIcon={<FilterList />}
+          startIcon={<Filter />}
           onClick={onFiltersButtonClick}
+          sx={styles.filterButton}
         >
           Filters
           <Box width="8px" />
@@ -74,14 +66,14 @@ export const FiltersBarActions = ({
           size="large"
           variant="secondary"
           onClick={() => onFavorite(!favorite)}
+          sx={styles.favoriteButton}
         >
-          {favorite ? <StarOutlined /> : <StarOutline />}
+          {favorite ? <Star /> : <StarOutline />}
         </Button>
       )}
       <Stack direction="row" sx={styles.searchStack}>
         <SearchInput
-          fullWidth
-          InputProps={
+          inputProps={
             inputProps?.props ? inputProps.props : { startAdornment: <></> }
           }
           placeholder={searchPlaceHolder}
@@ -94,23 +86,16 @@ export const FiltersBarActions = ({
           }}
           disabled={isSearchDisabled}
           onClear={() => onSearchSubmit("")}
-          onChangeCallback={setSearch}
+          onChangeCallback={(value) => {
+            setSearch(value);
+            onSearch?.(value);
+          }}
           extendEndAdornment={
             inputProps?.extendEndAdornment
               ? inputProps.extendEndAdornment
               : undefined
           }
         />
-        <Button
-          disabled={isSearchDisabled}
-          sx={styles.searchButton}
-          variant="secondary"
-          size="large"
-          startIcon={<SearchOutlined />}
-          onClick={() => onSearchSubmit()}
-        >
-          Search
-        </Button>
       </Stack>
       {rightSideComponent && rightSideComponent}
     </Stack>

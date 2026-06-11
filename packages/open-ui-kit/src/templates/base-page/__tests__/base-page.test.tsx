@@ -7,9 +7,10 @@
 import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { BasePage } from "../components/base-page";
 
@@ -68,5 +69,54 @@ describe("BasePage", () => {
     expect(() =>
       renderBasePage({ title: "Dark", children: null }, true),
     ).not.toThrow();
+  });
+
+  it("merges container sx so consumer styles win", () => {
+    renderBasePage({
+      title: "Styled",
+      children: null,
+      containerProps: {
+        "data-testid": "base-page",
+        sx: {
+          backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+          padding: "12px",
+        },
+      },
+    });
+
+    expect(screen.getByTestId("base-page")).toHaveStyle({
+      backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+      padding: "12px",
+    });
+  });
+
+  it("uses selected sub-nav state and still calls consumer tab handlers", () => {
+    const handleChange = jest.fn();
+
+    renderBasePage({
+      title: "Tabs",
+      children: null,
+      subNav: [
+        { href: "/overview", label: "Overview" },
+        { href: "/policies", label: "Policies", selected: true },
+        { href: "/activity", label: "Activity" },
+      ],
+      tabsProps: {
+        onChange: handleChange,
+      },
+    });
+
+    expect(screen.getByRole("tab", { name: "Policies" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+
+    fireEvent.click(screen.getByRole("tab", { name: "Activity" }));
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("tab", { name: "Activity" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
   });
 });

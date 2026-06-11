@@ -4,16 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import { CSSProperties } from "react";
 
 export const styles = (theme: Theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "flex-start",
     backgroundColor: theme.palette.vars.baseBackgroundWeak,
     boxShadow: theme.shadows[1],
     borderRadius: "8px",
+    gap: 0,
+    justifyContent: "flex-start",
     padding: "0px",
     "&:hover": {
       backgroundColor: theme.palette.vars.baseBackgroundWeak,
@@ -22,9 +25,14 @@ export const styles = (theme: Theme) => ({
 
   horizontalCard: {
     overflow: "visible",
+    alignItems: "flex-start",
     backgroundColor: theme.palette.vars.baseBackgroundWeak,
     boxShadow: theme.shadows[1],
     borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+    justifyContent: "flex-start",
     padding: "0px",
     width: "360px",
     "&:hover": {
@@ -37,24 +45,28 @@ export const styles = (theme: Theme) => ({
   } as CSSProperties,
 
   stack: {
-    minHeight: "136px",
     width: "100%",
   } as CSSProperties,
 
   cardContent: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
+    flexGrow: 1,
+    gap: "16px",
+    padding: "8px 16px 16px",
     width: "100%",
     height: "100%",
-    overflowY: "auto",
+    overflowY: "visible",
+    "&:last-child": {
+      paddingBottom: "16px",
+    },
   } as CSSProperties,
 
   cardHeaderWrapper: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottom: `1px solid ${theme.palette.divider}`,
     padding: "16px",
     width: "100%",
   } as CSSProperties,

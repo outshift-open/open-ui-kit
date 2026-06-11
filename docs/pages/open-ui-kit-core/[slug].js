@@ -875,6 +875,30 @@ export function ViewSwitcherExample() {
     />
   );
 }`,
+  widget: () => `import {
+  Button,
+  Stack,
+  Typography,
+  Widget,
+} from '@open-ui-kit/core';
+
+export function WidgetExample() {
+  return (
+    <Widget
+      label="Open findings"
+      labelTooltip="Findings that still need triage."
+      headerChildren={<Button size="small">View all</Button>}
+      bodyElement={
+        <Stack spacing={0.5}>
+          <Typography variant="h4">24</Typography>
+          <Typography variant="body2">
+            Findings need review across three workspaces.
+          </Typography>
+        </Stack>
+      }
+    />
+  );
+}`,
 };
 
 function getExampleCode(component) {

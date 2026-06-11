@@ -4,40 +4,69 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { BasePage } from "../components/base-page";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { MemoryRouter } from "react-router-dom";
 import { Box, Typography } from "@/components";
-import { DocsHeader } from "storybook/components/docs-header.stories";
-import { BrowserRouter } from "react-router-dom";
 import { Button } from "@/components/button";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { BasePage } from "../components/base-page";
 
 const meta: Meta<typeof BasePage> = {
-  title: "Templates/BasePage",
+  title: "Templates/Base Page",
   component: BasePage,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   argTypes: {
-    title: { control: "text", description: "The title of the page" },
-    description: {
-      control: "text",
-      description: "The description of the page",
-    },
-    subNav: { control: "object", description: "Sub-navigation items" },
     breadcrumbs: {
       control: "object",
-      description: "Breadcrumb navigation items",
+      description: "Breadcrumb navigation items rendered above the heading.",
+    },
+    children: {
+      control: false,
+      description: "Main page content.",
+    },
+    containerProps: {
+      control: false,
+      description: "Props applied to the outer page container.",
+    },
+    description: {
+      control: "text",
+      description: "Supporting text rendered below the heading.",
     },
     rightSideItems: {
-      control: "object",
-      description: "Items displayed on the right side of the page",
+      control: false,
+      description: "Actions displayed on the right side of the header.",
     },
-    children: { control: "text", description: "Content of the page" },
+    subNav: {
+      control: "object",
+      description: "Optional tab navigation items rendered below the header.",
+    },
+    tabsProps: {
+      control: false,
+      description: "Props forwarded to the sub-navigation Tabs component.",
+    },
+    title: {
+      control: "text",
+      description: "Page heading content.",
+    },
+    useBreadcrumbs: {
+      control: "boolean",
+      description: "Hides breadcrumb rendering when set to false.",
+    },
   },
   tags: ["autodocs"],
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
           title="Base Page"
-          blurb="BasePage is a template for creating pages with a consistent layout. It includes a header, breadcrumbs, and optional sub-navigation and right-side items."
+          blurb="BasePage is a template for creating pages with a consistent header, breadcrumbs, optional sub-navigation, and right-side actions."
           guideLink="#"
           importLine='import { BasePage } from "@open-ui-kit/core";'
         />
@@ -51,12 +80,12 @@ type Story = StoryObj<typeof BasePage>;
 
 const SampleContent = () => (
   <Box sx={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-    {[1, 2, 3].map((i) => (
+    {["Summary", "Activity", "Recommendations"].map((label) => (
       <Box
-        key={i}
+        key={label}
         sx={(theme) => ({
+          border: `1px solid ${theme.palette.vars.controlBorderStrong}`,
           borderRadius: "8px",
-          border: `1px solid ${theme.palette.divider}`,
           padding: "16px",
         })}
       >
@@ -64,13 +93,13 @@ const SampleContent = () => (
           variant="h6"
           sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
         >
-          Section {i}
+          {label}
         </Typography>
         <Box
           sx={(theme) => ({
-            height: "24px",
             backgroundColor: theme.palette.vars.baseBackgroundStrong,
             borderRadius: "4px",
+            height: "24px",
             mt: 1,
           })}
         />
@@ -82,69 +111,53 @@ const SampleContent = () => (
 export const Default: Story = {
   render: (args) => <BasePage {...args} />,
   args: {
-    title: "Page Title",
-    description: "Description",
+    title: "Inventory overview",
+    description: "Review asset posture and recent changes.",
     children: <SampleContent />,
   },
 };
 
 export const WithSubNav: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <BasePage {...args} />
-    </BrowserRouter>
-  ),
+  render: (args) => <BasePage {...args} />,
   args: {
-    title: "Page Title",
-    description: "Description",
+    title: "Cloud accounts",
+    description: "Manage account groups and discovery status.",
     subNav: [
-      { href: "/tab1", label: "Tab 10" },
-      { href: "/tab2", label: "Tab 10" },
-      { href: "/tab3", label: "Tab 10" },
-      { href: "/tab4", label: "Tab 10" },
-      { href: "/tab5", label: "Tab 10" },
+      { href: "/overview", label: "Overview", selected: true },
+      { href: "/accounts", label: "Accounts" },
+      { href: "/policies", label: "Policies" },
+      { href: "/activity", label: "Activity" },
     ],
     children: <SampleContent />,
   },
 };
 
 export const WithBreadcrumbs: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <BasePage {...args} />
-    </BrowserRouter>
-  ),
+  render: (args) => <BasePage {...args} />,
   args: {
-    title: "Page Title",
-    description: "Description",
+    title: "Policy details",
+    description: "Inspect assigned resources and enforcement health.",
     breadcrumbs: [
       { text: "Home", link: "/" },
-      { text: "Section", link: "/section" },
+      { text: "Policies", link: "/policies" },
     ],
     children: <SampleContent />,
   },
 };
 
 export const WithRightSideItems: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <BasePage {...args} />
-    </BrowserRouter>
-  ),
+  render: (args) => <BasePage {...args} />,
   args: {
-    title: "Page Title",
-    description: "Description",
+    title: "Reports",
+    description: "Create and export compliance reports.",
     breadcrumbs: [{ text: "Home", link: "/" }],
     rightSideItems: (
       <>
         <Button variant="primary" size="small">
-          button-link
+          Create
         </Button>
         <Button variant="secondary" size="small">
-          button-link
-        </Button>
-        <Button variant="outlined" size="small">
-          button-link
+          Export
         </Button>
       </>
     ),
@@ -152,40 +165,40 @@ export const WithRightSideItems: Story = {
   },
 };
 
-export const AllProps: Story = {
-  render: (args) => (
-    <BrowserRouter>
-      <BasePage {...args} />
-    </BrowserRouter>
-  ),
+export const Complete: Story = {
+  render: (args) => <BasePage {...args} />,
   args: {
-    title: "Page Title",
-    description: "Description",
+    title: "Runtime protection",
+    description: "Monitor workload findings by cluster and namespace.",
     subNav: [
-      { href: "/tab1", label: "Tab 10" },
-      { href: "/tab2", label: "Tab 10" },
-      { href: "/tab3", label: "Tab 10" },
-      { href: "/tab4", label: "Tab 10" },
-      { href: "/tab5", label: "Tab 10" },
-      { href: "/tab6", label: "Tab 10" },
+      { href: "/overview", label: "Overview", selected: true },
+      { href: "/clusters", label: "Clusters" },
+      { href: "/namespaces", label: "Namespaces" },
+      { href: "/settings", label: "Settings" },
     ],
-    breadcrumbs: [{ text: "Home", link: "/" }],
+    breadcrumbs: [
+      { text: "Home", link: "/" },
+      { text: "Runtime", link: "/runtime" },
+    ],
     rightSideItems: (
       <>
         <Button variant="primary" size="small">
-          button-link
+          Scan
         </Button>
         <Button variant="secondary" size="small">
-          button-link
-        </Button>
-        <Button variant="outlined" size="small">
-          button-link
-        </Button>
-        <Button variant="outlined" size="small">
-          button-link
+          Export
         </Button>
       </>
     ),
+    children: <SampleContent />,
+  },
+};
+
+export const ContentOnly: Story = {
+  render: (args) => <BasePage {...args} />,
+  args: {
+    title: "",
+    useBreadcrumbs: false,
     children: <SampleContent />,
   },
 };

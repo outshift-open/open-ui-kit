@@ -710,6 +710,16 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "surfaces",
     description:
+      "Composite card surface for metric, chart, and dashboard content with headline slots, actions, loading, and empty states.",
+    importName: "Widget",
+    packagePath: "widget",
+    routeSlug: "widget",
+    storybookTitle: "Components/Widget",
+    title: "Widget",
+  },
+  {
+    category: "surfaces",
+    description:
       "Elevated surface primitive for panels, cards, menus, and contained content.",
     importName: "Paper",
     routeSlug: "paper",

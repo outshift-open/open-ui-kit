@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { FiltersBar } from "../components/filters-bar/filters-bar";
@@ -82,7 +82,7 @@ describe("FiltersBar", () => {
     expect(screen.getByPlaceholderText("Search by type")).toBeInTheDocument();
   });
 
-  it("disables search controls when no search handler is provided", () => {
+  it("disables search input when no search handler is provided", () => {
     wrap(
       <FiltersBar
         isLoading={false}
@@ -94,7 +94,29 @@ describe("FiltersBar", () => {
     );
 
     expect(screen.getByPlaceholderText("Search by type")).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Search" })).toBeDisabled();
+    expect(
+      screen.queryByRole("button", { name: "Search" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("calls onSearch as the search value changes", () => {
+    const onSearch = jest.fn();
+    wrap(
+      <FiltersBar
+        isLoading={false}
+        filtersData={mockFilters}
+        assetsData={mockAssetsData}
+        onSelectedChange={noop}
+        searchPlaceHolder="Search by type"
+        onSearch={onSearch}
+      />,
+    );
+
+    fireEvent.change(screen.getByPlaceholderText("Search by type"), {
+      target: { value: "azure" },
+    });
+
+    expect(onSearch).toHaveBeenCalledWith("azure");
   });
 
   it("adds an accessible label to the favorite toggle", () => {

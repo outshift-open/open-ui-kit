@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CardHeader, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { CardHeader } from "@/components/card";
 import {
   IWidgetHeadlineTitleProps,
   WidgetHeadlineTitle,

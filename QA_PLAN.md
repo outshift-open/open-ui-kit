@@ -21,7 +21,7 @@ Where no Figma screenshot exists for a component, the existing library style tok
 > - A fix requires a design decision that cannot be inferred from the CSS or Figma screenshots
 > - Never ask for confirmation to proceed, never ask "should I continue?" — just keep going
 
-> **Scope exclusions:** Charts (`src/charts/`) and Templates (`src/templates/`) are out of scope.
+> **Scope:** Charts (`src/charts/`) and Templates (`src/templates/`) are covered in Tier 6 and Tier 7 respectively.
 
 ---
 
@@ -507,29 +507,82 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 - [x] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
   - Calendar grid, selected date, disabled dates, time picker
 
-- [ ] **filters** — `Filters.png` / `Filters - Dark.png`
+- [x] **filters** — `Filters.png` / `Filters - Dark.png`
   - Filter bar layout; search input integration; applied filter chips; filter drawer
 
-- [ ] **floating-button** — `Floating button.png` / `Floating button - Dark.png`
+- [x] **floating-button** — `Floating button.png` / `Floating button - Dark.png`
   - FAB shadow; icon centering; hover/active states
 
-- [ ] **footer** — *(light missing)* / `Footer - Product Dark.png`
+- [x] **footer** — `Footer - Product Light.png` / `Footer - Product Dark.png`
   - Links layout; background token
 
-- [ ] **header** — `Header - Product Light.png` / `Header - Product Dark.png`
+- [x] **header** — `Header - Product Light.png` / `Header - Product Dark.png`
   - Logo placement; action buttons; background token
 
-- [ ] **key-value-pairs** — `Key value pairs.png` / `Key value pairs - dark.png`
+- [x] **key-value-pairs** — `Key value pairs.png` / `Key value pairs - dark.png`
   - Label/value layout; alignment variants
 
-- [ ] **navigation** — `Navigation.png` / `Navigation - Dark.png`
+- [x] **navigation** — `Navigation.png` / `Navigation - Dark.png`
   - Active item highlight; collapsed sidebar state; icon alignment
 
-- [ ] **table** — `Tables.png` / `Tables - Dark.png`
+- [x] **table** — `Tables.png` / `Tables - Dark.png`
   - Header background; row hover; sorted column; striped rows; pagination integration
 
-- [ ] **upload** — `Upload.png` / `Upload - Dark.png`
+- [x] **upload** — `Upload.png` / `Upload - Dark.png`
   - Drag-and-drop zone; file list item; progress/error states
+
+- [x] **widget** — *(no Figma PNG — token audit + story check)*
+  - Sub-components: `widget.tsx`, `widget-headline.tsx`, `widget-headline-title.tsx`, `widget-body.tsx`, `widget-body-stateful.tsx` — all in scope
+  - Container card layout; title/subtitle/actions slots; background and shadow tokens; both themes
+  - Stateful body: loading, error, empty states render correctly
+
+---
+
+### Tier 6 — Charts
+
+Charts live in `src/charts/`. Each chart wraps a Recharts primitive and must use `theme.palette.vars.*` tokens for all colors. No Figma PNGs exist for charts — use the library token style as the visual reference and verify in Storybook.
+
+- [x] **bar-chart** — *(no Figma PNG — token audit + story check)*
+  - Bar fill colors via tokens; axis labels; tooltip; grid lines; responsive container
+
+- [x] **bar-graph** — *(no Figma PNG — token audit + story check)*
+  - Grouped vs stacked variants; legend; color tokens per series
+
+- [x] **chart-widget** — *(no Figma PNG — token audit + story check)*
+  - Container card layout; title/subtitle slots; shadow token; both themes
+
+- [x] **donut-chart** — *(no Figma PNG — token audit + story check)*
+  - Segment colors via tokens; center label; legend; tooltip
+
+- [x] **gauge-chart** — *(no Figma PNG — token audit + story check)*
+  - Arc fill tokens; needle color; label typography; both themes
+
+- [x] **horizontal-bar-chart** — *(no Figma PNG — token audit + story check)*
+  - Bar fill tokens; axis; tooltip; both themes
+
+- [x] **line-chart** — *(no Figma PNG — token audit + story check)*
+  - Line colors per series via tokens; dot markers; grid; tooltip; both themes
+
+- [x] **spider-chart** — *(no Figma PNG — token audit + story check)*
+  - Polygon fill/stroke tokens; axis labels; tooltip; both themes
+
+---
+
+### Tier 7 — Templates
+
+Templates live in `src/templates/`. Each template composes library components and must use only `@/components/*` imports (never `@mui/material` directly for components that have a local wrapper).
+
+- [x] **base-page** — *(no Figma PNG — token audit + story check)*
+  - Tab navigation, container padding tokens, `sx` array merge on container props
+  - Imports: `Box`/`Typography` from `@/components`; `TabProps` type-only from MUI
+
+- [x] **layout** — *(no Figma PNG — token audit + story check)*
+  - Drawer + main content layout; responsive breakpoint behavior
+  - `Drawer` may remain from MUI if not wrapped locally — confirm and document
+
+- [x] **page-title** — *(no Figma PNG — token audit + story check)*
+  - Title, subtitle, breadcrumbs, actions slots; typography tokens; `sx` array merge
+  - Tests require `MemoryRouter` (breadcrumbs uses react-router-dom internally)
 
 ---
 

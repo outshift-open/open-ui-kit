@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack, Typography } from "@/components";
+import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import {
   Navigation,
@@ -8,18 +8,29 @@ import {
   type NavigationSectionData,
 } from "..";
 
-const dashboardItems = Array.from({ length: 6 }, (_, index) => ({
-  id: `dashboard-${index + 1}`,
+const makeDashboardItem = (
+  id: string,
+  state?: "default" | "selected" | "disabled",
+) => ({
+  id,
   label: "Dashboard",
-  state: index === 2 ? ("selected" as const) : undefined,
-  children:
-    index === 0
-      ? Array.from({ length: 6 }, (_, childIndex) => ({
-          id: `dashboard-child-${childIndex + 1}`,
-          label: "Dashboard",
-          state: childIndex === 0 ? ("selected" as const) : undefined,
-        }))
-      : undefined,
+  state,
+  disabled: state === "disabled",
+});
+
+const nestedChildren = Array.from({ length: 6 }, (_, index) =>
+  makeDashboardItem(
+    `dashboard-child-${index + 1}`,
+    index === 1 ? "selected" : undefined,
+  ),
+);
+
+const dashboardItems = Array.from({ length: 6 }, (_, index) => ({
+  ...makeDashboardItem(
+    `dashboard-${index + 1}`,
+    index === 2 ? "selected" : undefined,
+  ),
+  children: index === 0 ? nestedChildren : undefined,
 }));
 
 const sections: NavigationSectionData[] = Array.from(
@@ -34,22 +45,65 @@ const sections: NavigationSectionData[] = Array.from(
   }),
 );
 
-const subSections: NavigationSectionData[] = Array.from(
+const drawerSections: NavigationSectionData[] = Array.from(
   { length: 4 },
   (_, index) => ({
     label: "Menu list",
     items: dashboardItems.map((item, itemIndex) => ({
       ...item,
-      id: `sub-${item.id}-${index}-${itemIndex}`,
-      state: index === 0 && itemIndex === 0 ? "selected" : undefined,
+      id: `drawer-${item.id}-${index}-${itemIndex}`,
+      subtext: itemIndex === 0 ? "Subtext" : undefined,
+      state: index === 0 && itemIndex === 1 ? "selected" : undefined,
     })),
   }),
 );
+
+const itemStateSections: NavigationSectionData[] = [
+  {
+    label: "Menu list",
+    items: [
+      makeDashboardItem("default"),
+      makeDashboardItem("selected", "selected"),
+      makeDashboardItem("disabled", "disabled"),
+      {
+        ...makeDashboardItem("with-children"),
+        children: nestedChildren,
+      },
+    ],
+  },
+];
 
 const meta: Meta<typeof Navigation> = {
   title: "Components/Navigation",
   component: Navigation,
   tags: ["autodocs"],
+  args: {
+    organizationLabel: "[Organization]",
+    organizationDrawerTitle: "Headline",
+    sections,
+  },
+  argTypes: {
+    compact: {
+      control: "boolean",
+      description: "Renders the icon-only compact navigation rail.",
+    },
+    organizationLabel: {
+      control: "text",
+      description: "Label displayed inside the organization switcher.",
+    },
+    organizationDrawerTitle: {
+      control: "text",
+      description: "Title displayed when the organization drawer opens.",
+    },
+    selectedItemId: {
+      control: "text",
+      description: "Selected item id. Overrides item-level selected state.",
+    },
+    onCollapseClick: { action: "collapse clicked" },
+    onItemSelect: { action: "item selected" },
+    onOrganizationClick: { action: "organization clicked" },
+    onSubNavigationClose: { action: "sub navigation closed" },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -68,97 +122,73 @@ const meta: Meta<typeof Navigation> = {
 export default meta;
 type Story = StoryObj<typeof Navigation>;
 
-export const MainComponent: Story = {
-  name: "Main component",
-  render: () => (
-    <Stack direction="row" gap="24px" alignItems="flex-start">
-      <Navigation sections={sections} />
-      <Navigation compact sections={sections.slice(0, 4)} />
-    </Stack>
-  ),
+export const Default: Story = {};
+
+export const Compact: Story = {
+  args: {
+    compact: true,
+    sections,
+  },
 };
 
-export const ItemSectionHead: Story = {
-  name: "_item section head",
-  render: () => <Navigation sections={[{ label: "Label", items: [] }]} />,
+export const ItemStates: Story = {
+  args: {
+    sections: itemStateSections,
+  },
 };
 
-export const ItemMenuList: Story = {
-  name: "_item menu list",
-  render: () => (
-    <Navigation
-      sections={[
-        {
-          label: "Menu list",
-          items: dashboardItems,
-        },
-      ]}
+export const OrganizationDrawer: Story = {
+  render: (args) => (
+    <NavigationDrawer
+      title={args.organizationDrawerTitle}
+      sections={drawerSections}
     />
   ),
 };
 
-export const ItemNavigation: Story = {
-  name: "_item navigation",
+export const SubNavigation: Story = {
   render: () => (
-    <Stack direction="row" gap="32px" alignItems="flex-start">
-      <Navigation
-        sections={[
-          {
-            label: "Menu list",
-            items: [
-              { id: "default", label: "Dashboard" },
-              { id: "selected", label: "Dashboard", state: "selected" },
-            ],
-          },
-        ]}
-      />
-      <Navigation
-        compact
-        sections={[{ label: "Menu list", items: dashboardItems }]}
-      />
-    </Stack>
+    <NavigationSubNavigation
+      headline="Headline"
+      sections={drawerSections}
+      selectedItemId="drawer-dashboard-2-0-1"
+    />
   ),
-};
-
-export const NavigationDrawerStory: Story = {
-  name: "Navigation Drawer",
-  render: () => <NavigationDrawer sections={subSections} />,
 };
 
 export const WithSubNavigation: Story = {
-  name: "Navigation with sub navigation Sub nav opens on click",
-  render: () => (
-    <Stack direction="row" gap="0" alignItems="flex-start">
-      <Stack gap="32px" sx={{ width: 360 }}>
-        <Typography variant="h4">
-          Navigation with sub navigation
-          <br />
-          Sub nav opens on click
-        </Typography>
-        <Navigation sections={subSections} sx={{ minHeight: "720px" }} />
-      </Stack>
-    </Stack>
-  ),
+  args: {
+    sections: [
+      {
+        label: "Menu list",
+        items: [
+          {
+            ...makeDashboardItem("insight-analytics"),
+            label: "Insight Analytics",
+            children: nestedChildren,
+          },
+          ...dashboardItems.slice(1),
+        ],
+      },
+      ...sections.slice(1),
+    ],
+  },
 };
 
-export const All: Story = {
-  name: "Navigation",
-  render: () => (
+export const StatesOverview: Story = {
+  render: (args) => (
     <Stack direction="row" gap="40px" alignItems="flex-start" flexWrap="wrap">
-      <Navigation sections={sections} />
-      <Stack gap="40px">
-        <Navigation
-          sections={[{ label: "Menu list", items: dashboardItems }]}
-        />
-        <NavigationDrawer sections={subSections} />
-      </Stack>
-      <Stack gap="40px">
-        <Navigation
-          compact
-          sections={[{ label: "Menu list", items: dashboardItems }]}
-        />
-        <NavigationSubNavigation sections={subSections} />
-      </Stack>
+      <Navigation {...args} sections={sections} />
+      <Navigation {...args} compact sections={sections} />
+      <NavigationDrawer
+        title={args.organizationDrawerTitle}
+        sections={drawerSections}
+      />
+      <NavigationSubNavigation
+        headline="Headline"
+        sections={drawerSections}
+        selectedItemId="drawer-dashboard-2-0-1"
+      />
     </Stack>
   ),
 };

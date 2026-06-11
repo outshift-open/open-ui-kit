@@ -7,8 +7,8 @@
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { getStyles } from "./styles";
 import type { AssetsData } from "../../types";
-import { CloseOutlined } from "@mui/icons-material";
 import { SearchInput } from "@/components/search-input";
+import { Close } from "@/custom-icons";
 
 interface FilterDrawerHeaderProps {
   activeFiltersCount: number;
@@ -52,8 +52,12 @@ export const FilterDrawerHeader = ({
       <Stack sx={styles.drawerHeader}>
         <Stack sx={styles.drawerTitle} flexDirection="row">
           <Typography variant="h5">Filters</Typography>
-          <IconButton onClick={onCloseDrawer}>
-            <CloseOutlined />
+          <IconButton
+            aria-label="Close filters"
+            onClick={onCloseDrawer}
+            sx={styles.drawerCloseButton}
+          >
+            <Close />
           </IconButton>
         </Stack>
         {buildSummaryText()}

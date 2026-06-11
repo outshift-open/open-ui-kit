@@ -4,5 +4,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type { LayoutProps } from "./components/layout";
 export { Layout } from "./components/layout";
+export type { LayoutProps } from "./types";

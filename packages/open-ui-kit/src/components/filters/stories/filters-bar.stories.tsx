@@ -19,6 +19,27 @@ import { DocsHeader } from "storybook/components/docs-header.stories";
 const meta: Meta<typeof FiltersBar> = {
   title: "Components/Filters",
   component: FiltersBar,
+  argTypes: {
+    filtersData: {
+      control: false,
+      description: "Filter groups rendered in the drawer and applied chips.",
+    },
+    assetsData: {
+      control: false,
+      description: "Result counts summarized in the drawer header.",
+    },
+    isLoading: {
+      control: "boolean",
+      description: "Shows loading placeholders inside the filter drawer.",
+    },
+    isFiltersButtonVisible: {
+      control: "boolean",
+      description: "Hides the Filters button, chips, and drawer when false.",
+    },
+    onSelectedChange: { action: "selected changed" },
+    onSearch: { action: "search changed" },
+    onFavorite: { action: "favorite changed" },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -37,8 +58,8 @@ export default meta;
 type Story = StoryObj<typeof FiltersBar>;
 
 const SideButton = () => (
-  <Button variant="secondary" size="large">
-    button-link
+  <Button variant="outlined" size="large">
+    Button
   </Button>
 );
 
@@ -51,6 +72,7 @@ const FiltersBarStory = ({
   onSearch,
   initialSearchValue,
   rightSideComponent,
+  isFiltersButtonVisible,
 }: FiltersBarProps) => {
   const [filters, setFilters] = useState(filtersData);
   const [, setSearch] = useState(initialSearchValue);
@@ -74,12 +96,12 @@ const FiltersBarStory = ({
       initialFavoriteValue={initialFavoriteValue}
       initialSearchValue={initialSearchValue}
       rightSideComponent={rightSideComponent}
+      isFiltersButtonVisible={isFiltersButtonVisible}
     />
   );
 };
 
 export const Default: Story = {
-  name: "Filters",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
@@ -92,7 +114,6 @@ export const Default: Story = {
 };
 
 export const WithSelectAll: Story = {
-  name: "Agent skills",
   render: FiltersBarStory,
   args: {
     filtersData: filterSelectAllFilterOptions,
@@ -105,7 +126,6 @@ export const WithSelectAll: Story = {
 };
 
 export const NestedFilters: Story = {
-  name: "Agent skills use the nested dropdown menu",
   render: FiltersBarStory,
   args: {
     filtersData: nestedFilters,
@@ -118,7 +138,6 @@ export const NestedFilters: Story = {
 };
 
 export const SingleSelect: Story = {
-  name: "Locator type - Extension",
   render: FiltersBarStory,
   args: {
     filtersData: filtersNoMultiSelectMockData,
@@ -131,7 +150,6 @@ export const SingleSelect: Story = {
 };
 
 export const WithoutSearch: Story = {
-  name: "Search disabled",
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
@@ -143,8 +161,7 @@ export const WithoutSearch: Story = {
   },
 };
 
-export const WithSideButton: Story = {
-  name: "Activated",
+export const Activated: Story = {
   render: FiltersBarStory,
   args: {
     filtersData: filtersMockData,
@@ -152,7 +169,33 @@ export const WithSideButton: Story = {
     isLoading: false,
     searchPlaceHolder: "Search by record type, organization, or author",
     initialFavoriteValue: false,
+    initialSearchValue: "AWS",
     onSearch: () => undefined,
     rightSideComponent: <SideButton />,
+  },
+};
+
+export const Loading: Story = {
+  render: FiltersBarStory,
+  args: {
+    filtersData: filtersMockData,
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
+    isLoading: true,
+    searchPlaceHolder: "Search by record type, organization, or author",
+    initialFavoriteValue: false,
+    onSearch: () => undefined,
+  },
+};
+
+export const WithoutFiltersButton: Story = {
+  render: FiltersBarStory,
+  args: {
+    filtersData: filtersMockData,
+    assetsData: { count: 2200, selectedCount: 2000, name: "assets" },
+    isLoading: false,
+    searchPlaceHolder: "Search by record type, organization, or author",
+    initialFavoriteValue: false,
+    isFiltersButtonVisible: false,
+    onSearch: () => undefined,
   },
 };

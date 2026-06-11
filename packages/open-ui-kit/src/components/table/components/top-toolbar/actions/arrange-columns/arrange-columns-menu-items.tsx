@@ -13,8 +13,8 @@ import {
 } from "react";
 import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import MenuItem, { type MenuItemProps } from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
+import { MenuItem, type MenuItemProps } from "@/components/menu";
 import {
   type MRT_Column,
   type MRT_RowData,
@@ -22,7 +22,8 @@ import {
   MRT_ColumnPinningButtons,
   reorderColumn,
 } from "material-react-table";
-import { Checkbox, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Checkbox } from "@/components/checkbox";
 import { GrabHandleButton } from "./grab-handle-button";
 import { parseFromValuesOrFunc } from "@/components/table/utils/helpers";
 
