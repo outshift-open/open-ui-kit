@@ -1,3 +1,10 @@
+# [2.0.0-beta.5](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-06-11)
+
+
+### Bug Fixes
+
+* refactor ([feab8e4](https://github.com/outshift-open/open-ui-kit/commit/feab8e42dc990c582881ebb4b3c18e5423889a61))
+
 # [2.0.0-beta.4](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2026-06-11)
 
 
