@@ -5,4 +5,4 @@
  */
 
 export { Spinner } from "./components/spinner";
-export type { SpinnerProps } from "./components/spinner";
+export type { SpinnerProps } from "./types";

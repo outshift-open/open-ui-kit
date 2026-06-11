@@ -8,8 +8,11 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
-import { Severity } from "@/common";
+import { getColorBySeverity, Severity } from "@/common";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { SeverityBar } from "../components/severity-bar";
+import { severityBarStyle } from "../styles";
 
 const renderBar = (
   props: React.ComponentProps<typeof SeverityBar>,
@@ -39,6 +42,29 @@ describe("SeverityBar", () => {
       expect(() =>
         renderBar({ severity: Severity.CRITICAL }, true),
       ).not.toThrow();
+    });
+
+    it("uses the fixed 4x32 bar dimensions", () => {
+      expect(severityBarStyle).toEqual({
+        width: "4px",
+        height: "32px",
+      });
+    });
+
+    it("passes light severity colors as SvgIcon htmlColor", () => {
+      const { container } = renderBar({ severity: Severity.HIGH });
+      expect(container.querySelector("svg")).toHaveAttribute(
+        "color",
+        getColorBySeverity(Severity.HIGH, lightTheme),
+      );
+    });
+
+    it("passes dark severity colors as SvgIcon htmlColor", () => {
+      const { container } = renderBar({ severity: Severity.MEDIUM }, true);
+      expect(container.querySelector("svg")).toHaveAttribute(
+        "color",
+        getColorBySeverity(Severity.MEDIUM, darkTheme),
+      );
     });
   });
 });

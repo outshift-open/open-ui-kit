@@ -42,21 +42,23 @@ describe("ViewSwitcher", () => {
     });
 
     it("renders icon-only options without throwing", () => {
-      expect(() =>
-        render(
-          <ThemeProvider>
-            <ViewSwitcher
-              options={iconOptions}
-              value="user"
-              onChange={jest.fn()}
-            />
-          </ThemeProvider>,
-        ),
-      ).not.toThrow();
+      renderSwitcher({ options: iconOptions, value: "user" });
+      expect(screen.getByRole("button", { name: "user" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "dashboard" }),
+      ).toBeInTheDocument();
     });
 
     it("renders in dark mode without throwing", () => {
       expect(() => renderSwitcher({}, true)).not.toThrow();
+    });
+
+    it("keeps the selected active-border class without adding a false class", () => {
+      renderSwitcher({ value: "Option 2" });
+      expect(screen.getByText("Option 2")).toHaveClass(
+        "osd-view-switcher-option-selected",
+      );
+      expect(screen.getByText("Option 1").className).not.toContain("false");
     });
   });
 

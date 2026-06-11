@@ -67,21 +67,6 @@ export const getKeyValueValueStyles = (
   letterSpacing: "0.25px",
 });
 
-export const getStorySectionTitleStyles = (theme: Theme): CSSObject => ({
-  ...theme.typography.h6,
-  color: theme.palette.vars.baseTextStrong,
-  fontSize: "16px",
-  lineHeight: "21px",
-  letterSpacing: "0.5px",
-});
-
-export const getStoryValuePanelStyles = (): CSSObject => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-  width: "336px",
-});
-
 export const getStoryDotStyles = (theme: Theme): CSSObject => ({
   width: "8px",
   height: "8px",

@@ -7,7 +7,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type { SxProps, Theme } from "@mui/material";
 
-export type NavigationItemState = "default" | "selected" | "disabled";
+export type NavigationItemState = "default" | "selected" | "disabled" | "open";
 
 export interface NavigationItemData {
   /** Stable item id used for selection and callbacks. */
@@ -16,7 +16,7 @@ export interface NavigationItemData {
   label: ReactNode;
   /** Optional secondary label shown in drawer/sub-navigation layouts. */
   subtext?: ReactNode;
-  /** Visual state for the item. */
+  /** Visual state for the item. Use `open` when a nested panel is expanded. */
   state?: NavigationItemState;
   /** Disables item interaction and applies disabled styling. */
   disabled?: boolean;

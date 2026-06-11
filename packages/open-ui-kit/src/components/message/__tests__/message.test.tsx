@@ -12,10 +12,15 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Message } from "..";
 import {
+  getMessageActionStyles,
+  getMessageCloseStyles,
+  getMessageContentStyles,
   getMessageIconColor,
+  getMessageIconStyles,
   getMessageRootStyles,
   getMessageStatusColor,
   getMessageTextStyles,
+  getMessageTitleRowStyles,
   getMessageTitleStyles,
 } from "../styles";
 
@@ -108,7 +113,7 @@ describe("Message", () => {
         getMessageRootStyles(lightTheme, "success", false, false),
       ).toMatchObject({
         width: "320px",
-        minHeight: "48px",
+        height: "48px",
         padding: "12px 16px",
         gap: "12px",
         background: lightTheme.palette.vars.baseBackgroundWeak,
@@ -116,17 +121,59 @@ describe("Message", () => {
         borderWidth: "1px 1px 1px 4px",
         borderRadius: "4px",
       });
+      expect(
+        getMessageRootStyles(lightTheme, "success", false, true),
+      ).toMatchObject({
+        width: "480px",
+        height: "64px",
+      });
       expect(getMessageRootStyles(lightTheme, "warning", true, false)).toEqual(
-        expect.objectContaining({ width: "317px" }),
+        expect.objectContaining({ width: "317px", height: "92px" }),
       );
       expect(getMessageRootStyles(lightTheme, "info", true, false)).toEqual(
-        expect.objectContaining({ width: "341px" }),
+        expect.objectContaining({ width: "339px", height: "92px" }),
       );
+      expect(getMessageContentStyles("success", true, false)).toMatchObject({
+        width: "251px",
+        gap: "4px",
+      });
+      expect(getMessageContentStyles("warning", true, false)).toMatchObject({
+        width: "249px",
+      });
+      expect(getMessageContentStyles("info", true, false)).toMatchObject({
+        width: "271px",
+      });
+      expect(getMessageContentStyles("success", false, true)).toMatchObject({
+        gap: "16px",
+        paddingRight: "8px",
+      });
+      expect(getMessageTitleRowStyles("info")).toMatchObject({
+        width: "271px",
+        height: "24px",
+        gap: "4px",
+      });
+      expect(getMessageIconStyles(lightTheme, "info")).toMatchObject({
+        width: "24px",
+        height: "24px",
+        color: lightTheme.palette.vars.infoIconDefault,
+      });
       expect(getMessageTitleStyles(lightTheme)).toMatchObject({
         color: lightTheme.palette.vars.baseTextStrong,
       });
       expect(getMessageTextStyles(lightTheme)).toMatchObject({
         color: lightTheme.palette.vars.baseTextDefault,
+      });
+      expect(getMessageActionStyles(lightTheme)).toMatchObject({
+        fontFamily: lightTheme.typography.fontFamily,
+        fontWeight: 600,
+        fontSize: "14px",
+        lineHeight: "125%",
+        color: lightTheme.palette.vars.interactivePrimaryDefaultDefault,
+      });
+      expect(getMessageCloseStyles(lightTheme)).toMatchObject({
+        color: lightTheme.palette.vars.controlIconDefault,
+        width: "24px",
+        height: "24px",
       });
     });
   });
@@ -163,10 +210,23 @@ describe("Message", () => {
       expect(
         getMessageRootStyles(darkTheme, "info", true, false),
       ).toMatchObject({
-        width: "341px",
-        minHeight: "92px",
+        width: "339px",
+        height: "92px",
         background: darkTheme.palette.vars.baseBackgroundWeak,
         color: darkTheme.palette.vars.baseTextDefault,
+      });
+      expect(
+        getMessageRootStyles(darkTheme, "success", false, true),
+      ).toMatchObject({
+        width: "480px",
+        height: "64px",
+        background: darkTheme.palette.vars.baseBackgroundWeak,
+      });
+      expect(getMessageActionStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.interactivePrimaryDefaultDefault,
+      });
+      expect(getMessageCloseStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.controlIconDefault,
       });
     });
   });

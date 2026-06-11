@@ -4,7 +4,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+
+export const getBarGraphGridColor = (theme: Theme) =>
+  theme.palette.vars.controlBorderMedium;
+
+export const getBarGraphHeaderTextStyles = (theme: Theme): SxProps<Theme> => ({
+  color: theme.palette.vars.baseTextMedium,
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+});
+
+export const getBarGraphAxisTickStyles = (theme: Theme) => ({
+  fill: theme.palette.vars.baseTextMedium,
+  fontSize: "10px",
+  fontFamily: "Inter",
+  fontWeight: 600,
+  letterSpacing: "0.4px",
+});
+
+export const getBarGraphLegendStyles = (theme: Theme): SxProps<Theme> => ({
+  backgroundColor: theme.palette.vars.baseBackgroundWeak,
+});
 
 export const graphStyles = (theme: Theme) => ({
   legendCircle: {
@@ -13,19 +35,8 @@ export const graphStyles = (theme: Theme) => ({
     borderRadius: "50%",
     display: "inline-block",
   },
-  headerText: {
-    color: theme.palette.vars.baseTextWeak,
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-  },
-  xAxisTick: {
-    fill: theme.palette.vars.inactiveBackgroundDefault,
-    fontSize: "10px",
-    fontFamily: "Inter",
-    fontWeight: 600,
-    letterSpacing: "0.4px",
-  },
+  headerText: getBarGraphHeaderTextStyles(theme),
+  xAxisTick: getBarGraphAxisTickStyles(theme),
   yAxisTick: {
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
@@ -54,6 +65,7 @@ export const tooltipStyles = (theme: Theme) => ({
   categoryEntry: (categoryColor?: string) => ({
     display: "flex",
     alignItems: "center",
+    color: theme.palette.vars.baseTextStrong,
 
     "&::before": {
       content: '""',

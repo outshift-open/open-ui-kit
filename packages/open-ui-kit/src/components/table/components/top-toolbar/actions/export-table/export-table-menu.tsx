@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Menu, { type MenuProps } from "@mui/material/Menu";
+import type { MenuProps } from "@/components/menu";
+import { Typography } from "@mui/material";
 import { type MRT_RowData, type MRT_TableInstance } from "material-react-table";
-import { MenuItem, Typography } from "@mui/material";
+import { Menu, MenuItem } from "@/components/menu";
 import { actionMenuStyle } from "../../styles";
 
 interface Props<TData extends MRT_RowData> extends Partial<MenuProps> {

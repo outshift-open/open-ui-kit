@@ -8,22 +8,22 @@ import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 
 global.ResizeObserver = class ResizeObserver {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  observe() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  unobserve() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  disconnect() {}
+  observe = jest.fn();
+  unobserve = jest.fn();
+  disconnect = jest.fn();
 };
 
-import React from "react";
+import type { ComponentProps } from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Skeleton } from "../components/skeleton";
+import { getSkeletonStyles } from "../styles";
 
 const renderSkeleton = (
-  props: Partial<React.ComponentProps<typeof Skeleton>> = {},
+  props: Partial<ComponentProps<typeof Skeleton>> = {},
   dark = false,
 ) =>
   render(
@@ -33,10 +33,13 @@ const renderSkeleton = (
   );
 
 describe("Skeleton", () => {
+  const getSkeleton = (container: HTMLElement) =>
+    container.querySelector("[data-slot='skeleton']") as HTMLElement;
+
   describe("rendering", () => {
     it("renders without error", () => {
       const { container } = renderSkeleton();
-      expect(container.querySelector(".MuiSkeleton-root")).toBeInTheDocument();
+      expect(getSkeleton(container)).toBeInTheDocument();
     });
 
     it("defaults to wave animation", () => {
@@ -91,12 +94,30 @@ describe("Skeleton", () => {
   });
 
   describe("token usage", () => {
-    it("renders in light mode without error", () => {
-      expect(() => renderSkeleton({}, false)).not.toThrow();
+    it("uses light theme skeleton tokens", () => {
+      expect(getSkeletonStyles(lightTheme)).toEqual({
+        backgroundColor: "#fbfcfe",
+        "&.MuiSkeleton-wave": {
+          backgroundColor: "#fbfcfe",
+          "&::after": {
+            background:
+              "linear-gradient(90deg, transparent, #e8eefb, transparent)",
+          },
+        },
+      });
     });
 
-    it("renders in dark mode without error", () => {
-      expect(() => renderSkeleton({}, true)).not.toThrow();
+    it("uses dark theme skeleton tokens", () => {
+      expect(getSkeletonStyles(darkTheme)).toEqual({
+        backgroundColor: "#183056",
+        "&.MuiSkeleton-wave": {
+          backgroundColor: "#183056",
+          "&::after": {
+            background:
+              "linear-gradient(90deg, transparent, #263b62, transparent)",
+          },
+        },
+      });
     });
   });
 });

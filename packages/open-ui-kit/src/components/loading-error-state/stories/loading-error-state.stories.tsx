@@ -4,20 +4,48 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Typography } from "@/components";
+import { Box, Typography } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { LoadingErrorState } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+
+const handleStoryAction = () => undefined;
 
 const meta: Meta<typeof LoadingErrorState> = {
   title: "Components/Loading Error State",
   component: LoadingErrorState,
   tags: ["autodocs"],
+  args: {
+    data: ["ready"],
+    error: false,
+    loading: false,
+    loadingVariant: "spinner",
+  },
+  argTypes: {
+    error: {
+      control: "boolean",
+      description: "Shows the error empty-state when true and not loading.",
+    },
+    loading: {
+      control: "boolean",
+      description: "Shows the configured loading state.",
+    },
+    loadingVariant: {
+      control: "select",
+      options: ["spinner", "skeleton", "custom"],
+      description: "Controls which loading indicator is rendered.",
+    },
+    skipEmptyCheck: {
+      control: "boolean",
+      description: "Allows children to render for empty data.",
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="Loading Error State"
           blurb="LoadingErrorState is an API data handler wrapper. Pass loading, error, and data — it renders a spinner or skeleton while loading, an error empty-state on failure, an empty-data state when data is empty, and your content when everything is ready."
           guideLink=""
           importLine='import { LoadingErrorState } from "@open-ui-kit/core";'
@@ -64,8 +92,7 @@ export const CustomErrorMessage: Story = {
       title: "No access",
       description: "You do not have permission to view this resource.",
       actionTitle: "Go back",
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      actionCallback: () => {},
+      actionCallback: handleStoryAction,
     },
   },
 };

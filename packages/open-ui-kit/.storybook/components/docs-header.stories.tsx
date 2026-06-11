@@ -37,12 +37,17 @@ export type DocsHeaderProps = {
   /**
    * Title rendered at the top of the docs page.
    */
-  title?: string;
+  title: string;
 
   /**
    * Displays the primary story and subsequent stories within Storybook.
    */
   includeStories?: boolean;
+
+  /**
+   * Displays Storybook's generated primary story preview.
+   */
+  includePrimary?: boolean;
 };
 
 const ImportLine = ({ text }: { text: string }) => {
@@ -145,6 +150,7 @@ export const DocsHeader = ({
   importLine,
   title,
   includeStories = true,
+  includePrimary = true,
 }: DocsHeaderProps): ReactElement => {
   const hasGuideLink = Boolean(guideLink?.trim());
 
@@ -250,7 +256,7 @@ export const DocsHeader = ({
       </Stack>
       {includeStories && (
         <>
-          <Primary />
+          {includePrimary && <Primary />}
           <Stories />
         </>
       )}

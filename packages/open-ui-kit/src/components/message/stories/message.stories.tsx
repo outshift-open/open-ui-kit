@@ -1,13 +1,44 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ReactNode } from "react";
-import { Stack } from "@mui/material";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Stack } from "@/components";
 import { Message, type MessageType } from "..";
 
 const meta: Meta<typeof Message> = {
   title: "Components/Message",
   component: Message,
   tags: ["autodocs"],
+  args: {
+    children: "Success action message",
+    type: "success",
+    hideClose: false,
+  },
+  argTypes: {
+    type: {
+      control: "select",
+      options: ["success", "error", "warning", "info"],
+    },
+    children: {
+      control: "text",
+    },
+    title: {
+      control: "text",
+    },
+    actionLabel: {
+      control: "text",
+    },
+    hideClose: {
+      control: "boolean",
+    },
+    onActionClick: {
+      action: "action clicked",
+    },
+    onClose: {
+      action: "closed",
+    },
+    sx: {
+      control: false,
+    },
+  },
   parameters: {
     docs: {
       page: () => (
@@ -35,98 +66,83 @@ const defaultMessageByType: Record<MessageType, string> = {
   info: "Information message",
 };
 
-const twoLineSegmentByType: Record<MessageType, string> = {
-  success: "Success action message in two lines",
-  error: "Error action message in two lines",
-  warning: "Warning action message in two lines",
-  info: "Information action message in two lines",
+const detailMessageByType: Record<MessageType, string> = {
+  success:
+    "Success action message in two lines Success action message in two lines",
+  error: "Error action message in two lines Error action message in two lines",
+  warning:
+    "Warning action message in two lines Warning action message in two lines",
+  info: "Information message in two lines Information message in two lines",
 };
-
-const twoLineMessageByType: Record<MessageType, string> = {
-  success: `${twoLineSegmentByType.success} ${twoLineSegmentByType.success}`,
-  error: `${twoLineSegmentByType.error} ${twoLineSegmentByType.error}`,
-  warning: `${twoLineSegmentByType.warning} ${twoLineSegmentByType.warning}`,
-  info: `${twoLineSegmentByType.info} ${twoLineSegmentByType.info}`,
-};
-
-const StoryColumn = ({ children }: { children: ReactNode }) => (
-  <Stack gap="20px" alignItems="flex-start">
-    {children}
-  </Stack>
-);
-
-const TwoLineMessage = ({ type }: { type: MessageType }) => (
-  <>
-    {twoLineSegmentByType[type]}
-    <br />
-    {twoLineSegmentByType[type]}
-  </>
-);
 
 export const Default: Story = {
-  name: "default",
-  render: () => (
-    <StoryColumn>
+  render: (args) => <Message {...args}>{args.children}</Message>,
+};
+
+export const Variants: Story = {
+  args: {
+    hideClose: false,
+  },
+  render: (args) => (
+    <Stack gap="20px" alignItems="flex-start">
       {types.map((type) => (
-        <Message key={type} type={type}>
+        <Message key={type} {...args} type={type}>
           {defaultMessageByType[type]}
         </Message>
       ))}
-    </StoryColumn>
+    </Stack>
   ),
 };
 
 export const WithTitle: Story = {
-  name: "with title",
-  render: () => (
-    <StoryColumn>
-      {types.map((type) => (
-        <Message key={type} type={type} title="Title">
-          <TwoLineMessage type={type} />
-        </Message>
-      ))}
-    </StoryColumn>
-  ),
+  args: {
+    title: "Title",
+    children:
+      "Success action message in two lines Success action message in two lines",
+  },
+  render: (args) => <Message {...args}>{args.children}</Message>,
 };
 
-export const WithButton: Story = {
-  name: "with button",
-  render: () => (
-    <StoryColumn>
+export const TitleVariants: Story = {
+  render: (args) => (
+    <Stack gap="20px" alignItems="flex-start">
       {types.map((type) => (
-        <Message key={type} type={type} actionLabel="button-link">
-          {twoLineMessageByType[type]}
+        <Message key={type} {...args} type={type} title="Title">
+          {detailMessageByType[type]}
         </Message>
       ))}
-    </StoryColumn>
-  ),
-};
-
-export const All: Story = {
-  name: "Message",
-  render: () => (
-    <Stack direction="row" gap="40px" alignItems="flex-start" flexWrap="wrap">
-      <StoryColumn>
-        {types.map((type) => (
-          <Message key={type} type={type}>
-            {defaultMessageByType[type]}
-          </Message>
-        ))}
-      </StoryColumn>
-      <StoryColumn>
-        {types.map((type) => (
-          <Message key={type} type={type} title="Title">
-            <TwoLineMessage type={type} />
-          </Message>
-        ))}
-      </StoryColumn>
-      <StoryColumn>
-        {types.map((type) => (
-          <Message key={type} type={type} actionLabel="button-link">
-            {twoLineMessageByType[type]}
-          </Message>
-        ))}
-      </StoryColumn>
     </Stack>
   ),
+};
+
+export const WithAction: Story = {
+  args: {
+    actionLabel: "button-link",
+    children:
+      "Success action message in two lines Success action message in two lines",
+  },
+  render: (args) => <Message {...args}>{args.children}</Message>,
+};
+
+export const ActionVariants: Story = {
+  args: {
+    actionLabel: "button-link",
+  },
+  render: (args) => (
+    <Stack gap="20px" alignItems="flex-start">
+      {types.map((type) => (
+        <Message key={type} {...args} type={type}>
+          {detailMessageByType[type]}
+        </Message>
+      ))}
+    </Stack>
+  ),
+};
+
+export const WithoutClose: Story = {
+  args: {
+    hideClose: true,
+    children: "Success action message",
+  },
+  render: (args) => <Message {...args}>{args.children}</Message>,
 };

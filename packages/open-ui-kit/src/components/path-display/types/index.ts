@@ -15,8 +15,8 @@ export interface PathDisplayProps {
    * Defaults to 3 — paths with 3 or more segments show "first / ... / last".
    */
   numberOfLevels?: number;
-  /** Props forwarded to the wrapping Tooltip. */
-  tooltipProps?: TooltipProps;
+  /** Optional props forwarded to the wrapping Tooltip; PathDisplay supplies the title and child. */
+  tooltipProps?: Partial<Omit<TooltipProps, "children" | "title">>;
   /** Props forwarded to the inner Typography element. */
   typographyProps?: TypographyProps;
 }

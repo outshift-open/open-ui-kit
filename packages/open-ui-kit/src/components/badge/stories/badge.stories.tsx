@@ -14,6 +14,7 @@ const meta: Meta<typeof Badge> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Badge"
           blurb="Badges are used to display a small count or status indicator. They can be used to show notifications, statuses, or other small pieces of information."
           guideLink=""
           importLine={`import { Badge } from "@open-ui-kit/core";`}

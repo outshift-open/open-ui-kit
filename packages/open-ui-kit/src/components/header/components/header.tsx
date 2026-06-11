@@ -6,7 +6,11 @@
 
 import { Box, IconButton, Stack } from "@mui/material";
 import type { HeaderAction, HeaderProps } from "../types";
-import { getActionButtonStyles, getHeaderStyles } from "../styles";
+import {
+  getActionButtonStyles,
+  getHeaderStyles,
+  getUserDividerStyles,
+} from "../styles";
 import { Tooltip } from "@/components/tooltip";
 import { Divider } from "@/components/divider";
 import { CustomSearchInput } from "./custom-search-field";
@@ -68,7 +72,12 @@ export const Header = ({
 
         {userSection && (
           <Box display="flex" alignItems="center" gap={1.5}>
-            {useDivider && <Divider orientation="vertical" flexItem />}
+            {useDivider && (
+              <Divider
+                orientation="vertical"
+                sx={(theme) => getUserDividerStyles(theme)}
+              />
+            )}
             {userSection}
           </Box>
         )}

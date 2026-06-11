@@ -8,3 +8,4 @@ import { Tags } from "./components/tags";
 import LabelAndChildrenTooltipContent from "./components/label-and-children-tooltip-content";
 import { RemainingTags } from "./components/remaining-tags";
 export { LabelAndChildrenTooltipContent, RemainingTags, Tags };
+export type { TagsProps } from "./types";

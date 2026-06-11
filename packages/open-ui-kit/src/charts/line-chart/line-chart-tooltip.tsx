@@ -5,7 +5,8 @@
  */
 
 import { TooltipProps } from "recharts";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { formatISODate } from "./utils";
 import { tooltipStyles } from "./styles";
 

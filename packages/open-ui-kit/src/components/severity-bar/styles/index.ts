@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const stackStyle = {
-  padding: "24px 0px",
-  justifyContent: "center",
-  alignItems: "center",
-};
+export const severityBarStyle = {
+  width: "4px",
+  height: "32px",
+} as const;

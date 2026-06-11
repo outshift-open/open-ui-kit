@@ -4,7 +4,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const barStyle = {
-  width: "4px",
-  height: "32px",
-};
+export type { SeverityBadgeLabelProps } from "./severity-badge-label.types";

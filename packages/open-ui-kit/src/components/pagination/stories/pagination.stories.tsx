@@ -4,31 +4,73 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Stack } from "@mui/material";
-import { Pagination } from "../";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Stack } from "@/components";
+import { Pagination } from "../";
 
 const meta: Meta<typeof Pagination> = {
   title: "Components/Pagination",
   component: Pagination,
   tags: ["autodocs"],
+  args: {
+    count: 7,
+    page: 1,
+    color: "standard",
+    size: "small",
+    variant: "text",
+    showFirstButton: true,
+    showLastButton: true,
+    disabled: false,
+  },
+  argTypes: {
+    count: {
+      control: { type: "number", min: 1, max: 20 },
+    },
+    page: {
+      control: { type: "number", min: 1, max: 20 },
+    },
+    color: {
+      control: "select",
+      options: ["standard", "primary"],
+    },
+    size: {
+      control: "select",
+      options: ["small", "medium", "large"],
+    },
+    variant: {
+      control: "select",
+      options: ["text", "outlined"],
+    },
+    showFirstButton: {
+      control: "boolean",
+    },
+    showLastButton: {
+      control: "boolean",
+    },
+    disabled: {
+      control: "boolean",
+    },
+    onChange: {
+      action: "page changed",
+    },
+    sx: {
+      control: false,
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Pagination enables users to navigate across a range of pages. Supports standard and outlined variants, three sizes, primary and standard colors, and first/last page buttons."
+          title="Pagination"
+          blurb="Pagination enables users to navigate across a range of pages with optional boundary controls, sizes, variants, and disabled state."
           guideLink=""
           importLine='import { Pagination } from "@open-ui-kit/core";'
+          includeStories
         />
       ),
     },
-  },
-  args: {
-    count: 7,
-    showFirstButton: true,
-    showLastButton: true,
   },
 };
 
@@ -36,52 +78,56 @@ export default meta;
 
 type Story = StoryObj<typeof Pagination>;
 
-export const Standard: Story = {
-  render: (args) => (
-    <Stack spacing={2}>
-      <Pagination {...args} />
-      <Pagination {...args} color="primary" />
-      <Pagination {...args} disabled />
-    </Stack>
-  ),
+export const Default: Story = {
+  render: (args) => <Pagination {...args} />,
+};
+
+export const Primary: Story = {
+  args: {
+    color: "primary",
+  },
+  render: (args) => <Pagination {...args} />,
 };
 
 export const Outlined: Story = {
-  render: (args) => (
-    <Stack spacing={2}>
-      <Pagination {...args} variant="outlined" />
-      <Pagination {...args} variant="outlined" color="primary" />
-      <Pagination {...args} variant="outlined" disabled />
-    </Stack>
-  ),
+  args: {
+    variant: "outlined",
+  },
+  render: (args) => <Pagination {...args} />,
 };
 
-export const SizeLarge: Story = {
-  render: (args) => (
-    <Stack spacing={2}>
-      <Pagination {...args} size="large" />
-      <Pagination {...args} size="large" color="primary" />
-      <Pagination {...args} size="large" variant="outlined" color="primary" />
-    </Stack>
-  ),
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+  render: (args) => <Pagination {...args} />,
 };
 
-export const SizeMedium: Story = {
+export const Sizes: Story = {
   render: (args) => (
-    <Stack spacing={2}>
-      <Pagination {...args} size="medium" />
-      <Pagination {...args} size="medium" color="primary" />
-      <Pagination {...args} size="medium" variant="outlined" color="primary" />
-    </Stack>
-  ),
-};
-
-export const SizeSmall: Story = {
-  render: (args) => (
-    <Stack spacing={2}>
+    <Stack gap="20px" alignItems="flex-start">
       <Pagination {...args} size="small" />
-      <Pagination {...args} size="small" color="primary" />
-      <Pagination {...args} size="small" variant="outlined" color="primary" />
+      <Pagination {...args} size="medium" />
+      <Pagination {...args} size="large" />
     </Stack>
   ),
+};
+
+export const Variants: Story = {
+  render: (args) => (
+    <Stack gap="20px" alignItems="flex-start">
+      <Pagination {...args} color="standard" variant="text" />
+      <Pagination {...args} color="primary" variant="text" />
+      <Pagination {...args} color="standard" variant="outlined" />
+      <Pagination {...args} color="primary" variant="outlined" />
+    </Stack>
+  ),
+};
+
+export const WithoutBoundaryButtons: Story = {
+  args: {
+    showFirstButton: false,
+    showLastButton: false,
+  },
+  render: (args) => <Pagination {...args} />,
 };

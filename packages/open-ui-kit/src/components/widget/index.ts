@@ -5,4 +5,4 @@
  */
 
 export { Widget } from "./components/widget";
-export type { IWidgetProps } from "./components/widget";
+export type { IWidgetProps } from "./types";

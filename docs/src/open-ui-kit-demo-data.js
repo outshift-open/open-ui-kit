@@ -98,6 +98,24 @@ export const tableRows = [
   },
 ];
 
+export const tagItems = [
+  {
+    isSelectable: true,
+    nodeKey: "aws",
+    value: "AWS",
+  },
+  {
+    isSelectable: true,
+    nodeKey: "azure",
+    value: "Azure",
+  },
+  {
+    isSelectable: true,
+    nodeKey: "gcp",
+    value: "Google Cloud",
+  },
+];
+
 export const filterGroups = [
   {
     name: "Severity",
@@ -127,6 +145,12 @@ export const keyValueItems = [
   { key: "Last scan", value: "5 minutes ago" },
 ];
 
+export const listItems = [
+  { label: "Inbox", secondary: "3 unread" },
+  { label: "Drafts", secondary: "Last edited today" },
+  { label: "Archived", secondary: "Read-only" },
+];
+
 export const nestedMenuTree = [
   {
     value: "Cloud accounts",
@@ -148,9 +172,19 @@ export const nestedMenuTree = [
   },
 ];
 
-export const severityDistribution = [
-  { label: "Critical", value: 8 },
-  { label: "High", value: 14 },
-  { label: "Medium", value: 32 },
-  { label: "Low", value: 45 },
+export const stepperPanelSteps = [
+  { label: "Choose scope", state: "completed" },
+  {
+    label: "Configure",
+    subtitle: "Select options for this workflow",
+    state: "current",
+  },
+  { label: "Review", state: "idle" },
+  { label: "Launch", state: "disabled" },
+];
+
+export const stepperModalSteps = [
+  { label: "Details", state: "completed" },
+  { label: "Settings", state: "current" },
+  { label: "Summary", state: "idle" },
 ];

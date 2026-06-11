@@ -172,8 +172,11 @@ export const Navigation = ({
                 </StyledNavigationSectionHead>
                 <StyledNavigationItems>
                   {section.items.map((item) => {
-                    const state = getItemState(item, selectedItemId);
-                    const selected = state === "selected";
+                    const state =
+                      subNavigationItem?.id === item.id
+                        ? "open"
+                        : getItemState(item, selectedItemId);
+                    const selected = state === "selected" || state === "open";
 
                     return (
                       <StyledNavigationItem
@@ -210,6 +213,7 @@ export const Navigation = ({
 
           <StyledNavigationCollapseButton
             aria-label={isCompact ? "Expand navigation" : "Collapse navigation"}
+            compact={isCompact}
             onClick={handleCollapseClick}
           >
             <KeyboardArrowRight fontSize="small" />

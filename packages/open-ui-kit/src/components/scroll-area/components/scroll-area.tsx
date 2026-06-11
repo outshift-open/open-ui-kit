@@ -8,12 +8,10 @@ import * as React from "react";
 import { ScrollAreaRoot, ScrollAreaViewport } from "./elements";
 import type { ScrollAreaProps } from "../types";
 
-export type { ScrollAreaProps };
-
 const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
   ({ children, ...props }, ref) => (
-    <ScrollAreaRoot ref={ref} data-slot="scroll-area" {...props}>
-      <ScrollAreaViewport data-slot="scroll-area-viewport">
+    <ScrollAreaRoot ref={ref} {...props} data-slot="scroll-area">
+      <ScrollAreaViewport data-slot="scroll-area-viewport" tabIndex={0}>
         {children}
       </ScrollAreaViewport>
     </ScrollAreaRoot>

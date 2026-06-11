@@ -4,5 +4,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type { BasePageProps } from "./components/base-page";
 export { BasePage } from "./components/base-page";
+export type { BasePageProps, SubNavItem } from "./types";

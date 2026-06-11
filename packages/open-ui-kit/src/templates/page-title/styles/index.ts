@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 
 export const styles = {
   root: {
@@ -16,16 +16,16 @@ export const styles = {
   },
   content: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: { xs: "column", sm: "row" },
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: { xs: "flex-start", sm: "center" },
     gap: "16px",
     width: "100%",
   },
   left: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: "16px",
     minWidth: 0,
   },
@@ -50,16 +50,26 @@ export const styles = {
   }),
   text: {
     display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: "4px",
+    minWidth: 0,
+  },
+  titleRow: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "8px",
     flexWrap: "wrap",
+    minWidth: 0,
   },
   actions: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "8px",
+    flexWrap: "wrap",
+    justifyContent: { xs: "flex-start", sm: "flex-end" },
     flexShrink: 0,
   },
 };

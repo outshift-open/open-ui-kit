@@ -20,6 +20,7 @@ const meta: Meta<typeof Toaster> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Toaster"
           blurb="The Toaster component is a container for Toasts, allowing you to manage and display multiple toasts in your application."
           guideLink=""
           importLine='import { Toaster, toast } from "@open-ui-kit/core";'

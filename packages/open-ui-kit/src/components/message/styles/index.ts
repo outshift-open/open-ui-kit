@@ -51,7 +51,7 @@ const getMessageTitleWidth = (type: MessageType): string => {
   }
 
   if (type === "info") {
-    return "341px";
+    return "339px";
   }
 
   return "319px";
@@ -63,7 +63,7 @@ const getMessageTitleContentWidth = (type: MessageType): string => {
   }
 
   if (type === "info") {
-    return "273px";
+    return "271px";
   }
 
   return "251px";
@@ -80,7 +80,7 @@ export const getMessageRootStyles = (
   flexDirection: "row",
   alignItems: hasTitle ? "flex-start" : "center",
   width: hasAction ? "480px" : hasTitle ? getMessageTitleWidth(type) : "320px",
-  minHeight: hasAction ? "64px" : hasTitle ? "92px" : "48px",
+  height: hasAction ? "64px" : hasTitle ? "92px" : "48px",
   padding: "12px 16px",
   gap: "12px",
   background: theme.palette.vars.baseBackgroundWeak,
@@ -139,7 +139,7 @@ export const getMessageTextStyles = (theme: Theme): CSSObject => ({
 });
 
 export const getMessageActionStyles = (theme: Theme): CSSObject => ({
-  fontFamily: "Inter, sans-serif",
+  fontFamily: theme.typography.fontFamily,
   fontWeight: 600,
   fontSize: "14px",
   lineHeight: "125%",

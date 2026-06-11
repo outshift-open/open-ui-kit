@@ -21,6 +21,7 @@ const meta: Meta<typeof Tooltip> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Tooltip"
           blurb="Tooltips display informative text when users hover over, focus on, or tap an element. Two sizes are available: Medium (compact) and Large."
           guideLink=""
           importLine='import { Tooltip } from "@open-ui-kit/core";'

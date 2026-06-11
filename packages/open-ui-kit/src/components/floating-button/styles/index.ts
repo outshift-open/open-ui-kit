@@ -22,6 +22,7 @@ export const getFloatingButtonStyles = (
     background: `${theme.palette.vars.controlBackgroundDefault} !important`,
     color: `${theme.palette.vars.baseTextStrong} !important`,
     border: `2px solid ${borderColor} !important`,
+    letterSpacing: "0.1px",
     "&:hover": {
       boxShadow: theme.shadows[4],
       border: `2px solid ${borderColor} !important`,

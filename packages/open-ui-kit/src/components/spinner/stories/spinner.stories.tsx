@@ -9,15 +9,39 @@ import { Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Spinner } from "../components/spinner";
 
-const meta: Meta<typeof Spinner> = {
+const meta = {
   title: "Components/Spinner",
   component: Spinner,
   tags: ["autodocs"],
+  args: {
+    color: "primary",
+    size: 40,
+  },
+  argTypes: {
+    color: {
+      control: "select",
+      options: ["primary", "secondary", "inherit"],
+      description: "Spinner color variant.",
+    },
+    size: {
+      control: "number",
+      description: "Spinner diameter in pixels.",
+    },
+    sx: {
+      control: "object",
+      description: "Style overrides merged after internal progress styles.",
+    },
+    boxProps: {
+      control: "object",
+      description: "Props forwarded to the wrapping Box.",
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="Spinner"
           blurb="Spinners express an unspecified wait time or display the length of a process. Use the size prop to control dimensions."
           guideLink=""
           importLine='import { Spinner } from "@open-ui-kit/core";'
@@ -25,10 +49,10 @@ const meta: Meta<typeof Spinner> = {
       ),
     },
   },
-};
+} satisfies Meta<typeof Spinner>;
 
 export default meta;
-type Story = StoryObj<typeof Spinner>;
+type Story = StoryObj<typeof meta>;
 
 const sizes = [
   { label: "Large", size: 40 },
@@ -37,8 +61,9 @@ const sizes = [
   { label: "Extra Small", size: 16 },
 ];
 
+export const Default: Story = {};
+
 export const Sizes: Story = {
-  name: "Sizes",
   render: () => (
     <Stack direction="row" spacing={4} alignItems="center">
       {sizes.map(({ label, size }) => (
@@ -57,11 +82,9 @@ export const Sizes: Story = {
 };
 
 export const PrimaryColor: Story = {
-  name: "Primary",
-  render: () => <Spinner size={40} color="primary" />,
+  args: { color: "primary", size: 40 },
 };
 
 export const SecondaryColor: Story = {
-  name: "Secondary",
-  render: () => <Spinner size={40} color="secondary" />,
+  args: { color: "secondary", size: 40 },
 };

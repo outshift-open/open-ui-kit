@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import { ChartDataItem, ChartProps } from "../common/types";
 import { Stack, Typography, useTheme } from "@mui/material";
-import { styles } from "./styles";
+import { getBarChartTrackColor, styles } from "./styles";
 
 const BAR_SIZE_PX = 8;
 const SPACE_BETWEEN_BARS_PX = 29;
@@ -43,6 +43,7 @@ const DefaultTooltip = ({ active, payload }: TooltipProps<number, string>) => {
 };
 
 export interface BarChartProps extends ChartProps {
+  /** Called when a data bar is selected. Use it for drill-down interactions. */
   handleClick?: (item: ChartDataItem) => void;
 }
 
@@ -80,7 +81,7 @@ export const BarChart = ({
           radius={4}
           minPointSize={10}
           background={{
-            fill: theme.palette.vars.baseBorderDefault,
+            fill: getBarChartTrackColor(theme),
             radius: 100,
           }}
         >

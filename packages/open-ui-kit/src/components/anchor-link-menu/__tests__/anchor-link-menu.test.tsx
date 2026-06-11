@@ -7,6 +7,8 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { AnchorLinkMenu } from "../components/anchor-link-menu";
 import { AnchorLinkMenuItemComponent } from "../components/anchor-link-menu-item";
@@ -172,11 +174,23 @@ describe("AnchorLinkMenuItemComponent", () => {
   });
 
   it("renders as selected", () => {
-    renderWithTheme(<AnchorLinkMenuItemComponent label="My Item" selected />);
+    const { container } = renderWithTheme(
+      <AnchorLinkMenuItemComponent label="My Item" selected />,
+    );
     expect(screen.getByRole("button", { name: "My Item" })).toHaveAttribute(
       "aria-current",
       "location",
     );
+    expect(container.querySelector(".anchor-bar-selected")).toBeInTheDocument();
+  });
+
+  it("does not add the selected bar class to inactive items", () => {
+    const { container } = renderWithTheme(
+      <AnchorLinkMenuItemComponent label="My Item" />,
+    );
+    expect(
+      container.querySelector(".anchor-bar-selected"),
+    ).not.toBeInTheDocument();
   });
 
   it("renders as subsection", () => {
@@ -198,5 +212,41 @@ describe("AnchorLinkMenuItemComponent", () => {
     expect(() =>
       fireEvent.click(screen.getByRole("button", { name: "My Item" })),
     ).not.toThrow();
+  });
+
+  describe("token mapping", () => {
+    it("maps light colors to the CSS reference tokens", () => {
+      expect(lightTheme.palette.vars.interactivePrimaryDefaultDefault).toBe(
+        "#187adc",
+      );
+      expect(lightTheme.palette.vars.interactivePrimaryDefaultHover).toBe(
+        "#79b9ff",
+      );
+      expect(lightTheme.palette.vars.interactivePrimaryDefaultActive).toBe(
+        "#0051af",
+      );
+      expect(lightTheme.palette.vars.interactivePrimaryWeakDefault).toBe(
+        "#e8f1ff",
+      );
+      expect(lightTheme.shadows[4]).toBe(
+        "0px 4px 12px rgba(200, 213, 245, 0.7)",
+      );
+    });
+
+    it("maps dark colors to the CSS reference tokens", () => {
+      expect(darkTheme.palette.vars.interactivePrimaryDefaultDefault).toBe(
+        "#1bcdff",
+      );
+      expect(darkTheme.palette.vars.interactivePrimaryDefaultHover).toBe(
+        "#62e0ff",
+      );
+      expect(darkTheme.palette.vars.interactivePrimaryDefaultActive).toBe(
+        "#12c1ff",
+      );
+      expect(darkTheme.palette.vars.interactivePrimaryWeakDefault).toBe(
+        "#062242",
+      );
+      expect(darkTheme.shadows[4]).toBe("0px 4px 12px rgba(6, 34, 66, 0.7)");
+    });
   });
 });

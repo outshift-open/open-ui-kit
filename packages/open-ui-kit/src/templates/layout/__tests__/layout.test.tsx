@@ -9,6 +9,8 @@ Object.assign(global, { TextEncoder, TextDecoder });
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Layout } from "../components/layout";
 
@@ -48,5 +50,36 @@ describe("Layout", () => {
 
   it("renders without throwing in dark mode", () => {
     expect(() => renderLayout({}, true)).not.toThrow();
+  });
+
+  it("uses tokenized drawer surface and border colors in light mode", () => {
+    const { container } = renderLayout({
+      sideNav: <nav>Navigation</nav>,
+      showHeader: false,
+    });
+
+    const drawerPaper = container.querySelector(".MuiDrawer-paper");
+
+    expect(drawerPaper).toHaveStyle({
+      backgroundColor: lightTheme.palette.vars.baseBackgroundStrong,
+      borderRightColor: lightTheme.palette.vars.controlBorderStrong,
+    });
+  });
+
+  it("uses tokenized drawer surface and border colors in dark mode", () => {
+    const { container } = renderLayout(
+      {
+        sideNav: <nav>Navigation</nav>,
+        showHeader: false,
+      },
+      true,
+    );
+
+    const drawerPaper = container.querySelector(".MuiDrawer-paper");
+
+    expect(drawerPaper).toHaveStyle({
+      backgroundColor: darkTheme.palette.vars.baseBackgroundStrong,
+      borderRightColor: darkTheme.palette.vars.controlBorderStrong,
+    });
   });
 });

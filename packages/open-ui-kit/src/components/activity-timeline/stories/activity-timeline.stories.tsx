@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
-import { Hub } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@/components";
+import { AllDots } from "@/custom-icons/all-dots";
+import { purplePalette } from "@/theme/style/color-palette";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
@@ -18,6 +19,7 @@ const meta: Meta<typeof ActivityTimeline> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Activity Timeline"
           blurb="Activity timelines are used to visualize a sequence of events or steps in a process. They can be used to track progress, show dependencies, and highlight key milestones."
           guideLink=""
           includeStories={true}
@@ -36,9 +38,10 @@ const contentSlot = (
   <Box
     sx={{
       alignItems: "center",
-      border: "1px dashed #9747FF",
+      backgroundColor: purplePalette.alpha10,
+      border: `1px dashed ${purplePalette[600]}`,
       borderRadius: "2px",
-      color: "#9747FF",
+      color: purplePalette[600],
       display: "flex",
       fontSize: "12px",
       height: "30px",
@@ -166,7 +169,7 @@ export const Default: Story = {
       <Stack direction="row" gap={4} sx={{ alignItems: "flex-start" }}>
         <Stack
           sx={{
-            border: "1px dashed #9747FF",
+            border: `1px dashed ${purplePalette[600]}`,
             borderRadius: "5px",
             p: "20px",
           }}
@@ -191,7 +194,7 @@ export const Default: Story = {
           <ActivityTimeline
             steps={mediumActivityTimelineSteps.map((step) => ({
               ...step,
-              titleStartIcon: <Hub fontSize="small" />,
+              titleStartIcon: <AllDots fontSize="small" />,
             }))}
             size="medium"
           />
@@ -216,7 +219,11 @@ export const Default: Story = {
 export const Indicator: Story = {
   render: () => (
     <Stack
-      sx={{ border: "1px dashed #9747FF", borderRadius: "5px", p: "20px" }}
+      sx={{
+        border: `1px dashed ${purplePalette[600]}`,
+        borderRadius: "5px",
+        p: "20px",
+      }}
     >
       {[
         ActivityTimelineStepStatus.InProgress,

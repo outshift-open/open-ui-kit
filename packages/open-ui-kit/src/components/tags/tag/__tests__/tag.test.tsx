@@ -9,11 +9,15 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { GeneralSize } from "@/common";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { Tag } from "../components/tag";
 import { TagBackgroundColorVariants, TagStatus } from "../types";
+import { getTagStyle, selectTagStyle } from "../utils";
 
 const renderTag = (
   props: Partial<React.ComponentProps<typeof Tag>> & {
+    "data-testid"?: string;
     children?: React.ReactNode;
   } = {},
   dark = false,
@@ -50,6 +54,16 @@ describe("Tag", () => {
 
     it("renders disabled state without throwing", () => {
       expect(() => renderTag({ disabled: true })).not.toThrow();
+    });
+
+    it("lets consumer sx override internal styles", () => {
+      renderTag({
+        "data-testid": "tag",
+        sx: { backgroundColor: "rgb(1, 2, 3)" },
+      });
+      expect(screen.getByTestId("tag")).toHaveStyle({
+        backgroundColor: "rgb(1, 2, 3)",
+      });
     });
   });
 
@@ -89,12 +103,97 @@ describe("Tag", () => {
   });
 
   describe("token coverage", () => {
-    it("renders light theme without throwing", () => {
-      expect(() => renderTag()).not.toThrow();
+    it("maps light base tag tokens to the Figma CSS values", () => {
+      expect(
+        getTagStyle({
+          clickable: false,
+          color: TagBackgroundColorVariants.Primary,
+          hasAvatar: false,
+          size: GeneralSize.Small,
+          theme: lightTheme,
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#e3eafa",
+          borderRadius: "14px",
+          color: "#3c4551",
+          height: "20px",
+        }),
+      );
+      expect(
+        getTagStyle({
+          clickable: false,
+          color: TagBackgroundColorVariants.Primary,
+          hasAvatar: false,
+          size: GeneralSize.Large,
+          theme: lightTheme,
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#e3eafa",
+          borderRadius: "20px",
+          color: "#3c4551",
+          height: "32px",
+        }),
+      );
     });
 
-    it("renders dark theme without throwing", () => {
-      expect(() => renderTag({}, true)).not.toThrow();
+    it("maps dark base tag tokens to the Figma CSS values", () => {
+      expect(
+        getTagStyle({
+          clickable: false,
+          color: TagBackgroundColorVariants.Primary,
+          hasAvatar: false,
+          size: GeneralSize.Small,
+          theme: darkTheme,
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#31466e",
+          borderRadius: "14px",
+          color: "#e8e9ea",
+          height: "20px",
+        }),
+      );
+      expect(
+        getTagStyle({
+          clickable: true,
+          color: TagBackgroundColorVariants.Primary,
+          hasAvatar: false,
+          size: GeneralSize.Medium,
+          theme: darkTheme,
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          "&:hover": {
+            backgroundColor: "#0d274d",
+          },
+        }),
+      );
+    });
+
+    it("maps status tag borders in light and dark modes", () => {
+      expect(selectTagStyle(lightTheme)[TagStatus.Excellent]).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#edfcff",
+          border: "1px solid #edfcff",
+          iconColor: "#17c7ff",
+        }),
+      );
+      expect(selectTagStyle(darkTheme)[TagStatus.Excellent]).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#1fd2ff19",
+          border: "1px solid #17c7ff",
+          iconColor: "#17c7ff",
+        }),
+      );
+      expect(selectTagStyle(darkTheme)[TagStatus.Info]).toEqual(
+        expect.objectContaining({
+          backgroundColor: "#b76dff19",
+          border: "1px solid #b76dff",
+          iconColor: "#c080ff",
+        }),
+      );
     });
 
     it("renders status tags in dark mode without throwing", () => {

@@ -5,7 +5,7 @@
  */
 
 import { ellipsisStyle } from "@/theme/style/common";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 export const baseWrapperStyle: CSSProperties = {
   ...ellipsisStyle,

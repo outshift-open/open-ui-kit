@@ -5,8 +5,9 @@
  */
 
 import type { BoxProps } from "@mui/material";
+import type { ReactNode } from "react";
 
 export interface ScrollAreaProps extends BoxProps {
   /** Content to render inside the scrollable viewport. */
-  children?: React.ReactNode;
+  children?: ReactNode;
 }

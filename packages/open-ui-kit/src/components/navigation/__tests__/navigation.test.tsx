@@ -13,6 +13,7 @@ import { lightTheme } from "@/theme/light/light-theme";
 import { Navigation, NavigationDrawer, NavigationSubNavigation } from "..";
 import {
   getNavigationDrawerStyles,
+  getNavigationCollapseButtonStyles,
   getNavigationItemStyles,
   getNavigationRootStyles,
   getNavigationSwitcherStyles,
@@ -113,6 +114,9 @@ describe("Navigation", () => {
     fireEvent.click(screen.getByRole("button", { name: "Insight Analytics" }));
 
     expect(
+      screen.getByRole("button", { name: "Insight Analytics" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
       screen.getByRole("heading", { name: "Insight Analytics" }),
     ).toBeVisible();
     expect(
@@ -143,8 +147,13 @@ describe("Navigation", () => {
     it("uses light layout and state tokens", () => {
       expect(getNavigationRootStyles(lightTheme, false)).toMatchObject({
         width: "264px",
+        minHeight: "1426px",
         backgroundColor: lightTheme.palette.vars.baseBackgroundStrong,
         borderRight: `1px solid ${lightTheme.palette.vars.controlBorderDefault}`,
+      });
+      expect(getNavigationRootStyles(lightTheme, true)).toMatchObject({
+        width: "88px",
+        minHeight: "1364px",
       });
       expect(
         getNavigationSwitcherStyles(lightTheme, false, true),
@@ -162,19 +171,50 @@ describe("Navigation", () => {
         backgroundColor: lightTheme.palette.vars.interactivePrimaryWeakDefault,
         color: lightTheme.palette.vars.interactivePrimaryDefaultActive,
       });
+      expect(getNavigationItemStyles(lightTheme, "open", false)).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.interactivePrimaryWeakDefault,
+        color: lightTheme.palette.vars.interactivePrimaryDefaultActive,
+        border: `1px solid ${lightTheme.palette.vars.controlBorderStrong}`,
+        borderRightWidth: 0,
+      });
+      expect(
+        getNavigationCollapseButtonStyles(lightTheme, false),
+      ).toMatchObject({
+        marginTop: "auto",
+        width: "32px",
+        height: "32px",
+        padding: "6px",
+        border: `2px solid ${lightTheme.palette.vars.warningBorderDefault}`,
+        color: lightTheme.palette.vars.baseTextStrong,
+      });
     });
   });
 
   describe("dark theme token coverage", () => {
     it("uses dark layout and drawer tokens", () => {
       expect(getNavigationRootStyles(darkTheme, true)).toMatchObject({
-        width: "80px",
+        width: "88px",
+        minHeight: "1364px",
         backgroundColor: darkTheme.palette.vars.baseBackgroundStrong,
         borderRight: `1px solid ${darkTheme.palette.vars.controlBorderDefault}`,
       });
       expect(getNavigationDrawerStyles(darkTheme)).toMatchObject({
         width: "224px",
-        backgroundColor: darkTheme.palette.vars.interactivePrimaryWeakDefault,
+        minHeight: "1296px",
+        backgroundColor: darkTheme.palette.vars.brandBackgroundSecondaryDefault,
+        borderRight: `1px solid ${darkTheme.palette.vars.controlBorderDefault}`,
+        boxShadow: darkTheme.shadows[6],
+      });
+      expect(
+        getNavigationItemStyles(darkTheme, "selected", false),
+      ).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.brandBackgroundSecondaryDefault,
+        color: darkTheme.palette.vars.brandIconPrimaryDefault,
+      });
+      expect(getNavigationCollapseButtonStyles(darkTheme, true)).toMatchObject({
+        marginTop: "auto",
+        color: darkTheme.palette.vars.baseTextStrong,
+        border: `2px solid ${darkTheme.palette.vars.warningBorderDefault}`,
       });
     });
   });

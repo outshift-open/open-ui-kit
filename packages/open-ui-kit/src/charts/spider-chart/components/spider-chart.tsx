@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { useTheme } from "@mui/material";
+import { useTheme, type Theme } from "@mui/material/styles";
 import CustomConicalGradient from "./custom-conical-gradient";
 import CustomLines from "./custom-lines";
 import CustomPolarGrid from "./custom-polar-grid";
@@ -28,7 +28,8 @@ import {
 
 const TICK_COUNT = 3;
 
-const getMaxValueFromVariables = (numbers: number[]) => Math.max(...numbers);
+const getMaxValueFromVariables = (numbers: number[]) =>
+  numbers.length ? Math.max(...numbers) : 0;
 
 const calculateDomain = (data: ExtendedDataPoint[]) => [
   0,
@@ -36,6 +37,9 @@ const calculateDomain = (data: ExtendedDataPoint[]) => [
     data.filter((x) => x.variableA).map((x) => x.variableA ?? 0),
   ),
 ];
+
+const getDefaultRadarBackground = (theme: Theme): string =>
+  `conic-gradient(${theme.palette.vars.accentJDefault} 0deg, ${theme.palette.vars.accentGDefault} 180deg, ${theme.palette.vars.accentADefault} 360deg)`;
 
 /**
  *  Spider charts, also known as radar charts or star plots, are used to display multivariate data in a two-dimensional chart.
@@ -68,7 +72,7 @@ export const SpiderChart = ({
     return a.subject.localeCompare(b.subject);
   };
 
-  const dataPadded = data.sort(sortData).map((dp) => {
+  const dataPadded = [...data].sort(sortData).map((dp) => {
     return Object.fromEntries(
       Object.entries(dp).map(([key, value]) => {
         if (key.length === 1) return [key, Number(value)];
@@ -132,15 +136,12 @@ export const SpiderChart = ({
               animationEasing={"ease-in"}
               animationDuration={1750}
               dataKey={radar.dataKey}
-              fill={theme.palette.vars.neutralBackgroundWeak}
+              fill={radar.fill ?? theme.palette.vars.neutralBackgroundWeak}
               strokeWidth={0}
               scale={scale}
-              color={
-                radar.background ||
-                "conic-gradient(rgba(64, 255, 244, 0.8) 0deg, rgba(73, 207, 223, .2) 180deg, rgba(0, 85, 255, 0.3) 360deg)"
-              }
+              color={radar.background ?? getDefaultRadarBackground(theme)}
               r={0}
-              shape={CustomConicalGradient}
+              shape={radar.shape ?? CustomConicalGradient}
             />
           ))}
           {showTooltip && (

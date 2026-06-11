@@ -26,6 +26,7 @@ const meta = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Backdrop"
           blurb="The Backdrop component narrows the user's focus to a particular element on the screen. It signals a state change within the application and can be used for creating loaders, dialogs, and more."
           guideLink=""
           importLine={`import { Backdrop } from "@open-ui-kit/core";`}

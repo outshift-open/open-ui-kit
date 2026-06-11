@@ -16,6 +16,7 @@ export type OpenUIKitComponentDoc = {
   packagePath?: string;
   routeSlug: string;
   sourceUrl?: string;
+  storyPath?: string;
   storybookTitle?: string;
   title: string;
 };
@@ -141,20 +142,20 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Picker item primitives for compact choice surfaces.",
-    importName: "Picker",
+    importName: "PickerItem",
     packagePath: "picker",
     routeSlug: "picker",
     storybookTitle: "Components/Picker",
-    title: "Picker",
+    title: "Picker Item",
   },
   {
     category: "inputs",
     description: "Radio controls for choosing one option from a small set.",
-    importName: "Radio",
+    importName: "RadioButton",
     packagePath: "radio",
     routeSlug: "radio",
     storybookTitle: "Components/Radio Button",
-    title: "Radio",
+    title: "Radio Button",
   },
   {
     category: "inputs",
@@ -318,7 +319,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "List pattern for grouped content and repeated rows.",
+    description:
+      "Vertical list pattern for repeated rows with icons, secondary text, selection, dense, disabled, and divider states.",
     importName: "List",
     packagePath: "list",
     routeSlug: "list",
@@ -328,7 +330,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "data-display",
     description:
-      "Error state for failed loading, retries, and unavailable data.",
+      "API data-state wrapper that renders loading, error, empty, and ready content from one place.",
     importName: "LoadingErrorState",
     packagePath: "loading-error-state",
     routeSlug: "loading-error-state",
@@ -337,7 +339,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "Reusable loading indicators and placeholder states.",
+    description:
+      "Spinner and skeleton reference patterns for indeterminate progress and placeholder content.",
     importName: "LoadingStates",
     packagePath: "loading-states",
     routeSlug: "loading-states",
@@ -346,7 +349,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "Compact inline message for contextual status and guidance.",
+    description:
+      "Short status message with success, error, warning, and info variants plus optional title, action, and dismiss control.",
     importName: "Message",
     packagePath: "message",
     routeSlug: "message",
@@ -375,7 +379,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "data-display",
     description:
-      "Severity score badge for ranked risk, health, or priority signals.",
+      "Color indicator for severity enum values or numeric score systems with configurable thresholds.",
     importName: "SeverityBadge",
     packagePath: "severity-badge",
     routeSlug: "severity-badge",
@@ -384,7 +388,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "Label companion for severity badge values.",
+    description:
+      "Severity indicator paired with a readable label, using the same enum and score system API as Severity Badge.",
     importName: "SeverityBadgeLabel",
     packagePath: "severity-badge-label",
     routeSlug: "severity-badge-label",
@@ -393,7 +398,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "Horizontal severity visualization for risk distribution.",
+    description:
+      "Compact 4 by 32 pixel vertical color bar that communicates one severity level with minimal space.",
     importName: "SeverityBar",
     packagePath: "severity-bar",
     routeSlug: "severity-bar",
@@ -430,9 +436,20 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "data-display",
-    description: "Tag components for compact labels, facets, and metadata.",
+    description:
+      "Single compact label for categorizing, filtering, and annotating content with color, status, icon, avatar, and delete states.",
+    importName: "Tag",
+    packagePath: "tags/tag",
+    routeSlug: "tag",
+    storybookTitle: "Components/Tags/Tag",
+    title: "Tag",
+  },
+  {
+    category: "data-display",
+    description:
+      "Compact collection of tags with first-item summaries, overflow counts, truncation, and delete callbacks.",
     importName: "Tags",
-    packagePath: "tags",
+    packagePath: "tags/tags",
     routeSlug: "tags",
     storybookTitle: "Components/Tags/Tags",
     title: "Tags",
@@ -693,6 +710,16 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "surfaces",
     description:
+      "Composite card surface for metric, chart, and dashboard content with headline slots, actions, loading, and empty states.",
+    importName: "Widget",
+    packagePath: "widget",
+    routeSlug: "widget",
+    storybookTitle: "Components/Widget",
+    title: "Widget",
+  },
+  {
+    category: "surfaces",
+    description:
       "Elevated surface primitive for panels, cards, menus, and contained content.",
     importName: "Paper",
     routeSlug: "paper",
@@ -766,7 +793,8 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "navigation",
-    description: "Pagination controls for moving through long result sets.",
+    description:
+      "Pagination controls for moving through page ranges with boundary buttons, sizes, variants, and disabled state.",
     importName: "Pagination",
     packagePath: "pagination",
     routeSlug: "pagination",
@@ -784,12 +812,25 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   },
   {
     category: "navigation",
-    description: "Stepper flow for multi-step forms and guided workflows.",
-    importName: "Stepper",
+    description:
+      "Wizard-style panel with vertical steps, main content, optional footer actions, and a collapsible sidebar.",
+    importName: "StepperPanel",
     packagePath: "stepper",
-    routeSlug: "stepper",
-    storybookTitle: "Components/Stepper",
-    title: "Stepper",
+    routeSlug: "stepper-panel",
+    storyPath: "stepper/stories/stepper-panel.stories.tsx",
+    storybookTitle: "Components/Stepper/StepperPanel",
+    title: "Stepper Panel",
+  },
+  {
+    category: "navigation",
+    description:
+      "Dialog-style stepped workflow with a horizontal step series, title area, body content, and footer actions.",
+    importName: "StepperModal",
+    packagePath: "stepper",
+    routeSlug: "stepper-modal",
+    storyPath: "stepper/stories/stepper-modal.stories.tsx",
+    storybookTitle: "Components/Stepper/StepperModal",
+    title: "Stepper Modal",
   },
   {
     category: "navigation",

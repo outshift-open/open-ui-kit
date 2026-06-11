@@ -7,7 +7,15 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { CodeBlock } from "../components/code-block";
+import {
+  codeTextStyle,
+  containerStackStyles,
+  lineNumberStyle,
+  separatorFirstBox,
+} from "../styles";
 import type { CodeBlockProps } from "../types";
 
 const CODE = `const x = 1;\nconsole.log(x);`;
@@ -78,6 +86,33 @@ describe("CodeBlock", () => {
     it("renders with line numbers in light mode without throwing", () => {
       expect(() => renderCodeBlock({ showLineNumbers: true })).not.toThrow();
     });
+
+    it("maps light theme styles to the CodeBlock CSS values", () => {
+      expect(containerStackStyles(lightTheme)).toEqual(
+        expect.objectContaining({
+          backgroundColor: lightTheme.palette.vars.controlBackgroundDefault,
+          border: `1px solid ${lightTheme.palette.vars.controlBorderDefault}`,
+          borderRadius: "6px",
+        }),
+      );
+      expect(lineNumberStyle(lightTheme, 49, true, "medium")).toEqual(
+        expect.objectContaining({
+          backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+          borderRight: `1px solid ${lightTheme.palette.vars.controlBorderDefault}`,
+          color: lightTheme.palette.vars.baseTextMedium,
+          minWidth: "49px",
+          width: "49px",
+        }),
+      );
+      expect(separatorFirstBox(lightTheme, 39, "small")).toEqual(
+        expect.objectContaining({
+          borderRadius: "6px 0 0 0",
+          height: "12px",
+          minWidth: "39px",
+          width: "39px",
+        }),
+      );
+    });
   });
 
   describe("header", () => {
@@ -114,6 +149,25 @@ describe("CodeBlock", () => {
         renderCodeBlock({ showLineNumbers: true }, true),
       ).not.toThrow();
     });
+
+    it("maps dark theme styles to the CodeBlock CSS values", () => {
+      expect(containerStackStyles(darkTheme)).toEqual(
+        expect.objectContaining({
+          backgroundColor: darkTheme.palette.vars.controlBackgroundDefault,
+          border: `1px solid ${darkTheme.palette.vars.controlBorderDefault}`,
+          borderRadius: "6px",
+        }),
+      );
+      expect(lineNumberStyle(darkTheme, 39, true, "small")).toEqual(
+        expect.objectContaining({
+          backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+          borderRight: `1px solid ${darkTheme.palette.vars.controlBorderDefault}`,
+          color: darkTheme.palette.vars.baseTextMedium,
+          minWidth: "39px",
+          width: "39px",
+        }),
+      );
+    });
   });
 
   describe("size prop", () => {
@@ -123,6 +177,21 @@ describe("CodeBlock", () => {
 
     it("renders size=small without throwing", () => {
       expect(() => renderCodeBlock({ size: "small" })).not.toThrow();
+    });
+
+    it("maps code typography to the Figma sizes", () => {
+      expect(codeTextStyle("medium")).toEqual(
+        expect.objectContaining({
+          fontSize: "14px",
+          lineHeight: "20px",
+        }),
+      );
+      expect(codeTextStyle("small")).toEqual(
+        expect.objectContaining({
+          fontSize: "12px",
+          lineHeight: "18px",
+        }),
+      );
     });
 
     it("renders size=small with line numbers without throwing", () => {
@@ -159,6 +228,26 @@ describe("CodeBlock", () => {
       expect(() =>
         renderCodeBlock({ size: "small", showLineNumbers: true }, true),
       ).not.toThrow();
+    });
+
+    it("uses the small block copy action size for size=small", () => {
+      renderCodeBlock({ size: "small" });
+      expect(screen.getByRole("button")).toHaveStyle({
+        height: "20px",
+        marginRight: "12px",
+        marginTop: "12px",
+        width: "20px",
+      });
+    });
+
+    it("uses the medium block copy action size by default", () => {
+      renderCodeBlock();
+      expect(screen.getByRole("button")).toHaveStyle({
+        height: "32px",
+        marginRight: "16px",
+        marginTop: "16px",
+        width: "32px",
+      });
     });
   });
 

@@ -12,18 +12,37 @@ import { Tag } from "../components/tag";
 import { TagBackgroundColorVariants, TagStatus } from "../types";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => {};
+const handleStoryAction = () => undefined;
 
 const meta: Meta<typeof Tag> = {
   title: "Components/Tags/Tag",
   component: Tag,
   tags: ["autodocs"],
+  args: {
+    children: "Tag",
+    color: TagBackgroundColorVariants.Primary,
+    size: GeneralSize.Large,
+  },
+  argTypes: {
+    color: {
+      control: "select",
+      options: Object.values(TagBackgroundColorVariants),
+    },
+    size: {
+      control: "select",
+      options: Object.values(GeneralSize),
+    },
+    status: {
+      control: "select",
+      options: Object.values(TagStatus),
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="Tag"
           blurb="Tags categorize and label items, allowing users to filter and search for content. They support sizes, colors, status variants, avatars, icons, and deletable state."
           guideLink=""
           importLine='import { Tag } from "@open-ui-kit/core";'
@@ -36,7 +55,8 @@ const meta: Meta<typeof Tag> = {
 export default meta;
 type Story = StoryObj<typeof Tag>;
 
-/* ─── Sizes ─── */
+export const Default: Story = {};
+
 export const Sizes: Story = {
   name: "Sizes",
   render: () => (
@@ -48,25 +68,23 @@ export const Sizes: Story = {
   ),
 };
 
-/* ─── Deletable ─── */
 export const Deletable: Story = {
   name: "Deletable",
   render: () => (
     <Stack gap="16px" direction="row" alignItems="center">
-      <Tag size={GeneralSize.Small} onDelete={noop}>
+      <Tag size={GeneralSize.Small} onDelete={handleStoryAction}>
         Tag
       </Tag>
-      <Tag size={GeneralSize.Medium} onDelete={noop}>
+      <Tag size={GeneralSize.Medium} onDelete={handleStoryAction}>
         Tag
       </Tag>
-      <Tag size={GeneralSize.Large} onDelete={noop}>
+      <Tag size={GeneralSize.Large} onDelete={handleStoryAction}>
         Tag
       </Tag>
     </Stack>
   ),
 };
 
-/* ─── With Avatar ─── */
 export const WithAvatar: Story = {
   name: "With Avatar",
   render: () => (
@@ -84,29 +102,35 @@ export const WithAvatar: Story = {
   ),
 };
 
-/* ─── Clickable with Icon ─── */
 export const ClickableWithIcon: Story = {
   name: "Clickable with Icon",
   render: () => (
     <Stack gap="16px" direction="row" alignItems="center">
-      <Tag icon={<AccountCircleIcon />} size={GeneralSize.Small} onClick={noop}>
+      <Tag
+        icon={<AccountCircleIcon />}
+        size={GeneralSize.Small}
+        onClick={handleStoryAction}
+      >
         Tag
       </Tag>
       <Tag
         icon={<AccountCircleIcon />}
         size={GeneralSize.Medium}
-        onClick={noop}
+        onClick={handleStoryAction}
       >
         Tag
       </Tag>
-      <Tag icon={<AccountCircleIcon />} size={GeneralSize.Large} onClick={noop}>
+      <Tag
+        icon={<AccountCircleIcon />}
+        size={GeneralSize.Large}
+        onClick={handleStoryAction}
+      >
         Tag
       </Tag>
     </Stack>
   ),
 };
 
-/* ─── Outlined (overflow) ─── */
 export const Outlined: Story = {
   name: "Outlined",
   render: () => (
@@ -124,7 +148,6 @@ export const Outlined: Story = {
   ),
 };
 
-/* ─── Status ─── */
 export const Status: Story = {
   name: "Status",
   render: () => (
@@ -138,7 +161,6 @@ export const Status: Story = {
   ),
 };
 
-/* ─── Colors ─── */
 export const Colors: Story = {
   name: "Colors",
   render: () => (
@@ -152,15 +174,14 @@ export const Colors: Story = {
   ),
 };
 
-/* ─── Disabled ─── */
 export const Disabled: Story = {
   name: "Disabled",
   render: () => (
     <Stack gap="16px" direction="row" alignItems="center">
-      <Tag disabled onClick={noop}>
+      <Tag disabled onClick={handleStoryAction}>
         Disabled Tag
       </Tag>
-      <Tag disabled onDelete={noop}>
+      <Tag disabled onDelete={handleStoryAction}>
         Disabled deletable
       </Tag>
     </Stack>

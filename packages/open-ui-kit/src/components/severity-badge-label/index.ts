@@ -5,4 +5,4 @@
  */
 
 export { SeverityBadgeLabel } from "./components/severity-badge-label";
-export type { SeverityBadgeLabelProps } from "./types/severity-badge-label.types";
+export type { SeverityBadgeLabelProps } from "./types";

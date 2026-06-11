@@ -21,7 +21,7 @@ Where no Figma screenshot exists for a component, the existing library style tok
 > - A fix requires a design decision that cannot be inferred from the CSS or Figma screenshots
 > - Never ask for confirmation to proceed, never ask "should I continue?" — just keep going
 
-> **Scope exclusions:** Charts (`src/charts/`) and Templates (`src/templates/`) are out of scope.
+> **Scope:** Charts (`src/charts/`) and Templates (`src/templates/`) are covered in Tier 6 and Tier 7 respectively.
 
 ---
 
@@ -429,32 +429,32 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 - [x] **indicator-badge** — *(no Figma PNG — token audit + story check)*
   - Dot color, position; token compliance
 
-- [ ] **link** — `Link.png` / `Link (1).png` *(dark missing)*
+- [x] **link** — `Link.png` / `Link (1).png` *(dark missing)*
   - Default, hover, visited, disabled; underline behavior
 
-- [ ] **loading-states** — `Loading States.png` / `Loading States (1).png` *(dark missing)*
+- [x] **loading-states** — `Loading States.png` / `Loading States (1).png` *(dark missing)*
   - Spinner colors, skeleton wave animation, overlay variant
 
-- [ ] **message** — `Message.png` / `Message - Dark.png`
+- [x] **message** — `Message.png` / `Message - Dark.png`
   - Variants: info, warning, error, success; icon alignment; dismiss
 
-- [ ] **pagination** — `Pagination.png` / `Pagination - Dark.png`
+- [x] **pagination** — `Pagination.png` / `Pagination - Dark.png`
   - Active page highlight; prev/next disabled; icon color token `controlIconDefault`
 
-- [ ] **severity-badge** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-badge** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **severity-badge-label** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-badge-label** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **severity-bar** — *(no Figma PNG — token audit + story check)*
+- [x] **severity-bar** — *(no Figma PNG — token audit + story check)*
   - Color per severity level; token compliance
 
-- [ ] **stepper** — `Stepper.png` / `Stepper - Dark.png`
+- [x] **stepper** — `Stepper.png` / `Stepper - Dark.png`
   - Sub-components: `desktop-stepper/`, `mobile-stepper/`, `step/`, `step-label/` — all in scope
   - Active, completed, upcoming step styles; connector line; desktop vs mobile layouts
 
-- [ ] **tags** — `Tag.png` / `Tag - Dark.png`
+- [x] **tags** — `Tag.png` / `Tag - Dark.png`
   - Sub-components: `tags/tag/` (single Tag) and `tags/tags/` (Tag collection with overflow)
   - Sizes, colors per variant; removable close button; overflow truncation in tags/tags/
 
@@ -462,74 +462,127 @@ CSS files and screenshots for Foundations are already in `~/Desktop/open-ui-kit-
 
 ### Tier 4 — Utility / behaviour
 
-- [ ] **list** — *(no Figma PNG — token audit + story check)*
+- [x] **list** — *(no Figma PNG — token audit + story check)*
   - `List`, `ListItem`, `ListItemButton` hover state; divider; token compliance
 
-- [ ] **loading-error-state** — *(no Figma PNG — token audit + story check)*
+- [x] **loading-error-state** — *(no Figma PNG — token audit + story check)*
   - Spinner / skeleton / custom loading; error state; empty state; render function children
 
-- [ ] **overflow-tooltip** — *(no Figma PNG — token audit + story check)*
+- [x] **overflow-tooltip** — *(no Figma PNG — token audit + story check)*
   - Overflow trigger; start/end truncation; no tooltip when not overflowing
 
-- [ ] **path-display** — *(no Figma PNG — token audit + story check)*
+- [x] **path-display** — *(no Figma PNG — token audit + story check)*
   - Truncation, tooltip on overflow; token compliance
 
-- [ ] **picker** — `Picker.png` / `Picker - Dark.png`
+- [x] **picker** — `Picker.png` / `Picker - Dark.png`
   - States: default, hover, selected, disabled
   - 3 sizes (small/medium/large); 2 layouts (vertical/horizontal)
   - Hover border: `lightOrange200`; selected border: `lightOrange800`
 
-- [ ] **scroll-area** — *(no Figma PNG — token audit + story check)*
+- [x] **scroll-area** — *(no Figma PNG — token audit + story check)*
   - Scrollbar visibility; custom scrollbar color token
 
-- [ ] **skeleton** — *(no Figma PNG — token audit + story check)*
+- [x] **skeleton** — *(no Figma PNG — token audit + story check)*
   - Wave animation; shape variants; token compliance
 
-- [ ] **spinner** — *(no Figma PNG — token audit + story check)*
+- [x] **spinner** — *(no Figma PNG — token audit + story check)*
   - Size variants; color token; token compliance
 
-- [ ] **view-switcher** — `View switcher.png` / `View switcher - Dark.png`
+- [x] **view-switcher** — `View switcher.png` / `View switcher - Dark.png`
   - Active/inactive states; icon and label alignment
 
 ---
 
 ### Tier 5 — Complex / composite
 
-- [ ] **activity-timeline** — `Activity timeline.png` / `Activity timeline - Dark.png`
+- [x] **activity-timeline** — `Activity timeline.png` / `Activity timeline - Dark.png`
   - Icon per event type; connector line; timestamp typography
 
-- [ ] **anchor-link-menu** — `Anchor link menu.png` / `Anchor link menu - Dark.png`
+- [x] **anchor-link-menu** — `Anchor link menu.png` / `Anchor link menu - Dark.png`
   - Active section highlight; scroll-spy behavior
 
-- [ ] **code-block** — `Code block.png` / `Code block - Dark.png`
+- [x] **code-block** — `Code block.png` / `Code block - Dark.png`
   - Syntax highlight colors; copy button; line numbers
 
-- [ ] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
+- [x] **date-time** — `Date & time picker.png` / `Date & time picker - Dark.png`
   - Calendar grid, selected date, disabled dates, time picker
 
-- [ ] **filters** — `Filters.png` / `Filters - Dark.png`
+- [x] **filters** — `Filters.png` / `Filters - Dark.png`
   - Filter bar layout; search input integration; applied filter chips; filter drawer
 
-- [ ] **floating-button** — `Floating button.png` / `Floating button - Dark.png`
+- [x] **floating-button** — `Floating button.png` / `Floating button - Dark.png`
   - FAB shadow; icon centering; hover/active states
 
-- [ ] **footer** — *(light missing)* / `Footer - Product Dark.png`
+- [x] **footer** — `Footer - Product Light.png` / `Footer - Product Dark.png`
   - Links layout; background token
 
-- [ ] **header** — `Header - Product Light.png` / `Header - Product Dark.png`
+- [x] **header** — `Header - Product Light.png` / `Header - Product Dark.png`
   - Logo placement; action buttons; background token
 
-- [ ] **key-value-pairs** — `Key value pairs.png` / `Key value pairs - dark.png`
+- [x] **key-value-pairs** — `Key value pairs.png` / `Key value pairs - dark.png`
   - Label/value layout; alignment variants
 
-- [ ] **navigation** — `Navigation.png` / `Navigation - Dark.png`
+- [x] **navigation** — `Navigation.png` / `Navigation - Dark.png`
   - Active item highlight; collapsed sidebar state; icon alignment
 
-- [ ] **table** — `Tables.png` / `Tables - Dark.png`
+- [x] **table** — `Tables.png` / `Tables - Dark.png`
   - Header background; row hover; sorted column; striped rows; pagination integration
 
-- [ ] **upload** — `Upload.png` / `Upload - Dark.png`
+- [x] **upload** — `Upload.png` / `Upload - Dark.png`
   - Drag-and-drop zone; file list item; progress/error states
+
+- [x] **widget** — *(no Figma PNG — token audit + story check)*
+  - Sub-components: `widget.tsx`, `widget-headline.tsx`, `widget-headline-title.tsx`, `widget-body.tsx`, `widget-body-stateful.tsx` — all in scope
+  - Container card layout; title/subtitle/actions slots; background and shadow tokens; both themes
+  - Stateful body: loading, error, empty states render correctly
+
+---
+
+### Tier 6 — Charts
+
+Charts live in `src/charts/`. Each chart wraps a Recharts primitive and must use `theme.palette.vars.*` tokens for all colors. No Figma PNGs exist for charts — use the library token style as the visual reference and verify in Storybook.
+
+- [x] **bar-chart** — *(no Figma PNG — token audit + story check)*
+  - Bar fill colors via tokens; axis labels; tooltip; grid lines; responsive container
+
+- [x] **bar-graph** — *(no Figma PNG — token audit + story check)*
+  - Grouped vs stacked variants; legend; color tokens per series
+
+- [x] **chart-widget** — *(no Figma PNG — token audit + story check)*
+  - Container card layout; title/subtitle slots; shadow token; both themes
+
+- [x] **donut-chart** — *(no Figma PNG — token audit + story check)*
+  - Segment colors via tokens; center label; legend; tooltip
+
+- [x] **gauge-chart** — *(no Figma PNG — token audit + story check)*
+  - Arc fill tokens; needle color; label typography; both themes
+
+- [x] **horizontal-bar-chart** — *(no Figma PNG — token audit + story check)*
+  - Bar fill tokens; axis; tooltip; both themes
+
+- [x] **line-chart** — *(no Figma PNG — token audit + story check)*
+  - Line colors per series via tokens; dot markers; grid; tooltip; both themes
+
+- [x] **spider-chart** — *(no Figma PNG — token audit + story check)*
+  - Polygon fill/stroke tokens; axis labels; tooltip; both themes
+
+---
+
+### Tier 7 — Templates
+
+Templates live in `src/templates/`. Each template composes library components and must use only `@/components/*` imports (never `@mui/material` directly for components that have a local wrapper).
+
+- [x] **base-page** — *(no Figma PNG — token audit + story check)*
+  - Tab navigation, container padding tokens, `sx` array merge on container props
+  - Imports: `Box`/`Typography` from `@/components`; `TabProps` type-only from MUI
+
+- [x] **layout** — *(no Figma PNG — token audit + story check)*
+  - Drawer + main content layout; responsive breakpoint behavior
+  - `Drawer` may remain from MUI if not wrapped locally — confirm and document
+
+- [x] **page-title** — *(no Figma PNG — token audit + story check)*
+  - Title, subtitle, breadcrumbs, actions slots; typography tokens; `sx` array merge
+  - Tests require `MemoryRouter` (breadcrumbs uses react-router-dom internally)
 
 ---
 

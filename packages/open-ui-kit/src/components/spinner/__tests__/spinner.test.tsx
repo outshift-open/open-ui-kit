@@ -4,14 +4,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from "react";
+import type { ComponentProps } from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Spinner } from "../components/spinner";
+import {
+  getSpinnerColorStyles,
+  getSpinnerIndicatorStyles,
+  getSpinnerTrackStyles,
+  getSpinnerWrapperStyles,
+} from "../styles";
 
 const renderSpinner = (
-  props: React.ComponentProps<typeof Spinner> = {},
+  props: ComponentProps<typeof Spinner> = {},
   dark = false,
 ) =>
   render(
@@ -21,6 +29,13 @@ const renderSpinner = (
   );
 
 describe("Spinner", () => {
+  const getWrapper = (container: HTMLElement) =>
+    container.querySelector("[data-slot='spinner']") as HTMLElement;
+  const getTrack = (container: HTMLElement) =>
+    container.querySelector("[data-slot='spinner-track']") as HTMLElement;
+  const getIndicator = (container: HTMLElement) =>
+    container.querySelector("[data-slot='spinner-indicator']") as HTMLElement;
+
   describe("rendering", () => {
     it("renders without throwing", () => {
       expect(() => renderSpinner()).not.toThrow();
@@ -28,14 +43,18 @@ describe("Spinner", () => {
 
     it("renders two CircularProgress elements", () => {
       const { container } = renderSpinner();
-      const circles = container.querySelectorAll(".MuiCircularProgress-root");
-      expect(circles).toHaveLength(2);
+      expect(getTrack(container)).toBeInTheDocument();
+      expect(getIndicator(container)).toBeInTheDocument();
     });
 
     it("uses the provided size", () => {
       const { container } = renderSpinner({ size: 24 });
-      const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).toBeInTheDocument();
+      expect(getWrapper(container)).toBeInTheDocument();
+      expect(getSpinnerWrapperStyles(24)).toEqual({
+        position: "relative",
+        width: 24,
+        height: 24,
+      });
     });
   });
 
@@ -58,12 +77,42 @@ describe("Spinner", () => {
   });
 
   describe("token coverage", () => {
-    it("renders light theme without throwing", () => {
-      expect(() => renderSpinner()).not.toThrow();
+    it("uses light color tokens", () => {
+      expect(getSpinnerColorStyles(lightTheme)).toEqual({
+        "&.MuiCircularProgress-colorPrimary .MuiCircularProgress-circle": {
+          color: "#187adc",
+        },
+        "&.MuiCircularProgress-colorSecondary .MuiCircularProgress-circle": {
+          color: "#062242",
+        },
+      });
     });
 
-    it("renders dark theme without throwing", () => {
-      expect(() => renderSpinner({}, true)).not.toThrow();
+    it("uses dark color tokens", () => {
+      expect(getSpinnerColorStyles(darkTheme)).toEqual({
+        "&.MuiCircularProgress-colorPrimary .MuiCircularProgress-circle": {
+          color: "#1bcdff",
+        },
+        "&.MuiCircularProgress-colorSecondary .MuiCircularProgress-circle": {
+          color: "#e8eefb",
+        },
+      });
+    });
+
+    it("uses determinate track and indeterminate indicator styles", () => {
+      expect(getSpinnerTrackStyles(lightTheme)).toMatchObject({
+        opacity: 0.2,
+      });
+      expect(getSpinnerIndicatorStyles(lightTheme)).toMatchObject({
+        animationDuration: "1s",
+        position: "absolute",
+        left: 0,
+        top: 0,
+        "& .MuiCircularProgress-circle": {
+          strokeLinecap: "round",
+          strokeDasharray: "31.4, 94.2",
+        },
+      });
     });
   });
 

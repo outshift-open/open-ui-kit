@@ -8,7 +8,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { Widget } from "../components/widget";
+import { styles } from "../styles/styles";
 
 const renderWidget = (
   props: React.ComponentProps<typeof Widget>,
@@ -21,6 +24,42 @@ const renderWidget = (
   );
 
 describe("Widget", () => {
+  describe("style contract", () => {
+    it("uses lifted card tokens in both themes", () => {
+      expect(styles(lightTheme).card).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.baseBackgroundWeak,
+        boxShadow: lightTheme.shadows[1],
+        borderRadius: "8px",
+        gap: 0,
+        justifyContent: "flex-start",
+        padding: "0px",
+      });
+
+      expect(styles(darkTheme).card).toMatchObject({
+        backgroundColor: darkTheme.palette.vars.baseBackgroundWeak,
+        boxShadow: darkTheme.shadows[1],
+        borderRadius: "8px",
+        gap: 0,
+        justifyContent: "flex-start",
+        padding: "0px",
+      });
+    });
+
+    it("keeps the generic body compact and restores bottom padding", () => {
+      expect(styles(lightTheme).stack).toEqual({ width: "100%" });
+      expect(styles(lightTheme).cardContent).toMatchObject({
+        alignItems: "flex-start",
+        flexGrow: 1,
+        gap: "16px",
+        overflowY: "visible",
+        padding: "8px 16px 16px",
+        "&:last-child": {
+          paddingBottom: "16px",
+        },
+      });
+    });
+  });
+
   describe("rendering", () => {
     it("renders body element", () => {
       renderWidget({ bodyElement: <div>chart content</div> });

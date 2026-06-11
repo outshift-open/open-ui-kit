@@ -16,6 +16,10 @@ import {
   getActionButtonStyles,
   getHeaderStyles,
   getStoryBetaStyles,
+  getStoryMenuItemStyles,
+  getStoryMenuPaperStyles,
+  getStoryTitleStyles,
+  getUserDividerStyles,
 } from "../styles";
 
 const wrap = (ui: React.ReactNode, dark = false) =>
@@ -124,6 +128,22 @@ describe("Header", () => {
     });
   });
 
+  it("uses product user divider tokens", () => {
+    expect(getUserDividerStyles(lightTheme)).toMatchObject({
+      height: "36px",
+      width: "1px",
+      backgroundColor: lightTheme.palette.vars.baseBorderDefault,
+      "&&.MuiDivider-vertical": {
+        height: "36px",
+        width: "1px",
+      },
+    });
+
+    expect(getUserDividerStyles(darkTheme)).toMatchObject({
+      backgroundColor: darkTheme.palette.vars.baseBorderStrong,
+    });
+  });
+
   it("uses tokenized custom search styles", () => {
     expect(getCustomSearchInputStyles(lightTheme)).toMatchObject({
       padding: 0,
@@ -141,6 +161,15 @@ describe("Header", () => {
       width: "24px",
       height: "24px",
       borderRadius: "4px",
+      backgroundColor: "transparent",
+      "&:hover": {
+        color: lightTheme.palette.vars.interactivePrimaryDefaultHover,
+        backgroundColor: "transparent",
+      },
+      "&:active": {
+        color: lightTheme.palette.vars.interactivePrimaryDefaultActive,
+        backgroundColor: "transparent",
+      },
       "& .MuiIcon-root, & .MuiSvgIcon-root": {
         color: "currentColor",
         fontSize: "24px",
@@ -150,11 +179,62 @@ describe("Header", () => {
     });
   });
 
+  it("uses product title styles from the header spec", () => {
+    expect(getStoryTitleStyles(lightTheme)).toMatchObject({
+      fontFamily: "Sharp Sans, sans-serif",
+      fontWeight: 400,
+      fontSize: "25.3208px",
+      lineHeight: "34px",
+      color: lightTheme.palette.vars.brandMidnightBlue,
+    });
+
+    expect(getStoryTitleStyles(darkTheme)).toMatchObject({
+      color: darkTheme.palette.vars.baseTextStrong,
+    });
+  });
+
   it("uses tokenized beta label styles", () => {
     expect(getStoryBetaStyles(darkTheme)).toMatchObject({
       backgroundColor: darkTheme.palette.vars.interactivePrimaryWeakDefault,
       color: darkTheme.palette.vars.baseTextDefault,
       height: "20px",
+    });
+  });
+
+  it("uses product dropdown paper styles from the header spec", () => {
+    expect(getStoryMenuPaperStyles(lightTheme)).toMatchObject({
+      mt: "8px",
+      "& .MuiPaper-root": expect.objectContaining({
+        width: "125px",
+        minWidth: "125px",
+        height: "96px",
+        borderRadius: "8px",
+        border: `2px solid ${lightTheme.palette.vars.interactivePrimaryDefaultActive}`,
+        backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+        boxShadow: lightTheme.shadows[2],
+        padding: "8px 0",
+      }),
+      "& .MuiList-root": { padding: 0 },
+    });
+  });
+
+  it("uses product dropdown item styles from the header spec", () => {
+    expect(getStoryMenuItemStyles(darkTheme)).toMatchObject({
+      borderRadius: 0,
+      gap: "8px",
+      height: "40px",
+      padding: "8px 16px",
+      color: darkTheme.palette.vars.baseTextDefault,
+      backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+      "&:hover": {
+        backgroundColor: darkTheme.palette.vars.baseBackgroundHover,
+      },
+      "& .MuiIcon-root, & .MuiSvgIcon-root": {
+        color: "currentColor",
+        fontSize: "24px",
+        width: "24px",
+        height: "24px",
+      },
     });
   });
 });

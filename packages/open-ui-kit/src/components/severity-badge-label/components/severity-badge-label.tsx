@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { useTheme } from "@/theme-provider/theme-provider";
 import { IndicatorBadge } from "@/components/indicator-badge";
 import {
   getIndicatorBadgeConfigurationByScoreSystem,
   getIndicatorBadgeConfigurationBySeverity,
 } from "../../severity-badge/utils/severity-badge.utils";
-import { SeverityBadgeLabelProps } from "../types/severity-badge-label.types";
+import type { SeverityBadgeLabelProps } from "../types";
 
 export const SeverityBadgeLabel = ({
   label,
@@ -30,7 +31,7 @@ export const SeverityBadgeLabel = ({
     <Stack
       direction="row"
       spacing={1}
-      alignItems={"center"}
+      alignItems="center"
       {...containerStackProps}
     >
       <IndicatorBadge

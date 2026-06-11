@@ -44,6 +44,25 @@ describe("SeverityBadgeLabel", () => {
     it("renders without value or severity without throwing", () => {
       expect(() => renderLabel()).not.toThrow();
     });
+
+    it("shows default labels from score values", () => {
+      renderLabel({ value: 90 });
+      expect(screen.getByText("Good")).toBeInTheDocument();
+    });
+
+    it("shows fallback label when no score matches", () => {
+      renderLabel();
+      expect(screen.getByText("N/A")).toBeInTheDocument();
+    });
+
+    it("allows typography props to override defaults", () => {
+      renderLabel({
+        severity: Severity.LOW,
+        labelTypographyProps: { variant: "caption" },
+      });
+
+      expect(screen.getByText("Low")).toHaveClass("MuiTypography-caption");
+    });
   });
 
   describe("token coverage", () => {

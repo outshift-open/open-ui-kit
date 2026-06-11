@@ -21,13 +21,13 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: var(--ouk-surface-200);
+  background: var(--ouk-storybook-bg);
   color: var(--ouk-text);
 }
 
 .sb-show-main,
 .sb-main-padded {
-  background: var(--ouk-surface-200);
+  background: var(--ouk-storybook-bg);
 }
 
 .sb-main-padded {

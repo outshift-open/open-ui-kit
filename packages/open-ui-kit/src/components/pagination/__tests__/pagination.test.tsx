@@ -19,8 +19,17 @@ global.ResizeObserver = class ResizeObserver {
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { darkTheme } from "@/theme/dark/dark-theme";
+import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Pagination } from "../components/pagination";
+import {
+  getPaginationControlStyles,
+  getPaginationItemSize,
+  getPaginationItemStyles,
+  getPaginationOutlinedItemStyles,
+  getPaginationRootStyles,
+} from "../styles";
 
 const renderPagination = (
   props: Partial<React.ComponentProps<typeof Pagination>> = {},
@@ -83,6 +92,80 @@ describe("Pagination", () => {
 
     it("renders primary color without error", () => {
       expect(() => renderPagination({ color: "primary" })).not.toThrow();
+    });
+
+    it("uses CSS reference sizes and layout", () => {
+      expect(getPaginationItemSize("small")).toBe("26px");
+      expect(getPaginationItemSize("medium")).toBe("32px");
+      expect(getPaginationItemSize("large")).toBe("40px");
+      expect(getPaginationRootStyles()).toMatchObject({
+        "& .MuiPagination-ul": {
+          gap: "4px",
+          padding: "0 4px",
+        },
+      });
+      expect(getPaginationControlStyles(lightTheme)).toMatchObject({
+        width: "20px",
+        height: "20px",
+        color: lightTheme.palette.vars.controlIconDefault,
+      });
+    });
+
+    it("uses light theme tokens from the pagination CSS", () => {
+      expect(getPaginationItemStyles(lightTheme, "small")).toMatchObject({
+        width: "26px",
+        height: "26px",
+        color: lightTheme.palette.vars.baseTextDefault,
+        "&.Mui-selected": expect.objectContaining({
+          backgroundColor: lightTheme.palette.vars.controlBorderStrong,
+          color: lightTheme.palette.vars.baseTextStrong,
+        }),
+        "&.MuiPaginationItem-colorPrimary.Mui-selected":
+          expect.objectContaining({
+            backgroundColor:
+              lightTheme.palette.vars.interactivePrimaryDefaultActive,
+            color: lightTheme.palette.vars.baseTextInverse,
+          }),
+        "&.Mui-disabled, &.Mui-selected.Mui-disabled": expect.objectContaining({
+          backgroundColor: "transparent",
+          color: lightTheme.palette.vars.baseTextDisabled,
+          opacity: 1,
+        }),
+      });
+      expect(getPaginationOutlinedItemStyles(lightTheme)).toMatchObject({
+        borderColor: lightTheme.palette.vars.controlBorderStrong,
+        "&.MuiPaginationItem-colorPrimary": {
+          borderColor: lightTheme.palette.vars.interactivePrimaryDefaultDefault,
+        },
+        "&.Mui-disabled, &.Mui-selected.Mui-disabled": {
+          borderColor: lightTheme.palette.vars.controlBorderWeak,
+        },
+        "&.MuiPaginationItem-colorPrimary.Mui-selected.Mui-disabled": {
+          borderColor:
+            lightTheme.palette.vars.interactivePrimaryDefaultDisabled,
+        },
+      });
+    });
+
+    it("uses dark theme tokens from the pagination CSS", () => {
+      expect(getPaginationItemStyles(darkTheme, "large")).toMatchObject({
+        width: "40px",
+        height: "40px",
+        color: darkTheme.palette.vars.baseTextDefault,
+        "&.Mui-selected": expect.objectContaining({
+          backgroundColor: darkTheme.palette.vars.controlBorderStrong,
+          color: darkTheme.palette.vars.baseTextStrong,
+        }),
+        "&.MuiPaginationItem-colorPrimary.Mui-selected":
+          expect.objectContaining({
+            backgroundColor:
+              darkTheme.palette.vars.interactivePrimaryDefaultActive,
+            color: darkTheme.palette.vars.baseTextInverse,
+          }),
+      });
+      expect(getPaginationControlStyles(darkTheme)).toMatchObject({
+        color: darkTheme.palette.vars.controlIconDefault,
+      });
     });
   });
 });

@@ -4,7 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CardContent, Skeleton, Stack, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Stack } from "@mui/material";
+import { Skeleton } from "@/components/skeleton";
+import { CardContent } from "@/components/card";
 import { WidgetBodyStateful } from "./widget-body-stateful";
 import { styles } from "../styles/styles";
 

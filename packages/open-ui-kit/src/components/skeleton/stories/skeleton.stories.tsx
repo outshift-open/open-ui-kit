@@ -4,20 +4,51 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@/components";
 import { Skeleton } from "../";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta: Meta<typeof Skeleton> = {
+const meta = {
   title: "Components/Skeleton",
   component: Skeleton,
   tags: ["autodocs"],
+  args: {
+    animation: "wave",
+    variant: "rounded",
+    width: 210,
+    height: 60,
+  },
+  argTypes: {
+    animation: {
+      control: "select",
+      options: ["pulse", "wave", false],
+      description: "Loading animation. Defaults to wave.",
+    },
+    height: {
+      control: "number",
+      description: "Placeholder height.",
+    },
+    variant: {
+      control: "select",
+      options: ["text", "circular", "rectangular", "rounded"],
+      description: "Placeholder shape.",
+    },
+    width: {
+      control: "number",
+      description: "Placeholder width.",
+    },
+    sx: {
+      control: "object",
+      description: "Style overrides merged after internal token styles.",
+    },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="Skeleton"
           blurb="Skeleton displays a placeholder preview of content while data is loading. Use it to reduce perceived load time. Defaults to wave animation styled with design-system tokens."
           guideLink=""
           importLine='import { Skeleton } from "@open-ui-kit/core";'
@@ -25,11 +56,13 @@ const meta: Meta<typeof Skeleton> = {
       ),
     },
   },
-};
+} satisfies Meta<typeof Skeleton>;
 
 export default meta;
 
-type Story = StoryObj<typeof Skeleton>;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
 
 export const AllVariants: Story = {
   render: () => (
@@ -43,7 +76,11 @@ export const AllVariants: Story = {
 };
 
 export const Text: Story = {
-  args: { variant: "text", sx: { fontSize: "1rem", width: 210 } },
+  args: {
+    height: undefined,
+    variant: "text",
+    sx: { fontSize: "1rem", width: 210 },
+  },
 };
 
 export const Circular: Story = {

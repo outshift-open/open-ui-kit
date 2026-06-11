@@ -5,10 +5,11 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { LoadingStates } from "..";
 import {
+  DEFAULT_SKELETON_STATES,
   DEFAULT_SPINNER_SIZES,
   getStorySectionLabelStyles,
   getStorySizeLabelStyles,
@@ -17,9 +18,24 @@ import {
 const meta: Meta<typeof LoadingStates> = {
   title: "Components/LoadingStates",
   component: LoadingStates,
+  args: {
+    showSkeleton: true,
+    showSpinner: true,
+    skeletonStates: DEFAULT_SKELETON_STATES,
+    spinnerSizes: DEFAULT_SPINNER_SIZES,
+  },
+  argTypes: {
+    showSkeleton: { control: "boolean" },
+    showSpinner: { control: "boolean" },
+    skeletonStates: {
+      control: "check",
+      options: DEFAULT_SKELETON_STATES,
+    },
+    spinnerSizes: { table: { disable: true } },
+    sx: { table: { disable: true } },
+  },
   parameters: {
     actions: { argTypesRegex: null },
-    controls: { disable: true },
     docs: {
       page: () => (
         <DocsHeader
@@ -36,12 +52,16 @@ const meta: Meta<typeof LoadingStates> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const storyStackStyles = {
+  alignItems: "flex-start",
+};
+
 const sizeLabels = ["large", "medium", "small", "extra small"] as const;
 
-const SpinnerLegend = () => (
+const SpinnerLabels = () => (
   <Stack gap="40px" sx={{ width: "126px" }}>
     {["Primary", "Secondary"].map((variant) => (
-      <Stack key={variant} gap="28px">
+      <Stack key={variant} gap="28px" sx={storyStackStyles}>
         <Typography sx={(theme) => getStorySectionLabelStyles(theme)}>
           {variant}
         </Typography>
@@ -58,37 +78,52 @@ const SpinnerLegend = () => (
   </Stack>
 );
 
-export const Default: Story = {
-  name: "Loading States",
-  render: () => (
-    <Stack direction="row" gap="52px" alignItems="flex-start">
-      <Stack gap="24px">
-        <Typography sx={(theme) => getStorySectionLabelStyles(theme)}>
-          Spinner
-        </Typography>
-        <Stack direction="row" gap="24px" alignItems="flex-start">
-          <SpinnerLegend />
-          <LoadingStates showSkeleton={false} />
-        </Stack>
-      </Stack>
-      <Stack gap="24px">
-        <Typography sx={(theme) => getStorySectionLabelStyles(theme)}>
-          Skeleton
-        </Typography>
-        <Box sx={{ paddingTop: "92px" }}>
-          <LoadingStates showSpinner={false} />
-        </Box>
-      </Stack>
+export const Default: Story = {};
+
+export const SpinnerOnly: Story = {
+  args: {
+    showSkeleton: false,
+  },
+  render: (args) => (
+    <Stack direction="row" gap="24px" sx={storyStackStyles}>
+      <SpinnerLabels />
+      <LoadingStates {...args} />
     </Stack>
   ),
 };
 
-export const SpinnerOnly: Story = {
-  name: "Spinner",
-  render: () => <LoadingStates showSkeleton={false} />,
+export const SkeletonOnly: Story = {
+  args: {
+    showSpinner: false,
+  },
 };
 
-export const SkeletonOnly: Story = {
-  name: "Skeleton",
-  render: () => <LoadingStates showSpinner={false} />,
+export const LoadingSkeleton: Story = {
+  args: {
+    showSpinner: false,
+    skeletonStates: ["loading"],
+  },
+};
+
+export const StaticSkeleton: Story = {
+  args: {
+    showSpinner: false,
+    skeletonStates: ["failure"],
+  },
+};
+
+export const SpinnerSizes: Story = {
+  args: {
+    showSkeleton: false,
+  },
+  render: (args) => (
+    <Stack gap={2} sx={storyStackStyles}>
+      <Typography sx={(theme) => getStorySectionLabelStyles(theme)}>
+        Spinner sizes
+      </Typography>
+      <Box>
+        <LoadingStates {...args} />
+      </Box>
+    </Stack>
+  ),
 };

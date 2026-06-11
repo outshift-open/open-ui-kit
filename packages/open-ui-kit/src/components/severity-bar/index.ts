@@ -5,4 +5,4 @@
  */
 
 export { SeverityBar } from "./components/severity-bar";
-export type { SeverityBarProps } from "./components/severity-bar";
+export type { SeverityBarProps } from "./types";

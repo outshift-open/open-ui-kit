@@ -29,29 +29,31 @@ export const PageTitle = ({
           {image && <Box sx={styles.image}>{image}</Box>}
           {icon && !image && <Box sx={styles.icon}>{icon}</Box>}
           <Box sx={styles.text}>
-            <Typography
-              variant="h5"
-              component="h1"
-              sx={(theme) => ({
-                color: theme.palette.vars.baseTextStrong,
-                fontWeight: 700,
-                lineHeight: "30px",
-              })}
-            >
-              {title}
-            </Typography>
-            {tag}
+            <Box sx={styles.titleRow}>
+              <Typography
+                variant="h5"
+                component="h1"
+                sx={(theme) => ({
+                  color: theme.palette.vars.baseTextStrong,
+                  fontWeight: 700,
+                  lineHeight: "30px",
+                })}
+              >
+                {title}
+              </Typography>
+              {tag}
+            </Box>
+            {subtitle && (
+              <Typography
+                variant="body2"
+                sx={(theme) => ({
+                  color: theme.palette.vars.baseTextDefault,
+                })}
+              >
+                {subtitle}
+              </Typography>
+            )}
           </Box>
-          {subtitle && (
-            <Typography
-              variant="body2"
-              sx={(theme) => ({
-                color: theme.palette.vars.baseTextDefault,
-              })}
-            >
-              {subtitle}
-            </Typography>
-          )}
         </Box>
         {actions && <Box sx={styles.actions}>{actions}</Box>}
       </Box>

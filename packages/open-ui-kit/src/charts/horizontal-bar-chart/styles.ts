@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SxProps } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
 
-export const styles: Record<string | number | symbol, SxProps> = {
+export const styles: Record<string | number | symbol, SxProps<Theme>> = {
   container: {
     width: "100%",
     height: "100%",
@@ -24,8 +24,8 @@ export const getBarStyle = (
   value: number,
   maxValue: number,
   color: string,
-): SxProps => ({
-  width: (value / maxValue) * 100 + "%",
+): SxProps<Theme> => ({
+  width: maxValue > 0 ? `${(value / maxValue) * 100}%` : "0%",
   height: 8,
   borderRadius: 0.5,
   backgroundColor: color,

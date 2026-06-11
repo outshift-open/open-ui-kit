@@ -4,11 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Tooltip, TooltipSize } from "@/components/tooltip";
 import type { PathDisplayProps } from "../types";
 
-export type { PathDisplayProps };
+const getPathSegments = (path: string) =>
+  path
+    .split("/")
+    .map((segment) => segment.trim())
+    .filter(Boolean);
 
 export const PathDisplay = ({
   path,
@@ -16,32 +20,21 @@ export const PathDisplay = ({
   tooltipProps,
   typographyProps,
 }: PathDisplayProps) => {
-  const theme = useTheme();
+  const segments = getPathSegments(path);
 
-  if (!path) return null;
+  if (segments.length === 0) return null;
 
-  const segments = path.split("/");
+  const fullPath = segments.join(" / ");
   const hasManyLevels = segments.length >= numberOfLevels;
-
-  const prefix = segments[0] === "" ? segments[1] : segments[0];
   const displayPath = hasManyLevels
-    ? `${prefix} / ... / ${segments[segments.length - 1]}`
-    : path;
+    ? `${segments[0]} / ... / ${segments[segments.length - 1]}`
+    : fullPath;
 
   return (
     <Tooltip
-      title={hasManyLevels ? path : null}
+      title={hasManyLevels ? fullPath : null}
       arrow
       size={TooltipSize.Large}
-      slotProps={{
-        tooltip: {
-          sx: {
-            padding: "8px 12px",
-            boxShadow: theme.shadows[4],
-            maxWidth: "none",
-          },
-        },
-      }}
       {...tooltipProps}
     >
       <Typography component="span" {...typographyProps}>

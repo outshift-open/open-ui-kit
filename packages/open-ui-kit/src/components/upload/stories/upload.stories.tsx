@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
@@ -14,16 +14,117 @@ import type { UploadFile } from "../types";
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
+const thumbnailSrc =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='2' fill='%23E8F1FF'/%3E%3Ccircle cx='18' cy='19' r='6' fill='%2379B9FF'/%3E%3Cpath d='M7 39l11-12 7 7 5-5 11 10H7z' fill='%230051AF'/%3E%3C/svg%3E";
+
+const files: UploadFile[] = [
+  { id: "f1", name: "example-file-1.png", status: "idle" },
+  { id: "f2", name: "example-file-2.png", status: "idle" },
+  { id: "f3", name: "example-file-3.png", status: "idle" },
+];
+
+const progressFiles: UploadFile[] = [
+  { id: "f1", name: "example-file-1.png", status: "uploading", progress: 67 },
+  { id: "f2", name: "example-file-2.png", status: "idle" },
+];
+
+const spinnerFiles: UploadFile[] = [
+  { id: "f1", name: "example-file-1.png", status: "uploading" },
+  { id: "f2", name: "example-file-2.png", status: "idle" },
+];
+
+const errorFiles: UploadFile[] = [
+  {
+    id: "f1",
+    name: "example-file-1.png",
+    status: "error",
+    errorMessage: "File size exceeds 10MB limit.",
+  },
+  { id: "f2", name: "example-file-2.png", status: "idle" },
+];
+
+const thumbnailFiles: UploadFile[] = [
+  { id: "f1", name: "example-file-1.png", thumbnailSrc, status: "idle" },
+  {
+    id: "f2",
+    name: "example-file-2.png",
+    thumbnailSrc,
+    status: "uploading",
+    progress: 67,
+  },
+  {
+    id: "f3",
+    name: "example-file-3.png",
+    thumbnailSrc,
+    status: "error",
+    errorMessage: "File size exceeds 10MB limit.",
+  },
+];
+
+const StoryFrame = ({
+  children,
+  width = "400px",
+}: {
+  children: ReactNode;
+  width?: string;
+}) => <Box sx={{ width, maxWidth: "100%" }}>{children}</Box>;
+
 const meta: Meta<typeof Upload> = {
   title: "Components/Upload",
   component: Upload,
   tags: ["autodocs"],
+  args: {
+    variant: "drag",
+    size: "md",
+    hint: "Supports: PNG, JPG, PDF up to 10MB",
+    onFilesChange: noop,
+    onFileRemove: noop,
+  },
+  argTypes: {
+    variant: {
+      control: "radio",
+      options: ["drag", "button"],
+      description: "Choose the drag-and-drop trigger or button trigger.",
+    },
+    size: {
+      control: "radio",
+      options: ["md", "sm"],
+      description: "Controls the drag trigger and file row size.",
+    },
+    label: {
+      control: "text",
+      description: "Primary label for the trigger.",
+    },
+    hint: {
+      control: "text",
+      description: "Supplemental drag trigger hint.",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables file selection and drop handling.",
+    },
+    multiple: {
+      control: "boolean",
+      description: "Allows selecting more than one file.",
+    },
+    accept: {
+      control: "text",
+      description: "Accepted file types for the hidden file input.",
+    },
+    files: {
+      control: false,
+      description: "Managed file rows shown under the trigger.",
+    },
+    onFilesChange: { action: "files selected" },
+    onFileRemove: { action: "file removed" },
+  },
   parameters: {
     actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Upload allows users to select or drag files for upload. Supports drag-and-drop and button trigger variants, with file list management including progress and error states."
+          title="Upload"
+          blurb="Upload lets users choose files from a drag-and-drop region or button trigger, then shows selected files with idle, loading, and error states."
           guideLink=""
           importLine='import { Upload } from "@open-ui-kit/core";'
         />
@@ -35,147 +136,133 @@ const meta: Meta<typeof Upload> = {
 export default meta;
 type Story = StoryObj<typeof Upload>;
 
-/* ─── Drag & Drop — Default ─── */
-export const DragAndDrop: Story = {
-  name: "Drag & Drop",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload
-        variant="drag"
-        hint="Supports: PNG, JPG, PDF up to 10MB"
-        onFilesChange={noop}
-      />
-    </Box>
+export const Default: Story = {
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
   ),
 };
 
-/* ─── Drag & Drop — With Files ─── */
-const staticFiles: UploadFile[] = [
-  { id: "f1", name: "example-file-1.png", status: "idle" },
-  { id: "f2", name: "example-file-2.png", status: "idle" },
-  { id: "f3", name: "example-file-3.png", status: "idle" },
-];
-
-export const DragAndDropWithFiles: Story = {
-  name: "Drag & Drop — With Files",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload
-        variant="drag"
-        hint="Supports: PNG, JPG, PDF up to 10MB"
-        files={staticFiles}
-        onFilesChange={noop}
-        onFileRemove={noop}
-      />
-    </Box>
-  ),
-};
-
-/* ─── Drag & Drop — Uploading ─── */
-const uploadingFiles: UploadFile[] = [
-  { id: "f1", name: "example-file-1.png", status: "uploading", progress: 60 },
-  { id: "f2", name: "example-file-2.png", status: "idle" },
-  { id: "f3", name: "example-file-3.png", status: "idle" },
-];
-
-export const DragAndDropUploading: Story = {
-  name: "Drag & Drop — Uploading",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload
-        variant="drag"
-        hint="Supports: PNG, JPG, PDF up to 10MB"
-        files={uploadingFiles}
-        onFilesChange={noop}
-        onFileRemove={noop}
-      />
-    </Box>
-  ),
-};
-
-/* ─── Drag & Drop — Error ─── */
-const errorFiles: UploadFile[] = [
-  {
-    id: "f1",
-    name: "example-file-1.png",
-    status: "error",
-    errorMessage: "File size exceeds 10MB limit.",
+export const Small: Story = {
+  args: {
+    size: "sm",
   },
-  { id: "f2", name: "example-file-2.png", status: "idle" },
-  { id: "f3", name: "example-file-3.png", status: "idle" },
-];
-
-export const DragAndDropError: Story = {
-  name: "Drag & Drop — Error",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload
-        variant="drag"
-        hint="Supports: PNG, JPG, PDF up to 10MB"
-        files={errorFiles}
-        onFilesChange={noop}
-        onFileRemove={noop}
-      />
-    </Box>
+  render: (args) => (
+    <StoryFrame width="320px">
+      <Upload {...args} />
+    </StoryFrame>
   ),
 };
 
-/* ─── Button Trigger — Default ─── */
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
+export const WithFiles: Story = {
+  args: {
+    files,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
+export const UploadingProgress: Story = {
+  args: {
+    files: progressFiles,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
+export const UploadingSpinner: Story = {
+  args: {
+    files: spinnerFiles,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
+export const ErrorState: Story = {
+  args: {
+    files: errorFiles,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
+export const WithThumbnail: Story = {
+  args: {
+    files: thumbnailFiles,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
+  ),
+};
+
 export const ButtonTrigger: Story = {
-  name: "Button Trigger",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload variant="button" onFilesChange={noop} />
-    </Box>
+  args: {
+    variant: "button",
+    hint: undefined,
+  },
+  render: (args) => (
+    <StoryFrame>
+      <Upload {...args} />
+    </StoryFrame>
   ),
 };
 
-/* ─── Button Trigger — With Files ─── */
-export const ButtonTriggerWithFiles: Story = {
-  name: "Button Trigger — With Files",
-  render: () => (
-    <Box sx={{ width: "400px" }}>
-      <Upload
-        variant="button"
-        files={staticFiles}
-        onFilesChange={noop}
-        onFileRemove={noop}
-      />
-    </Box>
-  ),
-};
-
-/* ─── Interactive ─── */
 const InteractiveStory = () => {
-  const [files, setFiles] = useState<UploadFile[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<UploadFile[]>([]);
 
   const handleFilesChange = (newFiles: File[]) => {
-    const mapped: UploadFile[] = newFiles.map((f) => ({
-      id: `${f.name}-${Date.now()}`,
-      name: f.name,
+    const mapped: UploadFile[] = newFiles.map((file) => ({
+      id: `${file.name}-${Date.now()}`,
+      name: file.name,
       status: "idle",
     }));
-    setFiles((prev) => [...prev, ...mapped]);
+    setSelectedFiles((previousFiles) => [...previousFiles, ...mapped]);
   };
 
   const handleRemove = (id: string) => {
-    setFiles((prev) => prev.filter((f) => f.id !== id));
+    setSelectedFiles((previousFiles) =>
+      previousFiles.filter((file) => file.id !== id),
+    );
   };
 
   return (
-    <Box sx={{ width: "400px" }}>
+    <StoryFrame>
       <Upload
-        variant="drag"
         hint="Supports: PNG, JPG, PDF up to 10MB"
-        files={files}
+        files={selectedFiles}
         onFilesChange={handleFilesChange}
         onFileRemove={handleRemove}
       />
-    </Box>
+    </StoryFrame>
   );
 };
 
 export const Interactive: Story = {
-  name: "Interactive",
   render: () => <InteractiveStory />,
 };

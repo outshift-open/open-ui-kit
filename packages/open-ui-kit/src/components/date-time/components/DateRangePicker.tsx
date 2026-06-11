@@ -13,7 +13,12 @@ import {
   Popover,
   Stack,
 } from "@mui/material";
-import { Event, ChevronLeft, ChevronRight } from "@mui/icons-material";
+import {
+  Calendar,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from "@/custom-icons";
+import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { getDateRangePickerStyles } from "../styles";
 import type { DateRangePickerProps } from "../types";
@@ -31,7 +36,9 @@ export const DateRangePicker = ({
   inputFieldProps,
 }: DateRangePickerProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(() =>
+    startDate ? new Date(startDate) : new Date(),
+  );
 
   const theme = useTheme();
   const s = getDateRangePickerStyles(theme);
@@ -121,7 +128,12 @@ export const DateRangePicker = ({
     });
 
     return (
-      <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        sx={{ width: "293px" }}
+      >
         {daysArray}
       </Box>
     );
@@ -178,7 +190,7 @@ export const DateRangePicker = ({
           input: {
             readOnly: true,
             endAdornment: (
-              <Event
+              <Calendar
                 sx={{
                   color: theme.palette.vars.interactivePrimaryDefaultDefault,
                 }}
@@ -212,16 +224,18 @@ export const DateRangePicker = ({
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ padding: "0 4px" }}
+            sx={{ width: "293px", height: "24px" }}
           >
             <IconButton
+              size="small"
               onClick={() =>
                 setCurrentDate(
                   new Date(currentDate.setMonth(currentDate.getMonth() - 1)),
                 )
               }
+              sx={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <ChevronLeft
+              <KeyboardArrowLeft
                 sx={{
                   color: theme.palette.vars.interactiveSecondaryDefaultDefault,
                 }}
@@ -234,13 +248,15 @@ export const DateRangePicker = ({
             </Typography>
 
             <IconButton
+              size="small"
               onClick={() =>
                 setCurrentDate(
                   new Date(currentDate.setMonth(currentDate.getMonth() + 1)),
                 )
               }
+              sx={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <ChevronRight
+              <KeyboardArrowRight
                 sx={{
                   color: theme.palette.vars.interactiveSecondaryDefaultDefault,
                 }}
@@ -248,6 +264,20 @@ export const DateRangePicker = ({
             </IconButton>
           </Stack>
           {renderCalendar()}
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            gap="16px"
+            sx={{ width: "293px", height: "32px" }}
+          >
+            <Button variant="tertariary" size="medium" onClick={closePopover}>
+              Cancel
+            </Button>
+            <Button variant="outlined" size="medium" onClick={closePopover}>
+              OK
+            </Button>
+          </Stack>
         </Stack>
       </Popover>
     </>

@@ -6,14 +6,9 @@
 
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import { setStepColor } from "../utils/utils";
-import {
-  CircularProgress,
-  Theme,
-  useTheme,
-  type BoxProps,
-} from "@mui/material";
+import { CircularProgress, useTheme, type BoxProps } from "@mui/material";
 import { ActivityTimelineStepStatus } from "../types";
+import { getActivityTimelineDotStyle } from "../styles";
 import { StyledTimelineDotRoot } from "./elements";
 
 export interface ActivityTimelineDotProps extends BoxProps {
@@ -25,49 +20,6 @@ export interface ActivityTimelineDotProps extends BoxProps {
   status?: ActivityTimelineStepStatus;
 }
 
-const setActivityTimelineDotStyle = (
-  status: ActivityTimelineStepStatus,
-  theme: Theme,
-) => {
-  switch (status) {
-    case ActivityTimelineStepStatus.InProgress:
-      return {
-        background: "transparent",
-        ringColor: theme.palette.vars?.controlBorderDefault,
-        color: setStepColor(status, theme),
-        percent: 67,
-      };
-    case ActivityTimelineStepStatus.Neutral:
-      return {
-        background: "transparent",
-        ringColor: theme.palette.vars?.interactiveTertiaryActive,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-    case ActivityTimelineStepStatus.Complete:
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        ringColor: theme.palette.vars?.controlIconActive,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-    case ActivityTimelineStepStatus.Error:
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        ringColor: theme.palette.vars?.controlBorderDefault,
-        color: setStepColor(status, theme),
-        percent: 67,
-      };
-    default:
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        ringColor: theme.palette.vars?.controlBorderDefault,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-  }
-};
-
 export const ActivityTimelineDot = ({
   automaticProgress = false,
   percent,
@@ -77,7 +29,7 @@ export const ActivityTimelineDot = ({
   const theme = useTheme();
   const effectiveStatus =
     percent !== undefined ? ActivityTimelineStepStatus.InProgress : status;
-  const timelineDotStyle = setActivityTimelineDotStyle(effectiveStatus, theme);
+  const timelineDotStyle = getActivityTimelineDotStyle(effectiveStatus, theme);
   const isInProgress =
     effectiveStatus === ActivityTimelineStepStatus.InProgress;
 

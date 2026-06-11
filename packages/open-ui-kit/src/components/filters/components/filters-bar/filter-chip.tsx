@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Tooltip, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import type { FilterData } from "../../types";
 import { getStyles } from "./styles";
 import { Tag } from "@/components/tags";
+import { Tooltip } from "@/components/tooltip";
 import { GeneralSize } from "@/common";
 
 interface FilterChipProps {
@@ -41,7 +42,7 @@ export const FilterChip = ({
     >
       <span>
         <Tag
-          size={GeneralSize.Small}
+          size={GeneralSize.Large}
           sx={styles.chip}
           onDelete={() => handleDelete(filter)}
         >{`${filter.name}: ${optionValues[0]}${plusString}`}</Tag>

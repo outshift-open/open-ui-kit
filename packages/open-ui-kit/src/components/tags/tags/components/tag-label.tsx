@@ -5,13 +5,13 @@
  */
 
 import { OverflowTooltip } from "@/components/overflow-tooltip";
-import { SelectNodeType } from "@/components/nested-menu";
+import type { ReactNode } from "react";
+import type { SelectNodeType } from "@/components/nested-menu";
 
 interface TagLabelProps {
   node: SelectNodeType;
   nodeLabel: string;
-  customizeTooltip?: (node: SelectNodeType) => React.ReactNode;
-  shouldTruncate: boolean;
+  customizeTooltip?: (node: SelectNodeType) => ReactNode;
 }
 
 const TagLabel = ({ customizeTooltip, node, nodeLabel }: TagLabelProps) => {

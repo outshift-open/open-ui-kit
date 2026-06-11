@@ -30,10 +30,13 @@ import {
   chartStatusData,
   filterGroups,
   keyValueItems,
+  listItems,
   nestedMenuTree,
-  severityDistribution,
   spiderChartData,
   spiderChartRadars,
+  stepperModalSteps,
+  stepperPanelSteps,
+  tagItems,
   tableColumns,
   tableRows,
 } from "docs/src/open-ui-kit-demo-data";
@@ -178,6 +181,14 @@ function toSentenceLabel(value) {
 }
 
 function getStorySearchRoot(component) {
+  if (component.storyPath) {
+    return path.join(
+      workspaceRoot,
+      "packages/open-ui-kit/src/components",
+      component.storyPath,
+    );
+  }
+
   if (!component.packagePath && !component.sourceUrl) {
     return null;
   }
@@ -196,6 +207,12 @@ function getStorySearchRoot(component) {
 function collectStoryFiles(directory) {
   if (!directory || !fs.existsSync(directory)) {
     return [];
+  }
+
+  const directoryStats = fs.statSync(directory);
+
+  if (directoryStats.isFile()) {
+    return directory.endsWith(".stories.tsx") ? [directory] : [];
   }
 
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -231,6 +248,31 @@ function createConst(name, value) {
 }
 
 const exampleCodeByRouteSlug = {
+  "actions-dialog": () => `import * as React from 'react';
+import { ActionsDialog, Button } from '@open-ui-kit/core';
+
+export function ActionsDialogExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button variant="primary" onClick={() => setOpen(true)}>
+        Open dialog
+      </Button>
+      <ActionsDialog
+        open={open}
+        title="Delete policy?"
+        bodyText="This action cannot be undone."
+        mutationLoading={false}
+        hideModal={() => setOpen(false)}
+        confirmClicked={(dismiss, comment) => {
+          console.log({ dismiss, comment });
+          setOpen(false);
+        }}
+      />
+    </>
+  );
+}`,
   "bar-chart": () => `import { BarChart } from '@open-ui-kit/core';
 
 ${createConst("statusData", chartStatusData)}
@@ -328,12 +370,138 @@ export function FiltersExample() {
     />
   );
 }`,
+  "indicator-badge":
+    () => `import { IndicatorBadge, useTheme } from '@open-ui-kit/core';
+
+export function IndicatorBadgeExample() {
+  const theme = useTheme();
+
+  return (
+    <IndicatorBadge
+      value={3}
+      color={theme.palette.vars.negativeBackgroundActive}
+    />
+  );
+}`,
+  "input-field": () => `import { InputField } from '@open-ui-kit/core';
+
+export function InputFieldExample() {
+  return (
+    <InputField
+      label="Email"
+      placeholder="name@example.com"
+      helperText="Use your work email."
+    />
+  );
+}`,
   "key-value-pairs": () => `import { KeyValuePairs } from '@open-ui-kit/core';
 
 ${createConst("items", keyValueItems)}
 
 export function KeyValuePairsExample() {
   return <KeyValuePairs items={items} columns={2} />;
+}`,
+  list: () => `import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@open-ui-kit/core';
+
+${createConst("items", listItems)}
+
+export function ListExample() {
+  return (
+    <List sx={{ maxWidth: 360 }}>
+      {items.map((item) => (
+        <ListItem key={item.label} disablePadding>
+          <ListItemButton>
+            <ListItemText
+              primary={item.label}
+              secondary={item.secondary}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
+}`,
+  "loading-error-state":
+    () => `import { LoadingErrorState, Typography } from '@open-ui-kit/core';
+
+export function LoadingErrorStateExample() {
+  return (
+    <LoadingErrorState
+      data={{ name: 'Production API', count: 42 }}
+      error={false}
+      loading={false}
+      loadingVariant="skeleton"
+    >
+      {(data) => (
+        <Typography>
+          {data.name} loaded with {data.count} records.
+        </Typography>
+      )}
+    </LoadingErrorState>
+  );
+}`,
+  "loading-states": () => `import { LoadingStates } from '@open-ui-kit/core';
+
+export function LoadingStatesExample() {
+  return (
+    <LoadingStates
+      showSpinner
+      showSkeleton
+      skeletonStates={['loading', 'failure']}
+    />
+  );
+}`,
+  link: () => `import { Link } from '@open-ui-kit/core';
+
+export function LinkExample() {
+  return (
+    <Link href="/open-ui-kit-core/getting-started" standalone>
+      Read the docs
+    </Link>
+  );
+}`,
+  menu: () => `import * as React from 'react';
+import { Button, Menu, MenuItem } from '@open-ui-kit/core';
+
+export function MenuExample() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  return (
+    <>
+      <Button onClick={(event) => setAnchorEl(event.currentTarget)}>
+        Open menu
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+      >
+        <MenuItem>View details</MenuItem>
+        <MenuItem>Duplicate</MenuItem>
+        <MenuItem disabled>Delete</MenuItem>
+      </Menu>
+    </>
+  );
+}`,
+  message: () => `import { Message } from '@open-ui-kit/core';
+
+export function MessageExample() {
+  return (
+    <Message
+      type="success"
+      title="Saved"
+      actionLabel="View details"
+      onActionClick={() => console.log('details')}
+    >
+      The configuration was updated successfully.
+    </Message>
+  );
 }`,
   "nested-menu":
     () => `import { NestedMenu, useNestedMenu } from '@open-ui-kit/core';
@@ -376,12 +544,360 @@ export function TableExample() {
     />
   );
 }`,
-  "severity-bar": () => `import { SeverityBar } from '@open-ui-kit/core';
+  tag: () => `import { GeneralSize, Tag, TagStatus } from '@open-ui-kit/core';
 
-${createConst("distribution", severityDistribution)}
+export function TagExample() {
+  return (
+    <Tag
+      size={GeneralSize.Medium}
+      status={TagStatus.Positive}
+      onDelete={() => console.log('remove tag')}
+    >
+      Production
+    </Tag>
+  );
+}`,
+  tags: () => `import { GeneralSize, Tags } from '@open-ui-kit/core';
+
+${createConst("items", tagItems)}
+
+export function TagsExample() {
+  return (
+    <Tags
+      items={items}
+      size={GeneralSize.Small}
+      maxTooltipTags={2}
+      shouldTruncate
+    />
+  );
+}`,
+  "overflow-tooltip":
+    () => `import { OverflowTooltip } from '@open-ui-kit/core';
+
+export function OverflowTooltipExample() {
+  return (
+    <OverflowTooltip value="./path/to/a/really/long/file/name/.git">
+      ./path/to/a/really/long/file/name/.git
+    </OverflowTooltip>
+  );
+}`,
+  pagination: () => `import { Pagination } from '@open-ui-kit/core';
+
+export function PaginationExample() {
+  return (
+    <Pagination
+      count={7}
+      page={1}
+      showFirstButton
+      showLastButton
+      onChange={(event, page) => console.log(page)}
+    />
+  );
+}`,
+  "path-display": () => `import { PathDisplay } from '@open-ui-kit/core';
+
+export function PathDisplayExample() {
+  return (
+    <PathDisplay
+      path="Company / subgroup#1 / subgroup#2 / subgroup#3"
+      numberOfLevels={2}
+    />
+  );
+}`,
+  picker: () => `import { PickerItem } from '@open-ui-kit/core';
+import AppsIcon from '@mui/icons-material/Apps';
+
+export function PickerItemExample() {
+  return (
+    <PickerItem
+      icon={<AppsIcon />}
+      label="Applications"
+      size="medium"
+      display="vertical"
+      selected
+    />
+  );
+}`,
+  popover: () => `import * as React from 'react';
+import { Button, Popover } from '@open-ui-kit/core';
+
+export function PopoverExample() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  return (
+    <>
+      <Button onClick={(event) => setAnchorEl(event.currentTarget)}>
+        Open popover
+      </Button>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        title="Review change"
+        body="Check the details before continuing."
+        arrowPosition="bottom-center"
+      />
+    </>
+  );
+}`,
+  radio: () => `import { RadioButton, RadioGroup } from '@open-ui-kit/core';
+
+export function RadioButtonExample() {
+  return (
+    <RadioGroup defaultValue="weekly">
+      <RadioButton value="daily" label="Daily" />
+      <RadioButton value="weekly" label="Weekly" />
+      <RadioButton value="monthly" label="Monthly" />
+    </RadioGroup>
+  );
+}`,
+  "scroll-area":
+    () => `import { Box, ScrollArea, Typography } from '@open-ui-kit/core';
+
+const items = Array.from({ length: 30 }, (_, index) => \`Item \${index + 1}\`);
+
+export function ScrollAreaExample() {
+  return (
+    <ScrollArea sx={{ height: 200, width: 300 }}>
+      <Box sx={{ p: 2 }}>
+        {items.map((item) => (
+          <Typography key={item} variant="body2">
+            {item}
+          </Typography>
+        ))}
+      </Box>
+    </ScrollArea>
+  );
+}`,
+  "search-input": () => `import * as React from 'react';
+import { SearchInput } from '@open-ui-kit/core';
+
+export function SearchInputExample() {
+  const [value, setValue] = React.useState('');
+
+  return (
+    <SearchInput
+      value={value}
+      placeholder="Search components"
+      onChangeCallback={setValue}
+      onClear={() => setValue('')}
+    />
+  );
+}`,
+  select: () => `import * as React from 'react';
+import { MenuItem, Select } from '@open-ui-kit/core';
+
+export function SelectExample() {
+  const [value, setValue] = React.useState('');
+
+  return (
+    <Select
+      clearable
+      displayEmpty
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      renderValue={(selected) => selected || 'Placeholder text'}
+    >
+      <MenuItem value="aws">AWS</MenuItem>
+      <MenuItem value="azure">Azure</MenuItem>
+      <MenuItem value="gcp">GCP</MenuItem>
+    </Select>
+  );
+}`,
+  "severity-badge":
+    () => `import { Severity, SeverityBadge } from '@open-ui-kit/core';
+
+export function SeverityBadgeExample() {
+  return (
+    <>
+      <SeverityBadge severity={Severity.CRITICAL} />
+      <SeverityBadge value={72} />
+    </>
+  );
+}`,
+  "severity-badge-label":
+    () => `import { Severity, SeverityBadgeLabel } from '@open-ui-kit/core';
+
+export function SeverityBadgeLabelExample() {
+  return (
+    <SeverityBadgeLabel
+      severity={Severity.HIGH}
+      label="Elevated risk"
+    />
+  );
+}`,
+  "severity-bar":
+    () => `import { Severity, SeverityBar } from '@open-ui-kit/core';
 
 export function SeverityBarExample() {
-  return <SeverityBar data={distribution} />;
+  return <SeverityBar severity={Severity.CRITICAL} />;
+}`,
+  "side-drawer": () => `import * as React from 'react';
+import { Button, Severity, SideDrawer } from '@open-ui-kit/core';
+
+export function SideDrawerExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open drawer</Button>
+      <SideDrawer
+        open={open}
+        onClose={() => setOpen(false)}
+        titleText="Finding details"
+        pageName="finding"
+        severity={Severity.CRITICAL}
+        copyURL="https://example.com/findings/42"
+      >
+        Drawer content
+      </SideDrawer>
+    </>
+  );
+}`,
+  skeleton: () => `import { Skeleton, Stack } from '@open-ui-kit/core';
+
+export function SkeletonExample() {
+  return (
+    <Stack spacing={1} width={210}>
+      <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+      <Skeleton variant="rounded" width={210} height={60} />
+    </Stack>
+  );
+}`,
+  slider: () => `import { Slider } from '@open-ui-kit/core';
+
+export function SliderExample() {
+  return (
+    <Slider
+      defaultValue={40}
+      min={0}
+      max={100}
+      valueLabelDisplay="auto"
+    />
+  );
+}`,
+  spinner: () => `import { Spinner } from '@open-ui-kit/core';
+
+export function SpinnerExample() {
+  return <Spinner color="primary" size={40} />;
+}`,
+  "stepper-modal":
+    () => `import { Button, StepperModal } from '@open-ui-kit/core';
+
+${createConst("steps", stepperModalSteps)}
+
+export function StepperModalExample() {
+  return (
+    <StepperModal
+      open
+      title="Create policy"
+      subtitle="Optional descriptor"
+      description="Complete each step before launching the policy."
+      steps={steps}
+      activeStep={1}
+      footer={<Button size="small">Next</Button>}
+    >
+      Policy configuration content
+    </StepperModal>
+  );
+}`,
+  "stepper-panel":
+    () => `import { Button, StepperPanel } from '@open-ui-kit/core';
+
+${createConst("steps", stepperPanelSteps)}
+
+export function StepperPanelExample() {
+  return (
+    <StepperPanel
+      steps={steps}
+      activeStep={1}
+      footer={<Button size="small">Next</Button>}
+    >
+      Step content
+    </StepperPanel>
+  );
+}`,
+  tabs: () => `import * as React from 'react';
+import { Tab, Tabs } from '@open-ui-kit/core';
+
+export function TabsExample() {
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <Tabs value={value} onChange={(event, nextValue) => setValue(nextValue)}>
+      <Tab label="Overview" />
+      <Tab label="Activity" />
+      <Tab label="Settings" />
+    </Tabs>
+  );
+}`,
+  toast: () => `import { Toast } from '@open-ui-kit/core';
+
+export function ToastExample() {
+  return (
+    <Toast
+      id="saved"
+      type="success"
+      title="Saved"
+      description="Your changes were saved."
+      action={{ label: 'Undo', onClick: () => console.log('undo') }}
+    />
+  );
+}`,
+  toggle: () => `import { Toggle } from '@open-ui-kit/core';
+
+export function ToggleExample() {
+  return <Toggle defaultChecked />;
+}`,
+  tooltip: () => `import { Button, Tooltip } from '@open-ui-kit/core';
+
+export function TooltipExample() {
+  return (
+    <Tooltip title="Refresh data" arrow>
+      <Button>Refresh</Button>
+    </Tooltip>
+  );
+}`,
+  "view-switcher": () => `import * as React from 'react';
+import { ViewSwitcher } from '@open-ui-kit/core';
+
+const options = ['Table', 'Chart', 'Details'];
+
+export function ViewSwitcherExample() {
+  const [value, setValue] = React.useState(options[0]);
+
+  return (
+    <ViewSwitcher
+      options={options}
+      value={value}
+      onChange={setValue}
+    />
+  );
+}`,
+  widget: () => `import {
+  Button,
+  Stack,
+  Typography,
+  Widget,
+} from '@open-ui-kit/core';
+
+export function WidgetExample() {
+  return (
+    <Widget
+      label="Open findings"
+      labelTooltip="Findings that still need triage."
+      headerChildren={<Button size="small">View all</Button>}
+      bodyElement={
+        <Stack spacing={0.5}>
+          <Typography variant="h4">24</Typography>
+          <Typography variant="body2">
+            Findings need review across three workspaces.
+          </Typography>
+        </Stack>
+      }
+    />
+  );
 }`,
 };
 

@@ -7,9 +7,20 @@
 import type { CSSObject, Theme } from "@mui/material";
 import type { NavigationItemState } from "../types";
 
+const getNavigationActiveBackground = (theme: Theme) =>
+  theme.palette.mode === "dark"
+    ? theme.palette.vars.brandBackgroundSecondaryDefault
+    : theme.palette.vars.interactivePrimaryWeakDefault;
+
+const getNavigationActiveColor = (theme: Theme) =>
+  theme.palette.mode === "dark"
+    ? theme.palette.vars.brandIconPrimaryDefault
+    : theme.palette.vars.interactivePrimaryDefaultActive;
+
 export const getNavigationFrameStyles = (): CSSObject => ({
   display: "flex",
   alignItems: "flex-start",
+  overflow: "visible",
 });
 
 export const getNavigationRootStyles = (
@@ -20,11 +31,12 @@ export const getNavigationRootStyles = (
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  width: compact ? "80px" : "264px",
-  minHeight: compact ? "640px" : "720px",
+  width: compact ? "88px" : "264px",
+  minHeight: compact ? "1364px" : "1426px",
   padding: 0,
   backgroundColor: theme.palette.vars.baseBackgroundStrong,
   borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+  overflow: "visible",
 });
 
 export const getNavigationContentStyles = (compact: boolean): CSSObject => ({
@@ -33,8 +45,10 @@ export const getNavigationContentStyles = (compact: boolean): CSSObject => ({
   flexDirection: "column",
   alignItems: "flex-start",
   width: "100%",
-  padding: compact ? "32px 20px" : "32px 24px",
-  gap: "20px",
+  minHeight: compact ? "1364px" : "1426px",
+  padding: compact ? "0px 24px 64px" : "32px 24px",
+  gap: compact ? "24px" : "20px",
+  overflow: "visible",
 });
 
 export const getNavigationSwitcherStyles = (
@@ -48,23 +62,47 @@ export const getNavigationSwitcherStyles = (
   alignItems: "center",
   width: compact ? "40px" : "216px",
   height: compact ? "40px" : "50px",
-  padding: compact ? "4px" : "9px 12px",
-  gap: "12px",
+  padding: compact ? "5px" : "9px 12px",
+  gap: compact ? "8px" : "12px",
+  position: "relative",
+  isolation: "isolate",
   borderRadius: selected ? "8px 0px 0px 8px" : "8px",
   borderStyle: "solid",
   borderWidth: selected ? "1px 0px 1px 1px" : "1px",
   borderColor: theme.palette.vars.controlBorderDefault,
   backgroundColor: selected
-    ? theme.palette.vars.interactivePrimaryWeakDefault
+    ? getNavigationActiveBackground(theme)
     : "transparent",
   color: selected
-    ? theme.palette.vars.interactivePrimaryDefaultActive
+    ? getNavigationActiveColor(theme)
     : theme.palette.vars.baseTextStrong,
   cursor: "pointer",
   font: "inherit",
   textAlign: "left",
+  overflow: "visible",
+  "&::after": selected
+    ? {
+        content: '""',
+        position: "absolute",
+        top: "-1px",
+        right: "-23px",
+        width: "23px",
+        height: "50px",
+        backgroundColor: getNavigationActiveBackground(theme),
+        borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+        borderBottom: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+        zIndex: -1,
+        ...(compact
+          ? {
+              right: "-24px",
+              width: "24px",
+              height: "40px",
+            }
+          : {}),
+      }
+    : undefined,
   "&:hover": {
-    backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
+    backgroundColor: getNavigationActiveBackground(theme),
   },
 });
 
@@ -95,12 +133,25 @@ export const getNavigationSectionHeadStyles = (
   compact = false,
 ): CSSObject => ({
   ...theme.typography.caption,
-  display: compact ? "none" : "flex",
+  display: "flex",
+  flexDirection: compact ? "column" : "row",
   alignItems: "flex-start",
   width: "100%",
-  height: "32px",
+  height: compact ? "17px" : "32px",
   padding: "8px",
-  color: theme.palette.vars.baseTextStrong,
+  color: compact ? "transparent" : theme.palette.vars.baseTextStrong,
+  ...(compact
+    ? {
+        "&::before": {
+          content: '""',
+          display: "block",
+          width: "24px",
+          height: 0,
+          borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+          borderRadius: "100px",
+        },
+      }
+    : {}),
 });
 
 export const getNavigationItemsStyles = (): CSSObject => ({
@@ -116,7 +167,8 @@ export const getNavigationItemStyles = (
   state: NavigationItemState,
   compact = false,
 ): CSSObject => {
-  const selected = state === "selected";
+  const selected = state === "selected" || state === "open";
+  const open = state === "open";
   const disabled = state === "disabled";
 
   return {
@@ -128,27 +180,44 @@ export const getNavigationItemStyles = (
     height: "40px",
     padding: "8px",
     gap: "8px",
+    position: "relative",
+    isolation: "isolate",
     border: selected
       ? `1px solid ${theme.palette.vars.controlBorderStrong}`
       : "1px solid transparent",
     borderRightWidth: selected ? 0 : "1px",
     borderRadius: selected ? "8px 0px 0px 8px" : "8px",
     backgroundColor: selected
-      ? theme.palette.vars.interactivePrimaryWeakDefault
+      ? getNavigationActiveBackground(theme)
       : "transparent",
     color: disabled
       ? theme.palette.vars.baseTextDisabled
       : selected
-        ? theme.palette.vars.interactivePrimaryDefaultActive
+        ? getNavigationActiveColor(theme)
         : theme.palette.vars.baseTextStrong,
     cursor: disabled ? "default" : "pointer",
     font: "inherit",
     textAlign: "left",
+    overflow: "visible",
+    "&::after": open
+      ? {
+          content: '""',
+          position: "absolute",
+          top: "-1px",
+          right: compact ? "-24px" : "-23px",
+          width: compact ? "24px" : "23px",
+          height: "40px",
+          backgroundColor: getNavigationActiveBackground(theme),
+          borderTop: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+          borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+          zIndex: -1,
+        }
+      : undefined,
     "&:hover": disabled
       ? {}
       : {
           backgroundColor: selected
-            ? theme.palette.vars.interactivePrimaryWeakDefault
+            ? getNavigationActiveBackground(theme)
             : theme.palette.vars.baseBackgroundHover,
         },
   };
@@ -159,16 +228,25 @@ export const getNavigationItemLabelStyles = (theme: Theme): CSSObject => ({
   color: "inherit",
 });
 
-export const getNavigationCollapseButtonStyles = (theme: Theme): CSSObject => ({
-  width: "24px",
-  height: "24px",
-  padding: 0,
+export const getNavigationCollapseButtonStyles = (
+  theme: Theme,
+  compact: boolean,
+): CSSObject => ({
+  marginTop: "auto",
+  width: "32px",
+  height: "32px",
+  padding: "6px",
   borderRadius: "4px",
   border: `2px solid ${theme.palette.vars.warningBorderDefault}`,
-  color: theme.palette.vars.warningIconDefault,
+  color: theme.palette.vars.baseTextStrong,
   backgroundColor: "transparent",
+  "& svg": {
+    width: "20px",
+    height: "20px",
+    transform: compact ? "none" : "rotate(180deg)",
+  },
   "&:hover": {
-    backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
+    backgroundColor: "transparent",
   },
 });
 
@@ -189,8 +267,8 @@ export const getNavigationDrawerStyles = (theme: Theme): CSSObject => ({
   display: "flex",
   flexDirection: "column",
   width: "224px",
-  minHeight: "640px",
-  backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
+  minHeight: "1296px",
+  backgroundColor: getNavigationActiveBackground(theme),
   borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
   boxShadow: theme.shadows[6],
 });

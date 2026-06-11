@@ -46,7 +46,7 @@ export interface FiltersBarActionsProps {
   onFiltersButtonClick?: () => void;
   /** Number of selected filter options displayed in the Filters button. */
   activeFiltersCount?: number;
-  /** Called when the search field is submitted. */
+  /** Called whenever the search field value changes, and when Enter submits the current value. */
   onSearch?: (search: string) => void;
   /** Placeholder for the search field. */
   searchPlaceHolder?: string;
@@ -60,7 +60,7 @@ export interface FiltersBarActionsProps {
   searchValue?: string;
   /** Extra props/adornments forwarded to the search field input. */
   inputProps?: {
-    props: SearchInputProps["InputProps"];
+    props: SearchInputProps["inputProps"];
     extendEndAdornment?: JSX.Element;
   };
   /** Optional action area rendered at the far right of the filter bar. */

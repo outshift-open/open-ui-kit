@@ -5,176 +5,189 @@
  */
 
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import { StepperPanelProps } from "../types";
+import { Box, IconButton, Typography } from "@mui/material";
+import { ArrowBackIOS, ArrowForwardIOS, Check } from "@/custom-icons";
+import {
+  stepperPanelActiveLineStyles,
+  stepperPanelCollapseButtonStyles,
+  stepperPanelCollapseWrapperStyles,
+  stepperPanelContentStyles,
+  stepperPanelFooterStyles,
+  stepperPanelIndicatorStyles,
+  stepperPanelMainStyles,
+  stepperPanelRootStyles,
+  stepperPanelSidebarStyles,
+  stepperPanelStepContentStyles,
+  stepperPanelStepNumberStyles,
+  stepperPanelStepsStyles,
+  stepperPanelStepStyles,
+  stepperPanelStepSubtitleStyles,
+  stepperPanelStepTitleStyles,
+  stepperPanelStepTitleWrapperStyles,
+} from "../styles";
+import type { StepperPanelProps, StepperStepState } from "../types";
+
+const getStepState = (
+  index: number,
+  activeStep: number,
+  explicitState?: StepperStepState,
+): StepperStepState => {
+  if (explicitState) {
+    return explicitState;
+  }
+
+  if (index < activeStep) {
+    return "completed";
+  }
+
+  if (index === activeStep) {
+    return "current";
+  }
+
+  return "idle";
+};
 
 export const StepperPanel = ({
   steps,
   activeStep,
   onStepClick,
+  collapsed,
+  defaultCollapsed = false,
+  onCollapseClick,
+  onCollapsedChange,
+  collapseButtonAriaLabel,
   children,
   footer,
   sx,
 }: StepperPanelProps) => {
+  const [uncontrolledCollapsed, setUncontrolledCollapsed] =
+    React.useState(defaultCollapsed);
+  const isCollapsed = collapsed ?? uncontrolledCollapsed;
+  const CollapseIcon = isCollapsed ? ArrowForwardIOS : ArrowBackIOS;
+  const resolvedCollapseButtonAriaLabel =
+    collapseButtonAriaLabel ??
+    (isCollapsed ? "Expand stepper" : "Collapse stepper");
+
+  const handleCollapseClick = (event: React.SyntheticEvent) => {
+    const nextCollapsed = !isCollapsed;
+
+    if (collapsed === undefined) {
+      setUncontrolledCollapsed(nextCollapsed);
+    }
+
+    onCollapseClick?.(event);
+    onCollapsedChange?.(nextCollapsed, event);
+  };
+
   return (
     <Box
       sx={[
-        (theme) => ({
-          display: "flex",
-          flexDirection: "row",
-          borderRadius: "12px",
-          backgroundColor: theme.palette.vars.controlBackgroundDefault,
-          boxShadow: theme.shadows[2],
-          overflow: "hidden",
-        }),
+        stepperPanelRootStyles,
         ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
       ]}
     >
-      {/* Sidebar */}
-      <Box
-        sx={(theme) => ({
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "320px",
-          flexShrink: 0,
-          padding: "24px 0 7px 0",
-          borderRight: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-          borderRadius: "12px 0 0 12px",
-          backgroundColor: theme.palette.vars.controlBackgroundDefault,
-        })}
-      >
-        {/* Steps list */}
-        <Stack spacing={0}>
+      <Box sx={(theme) => stepperPanelSidebarStyles(theme, isCollapsed)}>
+        <Box sx={stepperPanelStepsStyles(isCollapsed)}>
           {steps.map((step, index) => {
-            const isActive = index === activeStep;
-            const isCompleted = index < activeStep;
+            const state = getStepState(index, activeStep, step.state);
+            const isDisabled = state === "disabled";
+            const hasSubtitle = Boolean(step.subtitle);
+            const stepClickProps =
+              onStepClick && !isDisabled
+                ? {
+                    onClick: (event: React.SyntheticEvent) =>
+                      onStepClick(index, event),
+                    type: "button" as const,
+                  }
+                : {};
 
             return (
               <Box
                 key={index}
                 component={onStepClick ? "button" : "div"}
-                onClick={
-                  onStepClick
-                    ? (e: React.SyntheticEvent) => onStepClick(index, e)
-                    : undefined
-                }
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "flex-start",
-                  padding: 0,
-                  cursor: onStepClick ? "pointer" : "default",
-                  background: "none",
-                  border: "none",
-                  width: "100%",
-                  textAlign: "left",
-                }}
+                {...stepClickProps}
+                disabled={isDisabled ? true : undefined}
+                sx={stepperPanelStepStyles(
+                  Boolean(onStepClick),
+                  isCollapsed,
+                  isDisabled,
+                  hasSubtitle,
+                )}
               >
-                {/* Active line bar */}
                 <Box
-                  sx={(theme) => ({
-                    width: "3px",
-                    alignSelf: "stretch",
-                    flexShrink: 0,
-                    backgroundColor: isActive
-                      ? theme.palette.vars.interactivePrimaryDefaultDefault
-                      : "transparent",
-                    borderRadius: "2px",
-                  })}
-                />
-
-                {/* Content */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-start",
-                    padding: "8px 0 8px 24px",
-                    gap: "12px",
-                    flex: 1,
-                  }}
+                  sx={stepperPanelStepContentStyles(isCollapsed, hasSubtitle)}
                 >
-                  {/* Indicator circle */}
                   <Box
-                    sx={(theme) => ({
-                      width: "28px",
-                      height: "28px",
-                      borderRadius: "20px",
-                      flexShrink: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      ...(isActive || isCompleted
-                        ? {
-                            backgroundColor:
-                              theme.palette.vars
-                                .interactivePrimaryDefaultDefault,
-                          }
-                        : {
-                            border: `2px solid ${theme.palette.vars.controlBorderWeak}`,
-                            backgroundColor: "transparent",
-                          }),
-                    })}
+                    sx={(theme) => stepperPanelIndicatorStyles(theme, state)}
                   >
-                    <Typography
-                      sx={(theme) => ({
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        textAlign: "center",
-                        color:
-                          isActive || isCompleted
-                            ? theme.palette.vars.baseTextInverse
-                            : theme.palette.vars.baseTextDisabled,
-                      })}
-                    >
-                      {index + 1}
-                    </Typography>
+                    {state === "completed" ? (
+                      <Check
+                        sx={(theme) => ({
+                          color:
+                            theme.palette.vars.interactivePrimaryDefaultDefault,
+                          fontSize: "16px",
+                        })}
+                      />
+                    ) : (
+                      <Typography
+                        sx={(theme) =>
+                          stepperPanelStepNumberStyles(theme, state)
+                        }
+                      >
+                        {index + 1}
+                      </Typography>
+                    )}
                   </Box>
 
-                  {/* Step title */}
-                  <Box sx={{ paddingTop: "4px", flex: 1 }}>
-                    <Typography
-                      sx={(theme) => ({
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        color:
-                          isActive || isCompleted
-                            ? theme.palette.vars
-                                .interactivePrimaryDefaultDefault
-                            : theme.palette.vars.baseTextDisabled,
-                      })}
-                    >
-                      {step.label}
-                    </Typography>
-                  </Box>
+                  {!isCollapsed && (
+                    <Box sx={stepperPanelStepTitleWrapperStyles(hasSubtitle)}>
+                      <Typography
+                        sx={(theme) =>
+                          stepperPanelStepTitleStyles(theme, state)
+                        }
+                      >
+                        {step.label}
+                      </Typography>
+                      {step.subtitle && (
+                        <Typography
+                          sx={(theme) =>
+                            stepperPanelStepSubtitleStyles(theme, state)
+                          }
+                        >
+                          {step.subtitle}
+                        </Typography>
+                      )}
+                    </Box>
+                  )}
                 </Box>
+                <Box
+                  aria-hidden
+                  sx={(theme) =>
+                    stepperPanelActiveLineStyles(theme, state, hasSubtitle)
+                  }
+                />
               </Box>
             );
           })}
-        </Stack>
+        </Box>
+
+        <Box sx={stepperPanelCollapseWrapperStyles(isCollapsed)}>
+          <IconButton
+            aria-label={resolvedCollapseButtonAriaLabel}
+            onClick={handleCollapseClick}
+            sx={stepperPanelCollapseButtonStyles}
+          >
+            <CollapseIcon sx={{ fontSize: "20px" }} />
+          </IconButton>
+        </Box>
       </Box>
 
-      {/* Main content area */}
-      <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          minWidth: 0,
-        }}
-      >
-        <Box sx={{ flex: 1, padding: "24px" }}>{children}</Box>
+      <Box sx={stepperPanelMainStyles(isCollapsed)}>
+        <Box sx={stepperPanelContentStyles(Boolean(footer), isCollapsed)}>
+          {children}
+        </Box>
         {footer && (
-          <Box
-            sx={(theme) => ({
-              padding: "16px 24px",
-              borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-            })}
-          >
+          <Box sx={(theme) => stepperPanelFooterStyles(theme, isCollapsed)}>
             {footer}
           </Box>
         )}

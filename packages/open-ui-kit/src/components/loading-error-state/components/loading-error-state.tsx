@@ -8,18 +8,8 @@ import { Box } from "@mui/material";
 import { EmptyState } from "@/components/empty-state";
 import { Spinner } from "@/components/spinner";
 import { LoadingStates } from "@/components/loading-states";
+import { centeredStateStyles } from "../styles";
 import type { LoadingErrorStateProps } from "../types";
-
-export type { LoadingErrorStateProps };
-
-const centeredBox = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "100%",
-  height: "100%",
-  minHeight: "200px",
-};
 
 const isEmpty = (data: unknown): boolean => {
   if (data === null || data === undefined) return true;
@@ -47,7 +37,7 @@ export const LoadingErrorState = ({
       return <>{customLoadingContent}</>;
     }
     return (
-      <Box sx={centeredBox}>
+      <Box sx={centeredStateStyles}>
         <Spinner color="primary" {...spinnerProps} />
       </Box>
     );

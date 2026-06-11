@@ -4,132 +4,134 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, IconButton, LinearProgress, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import CloseIcon from "@mui/icons-material/Close";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { UploadFile } from "../types";
+import { Spinner } from "@/components/spinner";
+import {
+  getUploadAttachmentIconStyles,
+  getUploadErrorMessageStyles,
+  getUploadFileContentStyles,
+  getUploadFileListItemStyles,
+  getUploadFileNameStyles,
+  getUploadFileRowStyles,
+  getUploadProgressFillStyles,
+  getUploadProgressTrackStyles,
+  getUploadRemoveButtonStyles,
+  getUploadThumbnailStyles,
+} from "../styles";
+import { UploadFile, UploadProps } from "../types";
 
 interface UploadFileItemProps {
   file: UploadFile;
+  size: NonNullable<UploadProps["size"]>;
   onRemove: (id: string) => void;
 }
 
-export const UploadFileItem = ({ file, onRemove }: UploadFileItemProps) => {
-  const isError = file.status === "error";
-  const isUploading = file.status === "uploading";
+export const UploadFileItem = ({
+  file,
+  size,
+  onRemove,
+}: UploadFileItemProps) => {
+  const status = file.status ?? "idle";
+  const isError = status === "error";
+  const isUploading = status === "uploading";
+  const hasThumbnail = Boolean(file.thumbnailSrc);
 
   return (
     <Box
-      sx={(theme) => ({
-        borderTop: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-        borderBottom: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-        padding: "4px 0px",
-        marginBottom: "-1px",
-      })}
+      data-slot="upload-file-item"
+      sx={(theme) => getUploadFileListItemStyles(theme, size, hasThumbnail)}
     >
       <Box
-        sx={(theme) => ({
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "4px 8px 4px 4px",
-          gap: "24px",
-          borderRadius: "6px",
-          backgroundColor: isError
-            ? theme.palette.vars.negativeBackgroundWeak
-            : "transparent",
-        })}
+        data-slot="upload-file-row"
+        sx={(theme) =>
+          getUploadFileRowStyles(theme, size, status, hasThumbnail)
+        }
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            padding: "4px",
-            gap: "4px",
-            flex: 1,
-            minWidth: 0,
-          }}
-        >
-          {isError ? (
-            <ErrorOutlineIcon
-              sx={(theme) => ({
-                width: "16px",
-                height: "16px",
-                color: theme.palette.vars.negativeIconDefault,
-                flexShrink: 0,
-              })}
+        <Box sx={getUploadFileContentStyles(size, hasThumbnail)}>
+          {hasThumbnail ? (
+            <Box
+              component="img"
+              src={file.thumbnailSrc}
+              alt=""
+              aria-hidden
+              sx={(theme) => getUploadThumbnailStyles(theme, size, status)}
             />
           ) : (
-            <AttachFileIcon
-              sx={(theme) => ({
-                width: "16px",
-                height: "16px",
-                color: theme.palette.vars.baseTextWeak,
-                flexShrink: 0,
-              })}
-            />
+            <>
+              {isError ? (
+                <ErrorOutlineIcon
+                  sx={(theme) => getUploadAttachmentIconStyles(theme, status)}
+                />
+              ) : (
+                <AttachFileIcon
+                  sx={(theme) => getUploadAttachmentIconStyles(theme, status)}
+                />
+              )}
+            </>
           )}
-          <Typography
-            variant="body2"
-            noWrap
-            sx={(theme) => ({
-              color: theme.palette.vars.baseTextDefault,
-              flex: 1,
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: hasThumbnail && isError ? "4px" : 0,
               minWidth: 0,
-            })}
+              flex: 1,
+            }}
           >
-            {file.name}
-          </Typography>
+            {hasThumbnail && isError && (
+              <ErrorOutlineIcon
+                sx={(theme) => getUploadAttachmentIconStyles(theme, status)}
+              />
+            )}
+            <Typography
+              noWrap
+              sx={(theme) =>
+                getUploadFileNameStyles(theme, size, status, hasThumbnail)
+              }
+            >
+              {file.name}
+            </Typography>
+          </Box>
         </Box>
 
-        <IconButton
-          size="small"
-          onClick={() => onRemove(file.id)}
-          sx={(theme) => ({
-            width: "20px",
-            height: "20px",
-            borderRadius: "4px",
-            padding: 0,
-            flexShrink: 0,
-            color: theme.palette.vars.baseTextWeak,
-            "&:hover": {
-              backgroundColor: theme.palette.vars.baseBackgroundHover,
-            },
-          })}
-          aria-label={`Remove ${file.name}`}
-        >
-          <CloseIcon sx={{ width: "16px", height: "16px" }} />
-        </IconButton>
+        {isUploading && typeof file.progress === "number" ? (
+          <Box
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={file.progress}
+            aria-label={`${file.name} upload progress`}
+            sx={(theme) => getUploadProgressTrackStyles(theme)}
+          >
+            <Box
+              sx={(theme) =>
+                getUploadProgressFillStyles(theme, file.progress ?? 0)
+              }
+            />
+          </Box>
+        ) : isUploading ? (
+          <Spinner
+            color="secondary"
+            size={20}
+            aria-label={`${file.name} uploading`}
+          />
+        ) : (
+          <IconButton
+            size="small"
+            onClick={() => onRemove(file.id)}
+            sx={(theme) => getUploadRemoveButtonStyles(theme)}
+            aria-label={`Remove ${file.name}`}
+          >
+            <CloseIcon sx={{ width: "16px", height: "16px" }} />
+          </IconButton>
+        )}
       </Box>
 
-      {isUploading && typeof file.progress === "number" && (
-        <LinearProgress
-          variant="determinate"
-          value={file.progress}
-          sx={(theme) => ({
-            height: "2px",
-            borderRadius: "1px",
-            mt: "2px",
-            backgroundColor: theme.palette.vars.baseBorderDefault,
-            "& .MuiLinearProgress-bar": {
-              backgroundColor:
-                theme.palette.vars.interactivePrimaryDefaultDefault,
-            },
-          })}
-        />
-      )}
-
       {isError && file.errorMessage && (
-        <Typography
-          variant="caption"
-          sx={(theme) => ({
-            color: theme.palette.vars.negativeTextDefault,
-            display: "block",
-            mt: "2px",
-          })}
-        >
+        <Typography sx={(theme) => getUploadErrorMessageStyles(theme)}>
           {file.errorMessage}
         </Typography>
       )}

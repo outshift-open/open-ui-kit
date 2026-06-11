@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const RADIAN = Math.PI / 180;
 

@@ -34,11 +34,33 @@ export const getActionButtonStyles = (theme: Theme) => ({
   height: "24px",
   padding: 0,
   borderRadius: "4px",
+  backgroundColor: "transparent",
+  "&:hover": {
+    color: theme.palette.vars.interactivePrimaryDefaultHover,
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    color: theme.palette.vars.interactivePrimaryDefaultActive,
+    backgroundColor: "transparent",
+  },
   "& .MuiIcon-root, & .MuiSvgIcon-root": {
     color: "currentColor",
     fontSize: "24px",
     width: "24px",
     height: "24px",
+  },
+});
+
+export const getUserDividerStyles = (theme: Theme) => ({
+  height: "36px",
+  width: "1px",
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? theme.palette.vars.baseBorderStrong
+      : theme.palette.vars.baseBorderDefault,
+  "&&.MuiDivider-vertical": {
+    height: "36px",
+    width: "1px",
   },
 });
 
@@ -103,11 +125,14 @@ export const getCustomSearchInputStyles = (theme: Theme) => ({
 });
 
 export const getStoryTitleStyles = (theme: Theme) => ({
-  fontFamily: "Inter, sans-serif",
+  fontFamily: "Sharp Sans, sans-serif",
   fontWeight: 400,
-  fontSize: "18px",
-  lineHeight: "18px",
-  color: theme.palette.vars.baseTextStrong,
+  fontSize: "25.3208px",
+  lineHeight: "34px",
+  color:
+    theme.palette.mode === "dark"
+      ? theme.palette.vars.baseTextStrong
+      : theme.palette.vars.brandMidnightBlue,
 });
 
 export const getStoryBetaStyles = (theme: Theme) => ({
@@ -122,21 +147,33 @@ export const getStoryBetaStyles = (theme: Theme) => ({
 export const getStoryMenuPaperStyles = (theme: Theme) => ({
   mt: "8px",
   "& .MuiPaper-root": {
+    width: "125px",
+    minWidth: "125px",
+    height: "96px",
+    boxSizing: "border-box",
     borderRadius: "8px",
-    border: `1px solid ${theme.palette.vars.baseBorderDefault}`,
-    boxShadow: theme.shadows[4],
-    minWidth: "160px",
-    padding: "4px",
+    border: `2px solid ${theme.palette.vars.interactivePrimaryDefaultActive}`,
+    backgroundColor: theme.palette.vars.baseBackgroundMedium,
+    boxShadow: theme.shadows[2],
+    padding: "8px 0",
   },
   "& .MuiList-root": { padding: 0 },
 });
 
 export const getStoryMenuItemStyles = (theme: Theme) => ({
-  borderRadius: "6px",
+  borderRadius: 0,
   gap: "8px",
-  padding: "8px 12px",
+  height: "40px",
+  padding: "8px 16px",
   color: theme.palette.vars.baseTextDefault,
+  backgroundColor: theme.palette.vars.baseBackgroundMedium,
   "&:hover": {
     backgroundColor: theme.palette.vars.baseBackgroundHover,
+  },
+  "& .MuiIcon-root, & .MuiSvgIcon-root": {
+    color: "currentColor",
+    fontSize: "24px",
+    width: "24px",
+    height: "24px",
   },
 });

@@ -64,7 +64,12 @@ export const FiltersDrawer = ({
   const filtersBySearch = getFilteredSubFilters(filters, searchDebounced);
 
   return (
-    <Drawer anchor={"right"} open={isOpen} onClose={onClose}>
+    <Drawer
+      anchor="right"
+      open={isOpen}
+      onClose={onClose}
+      PaperProps={{ sx: styles.drawerPaper }}
+    >
       <FilterDrawerHeader
         onCloseDrawer={onClose}
         assetsData={assetsData}
@@ -72,7 +77,7 @@ export const FiltersDrawer = ({
         onSearch={(value) => setSearch(value)}
         isLoading={isLoading}
       />
-      <Stack flex={1} overflow="auto" sx={styles.drawerBody}>
+      <Stack sx={styles.drawerBody}>
         {filtersBySearch.length === 0 ? (
           <EmptySearchResult searchValue={searchDebounced} />
         ) : (

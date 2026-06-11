@@ -7,23 +7,22 @@
 import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextEncoder, TextDecoder });
 
-global.ResizeObserver = class ResizeObserver {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  observe() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  unobserve() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  disconnect() {}
-};
+class ResizeObserverMock {
+  observe = jest.fn();
+  unobserve = jest.fn();
+  disconnect = jest.fn();
+}
 
-import React from "react";
+global.ResizeObserver = ResizeObserverMock;
+
+import type { ComponentProps } from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { LoadingErrorState } from "../components/loading-error-state";
 
 const renderState = (
-  props: React.ComponentProps<typeof LoadingErrorState> = {},
+  props: ComponentProps<typeof LoadingErrorState> = {},
   dark = false,
 ) =>
   render(
@@ -35,10 +34,16 @@ const renderState = (
 describe("LoadingErrorState", () => {
   describe("loading state", () => {
     it("renders a spinner by default when loading", () => {
-      renderState({ loading: true });
+      const { container } = renderState({ loading: true });
       expect(
         document.querySelector(".MuiCircularProgress-root"),
       ).toBeInTheDocument();
+      expect(container.firstElementChild).toHaveStyle({
+        alignItems: "center",
+        display: "flex",
+        justifyContent: "center",
+        minHeight: "200px",
+      });
     });
 
     it("renders skeleton when loadingVariant is skeleton", () => {

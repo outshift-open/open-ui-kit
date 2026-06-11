@@ -14,13 +14,18 @@ import {
   Tooltip,
 } from "recharts";
 import { useRef, useState, useEffect } from "react";
-import { graphStyles } from "./styles";
+import {
+  getBarGraphGridColor,
+  getBarGraphLegendStyles,
+  graphStyles,
+} from "./styles";
 import { BarGraphTooltip } from "./bar-graph-tooltip";
 import { YAxisTick } from "./y-axis-tick";
 import { BarGraphItem, ChartProps } from "../common/types";
 import type { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { CustomBar } from "./custom-bar";
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const BAR_SIZE_PX = 8;
 const SPACE_BETWEEN_BARS_PX = 24;
@@ -30,14 +35,20 @@ const MIN_GRAPH_HEIGHT_PX = 261;
 const DEFAULT_HEADERS = ["Type", "Info"];
 
 export interface BarProps {
+  /** Data key to read from each item's `barData` object. */
   key: string;
+  /** Fill color for the stacked bar segment. Use a theme palette token. */
   color: string;
 }
 
 export interface BarGraphProps extends ChartProps {
+  /** Column header labels rendered above the item labels and stacked bars. */
   headers?: string[];
+  /** Stacked bar segment definitions. Each key must exist in every item's `barData`. */
   bars?: BarProps[];
+  /** Shows the category legend below the graph. */
   showLegend?: boolean;
+  /** Called when the Recharts graph receives a click event. */
   handleClick?: CategoricalChartFunc;
 }
 
@@ -123,11 +134,11 @@ export const BarGraph = ({
             <CartesianGrid
               strokeDasharray="5"
               horizontal={false}
-              stroke={theme.palette.vars.baseBackgroundStrong}
+              stroke={getBarGraphGridColor(theme)}
             />
             <XAxis
               type="number"
-              stroke={theme.palette.vars.baseBackgroundStrong}
+              stroke={getBarGraphGridColor(theme)}
               tickLine={false}
               tick={graphStyles(theme).xAxisTick}
               height={showLegend ? 30 : 16}
@@ -135,7 +146,7 @@ export const BarGraph = ({
             <YAxis
               dataKey={(data) => data.name}
               type="category"
-              stroke={theme.palette.vars.baseBackgroundStrong}
+              stroke={getBarGraphGridColor(theme)}
               tickLine={false}
               tick={(props) => {
                 const tickData = barGraphItems[props.payload.index];
@@ -181,9 +192,7 @@ export const BarGraph = ({
           alignItems="center"
           overflow="hidden"
           bottom={0}
-          sx={{
-            backgroundColor: theme.palette.vars.baseBackgroundWeak,
-          }}
+          sx={getBarGraphLegendStyles(theme)}
           flexShrink={0}
         >
           {bars.map((bar) => (
