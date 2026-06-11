@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/node/AdapterDayjs/index.js";
+import { LocalizationProvider } from "@mui/x-date-pickers/node/LocalizationProvider/index.js";
+import { DatePicker as MuiDatePicker } from "@mui/x-date-pickers/node/DatePicker/index.js";
 import { useTheme } from "@mui/material";
 import type { DatePickerProps } from "../types";
 import {

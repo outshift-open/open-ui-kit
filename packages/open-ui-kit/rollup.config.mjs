@@ -91,6 +91,7 @@ export default [
       {
         file: "dist/index.cjs.js",
         format: "cjs",
+        interop: "auto",
         sourcemap: true,
       },
       {
@@ -175,12 +176,23 @@ export default [
           "date-fns": "dateFns",
           "@mui/x-date-pickers/": "MuiXDate",
           "@mui/x-date-pickers/AdapterDayjs": "AdapterDayjs",
+          "@mui/x-date-pickers/node/AdapterDayjs/index.js": "AdapterDayjs",
           "@mui/x-date-pickers/LocalizationProvider": "LocalizationProvider",
+          "@mui/x-date-pickers/node/LocalizationProvider/index.js":
+            "LocalizationProvider",
           "@mui/x-date-pickers/DateTimePicker": "DateTimePicker$1",
+          "@mui/x-date-pickers/node/DateTimePicker/index.js":
+            "DateTimePicker$1",
           "@mui/x-date-pickers/DatePicker": "DatePicker$1",
+          "@mui/x-date-pickers/node/DatePicker/index.js": "DatePicker$1",
           "@mui/x-date-pickers/TimePicker": "TimePicker$1",
+          "@mui/x-date-pickers/node/TimePicker/index.js": "TimePicker$1",
           "@mui/x-date-pickers/StaticDateTimePicker": "StaticDateTimePicker$1",
+          "@mui/x-date-pickers/node/StaticDateTimePicker/index.js":
+            "StaticDateTimePicker$1",
           "@mui/x-date-pickers/StaticDatePicker": "StaticDatePicker$1",
+          "@mui/x-date-pickers/node/StaticDatePicker/index.js":
+            "StaticDatePicker$1",
           sonner: "sonner",
         },
       },
