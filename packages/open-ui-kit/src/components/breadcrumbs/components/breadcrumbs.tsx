@@ -86,6 +86,7 @@ export const Breadcrumbs = ({
         iconPosition={item.iconPosition ?? iconPosition}
         linkType={type}
         ellipsis={true}
+        fontStyle={{ lineHeight: "18px" }}
         sx={isCurrentPage ? getBreadcrumbCurrentLinkStyles() : undefined}
         {...(item.Icon && { Icon: item.Icon })}
       >
