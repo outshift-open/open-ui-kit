@@ -1,3 +1,17 @@
+# [2.0.0-beta.3](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-06-11)
+
+
+### Bug Fixes
+
+* normalize illustration export casing ([98c1a5a](https://github.com/outshift-open/open-ui-kit/commit/98c1a5a236acecf6310212193c00e6dac09e4c86))
+* refactor ([f3e5291](https://github.com/outshift-open/open-ui-kit/commit/f3e529148504774e14c16117e8fdd1c948bf2575))
+
+
+### Features
+
+* start refactor ([535a7a7](https://github.com/outshift-open/open-ui-kit/commit/535a7a7c244c59e84b43ecb19fb37f0b339e4ce2))
+* start refactor ([fee6b0a](https://github.com/outshift-open/open-ui-kit/commit/fee6b0af17f289fedd0dcb0808e49e9d67b31d39))
+
 # [2.0.0-beta.2](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-06-09)
 
 
