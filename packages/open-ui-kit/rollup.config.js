@@ -7,12 +7,9 @@
 import pkg from "./package.json" assert { type: "json" };
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
-import terser from "@rollup/plugin-terser";
 import replace from "@rollup/plugin-replace";
 import url from "@rollup/plugin-url";
 import commonjs from "@rollup/plugin-commonjs";
-import globals from "rollup-plugin-node-globals";
-import builtins from "rollup-plugin-node-builtins";
 import svgr from "@svgr/rollup";
 import image from "@rollup/plugin-image";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
@@ -67,8 +64,6 @@ const commonPlugins = [
     preventAssignment: true,
   }),
   commonjs(),
-  builtins(),
-  globals(),
   cleanup({
     extensions,
     comments: "none",
@@ -193,7 +188,6 @@ export default [
         minimize: true,
         extract: "typography.css",
       }),
-      terser(),
     ],
   },
   {
