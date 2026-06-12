@@ -12,7 +12,6 @@ const markedOptions = {
 };
 
 const headerRegExp = /---[\r\n]([\s\S]*)[\r\n]---/;
-const titleRegExp = /# (.*)[\r\n]/;
 const descriptionRegExp = /<p class="description">(.*?)<\/p>/s;
 const headerKeyValueRegExp = /(.*?):[\r\n]?\s+(\[[^\]]+\]|.*)/g;
 const emptyRegExp = /^\s*$/;
@@ -190,13 +189,27 @@ function getContents(markdown) {
 }
 
 function getTitle(markdown) {
-  const matches = markdown.match(titleRegExp);
+  let lineStart = 0;
 
-  if (matches === null) {
-    return "";
+  while (lineStart < markdown.length) {
+    let lineEnd = markdown.indexOf("\n", lineStart);
+    if (lineEnd === -1) {
+      lineEnd = markdown.length;
+    }
+
+    let line = markdown.slice(lineStart, lineEnd);
+    if (line.endsWith("\r")) {
+      line = line.slice(0, -1);
+    }
+
+    if (line.startsWith("# ")) {
+      return line.slice(2).replace(/`/g, "");
+    }
+
+    lineStart = lineEnd + 1;
   }
 
-  return matches[1].replace(/`/g, "");
+  return "";
 }
 
 function getDescription(markdown) {
