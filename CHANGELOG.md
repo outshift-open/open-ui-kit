@@ -1,3 +1,10 @@
+# [2.0.0-beta.7](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-06-12)
+
+
+### Bug Fixes
+
+* resolve dependency alerts ([84789ad](https://github.com/outshift-open/open-ui-kit/commit/84789adfa1f2f6d7893421127b6b4977d372964c))
+
 # [2.0.0-beta.6](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-06-12)
 
 
