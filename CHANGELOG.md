@@ -1,3 +1,10 @@
+# [2.0.0-beta.9](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2026-06-12)
+
+
+### Bug Fixes
+
+* align picker slot prop typing ([7110b4c](https://github.com/outshift-open/open-ui-kit/commit/7110b4ca4fc270f15f8a4242dc880e9f5f67f808))
+
 # [2.0.0-beta.8](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-06-12)
 
 
