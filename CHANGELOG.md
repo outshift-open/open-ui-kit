@@ -1,3 +1,10 @@
+# [2.0.0-beta.6](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* align docs and public exports ([d32ba8d](https://github.com/outshift-open/open-ui-kit/commit/d32ba8d79a69ef920bd251ebaf579af0c3f5ca53))
+
 # [2.0.0-beta.5](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-06-11)
 
 
