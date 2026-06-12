@@ -4,14 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Divider,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { OutlinedInput, Stack, Typography } from "@mui/material";
+import { Divider } from "@/components/divider";
+import { MenuItem } from "@/components/menu";
+import { Select } from "@/components/select";
 import { selectButtonStyles } from "./styles";
 
 interface FooterProps {
@@ -53,6 +49,7 @@ export const TableFooter = ({
       <Stack flexDirection="row" alignItems="center">
         <Typography variant="subtitle2">Rows per page</Typography>
         <Select
+          clearable={false}
           MenuProps={{
             anchorOrigin: {
               vertical: "top",

@@ -5,35 +5,39 @@
  */
 
 import { Box, Typography } from "@mui/material";
-import React from "react";
 import { styles } from "../styles";
-import { Link, LinkProps } from "@/components/link";
+import type { FooterProps } from "../types";
+import { Link } from "@/components/link";
 import { GeneralSize } from "@/common";
 import { Link as RouterLink } from "react-router-dom";
 
-export interface FooterProps {
-  productNode?: React.ReactNode;
-  productName: string;
-  productLink?: string;
-  links?: LinkProps[];
-}
-
-export const Footer: React.FC<FooterProps> = ({
+export const Footer = ({
   links,
   productNode,
   productLink = "#",
   productName,
-}) => {
+  sx,
+}: FooterProps) => {
   return (
-    <Box component="footer" sx={styles.container}>
+    <Box
+      component="footer"
+      sx={[styles.container, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+    >
       {productNode ? (
         productNode
       ) : (
-        <RouterLink
+        <Box
+          component={RouterLink}
           to={productLink}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ textDecoration: "none" }}
+          sx={(theme) => ({
+            color: theme.palette.vars.baseTextDefault,
+            display: "inline-flex",
+            flexShrink: 0,
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          })}
         >
           <Typography
             variant="caption"
@@ -41,9 +45,9 @@ export const Footer: React.FC<FooterProps> = ({
           >
             © {new Date().getFullYear()} {productName}
           </Typography>
-        </RouterLink>
+        </Box>
       )}
-      <Box sx={{ ...styles.actionsContainer }}>
+      <Box sx={styles.actionsContainer}>
         {links?.map((link, index) => (
           <Link key={`${index}-link`} size={GeneralSize.Small} {...link}>
             {link.children}

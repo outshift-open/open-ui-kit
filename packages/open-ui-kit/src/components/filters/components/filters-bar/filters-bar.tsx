@@ -4,42 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button, Stack } from "@mui/material";
-import { FilterData, AssetsData, FilterOptionData } from "../../types/types";
+import { Stack, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
+import { Button } from "@/components/button";
+import type { FilterData, FiltersBarProps } from "../../types";
 import {
   getFiltersSelectionCount,
   setAllSubFilters,
   setFilterOptions,
 } from "../../utils";
-import {
-  FiltersBarActions,
-  FiltersBarActionsProps,
-} from "./filters-bar-actions";
+import { FiltersBarActions } from "./filters-bar-actions";
 import { FilterChipsContainer } from "./filter-chips-container";
 import { FiltersDrawer } from "../filters-drawer/filters-drawer";
-
-export interface FiltersBarProps
-  extends Pick<
-      FiltersBarActionsProps,
-      | "onFavorite"
-      | "onSearch"
-      | "searchPlaceHolder"
-      | "initialSearchValue"
-      | "searchValue"
-      | "inputProps"
-      | "isFiltersButtonVisible"
-    >,
-    Partial<Pick<FiltersBarActionsProps, "onFiltersButtonClick">> {
-  isLoading: boolean;
-  filtersData: Array<FilterData>;
-  assetsData: AssetsData;
-  onSelectedChange: (updatedFilters: Array<FilterData>) => void;
-  initialFavoriteValue?: boolean;
-  favoriteValue?: boolean;
-  rightSideComponent?: JSX.Element;
-}
 
 export const FiltersBar = ({
   filtersData: filters,
@@ -58,6 +35,8 @@ export const FiltersBar = ({
   rightSideComponent,
   isFiltersButtonVisible = true,
 }: FiltersBarProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [isOpen, setIsOpen] = useState(false);
   const [favorite, setFavorite] = useState(initialFavoriteValue);
 
@@ -83,7 +62,7 @@ export const FiltersBar = ({
   };
 
   return (
-    <Stack marginTop="16px" spacing={1.5}>
+    <Stack sx={styles.root}>
       <FiltersBarActions
         onFiltersButtonClick={() => {
           onFiltersButtonClick && onFiltersButtonClick();
@@ -102,7 +81,7 @@ export const FiltersBar = ({
       />
       {isFiltersButtonVisible ? (
         <>
-          <Stack alignItems="center" direction="row" sx={styles.chipsStack}>
+          <Stack direction="row" sx={styles.chipsStack}>
             <FilterChipsContainer
               filters={filters}
               handleDelete={handleChipDelete}
@@ -134,5 +113,3 @@ export const FiltersBar = ({
     </Stack>
   );
 };
-
-export type { FilterData, AssetsData, FilterOptionData };

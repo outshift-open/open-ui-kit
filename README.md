@@ -42,7 +42,7 @@ Open UI Kit is designed to be framework-agnostic, accessible, and highly customi
 
 | Package | Description | Version | Documentation |
 |---------|-------------|---------|---------------|
-| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material-UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Docs](https://main--68cc22452afe30d90e4ca977.chromatic.com/) |
+| [`@open-ui-kit/core`](https://www.npmjs.com/package/@open-ui-kit/core) | Core component library built on Material UI | [![npm version](https://img.shields.io/npm/v/@open-ui-kit/core)](https://www.npmjs.com/package/@open-ui-kit/core) | [📚 Storybook](https://main--68cc22452afe30d90e4ca977.chromatic.com) |
 
 ## 🚀 Quick Start
 
@@ -51,10 +51,11 @@ Open UI Kit is designed to be framework-agnostic, accessible, and highly customi
 npm install @open-ui-kit/core @mui/material @emotion/react @emotion/styled
 
 # Start building with Open UI Kit
+import '@open-ui-kit/core/typography.css';
 import { ThemeProvider, Button } from '@open-ui-kit/core';
 ```
 
-👉 **[View Full Installation Guide](https://main--68cc22452afe30d90e4ca977.chromatic.com/?path=/docs/overview-introduction--docs#-installation)**
+👉 **[View Full Installation Guide](docs/data/material/getting-started/installation/installation.md)**
 
 ## 🏗️ Architecture
 
@@ -71,8 +72,8 @@ open-ui-kit/
 
 ### 🛠️ Built With
 
-- **React 18** - Modern React with hooks and concurrent features
-- **Material-UI v5** - Foundation for accessible, customizable components
+- **React 18+** - Modern React with hooks and concurrent features
+- **Material UI v7+** - Foundation for accessible, customizable components
 - **TypeScript** - Type safety and enhanced developer experience
 - **Emotion** - Performant CSS-in-JS styling solution
 - **Storybook** - Interactive component documentation and testing
@@ -101,7 +102,8 @@ We welcome contributions from the open source community! Whether you're fixing b
    git clone https://github.com/outshift-open/open-ui-kit.git
    cd open-ui-kit
    yarn install
-   yarn dev
+   yarn build
+   yarn workspace @open-ui-kit/core storybook
    ```
 
 3. **Start Contributing**
@@ -159,7 +161,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 - 📚 **[Component Documentation](https://main--68cc22452afe30d90e4ca977.chromatic.com)** - Interactive Storybook
 - 📋 **[Changelog](CHANGELOG.md)** - Release notes and version history
 - 🔄 **[Migration Guide](MIGRATION.md)** - Version upgrade instructions
-- 🎯 **[Material-UI](https://mui.com/)** - Foundation library
+- 🎯 **[Material UI](https://mui.com/)** - Foundation library
 - 🏠 **[GitHub Repository](https://github.com/outshift-open/open-ui-kit)** - Source code and issues
 
 ---

@@ -1,75 +1,125 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["yarn.lock", ".yarnrc.yml"],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        "pages/**",
+        "data/**",
+        "public/**",
+        "next.config.*",
+        "rollup.config.*",
+        "tsconfig*.json",
+        "package.json"
       ],
-      "outputs": [
-        ".next/**",
-        "dist/**"
-      ]
+      "outputs": ["dist/**", ".next/**", "export/**", "storybook-static/**"]
+    },
+    "lib:build": {
+      "dependsOn": ["^lib:build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        "rollup.config.*",
+        "tsconfig*.json",
+        "package.json"
+      ],
+      "outputs": ["dist/**"]
     },
     "dev": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
-    },
-    "lint-staged": {},
-    "lib:build": {
-      "outputs": [
-        "dist/**"
-      ]
-    },
-    "banners": {
-      "cache": false
-    },
-    "license:add": {
-      "cache": false,
-      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
-      "outputs": []
-    },
-    "license:check": {
-      "cache": false,
-      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
-      "outputs": []
-    },
-    "license:add:force": {
-      "cache": false,
-      "inputs": ["packages/**/*.{ts,tsx,js,jsx,css,html}", "playground/**/*.{ts,tsx,js,jsx,css,html}", "scripts/**/*.{ts,tsx,js,jsx}", "scripts/license-template.txt"],
-      "outputs": []
-    },
-    "lint": {
-      "cache": false,
-      "outputs": []
-    },
-    "typecheck": {
-      "cache": false,
-      "outputs": []
-    },
-    "lint:fix": {
-      "cache": false
     },
     "lib:dev": {
       "cache": false,
       "persistent": true
     },
-    "start": {
-      "cache": false
+    "lint": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        ".storybook/**",
+        "pages/**",
+        "data/**",
+        ".eslintrc.*",
+        "tsconfig*.json",
+        "package.json"
+      ],
+      "outputs": []
     },
-    "test": {},
+    "lint:fix": {
+      "cache": false,
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^lib:build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        ".storybook/**",
+        "pages/**",
+        "data/**",
+        "tsconfig*.json",
+        "next-env.d.ts",
+        "package.json"
+      ],
+      "outputs": []
+    },
+    "test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        "jest.config.*",
+        "tsconfig*.json",
+        "package.json"
+      ],
+      "outputs": ["coverage/**"]
+    },
     "test:watch": {
-      "cache": false
+      "cache": false,
+      "persistent": true,
+      "outputs": []
     },
     "storybook": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "storybook:build": {
-      "outputs": [
-        "storybook-static/**"
-      ]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**",
+        ".storybook/**",
+        "tsconfig*.json",
+        "package.json"
+      ],
+      "outputs": ["storybook-static/**"]
+    },
+    "license:add": {
+      "cache": false,
+      "outputs": []
+    },
+    "license:add:force": {
+      "cache": false,
+      "outputs": []
+    },
+    "license:check": {
+      "cache": false,
+      "outputs": []
+    },
+    "lint-staged": {
+      "cache": false,
+      "outputs": []
+    },
+    "banners": {
+      "cache": false,
+      "outputs": []
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

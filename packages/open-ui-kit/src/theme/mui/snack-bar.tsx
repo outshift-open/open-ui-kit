@@ -8,6 +8,7 @@ import { Components, Theme } from "@mui/material";
 
 export const snackbarComponent = (theme: Theme): Components => {
   return {
+    // No local Snackbar wrapper exists yet; toast uses Sonner instead of MuiSnackbar.
     MuiSnackbar: {
       styleOverrides: {
         anchorOriginTopRight: {

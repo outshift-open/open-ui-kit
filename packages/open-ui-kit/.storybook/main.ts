@@ -72,6 +72,9 @@ const config: StorybookConfig = {
   ],
 
   framework: getAbsolutePath("@storybook/react-vite"),
+  features: {
+    sidebarOnboardingChecklist: false,
+  },
   typescript: {
     check: true,
     reactDocgen: "react-docgen-typescript",
@@ -120,6 +123,7 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: "./fonts", to: "/fonts" },
     { from: "./assets", to: "/assets" },
+    { from: "./assets", to: "/" },
   ],
 };
 export default config;

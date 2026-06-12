@@ -6,21 +6,15 @@
 
 import { Box, styled, type BoxProps } from "@mui/material";
 import type { ComponentType } from "react";
+import {
+  getScrollAreaRootStyles,
+  getScrollAreaViewportStyles,
+} from "../styles";
 
-export const ScrollAreaRoot = styled(Box)(() => ({
-  position: "relative",
-})) as ComponentType<BoxProps>;
+export const ScrollAreaRoot = styled(Box)(
+  getScrollAreaRootStyles,
+) as ComponentType<BoxProps>;
 
-export const ScrollAreaViewport = styled(Box)(({ theme }) => ({
-  width: "100%",
-  height: "100%",
-  borderRadius: "inherit",
-  outlineStyle: "none",
-  overflow: "hidden scroll",
-  outline: "none",
-  transition: "color 0.2s, box-shadow 0.2s",
-  "&:focus-visible": {
-    boxShadow: `0 0 0 3px ${theme.palette.primary.main}50`,
-    outline: `1px solid ${theme.palette.primary.main}`,
-  },
-})) as ComponentType<BoxProps>;
+export const ScrollAreaViewport = styled(Box)(({ theme }) =>
+  getScrollAreaViewportStyles(theme),
+) as ComponentType<BoxProps>;

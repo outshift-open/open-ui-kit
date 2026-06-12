@@ -4,36 +4,53 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Tooltip as MuiTooltip, type Theme } from "@mui/material";
 import {
-  Tooltip as MuiTooltip,
-  TooltipProps as MuiTooltipProps,
-} from "@mui/material";
-import { largeTooltipStyles, mediumTooltipStyles } from "../styles";
-import { TooltipSize } from "../types";
-
-export interface TooltipProps extends MuiTooltipProps {
-  size?: TooltipSize;
-}
+  baseTooltipStyles,
+  largeTooltipStyles,
+  mediumTooltipStyles,
+  tooltipArrowStyles,
+} from "../styles";
+import { TooltipSize, type TooltipProps } from "../types";
 
 const tooltipPopper = {
   modifiers: [
     {
       name: "offset",
       options: {
-        offset: [0, -4],
+        offset: [0, -2],
       },
     },
   ],
+  sx: {
+    '&[data-popper-placement*="left"] .MuiTooltip-arrow, &[data-popper-placement*="right"] .MuiTooltip-arrow':
+      {
+        height: "10px",
+        width: "6px",
+      },
+  },
 };
 
 export const tooltipSlotProps = {
   [TooltipSize.Medium]: {
     popper: tooltipPopper,
-    tooltip: { sx: mediumTooltipStyles },
+    arrow: { sx: tooltipArrowStyles },
+    tooltip: {
+      sx: (theme: Theme) => ({
+        ...baseTooltipStyles(theme),
+        ...mediumTooltipStyles,
+      }),
+    },
   },
   [TooltipSize.Large]: {
     popper: tooltipPopper,
-    tooltip: { sx: largeTooltipStyles },
+    arrow: { sx: tooltipArrowStyles },
+    tooltip: {
+      sx: (theme: Theme) => ({
+        ...baseTooltipStyles(theme),
+        ...largeTooltipStyles,
+      }),
+    },
   },
 };
 

@@ -4,54 +4,52 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Box, CircularProgress } from "@mui/material";
 import {
-  Box,
-  BoxProps,
-  CircularProgress,
-  circularProgressClasses,
-  CircularProgressProps,
-} from "@mui/material";
+  getSpinnerIndicatorStyles,
+  getSpinnerTrackStyles,
+  getSpinnerWrapperStyles,
+} from "../styles";
+import type { SpinnerProps } from "../types";
 
-export interface SpinnerProps extends CircularProgressProps {
-  boxProps?: BoxProps;
-}
+/** Tokenized two-layer circular loading indicator. */
+export const Spinner = ({
+  boxProps,
+  size = 40,
+  sx,
+  ...props
+}: SpinnerProps) => {
+  const { sx: boxSx, ...restBoxProps } = boxProps ?? {};
 
-export const Spinner = ({ boxProps, ...props }: SpinnerProps) => {
   return (
     <Box
-      sx={{
-        position: "relative",
-        width: props?.size,
-        height: props?.size,
-        ...boxProps?.sx,
-      }}
-      {...boxProps}
+      {...restBoxProps}
+      data-slot="spinner"
+      sx={[
+        getSpinnerWrapperStyles(size),
+        ...(Array.isArray(boxSx) ? boxSx : boxSx ? [boxSx] : []),
+      ]}
     >
       <CircularProgress
-        sx={{
-          ...props.sx,
-          opacity: 0.2,
-        }}
-        size={40}
         {...props}
+        data-slot="spinner-track"
+        size={size}
+        sx={[
+          (theme) => getSpinnerTrackStyles(theme),
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
         value={100}
         variant="determinate"
       />
       <CircularProgress
-        sx={{
-          ...props.sx,
-          animationDuration: "1s",
-          position: "absolute",
-          left: 0,
-          top: typeof props?.size === "number" && props.size < 17 ? 2 : 0,
-          [`& .${circularProgressClasses.circle}`]: {
-            strokeLinecap: "round",
-            strokeDasharray: "31.4, 94.2",
-          },
-        }}
-        size={40}
         {...props}
+        data-slot="spinner-indicator"
         disableShrink
+        size={size}
+        sx={[
+          (theme) => getSpinnerIndicatorStyles(theme),
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
         variant="indeterminate"
       />
     </Box>

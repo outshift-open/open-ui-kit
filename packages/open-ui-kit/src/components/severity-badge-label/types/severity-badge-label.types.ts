@@ -4,15 +4,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { StackProps } from "@mui/material";
-import { TypographyProps } from "@mui/material";
-import type { SeverityBadgeProps } from "../../severity-badge/types/severity-badge.types";
+import type { StackProps, TypographyProps } from "@mui/material";
+import type { SeverityBadgeProps } from "../../severity-badge/types";
 
 export interface SeverityBadgeLabelProps extends SeverityBadgeProps {
   /**
-   * Provide a custom label to override the default ones
+   * Custom text shown instead of the default severity or score label.
    */
   label?: string;
+  /**
+   * Props forwarded to the horizontal label container. Values override the
+   * component defaults such as spacing and alignment.
+   */
   containerStackProps?: StackProps;
+  /**
+   * Props forwarded to the text label. Values override the default body2
+   * typography variant.
+   */
   labelTypographyProps?: TypographyProps;
 }

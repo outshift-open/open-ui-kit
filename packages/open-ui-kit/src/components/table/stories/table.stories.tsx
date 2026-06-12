@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 import { faker } from "@faker-js/faker";
 import {
   MRT_ColumnDef,
@@ -15,13 +14,9 @@ import {
   Edit as EditIcon,
 } from "@mui/icons-material";
 import { BrowserRouter } from "react-router-dom";
-import {
-  Box,
-  Button,
-  LinearProgress,
-  ListItemIcon,
-  Typography,
-} from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
+import { Button } from "@/components/button";
+import { ListItemIcon } from "@/components/list";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
 import { TableProps } from "../types";
@@ -36,12 +31,34 @@ const meta: Meta<typeof Table> = {
   component: Table,
   tags: ["autodocs"],
   args: {
-    onRowLinkClick: fn(),
+    isLoading: false,
+    densityCompact: false,
+    enableTopToolbar: true,
+  },
+  argTypes: {
+    isLoading: {
+      control: "boolean",
+      description: "Shows skeleton rows while table data is loading.",
+    },
+    densityCompact: {
+      control: "boolean",
+      description: "Uses compact 32px rows instead of comfortable 40px rows.",
+    },
+    enableTopToolbar: {
+      control: "boolean",
+      description: "Shows or hides the title and toolbar actions.",
+    },
+    title: {
+      control: "object",
+      description: "Optional title metadata rendered in the table toolbar.",
+    },
   },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
+          title="Table"
           blurb="Tables show large amounts of data in a structured format, allowing users to view, sort, filter, and interact with the data efficiently."
           guideLink=""
           importLine='import { Table } from "@open-ui-kit/core";'
@@ -61,7 +78,7 @@ const onRowFeaturesWorkAround = {
 
 const generateSubRows = (depth = 1) => {
   if (depth === 3) {
-    return <Typography>{faker.animal.cat()}</Typography>;
+    return <Typography>{faker.company.buzzPhrase()}</Typography>;
   }
 
   return (
@@ -386,7 +403,7 @@ const SubTablesWithPaginationComponent = ({
   );
 };
 
-export const SimpleTable: Story = {
+export const Default: Story = {
   render: SimpleTableComponent,
   args: {
     ...data,
@@ -403,7 +420,27 @@ export const SimpleTable: Story = {
   },
 };
 
-export const EmptyTable: Story = {
+export const Loading: Story = {
+  render: SimpleTableComponent,
+  args: {
+    ...data,
+    ...onRowFeaturesWorkAround,
+    title: { label: "Loading table", count: 12 },
+    isLoading: true,
+  },
+};
+
+export const Compact: Story = {
+  render: SimpleTableComponent,
+  args: {
+    ...data,
+    ...onRowFeaturesWorkAround,
+    densityCompact: true,
+    title: { label: "Compact table", count: 12 },
+  },
+};
+
+export const Empty: Story = {
   render: EmptyTableComponent,
   args: {
     ...data,
@@ -411,14 +448,14 @@ export const EmptyTable: Story = {
   },
 };
 
-export const SubTablesWithPagination: Story = {
+export const NestedRows: Story = {
   render: (args) => <SubTablesWithPaginationComponent {...args} />,
   args: {
     densityCompact: false,
   },
 };
 
-export const TableRowWithActions: Story = {
+export const RowActions: Story = {
   render: SimpleTableComponent,
   args: {
     ...data,
@@ -440,7 +477,7 @@ export const TableRowWithActions: Story = {
   },
 };
 
-export const TableRowWithLinkAction: Story = {
+export const RowActionsWithLink: Story = {
   render: (args) => <SimpleTableComponent {...args} />,
   args: {
     ...data,
@@ -468,7 +505,7 @@ export const TableRowWithLinkAction: Story = {
   },
 };
 
-export const SimpleTableWithColumnPinning: Story = {
+export const ColumnPinning: Story = {
   render: SimpleTableWithFreezeColumnComponent,
   args: {
     ...data,
@@ -518,7 +555,7 @@ const TableWithReloadComponent = () => {
   );
 };
 
-export const TableWithReload: Story = {
+export const ReloadAction: Story = {
   render: TableWithReloadComponent,
 };
 
@@ -562,7 +599,7 @@ const TableWithCustomActionsInToolBarComponent = () => {
   );
 };
 
-export const TableTitleVariant: Story = {
+export const TitleVariant: Story = {
   render: SimpleTableComponent,
   args: {
     ...data,
@@ -576,11 +613,11 @@ export const TableTitleVariant: Story = {
   },
 };
 
-export const TableWithCustomActionsInToolBar: Story = {
+export const CustomToolbarAction: Story = {
   render: TableWithCustomActionsInToolBarComponent,
 };
 
-export const TableWithPathDisplay: Story = {
+export const PathDisplayCells: Story = {
   render: SimpleTableComponent,
   args: {
     ...onRowFeaturesWorkAround,
@@ -612,7 +649,7 @@ export const TableWithPathDisplay: Story = {
   },
 };
 
-export const TableRowIsLink: Story = {
+export const RowLink: Story = {
   render: (args) => <SimpleTableComponent {...args} />,
   args: {
     ...data,
@@ -623,7 +660,7 @@ export const TableRowIsLink: Story = {
   },
 };
 
-export const TableRowIsClickable2: Story = {
+export const ClickableRows: Story = {
   render: (args) => <SimpleTableComponent {...args} />,
   args: {
     ...data,

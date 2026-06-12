@@ -1,27 +1,79 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { BrowserRouter } from "react-router-dom";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack } from "@mui/material";
-import GridViewIcon from "@mui/icons-material/GridView";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { GeneralSize, IconPosition } from "@/common";
+import { Link as LinkIcon } from "@/custom-icons";
 import { Link } from "../components/link";
-import { GeneralSize } from "@/common";
 import { LinkColorEnum, LinkType } from "../types";
 
-/**
- *  ### Link represent custom component with link and optional icon.
- */
 const meta: Meta<typeof Link> = {
   title: "Components/Link",
   component: Link,
-  tags: ["autodocs"],
-  args: { size: GeneralSize.Small, Icon: GridViewIcon },
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
+  args: {
+    children: "Link",
+    color: LinkColorEnum.Primary,
+    disabled: false,
+    ellipsis: false,
+    href: "/",
+    iconPosition: IconPosition.NoIcon,
+    linkType: LinkType.UnderlineRegular,
+    openInNewTab: false,
+    size: GeneralSize.Large,
+  },
+  argTypes: {
+    children: { control: "text" },
+    color: {
+      control: "select",
+      options: Object.values(LinkColorEnum),
+    },
+    disabled: { control: "boolean" },
+    ellipsis: { control: "boolean" },
+    href: { control: "text" },
+    iconPosition: {
+      control: "select",
+      options: Object.values(IconPosition),
+    },
+    linkType: {
+      control: "select",
+      options: Object.values(LinkType),
+    },
+    openInNewTab: { control: "boolean" },
+    size: {
+      control: "select",
+      options: Object.values(GeneralSize),
+    },
+    Icon: { table: { disable: true } },
+    customizeColor: { table: { disable: true } },
+    fontStyle: { table: { disable: true } },
+    onMouseDown: { table: { disable: true } },
+    onMouseEnter: { table: { disable: true } },
+    onMouseLeave: { table: { disable: true } },
+    onMouseUp: { table: { disable: true } },
+    sx: { table: { disable: true } },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Link is a component that represents a clickable link with optional icon and text. It can be used to navigate to different routes or perform actions."
-          guideLink="#"
-          importLine='import { Link } from "@open-ui-kit/core";'
+          title="Link"
+          blurb="Links navigate users to another route or resource and can include optional leading or trailing icons."
+          importLine={`import { Link } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -29,118 +81,110 @@ const meta: Meta<typeof Link> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-type Story = StoryObj<typeof Link>;
+const storyStackStyles = {
+  alignItems: "flex-start",
+};
 
-export const Example: Story = {
+export const Default: Story = {};
+
+export const Secondary: Story = {
+  args: {
+    color: LinkColorEnum.Secondary,
+  },
+};
+
+export const Standalone: Story = {
+  args: {
+    linkType: LinkType.StandaloneRegular,
+  },
+};
+
+export const StandaloneBold: Story = {
+  args: {
+    linkType: LinkType.StandaloneBold,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    Icon: LinkIcon,
+    iconPosition: IconPosition.LeftIcon,
+  },
   render: (args) => (
-    <BrowserRouter>
-      <Stack spacing={2}>
-        <Link {...args}>Hello</Link>
-      </Stack>
-    </BrowserRouter>
+    <Stack gap={2} sx={storyStackStyles}>
+      <Link {...args} iconPosition={IconPosition.LeftIcon}>
+        Leading icon
+      </Link>
+      <Link {...args} iconPosition={IconPosition.RightIcon}>
+        Trailing icon
+      </Link>
+    </Stack>
+  ),
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <Stack gap={2} sx={storyStackStyles}>
+      <Link {...args} size={GeneralSize.Large}>
+        Large link
+      </Link>
+      <Link {...args} size={GeneralSize.Medium}>
+        Medium link
+      </Link>
+      <Link {...args} size={GeneralSize.Small}>
+        Small link
+      </Link>
+    </Stack>
   ),
 };
 
 export const Ellipsis: Story = {
+  args: {
+    children: "A long navigation link that truncates cleanly",
+    ellipsis: true,
+  },
   render: (args) => (
-    <BrowserRouter>
-      <Stack spacing={2}>
-        <Box sx={{ width: "100px" }}>
-          <Link {...args} ellipsis>
-            Longer Longer link text
+    <Box sx={{ width: 220 }}>
+      <Link {...args} />
+    </Box>
+  ),
+};
+
+export const StateMatrix: Story = {
+  render: (args) => (
+    <Stack gap={3} sx={storyStackStyles}>
+      <Stack direction="row" flexWrap="wrap" gap={3}>
+        {[LinkColorEnum.Primary, LinkColorEnum.Secondary].map((color) => (
+          <Stack key={color} gap={1} sx={storyStackStyles}>
+            <Typography variant="caption">{color}</Typography>
+            <Link {...args} color={color}>
+              Default
+            </Link>
+            <Link {...args} color={color} disabled>
+              Disabled
+            </Link>
+          </Stack>
+        ))}
+      </Stack>
+      <Stack direction="row" flexWrap="wrap" gap={3}>
+        {[
+          LinkType.UnderlineRegular,
+          LinkType.StandaloneRegular,
+          LinkType.StandaloneBold,
+        ].map((linkType) => (
+          <Link key={linkType} {...args} linkType={linkType}>
+            {linkType}
           </Link>
-        </Box>
+        ))}
       </Stack>
-    </BrowserRouter>
-  ),
-};
-
-export const LinkSizes: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link size={GeneralSize.Small} Icon={GridViewIcon}>
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-        <Link size={GeneralSize.Large} Icon={GridViewIcon}>
-          Hello
-        </Link>
-      </Stack>
-    </BrowserRouter>
-  ),
-};
-
-export const Colors: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link color={LinkColorEnum.Primary} Icon={GridViewIcon}>
-          Hello (Primary)
-        </Link>
-        <Link color={LinkColorEnum.Secondary} Icon={GridViewIcon}>
-          Hello (Secondary)
-        </Link>
-        <Link disabled color={LinkColorEnum.Primary} Icon={GridViewIcon}>
-          Hello (Primary) disabled
-        </Link>
-        <Link disabled color={LinkColorEnum.Secondary} Icon={GridViewIcon}>
-          Hello (Secondary) disabled
-        </Link>
-      </Stack>
-    </BrowserRouter>
-  ),
-};
-
-export const IconVariants: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link color={LinkColorEnum.Primary} size={GeneralSize.Medium}>
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          // iconPosition="right-icon"
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-        <Link
-          color={LinkColorEnum.Primary}
-          size={GeneralSize.Medium}
-          // iconPosition="left-icon"
-          Icon={GridViewIcon}
-        >
-          Hello
-        </Link>
-      </Stack>
-    </BrowserRouter>
-  ),
-};
-
-export const LinkTypes: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Stack alignItems="start" spacing={2}>
-        <Link Icon={GridViewIcon} linkType={LinkType.UnderlineRegular}>
-          Hello (type: UnderlineRegular)
-        </Link>
-        <Link Icon={GridViewIcon} linkType={LinkType.StandaloneRegular}>
-          Hello (type: StandaloneRegular)
-        </Link>
-        <Link Icon={GridViewIcon} linkType={LinkType.StandaloneBold}>
-          Hello (type: StandaloneBold)
-        </Link>
-      </Stack>
-    </BrowserRouter>
+    </Stack>
   ),
 };

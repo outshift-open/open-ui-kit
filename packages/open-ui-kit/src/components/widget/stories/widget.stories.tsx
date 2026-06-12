@@ -1,18 +1,65 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, Stack } from "@mui/material";
-import { Kubernetes } from "@/custom-icons";
-import { IWidgetProps, Widget } from "../components/widget";
+import { Stack } from "@mui/material";
+import { Button } from "@/components/button";
+import { Widget } from "../components/widget";
+import type { IWidgetProps } from "../types";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta: Meta<IWidgetProps<string>> = {
+const meta: Meta<typeof Widget> = {
   title: "Components/Widget",
   component: Widget,
   tags: ["autodocs"],
+  args: {
+    bodyElement: <>This is body element</>,
+    label: "Widget title",
+  },
+  argTypes: {
+    bodyElement: {
+      control: false,
+      description: "Content rendered in the widget body.",
+    },
+    headerChildren: {
+      control: false,
+      description: "Optional content rendered after the headline.",
+    },
+    headerLeftChildren: {
+      control: false,
+      description: "Optional content rendered before the headline.",
+    },
+    isEmpty: {
+      control: "boolean",
+      description: "Shows the empty state instead of body content.",
+    },
+    isHorizontal: {
+      control: "boolean",
+      description: "Uses the horizontal body layout.",
+    },
+    isLoading: {
+      control: "boolean",
+      description: "Shows loading skeletons instead of body content.",
+    },
+    label: {
+      control: "text",
+      description: "Headline label rendered in the widget header.",
+    },
+    labelTooltip: {
+      control: "text",
+      description: "Optional tooltip content next to the label.",
+    },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Widget is a versatile component that can be used to display various types of content, including headers, body elements, and legends. It supports loading states and empty states, making it suitable for dynamic data presentation."
+          title="Widget"
+          blurb="Widget is a versatile component that can be used to display various types of content, including headers and body elements. It supports loading states and empty states, making it suitable for dynamic data presentation."
           guideLink="#"
           importLine='import { Widget } from "@open-ui-kit/core";'
         />
@@ -22,102 +69,70 @@ const meta: Meta<IWidgetProps<string>> = {
 };
 
 export default meta;
-type Story = StoryObj<IWidgetProps<string>>;
+type Story = StoryObj<IWidgetProps>;
+
+const WidgetFrame = (props: IWidgetProps) => (
+  <Stack width="301px">
+    <Widget {...props} />
+  </Stack>
+);
 
 export const Default: Story = {
-  render: (args) => <Widget {...args} />,
+  render: (args) => <WidgetFrame {...args} />,
 };
 
-export const LoadingWidget: Story = {
-  render: (args) => <Widget {...args} />,
+export const Loading: Story = {
+  render: (args) => <WidgetFrame {...args} />,
   args: {
+    label: "Loading widget",
     isLoading: true,
   },
 };
 
-export const EmptyStateWidget: Story = {
-  render: (args) => <Widget {...args} />,
+export const EmptyState: Story = {
+  render: (args) => <WidgetFrame {...args} />,
   args: {
+    label: "Empty widget",
     isEmpty: true,
   },
 };
 
-export const WidgetWithoutLabel: Story = {
-  render: (args) => <Widget {...args} />,
+export const WithoutLabel: Story = {
+  render: (args) => <WidgetFrame {...args} />,
   args: {
+    label: undefined,
     isLoading: false,
     bodyElement: <>This is body element</>,
   },
 };
-export const GeneralPropsWidget: Story = {
-  render: (args) => <Widget {...args} />,
+
+export const WithTooltip: Story = {
+  render: (args) => <WidgetFrame {...args} />,
   args: {
     isLoading: false,
     bodyElement: <>This is body element</>,
-    label: "General Header Label",
+    label: "Widget title",
+    labelTooltip: "Helpful widget context.",
   },
 };
 
 export const LabelAsElement: Story = {
-  render: (args) => <Widget {...args} />,
+  render: (args) => <WidgetFrame {...args} />,
   args: {
     isLoading: false,
     isEmpty: false,
     bodyElement: <>This is body element</>,
-    label: <div style={{ color: "red" }}>label element</div>,
+    label: <span>Label element</span>,
   },
 };
 
-export const LeftHeaderElement: Story = {
-  render: (args) => <Widget {...args} />,
+export const HeaderSlots: Story = {
+  render: (args) => <WidgetFrame {...args} />,
   args: {
     isLoading: false,
     isEmpty: false,
     bodyElement: <>This is body element</>,
-    label: "Just a label",
-    headerLeftChildren: <Button>Left element</Button>,
-  },
-};
-
-export const GeneralLegendWidget: Story = {
-  render: (args) => <Widget {...args} />,
-  args: {
-    bodyElement: <>This is body element</>,
-    isEmpty: false,
-    label: "General Header Label",
-    legend: {
-      headers: ["col1", "col2", "col3"],
-      rows: [
-        {
-          color: "red",
-          values: {
-            col1: "val1",
-            col2: "val2",
-            col3: "val3",
-          },
-        },
-        {
-          color: "blue",
-          values: {
-            col1: "val4",
-            col2: "val5",
-            col3: "val6",
-          },
-        },
-        {
-          color: "green",
-          values: {
-            col1: "val7",
-            col2: "val8",
-            col3: "val9",
-          },
-          tooltip: (
-            <Stack direction={"row"} alignItems={"center"}>
-              <Kubernetes /> K8s
-            </Stack>
-          ),
-        },
-      ],
-    },
+    label: "Widget title",
+    headerChildren: <Button>Action</Button>,
   },
 };

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const RADIAN = Math.PI / 180;
 
@@ -70,7 +70,6 @@ function CustomGrid({
   const getConcentricPolygon = (entry: number, index: number) => {
     const total = polarRadius.length;
     const t = total > 1 ? index / (total - 1) : 1;
-    // Inner ring more visible, outer ring lighter
     const start = theme.palette.mode === "dark" ? 0.32 : 0.6;
     const end = theme.palette.mode === "dark" ? 0.12 : 0.3;
     const opacity = start + (end - start) * t;

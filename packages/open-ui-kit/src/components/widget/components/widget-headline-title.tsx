@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
+import { useTheme } from "@mui/material/styles";
+import { Box, Stack, Typography } from "@mui/material";
 import { ArrowForwardIcon, InfoCircleOutline } from "@/custom-icons";
 import { Tooltip, TooltipProps, TooltipSize } from "@/components/tooltip";
 import { styles } from "../styles/styles";
@@ -47,7 +48,7 @@ export const WidgetHeadlineTitle = ({
         flexDirection="row"
         gap="4px"
         alignItems="center"
-        height={19}
+        height={16}
         className="title-stack"
       >
         <Tooltip
@@ -65,7 +66,8 @@ export const WidgetHeadlineTitle = ({
             alignItems="center"
             onClick={onLabelClick}
             sx={{
-              color: (theme) => theme.palette.vars.baseTextDefault,
+              color: (theme) =>
+                theme.palette.vars.interactiveSecondaryDefaultDefault,
               ...(onLabelClick && {
                 "&:hover": {
                   cursor: "pointer",
@@ -98,7 +100,9 @@ export const WidgetHeadlineTitle = ({
               <InfoCircleOutline
                 sx={{
                   color: theme.palette.vars.baseTextDefault,
-                  "&:hover": { color: "white" },
+                  "&:hover": {
+                    color: theme.palette.vars.interactiveSecondaryDefaultHover,
+                  },
                   width: "16px",
                   height: "16px",
                 }}
@@ -108,7 +112,7 @@ export const WidgetHeadlineTitle = ({
         )}
       </Stack>
       {headerChildren && (
-        <Stack height={19} flexDirection="row" alignItems="center" width="100%">
+        <Stack height={16} flexDirection="row" alignItems="center" width="100%">
           {headerChildren}
         </Stack>
       )}

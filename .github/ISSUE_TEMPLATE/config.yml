@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/outshift-open/open-ui-kit/discussions
     about: Ask questions and discuss ideas with the community
   - name: 📖 Documentation
-    url: https://main--68cc22452afe30d90e4ca977.chromatic.com
+    url: https://open-ui-kit.outshift.ai
     about: View our Storybook documentation and component examples
   - name: 🆘 Support
     url: https://github.com/outshift-open/open-ui-kit/discussions/categories/q-a

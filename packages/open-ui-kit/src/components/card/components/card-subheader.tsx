@@ -4,24 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, TypographyProps, useTheme } from "@mui/material";
+import type { CardSubheaderProps } from "../types";
+import { StyledCardSubheader } from "./elements";
 
-interface CardSubheaderProps extends TypographyProps {
-  children: React.ReactNode;
-}
-
-const CardSubheader = ({ children, ...props }: CardSubheaderProps) => {
-  const theme = useTheme();
-  return (
-    <Typography
-      variant="captionMedium"
-      component="div"
-      sx={{ color: theme.palette.vars?.baseTextMedium }}
-      {...props}
-    >
-      {children}
-    </Typography>
-  );
-};
+const CardSubheader = ({ children, ...props }: CardSubheaderProps) => (
+  <StyledCardSubheader variant="captionMedium" component="div" {...props}>
+    {children}
+  </StyledCardSubheader>
+);
 
 export default CardSubheader;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { Menu } from "@mui/material";
-export type { MenuProps } from "@mui/material";
+export { Menu } from "./components/menu";
 export { MenuItem } from "./components/menu-item";
-export type { MenuItemProps } from "./components/menu-item";
+export { StyledMenuSubheader as MenuSubheader } from "./components/elements";
+export type { MenuItemProps, MenuItemSize, MenuProps } from "./types";

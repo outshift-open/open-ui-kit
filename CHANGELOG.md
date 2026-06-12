@@ -1,3 +1,119 @@
+# [2.0.0-beta.10](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-06-12)
+
+
+### Bug Fixes
+
+* harden docs markdown parsing ([3931a9d](https://github.com/outshift-open/open-ui-kit/commit/3931a9d6ed4d2c699967bdc17756770b3b627e06))
+
+# [2.0.0-beta.9](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2026-06-12)
+
+
+### Bug Fixes
+
+* align picker slot prop typing ([7110b4c](https://github.com/outshift-open/open-ui-kit/commit/7110b4ca4fc270f15f8a4242dc880e9f5f67f808))
+
+# [2.0.0-beta.8](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-06-12)
+
+
+### Bug Fixes
+
+* avoid regex title parsing in docs ([1db9357](https://github.com/outshift-open/open-ui-kit/commit/1db93571593ebf235df79a85e3905248cd671d01))
+
+# [2.0.0-beta.7](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-06-12)
+
+
+### Bug Fixes
+
+* resolve dependency alerts ([84789ad](https://github.com/outshift-open/open-ui-kit/commit/84789adfa1f2f6d7893421127b6b4977d372964c))
+
+# [2.0.0-beta.6](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* align docs and public exports ([d32ba8d](https://github.com/outshift-open/open-ui-kit/commit/d32ba8d79a69ef920bd251ebaf579af0c3f5ca53))
+
+# [2.0.0-beta.5](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-06-11)
+
+
+### Bug Fixes
+
+* refactor ([feab8e4](https://github.com/outshift-open/open-ui-kit/commit/feab8e42dc990c582881ebb4b3c18e5423889a61))
+
+# [2.0.0-beta.4](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2026-06-11)
+
+
+### Bug Fixes
+
+* refactor ([bf4f738](https://github.com/outshift-open/open-ui-kit/commit/bf4f7386d4098031892869776cd21b25cc094d46))
+* repair core package imports ([37d5da5](https://github.com/outshift-open/open-ui-kit/commit/37d5da57423ac23b3d0cb03adc28f8c6833c781f))
+
+# [2.0.0-beta.3](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-06-11)
+
+
+### Bug Fixes
+
+* normalize illustration export casing ([98c1a5a](https://github.com/outshift-open/open-ui-kit/commit/98c1a5a236acecf6310212193c00e6dac09e4c86))
+* refactor ([f3e5291](https://github.com/outshift-open/open-ui-kit/commit/f3e529148504774e14c16117e8fdd1c948bf2575))
+
+
+### Features
+
+* start refactor ([535a7a7](https://github.com/outshift-open/open-ui-kit/commit/535a7a7c244c59e84b43ecb19fb37f0b339e4ce2))
+* start refactor ([fee6b0a](https://github.com/outshift-open/open-ui-kit/commit/fee6b0af17f289fedd0dcb0808e49e9d67b31d39))
+
+# [2.0.0-beta.2](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-06-09)
+
+
+### Bug Fixes
+
+* use workspace package in playground ([b56ac91](https://github.com/outshift-open/open-ui-kit/commit/b56ac919ead637c1e17cd1d880a440244b839fc4))
+* use workspace package in playground ([431167a](https://github.com/outshift-open/open-ui-kit/commit/431167ac58edf5f946c75d5d6823c1838fdf7a20))
+
+
+### Features
+
+* start refactor ([b9d6f86](https://github.com/outshift-open/open-ui-kit/commit/b9d6f867dc9e947e66baaf59e5bfaa4a38fcbe70))
+* start refactor ([f8cf035](https://github.com/outshift-open/open-ui-kit/commit/f8cf0354bad837de55322847d55365930b48244e))
+* start refactor ([c6e511f](https://github.com/outshift-open/open-ui-kit/commit/c6e511f5ac9192e35ba8642bcd18bcc50427257a))
+
+# [2.0.0-beta.1](https://github.com/outshift-open/open-ui-kit/compare/v1.6.0...v2.0.0-beta.1) (2026-06-08)
+
+
+* feat!: prepare 2.0.0 beta release ([bae9c69](https://github.com/outshift-open/open-ui-kit/commit/bae9c696d0e5a9d7559ff0035f7685cea27a005d))
+
+
+### Bug Fixes
+
+* allow beta docs deploy ([33358eb](https://github.com/outshift-open/open-ui-kit/commit/33358ebb7ea432ef05af41104e0e5b757bfd8956))
+* avoid parsing css vars in avatar overlay ([04a05e4](https://github.com/outshift-open/open-ui-kit/commit/04a05e4410b360c8b6ed586f4c04ceb89e83e0c2))
+* avoid unsupported button selectors ([0577c16](https://github.com/outshift-open/open-ui-kit/commit/0577c160072628aaf63ae4280a9e8dab9ed47e82))
+* deploy docs only from main ([2bd9328](https://github.com/outshift-open/open-ui-kit/commit/2bd9328732cf0fb48a73c804ab87ecba385ea8ac))
+* normalize custom icon filenames ([dbfb37c](https://github.com/outshift-open/open-ui-kit/commit/dbfb37c4fe2669a90586c25683902286a1741d08))
+* normalize custom illustration imports ([56e1269](https://github.com/outshift-open/open-ui-kit/commit/56e1269cba82510fbfb499e1c9c95b9efddf4cbc))
+* release package root ([074b5c1](https://github.com/outshift-open/open-ui-kit/commit/074b5c1c250085c26de325f1ef7128d4df7943f3))
+* remove docs analytics prompt ([ade6c26](https://github.com/outshift-open/open-ui-kit/commit/ade6c26bdb7854f4c8bac4eca747246554b011c2))
+
+
+### Features
+
+* start refactor ([1e50f94](https://github.com/outshift-open/open-ui-kit/commit/1e50f94b993266a6ab2e6d1cc0af1a6c7129a0a8))
+* start refactor ([3fd517c](https://github.com/outshift-open/open-ui-kit/commit/3fd517c8afa01c7b18761ddf829c2d3d20cdd977))
+* start refactor ([81cf7eb](https://github.com/outshift-open/open-ui-kit/commit/81cf7ebd8c941eb2bd6674d62f2ea9a36f507ff4))
+* start refactor ([4a33d13](https://github.com/outshift-open/open-ui-kit/commit/4a33d1351637652ca5b87f2feedc57d8e6cc9083))
+* start refactor ([c4d8131](https://github.com/outshift-open/open-ui-kit/commit/c4d813125fbea8e48f611a8d71893cd537003e95))
+* start refactor ([cce0626](https://github.com/outshift-open/open-ui-kit/commit/cce06260a5b1c9327dd05e93625a23f68af514ee))
+* start refactor ([4bc6639](https://github.com/outshift-open/open-ui-kit/commit/4bc6639adabca98ca2c55aa98a69ec5d557ddb1a))
+* start refactor ([9bf2c9f](https://github.com/outshift-open/open-ui-kit/commit/9bf2c9f1df49efaff5b18523d40778769813ca1e))
+* start refactor ([186130b](https://github.com/outshift-open/open-ui-kit/commit/186130b8a53420174d68116bdc6c79cfbb6ede0d))
+* start refactor ([73306b7](https://github.com/outshift-open/open-ui-kit/commit/73306b77e582c0faf88834b8644de376144045c6))
+* start refactor ([eac4009](https://github.com/outshift-open/open-ui-kit/commit/eac4009ef60f4bb9fec4d8e3202862da9102fb77))
+
+
+### BREAKING CHANGES
+
+* Start the 2.0.0 beta release line.
+
 # [1.6.0](https://github.com/outshift-open/open-ui-kit/compare/v1.5.0...v1.6.0) (2026-04-28)
 
 
@@ -181,7 +297,7 @@ This changelog is automatically generated by [semantic-release](https://github.c
 - Interactive Storybook documentation
 - Data visualization components
 - Responsive design system
-- Material-UI v5 foundation
+- Material UI foundation
 
 ---
 

@@ -13,8 +13,16 @@ import {
   surfaceDark800,
   surfaceDark900,
   surfaceDarkPalette,
-} from "../color-palette";
-import { typography, breakpoints, commonMixins } from "../common";
+  darkModeCardFloating,
+  darkModeCardLifted,
+  darkModeCardRaised,
+  darkModeCardSubtle,
+  darkModeFooterBottom,
+  darkModeSideDrawerLeft,
+  darkModeSideDrawerRight,
+} from "@/theme/style/color-palette";
+import { breakpoints, commonMixins } from "@/theme/style/common";
+import { typography } from "@/theme/style/typography";
 import {
   createTheme,
   PaletteOptions,
@@ -24,37 +32,21 @@ import {
 } from "@mui/material";
 import { darkVars } from "./dark-vars";
 import {
-  appBarComponent,
-  accordionComponent,
-  avatarComponent,
-  avatarGroupComponent,
   buttonComponent,
-  cardComponent,
-  checkboxComponent,
-  circularProgressComponent,
-  dialogComponent,
-  dividerComponent,
   inputComponents,
-  listComponent,
-  menuComponent,
-  popoverComponent,
-  radioComponent,
-  skeletonComponent,
   snackbarComponent,
-  switchComponent,
-  tabComponent,
-  tabsComponent,
-  tooltipComponent,
-} from "../mui";
+} from "@/theme/mui";
 
 export const shadows: Shadows = [
   `none`,
-  `0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)`,
-  `0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)`,
-  `0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)`,
-  `0px 2px 3px 0px rgba(0, 0, 0, 0.30), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)`,
-  `0px 4px 4px 0px rgba(0, 0, 0, 0.30), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)`,
-  ...Array(20).fill("none"),
+  darkModeCardLifted,
+  darkModeCardSubtle,
+  darkModeCardRaised,
+  darkModeCardFloating,
+  darkModeSideDrawerRight,
+  darkModeSideDrawerLeft,
+  darkModeFooterBottom,
+  ...Array(17).fill("none"),
 ] as Shadows;
 
 const palette: PaletteOptions = {
@@ -74,9 +66,9 @@ const palette: PaletteOptions = {
   grey: greyPalette,
   vars: darkVars,
   text: {
-    primary: "rgba(255, 255, 255, 0.87)",
-    secondary: "#849FC8",
-    disabled: "rgba(255, 255, 255, 0.45)",
+    primary: darkVars.baseTextStrong,
+    secondary: darkVars.baseTextDefault,
+    disabled: darkVars.baseTextDisabled,
   },
   background: {
     paper: surfaceDark800,
@@ -99,28 +91,9 @@ const theme: Theme = createTheme({
 const darkThemeOptions: ThemeOptions = {
   shadows,
   components: {
-    ...appBarComponent(theme),
-    ...accordionComponent(theme),
-    ...avatarComponent(theme),
-    ...avatarGroupComponent(theme),
     ...buttonComponent(theme),
-    ...cardComponent(theme),
-    ...checkboxComponent(theme),
-    ...circularProgressComponent(theme),
-    ...dialogComponent(theme),
-    ...dividerComponent(theme),
     ...inputComponents(theme),
-    ...listComponent(theme),
-    ...menuComponent(theme),
-    ...popoverComponent(theme),
-    ...radioComponent(theme),
-    ...skeletonComponent(theme),
     ...snackbarComponent(theme),
-    ...switchComponent(theme),
-    ...tabComponent(theme),
-    ...tabsComponent(theme),
-    ...tooltipComponent(theme),
-
     MuiCssBaseline: {
       styleOverrides: {
         html: {

@@ -1,11 +1,18 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Divider, useTheme } from "@mui/material";
-import { BarGraph } from "./bar-graph";
-import { Stack, Typography } from "@mui/material";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
+import { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps, ReactNode } from "react";
+import { useTheme } from "@mui/material/styles";
+import { Stack, Typography } from "@/components";
+import { BarGraph, type BarProps } from "./bar-graph";
 import { AWSServicesCloudWatch } from "@/custom-icons";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
-import { PropsWithChildren } from "react";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import type { BarGraphItem } from "../common/types";
 
 /**
  *  ### Bar graph express quantities using stacked bars.
@@ -14,169 +21,228 @@ const meta: Meta<typeof BarGraph> = {
   title: "Charts/Bar Graph",
   component: BarGraph,
   tags: ["autodocs"],
+  argTypes: {
+    data: {
+      control: "object",
+      description: "Rows with a label value and keyed stacked bar values.",
+    },
+    bars: {
+      control: "object",
+      description: "Stacked segment keys and theme-token colors.",
+    },
+    headers: {
+      control: "object",
+      description: "Two column labels for the row label and stacked bars.",
+    },
+    showLegend: {
+      control: "boolean",
+      description: "Shows the legend row below the graph.",
+    },
+    showTooltip: {
+      control: "boolean",
+      description: "Shows the default stacked-bar tooltip.",
+    },
+    customTooltip: {
+      control: false,
+      description: "Optional Recharts tooltip renderer.",
+    },
+    handleClick: {
+      control: false,
+      description: "Called when the Recharts graph is selected.",
+    },
+  },
+  parameters: {
+    docs: {
+      page: () => (
+        <DocsHeader
+          title="Bar Graph"
+          blurb="BarGraph displays stacked horizontal bars for comparing multiple categories across items. Pass bars to define each category key and color."
+          guideLink="#"
+          importLine='import { BarGraph } from "@open-ui-kit/core";'
+        />
+      ),
+    },
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof BarGraph>;
 
-const green500 = "#00b98d";
-const red500 = "#f2643d";
-const bordeaux700 = "#b91f42";
-const orange500 = "#ffaf45";
-const graphs2_200 = "#EE8B97";
-const graphs2_300 = "#E96A8D";
-const graphs2_400 = "#DB5087";
+const headers = ["Services", "Health Breakdown"];
 
-const barGraphData = {
-  headers: ["Services", "Health Breakdown"],
-  bars: [
-    { key: "PCI", color: graphs2_200 },
-    { key: "PII", color: graphs2_300 },
-    { key: "PHI", color: graphs2_400 },
-  ],
-  data: [
-    {
-      value: "us-east1",
-      barData: {
-        PCI: 15,
-        PII: 10,
-        PHI: 10,
-      },
-    },
-    {
-      value: "us-east2",
-      barData: {
-        PCI: 10,
-        PII: 10,
-        PHI: 10,
-      },
-    },
-    {
-      value: "europe-west1",
-      barData: {
-        PCI: 7,
-        PII: 5,
-        PHI: 10,
-      },
-    },
-    {
-      value: "europe-west3",
-      barData: {
-        PCI: 7,
-        PII: 5,
-        PHI: 10,
-      },
-    },
-    {
-      value: "eu-north-1",
-      barData: {
-        PCI: 4,
-        PII: 3,
-        PHI: 10,
-      },
-    },
-    {
-      value: "eu-north-3",
-      barData: {
-        PCI: 4,
-        PII: 3,
-        PHI: 10,
-      },
-    },
-  ],
+const useRiskBars = (): BarProps[] => {
+  const theme = useTheme();
+
+  return [
+    { key: "Critical", color: theme.palette.vars.negativeBackgroundDefault },
+    { key: "Warning", color: theme.palette.vars.warningBackgroundDefault },
+    { key: "Healthy", color: theme.palette.vars.successBackgroundDefault },
+  ];
 };
 
-const customLabelComponent = (
-  <Stack direction={"row"} alignItems={"center"} gap={"2px"}>
-    <AWSServicesCloudWatch />
+const data: BarGraphItem[] = [
+  {
+    value: "us-east-1",
+    barData: {
+      Critical: 4,
+      Warning: 14,
+      Healthy: 7,
+    },
+  },
+  {
+    value: "us-east-2",
+    barData: {
+      Critical: 2,
+      Warning: 12,
+      Healthy: 9,
+    },
+  },
+  {
+    value: "eu-west-1",
+    barData: {
+      Critical: 1,
+      Warning: 8,
+      Healthy: 13,
+    },
+  },
+  {
+    value: "eu-north-1",
+    barData: {
+      Critical: 0,
+      Warning: 6,
+      Healthy: 14,
+    },
+  },
+];
+
+const customLabel = (
+  <Stack direction="row" alignItems="center" gap="4px">
+    <AWSServicesCloudWatch aria-hidden sx={{ fontSize: 20 }} />
     <Typography component="div" maxWidth={120} variant="button">
-      <OverflowTooltip someLongText="AWS CloudWatch" value="AWS CloudWatch" />
+      <OverflowTooltip value="AWS CloudWatch">AWS CloudWatch</OverflowTooltip>
     </Typography>
   </Stack>
 );
 
-const barGraphDataWithCustomLabel = {
-  headers: ["Services", "Health Breakdown"],
-  bars: [
-    { key: "Critical", color: bordeaux700 },
-    { key: "High", color: red500 },
-    { key: "Medium", color: orange500 },
-    { key: "Low", color: green500 },
-  ],
-  data: [
-    {
-      value: customLabelComponent,
-      barData: {
-        Critical: 15,
-        High: 10,
-        Medium: 10,
-        Low: 10,
-      },
+const dataWithCustomLabels: BarGraphItem[] = [
+  {
+    value: customLabel,
+    barData: {
+      Critical: 4,
+      Warning: 14,
+      Healthy: 7,
     },
-    {
-      value: customLabelComponent,
-      barData: {
-        Critical: 10,
-        High: 10,
-        Medium: 10,
-        Low: 10,
-      },
+  },
+  {
+    value: customLabel,
+    barData: {
+      Critical: 2,
+      Warning: 12,
+      Healthy: 9,
     },
-    {
-      value: customLabelComponent,
-      barData: {
-        Critical: 7,
-        High: 5,
-        Medium: 10,
-        Low: 10,
-      },
+  },
+  {
+    value: customLabel,
+    barData: {
+      Critical: 0,
+      Warning: 7,
+      Healthy: 15,
     },
-  ],
-};
+  },
+];
 
-const BarGraphContainer = ({ children }: PropsWithChildren) => {
-  const theme = useTheme();
+const BarGraphFrame = ({
+  children,
+  title,
+}: {
+  children: ReactNode;
+  title: string;
+}) => (
+  <Stack width="360px">
+    <Typography variant="button" mb="8px">
+      {title}
+    </Typography>
+    <Stack height="384px" width="360px">
+      {children}
+    </Stack>
+  </Stack>
+);
+
+const ThemedBarGraph = ({
+  customLabels = false,
+  showLegend = true,
+  showTooltip = true,
+}: {
+  customLabels?: boolean;
+  showLegend?: boolean;
+  showTooltip?: boolean;
+}) => {
+  const bars = useRiskBars();
 
   return (
-    <Box sx={{ display: "flex", gap: "10px" }}>
-      <Box
-        sx={{
-          padding: "0 10px",
-          background: theme.palette.vars.baseBackgroundMedium,
-          borderRadius: "8px",
-        }}
-      >
-        <Typography>Bar Graph</Typography>
-        <Divider />
-        <Box sx={{ height: "400px", width: "328px" }} padding={"8px"}>
-          {children}
-        </Box>
-      </Box>
-    </Box>
+    <BarGraph
+      bars={bars}
+      data={customLabels ? dataWithCustomLabels : data}
+      headers={headers}
+      showLegend={showLegend}
+      showTooltip={showTooltip}
+    />
   );
 };
 
-export const Basic: Story = {
-  render: () => (
-    <BarGraphContainer>
+const DefaultExample = (args: Partial<ComponentProps<typeof BarGraph>>) => {
+  const bars = useRiskBars();
+
+  return (
+    <BarGraphFrame title="Bar Graph">
       <BarGraph
-        bars={barGraphData.bars}
-        data={barGraphData.data}
-        headers={barGraphData.headers}
+        {...args}
+        bars={args.bars ?? bars}
+        data={args.data ?? data}
+        headers={args.headers ?? headers}
       />
-    </BarGraphContainer>
-  ),
+    </BarGraphFrame>
+  );
+};
+
+export const Default: Story = {
+  args: {
+    showLegend: true,
+    showTooltip: true,
+  },
+  render: (args) => <DefaultExample {...args} />,
 };
 
 export const WithCustomLabels: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
   render: () => (
-    <BarGraphContainer>
-      <BarGraph
-        bars={barGraphDataWithCustomLabel.bars}
-        data={barGraphDataWithCustomLabel.data}
-        headers={barGraphDataWithCustomLabel.headers}
-      />
-    </BarGraphContainer>
+    <BarGraphFrame title="Custom Labels">
+      <ThemedBarGraph customLabels />
+    </BarGraphFrame>
+  ),
+};
+
+export const WithoutLegend: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <BarGraphFrame title="Without Legend">
+      <ThemedBarGraph showLegend={false} />
+    </BarGraphFrame>
+  ),
+};
+
+export const WithoutTooltip: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <BarGraphFrame title="Without Tooltip">
+      <ThemedBarGraph showTooltip={false} />
+    </BarGraphFrame>
   ),
 };

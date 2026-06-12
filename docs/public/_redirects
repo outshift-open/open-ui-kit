@@ -1,0 +1,5 @@
+# Open UI Kit docs redirects
+
+/docs/* /open-ui-kit-core/:splat 302
+/components/* /open-ui-kit-core/react-:splat 302
+/getting-started/* /open-ui-kit-core/getting-started/:splat 302

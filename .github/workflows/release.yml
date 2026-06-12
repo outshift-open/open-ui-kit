@@ -1,36 +1,52 @@
 name: Release
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
       - beta
 
 permissions:
-  packages: write
   contents: write
   issues: write
   pull-requests: write
   id-token: write
-  actions: write
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: 20
+          cache: yarn
+
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
+
       - name: Build package
         run: yarn lib:build
+
+      - name: Prepare release package
+        run: node scripts/prepare-release-package.cjs
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
@@ -40,4 +56,4 @@ jobs:
           GIT_AUTHOR_EMAIL: semantic-release-bot@users.noreply.github.com
           GIT_COMMITTER_NAME: semantic-release-bot
           GIT_COMMITTER_EMAIL: semantic-release-bot@users.noreply.github.com
-        run: npx semantic-release@21.0.2
+        run: yarn semantic-release

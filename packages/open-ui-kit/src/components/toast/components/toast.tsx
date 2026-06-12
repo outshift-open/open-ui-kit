@@ -5,35 +5,22 @@
  */
 
 import { toast as sonnerToast } from "sonner";
-import { ToastType } from "../types";
+import type { ToastProps } from "../types";
 import { IconToast, StyledToast } from "./elements";
-import { AlertProps, Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
+import { Button } from "@/components/button";
 import React from "react";
-
-export interface ToastProps
-  extends Omit<
-    AlertProps,
-    | "variant"
-    | "severity"
-    | "children"
-    | "iconMapping"
-    | "action"
-    | "id"
-    | "icon"
-  > {
-  id: string;
-  type?: ToastType;
-  title: string;
-  description?: string;
-  showCloseButton?: boolean;
-  useNativeClose?: boolean;
-  action?: {
-    label: string;
-    onClick: () => void;
-  };
-  customActions?: React.ReactNode;
-}
+import {
+  toastActionButtonStyle,
+  toastCloseButtonStyle,
+  toastCloseIconStyle,
+  toastContentStyle,
+  toastDescriptionStyle,
+  toastInnerStyle,
+  toastTitleStyle,
+  toastTopRowStyle,
+} from "../styles";
 
 export const Toast = ({
   type = "default",
@@ -52,69 +39,57 @@ export const Toast = ({
     return null;
   }
 
+  const closeButton = showCloseButton ? (
+    <IconButton
+      sx={toastCloseButtonStyle}
+      onClick={() =>
+        useNativeClose ? setShow(false) : sonnerToast.dismiss(id)
+      }
+      aria-label="Close toast"
+    >
+      <CloseOutlined sx={toastCloseIconStyle} />
+    </IconButton>
+  ) : null;
+
   return (
     <StyledToast
       {...props}
       id={id}
       type={type}
-      action={
-        showCloseButton && (
-          <IconButton
-            sx={{ width: "24px", height: "24px" }}
-            onClick={() =>
-              useNativeClose ? setShow(false) : sonnerToast.dismiss(id)
-            }
-            aria-label="close"
-          >
-            <CloseOutlined
-              sx={(theme) => ({
-                color: theme.palette.vars.controlIconDefault,
-                width: "18px",
-                height: "18px",
-              })}
-            />
-          </IconButton>
-        )
-      }
+      hasTitle={Boolean(title)}
+      hasAction={Boolean(action)}
       icon={<IconToast type={type} />}
     >
-      <Box
-        flexDirection="column"
-        gap="8px"
-        display="flex"
-        justifyContent="start"
-      >
-        {title && (
-          <Typography
-            variant="subtitle1"
-            sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
-          >
-            {title}
-          </Typography>
-        )}
-        <Typography
-          variant="body2"
-          sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
-        >
-          {description}
-        </Typography>
+      <Box sx={toastInnerStyle}>
+        <Box sx={toastContentStyle}>
+          <Box sx={toastTopRowStyle}>
+            {title ? (
+              <Typography variant="subtitle1" sx={toastTitleStyle}>
+                {title}
+              </Typography>
+            ) : (
+              description && (
+                <Typography variant="body2" sx={toastDescriptionStyle}>
+                  {description}
+                </Typography>
+              )
+            )}
+            {closeButton}
+          </Box>
+          {title && description && (
+            <Typography variant="body2" sx={toastDescriptionStyle}>
+              {description}
+            </Typography>
+          )}
+        </Box>
         {action && (
           <Button
-            onClick={action.onClick}
             variant="tertariary"
-            sx={{
-              padding: 0,
-              minWidth: "1px",
-              width: "fit-content",
-              "&.MuiButton-sizeSmall": {
-                padding: 0,
-              },
-            }}
             size="small"
+            onClick={action.onClick}
+            sx={toastActionButtonStyle}
           >
-            <Typography fontSize={"14px"} fontWeight={600}>
-              {action.label}
-            </Typography>
+            {action.label}
           </Button>
         )}
         {customActions && !action && <>{customActions}</>}

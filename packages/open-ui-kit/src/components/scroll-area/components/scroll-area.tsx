@@ -4,27 +4,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box } from "@mui/material";
 import * as React from "react";
 import { ScrollAreaRoot, ScrollAreaViewport } from "./elements";
+import type { ScrollAreaProps } from "../types";
 
-const ScrollArea = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof Box>
->(({ className, children, ...props }, ref) => (
-  <ScrollAreaRoot
-    ref={ref}
-    data-slot="scroll-area"
-    className={className}
-    {...props}
-  >
-    <ScrollAreaViewport data-slot="scroll-area-viewport">
-      {children}
-    </ScrollAreaViewport>
-  </ScrollAreaRoot>
-)) as React.ForwardRefExoticComponent<
-  React.ComponentProps<typeof Box> & React.RefAttributes<HTMLDivElement>
->;
+const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
+  ({ children, ...props }, ref) => (
+    <ScrollAreaRoot ref={ref} {...props} data-slot="scroll-area">
+      <ScrollAreaViewport data-slot="scroll-area-viewport" tabIndex={0}>
+        {children}
+      </ScrollAreaViewport>
+    </ScrollAreaRoot>
+  ),
+);
 ScrollArea.displayName = "ScrollArea";
 
 export { ScrollArea };

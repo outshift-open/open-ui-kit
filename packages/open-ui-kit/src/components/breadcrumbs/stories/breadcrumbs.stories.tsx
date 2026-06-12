@@ -1,69 +1,74 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { BrowserRouter } from "react-router-dom";
-import { Box } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { Breadcrumbs } from "../components/breadcrumbs";
-import { IconPosition } from "@/common";
+import { Stack } from "@/components";
+import { GeneralSize, IconPosition } from "@/common";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Breadcrumbs } from "../components/breadcrumbs";
 
-const simpleItems = [
-  { text: "this", link: "fake-route/this" },
-  { text: "is", link: "fake-route/this/is" },
-  { text: "a-route", link: "fake-route/this/is/a-route" },
-];
+const page = (level: number) => ({
+  text: `Level ${level} Page`,
+  link: `/level-${level}`,
+});
 
-const tooManyItems = [
-  { text: "Level 1", link: "fake-route/level1" },
-  { text: "Level 2", link: "fake-route/level1/level2" },
-  { text: "Level 3", link: "fake-route/level1/level2/level3" },
-  { text: "Level 4", link: "fake-route/level1/level2/level3/level4" },
-  { text: "Level 5", link: "fake-route/level1/level2/level3/level4/level5" },
-];
-
-const iconItems = [
+const level1Items = [
   {
-    text: "this",
-    link: "fake-route/this",
-    Icon: GridViewIcon,
-    iconPosition: IconPosition.NoIcon,
-  },
-  {
-    text: "is",
-    link: "fake-route/this/is",
-    Icon: GridViewIcon,
+    ...page(1),
+    Icon: ArrowBackIcon,
     iconPosition: IconPosition.LeftIcon,
   },
-  {
-    text: "a-route",
-    link: "fake-route/this/is/a-route",
-    Icon: GridViewIcon,
-    iconPosition: IconPosition.RightIcon,
-  },
 ];
+const level2Items = [page(1), page(2)];
+const level3Items = [page(1), page(2), page(3)];
+const level5Items = [page(1), page(2), page(3), page(4), page(5)];
 
-/**
- * ### Indicate the current page’s location within a navigational hierarchy.
+const withIconItems = level5Items.map((item) => ({
+  ...item,
+  Icon: GridViewIcon,
+  iconPosition: IconPosition.LeftIcon,
+}));
 
-Breadcrumbs consist of a list of links that help a user visualize a page's location within the hierarchical structure of a website,
-and allow navigation up to any of its "ancestors".
- */
 const meta: Meta<typeof Breadcrumbs> = {
   title: "Components/Breadcrumbs",
   component: Breadcrumbs,
-  argTypes: {
-    items: {
-      description: "Array of route pieces to display in the breadcrumbs",
-    },
-  },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Breadcrumbs are used to indicate the current page's location within a navigational hierarchy. They consist of a list of links that help users visualize a page's location within the hierarchical structure of a website, and allow navigation up to any of its 'ancestors'."
+          blurb="Breadcrumbs indicate the current page's location within a navigational hierarchy and allow navigation up to any ancestor."
+          guideLink=""
+          includeStories={true}
           importLine='import { Breadcrumbs } from "@open-ui-kit/core";'
+          title="Breadcrumb"
         />
       ),
+    },
+  },
+  args: {
+    items: level3Items,
+    maximumNumberOfVisibleBreadcrumbs: 4,
+  },
+  argTypes: {
+    items: {
+      table: { disable: true },
+    },
+    separator: {
+      table: { disable: true },
+    },
+    slotProps: {
+      table: { disable: true },
+    },
+    sx: {
+      table: { disable: true },
     },
   },
 };
@@ -72,36 +77,54 @@ export default meta;
 
 type Story = StoryObj<typeof Breadcrumbs>;
 
-export const BasicBreadcrumbs: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Breadcrumbs items={simpleItems} />
-    </BrowserRouter>
-  ),
+export const Default: Story = {};
+
+export const SinglePage: Story = {
+  args: {
+    items: level1Items,
+  },
 };
 
-export const BreadcrumbsWithMoreThan4Level: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Breadcrumbs items={tooManyItems} />
-    </BrowserRouter>
-  ),
+export const TwoPages: Story = {
+  args: {
+    items: level2Items,
+  },
 };
 
-export const BreadcrumbsTooLong: Story = {
-  render: () => (
-    <BrowserRouter>
-      <Box sx={{ width: "200px" }}>
-        <Breadcrumbs items={tooManyItems} />
-      </Box>
-    </BrowserRouter>
-  ),
+export const FivePages: Story = {
+  args: {
+    items: level5Items,
+    maximumNumberOfVisibleBreadcrumbs: 6,
+  },
 };
 
-export const BreadcrumbsWithIcons: Story = {
+export const Collapsed: Story = {
+  args: {
+    items: level5Items,
+    maximumNumberOfVisibleBreadcrumbs: 2,
+  },
+};
+
+export const WithLeftIcons: Story = {
+  args: {
+    items: withIconItems,
+    maximumNumberOfVisibleBreadcrumbs: 6,
+  },
+};
+
+export const CollapsedWithIcons: Story = {
+  args: {
+    items: withIconItems,
+    maximumNumberOfVisibleBreadcrumbs: 2,
+  },
+};
+
+export const Sizes: Story = {
   render: () => (
-    <BrowserRouter>
-      <Breadcrumbs items={iconItems} />
-    </BrowserRouter>
+    <Stack direction="column" spacing={2}>
+      <Breadcrumbs items={level3Items} size={GeneralSize.Small} />
+      <Breadcrumbs items={level3Items} size={GeneralSize.Medium} />
+      <Breadcrumbs items={level3Items} size={GeneralSize.Large} />
+    </Stack>
   ),
 };

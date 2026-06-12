@@ -11,25 +11,20 @@ import {
   Typography,
   useTheme,
   Popover,
-  PopoverProps,
-  TextField,
-  TextFieldProps,
   Stack,
 } from "@mui/material";
-import { Event, ChevronLeft, ChevronRight } from "@mui/icons-material";
+import {
+  Calendar,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from "@/custom-icons";
+import { Button } from "@/components/button";
+import { InputField } from "@/components/input-field";
 import { getDateRangePickerStyles } from "../styles";
+import type { DateRangePickerProps } from "../types";
+import type { PopoverProps } from "@mui/material";
 
 const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];
-
-export interface DateRangePickerProps {
-  startDate: string;
-  endDate: string;
-  setStartDate: (endDate: string) => void;
-  setEndDate: (endDate: string) => void;
-  getPopoverVisibility?: (visibility: boolean) => void;
-  textFieldProps?: TextFieldProps;
-  popoverProps?: PopoverProps;
-}
 
 export const DateRangePicker = ({
   startDate,
@@ -38,14 +33,22 @@ export const DateRangePicker = ({
   setEndDate,
   getPopoverVisibility,
   popoverProps,
-  textFieldProps,
+  inputFieldProps,
 }: DateRangePickerProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(() =>
+    startDate ? new Date(startDate) : new Date(),
+  );
 
   const theme = useTheme();
+  const s = getDateRangePickerStyles(theme);
 
   const open = Boolean(anchorEl);
+
+  const closePopover = () => {
+    setAnchorEl(null);
+    getPopoverVisibility?.(false);
+  };
 
   const handleDayClick = (day: string) => {
     if (!startDate || (startDate && endDate)) {
@@ -54,10 +57,10 @@ export const DateRangePicker = ({
     } else if (new Date(day) < new Date(startDate)) {
       setEndDate(startDate);
       setStartDate(day);
-      handlePopoverClose();
+      closePopover();
     } else {
       setEndDate(day);
-      handlePopoverClose();
+      closePopover();
     }
   };
 
@@ -72,10 +75,7 @@ export const DateRangePicker = ({
 
     WEEK_DAYS.forEach((weekDay, index) => {
       daysArray.push(
-        <Box
-          key={`weekDay-${index}`}
-          sx={getDateRangePickerStyles(theme).weekDayStyle}
-        >
+        <Box key={`weekDay-${index}`} sx={s.weekDayStyle}>
           <Typography
             variant={"body2"}
             sx={{ color: theme.palette.vars.baseTextDefault }}
@@ -87,34 +87,26 @@ export const DateRangePicker = ({
     });
 
     Array.from({ length: firstDayOfMonth }).forEach((_, i) => {
-      daysArray.push(
-        <Box
-          key={`empty-${i}`}
-          sx={getDateRangePickerStyles(theme).emptyDay}
-        />,
-      );
+      daysArray.push(<Box key={`empty-${i}`} sx={s.emptyDay} />);
     });
 
     Array.from({ length: daysInMonth }).map((_, i) => {
       const day = new Date(year, month, i + 1);
       const dayString = day.toLocaleDateString("en-US");
 
-      let dayStyleBox = getDateRangePickerStyles(theme).dayStyle;
-      let dayContainerStyleBox =
-        getDateRangePickerStyles(theme).dayContainerStyle;
+      let dayStyleBox = s.dayStyle;
+      let dayContainerStyleBox = s.dayContainerStyle;
 
       if (startDate === dayString || endDate === dayString) {
-        dayStyleBox = getDateRangePickerStyles(theme).selectedDayStyle;
-        dayContainerStyleBox =
-          getDateRangePickerStyles(theme).insideSelectedRangeDayContainerStyle;
+        dayStyleBox = s.selectedDayStyle;
+        dayContainerStyleBox = s.insideSelectedRangeDayContainerStyle;
       } else if (
         startDate &&
         endDate &&
         new Date(day) > new Date(startDate) &&
         new Date(day) < new Date(endDate)
       ) {
-        dayContainerStyleBox =
-          getDateRangePickerStyles(theme).insideSelectedRangeDayContainerStyle;
+        dayContainerStyleBox = s.insideSelectedRangeDayContainerStyle;
       }
 
       daysArray.push(
@@ -136,7 +128,12 @@ export const DateRangePicker = ({
     });
 
     return (
-      <Box display="flex" flexWrap="wrap" justifyContent="flex-start">
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        sx={{ width: "293px" }}
+      >
         {daysArray}
       </Box>
     );
@@ -152,60 +149,74 @@ export const DateRangePicker = ({
     }
   };
 
-  const handleTextFieldClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleInputFieldClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
     getPopoverVisibility?.(true);
+    inputFieldProps?.onClick?.(event);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-    getPopoverVisibility?.(false);
+  const handlePopoverClose: NonNullable<PopoverProps["onClose"]> = (
+    event,
+    reason,
+  ) => {
+    closePopover();
+    popoverProps?.onClose?.(event, reason);
   };
 
   return (
     <>
-      <TextField
-        onClick={handleTextFieldClick}
+      <InputField
         variant={"standard"}
         size={"small"}
         value={updateInput()}
-        {...textFieldProps}
-        sx={{
-          width: "264px",
-          cursor: "pointer",
-          "& .MuiInputBase-input, & .MuiInputBase-root": { cursor: "pointer" },
-          ...textFieldProps?.sx,
-        }}
+        {...inputFieldProps}
+        onClick={handleInputFieldClick}
+        sx={[
+          {
+            width: "264px",
+            cursor: "pointer",
+            "& .MuiInputBase-input, & .MuiInputBase-root": {
+              cursor: "pointer",
+            },
+          },
+          ...(Array.isArray(inputFieldProps?.sx)
+            ? inputFieldProps.sx
+            : inputFieldProps?.sx
+              ? [inputFieldProps.sx]
+              : []),
+        ]}
         slotProps={{
-          ...textFieldProps?.slotProps,
+          ...inputFieldProps?.slotProps,
           input: {
             readOnly: true,
             endAdornment: (
-              <Event
+              <Calendar
                 sx={{
                   color: theme.palette.vars.interactivePrimaryDefaultDefault,
                 }}
               />
             ),
-            ...textFieldProps?.slotProps?.input,
+            ...inputFieldProps?.slotProps?.input,
           },
         }}
       />
       <Popover
         open={open}
         anchorEl={anchorEl}
-        onClose={handlePopoverClose}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
         }}
         {...popoverProps}
-        sx={
-          {
-            ...getDateRangePickerStyles(theme).popover,
-            ...popoverProps?.sx,
-          } as PopoverProps["sx"]
-        }
+        onClose={handlePopoverClose}
+        sx={[
+          s.popover,
+          ...(Array.isArray(popoverProps?.sx)
+            ? popoverProps.sx
+            : popoverProps?.sx
+              ? [popoverProps.sx]
+              : []),
+        ]}
       >
         <Stack direction={"column"} gap={"12px"}>
           <Stack
@@ -213,16 +224,18 @@ export const DateRangePicker = ({
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ padding: "0 4px" }}
+            sx={{ width: "293px", height: "24px" }}
           >
             <IconButton
+              size="small"
               onClick={() =>
                 setCurrentDate(
                   new Date(currentDate.setMonth(currentDate.getMonth() - 1)),
                 )
               }
+              sx={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <ChevronLeft
+              <KeyboardArrowLeft
                 sx={{
                   color: theme.palette.vars.interactiveSecondaryDefaultDefault,
                 }}
@@ -235,13 +248,15 @@ export const DateRangePicker = ({
             </Typography>
 
             <IconButton
+              size="small"
               onClick={() =>
                 setCurrentDate(
                   new Date(currentDate.setMonth(currentDate.getMonth() + 1)),
                 )
               }
+              sx={{ width: "24px", height: "24px", padding: 0 }}
             >
-              <ChevronRight
+              <KeyboardArrowRight
                 sx={{
                   color: theme.palette.vars.interactiveSecondaryDefaultDefault,
                 }}
@@ -249,6 +264,20 @@ export const DateRangePicker = ({
             </IconButton>
           </Stack>
           {renderCalendar()}
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            gap="16px"
+            sx={{ width: "293px", height: "32px" }}
+          >
+            <Button variant="tertariary" size="medium" onClick={closePopover}>
+              Cancel
+            </Button>
+            <Button variant="outlined" size="medium" onClick={closePopover}>
+              OK
+            </Button>
+          </Stack>
         </Stack>
       </Popover>
     </>

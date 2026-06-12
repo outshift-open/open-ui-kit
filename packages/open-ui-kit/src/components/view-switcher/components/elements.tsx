@@ -4,16 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, styled, useTheme, type BoxProps } from "@mui/material";
+import { Box, styled, type BoxProps } from "@mui/material";
 import type { ButtonHTMLAttributes, ComponentType } from "react";
 import { ViewSwitcherSize } from "../types";
 
-export const StyledBox = styled(Box)(
-  ({ fullWidth }: { fullWidth?: boolean }) => ({
-    display: fullWidth ? "flex" : "inline-block",
-    borderRadius: "8px",
-  }),
-) as ComponentType<BoxProps & { fullWidth?: boolean }>;
+export const StyledBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "fullWidth",
+})(({ fullWidth }: { fullWidth?: boolean }) => ({
+  display: fullWidth ? "flex" : "inline-flex",
+  flexDirection: "row",
+  alignItems: "stretch",
+  borderRadius: "8px",
+})) as ComponentType<BoxProps & { fullWidth?: boolean }>;
 
 export type ViewSwitcherStyledButtonProps =
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,78 +26,89 @@ export type ViewSwitcherStyledButtonProps =
     isIconOnly: boolean;
   };
 
-export const StyledButton = styled("button")(
-  ({
-    size,
-    disabled,
-    selected,
-    isIconOnly,
-  }: {
-    fullWidth?: boolean;
-    size?: ViewSwitcherSize;
-    disabled?: boolean;
-    selected: boolean;
-    isIconOnly: boolean;
-  }) => {
-    const theme = useTheme();
-    return {
-      cursor: disabled ? "not-allowed" : "pointer",
-      pointerEvents: disabled ? "none" : "all",
+export const StyledButton = styled("button", {
+  shouldForwardProp: (prop) =>
+    !["selected", "isIconOnly", "fullWidth"].includes(prop as string),
+})<{
+  fullWidth?: boolean;
+  size?: ViewSwitcherSize;
+  disabled?: boolean;
+  selected: boolean;
+  isIconOnly: boolean;
+}>(({ theme, size, disabled, selected, isIconOnly }) => ({
+  cursor: disabled ? "not-allowed" : "pointer",
+  pointerEvents: disabled ? "none" : "all",
 
-      display: "inline-flex",
-      flex: 1,
-      alignContent: "center",
-      justifyContent: "center",
-      alignItems: "center",
+  display: "inline-flex",
+  flex: 1,
+  minWidth: "max-content",
+  alignItems: "center",
+  justifyContent: "center",
+  whiteSpace: "nowrap",
 
-      padding: isIconOnly ? "4px" : size === "sm" ? "4px 8px" : "4px 12px",
+  height: size === "sm" ? "28px" : "32px",
 
-      fontSize: size === "sm" ? "12px" : "14px",
-      fontWeight: 600,
-      lineHeight: size === "sm" ? "16px" : "20px",
-      color: disabled
-        ? theme.palette.vars.baseTextDisabled
-        : selected
-          ? theme.palette.vars.baseTextStrong
-          : theme.palette.vars.baseTextDefault,
+  padding: isIconOnly
+    ? size === "sm"
+      ? "4px"
+      : "4px 8px"
+    : size === "sm"
+      ? "4px 8px"
+      : "4px 12px",
 
-      backgroundColor: disabled
-        ? theme.palette.vars.controlBackgroundDisabled
-        : selected
-          ? theme.palette.vars.controlBackgroundDefault
-          : theme.palette.vars.controlBackgroundDefault,
+  fontFamily: "Inter, sans-serif",
+  fontSize: size === "sm" ? "12px" : "14px",
+  fontWeight: 600,
+  lineHeight: size === "sm" ? "16px" : "20px",
+  textAlign: "center",
 
-      border: `2px solid ${disabled ? theme.palette.vars.controlBorderMedium : selected ? theme.palette.vars.interactiveTertiaryActive : theme.palette.vars.controlBorderMedium}`,
-      borderRadius: 0,
-      borderRightWidth: 0,
+  color: disabled
+    ? theme.palette.vars.baseTextDisabled
+    : selected
+      ? theme.palette.vars.baseTextStrong
+      : theme.palette.vars.baseTextDefault,
 
-      "&:first-child": {
-        borderTopLeftRadius: "8px",
-        borderBottomLeftRadius: "8px",
-      },
+  backgroundColor: disabled
+    ? theme.palette.vars.controlBackgroundWeak
+    : theme.palette.vars.controlBackgroundDefault,
 
-      "&:last-child": {
-        borderRightWidth: "2px",
-        borderTopRightRadius: "8px",
-        borderBottomRightRadius: "8px",
-      },
+  border: `2px solid ${
+    selected && !disabled
+      ? theme.palette.vars.interactiveTertiaryActive
+      : theme.palette.vars.controlBorderMedium
+  }`,
+  borderRadius: 0,
+  // collapse right border by default; selected keeps its own right border
+  ...(!selected && { borderRightWidth: 0 }),
 
-      "&:hover": {
-        backgroundColor: theme.palette.vars.baseBackgroundHover,
-        color: theme.palette.vars.baseTextStrong,
-      },
-
-      "&.osd-view-switcher-option-selected": {
-        borderWidth: "2px",
-        "& + .osd-view-switcher-option": {
-          borderLeftWidth: 0,
-        },
-      },
-
-      "& > .view-switcher-option-icon": {
-        fontSize: size === "sm" ? "16px" : "20px",
-        fill: theme.palette.vars.controlIconDefault,
-      },
-    };
+  "&:first-of-type": {
+    borderTopLeftRadius: "6px",
+    borderBottomLeftRadius: "6px",
   },
-) as ComponentType<ViewSwitcherStyledButtonProps>;
+
+  "&:last-of-type": {
+    borderRightWidth: "2px",
+    borderTopRightRadius: "6px",
+    borderBottomRightRadius: "6px",
+  },
+
+  // selected: raise above neighbours; sibling after selected suppresses its left border
+  "&.osd-view-switcher-option-selected": {
+    zIndex: 1,
+    "& + button": {
+      borderLeftWidth: 0,
+    },
+  },
+
+  "&:hover:not(:disabled)": {
+    backgroundColor: theme.palette.vars.baseBackgroundHover,
+    color: theme.palette.vars.baseTextStrong,
+  },
+
+  "& > .view-switcher-option-icon": {
+    fontSize: size === "sm" ? "16px" : "20px",
+    fill: disabled
+      ? theme.palette.vars.baseTextDisabled
+      : theme.palette.vars.controlIconDefault,
+  },
+})) as ComponentType<ViewSwitcherStyledButtonProps>;

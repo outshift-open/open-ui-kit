@@ -1,37 +1,138 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
-import { Typography, Divider } from "@mui/material";
-import { lightTheme } from "../theme/light/light-theme";
-import { gradientsPalette } from "../theme/gradients";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { GradientSection } from "./gradient-section";
+import { gradientsPalette } from "@/theme/style/gradients";
+import {
+  grey500,
+  surfaceDark900,
+  surfaceLight100,
+} from "@/theme/style/color-palette";
 
 <Meta title="Foundations/Gradients" />
 
-<ColorPalette>
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    Gradients
-  </Typography>
-  <ColorItem
-    title="Gradients Background"
-    subtitle="gradientsPalette.background"
-    colors={gradientsPalette.background}
-  />
-  <ColorItem
-    title="Gradients Primary"
-    subtitle="gradientsPalette.primary"
-    colors={gradientsPalette.primary}
-  />
-  <ColorItem
-    title="Gradients Secondary"
-    subtitle="gradientsPalette.secondary"
-    colors={gradientsPalette.secondary}
-  />
-  <ColorItem
-    title="Gradients Illustrations"
-    subtitle="gradientsPalette.illustrations"
-    colors={gradientsPalette.illustrations}
-  />
-  <ColorItem
-    title="Gradients Red"
-    subtitle="gradientsPalette.red"
-    colors={gradientsPalette.red}
-  />
-</ColorPalette>
+<DocsHeader
+  title="Gradients"
+  blurb="Gradients are used occasionally for branded CTAs and for illustrations."
+  importLine='import { gradientsPalette } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
+
+<div
+  style={{
+    width: "100%",
+    maxWidth: "min(944px, calc(100vw - 32px))",
+    boxSizing: "border-box",
+    padding: "clamp(32px, 7vw, 68px) clamp(24px, 6vw, 60px)",
+    background: surfaceLight100,
+    color: surfaceDark900,
+    overflowX: "hidden",
+  }}
+>
+  <section style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+    <div>
+      <div
+        role="heading"
+        aria-level={2}
+        style={{
+          fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
+          fontWeight: 700,
+          fontSize: 20,
+          letterSpacing: 0,
+          lineHeight: "24px",
+          margin: "0 0 8px",
+          color: grey500,
+        }}
+      >
+        {"Gradients"}
+      </div>
+      <p
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: 14,
+          letterSpacing: "0.25px",
+          lineHeight: "20px",
+          margin: "0 0 36px",
+          color: surfaceDark900,
+        }}
+      >
+        {
+          "Gradients are used occasionally for branded CTAs and for illustrations."
+        }
+      </p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(min(248px, 100%), 1fr))",
+          gap: "36px 40px",
+          alignItems: "start",
+        }}
+      >
+        <GradientSection
+          title="Primary"
+          entries={[
+            ["gradient-primary-default", gradientsPalette.primary.default],
+            ["gradient-primary-hover", gradientsPalette.primary.hover],
+            ["gradient-primary-pressed", gradientsPalette.primary.pressed],
+          ]}
+        />
+        <GradientSection
+          title="Secondary"
+          entries={[
+            ["gradient-secondary-default", gradientsPalette.secondary.default],
+            ["gradient-secondary-hover", gradientsPalette.secondary.hover],
+            ["gradient-secondary-pressed", gradientsPalette.secondary.pressed],
+          ]}
+        />
+        <GradientSection
+          title="Red"
+          entries={[
+            ["gradient-red-default", gradientsPalette.red.default],
+            ["gradient-red-hover", gradientsPalette.red.hover],
+            ["gradient-red-pressed", gradientsPalette.red.pressed],
+          ]}
+        />
+        <GradientSection
+          title="Purple"
+          entries={[["gradient-purple", gradientsPalette.illustrations.purple]]}
+        />
+        <GradientSection
+          title="Blue"
+          entries={[["gradient-blue", gradientsPalette.illustrations.blue]]}
+        />
+        <GradientSection
+          title="Light Blue"
+          entries={[
+            ["gradient-light-blue", gradientsPalette.illustrations.lightBlue],
+          ]}
+        />
+        <GradientSection
+          title="Green"
+          entries={[["gradient-green", gradientsPalette.illustrations.green]]}
+        />
+        <GradientSection
+          title="Orange"
+          entries={[["gradient-orange", gradientsPalette.illustrations.orange]]}
+        />
+        <GradientSection
+          title="Pink"
+          entries={[["gradient-pink", gradientsPalette.illustrations.pink]]}
+        />
+        <GradientSection
+          title="Rainbow"
+          entries={[
+            ["gradient-rainbow", gradientsPalette.illustrations.rainbow],
+          ]}
+        />
+        <GradientSection
+          title="Main Background Light"
+          entries={[["gradient-bg-light", gradientsPalette.background.light]]}
+        />
+        <GradientSection
+          title="Main Background Dark"
+          entries={[["gradient-bg-dark", gradientsPalette.background.dark]]}
+        />
+      </div>
+    </div>
+  </section>
+</div>

@@ -4,48 +4,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material/styles";
+import { ChartType } from "../common/types";
 
-export const styles = (theme: Theme) => ({
-  card: {
-    overflow: "visible",
-    backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
-    padding: "0px",
-  },
+export type ChartWidgetSxEntry = Exclude<SxProps<Theme>, readonly unknown[]>;
 
-  chartSkeleton: {
-    marginBottom: "10px",
-  },
+export const toSxArray = (sx?: SxProps<Theme>): ChartWidgetSxEntry[] =>
+  Array.isArray(sx)
+    ? (sx as ChartWidgetSxEntry[])
+    : sx
+      ? [sx as ChartWidgetSxEntry]
+      : [];
 
-  stack: {
-    height: "136px",
-    width: "100%",
-  },
+export const getChartWidgetContainerStyles = (
+  type: ChartType,
+): ChartWidgetSxEntry =>
+  type === ChartType.BAR_GRAPH ? { height: "392px", position: "relative" } : {};
 
-  cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-  },
-
-  cardHeaderWrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottom: `1px solid ${theme.palette.vars.inactiveBorderHover}`,
-    padding: "12px 16px",
-    width: "100%",
-  },
-
-  legendContainer: {
-    display: "flex",
-    gap: "8px",
-    alignItems: "center",
-  },
-
-  titleStack: {
-    flexDirection: "row",
-    gap: "8px",
-  },
-});
+export const getChartWidgetBodyStyles = (
+  type: ChartType,
+  isHorizontal: boolean,
+): ChartWidgetSxEntry =>
+  type === ChartType.BAR_GRAPH || type === ChartType.HORIZONTAL_BAR
+    ? {}
+    : {
+        height: isHorizontal ? "134px" : "164px",
+        flexShrink: 0,
+      };

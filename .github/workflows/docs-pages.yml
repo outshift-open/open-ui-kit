@@ -1,0 +1,81 @@
+name: Deploy docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/docs-pages.yml"
+      - "docs/**"
+      - "packages/open-ui-kit/**"
+      - "package.json"
+      - "yarn.lock"
+      - ".yarnrc.yml"
+      - ".yarn/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: docs-pages-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build docs
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
+      DEPLOY_ENV: production
+      DOCS_CUSTOM_DOMAIN: open-ui-kit.outshift.ai
+      NODE_OPTIONS: --max_old_space_size=8192
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build docs
+        run: yarn docs:build
+
+      - name: Prepare Pages artifact
+        run: |
+          touch docs/export/.nojekyll
+          if [ -n "$DOCS_CUSTOM_DOMAIN" ]; then
+            echo "$DOCS_CUSTOM_DOMAIN" > docs/export/CNAME
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/export
+
+  deploy:
+    name: Deploy docs
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

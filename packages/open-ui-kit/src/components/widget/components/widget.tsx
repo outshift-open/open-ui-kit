@@ -4,34 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { ILegendProps } from "@/components/legend";
-import type { TooltipProps } from "@/components/tooltip";
-import { Card, SxProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Card } from "@/components/card";
+import type { IWidgetProps } from "../types";
 import { styles } from "../styles/styles";
 import { WidgetHeadline } from "./widget-headline";
 import { WidgetBody } from "./widget-body";
 
-export interface IWidgetProps<T extends string> {
-  bodyElement: JSX.Element;
-  sx?: SxProps;
-  label?: string | JSX.Element;
-  headerChildren?: JSX.Element;
-  headerLeftChildren?: JSX.Element;
-  labelTooltip?: React.ReactNode;
-  titleTooltip?: React.ReactNode;
-  isLoading?: boolean;
-  legend?: ILegendProps<T>;
-  isHorizontal?: boolean;
-  chartCustomComponent?: React.ReactNode;
-  stackStyle?: Record<string, string | number>;
-  legendCustomComponent?: React.ReactNode;
-  tooltipProps?: Partial<TooltipProps>;
-  isEmpty?: boolean;
-  onLabelClick?: () => void;
-  dataRoseyUrn?: string;
-}
-
-export const Widget = <T extends string>({
+export const Widget = ({
   sx,
   label,
   headerChildren,
@@ -40,23 +20,22 @@ export const Widget = <T extends string>({
   titleTooltip,
   bodyElement,
   isLoading,
-  legend,
   isHorizontal = false,
   isEmpty = false,
   legendCustomComponent,
   tooltipProps,
   onLabelClick,
   dataRoseyUrn,
-}: IWidgetProps<T>) => {
+}: IWidgetProps) => {
   const theme = useTheme();
   return (
     <Card
       data-rosey-urn={dataRoseyUrn}
-      sx={{
-        ...(isHorizontal ? styles(theme).horizontalCard : styles(theme).card),
-        ...sx,
-        overflow: "visible",
-      }}
+      sx={[
+        isHorizontal ? styles(theme).horizontalCard : styles(theme).card,
+        { overflow: "visible" },
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
     >
       {label && (
         <WidgetHeadline
@@ -72,7 +51,6 @@ export const Widget = <T extends string>({
       <WidgetBody
         bodyElement={bodyElement}
         isLoading={isLoading}
-        legend={legend}
         isHorizontal={isHorizontal}
         isEmpty={isEmpty}
         legendCustomComponent={legendCustomComponent}

@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Theme } from "@mui/material";
-import type { SxProps } from "@mui/material/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { CSSProperties } from "react";
 
 export const donutLabel = (theme: Theme): CSSProperties => ({

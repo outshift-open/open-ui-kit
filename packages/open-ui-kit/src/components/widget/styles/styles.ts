@@ -4,27 +4,39 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import { CSSProperties } from "react";
 
 export const styles = (theme: Theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+    alignItems: "flex-start",
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
+    boxShadow: theme.shadows[1],
+    borderRadius: "8px",
+    gap: 0,
+    justifyContent: "flex-start",
     padding: "0px",
     "&:hover": {
-      backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+      backgroundColor: theme.palette.vars.baseBackgroundWeak,
     },
   } as CSSProperties,
 
   horizontalCard: {
     overflow: "visible",
-    backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+    alignItems: "flex-start",
+    backgroundColor: theme.palette.vars.baseBackgroundWeak,
+    boxShadow: theme.shadows[1],
+    borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+    justifyContent: "flex-start",
     padding: "0px",
     width: "360px",
     "&:hover": {
-      backgroundColor: theme.palette.vars.interactiveSecondaryWeakDefault,
+      backgroundColor: theme.palette.vars.baseBackgroundWeak,
     },
   } as CSSProperties,
 
@@ -33,25 +45,29 @@ export const styles = (theme: Theme) => ({
   } as CSSProperties,
 
   stack: {
-    minHeight: "136px",
     width: "100%",
   } as CSSProperties,
 
   cardContent: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
+    flexGrow: 1,
+    gap: "16px",
+    padding: "8px 16px 16px",
     width: "100%",
     height: "100%",
-    overflowY: "auto",
+    overflowY: "visible",
+    "&:last-child": {
+      paddingBottom: "16px",
+    },
   } as CSSProperties,
 
   cardHeaderWrapper: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottom: `1px solid ${theme.palette.vars.inactiveBorderHover}`,
-    padding: "12px 16px",
+    padding: "16px",
     width: "100%",
   } as CSSProperties,
 

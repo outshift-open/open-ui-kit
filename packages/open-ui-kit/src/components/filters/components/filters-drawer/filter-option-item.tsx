@@ -4,15 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Checkbox,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { styles } from "./styles";
-import { FilterOptionData } from "../../types/types";
+import { Box, Typography, useTheme } from "@mui/material";
+import { Checkbox } from "@/components/checkbox";
+import { getStyles } from "./styles";
+import type { FilterOptionData } from "../../types";
+import { ListItem, ListItemButton, ListItemText } from "@/components/list";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 
 export interface FilterOptionProps {
@@ -32,6 +28,8 @@ export const FilterOptionItem = ({
   isSelectAllEnabled = false,
   level,
 }: FilterOptionProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const handleToggle = () => {
     onOptionToggled({ ...option, isSelected: !option.isSelected });
   };
@@ -54,7 +52,9 @@ export const FilterOptionItem = ({
     const text = (
       <>
         {before}
-        <span style={styles.searchMatchText}>{match}</span>
+        <Box component="span" sx={styles.searchMatchText}>
+          {match}
+        </Box>
         {after}
       </>
     );
@@ -63,17 +63,18 @@ export const FilterOptionItem = ({
       <Typography variant="body2">
         <OverflowTooltip
           value={text}
-          someLongText={text}
           componentsProps={{
             tooltip: {
               sx: {
                 maxWidth: "240px",
-                display: "flow",
+                display: "block",
                 padding: "8px",
               },
             },
           }}
-        />
+        >
+          {text}
+        </OverflowTooltip>
       </Typography>
     );
   };

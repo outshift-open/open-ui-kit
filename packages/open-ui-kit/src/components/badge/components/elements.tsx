@@ -4,85 +4,55 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Badge as MuiBadge,
-  styled,
-  Theme,
-  type BadgeProps,
-} from "@mui/material";
+import { Badge as MuiBadge, styled, type BadgeProps } from "@mui/material";
 import type { ComponentType } from "react";
 import { BadgeType } from "../types";
-
-const getBadgeColor = (
-  theme: Theme,
-  type?: BadgeType,
-  isNotification?: boolean,
-) => {
-  if (isNotification) {
-    return "inherit";
-  } else if (type === "default" || type === "warning" || type === "moderate") {
-    return theme.palette.vars.baseTextStrong;
-  } else {
-    return theme.palette.vars.baseTextInverse;
-  }
-};
-
-const getBadgeBackgroundColor = (theme: Theme, type?: BadgeType) => {
-  switch (type) {
-    case "default":
-      return "none";
-    case "excellent":
-      return theme.palette.vars.excellentBackgroundDefault;
-    case "neutral":
-      return theme.palette.vars.neutralBackgroundDefault;
-    case "error":
-      return theme.palette.vars.negativeBackgroundDefault;
-    case "warning":
-      return theme.palette.vars.warningBackgroundDefault;
-    case "info":
-      return theme.palette.vars.infoBackgroundDefault;
-    case "success":
-      return theme.palette.vars.successBackgroundDefault;
-    case "inactive":
-      return theme.palette.vars.inactiveBackgroundDefault;
-    case "moderate":
-      return theme.palette.vars.moderateBackgroundDefault;
-    case "severe":
-      return theme.palette.vars.severeWarningBackgroundDefault;
-    default:
-      return "none";
-  }
-};
+import { getBadgeBackgroundColor, getBadgeTextColor } from "../styles";
 
 export const StyledBadge = styled(MuiBadge, {
-  shouldForwardProp: (prop) => prop !== "type",
+  shouldForwardProp: (prop) => prop !== "type" && prop !== "isNotification",
 })<{ type?: BadgeType; isNotification?: boolean }>(
   ({ theme, type, isNotification = false }) => ({
-    color: getBadgeColor(theme, type, isNotification),
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "4px",
+    color: isNotification ? "inherit" : getBadgeTextColor(theme, type),
     backgroundColor: getBadgeBackgroundColor(theme, type),
-    width: "19px",
+    minWidth: "19px",
     height: "16px",
     borderRadius: "64px",
     paddingLeft: "6.5px",
     paddingRight: "6.5px",
+    "& .MuiTypography-root": {
+      display: "flex",
+      alignItems: "center",
+      height: "16px",
+      color: "inherit",
+      letterSpacing: 0,
+    },
     ...(isNotification && {
-      backgroundColor: "none",
+      backgroundColor: "transparent",
       padding: 0,
-      width: "18px",
-      height: "18px",
+      minWidth: "24px",
+      width: "24px",
+      height: "24px",
       "& > svg": {
-        width: "18px",
-        height: "18px",
+        width: "24px",
+        height: "24px",
+        color: theme.palette.vars.interactivePrimaryDefaultDefault,
       },
       "& .MuiBadge-badge": {
         right: 0,
         top: 0,
-        width: "19px",
+        minWidth: "19px",
         height: "16px",
         paddingLeft: "6.5px",
         paddingRight: "6.5px",
+        borderRadius: "64px",
         backgroundColor: getBadgeBackgroundColor(theme, type),
-        color: getBadgeColor(theme, type, false),
+        color: getBadgeTextColor(theme, type),
       },
     }),
   }),

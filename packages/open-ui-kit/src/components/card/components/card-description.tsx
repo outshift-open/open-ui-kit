@@ -4,24 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, TypographyProps, useTheme } from "@mui/material";
+import type { CardDescriptionProps } from "../types";
+import { StyledCardDescription } from "./elements";
 
-interface CardDescriptionProps extends TypographyProps {
-  children: React.ReactNode;
-}
-
-const CardDescription = ({ children, ...props }: CardDescriptionProps) => {
-  const theme = useTheme();
-  return (
-    <Typography
-      variant="body2"
-      component="div"
-      sx={{ color: theme.palette.vars?.baseTextDefault }}
-      {...props}
-    >
-      {children}
-    </Typography>
-  );
-};
+const CardDescription = ({ children, ...props }: CardDescriptionProps) => (
+  <StyledCardDescription variant="body2" component="div" {...props}>
+    {children}
+  </StyledCardDescription>
+);
 
 export default CardDescription;

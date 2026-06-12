@@ -1,59 +1,70 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box } from "@/components";
+import type { ReactNode } from "react";
+import { action } from "storybook/actions";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { CodeBlock } from "../components/code-block";
 
-const example = `helm upgrade --create-namespace -n panoptica -i panoptica deployment/apisec-controllers \\
---dependency-update \\
---set global.agentID=[AGENT_ID] \\
---set global.mgmtHostname=https://[NAMESPACE].demo.panoptica.app \\
---set secret.sharedSecret=[SHARED_KEY] \\
---set fuzzer-controller.image.tag=[IMAGE_TAG] \\
---set apisec-controller.image.tag=[IMAGE_TAG]`;
+const shortSnippet = `function readCacheFromRecords() {
+  return cache.records;
+}`;
+
+const multilineSnippet = `function readCacheFromRecords() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(cache.records);
+    }, 1000);
+  });
+}
+
+const records = await readCacheFromRecords();`;
+
+const wrappingSnippet = `const record = await readCacheFromRecords("this-example-keeps-going-to-show-how-a-long-line-wraps-inside-the-code-block-container");`;
+
+const headerButtons = [
+  { label: "button-link", onClick: action("first button-link clicked") },
+  { label: "button-link", onClick: action("second button-link clicked") },
+];
 
 const meta: Meta<typeof CodeBlock> = {
   title: "Components/CodeBlock",
   component: CodeBlock,
   args: {
-    text: example,
+    text: multilineSnippet,
     showLineNumbers: false,
   },
   argTypes: {
     text: {
       control: "text",
-      description: "The code to be formatted.",
+      description: "Code string rendered inside the syntax highlighter.",
     },
     showLineNumbers: {
       control: "boolean",
-      options: ["true", "false"],
-      description:
-        "Sets whether to display code line numbers or not. Defaults to true.",
+      description: "Shows the line-number rail used in the Figma examples.",
     },
-    highlight: {
-      control: "text",
-      description: `Comma delimited lines to highlight which 
-      **applies when line numbers are visible (showLineNumbers=true)**.
-
-      Example uses:
-      
-      - To highlight one line highlight="3"
-      - To highlight a group of lines highlight="1-5"
-      - To highlight multiple groups highlight="1-5,7,10,15-20"`,
+    startingLineNumber: {
+      control: "number",
+      description: "First number displayed when line numbers are visible.",
     },
     wrapLongLines: {
       control: "boolean",
-      options: ["true", "false"],
-      description: `Sets whether long lines will create a horizontally scrolling container.
-        When set to true, these lines will visually wrap instead.
-        
-        Defaults to false`,
+      description:
+        "Wraps long code lines instead of relying only on horizontal scrolling.",
+    },
+    size: {
+      control: "select",
+      options: ["medium", "small"],
+      description: "Controls the density of the code block.",
     },
   },
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
-          blurb="CodeBlock is used to display code snippets with syntax highlighting and optional line numbers. It supports various programming languages and allows for easy copying of code."
-          importLine='import { CodeBlock } from "@open-ui-kit/core";'
+          title="Code block"
+          blurb="Code blocks display inline and multiline code snippets with optional line numbers, wrapping, headers, and copy actions."
+          importLine={`import { CodeBlock } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -63,40 +74,59 @@ const meta: Meta<typeof CodeBlock> = {
 export default meta;
 type Story = StoryObj<typeof CodeBlock>;
 
-const exampleCodeBlock = `import { Box } from '@atlaskit/primitives'
- 
-class HelloMessage extends React.Component {
-  render() {
-    return (
-      <Box>
-        Hello {this.props.name}
-      </Box>
-    );
-  }
-}
-
-ReactDOM.render(
-  <HelloMessage name="Taylor" />,
-  mountNode
-);`;
+const CodeBlockGrid = ({ children }: { children: ReactNode }) => (
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+      gap: 3,
+      alignItems: "start",
+    }}
+  >
+    {children}
+  </Box>
+);
 
 export const Default: Story = {
-  render: (args) => <CodeBlock {...args} />,
+  render: (args) => <CodeBlock {...args} text={shortSnippet} />,
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <CodeBlockGrid>
+      <CodeBlock {...args} text={multilineSnippet} size="medium" />
+      <CodeBlock {...args} text={multilineSnippet} size="small" />
+    </CodeBlockGrid>
+  ),
 };
 
 export const LineNumbers: Story = {
-  render: (args) => <CodeBlock {...args} wrapLongLines />,
-  args: {
-    text: exampleCodeBlock,
-    showLineNumbers: true,
-  },
+  render: (args) => (
+    <CodeBlockGrid>
+      <CodeBlock {...args} text={multilineSnippet} showLineNumbers />
+      <CodeBlock
+        {...args}
+        text={multilineSnippet}
+        showLineNumbers
+        startingLineNumber={5}
+      />
+    </CodeBlockGrid>
+  ),
 };
 
-export const StartingLineNumber: Story = {
-  render: (args) => <CodeBlock {...args} />,
-  args: {
-    text: exampleCodeBlock,
-    showLineNumbers: true,
-    startingLineNumber: 5,
-  },
+export const Header: Story = {
+  render: (args) => (
+    <CodeBlock
+      {...args}
+      text={multilineSnippet}
+      showLineNumbers
+      header={headerButtons}
+    />
+  ),
+};
+
+export const Wrapping: Story = {
+  render: (args) => (
+    <CodeBlock {...args} text={wrappingSnippet} showLineNumbers wrapLongLines />
+  ),
 };

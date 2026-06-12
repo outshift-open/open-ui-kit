@@ -1,142 +1,150 @@
-import { Checkbox, Stack, Typography } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { AWSIcon } from "@/custom-icons";
-import { SelectNodeType } from "@/types";
-import { baseSelectTree } from "@/common";
-import { Tags } from "..";
-import { DocsHeader } from "storybook/components/docs-header.stories";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-const meta: Meta<typeof Tags> = {
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Stack, Typography } from "@mui/material";
+import { GeneralSize } from "@/common";
+import { AWSIcon, AZUREIcon, GCPIcon } from "@/custom-icons";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Tags } from "..";
+import type { SelectNodeType } from "@/components/nested-menu";
+
+const cloudTags = [
+  {
+    icon: AWSIcon,
+    isSelectable: true,
+    nodeKey: "aws",
+    value: "AWS",
+  },
+  {
+    icon: AZUREIcon,
+    isSelectable: true,
+    nodeKey: "azure",
+    value: "Azure",
+  },
+  {
+    icon: GCPIcon,
+    isSelectable: true,
+    nodeKey: "gcp",
+    value: "Google Cloud",
+  },
+] satisfies SelectNodeType[];
+
+const longTags = [
+  {
+    icon: AWSIcon,
+    isSelectable: true,
+    nodeKey: "production-us-east",
+    value: "Production workspace in us-east-1",
+  },
+  {
+    icon: AZUREIcon,
+    isSelectable: true,
+    nodeKey: "staging-west-europe",
+    value: "Staging workspace in West Europe",
+  },
+  {
+    icon: GCPIcon,
+    isSelectable: true,
+    nodeKey: "analytics-warehouse",
+    value: "Analytics warehouse shared environment",
+  },
+] satisfies SelectNodeType[];
+
+const handleStoryDelete = () => undefined;
+
+const meta = {
   title: "Components/Tags/Tags",
   component: Tags,
   tags: ["autodocs"],
+  args: {
+    items: cloudTags,
+    showOnlyFirst: false,
+    shouldTruncate: false,
+    size: GeneralSize.Small,
+  },
+  argTypes: {
+    maxTooltipTags: {
+      control: { type: "number", min: 1 },
+      description: "Maximum visible tags before the remaining tags collapse.",
+    },
+    shouldTruncate: {
+      control: "boolean",
+      description: "Truncates long labels and keeps full values in tooltips.",
+    },
+    showOnlyFirst: {
+      control: "boolean",
+      description: "Shows the first tag plus a count for remaining tags.",
+    },
+    size: {
+      control: "select",
+      options: Object.values(GeneralSize),
+      description: "Size passed to each Tag.",
+    },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Tags component is used to display a list of items with the ability to delete them. It supports truncation and showing only the first item."
-          guideLink="#"
+          title="Tags"
+          blurb="Tags renders a compact collection of Tag chips, including first-item summaries, overflow counts, truncation, and deletion callbacks."
+          guideLink=""
           importLine='import { Tags } from "@open-ui-kit/core";'
         />
       ),
     },
   },
-};
+} satisfies Meta<typeof Tags>;
 
 export default meta;
-type Story = StoryObj<typeof Tags>;
+type Story = StoryObj<typeof meta>;
 
-const createNestedChildren = (
-  level: number,
-  maxLevels: number,
-  childrenPerLevel: number,
-  prefix: string,
-): Array<SelectNodeType> => {
-  if (level > maxLevels) {
-    return [];
-  }
+export const Default: Story = {};
 
-  const children: Array<SelectNodeType> = [];
-
-  for (let i = 0; i < childrenPerLevel; i++) {
-    children.push({
-      value: `${prefix} Level ${level} - Child ${i + 1}`,
-      icon: AWSIcon, // Use the appropriate icon
-      childNodes: createNestedChildren(
-        level + 1,
-        maxLevels,
-        childrenPerLevel,
-        `${prefix} Level ${level} - Child ${i + 1}`,
-      ),
-      isSelectable: true, // Ensure that the child nodes are selectable
-    });
-  }
-
-  return children;
+export const ShowOnlyFirst: Story = {
+  args: {
+    showOnlyFirst: true,
+  },
 };
 
-const generateTreeMockData = (
-  nodeCount: number,
-  childrenRecursiveLevel = 0,
-  childrenPerLevel = 10,
-): Array<SelectNodeType> => {
-  const multipliedArray: Array<SelectNodeType> = [];
-
-  for (let i = 0; i < nodeCount; i++) {
-    // Deep copy each item from selectTree to avoid references
-    baseSelectTree.forEach((item) => {
-      multipliedArray.push({
-        ...item,
-        value: `${item.value} ${i + 1}`, // Optionally differentiate items
-        childNodes: item?.childNodes?.map((child) => {
-          if (i === 0 && childrenRecursiveLevel) {
-            // Add 5 levels of children to the first child node
-            return {
-              ...child,
-              value: `${child.value} ${i + 1}`,
-              childNodes: createNestedChildren(
-                1,
-                childrenRecursiveLevel,
-                childrenPerLevel,
-                `${child.value} ${i + 1}`,
-              ),
-            };
-          } else {
-            return {
-              ...child,
-              value: `${child.value} ${i + 1}`, // Optionally differentiate other child nodes
-            };
-          }
-        }),
-      });
-    });
-  }
-
-  return multipliedArray;
-};
-
-interface DropdownAutocompleteTreeStoryProps {
-  parentNodesCount: number;
-  childNodesStressLevels: number;
-}
-
-const TagsStory = ({
-  parentNodesCount,
-  childNodesStressLevels,
-}: DropdownAutocompleteTreeStoryProps) => {
-  const [showOnlyFirst, setShowOnlyFirst] = useState(false);
-  const [isTruncated, setIsTruncated] = useState(true);
-  const [treeData] = useState(
-    generateTreeMockData(parentNodesCount, childNodesStressLevels),
-  );
-
-  return (
-    <Stack direction="column" gap={2}>
-      <Stack direction="row" gap={2}>
-        <Typography variant="body2">Show only first: </Typography>
-        <Checkbox
-          onChange={(event) => setShowOnlyFirst(event.target.checked)}
-          checked={showOnlyFirst}
-        />
-      </Stack>
-      <Stack direction="row" gap={2}>
-        <Typography variant="body2">Truncate: </Typography>
-        <Checkbox
-          onChange={(event) => setIsTruncated(event.target.checked)}
-          checked={isTruncated}
-        />
-      </Stack>
-      <Tags
-        items={treeData}
-        handleDelete={() => alert("Delete")}
-        shouldTruncate={isTruncated}
-        showOnlyFirst={showOnlyFirst}
-      />
+export const Truncated: Story = {
+  args: {
+    items: longTags,
+    shouldTruncate: true,
+    showOnlyFirst: false,
+  },
+  render: (args) => (
+    <Stack sx={{ maxWidth: 260 }}>
+      <Tags {...args} />
     </Stack>
-  );
+  ),
 };
 
-export const Default: Story = {
-  render: () => <TagsStory parentNodesCount={100} childNodesStressLevels={3} />,
+export const OverflowCount: Story = {
+  args: {
+    items: longTags,
+    maxTooltipTags: 2,
+    showOnlyFirst: false,
+  },
+};
+
+export const Removable: Story = {
+  args: {
+    handleDelete: handleStoryDelete,
+    showOnlyFirst: false,
+  },
+};
+
+export const CustomLabels: Story = {
+  args: {
+    customizeLabel: (node) => String(node.value).toUpperCase(),
+    customizeTooltip: (node) => (
+      <Typography variant="caption">{node.value} environment</Typography>
+    ),
+    showOnlyFirst: false,
+  },
 };

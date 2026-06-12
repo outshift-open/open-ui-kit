@@ -4,36 +4,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { styled, Pagination, type PaginationProps } from "@mui/material";
+import {
+  styled,
+  Pagination as MuiPagination,
+  type PaginationProps as MuiPaginationProps,
+} from "@mui/material";
 import type { ComponentType } from "react";
+import {
+  getPaginationControlStyles,
+  getPaginationItemStyles,
+  getPaginationOutlinedItemStyles,
+  getPaginationRootStyles,
+} from "../styles";
 
-export const SytledPagination = styled(Pagination)(({ theme, variant }) => ({
-  "& .MuiPaginationItem-root": {
-    ...theme.typography.body2,
-    "&:hover": {
-      backgroundColor: theme.palette.vars.controlBorderStrong,
-    },
-    "&.Mui-selected": {
-      backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
-      color: theme.palette.vars.baseTextInverse,
-    },
-    "&.Mui-disabled": {
-      backgroundColor: "transparent !important",
-    },
-  },
-  ...(variant === "outlined" && {
+export const StyledPagination = styled(MuiPagination)(
+  ({ theme, size = "medium" }) => ({
+    ...getPaginationRootStyles(),
     "& .MuiPaginationItem-root": {
-      ...theme.typography.body2,
-      backgroundColor: "transparent",
-      border: `1px solid ${theme.palette.vars.controlBorderStrong}`,
-      "&:hover": {
-        backgroundColor: theme.palette.vars.controlBorderStrong,
-      },
-      "&.Mui-selected": {
-        backgroundColor: theme.palette.vars.interactivePrimaryDefaultActive,
-        color: theme.palette.vars.baseTextInverse,
-        border: `1px solid ${theme.palette.vars.interactivePrimaryDefaultActive}`,
-      },
+      ...getPaginationItemStyles(theme, size),
+    },
+    "& .MuiPaginationItem-outlined": {
+      ...getPaginationOutlinedItemStyles(theme),
+    },
+    "& .MuiPaginationItem-previousNext, & .MuiPaginationItem-firstLast": {
+      ...getPaginationControlStyles(theme),
     },
   }),
-})) as ComponentType<PaginationProps>;
+) as ComponentType<MuiPaginationProps>;

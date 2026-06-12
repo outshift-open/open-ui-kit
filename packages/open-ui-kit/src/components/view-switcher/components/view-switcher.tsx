@@ -16,9 +16,29 @@ export const ViewSwitcher = ({
   size = "md",
   value,
   containerProps,
+  sx,
 }: ViewSwitcherProps) => {
+  const { sx: containerSx, ...restContainerProps } = containerProps ?? {};
+
   return (
-    <StyledBox fullWidth={fullWidth} {...containerProps}>
+    <StyledBox
+      fullWidth={fullWidth}
+      {...restContainerProps}
+      sx={[
+        (theme) => ({
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? theme.palette.vars.controlBackgroundMedium
+              : theme.palette.vars.interactiveSecondaryWeakDefault,
+        }),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ...(Array.isArray(containerSx)
+          ? containerSx
+          : containerSx
+            ? [containerSx]
+            : []),
+      ]}
+    >
       {options.map((option) =>
         typeof option === "string" ? (
           <ViewSwitcherOption

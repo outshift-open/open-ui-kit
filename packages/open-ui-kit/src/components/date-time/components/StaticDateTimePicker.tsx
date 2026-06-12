@@ -4,37 +4,48 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import {
-  StaticDateTimePicker as MuiStaticDateTimePicker,
-  StaticDateTimePickerProps,
-} from "@mui/x-date-pickers/StaticDateTimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/node/AdapterDayjs/index.js";
+import { LocalizationProvider } from "@mui/x-date-pickers/node/LocalizationProvider/index.js";
+import { StaticDateTimePicker as MuiStaticDateTimePicker } from "@mui/x-date-pickers/node/StaticDateTimePicker/index.js";
 import { useTheme } from "@mui/material";
-import { Dayjs } from "dayjs";
 import {
+  getStaticDateTimePickerStyle,
   getSharedSlotPropsDateTimePicker,
-  getSharedStyle,
   getStaticPickerToolbarSlotProp,
+  mergeSx,
 } from "../styles";
+import type { StaticDateTimePickerProps } from "../types";
 
-export const StaticDateTimePicker = (
-  props: StaticDateTimePickerProps<Dayjs>,
-) => {
+export const StaticDateTimePicker = (props: StaticDateTimePickerProps) => {
   const theme = useTheme();
+  const { slotProps, sx, ...pickerProps } = props;
+  const toolbarSlotProps =
+    typeof slotProps?.toolbar === "function" ? undefined : slotProps?.toolbar;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiStaticDateTimePicker
         views={["year", "month", "day", "hours", "minutes"]}
-        {...props}
+        {...pickerProps}
         slotProps={
           {
             ...getSharedSlotPropsDateTimePicker(theme),
-            toolbar: { sx: getStaticPickerToolbarSlotProp(theme) },
-          } as StaticDateTimePickerProps<Dayjs>["slotProps"]
+            ...slotProps,
+            toolbar: {
+              ...toolbarSlotProps,
+              sx: mergeSx(
+                getStaticPickerToolbarSlotProp(theme),
+                toolbarSlotProps?.sx,
+              ),
+            },
+          } as StaticDateTimePickerProps["slotProps"]
         }
-        sx={getSharedStyle(theme) as StaticDateTimePickerProps<Dayjs>["sx"]}
+        sx={
+          mergeSx(
+            getStaticDateTimePickerStyle(theme),
+            sx,
+          ) as StaticDateTimePickerProps["sx"]
+        }
       />
     </LocalizationProvider>
   );

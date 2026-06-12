@@ -16,7 +16,11 @@ export type CustomTooltipProps = {
   tooltipContent?: (dataPoint: ExtendedDataPoint) => React.ReactNode;
 };
 
-const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
+const CustomTooltip = ({
+  active,
+  payload,
+  tooltipContent,
+}: CustomTooltipProps) => {
   if (!active || !payload || !payload[0].payload.subject) {
     return null;
   }
@@ -25,10 +29,12 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   return (
     <StyledTooltip>
       <Typography variant="caption">
-        {data.variableA && (
-          <div>
-            {data.variableA} {data.subject}
-          </div>
+        {tooltipContent ? (
+          tooltipContent(data)
+        ) : (
+          <span>
+            {data.variableA ?? 0} {data.subject}
+          </span>
         )}
       </Typography>
     </StyledTooltip>

@@ -1,0 +1,175 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Stack, Typography, Box, Divider, useTheme } from "@mui/material";
+import { Button } from "@/components/button";
+import {
+  closeButtonStyle,
+  headerButtonsContainerStyle,
+  headerContainerStyle,
+  headerLabelStyle,
+  navigationIconStyle,
+  navigationButtonsContainerStyle,
+  headerTitleContainerStyle,
+  headerTitleStyle,
+  sideDrawerHeaderBoxStyle,
+  sideDrawerActionButtonsStyle,
+  dividerStyle,
+  titleSeparatorStyle,
+} from "../styles";
+import { EMPTY_FUNCTION } from "@/common";
+import {
+  ArrowBackIOS,
+  ArrowForwardIOS,
+  CloseLarge,
+  OpenInNewTab,
+  StarOutline,
+} from "@/custom-icons";
+import { Star } from "@mui/icons-material";
+import { CopyButton } from "@/components/copy-button";
+
+import { OverflowTooltip } from "@/components/overflow-tooltip";
+import { SeverityBar } from "@/components/severity-bar";
+import { Tooltip, TooltipSize } from "@/components/tooltip";
+import type { SideDrawerHeaderProps } from "../types";
+
+export type { SideDrawerHeaderProps };
+
+export const SideDrawerHeader = ({
+  titleText,
+  titleNode,
+  titleAction,
+  severity,
+  copyURL,
+  customDividerStyle,
+  isFavorite = false,
+  actionButtons = [],
+  disablePrev = false,
+  disableNext = false,
+  hidePrev = false,
+  hideNext = false,
+  hideTitleAction = false,
+  hideFavorite = false,
+  hideCopyBtn = false,
+  hideActionButtons = false,
+  onPrev = EMPTY_FUNCTION,
+  onNext = EMPTY_FUNCTION,
+  onClose = EMPTY_FUNCTION,
+  onFavorite = EMPTY_FUNCTION,
+  onTitleAction = EMPTY_FUNCTION,
+  onCopyLink = EMPTY_FUNCTION,
+}: SideDrawerHeaderProps) => {
+  const theme = useTheme();
+
+  return (
+    <Box sx={sideDrawerHeaderBoxStyle(!hideActionButtons, theme)}>
+      <Stack sx={headerContainerStyle}>
+        <Stack sx={headerTitleContainerStyle}>
+          {severity && <SeverityBar severity={severity} />}
+          <Stack sx={headerTitleStyle}>
+            {titleText && (
+              <Typography
+                variant="h5"
+                sx={headerLabelStyle(!hideTitleAction, theme)}
+                noWrap
+              >
+                <OverflowTooltip key={titleText} value={titleText}>
+                  {titleText}
+                </OverflowTooltip>
+              </Typography>
+            )}
+
+            {titleNode}
+
+            {!hideTitleAction &&
+              (titleAction ?? (
+                <Tooltip title="Open in a new tab" size={TooltipSize.Large}>
+                  <span>
+                    <Button
+                      onClick={onTitleAction}
+                      size={"medium"}
+                      sx={{
+                        "&.MuiButton-sizeMedium": {
+                          color:
+                            theme.palette.vars
+                              .interactiveSecondaryDefaultDefault,
+                        },
+                      }}
+                      aria-label="drawer open in new tab"
+                    >
+                      <OpenInNewTab />
+                    </Button>
+                  </span>
+                </Tooltip>
+              ))}
+          </Stack>
+        </Stack>
+        <div style={titleSeparatorStyle} />
+        <Stack sx={headerButtonsContainerStyle}>
+          <Stack sx={navigationButtonsContainerStyle}>
+            {!hidePrev && (
+              <Button
+                onClick={onPrev}
+                disabled={disablePrev}
+                size={"medium"}
+                aria-label="drawer prev"
+              >
+                <ArrowBackIOS sx={navigationIconStyle(disablePrev, theme)} />
+              </Button>
+            )}
+            {!hideNext && (
+              <Button
+                onClick={onNext}
+                disabled={disableNext}
+                size={"medium"}
+                aria-label="drawer next"
+              >
+                <ArrowForwardIOS sx={navigationIconStyle(disableNext, theme)} />
+              </Button>
+            )}
+          </Stack>
+          <Button onClick={onClose} size={"medium"} aria-label="drawer close">
+            <CloseLarge sx={closeButtonStyle(theme)} />
+          </Button>
+        </Stack>
+      </Stack>
+      {!hideActionButtons && (
+        <Stack sx={sideDrawerActionButtonsStyle}>
+          {actionButtons}
+          {!hideFavorite && (
+            <Tooltip
+              placement="top"
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              size={TooltipSize.Large}
+            >
+              <span>
+                <Button
+                  disableRipple
+                  variant="secondary"
+                  onClick={onFavorite}
+                  sx={{ padding: "6px", minWidth: "unset" }}
+                  aria-label={
+                    isFavorite ? "Remove from favorites" : "Add to favorites"
+                  }
+                >
+                  {isFavorite ? (
+                    <Star sx={{ height: "20px", width: "20px" }} />
+                  ) : (
+                    <StarOutline sx={{ height: "20px", width: "20px" }} />
+                  )}
+                </Button>
+              </span>
+            </Tooltip>
+          )}
+          {!hideCopyBtn && (
+            <CopyButton text={copyURL} onCopy={() => onCopyLink(copyURL)} />
+          )}
+        </Stack>
+      )}
+      <Divider sx={{ ...dividerStyle(theme), ...customDividerStyle }} />
+    </Box>
+  );
+};

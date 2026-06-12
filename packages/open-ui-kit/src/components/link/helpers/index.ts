@@ -4,45 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CSSProperties } from "react";
-import { LinkType } from "../types";
-import { Theme } from "@mui/material";
-
-export const getLinkStyle = (
-  color: string,
-  disabled: boolean,
-  linkType: LinkType,
-  ellipsis: boolean,
-) => {
-  const pointerEventValue: CSSProperties["pointerEvents"] = disabled
-    ? "none"
-    : "auto";
-
-  return {
-    color: color,
-    width: ellipsis ? "100%" : "fit-content",
-    pointerEvents: pointerEventValue,
-    display: "inline-flex",
-    justifyContent: "center",
-    textDecoration: disabled
-      ? "none"
-      : linkType === LinkType.UnderlineRegular
-        ? "underline"
-        : "initial", // on hover
-  };
-};
+import type { Theme } from "@mui/material";
+import { LinkColorEnum } from "../types";
+import { getLinkColors as getLinkColorSet } from "../styles";
 
 export const getLinkColors = (theme: Theme) => ({
-  primary: {
-    default: theme.palette.vars?.interactivePrimaryDefaultDefault,
-    hover: theme.palette.vars?.interactivePrimaryDefaultHover,
-    pressed: theme.palette.vars?.interactivePrimaryDefaultActive,
-    disabled: theme.palette.vars?.interactivePrimaryDefaultDisabled,
-  },
-  secondary: {
-    default: theme.palette.vars?.interactiveSecondaryDefaultDefault,
-    hover: theme.palette.vars?.interactiveSecondaryDefaultHover,
-    pressed: theme.palette.vars?.interactiveSecondaryDefaultActive,
-    disabled: theme.palette.vars?.interactiveSecondaryDefaultDisabled,
-  },
+  primary: getLinkColorSet(theme, LinkColorEnum.Primary),
+  secondary: getLinkColorSet(theme, LinkColorEnum.Secondary),
 });

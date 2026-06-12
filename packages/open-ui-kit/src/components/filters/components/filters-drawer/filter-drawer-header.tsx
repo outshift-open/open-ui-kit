@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { styles } from "./styles";
-import { AssetsData } from "../../types/types";
-import { CloseOutlined } from "@mui/icons-material";
-import { SearchField } from "@/components/search-field";
+import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
+import { getStyles } from "./styles";
+import type { AssetsData } from "../../types";
+import { SearchInput } from "@/components/search-input";
+import { Close } from "@/custom-icons";
 
 interface FilterDrawerHeaderProps {
   activeFiltersCount: number;
@@ -25,6 +25,8 @@ export const FilterDrawerHeader = ({
   onCloseDrawer,
   onSearch,
 }: FilterDrawerHeaderProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const buildSummaryText = () => {
     return activeFiltersCount ? (
       <Stack direction="row" alignItems="baseline">
@@ -50,12 +52,16 @@ export const FilterDrawerHeader = ({
       <Stack sx={styles.drawerHeader}>
         <Stack sx={styles.drawerTitle} flexDirection="row">
           <Typography variant="h5">Filters</Typography>
-          <IconButton onClick={onCloseDrawer}>
-            <CloseOutlined />
+          <IconButton
+            aria-label="Close filters"
+            onClick={onCloseDrawer}
+            sx={styles.drawerCloseButton}
+          >
+            <Close />
           </IconButton>
         </Stack>
         {buildSummaryText()}
-        <SearchField
+        <SearchInput
           disabled={isLoading}
           sx={styles.searchField}
           placeholder="Search Filter"

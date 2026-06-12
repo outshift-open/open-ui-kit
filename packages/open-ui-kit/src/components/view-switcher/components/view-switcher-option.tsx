@@ -19,12 +19,18 @@ export const ViewSwitcherOption = ({
 }: ViewSwitcherOptionProperties): ReactElement => {
   return (
     <StyledButton
+      aria-label={Icon ? value : undefined}
+      aria-pressed={selected}
       onClick={() => onChange(value)}
       size={size}
       disabled={disabled}
       selected={selected}
       isIconOnly={!!Icon}
-      className={`osd-view-switcher-option ${selected && "osd-view-switcher-option-selected"}`}
+      className={
+        selected
+          ? "osd-view-switcher-option osd-view-switcher-option-selected"
+          : "osd-view-switcher-option"
+      }
     >
       {Icon ? <Icon className="view-switcher-option-icon" /> : label}
     </StyledButton>

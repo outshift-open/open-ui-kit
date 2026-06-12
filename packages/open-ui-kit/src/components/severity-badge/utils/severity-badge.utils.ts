@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Theme } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import { Severity } from "@/common";
 import {
   SeverityBadgeConfiguration,
   SeverityBadgeScoreSystemItem,
-} from "../types/severity-badge.types";
+} from "../types";
 import { getColorBySeverity } from "@/common";
 
 export const getIndicatorBadgeConfigurationBySeverity = (
@@ -69,7 +69,7 @@ export const getIndicatorBadgeConfigurationByScoreSystem = (
     },
     {
       configuration: {
-        color: theme.palette.warning.main,
+        color: theme.palette.vars.warningBackgroundActive,
         value: 2,
         label: "Moderate",
       },
@@ -77,7 +77,7 @@ export const getIndicatorBadgeConfigurationByScoreSystem = (
     },
     {
       configuration: {
-        color: theme.palette.success.main,
+        color: theme.palette.vars.successBackgroundDefault,
         value: 1,
         label: "Good",
       },

@@ -5,4 +5,4 @@
  */
 
 export { OverflowTooltip } from "./components/overflow-tooltip";
-export type { OverflowTooltipProps } from "./components/overflow-tooltip";
+export type { OverflowTooltipProps } from "./types";

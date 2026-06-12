@@ -9,11 +9,11 @@ Open UI Kit follows [Semantic Versioning](https://semver.org/):
 - **Minor versions** (1.0.0 → 1.1.0) - New features (backward compatible)
 - **Patch versions** (1.0.0 → 1.0.1) - Bug fixes (backward compatible)
 
-## Current Version: 1.5.0
+## Current Version
 
-Open UI Kit is currently in its initial major version (1.x). This migration guide will be updated as new major versions are released.
+Open UI Kit is currently in its initial major version line. This migration guide will be updated as new major versions are released.
 
-**Current stable version**: Check the [latest release](https://github.com/outshift-open/open-ui-kit/releases) for the most up-to-date version information.
+**Current stable version**: Check the [latest npm package](https://www.npmjs.com/package/@open-ui-kit/core), the docs header, or the [latest release](https://github.com/outshift-open/open-ui-kit/releases) for the most up-to-date version information.
 
 ## 1.5 → 1.6 (Breaking changes within 1.x)
 
@@ -25,10 +25,10 @@ While Open UI Kit follows Semantic Versioning, some changes may still be breakin
 
 - Dark mode state is now owned by Open UI Kit’s `ThemeProvider`.
 - Consumers should use the exported `useThemeMode()` hook to read/control theme mode:
-  - `isDarkMode`
-  - `setIsDarkMode`
+  - `mode`
+  - `setMode`
   - `toggleTheme`
-- The provider supports `defaultDarkMode?: boolean` to seed initial mode.
+- The provider supports `defaultMode?: ThemeMode` to seed initial mode.
 
 **Why this is a breaking change**
 
@@ -40,22 +40,22 @@ While Open UI Kit follows Semantic Versioning, some changes may still be breakin
 
 ```tsx
 import React from "react";
-import { ThemeProvider, useThemeMode } from "@open-ui-kit/core";
+import { ThemeMode, ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import "@open-ui-kit/core/typography.css";
 
 function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useThemeMode();
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <button type="button" onClick={toggleTheme}>
-      Switch to {isDarkMode ? "Light" : "Dark"} mode
+      Switch to {mode === ThemeMode.Dark ? "Light" : "Dark"} mode
     </button>
   );
 }
 
 export default function App() {
   return (
-    <ThemeProvider defaultDarkMode={false}>
+    <ThemeProvider defaultMode={ThemeMode.Light}>
       <ThemeToggle />
       {/* rest of your app */}
     </ThemeProvider>
@@ -67,17 +67,17 @@ export default function App() {
 
 ```tsx
 import React from "react";
-import { useThemeMode } from "@open-ui-kit/core";
+import { ThemeMode, useThemeMode } from "@open-ui-kit/core";
 
 export function ThemeModeSelect() {
-  const { isDarkMode, setIsDarkMode } = useThemeMode();
+  const { mode, setMode } = useThemeMode();
 
   return (
     <div>
-      <button type="button" disabled={!isDarkMode} onClick={() => setIsDarkMode(true)}>
+      <button type="button" disabled={mode === ThemeMode.Dark} onClick={() => setMode(ThemeMode.Dark)}>
         Dark
       </button>
-      <button type="button" disabled={isDarkMode} onClick={() => setIsDarkMode(false)}>
+      <button type="button" disabled={mode === ThemeMode.Light} onClick={() => setMode(ThemeMode.Light)}>
         Light
       </button>
     </div>
@@ -89,7 +89,7 @@ export function ThemeModeSelect() {
 
 - Wrap your app (or Storybook preview/root) with `ThemeProvider`.
 - Replace old theme-mode state/hooks with `useThemeMode()` usage.
-- If you need an initial dark mode, pass `defaultDarkMode` to `ThemeProvider`.
+- If you need an initial dark mode, pass `defaultMode={ThemeMode.Dark}` to `ThemeProvider`.
 - Ensure any component calling `useThemeMode()` is rendered *under* `ThemeProvider` (otherwise it will throw).
 
 ## Future Migration Planning
@@ -100,7 +100,7 @@ When major versions are released, this guide will include:
 
 - **Component API Changes** - Modified prop names or types
 - **Theme Structure Updates** - Changes to design tokens or theme format
-- **Peer Dependency Updates** - Material-UI, React, or other dependency versions
+- **Peer Dependency Updates** - Material UI, React, or other dependency versions
 - **Breaking Changes** - Removed deprecated features
 - **New Requirements** - Updated Node.js, TypeScript, or browser support
 
@@ -142,8 +142,8 @@ To help ensure smooth migrations:
 ### v1.x.x (Current)
 - Initial stable release
 - 50+ components with full TypeScript support
-- Material-UI v5 foundation
-- React 17+ support
+- Material UI v7+ foundation
+- React 18+ support
 
 ---
 

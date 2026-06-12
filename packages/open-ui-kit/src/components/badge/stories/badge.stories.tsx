@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Mail } from "@mui/icons-material";
+import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Badge, BadgeProps } from "../components/badge";
-import { Stack } from "@mui/material";
+import { Badge } from "../components/badge";
+import type { BadgeProps } from "../types";
+import { BADGE_TYPES } from "../styles";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -12,11 +14,34 @@ const meta: Meta<typeof Badge> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Badge"
           blurb="Badges are used to display a small count or status indicator. They can be used to show notifications, statuses, or other small pieces of information."
           guideLink=""
-          importLine='import { Badge } from "@open-ui-kit/core";'
+          importLine={`import { Badge } from "@open-ui-kit/core";`}
         />
       ),
+    },
+  },
+  args: {
+    type: "default",
+    content: "1",
+  },
+  argTypes: {
+    type: {
+      control: "select",
+      options: BADGE_TYPES,
+    },
+    content: {
+      control: "text",
+    },
+    notificationContent: {
+      control: "text",
+    },
+    styleBadge: {
+      table: { disable: true },
+    },
+    styleContent: {
+      table: { disable: true },
     },
   },
 };
@@ -25,60 +50,37 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-const BadgeStory = (args: BadgeProps) => <Badge {...args} />;
+export const Default: Story = {};
 
-export const Example: Story = {
-  render: (args: BadgeProps) => <Badge {...args} />,
+export const Types: Story = {
+  render: (args: BadgeProps) => (
+    <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+      {BADGE_TYPES.map((type) => (
+        <Badge key={type} {...args} type={type} content={1} />
+      ))}
+    </Stack>
+  ),
+};
+
+export const Notification: Story = {
+  render: (args: BadgeProps) => (
+    <Stack direction="row" spacing={4} useFlexGap flexWrap="wrap">
+      {BADGE_TYPES.map((type) => (
+        <Badge
+          key={type}
+          {...args}
+          type={type}
+          content={<Mail />}
+          notificationContent={1}
+        />
+      ))}
+    </Stack>
+  ),
+};
+
+export const WithLongLabel: Story = {
   args: {
-    content: "1",
+    type: "info",
+    content: "Beta",
   },
-};
-
-export const BadgeTypes: Story = {
-  render: (args) => (
-    <Stack direction={"row"} spacing={2}>
-      {(
-        [
-          "default",
-          "excellent",
-          "neutral",
-          "error",
-          "warning",
-          "info",
-          "success",
-          "inactive",
-          "moderate",
-          "severe",
-        ] as const
-      ).map((type) => BadgeStory({ ...args, type, content: 1 }))}
-    </Stack>
-  ),
-};
-
-export const BadgeWithNotifications: Story = {
-  render: (args) => (
-    <Stack direction={"row"} spacing={2}>
-      {(
-        [
-          "default",
-          "excellent",
-          "neutral",
-          "error",
-          "warning",
-          "info",
-          "success",
-          "inactive",
-          "moderate",
-          "severe",
-        ] as const
-      ).map((type) =>
-        BadgeStory({
-          ...args,
-          type,
-          content: <Mail />,
-          notificationContent: 1,
-        }),
-      )}
-    </Stack>
-  ),
 };

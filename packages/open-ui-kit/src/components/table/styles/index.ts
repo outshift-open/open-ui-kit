@@ -71,11 +71,12 @@ const commonHeaderStyles = (theme: Theme) => ({
 const commonTableStyles = (theme: Theme) => ({
   tableBottomToolbarStyle: {
     backgroundColor: "transparent",
-    minHeight: "48px",
+    minHeight: "32px",
     "> .MuiBox-root": {
       paddingBottom: 0,
-      paddingTop: "16px",
-      height: "48px",
+      paddingTop: 0,
+      height: "32px",
+      alignItems: "center",
     },
     "& .MuiTablePagination-root": {
       paddingTop: "0",
@@ -152,7 +153,7 @@ export const tableComfortStyles = (theme: Theme): TableDensityStyles => ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle1,
-      fontWeight: 600,
+      fontWeight: 500,
       height: `${tableComfortCellHeight}px`,
     }) as SxProps<Theme>,
   bodyCellStyle: <TData extends MRT_RowData>(
@@ -177,7 +178,7 @@ export const tableCompactStyles = (theme: Theme): TableDensityStyles => ({
       ...commonCellStyles(column, table, theme),
       ...commonHeaderStyles(theme),
       ...theme.typography.subtitle2,
-      fontWeight: 600,
+      fontWeight: 500,
       paddingTop: "6px",
       paddingBottom: "6px",
       height: `${tableCompactCellHeight}px`,

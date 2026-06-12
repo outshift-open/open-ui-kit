@@ -5,104 +5,179 @@
  */
 
 import { GeneralSize } from "@/common";
-import {
-  Button,
-  ButtonProps,
-  Stack,
-  StackProps,
-  Typography,
-} from "@mui/material";
+import { Button } from "@/components/button";
+import { Stack, Typography, useTheme } from "@mui/material";
 import {
   DefaultDescription,
-  Direction,
   Illustrations,
-  Variant,
   directionToFlexAlignmentMapping,
   sizeToIllustrationSizeMapping,
   sizeToMainFlexGapSizeMapping,
   sizeToSecondaryFlexGapSizeMapping,
-  directionToTextMaxWidthMapping,
+  getTextMaxWidth,
   sizeToTitleVariantMapping,
+  sizeToTitleLineHeightMapping,
+  sizeToTitleFontSizeMapping,
   sizeToDescriptionVariantMapping,
   directionToTextAlignmentMapping,
   sizeToActionSizeMapping,
-} from "../helpers/constants";
-
-export interface EmptyStateProps {
-  variant?: Variant;
-  direction?: Direction;
-  size?: GeneralSize;
-  title?: string;
-  description?: string;
-  actionCallback?: () => void;
-  actionTitle?: string;
-  actionButtonProps?: ButtonProps;
-  containerProps?: StackProps;
-}
+  sizeToRowGapMapping,
+  getContainerPadding,
+  getIllustrationAccentColor,
+} from "../styles";
+import type { EmptyStateProps } from "../types";
 
 export const EmptyState = ({
   variant = "info",
   direction = "column",
   size = GeneralSize.Large,
+  hideIllustration = false,
   title = "",
   description = DefaultDescription,
   actionCallback,
   actionTitle,
   actionButtonProps,
+  secondaryActionCallback,
+  secondaryActionTitle,
+  secondaryActionButtonProps,
   containerProps,
 }: EmptyStateProps) => {
+  const theme = useTheme();
   const Illustration = Illustrations[variant];
+  const showAction = Boolean(
+    actionCallback && actionTitle && size !== GeneralSize.Small,
+  );
+  const showSecondaryAction = Boolean(
+    secondaryActionCallback &&
+      secondaryActionTitle &&
+      size !== GeneralSize.Small,
+  );
 
   return (
     <Stack
       direction={direction}
-      gap={sizeToMainFlexGapSizeMapping[size]}
+      gap={
+        direction === "row"
+          ? sizeToRowGapMapping[size]
+          : sizeToMainFlexGapSizeMapping[size]
+      }
       alignItems={"center"}
       justifyContent={"center"}
       {...containerProps}
+      sx={[
+        {
+          boxSizing: "border-box",
+          flexWrap: direction === "row" ? "wrap" : "nowrap",
+          maxWidth: "100%",
+          padding: getContainerPadding(size, direction),
+        },
+        ...(Array.isArray(containerProps?.sx)
+          ? containerProps.sx
+          : containerProps?.sx
+            ? [containerProps.sx]
+            : []),
+      ]}
     >
-      <Illustration
-        sx={{
-          width: sizeToIllustrationSizeMapping[size],
-          height: sizeToIllustrationSizeMapping[size],
-        }}
-      />
+      {!hideIllustration && (
+        <Illustration
+          sx={{
+            width: sizeToIllustrationSizeMapping[size],
+            height: sizeToIllustrationSizeMapping[size],
+            flexShrink: 0,
+            "--empty-state-illustration-accent": getIllustrationAccentColor(
+              theme,
+              variant,
+            ),
+          }}
+        />
+      )}
       <Stack
         direction={"column"}
         gap={"16px"}
         alignItems={directionToFlexAlignmentMapping[direction]}
         justifyContent={"center"}
+        sx={{ maxWidth: "100%", minWidth: 0 }}
       >
         <Stack
           direction={"column"}
           gap={sizeToSecondaryFlexGapSizeMapping[size]}
           alignItems={directionToFlexAlignmentMapping[direction]}
           justifyContent={"center"}
-          sx={{ maxWidth: directionToTextMaxWidthMapping[direction] }}
+          sx={{
+            maxWidth: getTextMaxWidth(size, direction),
+            minWidth: 0,
+            width: "100%",
+          }}
         >
           {title && size !== GeneralSize.Small && (
-            <Typography variant={sizeToTitleVariantMapping[size]}>
+            <Typography
+              variant={sizeToTitleVariantMapping[size]}
+              sx={{
+                color: theme.palette.vars.baseTextStrong,
+                textAlign: directionToTextAlignmentMapping[direction],
+                fontSize: sizeToTitleFontSizeMapping[size],
+                lineHeight: sizeToTitleLineHeightMapping[size],
+              }}
+            >
               {title}
             </Typography>
           )}
           {description && (
             <Typography
               variant={sizeToDescriptionVariantMapping[size]}
-              sx={{ textAlign: directionToTextAlignmentMapping[direction] }}
+              sx={{
+                color: theme.palette.vars.baseTextMedium,
+                textAlign: directionToTextAlignmentMapping[direction],
+              }}
             >
               {description}
             </Typography>
           )}
         </Stack>
-        {actionCallback && actionTitle && size !== GeneralSize.Small && (
-          <Button
-            variant="primary"
-            size={sizeToActionSizeMapping[size]}
-            onClick={actionCallback}
-            {...actionButtonProps}
+        {(showAction || showSecondaryAction) && (
+          <Stack
+            direction="row"
+            gap="16px"
+            alignItems="flex-start"
+            flexWrap="wrap"
           >
-            {actionTitle}
-          </Button>
+            {showAction && (
+              <Button
+                variant="primary"
+                size={sizeToActionSizeMapping[size]}
+                onClick={actionCallback}
+                {...actionButtonProps}
+                sx={[
+                  {},
+                  ...(Array.isArray(actionButtonProps?.sx)
+                    ? actionButtonProps.sx
+                    : actionButtonProps?.sx
+                      ? [actionButtonProps.sx]
+                      : []),
+                ]}
+              >
+                {actionTitle}
+              </Button>
+            )}
+            {showSecondaryAction && (
+              <Button
+                variant="secondary"
+                size={sizeToActionSizeMapping[size]}
+                onClick={secondaryActionCallback}
+                {...secondaryActionButtonProps}
+                sx={[
+                  {},
+                  ...(Array.isArray(secondaryActionButtonProps?.sx)
+                    ? secondaryActionButtonProps.sx
+                    : secondaryActionButtonProps?.sx
+                      ? [secondaryActionButtonProps.sx]
+                      : []),
+                ]}
+              >
+                {secondaryActionTitle}
+              </Button>
+            )}
+          </Stack>
         )}
       </Stack>
     </Stack>

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Alert, styled, Theme, type AlertProps } from "@mui/material";
+import { Alert, styled, type AlertProps } from "@mui/material";
 import type { ComponentType } from "react";
 import { StatusBanner } from "../types";
 import {
@@ -13,121 +13,59 @@ import {
   InfoOutline,
   WarningAmber,
 } from "@mui/icons-material";
-
-const customTextStyle = {
-  margin: 0,
-  padding: 0,
-};
-
-const customIconStyle = {
-  margin: 0,
-  padding: 0,
-};
-
-const getStyleByStatus = (status: StatusBanner, theme: Theme) => {
-  switch (status) {
-    case "negative":
-      return {
-        border: `1px solid ${theme.palette.vars.negativeBorderDefault}`,
-        background: theme.palette.vars.negativeBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.negativeTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.negativeIconDefault,
-        },
-      };
-    case "warning":
-      return {
-        border: `1px solid ${theme.palette.vars.severeWarningBorderDefault}`,
-        background: theme.palette.vars.severeWarningBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.severeWarningTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.severeWarningIconDefault,
-        },
-      };
-    case "success":
-      return {
-        border: `1px solid ${theme.palette.vars.successBorderDefault}`,
-        background: theme.palette.vars.successBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.successTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.successIconDefault,
-        },
-      };
-    case "info":
-      return {
-        border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
-        background: theme.palette.vars.neutralBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.neutralTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.neutralIconDefault,
-        },
-      };
-    case "excellent":
-      return {
-        border: `1px solid ${theme.palette.vars.excellentBorderDefault}`,
-        background: theme.palette.vars.excellentBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.excellentTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.excellentIconDefault,
-        },
-      };
-    default:
-      return {
-        border: `1px solid ${theme.palette.vars.neutralBorderDefault}`,
-        background: theme.palette.vars.neutralBackgroundWeak,
-        "& .MuiAlert-message": {
-          ...customTextStyle,
-          color: theme.palette.vars.neutralTextDefault,
-        },
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.neutralIconDefault,
-        },
-      };
-  }
-};
+import { getBannerColors } from "../styles";
 
 export const StyledBanner = styled(Alert, {
   shouldForwardProp: (prop) => prop !== "status",
-  name: "StyledBanner",
-  slot: "Root",
-  overridesResolver: (props, styles) => [
-    styles.root,
-    props.status && styles.status,
-  ],
 })<{ status?: StatusBanner }>(({ theme, status }) => ({
-  padding: "8px 12px",
+  boxSizing: "border-box",
+  padding: "8px 4px 8px 12px",
+  width: "800px",
+  maxWidth: "100%",
   height: "40px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   gap: "16px",
   borderRadius: 0,
+  border: `1px solid ${getBannerColors(theme, status).border}`,
+  background: getBannerColors(theme, status).background,
+  color: getBannerColors(theme, status).text,
+  "& .MuiAlert-icon": {
+    margin: 0,
+    padding: 0,
+    width: "24px",
+    height: "24px",
+    color: getBannerColors(theme, status).icon,
+    "& > svg": {
+      width: "24px",
+      height: "24px",
+    },
+  },
+  "& .MuiAlert-message": {
+    margin: 0,
+    padding: 0,
+    width: "486px",
+    maxWidth: "100%",
+    height: "24px",
+    display: "flex",
+    alignItems: "center",
+    color: "inherit",
+    "& .MuiTypography-root": {
+      display: "flex",
+      alignItems: "center",
+      color: "inherit",
+      height: "24px",
+      letterSpacing: "0.15px",
+    },
+  },
   "& .MuiAlert-action": {
     margin: 0,
     padding: 0,
+    width: "24px",
+    height: "24px",
+    color: theme.palette.vars.controlIconDefault,
   },
-  ...(status && getStyleByStatus(status, theme)),
 })) as ComponentType<AlertProps & { status?: StatusBanner }>;
 
 export const IconBanner = ({ status }: { status?: StatusBanner }) => {

@@ -5,4 +5,4 @@
  */
 
 export { PathDisplay } from "./components/path-display";
-export type { PathDisplayProps } from "./components/path-display";
+export type { PathDisplayProps } from "./types";

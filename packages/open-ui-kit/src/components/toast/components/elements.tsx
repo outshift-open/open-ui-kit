@@ -8,101 +8,55 @@ import { Alert, styled, Theme, type AlertProps } from "@mui/material";
 import type { ComponentType } from "react";
 import { ToastType } from "../types";
 import {
+  toastIconSlotStyle,
+  toastMessageSlotStyle,
+  toastRootStyle,
+} from "../styles";
+import {
   CheckCircleOutline,
+  ErrorOutline,
   InfoOutline,
-  WarningAmber,
+  WarningAmberOutlined,
 } from "@mui/icons-material";
 
-const customIconStyle = {
-  margin: 0,
-  padding: 0,
-  marginTop: "2px",
-};
-
-const getStyleByStatus = (type: ToastType, theme: Theme) => {
-  switch (type) {
-    case "error":
-      return {
-        border: `1px solid ${theme.palette.vars.negativeBorderDefault}`,
-        borderLeftWidth: "4px",
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.negativeIconDefault,
-        },
-      };
-    case "warning":
-      return {
-        border: `1px solid ${theme.palette.vars.severeWarningBorderDefault}`,
-        borderLeftWidth: "4px",
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.severeWarningIconDefault,
-        },
-      };
-    case "success":
-      return {
-        border: `1px solid ${theme.palette.vars.successBackgroundDefault}`,
-        borderLeftWidth: "4px",
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.successIconDefault,
-        },
-      };
-    case "info":
-      return {
-        border: `1px solid ${theme.palette.vars.infoBorderDefault}`,
-        borderLeftWidth: "4px",
-        "& .MuiAlert-icon": {
-          ...customIconStyle,
-          color: theme.palette.vars.infoIconDefault,
-        },
-      };
-    case "default":
-      return {};
-    default:
-      return {};
-  }
-};
-
 export const StyledToast = styled(Alert, {
-  shouldForwardProp: (prop) => prop !== "type",
-  name: "StyledToast",
-  slot: "Root",
-  overridesResolver: (props, styles) => [
-    styles.root,
-    props.type && styles.type,
-  ],
-})<{ type?: ToastType }>(({ theme, type }) => ({
-  padding: "12px 16px",
-  borderRadius: "4px",
-  color: theme.palette.vars.baseTextDefault,
-  background: theme.palette.vars.baseBackgroundMedium,
-  gap: "12px",
-  maxWidth: "390px",
-  "& .MuiAlertTitle-root, & .MuiAlert-message": {
-    margin: 0,
-    padding: 0,
-  },
-  "& .MuiAlert-action": {
-    margin: 0,
-    padding: 0,
-    marginTop: "-2px",
-  },
-  ...(type && getStyleByStatus(type, theme)),
-})) as ComponentType<AlertProps & { type?: ToastType }>;
+  shouldForwardProp: (prop) =>
+    prop !== "type" && prop !== "hasTitle" && prop !== "hasAction",
+})<{ type?: ToastType; hasTitle?: boolean; hasAction?: boolean }>(
+  ({ theme, type, hasTitle, hasAction }) => ({
+    ...toastRootStyle(theme as Theme, type, hasTitle, hasAction),
+    "& .MuiAlertTitle-root, & .MuiAlert-message": {
+      margin: 0,
+    },
+    "& .MuiAlert-icon": {
+      ...toastIconSlotStyle(theme as Theme, type),
+    },
+    "& .MuiAlert-action": {
+      display: "none",
+    },
+    "& .MuiAlert-message": {
+      ...toastMessageSlotStyle,
+    },
+    "& .MuiAlert-icon + .MuiAlert-message": {
+      margin: 0,
+    },
+  }),
+) as ComponentType<
+  AlertProps & { type?: ToastType; hasTitle?: boolean; hasAction?: boolean }
+>;
 
 export const IconToast = ({ type }: { type?: ToastType }) => {
   switch (type) {
     case "default":
       return null;
     case "warning":
-      return <WarningAmber />;
+      return <WarningAmberOutlined />;
     case "success":
       return <CheckCircleOutline />;
     case "info":
       return <InfoOutline />;
     case "error":
-      return <InfoOutline />;
+      return <ErrorOutline />;
     default:
       return null;
   }

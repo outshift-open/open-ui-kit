@@ -1,6 +1,14 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button } from "@mui/material";
-import { Toaster, ToasterProps } from "../components/toaster";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box } from "@/components";
+import { Button } from "@/components/button";
+import { Toaster } from "../components/toaster";
+import type { ToasterProps } from "../types";
 import { toast } from "../components/toast";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
@@ -12,6 +20,7 @@ const meta: Meta<typeof Toaster> = {
     docs: {
       page: () => (
         <DocsHeader
+          title="Toaster"
           blurb="The Toaster component is a container for Toasts, allowing you to manage and display multiple toasts in your application."
           guideLink=""
           importLine='import { Toaster, toast } from "@open-ui-kit/core";'
@@ -30,12 +39,11 @@ const ToasterComponent = (args: ToasterProps) => {
     toast({
       type: "info",
       title: "Custom Toast",
-      description: "You can customize the content and actions.",
+      description:
+        "You can customize the content, timing, and actions for each toast notification.",
       action: {
         label: "Button",
-        onClick: () => {
-          console.log("Toast button clicked");
-        },
+        onClick: () => undefined,
       },
     });
   };

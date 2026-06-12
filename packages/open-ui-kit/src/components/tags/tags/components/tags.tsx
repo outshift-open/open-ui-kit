@@ -4,31 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Stack } from "@mui/material";
-import { AugmentedSelectNodeType, SelectNodeType } from "@/types";
-import { formatNodeValue, GeneralSize } from "@/common";
+import { Box, Stack } from "@mui/material";
+import { formatNodeValue } from "@/components/nested-menu";
+import { GeneralSize } from "@/common";
 import TagLabel from "./tag-label";
 import { OverflowTooltip } from "@/components/overflow-tooltip";
 import { Tag } from "@/components/tags/tag";
 import { Tooltip } from "@/components/tooltip";
 import { RemainingTags } from "./remaining-tags";
-
-interface SkillTagsProps {
-  customizeLabel?: (node: AugmentedSelectNodeType | SelectNodeType) => string;
-  customizeTooltip?: (
-    node: AugmentedSelectNodeType | SelectNodeType,
-  ) => React.ReactNode;
-  handleDelete?: (
-    event: React.MouseEvent<HTMLElement>,
-    node: AugmentedSelectNodeType | SelectNodeType,
-    idx: number,
-  ) => void;
-  items: AugmentedSelectNodeType[] | SelectNodeType[];
-  maxTooltipTags?: number;
-  shouldTruncate?: boolean;
-  showOnlyFirst?: boolean;
-  size?: GeneralSize;
-}
+import type { AugmentedSelectNodeType } from "@/components/nested-menu";
+import type { TagsProps } from "../types";
 
 export const Tags = ({
   customizeLabel,
@@ -39,7 +24,7 @@ export const Tags = ({
   shouldTruncate = false,
   showOnlyFirst = true,
   size = GeneralSize.Small,
-}: SkillTagsProps) => {
+}: TagsProps) => {
   if (items.length === 0) {
     return null;
   }
@@ -65,7 +50,6 @@ export const Tags = ({
           value={
             customizeTooltip ? customizeTooltip(firstNode) : firstNodeLabel
           }
-          someLongText={firstNodeLabel}
           slotProps={{
             popper: {
               sx: {
@@ -73,7 +57,9 @@ export const Tags = ({
               },
             },
           }}
-        />
+        >
+          {firstNodeLabel}
+        </OverflowTooltip>
       </Tag>
     );
 
@@ -86,18 +72,18 @@ export const Tags = ({
               <span>
                 {items
                   .slice(1, maxTooltipTags)
-                  .map((node, index) => formatNodeValue(items[index + 1]))
+                  .map((node) => formatNodeValue(node))
                   .join(", ")}
                 {items.length - 1 > maxTooltipTags && ", and more..."}
               </span>
             }
           >
-            <span style={{ display: "inline-flex" }}>
+            <Box component="span" sx={{ display: "inline-flex" }}>
               <Tag
                 size={size}
                 sx={{
                   border: "none",
-                  background: "transparent",
+                  backgroundColor: "transparent",
                   "& .MuiChip-label": {
                     paddingLeft: "0",
                   },
@@ -105,7 +91,7 @@ export const Tags = ({
               >
                 +{items.length - 1}
               </Tag>
-            </span>
+            </Box>
           </Tooltip>
         )}
       </Stack>
@@ -146,7 +132,6 @@ export const Tags = ({
               node={node}
               nodeLabel={nodeLabel}
               customizeTooltip={customizeTooltip}
-              shouldTruncate={shouldTruncate}
             />
           </Tag>
         );

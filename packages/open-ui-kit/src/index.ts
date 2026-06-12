@@ -4,19 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import "./typography.css";
 import "./types/theme";
 
-export * from "./templates";
 export * from "./components";
 export * from "./charts";
+export * from "./templates";
 export * as Icons from "./custom-icons";
 export * from "./custom-illustrations";
 export * from "./common";
-export * from "./common/utils";
-export { OS_LIGHT_COLORS } from "./theme/color-palette";
-export { gradientsPalette } from "./theme/gradients";
+export * from "./theme/style/color-palette";
+export { gradientsPalette } from "./theme/style/gradients";
+export { lightVars } from "./theme/light/light-vars";
+export { darkVars } from "./theme/dark/dark-vars";
+export type { VarsType } from "./types/vars";
 export {
+  ThemeMode,
   ThemeProvider,
   useTheme,
   useThemeMode,
@@ -27,4 +29,3 @@ export type {
   ThemeModeContextValue,
   ThemeProviderProps,
 } from "./theme-provider/theme-provider";
-export * from "./types/select-tree";

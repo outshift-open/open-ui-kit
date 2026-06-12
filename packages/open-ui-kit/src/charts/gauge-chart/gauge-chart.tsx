@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box, Typography, useTheme } from "@mui/material";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-// import { barShadow, boxStyle, gaugeLabel, gaugeWrapper } from "./styles";
-import { ChartDataItem, ChartProps } from "../common/types";
 import styled from "@emotion/styled";
+import { Box, Typography, useTheme } from "@mui/material";
+import type { ReactNode } from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { barShadow, boxStyle, gaugeLabel, gaugeWrapper } from "./styles";
+import { ChartDataItem, ChartProps } from "../common/types";
 
 // Dividers Configuration
 const NUM_DIVIDERS = 51;
@@ -27,11 +28,17 @@ const StyledResponsiveContainer = styled(ResponsiveContainer)`
 `;
 
 export interface GaugeChartProps extends ChartProps {
+  /** Highest target value used to calculate how much of the gauge arc is filled. */
   maxValue?: number;
-  customLabelComponent?: React.ReactNode;
+  /** Optional content shown below the numeric value inside the gauge. */
+  customLabelComponent?: ReactNode;
+  /** Optional dimensional overrides for compact or expanded gauge layouts. */
   styleProps?: {
+    /** Custom gauge width in pixels. */
     customWidth?: number;
+    /** Custom gauge height in pixels. */
     customHeight?: number;
+    /** CSS top value for the central numeric label. */
     textTop?: string;
   };
 }
@@ -45,16 +52,16 @@ export const GaugeChart = ({
   const theme = useTheme();
 
   const [valueItem] = data as ChartDataItem[];
+  const clampedValue = Math.min(valueItem.value, maxValue);
   const gaugeData = [
     // Main Bar
     {
-      value: (valueItem.value / maxValue) * 100,
+      value: (clampedValue / maxValue) * 100,
       fill: valueItem.color,
     },
     // Background Bar
     {
-      value:
-        ((maxValue - Math.min(valueItem.value, maxValue)) / maxValue) * 100, // The remaining part to fill with background
+      value: ((maxValue - clampedValue) / maxValue) * 100, // The remaining part to fill with background
       fill: theme.palette.vars.controlIconDisabled,
     },
   ];
@@ -125,9 +132,9 @@ export const GaugeChart = ({
             <Cell
               key={`gauge-main-bar`}
               strokeLinecap="round"
-              style={barShadow(gaugeData[0].fill)}
+              style={barShadow(theme, gaugeData[0].fill)}
             />
-            <Cell key={`gauge-background-bar`} strokeLinecap="round" />;
+            <Cell key={`gauge-background-bar`} strokeLinecap="round" />
           </Pie>
           {renderDividers()}
         </PieChart>
@@ -145,33 +152,4 @@ export const GaugeChart = ({
       </div>
     </StyledResponsiveContainer>
   );
-};
-
-export const gaugeWrapper = ({
-  height,
-  width,
-}: {
-  height: number;
-  width: number;
-}) =>
-  ({
-    display: "inline-block",
-    width: `${width}px`,
-    height: `${height}px`,
-    position: "relative",
-  }) as const;
-
-export const barShadow = (barFill: string) => ({
-  filter: `drop-shadow(0 0 4px ${barFill}80) drop-shadow(0 1.97px 1px rgba(0, 0, 0, 0.25))`,
-});
-
-export const gaugeLabel = {
-  transform: "translate(-50%, -50%)",
-};
-
-export const boxStyle = {
-  position: "absolute",
-  top: "55%",
-  left: "50%",
-  transform: "translateX(-50%)",
 };

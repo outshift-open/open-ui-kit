@@ -9,15 +9,16 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Checkbox,
   List,
-  Skeleton,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
+import { Checkbox } from "@/components/checkbox";
+import { Skeleton } from "@/components/skeleton";
 
-import { styles } from "./styles";
-import { FilterOptionData, FilterData } from "../../types/types";
+import { getStyles } from "./styles";
+import type { FilterOptionData, FilterData } from "../../types";
 import {
   getFilteredSubFilters,
   setAllOptions,
@@ -44,6 +45,8 @@ export const FilterAccordion = ({
   level = 0,
   isSelectAllEnabledOnParent = false,
 }: FilterProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {

@@ -4,9 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Button, Drawer, Stack } from "@mui/material";
-import { AssetsData, FilterData } from "../../types/types";
-import { styles } from "./styles";
+import Drawer from "@mui/material/Drawer";
+import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
+import { Button } from "@/components/button";
+import type { FiltersDrawerProps, FilterData } from "../../types";
+import { getStyles } from "./styles";
 import { useDebounce } from "use-debounce";
 import { useCallback, useState } from "react";
 import { getFilteredSubFilters, getFiltersSelectionCount } from "../../utils";
@@ -14,17 +17,6 @@ import { FilterDrawerHeader } from "./filter-drawer-header";
 import { EmptySearchResult } from "./empty-search-result";
 import { Undo } from "@/custom-icons";
 import { FilterAccordion } from "./filter-accordion";
-
-export interface FiltersDrawerProps {
-  isOpen: boolean;
-  isLoading: boolean;
-  filters: Array<FilterData>;
-  searchText?: string;
-  assetsData: AssetsData;
-  onSelectedChange: (updatedFilters: Array<FilterData>) => void;
-  handleClose: () => void;
-  handleClearAll: () => void;
-}
 
 export const FiltersDrawer = ({
   isOpen,
@@ -35,6 +27,8 @@ export const FiltersDrawer = ({
   handleClose,
   handleClearAll,
 }: FiltersDrawerProps) => {
+  const theme = useTheme();
+  const styles = getStyles(theme);
   const [search, setSearch] = useState("");
   const [searchDebounced] = useDebounce(search, 170);
 
@@ -70,7 +64,12 @@ export const FiltersDrawer = ({
   const filtersBySearch = getFilteredSubFilters(filters, searchDebounced);
 
   return (
-    <Drawer anchor={"right"} open={isOpen} onClose={onClose}>
+    <Drawer
+      anchor="right"
+      open={isOpen}
+      onClose={onClose}
+      PaperProps={{ sx: styles.drawerPaper }}
+    >
       <FilterDrawerHeader
         onCloseDrawer={onClose}
         assetsData={assetsData}
@@ -78,7 +77,7 @@ export const FiltersDrawer = ({
         onSearch={(value) => setSearch(value)}
         isLoading={isLoading}
       />
-      <Stack flex={1} overflow="auto" sx={styles.drawerBody}>
+      <Stack sx={styles.drawerBody}>
         {filtersBySearch.length === 0 ? (
           <EmptySearchResult searchValue={searchDebounced} />
         ) : (

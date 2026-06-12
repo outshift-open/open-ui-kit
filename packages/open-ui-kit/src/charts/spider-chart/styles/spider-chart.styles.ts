@@ -10,9 +10,9 @@ import type { ComponentType, HTMLAttributes } from "react";
 export const StyledTooltip = styled("div")(({ theme }) => ({
   width: "max-content",
   borderRadius: "4px",
-  boxShadow: "0px 4px 30px rgba(9, 13, 50, 0.25)",
-  color: theme.palette.vars.baseTextDefault,
-  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[4],
+  color: theme.palette.vars.baseTextInverse,
+  backgroundColor: theme.palette.vars.inactiveBackgroundActive,
   padding: "2px 8px",
 })) as ComponentType<HTMLAttributes<HTMLDivElement>>;
 

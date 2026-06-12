@@ -5,4 +5,4 @@
  */
 
 export { IndicatorBadge } from "./components/indicator-badge";
-export type { IndicatorBadgeProps } from "./components/indicator-badge";
+export type { IndicatorBadgeProps, IndicatorBadgeValue } from "./types";

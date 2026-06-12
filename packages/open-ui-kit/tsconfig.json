@@ -22,7 +22,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES5",
+    "target": "ES2017",
+    "ignoreDeprecations": "5.0",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],

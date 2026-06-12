@@ -5,14 +5,14 @@
  */
 
 import { useMemo, useState } from "react";
-import Divider from "@mui/material/Divider";
-import Menu, { type MenuProps } from "@mui/material/Menu";
+import { Stack, Typography } from "@mui/material";
+import { Divider } from "@/components/divider";
+import { Menu, type MenuProps } from "@/components/menu";
 import {
   type MRT_Column,
   type MRT_RowData,
   type MRT_TableInstance,
 } from "material-react-table";
-import { Typography, Stack } from "@mui/material";
 import { actionMenuStyle } from "../../styles";
 import { ArrangeColumnsMenuItem } from "./arrange-columns-menu-items";
 

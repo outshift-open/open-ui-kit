@@ -1,41 +1,15 @@
-import { Meta, IconGallery, IconItem } from "@storybook/addon-docs/blocks";
-import { bluePalette } from "../theme/color-palette";
-import * as Icons from "../custom-icons";
-import { Tooltip } from "..";
-import { useState } from "react";
-import { TextField, IconButton } from "@mui/material";
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Icons from "@/custom-icons";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { IconGalleryDocs } from "./icon-gallery";
 
 <Meta title="Foundations/Iconography" />
 
-export default function Iconography() {
-  const [searchTerm, setSearchTerm] = useState("");
+<DocsHeader
+  title="Iconography"
+  blurb={`Open UI Kit icon set: ${Object.keys(Icons).length} icons across system UI and cloud providers. Click any icon to copy its export name.`}
+  importLine='import { Icons } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
 
-  const filteredIcons = Object.entries(Icons).filter(([name]) =>
-    name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <>
-      <TextField
-        label="Search icons"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        fullWidth
-        sx={{
-          marginBottom: "40px",
-        }}
-      />
-      <IconGallery>
-        {filteredIcons.map(([name, Icon], index) => (
-          <IconItem key={index} name={name}>
-            <Tooltip title={name}>
-              <IconButton>
-                <Icon fill={bluePalette[500]} />
-              </IconButton>
-            </Tooltip>
-          </IconItem>
-        ))}
-      </IconGallery>
-    </>
-  ); 
-}
+<IconGalleryDocs allIcons={Icons} />

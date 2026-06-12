@@ -1,0 +1,226 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { TypographySection } from "./typography-row";
+
+<Meta title="Foundations/Typography" />
+
+<DocsHeader
+  title="Type"
+  blurb="Open UI Kit uses modern, clean sans serif and monospace font families to make screens of precise and exacting technical information easy to scan."
+  importLine='import { Typography } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
+
+<TypographySection
+  title="Headline Titles"
+  description="Open UI Kit uses Sharp Sans and Inter typefaces for headings and body copy."
+  variants={[
+    {
+      token: "h1",
+      label: "Title h1",
+      usage: "Used for large banners, illustrations or promotional content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "60px",
+      lineHeight: "64px",
+      variant: "h1",
+    },
+    {
+      token: "h2",
+      label: "Title h2",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "48px",
+      lineHeight: "52px",
+      variant: "h2",
+    },
+    {
+      token: "h3",
+      label: "Title h3",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "36px",
+      lineHeight: "44px",
+      variant: "h3",
+    },
+    {
+      token: "h4",
+      label: "Title h4",
+      usage: "Used for large numbers in graphs, charts, and marketing content.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "28px",
+      lineHeight: "36px",
+      variant: "h4",
+    },
+    {
+      token: "h5",
+      label: "Title h5",
+      usage: "Used for page titles, modal title, and drawer title.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "24px",
+      lineHeight: "32px",
+      variant: "h5",
+    },
+    {
+      token: "h6",
+      label: "Title h6",
+      usage: "Used for section titles, accordion headers, and first-level titles within a container.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "20px",
+      lineHeight: "28px",
+      variant: "h6",
+    },
+    {
+      token: "headingSubSection",
+      label: "Title h7",
+      usage: "Used for sub-section titles, and second-level titles within a container.",
+      family: "Sharp Sans, sans-serif",
+      fontWeight: 700,
+      fontWeightLabel: "Sharp Sans Bold",
+      fontSize: "18px",
+      lineHeight: "28px",
+      variant: "headingSubSection",
+    },
+  ]}
+/>
+
+<TypographySection
+  title="Subtitles"
+  variants={[
+    {
+      token: "subtitle1",
+      label: "Subtitle 1",
+      usage: "Used for first-level titles within a sub container or subsection.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "16px",
+      lineHeight: "24px",
+      letterSpacing: "0.15px",
+      variant: "subtitle1",
+    },
+    {
+      token: "subtitle2",
+      label: "Subtitle 2",
+      usage: "Used for first-level titles within a sub container or subsection.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "14px",
+      lineHeight: "20px",
+      letterSpacing: "0.1px",
+      variant: "subtitle2",
+    },
+  ]}
+/>
+
+<TypographySection
+  title="Body"
+  variants={[
+    {
+      token: "body1Semibold",
+      label: "Body 1 SemiBold",
+      usage: "Used for first-level titles within a sub container or subsection, and to section paragraphs.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Semibold",
+      fontSize: "16px",
+      lineHeight: "24px",
+      variant: "body1Semibold",
+    },
+    {
+      token: "body2Semibold",
+      label: "Body 2 SemiBold",
+      usage: "Used for first-level titles within a sub container or subsection, and to section paragraphs.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Semibold",
+      fontSize: "14px",
+      lineHeight: "20px",
+      variant: "body2Semibold",
+    },
+    {
+      token: "body1",
+      label: "Body 1",
+      usage: "Used for first-level paragraph text.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "16px",
+      lineHeight: "24px",
+      letterSpacing: "0.5px",
+      variant: "body1",
+    },
+    {
+      token: "body2",
+      label: "Body 2",
+      usage: "Used for second-level paragraph text.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "14px",
+      lineHeight: "20px",
+      letterSpacing: "0.25px",
+      variant: "body2",
+    },
+    {
+      token: "captionSemibold",
+      label: "Caption Bold",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 600,
+      fontWeightLabel: "Inter Bold",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "captionSemibold",
+    },
+    {
+      token: "captionMedium",
+      label: "Caption Medium",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "captionMedium",
+    },
+    {
+      token: "caption",
+      label: "Caption",
+      usage: "Used for third-level paragraph text, or small text within components.",
+      family: "Inter, sans-serif",
+      fontWeight: 400,
+      fontWeightLabel: "Inter",
+      fontSize: "12px",
+      lineHeight: "16px",
+      letterSpacing: "0.4px",
+      variant: "caption",
+    },
+    {
+      token: "overline",
+      label: "Caption Small",
+      usage: "Smallest text, only used when necessary.",
+      family: "Inter, sans-serif",
+      fontWeight: 500,
+      fontWeightLabel: "Inter Medium",
+      fontSize: "10px",
+      lineHeight: "12px",
+      letterSpacing: "0.4px",
+      variant: "overline",
+    },
+  ]}
+/>

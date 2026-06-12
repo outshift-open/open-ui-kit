@@ -4,79 +4,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TimelineDotProps as MuiTimelineDotProps } from "@mui/lab";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import { setStepColor } from "../utils/utils";
-import { Box, CircularProgress, Theme, useTheme } from "@mui/material";
+import { CircularProgress, useTheme, type BoxProps } from "@mui/material";
 import { ActivityTimelineStepStatus } from "../types";
+import { getActivityTimelineDotStyle } from "../styles";
+import { StyledTimelineDotRoot } from "./elements";
 
-export interface ActivityTimelineDotProps extends MuiTimelineDotProps {
+export interface ActivityTimelineDotProps extends BoxProps {
+  /** Uses percent-driven progress rendering instead of status icons. */
   automaticProgress?: boolean;
+  /** Progress percentage used by automatic timeline states. */
   percent?: number;
+  /** Visual state for the dot. */
   status?: ActivityTimelineStepStatus;
 }
-
-const setActivityTimelineDotStyle = (
-  status: ActivityTimelineStepStatus,
-  theme: Theme,
-) => {
-  switch (status) {
-    case ActivityTimelineStepStatus.InProgress:
-      return {
-        background: "transparent",
-        color: setStepColor(status, theme),
-        percent: 67,
-      };
-    case ActivityTimelineStepStatus.Neutral:
-      return {
-        background: theme.palette.vars?.interactivePrimaryWeakDefault,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-    case ActivityTimelineStepStatus.Complete:
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-    case ActivityTimelineStepStatus.Error:
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        color: setStepColor(status, theme),
-        percent: 67,
-      };
-    default:
-      // INACTIVE STATUS
-      return {
-        background: theme.palette.vars?.controlBackgroundDefault,
-        color: setStepColor(status, theme),
-        percent: 100,
-      };
-  }
-};
 
 export const ActivityTimelineDot = ({
   automaticProgress = false,
   percent,
   status = ActivityTimelineStepStatus.Inactive,
+  ...props
 }: ActivityTimelineDotProps) => {
   const theme = useTheme();
-  const timelineDotStyle = setActivityTimelineDotStyle(
-    percent ? ActivityTimelineStepStatus.InProgress : status,
-    theme,
-  );
+  const effectiveStatus =
+    percent !== undefined ? ActivityTimelineStepStatus.InProgress : status;
+  const timelineDotStyle = getActivityTimelineDotStyle(effectiveStatus, theme);
+  const isInProgress =
+    effectiveStatus === ActivityTimelineStepStatus.InProgress;
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "2px 0",
-      }}
-    >
+    <StyledTimelineDotRoot aria-label={effectiveStatus} {...props}>
       <CircularProgress
         variant="determinate"
         size={18}
@@ -84,7 +42,7 @@ export const ActivityTimelineDot = ({
           backgroundColor: timelineDotStyle.background,
           borderRadius: "50%",
           "& .MuiCircularProgress-circle": {
-            stroke: theme.palette.vars?.controlBorderDefault,
+            stroke: timelineDotStyle.ringColor,
           },
         }}
         thickness={4}
@@ -95,6 +53,13 @@ export const ActivityTimelineDot = ({
         size={18}
         sx={{
           position: "absolute",
+          ...(isInProgress && {
+            animation: "spin 1.4s linear infinite",
+            "@keyframes spin": {
+              "0%": { transform: "rotate(-90deg)" },
+              "100%": { transform: "rotate(270deg)" },
+            },
+          }),
           "& .MuiCircularProgress-circle": {
             strokeLinecap: "round",
             stroke: timelineDotStyle.color,
@@ -123,6 +88,6 @@ export const ActivityTimelineDot = ({
           }}
         />
       )}
-    </Box>
+    </StyledTimelineDotRoot>
   );
 };

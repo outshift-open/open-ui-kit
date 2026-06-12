@@ -5,4 +5,8 @@
  */
 
 export { EmptyState } from "./components/empty-state";
-export type { EmptyStateProps } from "./components/empty-state";
+export type {
+  EmptyStateDirection,
+  EmptyStateProps,
+  EmptyStateVariant,
+} from "./types";

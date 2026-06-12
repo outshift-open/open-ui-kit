@@ -4,40 +4,41 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IconButtonProps, IconButton, useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
+import { Tooltip } from "@/components/tooltip";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-import { CopyButtonStylesProps, styles } from "../styles";
+import { styles } from "../styles";
 import { useCallback, useEffect, useState } from "react";
+import type { MouseEvent } from "react";
 import copy from "copy-to-clipboard";
 import { Copy } from "@/custom-icons";
+import type { CopyButtonProps } from "../types";
 
 const TIMEOUT = 2000;
-
-export type CopyButtonPosition = "left" | "right";
-
-export interface CopyButtonProps
-  extends IconButtonProps,
-    CopyButtonStylesProps {
-  text: string;
-  onCopy?: () => void;
-}
 
 export const CopyButton = ({
   text,
   position,
+  size = "large",
   top,
-  bottom,
   left,
   right,
+  disableMargin,
   onCopy,
+  copied,
+  tooltipPlacement = "top",
+  copyLabel = "Copy",
+  copiedLabel = "Copied",
+  onClick,
   ...props
 }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
   const theme = useTheme();
+  const showCopiedState = copied ?? isCopied;
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null;
-    if (isCopied) {
+    if (isCopied && copied === undefined) {
       timeout = setTimeout(() => {
         setIsCopied(false);
       }, TIMEOUT);
@@ -47,26 +48,43 @@ export const CopyButton = ({
         clearTimeout(timeout);
       }
     };
-  }, [isCopied]);
+  }, [copied, isCopied]);
 
-  const handleOnCopy = useCallback(() => {
-    copy(text);
-    setIsCopied(true);
-    onCopy?.();
-  }, [onCopy, text]);
+  const handleOnCopy = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      copy(text);
+      setIsCopied(true);
+      onCopy?.();
+      onClick?.(event);
+    },
+    [onClick, onCopy, text],
+  );
 
   return (
-    <IconButton
-      {...props}
-      sx={(theme) => styles({ position, top, bottom, left, right, theme })}
-      onClick={handleOnCopy}
-      disableRipple={true}
+    <Tooltip
+      title={showCopiedState ? copiedLabel : copyLabel}
+      placement={tooltipPlacement}
+      arrow
     >
-      {isCopied ? (
-        <DoneRoundedIcon color="success" />
-      ) : (
-        <Copy fill={theme.palette.vars.interactiveSecondaryDefaultDefault} />
-      )}
-    </IconButton>
+      <IconButton
+        {...props}
+        aria-label={props["aria-label"] ?? copyLabel}
+        sx={[
+          (theme) =>
+            styles({ position, size, top, left, right, disableMargin, theme }),
+          ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+        ]}
+        onClick={handleOnCopy}
+        disableRipple={props.disableRipple ?? true}
+      >
+        {showCopiedState ? (
+          <DoneRoundedIcon
+            sx={{ color: theme.palette.vars.successIconDefault }}
+          />
+        ) : (
+          <Copy sx={{ color: "inherit" }} />
+        )}
+      </IconButton>
+    </Tooltip>
   );
 };

@@ -4,36 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  Breadcrumbs,
-  BreadcrumbsProps,
-  Tab,
-  Tabs,
-  TabsProps,
-} from "@/components";
-import { ReactNode, useCallback, useEffect } from "react";
-import {
-  Box,
-  BoxProps,
-  Typography,
-  TabProps as MuiTabProps,
-} from "@mui/material";
-import React from "react";
+import { Breadcrumbs, Tab, Tabs } from "@/components";
+import { useCallback, useEffect, useState, type SyntheticEvent } from "react";
+import { Box, Typography } from "@/components";
 import { Link } from "react-router-dom";
-
-type SubNavItem = MuiTabProps & { href?: string; selected?: boolean };
-
-export interface BasePageProps {
-  children: ReactNode;
-  containerProps?: BoxProps;
-  breadcrumbs?: BreadcrumbsProps["items"];
-  title: ReactNode;
-  description?: ReactNode;
-  rightSideItems?: ReactNode;
-  tabsProps?: TabsProps;
-  subNav?: SubNavItem[];
-  useBreadcrumbs?: boolean;
-}
+import type { BasePageProps } from "../types";
 
 export const BasePage = ({
   children,
@@ -46,22 +21,29 @@ export const BasePage = ({
   tabsProps,
   useBreadcrumbs = true,
 }: BasePageProps) => {
-  const [tab, setTab] = React.useState(0);
+  const [tab, setTab] = useState(0);
   const hideHeader = !title && !description && !rightSideItems;
   const showHeader = !hideHeader;
+  const { sx: containerSx, ...restContainerProps } = containerProps ?? {};
+  const {
+    onChange: tabsOnChange,
+    value: tabsValue,
+    ...restTabsProps
+  } = tabsProps ?? {};
 
   const handleChange = useCallback(
-    (event: React.SyntheticEvent, newValue: number) => {
+    (event: SyntheticEvent, newValue: number) => {
       setTab(newValue);
+      tabsOnChange?.(event, newValue);
     },
-    [],
+    [tabsOnChange],
   );
 
   useEffect(() => {
     if (subNav) {
       const href = window.location.href;
       const currentTab = subNav.findIndex(
-        (item) => item.href && href.includes(item.href),
+        (item) => item.selected || (item.href && href.includes(item.href)),
       );
       if (currentTab !== -1) {
         setTab(currentTab);
@@ -71,98 +53,102 @@ export const BasePage = ({
 
   return (
     <Box
-      sx={{
-        padding: "24px 16px 64px 16px",
-        overflow: "hidden scroll",
-        ...containerProps?.sx,
-      }}
-      {...containerProps}
+      {...restContainerProps}
+      sx={[
+        { padding: "24px 32px 64px" },
+        ...(Array.isArray(containerSx)
+          ? containerSx
+          : containerSx
+            ? [containerSx]
+            : []),
+      ]}
     >
-      {useBreadcrumbs && breadcrumbs ? (
+      {showHeader && (
         <Box
           display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          maxWidth="100%"
-          overflow="hidden"
+          flexDirection="column"
+          gap="16px"
+          pb={2}
+          mb={1}
+          borderBottom={!subNav ? 1 : 0}
+          sx={(theme) => ({
+            borderColor: theme.palette.vars.controlBorderStrong,
+          })}
         >
-          <Breadcrumbs items={breadcrumbs} />
-        </Box>
-      ) : null}
-      <Box>
-        {showHeader && (
+          {useBreadcrumbs && breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
           <Box
             display="flex"
-            flexDirection="column"
             justifyContent="space-between"
-            gap={1}
-            pb={1}
-            mb={1}
-            borderBottom={!subNav ? 1 : 0}
-            borderColor="divider"
+            alignItems="center"
+            flexWrap="wrap"
+            gap="16px"
           >
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              flexWrap="wrap"
-              gap={1}
-            >
-              <Box display="flex" flexDirection="column" gap={0.5} flexGrow={1}>
+            <Box display="flex" flexDirection="column" gap={0.5} flexGrow={1}>
+              <Typography
+                variant="h5"
+                component="h1"
+                fontWeight="bold"
+                sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+              >
+                {title}
+              </Typography>
+              {description && (
                 <Typography
-                  variant="h5"
-                  component="h1"
-                  fontWeight="bold"
-                  sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+                  variant="body1"
+                  sx={(theme) => ({
+                    color: theme.palette.vars.baseTextDefault,
+                  })}
                 >
-                  {title}
+                  {description}
                 </Typography>
-                {description && (
-                  <Typography variant="body2">{description}</Typography>
-                )}
-              </Box>
-              {rightSideItems && (
-                <Box display="flex" gap={2} flexWrap="wrap">
-                  {rightSideItems}
-                </Box>
               )}
             </Box>
+            {rightSideItems && (
+              <Box display="flex" gap="8px" flexWrap="wrap">
+                {rightSideItems}
+              </Box>
+            )}
           </Box>
-        )}
-        <Box
-          sx={{
-            maxWidth: "100%",
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            height: "auto",
-          }}
-          display="flex"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          gap={2.5}
-        >
-          {subNav && (
-            <Tabs
-              value={tab}
-              onChange={handleChange}
-              role="navigation"
-              {...tabsProps}
-            >
-              {subNav.map((item, idx) => {
-                return (
-                  <Tab
-                    key={`item-tab-${idx}`}
-                    component={Link}
-                    aria-current={item.selected && "page"}
-                    {...item}
-                    to={item.href || "#"}
-                  />
-                );
-              })}
-            </Tabs>
-          )}
-          {children}
         </Box>
+      )}
+      {subNav && (
+        <Box
+          sx={(theme) => ({
+            borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+            mb: 4,
+          })}
+        >
+          <Tabs
+            value={tabsValue ?? tab}
+            onChange={handleChange}
+            role="navigation"
+            {...restTabsProps}
+          >
+            {subNav.map((item, idx) => {
+              const { href, selected, ...tabItemProps } = item;
+
+              return (
+                <Tab
+                  key={`item-tab-${idx}`}
+                  {...tabItemProps}
+                  component={Link}
+                  aria-current={selected ? "page" : undefined}
+                  to={href || "#"}
+                  value={idx}
+                />
+              );
+            })}
+          </Tabs>
+        </Box>
+      )}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "32px",
+        }}
+      >
+        {children}
       </Box>
     </Box>
   );

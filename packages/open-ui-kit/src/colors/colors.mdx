@@ -1,106 +1,207 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
-import { Typography, Divider } from "@mui/material"
-import { lightTheme } from "../theme/light/light-theme";
-import { OS_LIGHT_COLORS } from "../theme/color-palette";
+import { Meta } from "@storybook/addon-docs/blocks";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { ColorPaletteSection, paletteToSwatches } from "./color-palette-section";
+import {
+  surfaceLightPalette,
+  surfaceDarkPalette,
+  bluePalette,
+  lightBluePalette,
+  greyPalette,
+  purplePalette,
+  redPalette,
+  orangePalette,
+  lightOrangePalette,
+  yellowPalette,
+  greenPalette,
+  tealPalette,
+  lavenderPalette,
+  limePalette,
+  pinkPalette,
+  nightPalette,
+  sunsetPalette,
+  surfaceLight100,
+  surfaceDark900,
+  grey400,
+  grey500,
+} from "@/theme/style/color-palette";
 
 <Meta title="Foundations/Colors" />
 
-<ColorPalette>
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    MUI Colors - Light Theme
-  </Typography>
-  <ColorItem
-    title="Primary"
-    subtitle="theme.palette.primary"
-    colors={lightTheme.palette.primary}
-  />
-  <ColorItem
-    title="Secondary"
-    subtitle="theme.palette.secondary"
-    colors={lightTheme.palette.secondary}
-  />
-  <ColorItem
-    title="Tertiary"
-    subtitle="theme.palette.tertiary"
-    colors={lightTheme.palette.tertiary}
-  />
-  <ColorItem
-    title="Info"
-    subtitle="theme.palette.info"
-    colors={lightTheme.palette.info}
-  />
-  <ColorItem
-    title="Success"
-    subtitle="theme.palette.success"
-    colors={lightTheme.palette.success}
-  />
-  <ColorItem
-    title="Warning"
-    subtitle="theme.palette.warning"
-    colors={lightTheme.palette.warning}
-  />
-  <ColorItem
-    title="Error"
-    subtitle="theme.palette.error"
-    colors={lightTheme.palette.error}
-  />
-  <ColorItem
-    title="Orange"
-    subtitle="theme.palette.orange"
-    colors={lightTheme.palette.orange}
-  />
-  <ColorItem
-    title="Grey"
-    subtitle="theme.palette.grey"
-    colors={lightTheme.palette.grey}
-  />
-  <Divider />
-  <Typography variant="subtitle1" color={lightTheme.palette.text.primary}>
-    Open UI Kit Light Colors
-  </Typography>
-  <ColorItem
-    title="Surface Light"
-    subtitle="OS_LIGHT_COLORS.surfaceLight"
-    colors={OS_LIGHT_COLORS.surfaceLight}
-  />
-  <ColorItem
-    title="Teal"
-    subtitle="OS_LIGHT_COLORS.teal"
-    colors={OS_LIGHT_COLORS.teal}
-  />
-  <ColorItem
-    title="Pink"
-    subtitle="OS_LIGHT_COLORS.pink"
-    colors={OS_LIGHT_COLORS.pink}
-  />
-  <ColorItem
-    title="Lime"
-    subtitle="OS_LIGHT_COLORS.lime"
-    colors={OS_LIGHT_COLORS.lime}
-  />
-  <ColorItem
-    title="Lavender"
-    subtitle="OS_LIGHT_COLORS.lavender"
-    colors={OS_LIGHT_COLORS.lavender}
-  />
-  <ColorItem
-    title="Purple"
-    subtitle="OS_LIGHT_COLORS.purple"
-    colors={OS_LIGHT_COLORS.purple}
-  />
-  <ColorItem
-    title="Light Blue"
-    subtitle="OS_Colors.lightBlue"
-    colors={OS_LIGHT_COLORS.lightBlue}
-  />
-  <ColorItem
-    title="Sunset"
-    subtitle="OS_Colors.sunset"
-    colors={OS_LIGHT_COLORS.sunset}
-  />
-  <ColorItem
-    title="Night"
-    subtitle="OS_Colors.nightPalette"
-    colors={OS_LIGHT_COLORS.night}
-  />
-</ColorPalette>
+<DocsHeader
+  title="Colors"
+  blurb="The Open UI Kit color palette has been created from product interface needs and brand foundations to support a variety of complex use cases."
+  importLine='import { bluePalette, lightVars } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
+
+<div
+  style={{
+    width: "100%",
+    maxWidth: "min(944px, calc(100vw - 32px))",
+    boxSizing: "border-box",
+    padding: "clamp(32px, 7vw, 68px) clamp(24px, 6vw, 60px)",
+    background: surfaceLight100,
+    borderRadius: 40,
+    color: surfaceDark900,
+    overflowX: "hidden",
+  }}
+>
+  <section style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+    <div>
+      <div
+        role="heading"
+        aria-level={2}
+        style={{
+          fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
+          fontWeight: 700,
+          fontSize: 20,
+          lineHeight: "24px",
+          margin: "0 0 16px",
+          color: grey500,
+        }}
+      >
+        {"Color palette"}
+      </div>
+      <p
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: 14,
+          lineHeight: "20px",
+          margin: "0 0 36px",
+          color: surfaceDark900,
+        }}
+      >
+        {"Base colors are used most frequently, powering the color tokens used in many of the most commonly used components, including buttons, cards, input fields, and components representing status."}
+      </p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(248px, 100%), 1fr))",
+          gap: "36px 40px",
+          alignItems: "start",
+        }}
+      >
+        <ColorPaletteSection title="Surface Light" swatches={paletteToSwatches(surfaceLightPalette, "surface-light")} />
+        <ColorPaletteSection title="Surface Dark" swatches={paletteToSwatches(surfaceDarkPalette, "surface-dark")} />
+        <ColorPaletteSection title="Blue" swatches={paletteToSwatches(bluePalette, "blue")} />
+        <ColorPaletteSection title="Light Blue" swatches={paletteToSwatches(lightBluePalette, "light-blue")} />
+        <ColorPaletteSection title="Grey" swatches={paletteToSwatches(greyPalette, "grey")} />
+      </div>
+    </div>
+
+    <div>
+      <div
+        role="heading"
+        aria-level={2}
+        style={{
+          fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
+          fontWeight: 700,
+          fontSize: 20,
+          lineHeight: "24px",
+          margin: "0 0 8px",
+          color: grey500,
+        }}
+      >
+        {"Semantic colors"}
+      </div>
+      <p
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: 14,
+          lineHeight: "20px",
+          margin: "0 0 36px",
+          color: surfaceDark900,
+        }}
+      >
+        {"Semantic colors are used to show alerts and risk level indications."}
+      </p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(248px, 100%), 1fr))",
+          gap: "36px 40px",
+          alignItems: "start",
+        }}
+      >
+        <ColorPaletteSection title="Purple" swatches={paletteToSwatches(purplePalette, "purple")} />
+        <ColorPaletteSection title="Red" swatches={paletteToSwatches(redPalette, "red")} />
+        <ColorPaletteSection title="Orange" swatches={paletteToSwatches(orangePalette, "orange")} />
+        <ColorPaletteSection title="Light Orange" swatches={paletteToSwatches(lightOrangePalette, "light-orange")} />
+        <ColorPaletteSection title="Yellow" swatches={paletteToSwatches(yellowPalette, "yellow")} />
+        <ColorPaletteSection title="Green" swatches={paletteToSwatches(greenPalette, "green")} />
+      </div>
+    </div>
+
+    <div>
+      <div
+        role="heading"
+        aria-level={2}
+        style={{
+          fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
+          fontWeight: 700,
+          fontSize: 20,
+          lineHeight: "24px",
+          margin: "0 0 8px",
+          color: grey500,
+        }}
+      >
+        {"Accent colors"}
+      </div>
+      <p
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: 14,
+          lineHeight: "20px",
+          margin: "0 0 36px",
+          color: surfaceDark900,
+        }}
+      >
+        {"Accent colors are used less frequently and power the color tokens used in components like data visualizations and tags."}
+      </p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(248px, 100%), 1fr))",
+          gap: "36px 40px",
+          alignItems: "start",
+        }}
+      >
+        <ColorPaletteSection title="Night" swatches={paletteToSwatches(nightPalette, "night")} />
+        <ColorPaletteSection title="Sunset" swatches={paletteToSwatches(sunsetPalette, "sunset")} />
+        <ColorPaletteSection title="Lavender" swatches={paletteToSwatches(lavenderPalette, "lavender")} />
+        <ColorPaletteSection title="Lime" swatches={paletteToSwatches(limePalette, "lime")} />
+        <ColorPaletteSection title="Pink" swatches={paletteToSwatches(pinkPalette, "pink")} />
+        <ColorPaletteSection title="Teal" swatches={paletteToSwatches(tealPalette, "teal")} />
+      </div>
+    </div>
+  </section>
+
+  <div style={{ height: 1, background: grey400, opacity: 0.72, margin: "56px 0 24px" }} />
+  <section>
+    <div
+      role="heading"
+      aria-level={2}
+      style={{
+        fontFamily: "'Sharp Sans', 'Sharp Sans No1', Inter, sans-serif",
+        fontWeight: 700,
+        fontSize: 20,
+        lineHeight: "24px",
+        margin: "0 0 16px",
+        color: grey500,
+      }}
+    >
+      {"Color palette overview"}
+    </div>
+    <p
+      style={{
+        fontFamily: "Inter, sans-serif",
+        fontSize: 12,
+        lineHeight: "18px",
+        margin: 0,
+        color: surfaceDark900,
+      }}
+    >
+      {"The color palette was created using the HCL color space, where each level in the color ramp represents the luminance of the given color."}
+    </p>
+  </section>
+</div>

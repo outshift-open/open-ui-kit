@@ -1,0 +1,13 @@
+<Breadcrumbs aria-label="breadcrumb">
+  <Link underline="hover" color="inherit" href="/">
+    Open UI Kit
+  </Link>
+  <Link
+    underline="hover"
+    color="inherit"
+    href="/open-ui-kit-core/getting-started/installation/"
+  >
+    Core
+  </Link>
+  <Typography sx={{ color: 'text.primary' }}>Breadcrumbs</Typography>
+</Breadcrumbs>

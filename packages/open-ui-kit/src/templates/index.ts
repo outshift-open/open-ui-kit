@@ -6,3 +6,4 @@
 
 export * from "./base-page";
 export * from "./layout";
+export * from "./page-title";

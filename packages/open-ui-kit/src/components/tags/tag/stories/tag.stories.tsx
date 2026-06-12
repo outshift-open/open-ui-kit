@@ -1,21 +1,50 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack } from "@mui/material";
 import { GeneralSize } from "@/common";
-import { Tag, TagProps } from "../components/tag";
+import { Tag } from "../components/tag";
 import { TagBackgroundColorVariants, TagStatus } from "../types";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+
+const handleStoryAction = () => undefined;
 
 const meta: Meta<typeof Tag> = {
   title: "Components/Tags/Tag",
   component: Tag,
   tags: ["autodocs"],
+  args: {
+    children: "Tag",
+    color: TagBackgroundColorVariants.Primary,
+    size: GeneralSize.Large,
+  },
+  argTypes: {
+    color: {
+      control: "select",
+      options: Object.values(TagBackgroundColorVariants),
+    },
+    size: {
+      control: "select",
+      options: Object.values(GeneralSize),
+    },
+    status: {
+      control: "select",
+      options: Object.values(TagStatus),
+    },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Tags are used to categorize and label items, allowing users to filter and search for specific content. They can also indicate the status of an item."
-          guideLink="#"
+          title="Tag"
+          blurb="Tags categorize and label items, allowing users to filter and search for content. They support sizes, colors, status variants, avatars, icons, and deletable state."
+          guideLink=""
           importLine='import { Tag } from "@open-ui-kit/core";'
         />
       ),
@@ -24,240 +53,137 @@ const meta: Meta<typeof Tag> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Tag>;
 
-function TagsWithSizesAndDeleteOptionComponent(args: TagProps) {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
-      <Tag {...args} size={GeneralSize.Small}>
-        Small
+export const Default: Story = {};
+
+export const Sizes: Story = {
+  name: "Sizes",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
+      <Tag size={GeneralSize.Small}>Tag</Tag>
+      <Tag size={GeneralSize.Medium}>Tag</Tag>
+      <Tag size={GeneralSize.Large}>Tag</Tag>
+    </Stack>
+  ),
+};
+
+export const Deletable: Story = {
+  name: "Deletable",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
+      <Tag size={GeneralSize.Small} onDelete={handleStoryAction}>
+        Tag
       </Tag>
-      <Tag {...args} size={GeneralSize.Medium}>
-        Medium
+      <Tag size={GeneralSize.Medium} onDelete={handleStoryAction}>
+        Tag
       </Tag>
-      <Tag {...args} size={GeneralSize.Large}>
-        Large
+      <Tag size={GeneralSize.Large} onDelete={handleStoryAction}>
+        Tag
       </Tag>
     </Stack>
-  );
-}
+  ),
+};
 
-function TagWithAvatarComponent() {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
+export const WithAvatar: Story = {
+  name: "With Avatar",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
       <Tag avatar={<AccountCircleIcon />} size={GeneralSize.Small}>
-        Small
+        Tag
       </Tag>
       <Tag avatar={<AccountCircleIcon />} size={GeneralSize.Medium}>
-        Medium
+        Tag
       </Tag>
       <Tag avatar={<AccountCircleIcon />} size={GeneralSize.Large}>
-        Large
+        Tag
       </Tag>
     </Stack>
-  );
-}
+  ),
+};
 
-function ClickableTagWithIconComponent() {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
+export const ClickableWithIcon: Story = {
+  name: "Clickable with Icon",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
       <Tag
         icon={<AccountCircleIcon />}
         size={GeneralSize.Small}
-        onClick={() => alert("Tag clicked")}
+        onClick={handleStoryAction}
       >
-        Small
+        Tag
       </Tag>
       <Tag
         icon={<AccountCircleIcon />}
         size={GeneralSize.Medium}
-        onClick={() => alert("Tag clicked")}
+        onClick={handleStoryAction}
       >
-        Medium
+        Tag
       </Tag>
       <Tag
         icon={<AccountCircleIcon />}
         size={GeneralSize.Large}
-        onClick={() => alert("Tag clicked")}
+        onClick={handleStoryAction}
       >
-        Large
+        Tag
       </Tag>
     </Stack>
-  );
-}
+  ),
+};
 
-function StatusTagsComponent() {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
-      <Tag status={TagStatus.Excellent}>{TagStatus.Excellent}</Tag>
-      <Tag status={TagStatus.Positive}>{TagStatus.Positive}</Tag>
-      <Tag status={TagStatus.Warning}>{TagStatus.Warning}</Tag>
-      <Tag status={TagStatus.SevereWarning}>{TagStatus.SevereWarning}</Tag>
-      <Tag status={TagStatus.Negative}>{TagStatus.Negative}</Tag>
-      <Tag status={TagStatus.Inactive}>{TagStatus.Inactive}</Tag>
-      <Tag status={TagStatus.Disabled}>{TagStatus.Disabled}</Tag>
-      <Tag status={TagStatus.InProgress}>{TagStatus.InProgress}</Tag>
-      <Tag status={TagStatus.Info}>{TagStatus.Info}</Tag>
-      <Tag status={TagStatus.Allow}>{TagStatus.Allow}</Tag>
-      <Tag status={TagStatus.Deny}>{TagStatus.Deny}</Tag>
-    </Stack>
-  );
-}
-
-function ClickableOutlinedTagComponent() {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
-      <Tag
-        variant="outlined"
-        icon={<AccountCircleIcon />}
-        size={GeneralSize.Small}
-        onClick={() => alert("Tag clicked")}
-      >
-        Small
+export const Outlined: Story = {
+  name: "Outlined",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
+      <Tag variant="outlined" size={GeneralSize.Small}>
+        Tag
       </Tag>
-      <Tag
-        variant="outlined"
-        icon={<AccountCircleIcon />}
-        size={GeneralSize.Medium}
-        onClick={() => alert("Tag clicked")}
-      >
-        Medium
+      <Tag variant="outlined" size={GeneralSize.Medium}>
+        Tag
       </Tag>
-      <Tag
-        variant="outlined"
-        icon={<AccountCircleIcon />}
-        size={GeneralSize.Large}
-        onClick={() => alert("Tag clicked")}
-      >
-        Large
+      <Tag variant="outlined" size={GeneralSize.Large}>
+        Tag
       </Tag>
     </Stack>
-  );
-}
+  ),
+};
 
-function TagColorsComponent() {
-  return (
-    <Stack
-      gap="10px"
-      flexDirection="row"
-      alignItems={"flex-start"}
-      flexWrap={"wrap"}
-    >
-      <Tag
-        color={TagBackgroundColorVariants.AccentAWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentAWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentBWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentBWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentCWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentCWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentDWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentDWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentEWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentEWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentFWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentFWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentGWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentGWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentHWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentHWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentIWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentIWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.AccentJWeak}
-        icon={<AccountCircleIcon />}
-      >
-        {TagBackgroundColorVariants.AccentJWeak}
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.Primary}
-        icon={<AccountCircleIcon />}
-      >
-        Primary
-      </Tag>
-      <Tag
-        color={TagBackgroundColorVariants.Secondary}
-        icon={<AccountCircleIcon />}
-      >
-        Secondary
-      </Tag>
+export const Status: Story = {
+  name: "Status",
+  render: () => (
+    <Stack gap="8px" direction="row" flexWrap="wrap" alignItems="center">
+      {(Object.values(TagStatus) as TagStatus[]).map((s) => (
+        <Tag key={s} status={s}>
+          {s}
+        </Tag>
+      ))}
     </Stack>
-  );
-}
+  ),
+};
 
-function DisabledTagComponent() {
-  return (
-    <Stack gap="32px" flexDirection="row" alignItems={"flex-end"}>
-      <Tag
-        icon={<AccountCircleIcon />}
-        onClick={() => alert("Tag clicked")}
-        disabled
-      >
+export const Colors: Story = {
+  name: "Colors",
+  render: () => (
+    <Stack gap="8px" direction="row" flexWrap="wrap" alignItems="center">
+      {Object.values(TagBackgroundColorVariants).map((c) => (
+        <Tag key={c} color={c}>
+          {c}
+        </Tag>
+      ))}
+    </Stack>
+  ),
+};
+
+export const Disabled: Story = {
+  name: "Disabled",
+  render: () => (
+    <Stack gap="16px" direction="row" alignItems="center">
+      <Tag disabled onClick={handleStoryAction}>
         Disabled Tag
       </Tag>
+      <Tag disabled onDelete={handleStoryAction}>
+        Disabled deletable
+      </Tag>
     </Stack>
-  );
-}
-
-export const TagSizesWithDeleteOption: Story = {
-  render: TagsWithSizesAndDeleteOptionComponent,
-};
-
-export const TagWithAvatar: Story = {
-  render: TagWithAvatarComponent,
-};
-
-export const ClickableTagWithIcon: Story = {
-  render: ClickableTagWithIconComponent,
-};
-
-export const StatusTags: Story = {
-  render: StatusTagsComponent,
-};
-
-export const ClickableOutlinedTag: Story = {
-  render: ClickableOutlinedTagComponent,
-};
-
-export const TagColors: Story = {
-  render: TagColorsComponent,
-};
-
-export const DisabledTag: Story = {
-  render: DisabledTagComponent,
+  ),
 };

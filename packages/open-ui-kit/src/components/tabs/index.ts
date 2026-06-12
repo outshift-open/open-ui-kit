@@ -6,4 +6,4 @@
 
 export { Tabs } from "./components/tabs";
 export { Tab } from "./components/tab";
-export type { TabsProps, TabsType } from "./components/tabs";
+export type { TabProps, TabsProps, TabsType } from "./types";

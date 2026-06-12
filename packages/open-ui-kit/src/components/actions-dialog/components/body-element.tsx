@@ -1,0 +1,101 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { RefObject, useCallback, useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { Checkbox } from "@/components/checkbox";
+import { InputField } from "@/components/input-field";
+import { styles } from "../styles";
+import type { ActionsDialogProps } from "../types";
+import { CommentSuggestions } from "./comment-suggestions";
+
+interface BodyElementProps {
+  dismissRef: RefObject<HTMLInputElement>;
+  commentRef: RefObject<HTMLInputElement>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+  error: boolean;
+  commentSuggestions?: string[];
+}
+
+export const BodyElement = ({
+  includeDismissCheckbox,
+  bodyText,
+  dismissRef,
+  commentRef,
+  setError,
+  error,
+  commentSuggestions,
+  dismissCheckboxText,
+}: Pick<
+  ActionsDialogProps,
+  "includeDismissCheckbox" | "bodyText" | "dismissCheckboxText"
+> &
+  BodyElementProps) => {
+  const [selectedSuggestion, setSelectedSuggestion] = useState<string>("");
+
+  const useCommentSuggestions = Boolean(commentSuggestions?.length);
+
+  const validateInput = useCallback(() => {
+    if (commentRef.current) {
+      const isEmpty = commentRef.current.value.trim() === "";
+      setError(isEmpty);
+
+      if (!commentRef.current.value) {
+        setSelectedSuggestion("");
+      }
+    }
+  }, [commentRef, setError]);
+
+  useEffect(() => {
+    if (commentRef.current && selectedSuggestion) {
+      commentRef.current.value = selectedSuggestion;
+      setError(false);
+    }
+  }, [selectedSuggestion, commentRef, setError]);
+
+  return (
+    <Box sx={styles.styledBody}>
+      <Typography variant="body2" sx={styles.styledBodyText}>
+        {bodyText}
+      </Typography>
+      {useCommentSuggestions && (
+        <Box sx={styles.styledCommentSection}>
+          <Typography variant="body2" sx={styles.styledBodyText}>
+            Add comment{" "}
+            {commentSuggestions && commentSuggestions?.length > 0
+              ? "or choose a matching reason from the list:"
+              : ""}
+          </Typography>
+          <InputField
+            inputRef={commentRef}
+            sx={styles.styledTextArea}
+            variant="standard"
+            multiline={true}
+            placeholder="Inform your teammates of the rationale behind this action"
+            error={error}
+            helperText={error ? "This field is required" : ""}
+            onChange={validateInput}
+          />
+          {commentSuggestions && commentSuggestions?.length > 0 && (
+            <CommentSuggestions
+              commentSuggestions={commentSuggestions}
+              setSelectedSuggestion={setSelectedSuggestion}
+              selectedSuggestion={selectedSuggestion}
+            />
+          )}
+        </Box>
+      )}
+      {includeDismissCheckbox && (
+        <Box sx={styles.styledDismiss}>
+          <Checkbox inputRef={dismissRef} />
+          <Typography variant="body2" sx={styles.styledBodyText}>
+            {dismissCheckboxText}
+          </Typography>
+        </Box>
+      )}
+    </Box>
+  );
+};

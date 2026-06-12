@@ -4,21 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  BadgeProps as MuiBadgeProps,
-  TypographyProps,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { StyledBadge } from "./elements";
-import { BadgeType } from "../types";
-
-export interface BadgeProps {
-  type?: BadgeType;
-  notificationContent?: React.ReactNode;
-  content: React.ReactNode;
-  styleBadge?: MuiBadgeProps["sx"];
-  styleContent?: TypographyProps["sx"];
-}
+import type { BadgeProps } from "../types";
 
 export const Badge = ({
   type = "default",

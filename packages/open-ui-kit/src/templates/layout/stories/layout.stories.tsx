@@ -1,21 +1,60 @@
-import React, { useState } from "react";
-import { Layout, LayoutProps } from "../components/layout";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Avatar, Box, Button, Menu, MenuItem, Typography } from "@mui/material";
-import { Book, BugReport } from "@mui/icons-material";
-import { BrowserRouter } from "react-router-dom";
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useTheme } from "@mui/material/styles";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Book, BugReport, Explore, Settings } from "@mui/icons-material";
+import { MemoryRouter } from "react-router-dom";
+import { Avatar, Box, Typography } from "@/components";
+import { Button } from "@/components/button";
 import { BasePage } from "@/templates/base-page";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Layout } from "../components/layout";
+import type { LayoutProps } from "../types";
 
 const meta: Meta<typeof Layout> = {
   title: "Templates/Layout",
   component: Layout,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   tags: ["autodocs"],
+  argTypes: {
+    content: {
+      control: false,
+      description: "Main page content rendered in the layout body.",
+    },
+    headerProps: {
+      control: false,
+      description: "Props forwarded to the fixed Header component.",
+    },
+    showHeader: {
+      control: "boolean",
+      description: "Shows or hides the fixed header.",
+    },
+    showSideNav: {
+      control: "boolean",
+      description: "Shows or hides the desktop side navigation drawer.",
+    },
+    sideNav: {
+      control: false,
+      description: "Content rendered inside the desktop side navigation.",
+    },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Layout is a template for creating consistent page layouts. It includes a header, side navigation, and a main content area."
+          title="Layout"
+          blurb="Layout provides the application shell: fixed header, optional desktop side navigation, and a responsive main content region."
           guideLink="#"
           importLine='import { Layout } from "@open-ui-kit/core";'
         />
@@ -27,151 +66,177 @@ const meta: Meta<typeof Layout> = {
 export default meta;
 type Story = StoryObj<typeof Layout>;
 
-const StoryLogo = () => (
-  <svg height="32" viewBox="0 0 100 100" width="32">
-    <circle cx="50" cy="50" r="45" fill="#007BFF" />
-    <circle cx="50" cy="50" r="25" fill="#FFFFFF" />
-  </svg>
+const StoryLogo = () => {
+  const theme = useTheme();
+
+  return (
+    <svg aria-hidden height="32" viewBox="0 0 100 100" width="32">
+      <circle cx="50" cy="50" r="45" fill={theme.palette.vars.accentADefault} />
+      <circle
+        cx="50"
+        cy="50"
+        r="25"
+        fill={theme.palette.vars.baseTextInverse}
+      />
+    </svg>
+  );
+};
+
+const StoryUserSection = () => <Avatar initials="U" size="M" />;
+
+const navItems = [
+  { icon: <Explore aria-hidden />, label: "Explore", active: true },
+  { icon: <BugReport aria-hidden />, label: "Issues" },
+  { icon: <Settings aria-hidden />, label: "Settings" },
+];
+
+const StorySideNav = () => (
+  <Box sx={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+    {navItems.map(({ active, icon, label }) => (
+      <Box
+        key={label}
+        component="button"
+        type="button"
+        sx={(theme) => ({
+          alignItems: "center",
+          backgroundColor: active
+            ? theme.palette.vars.baseBackgroundHover
+            : "transparent",
+          border: "none",
+          borderRadius: "8px",
+          color: active
+            ? theme.palette.vars.baseTextStrong
+            : theme.palette.vars.baseTextDefault,
+          cursor: "pointer",
+          display: "flex",
+          gap: "8px",
+          padding: "8px",
+          width: "100%",
+          "&:hover": {
+            backgroundColor: theme.palette.vars.baseBackgroundHover,
+          },
+          "& svg": {
+            height: 24,
+            width: 24,
+          },
+        })}
+      >
+        {icon}
+        <Typography variant="caption" fontWeight={500}>
+          {label}
+        </Typography>
+      </Box>
+    ))}
+  </Box>
 );
 
-const StoryUserSection = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
-    setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-
-  return (
-    <>
-      <Button
-        onClick={handleClick}
-        startIcon={<Avatar sx={{ width: 32, height: 32 }}>U</Avatar>}
-        disableRipple
-        disableFocusRipple
-        variant="tertariary"
-        sx={{ padding: 0 }}
+const StoryContent = () => (
+  <BasePage
+    title="Runtime protection"
+    description="Monitor workload findings by cluster and namespace."
+    subNav={[
+      { href: "/overview", label: "Overview", selected: true },
+      { href: "/clusters", label: "Clusters" },
+      { href: "/namespaces", label: "Namespaces" },
+      { href: "/settings", label: "Settings" },
+    ]}
+    breadcrumbs={[{ text: "Home", link: "/" }]}
+    rightSideItems={
+      <>
+        <Button variant="primary" size="small">
+          Scan
+        </Button>
+        <Button variant="secondary" size="small">
+          Export
+        </Button>
+      </>
+    }
+  >
+    {["Summary", "Activity", "Recommendations"].map((label) => (
+      <Box
+        key={label}
+        sx={(theme) => ({
+          border: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+          borderRadius: "8px",
+          padding: "16px",
+        })}
       >
-        User Name
-      </Button>
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </>
-  );
+        <Typography
+          variant="h6"
+          sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+        >
+          {label}
+        </Typography>
+        <Box
+          sx={(theme) => ({
+            backgroundColor: theme.palette.vars.baseBackgroundStrong,
+            borderRadius: "4px",
+            height: "24px",
+            mt: 1,
+          })}
+        />
+      </Box>
+    ))}
+  </BasePage>
+);
+
+const sharedHeaderProps: LayoutProps["headerProps"] = {
+  logo: <StoryLogo />,
+  title: (
+    <Typography
+      fontSize="18px"
+      fontWeight={700}
+      sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+    >
+      Agent Directory
+    </Typography>
+  ),
+  actions: [
+    {
+      id: "docs",
+      icon: <Book />,
+      tooltip: "View documentation",
+      href: "#",
+      "aria-label": "documentation",
+    },
+    {
+      id: "issues",
+      icon: <BugReport />,
+      tooltip: "Report an issue",
+      onClick: () => undefined,
+      "aria-label": "report an issue",
+    },
+  ],
+  userSection: <StoryUserSection />,
 };
 
-const BasePageStory = () => {
-  return (
-    <BrowserRouter>
-      <BasePage
-        title="Base Page Example"
-        description="This is a base page example with a title and description."
-        subNav={[
-          { href: "/section/page/tab1", label: "Tab 1" },
-          { href: "/section/page/tab2", label: "Tab 2" },
-          { href: "/section/page/tab3", label: "Tab 3" },
-        ]}
-        breadcrumbs={[
-          { text: "Home", link: "/" },
-          { text: "Section", link: "/section" },
-          { text: "Page", link: "/section/page" },
-        ]}
-        rightSideItems={
-          <>
-            <Button disableElevation>Action 1</Button>
-            <Button variant="outlined">Action 2</Button>
-          </>
-        }
-      >
-        <Box>
-          <Typography variant="h4">Welcome to the Base Page</Typography>
-          <Typography variant="body1">
-            This is an example of a base page with a title and content.
-          </Typography>
-        </Box>
-      </BasePage>
-    </BrowserRouter>
-  );
+const defaultArgs: LayoutProps = {
+  content: <StoryContent />,
+  headerProps: sharedHeaderProps,
+  sideNav: <StorySideNav />,
 };
-
-const TemplateLayout = (args: LayoutProps) => <Layout {...args} />;
 
 export const Default: Story = {
-  render: (args: LayoutProps) => <TemplateLayout {...args} />,
+  args: defaultArgs,
+};
+
+export const WithoutHeader: Story = {
   args: {
-    headerProps: {
-      logo: <StoryLogo />,
-      title: (
-        <Typography fontWeight={700} fontSize="18px" color="#00142B">
-          My Application
-        </Typography>
-      ),
-      position: "fixed",
-      searchProps: {
-        value: "",
-        placeholder: "Search anything...",
-        onChange: () => {
-          ("");
-        },
-      },
-      actions: [
-        {
-          id: "docs",
-          icon: <Book />,
-          tooltip: "View Documentation",
-          href: "#",
-          "aria-label": "documentation",
-        },
-        {
-          id: "issues",
-          icon: <BugReport />,
-          tooltip: "Report an Issue",
-          onClick: () => alert("Issue reporting coming soon!"),
-          "aria-label": "report an issue",
-        },
-      ],
-      userSection: <StoryUserSection />,
-    },
+    ...defaultArgs,
+    showHeader: false,
   },
 };
 
-export const LayoutWithBasePage: Story = {
-  render: (args: LayoutProps) => <TemplateLayout {...args} />,
+export const WithoutSideNav: Story = {
   args: {
-    headerProps: {
-      logo: <StoryLogo />,
-      title: (
-        <Typography fontWeight={700} fontSize="18px" color="#00142B">
-          My Application
-        </Typography>
-      ),
-      position: "fixed",
-      searchProps: {
-        value: "",
-        placeholder: "Search anything...",
-        onChange: () => {
-          ("");
-        },
-      },
-      actions: [
-        {
-          id: "docs",
-          icon: <Book />,
-          tooltip: "View Documentation",
-          href: "#",
-          "aria-label": "documentation",
-        },
-        {
-          id: "issues",
-          icon: <BugReport />,
-          tooltip: "Report an Issue",
-          onClick: () => alert("Issue reporting coming soon!"),
-          "aria-label": "report an issue",
-        },
-      ],
-      userSection: <StoryUserSection />,
-    },
-    content: <BasePageStory />,
+    ...defaultArgs,
+    showSideNav: false,
+  },
+};
+
+export const HeaderOnly: Story = {
+  args: {
+    headerProps: sharedHeaderProps,
+    showSideNav: false,
   },
 };

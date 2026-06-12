@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AugmentedSelectNodeType } from "@/types";
-import { formatNodeValue } from "@/common";
+import { formatNodeValue } from "@/components/nested-menu";
 import { Typography } from "@mui/material";
 import { Tooltip } from "@/components/tooltip";
+import type { AugmentedSelectNodeType } from "@/components/nested-menu";
 
 export const RemainingTags = ({
   tags,

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FilterData, FilterOptionData } from "../types/types";
+import type { FilterData, FilterOptionData } from "../types";
 
 export const getFilteredSubFilters = (
   filters: FilterData[],

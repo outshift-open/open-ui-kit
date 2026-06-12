@@ -23,24 +23,35 @@
     "open-source"
   ],
   "scripts": {
-    "dev": "turbo run dev",
-    "start": "turbo run start",
-    "lib:dev": "turbo run lib:dev",
-    "lib:build": "turbo run lib:build",
+    "dev": "turbo run dev --filter=@open-ui-kit/core --filter=docs --filter=vite-ts",
+    "start": "turbo run start --filter=@open-ui-kit/core --filter=docs --filter=vite-ts",
     "build": "turbo run build",
-    "license:add": "turbo run license:add && yarn prettier:fix",
-    "license:add:force": "turbo run license:add:force && yarn prettier:fix",
-    "license:check": "turbo run license:check",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
     "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck",
     "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch",
-    "storybook": "turbo run storybook",
-    "storybook:build": "cd packages/open-ui-kit && yarn run storybook:build",
-    "postinstall": "husky install",
+    "test:watch": "turbo run test:watch --filter=@open-ui-kit/core",
+    "check": "turbo run lint typecheck test",
+    "lib:dev": "turbo run lib:dev --filter=@open-ui-kit/core",
+    "lib:build": "turbo run lib:build --filter=@open-ui-kit/core",
+    "core:dev": "yarn workspace @open-ui-kit/core dev",
+    "core:build": "yarn workspace @open-ui-kit/core build",
+    "core:lint": "yarn workspace @open-ui-kit/core lint",
+    "core:typecheck": "yarn workspace @open-ui-kit/core typecheck",
+    "core:test": "yarn workspace @open-ui-kit/core test",
+    "docs": "yarn docs:dev",
+    "docs:dev": "yarn workspace docs dev",
+    "docs:build": "yarn workspace docs build",
+    "docs:start": "yarn workspace docs start",
+    "docs:typecheck": "yarn workspace docs typecheck",
+    "storybook": "yarn workspace @open-ui-kit/core storybook",
+    "storybook:build": "yarn workspace @open-ui-kit/core storybook:build",
+    "license:add": "turbo run license:add --filter=@open-ui-kit/scripts && yarn prettier:fix",
+    "license:add:force": "turbo run license:add:force --filter=@open-ui-kit/scripts && yarn prettier:fix",
+    "license:check": "turbo run license:check --filter=@open-ui-kit/scripts",
+    "prettier": "prettier --check --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
+    "prettier:fix": "prettier --write --ignore-unknown \"**/*.{js,jsx,ts,tsx,mjs,cjs,md,mdx,json,yml,yaml,css,html}\"",
+    "lint-staged": "lint-staged",
     "prepublish": "yarn build",
     "prepare": "husky",
     "semantic-release": "semantic-release"
@@ -51,34 +62,34 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^12.0.1",
     "husky": "^9.1.7",
-    "lint-staged": ">=10",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.0.3",
     "semantic-release": "^24.2.0",
-    "turbo": "^2.0.3"
+    "turbo": "^2.9.15"
   },
-  "lint-staged": {
-    "{packages/**/*,playground/**/*,scripts/**/*}.{ts,tsx,js,jsx,css,html}": [
-      "yarn workspace @open-ui-kit/scripts license:check"
-    ],
-    "packages/open-ui-kit/src/**/*.{ts,tsx}": [
-      "eslint --max-warnings=0 --fix --config packages/open-ui-kit/.eslintrc.cjs --resolve-plugins-relative-to packages/open-ui-kit"
-    ],
-    "packages/open-ui-kit/*.{ts,tsx}": [
-      "eslint --max-warnings=0 --fix --config packages/open-ui-kit/.eslintrc.cjs --resolve-plugins-relative-to packages/open-ui-kit"
-    ],
-    "packages/open-ui-kit/.storybook/**/*.{ts,tsx}": [
-      "yarn workspace @open-ui-kit/core exec eslint --max-warnings=0 --fix \".storybook/**/*.{ts,tsx}\""
-    ],
-    "**/*.{ts,tsx,js,md,mdx}": [
-      "prettier --write"
-    ]
+  "resolutions": {
+    "@npmcli/package-json@npm:^7.0.0": "7.0.5",
+    "glob@npm:^10.2.2": "10.5.0",
+    "glob@npm:^10.3.10": "10.5.0",
+    "glob@npm:^10.4.5": "10.5.0",
+    "glob@npm:^11.0.3": "11.1.0",
+    "handlebars": "^4.7.9",
+    "lodash": "^4.18.1",
+    "lodash-es": "^4.18.1",
+    "minimatch@npm:^9.0.4": "9.0.9",
+    "minimatch@npm:^9.0.5": "9.0.9",
+    "npm@npm:^10.9.3": "11.17.0",
+    "picomatch@npm:^2.3.1": "2.3.2",
+    "picomatch@npm:^4.0.3": "4.0.4",
+    "tar@npm:^7.4.3": "7.5.16"
   },
   "workspaces": [
+    "docs",
     "packages/*",
     "playground/*",
     "scripts"
   ],
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.15.0",
   "engines": {
     "node": ">=18"
   }

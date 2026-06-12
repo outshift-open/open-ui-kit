@@ -4,22 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import CardDescription from "./components/card-description";
-import CardSubheader from "./components/card-subheader";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  CardActionArea,
-} from "@mui/material";
-
+export { default as CardDescription } from "./components/card-description";
+export { default as CardSubheader } from "./components/card-subheader";
 export {
-  CardDescription,
-  CardSubheader,
   Card,
+  CardActionArea,
   CardHeader,
   CardContent,
   CardActions,
-  CardActionArea,
-};
+} from "./components/card";
+export type {
+  CardActionAreaProps,
+  CardActionsProps,
+  CardContentProps,
+  CardDescriptionProps,
+  CardHeaderProps,
+  CardProps,
+  CardSubheaderProps,
+} from "./types";

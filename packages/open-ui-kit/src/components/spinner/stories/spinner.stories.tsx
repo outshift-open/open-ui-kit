@@ -1,60 +1,90 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Divider, Stack } from "@mui/material";
-import { DocsHeader } from "storybook/components/docs-header.stories";
-import { Spinner, SpinnerProps } from "../components/spinner";
-
-/**
- * ### Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a process.
-
-Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a form, or saving updates.
-
-Determinate indicators display how long an operation will take.
-Indeterminate indicators visualize an unspecified wait time.
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-const meta: Meta<typeof Spinner> = {
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Stack, Typography } from "@/components";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Spinner } from "../components/spinner";
+
+const meta = {
   title: "Components/Spinner",
   component: Spinner,
   tags: ["autodocs"],
+  args: {
+    color: "primary",
+    size: 40,
+  },
+  argTypes: {
+    color: {
+      control: "select",
+      options: ["primary", "secondary", "inherit"],
+      description: "Spinner color variant.",
+    },
+    size: {
+      control: "number",
+      description: "Spinner diameter in pixels.",
+    },
+    sx: {
+      control: "object",
+      description: "Style overrides merged after internal progress styles.",
+    },
+    boxProps: {
+      control: "object",
+      description: "Props forwarded to the wrapping Box.",
+    },
+  },
   parameters: {
+    actions: { argTypesRegex: null },
     docs: {
       page: () => (
         <DocsHeader
-          blurb="Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a process."
+          title="Spinner"
+          blurb="Spinners express an unspecified wait time or display the length of a process. Use the size prop to control dimensions."
           guideLink=""
           importLine='import { Spinner } from "@open-ui-kit/core";'
         />
       ),
     },
   },
-};
-export default meta;
-type Story = StoryObj<typeof Spinner>;
+} satisfies Meta<typeof Spinner>;
 
-export const SpinnerComponent: Story = {
-  render: (args: SpinnerProps) => {
-    return (
-      <Stack spacing={4} direction="row" alignItems={"center"}>
-        <Box>
-          <Spinner {...args} size={40} />
-          <p>large</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={24} />
-          <p>medium</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={20} />
-          <p>small</p>
-        </Box>
-        <Divider orientation="vertical" sx={{ height: "120px" }} />
-        <Box>
-          <Spinner {...args} size={16} />
-          <p>extra small</p>
-        </Box>
-      </Stack>
-    );
-  },
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const sizes = [
+  { label: "Large", size: 40 },
+  { label: "Medium", size: 24 },
+  { label: "Small", size: 20 },
+  { label: "Extra Small", size: 16 },
+];
+
+export const Default: Story = {};
+
+export const Sizes: Story = {
+  render: () => (
+    <Stack direction="row" spacing={4} alignItems="center">
+      {sizes.map(({ label, size }) => (
+        <Stack key={size} spacing={1} alignItems="center">
+          <Spinner size={size} />
+          <Typography
+            variant="caption"
+            sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+          >
+            {label}
+          </Typography>
+        </Stack>
+      ))}
+    </Stack>
+  ),
+};
+
+export const PrimaryColor: Story = {
+  args: { color: "primary", size: 40 },
+};
+
+export const SecondaryColor: Story = {
+  args: { color: "secondary", size: 40 },
 };

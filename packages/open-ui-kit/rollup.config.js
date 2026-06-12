@@ -22,9 +22,8 @@ import alias from "@rollup/plugin-alias";
 import path from "path";
 import cleanup from "rollup-plugin-cleanup";
 import copy from "rollup-plugin-copy";
-
-const dts = require("rollup-plugin-dts");
-const del = require("rollup-plugin-delete");
+import * as dtsPlugin from "rollup-plugin-dts";
+import del from "rollup-plugin-delete";
 
 const makeExternalPredicate = () => {
   const externalArr = [
@@ -106,6 +105,9 @@ export default [
           "react-router-dom": "ReactRouterDOM",
           "react/jsx-runtime": "jsxRuntime",
           "@mui/material": "Mui",
+          "@mui/material/styles": "MuiMaterialStyles",
+          "@mui/material/Drawer": "MuiDrawer",
+          "@mui/material/Stack": "MuiStack",
           "@mui/icons-material/CheckBoxOutlineBlankRounded":
             "CheckBoxOutlineBlankRoundedIcon",
           "@mui/icons-material/CheckBoxRounded": "CheckBoxRoundedIcon",
@@ -180,6 +182,7 @@ export default [
       typescript({
         tsconfig: "./tsconfig.json",
         exclude: ["**/*.stories.tsx"],
+        compilerOptions: { ignoreDeprecations: undefined },
       }),
       commonjs({
         include: /node_modules/,
@@ -206,8 +209,8 @@ export default [
           },
         ],
       }),
-      dts.default(),
-      del.default({
+      dtsPlugin.default(),
+      del({
         hook: "buildEnd",
         targets: ["dist/types"],
       }),

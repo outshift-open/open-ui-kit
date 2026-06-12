@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { FilterData } from "../../types/types";
+import type { FilterData } from "../../types";
 import { FilterChip } from "./filter-chip";
 
 interface FilterChipsContainerProps {

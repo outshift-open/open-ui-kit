@@ -1,31 +1,50 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import {
-  Button,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuProps,
-} from "@mui/material";
-import { Star } from "@mui/icons-material";
-import { MenuItem } from "../components/menu-item";
+import { Button } from "@/components/button";
+import { Divider } from "@/components/divider";
+import { Icon } from "@/components/icon";
 import { DocsHeader } from "storybook/components/docs-header.stories";
+import { Menu, MenuItem, MenuSubheader, type MenuProps } from "..";
 
-/**
- * ### A menu displays a list of choices on a temporary surface. It appears when the user interacts with a button, or other control.
- */
 const meta: Meta<typeof Menu> = {
   title: "Components/Menu/Menu",
   component: Menu,
-  tags: ["autodocs"],
+  args: {
+    width: 180,
+  },
+  argTypes: {
+    anchorEl: {
+      table: { disable: true },
+    },
+    children: {
+      table: { disable: true },
+    },
+    onClose: {
+      table: { disable: true },
+    },
+    open: {
+      table: { disable: true },
+    },
+    width: {
+      control: "number",
+      description: "Optional menu paper width.",
+    },
+  },
   parameters: {
     docs: {
       page: () => (
         <DocsHeader
+          title="Menu"
           blurb="Menu is a component that displays a list of choices on a temporary surface. It appears when the user interacts with a button or other control."
-          guideLink="#"
-          importLine="import { Menu } from '@open-ui-kit/core';"
+          guideLink=""
+          importLine={`import { Menu, MenuItem } from "@open-ui-kit/core";`}
+          includeStories
         />
       ),
     },
@@ -36,68 +55,129 @@ export default meta;
 
 type Story = StoryObj<typeof Menu>;
 
-const MenuStory = (args: MenuProps) => {
+const MenuStory = ({ children, width, ...args }: MenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <>
-      <Button id="basic-button" onClick={handleClick}>
+      <Button
+        variant="primary"
+        id="basic-button"
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+      >
         Open Menu
       </Button>
       <Menu
+        {...args}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={() => setAnchorEl(null)}
+        width={width}
       >
-        {args.children}
+        {children}
       </Menu>
     </>
   );
 };
 
-export const Example: Story = {
+export const Default: Story = {
   render: MenuStory,
   args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} selected={x === 2}>
-        Menu Item {x}
+    children: [1, 2, 3].map((item) => (
+      <MenuItem key={item}>Menu item {item}</MenuItem>
+    )),
+  },
+};
+
+export const Selected: Story = {
+  render: MenuStory,
+  args: {
+    children: [1, 2, 3].map((item) => (
+      <MenuItem key={item} selected={item === 2}>
+        Menu item {item}
       </MenuItem>
     )),
   },
 };
 
-export const MenuWithIcons: Story = {
-  render: MenuStory,
-  args: {
-    children: [1, 2, 3].map((x) => (
-      <MenuItem key={x} selected={x === 2}>
-        <ListItemIcon>
-          <Star fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Item with icon</ListItemText>
-      </MenuItem>
-    )),
-  },
-};
-
-export const MenuWithDivider: Story = {
+export const Disabled: Story = {
   render: MenuStory,
   args: {
     children: [
-      <MenuItem key={"1"}>Menu Item 1</MenuItem>,
-      <MenuItem selected key={"2"}>
-        Menu Item 2
+      <MenuItem key="view">View details</MenuItem>,
+      <MenuItem key="disabled" disabled>
+        Disabled item
       </MenuItem>,
-      <Divider key={"divider"} />,
-      <MenuItem key={"3"}>Menu Item 3</MenuItem>,
+      <MenuItem key="settings">Settings</MenuItem>,
+    ],
+  },
+};
+
+export const WithIcon: Story = {
+  render: MenuStory,
+  args: {
+    children: [
+      <MenuItem key="favorite">
+        <Icon fontSize="small">star</Icon>
+        Favorite
+      </MenuItem>,
+      <MenuItem key="archive">
+        <Icon fontSize="small">archive</Icon>
+        Archive
+      </MenuItem>,
+      <MenuItem key="settings">
+        <Icon fontSize="small">settings</Icon>
+        Settings
+      </MenuItem>,
+    ],
+  },
+};
+
+export const WithDivider: Story = {
+  render: MenuStory,
+  args: {
+    children: [
+      <MenuItem key="profile">Profile</MenuItem>,
+      <MenuItem key="billing">Billing</MenuItem>,
+      <Divider key="divider" />,
+      <MenuItem key="logout" destructive>
+        Sign out
+      </MenuItem>,
+    ],
+  },
+};
+
+export const Sizes: Story = {
+  render: MenuStory,
+  args: {
+    width: 160,
+    children: [
+      <MenuItem key="large" size="large">
+        Large item
+      </MenuItem>,
+      <MenuItem key="medium" size="medium">
+        Medium item
+      </MenuItem>,
+      <MenuItem key="small" size="small">
+        Small item
+      </MenuItem>,
+    ],
+  },
+};
+
+export const WithSubheaders: Story = {
+  render: MenuStory,
+  args: {
+    children: [
+      <MenuSubheader key="actions">Actions</MenuSubheader>,
+      <MenuItem key="run">Run scan</MenuItem>,
+      <MenuItem key="pause">Pause scan</MenuItem>,
+      <MenuSubheader key="admin">Admin</MenuSubheader>,
+      <MenuItem key="delete" destructive>
+        Delete scan
+      </MenuItem>,
     ],
   },
 };

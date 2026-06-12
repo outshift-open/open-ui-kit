@@ -4,6 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { ReactNode } from "react";
+import type { TimelineProps as MuiTimelineProps } from "@mui/lab";
+
 export enum ActivityTimelineStepStatus {
   InProgress = "in-progress",
   Inactive = "inactive",
@@ -13,8 +16,26 @@ export enum ActivityTimelineStepStatus {
 }
 
 export interface ActivityTimelineStep {
+  /** Dot and connector state for this timeline step. */
   status: ActivityTimelineStepStatus;
+  /** Primary step label. */
   title: string;
+  /** Optional icon rendered before the title. */
+  titleStartIcon?: ReactNode;
+  /** Optional secondary label shown when the step renders accordion content. */
   subTitle?: string;
-  content?: React.ReactNode;
+  /** Optional expanded accordion content for the step. */
+  content?: ReactNode;
+  /** Expands accordion content by default when content is provided. */
+  defaultExpanded?: boolean;
+}
+
+export interface ActivityTimelineProps
+  extends Omit<MuiTimelineProps, "children" | "ref"> {
+  /** When true, step dots and connector colors are calculated from each step position. */
+  automaticProgress?: boolean;
+  /** Controls the timeline title typography and vertical spacing. */
+  size?: "large" | "medium";
+  /** Ordered steps rendered in the activity timeline. */
+  steps: ActivityTimelineStep[];
 }

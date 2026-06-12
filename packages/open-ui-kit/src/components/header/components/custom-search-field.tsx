@@ -4,32 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SearchField, SearchFieldProps } from "@/components/search-field";
+import { SearchInput, SearchInputProps } from "@/components/search-input";
+import { getCustomSearchInputStyles } from "../styles";
 
-export const CustomSearchField = (props: SearchFieldProps) => {
-  const { placeholder, value, onChange } = props;
+export const CustomSearchInput = (props: SearchInputProps) => {
+  const { placeholder, sx, ...rest } = props;
   return (
-    <SearchField
+    <SearchInput
       size="medium"
       variant="standard"
+      {...rest}
       placeholder={placeholder ?? "Search..."}
-      value={value}
-      onChange={onChange}
-      sx={{
-        padding: 0,
-        "& .MuiInput-root": {
-          width: "360px",
-          height: "36px",
-          borderRadius: "4px",
-          marginTop: 0,
-          border: "none",
-          backgroundColor: (theme) => theme.palette.vars.baseBackgroundWeak,
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: (theme) => theme.palette.primary.main,
-          },
-        },
-      }}
-      {...props}
+      sx={[
+        (theme) => getCustomSearchInputStyles(theme),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
     />
   );
 };

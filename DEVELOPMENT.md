@@ -9,6 +9,7 @@ Welcome to Open UI Kit development! This guide will help you set up your local d
 - [🗂️ Testing](#%EF%B8%8F-testing)
 - [📦 Building and Publishing](#-building-and-publishing)
 - [Style Agreements](#style-agreements)
+- [Component Workflow](#component-workflow)
 
 ## 🛠️ Repository Setup
 
@@ -50,8 +51,7 @@ open-ui-kit/
 ├── packages/
 │   └── open-ui-kit/          # 📦 @open-ui-kit/core - Main component library
 │       ├── src/              # Source code for components, themes, utilities
-│       ├── stories/          # Storybook stories for documentation
-│       └── tests/            # Unit and integration tests
+│       └── .storybook/       # Storybook configuration and overview pages
 ├── playground/
 │   └── vite-ts/              # 🎮 Development playground with Vite + TypeScript
 ├── scripts/                   # Build scripts and automation tools
@@ -104,13 +104,15 @@ Your editor will now format your code when you save a file.
 
 ## 👾 Development & 📚 Documentation
 
-This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. See [Documentation](/docs/overview-developer-only-documentation--page) for Storybook maintenance details.
+This repository uses [Storybook](https://storybook.js.org/docs/react/writing-stories/introduction "How to Write Stories") for developing and documenting components. The docs site also mirrors the high-level introduction, contributing, and developer-only guidance.
 
 To start up Storybook locally:
 
 ```sh
-cd open-ui-kit  # Move into the cloned repository
-yarn install && yarn run build && yarn run storybook # Install & build deps and start Storybook
+cd open-ui-kit
+yarn install
+yarn build
+yarn workspace @open-ui-kit/core storybook
 ```
 
 The project's main branch Storybook documentation is hosted on [our Storybook instance](https://main--68cc22452afe30d90e4ca977.chromatic.com).
@@ -198,132 +200,87 @@ Releases are handled automatically through semantic-release when changes are mer
 1. Optional React component props should also accept `undefined` as a value.
    This is to support the `exactOptionalPropertyTypes` typescript option.
 
-2. Override MUI component:
-   - Create a file like [this](packages/open-ui-kit/src/theme/mui/avatar.ts) inside the `mui` folder in each `theme`(light or dark) and per each component that you want to override;
-   - Export this file on the `index.ts` on the `mui` folder;
-   - Add the custom override to the theme like [this](https://github.com/outshift-open/open-ui-kit/blob/main/packages/open-ui-kit/src/theme/light/light-theme.tsx#L146-L149);
-
-   Example of an override component:
-
-   ```tsx
-   export const avatarComponent: Pick<OverrideComponent, "MuiAvatar"> = {
-     MuiAvatar: {
-       styleOverrides: {
-         root: {
-           backgroundColor: "#E8F1FF",
-           color: lightVars.interactivePrimaryDefaultDefault,
-           fontWeight: 600,
-           fontSize: "16px",
-           lineHeight: "133%",
-           letterSpacing: "0.15px",
-           textAlign: "center",
-           verticalAlign: "middle",
-           "&:hover": {
-             backgroundColor: lightVars.interactivePrimaryWeakHover,
-             color: lightVars.controlIconHover,
-             cursor: "pointer",
-           },
-         },
-         img: {
-           objectFit: "cover",
-           width: "100%",
-           height: "100%",
-           "&:hover": {
-             filter: `brightness(0.9) drop-shadow(0 0 4px ${lightVars.interactivePrimaryWeakDisabled})`,
-           },
-         },
-       },
-     },
-   };
-   ```
-
-   and import it like this to the MUI theme:
-
-   ```tsx
-   const lightThemeOptions: ThemeOptions = {
-       ...
-       components: {
-           MuiAvatar: { ...avatarComponent.MuiAvatar },
-       },
-   }
-   ```
+2. Component visual styles should live with the component, not in MUI theme overrides.
+   Use `src/components/<name>/components/elements.tsx` for styled elements and keep
+   `src/theme/mui/<name>.tsx` only for true theme-level defaults that cannot live
+   safely in the component. Remove empty theme override files and their references.
 
 3. **Creating New Components** - Follow the established file structure pattern:
 
-   When creating a new component, follow the structure used by existing components like `ActivityTimeline`. Each component should have its own directory with organized subfolders:
+   When creating a new component, follow the structure used by the current component workflow. Each component should have its own directory with component logic, styled elements, stories, tests, and a public export:
 
    ```
    packages/open-ui-kit/src/components/[component-name]/
    ├── components/
-   │   ├── [ComponentName].tsx         # Main component implementation
-   │   └── [SubComponent].tsx          # Sub-components (if needed)
-   ├── types/
-   │   ├── [ComponentName].types.ts    # Main component type definitions
-   │   └── [SubComponent].types.ts     # Sub-component types (if needed)
-   ├── styles/
-   │   └── [component-name].styles.ts  # Component-specific styles
-   ├── utils/
-   │   └── [component-name].utils.ts   # Component-specific utilities
+   │   ├── elements.tsx                # styled() elements and component styles
+   │   └── [component-name].tsx        # Main component implementation
    ├── stories/
-   │   └── [ComponentName].stories.tsx # Storybook documentation
+   │   └── [component-name].stories.tsx # Storybook documentation
    ├── __tests__/
-   │   └── [ComponentName].test.tsx    # Unit tests
+   │   └── [component-name].test.tsx   # Unit tests
    └── index.ts                        # Main export file
    ```
 
    **Required files for a new component:**
 
-   - **`index.ts`** - Export the component and its types
+   - **`index.ts`** - Export the component and its props
      ```tsx
-     export { ComponentName } from './components/ComponentName';
-     export type { ComponentNameProps } from './types/ComponentName.types';
+     export { ComponentName } from "./components/component-name";
+     export type { ComponentNameProps } from "./components/component-name";
      ```
 
-   - **`components/[ComponentName].tsx`** - Main component implementation
+   - **`components/elements.tsx`** - Styled elements
      ```tsx
-     import React from 'react';
-     import { ComponentNameProps } from '../types/ComponentName.types';
-     
-     export const ComponentName: React.FC<ComponentNameProps> = ({ ...props }) => {
-       // Component implementation
-     };
+     import { styled } from "@mui/material/styles";
+
+     export const StyledComponentName = styled("div")(({ theme }) => ({
+       color: theme.palette.vars.baseTextDefault,
+     }));
      ```
 
-   - **`types/[ComponentName].types.ts`** - Type definitions
+   - **`components/[component-name].tsx`** - Main component implementation
      ```tsx
+     import type { ReactNode } from "react";
+     import { StyledComponentName } from "./elements";
+
      export interface ComponentNameProps {
-       // Component prop types
+       children?: ReactNode;
      }
+
+     export const ComponentName = ({ children }: ComponentNameProps) => (
+       <StyledComponentName>{children}</StyledComponentName>
+     );
      ```
 
-   - **`__tests__/[ComponentName].test.tsx`** - Unit tests
+   - **`__tests__/[component-name].test.tsx`** - Unit tests
      ```tsx
-     import { render, screen } from '@testing-library/react';
-     import { ComponentName } from '../components/ComponentName';
-     
-     describe('ComponentName', () => {
-       it('renders correctly', () => {
-         // Test implementation
+     import { render, screen } from "@testing-library/react";
+     import { ComponentName } from "../components/component-name";
+
+     describe("ComponentName", () => {
+       it("renders correctly", () => {
+         render(<ComponentName>Content</ComponentName>);
+         expect(screen.getByText("Content")).toBeInTheDocument();
        });
      });
      ```
 
-   - **`stories/[ComponentName].stories.tsx`** - Storybook documentation
+   - **`stories/[component-name].stories.tsx`** - Storybook documentation
      ```tsx
-     import type { Meta, StoryObj } from '@storybook/react';
-     import { ComponentName } from '../components/ComponentName';
-     
+     import type { Meta, StoryObj } from "@storybook/react-vite";
+     import { ComponentName } from "../components/component-name";
+
      const meta: Meta<typeof ComponentName> = {
-       title: 'Components/ComponentName',
+       title: "Components/ComponentName",
        component: ComponentName,
      };
-     
+
      export default meta;
      type Story = StoryObj<typeof meta>;
-     
+
      export const Default: Story = {
        args: {
-         // Default props
+         children: "Content",
        },
      };
      ```
@@ -331,9 +288,15 @@ Releases are handled automatically through semantic-release when changes are mer
    **Additional requirements:**
    - Export your component from `packages/open-ui-kit/src/components/index.ts`
    - Follow naming conventions: PascalCase for components, kebab-case for directories
-   - Include comprehensive JSDoc comments for props and functionality
-   - Organize types in the dedicated `types/` folder
-   - Add component-specific styles to the `styles/` folder
-   - Add component-specific utilities to the `utils/` folder
+   - Keep props close to the component unless an established local pattern requires a separate type file
+   - Put all styled elements in `elements.tsx`
    - Organize sub-components within the same `components/` folder
-   
+   - Follow [Open UI Kit Component Workflow](COMPONENT_WORKFLOW.md) before declaring the component complete
+
+# Component Workflow
+
+For each new or updated component, follow [Open UI Kit Component Workflow](COMPONENT_WORKFLOW.md).
+This workflow is the source of truth for source-material collection, MUI override cleanup,
+light and dark token QA, Storybook alignment, focused tests, visual design checks,
+props override checks, prop documentation, lint and Prettier checks, import checks,
+final verification, final code review, and a compact final resume.

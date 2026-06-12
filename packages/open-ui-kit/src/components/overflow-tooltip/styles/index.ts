@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ellipsisStyle } from "@/common";
-import { CSSProperties } from "react";
+import { ellipsisStyle } from "@/theme/style/common";
+import type { CSSProperties } from "react";
 
 export const baseWrapperStyle: CSSProperties = {
   ...ellipsisStyle,

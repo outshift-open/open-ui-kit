@@ -11,7 +11,3 @@ export enum Severity {
   CRITICAL = "CRITICAL",
   INFORMATION = "INFORMATION",
 }
-
-export type TrendStatus = "good" | "bad" | "neutral";
-
-export type TrendDirection = "up" | "down" | "neutral";
