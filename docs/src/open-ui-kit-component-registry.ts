@@ -92,7 +92,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     description:
       "Date and time inputs for scheduling, filtering, and temporal ranges.",
     hasMarkdownPage: true,
-    importName: "DateTime",
+    importName: "DateTimePicker",
     packagePath: "date-time",
     routeSlug: "date-time",
     storybookTitle: "Components/DateTime",
@@ -103,7 +103,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     description:
       "Filter bars and drawers for narrowing dense datasets and product lists.",
     hasMarkdownPage: true,
-    importName: "Filters",
+    importName: "FiltersBar",
     packagePath: "filters",
     routeSlug: "filters",
     storybookTitle: "Components/Filters",

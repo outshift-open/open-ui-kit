@@ -358,15 +358,15 @@ ${createConst("radars", spiderChartRadars)}
 export function SpiderChartExample() {
   return <SpiderChart data={postureData} radars={radars} showTooltip />;
 }`,
-  filters: () => `import { Filters } from '@open-ui-kit/core';
+  filters: () => `import { FiltersBar } from '@open-ui-kit/core';
 
 ${createConst("filters", filterGroups)}
 
 export function FiltersExample() {
   return (
-    <Filters
-      filters={filters}
-      onApply={(nextFilters) => console.log(nextFilters)}
+    <FiltersBar
+      filtersData={filters}
+      onSelectedChange={(nextFilters) => console.log(nextFilters)}
     />
   );
 }`,

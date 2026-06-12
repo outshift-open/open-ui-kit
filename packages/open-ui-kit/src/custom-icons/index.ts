@@ -343,7 +343,6 @@ export * from "./gcp-services-cloud-dns";
 export * from "./gcp-services-cloud-logging";
 export * from "./gcp-services-cloud-monitoring";
 export * from "./gcp-services-cloud-run";
-export * from "./gcp-services-cloud-storage";
 export * from "./gcp-services-cloud-storage-2";
 export * from "./gcp-services-compute-image";
 export * from "./gcp-services-compute-engine";

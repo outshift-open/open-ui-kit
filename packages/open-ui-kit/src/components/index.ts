@@ -63,7 +63,7 @@ export * from "./upload";
 export * from "./view-switcher";
 export * from "./scroll-area";
 export * from "./pagination";
-export * from "./path-display";
+export * from "./widget";
 
 // MUI exports — only primitives with no local wrapper
 export {
