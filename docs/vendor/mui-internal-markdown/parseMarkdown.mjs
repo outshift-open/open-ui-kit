@@ -11,7 +11,6 @@ const markedOptions = {
   pedantic: false,
 };
 
-const headerRegExp = /---[\r\n]([\s\S]*)[\r\n]---/;
 const descriptionRegExp = /<p class="description">(.*?)<\/p>/s;
 const headerKeyValueRegExp = /(.*?):[\r\n]?\s+(\[[^\]]+\]|.*)/g;
 const emptyRegExp = /^\s*$/;
@@ -107,6 +106,99 @@ function checkUrlHealth(href, linkText, context) {
   }
 }
 
+function getLine(markdown, lineStart) {
+  let lineEnd = markdown.indexOf("\n", lineStart);
+  if (lineEnd === -1) {
+    lineEnd = markdown.length;
+  }
+
+  let line = markdown.slice(lineStart, lineEnd);
+  if (line.endsWith("\r")) {
+    line = line.slice(0, -1);
+  }
+
+  return {
+    line,
+    lineEnd,
+    nextLineStart: lineEnd === markdown.length ? markdown.length : lineEnd + 1,
+  };
+}
+
+function getHeaderBlock(markdown) {
+  const firstLine = getLine(markdown, 0);
+  if (firstLine.line !== "---") {
+    return null;
+  }
+
+  const headerStart = firstLine.nextLineStart;
+  let lineStart = headerStart;
+
+  while (lineStart < markdown.length) {
+    const currentLine = getLine(markdown, lineStart);
+
+    if (currentLine.line === "---") {
+      return {
+        header: markdown.slice(headerStart, lineStart),
+        end: currentLine.nextLineStart,
+      };
+    }
+
+    lineStart = currentLine.nextLineStart;
+  }
+
+  return null;
+}
+
+function startsWithHtmlTag(text, index, tagName) {
+  if (text[index] !== "<") {
+    return false;
+  }
+
+  let tagStart = index + 1;
+  if (text[tagStart] === "/") {
+    tagStart += 1;
+  }
+
+  if (
+    text.slice(tagStart, tagStart + tagName.length).toLowerCase() !== tagName
+  ) {
+    return false;
+  }
+
+  const nextChar = text[tagStart + tagName.length];
+  return (
+    nextChar === undefined ||
+    nextChar === ">" ||
+    nextChar === "/" ||
+    nextChar === " " ||
+    nextChar === "\n" ||
+    nextChar === "\r" ||
+    nextChar === "\t" ||
+    nextChar === "\f"
+  );
+}
+
+function removeHtmlTag(text, tagName) {
+  let result = "";
+  let index = 0;
+
+  while (index < text.length) {
+    if (startsWithHtmlTag(text, index, tagName)) {
+      const tagEnd = text.indexOf(">", index + 1);
+      if (tagEnd === -1) {
+        break;
+      }
+      index = tagEnd + 1;
+      continue;
+    }
+
+    result += text[index];
+    index += 1;
+  }
+
+  return result;
+}
+
 /**
  * Extract information from the top of the markdown.
  * For instance, the following input:
@@ -122,15 +214,15 @@ function checkUrlHealth(href, linkText, context) {
  * { title: 'Backdrop React Component', components: ['Backdrop'] }
  */
 function getHeaders(markdown) {
-  let header = markdown.match(headerRegExp);
+  const headerBlock = getHeaderBlock(markdown);
 
-  if (!header) {
+  if (!headerBlock) {
     return {
       components: [],
     };
   }
 
-  header = header[1];
+  const { header } = headerBlock;
 
   try {
     let regexMatches;
@@ -179,8 +271,11 @@ function getHeaders(markdown) {
 }
 
 function getContents(markdown) {
-  const rep = markdown
-    .replace(headerRegExp, "") // Remove header information
+  const headerBlock = getHeaderBlock(markdown);
+  const markdownContent = headerBlock
+    ? markdown.slice(headerBlock.end)
+    : markdown;
+  const rep = markdownContent
     .split(/^{{("(?:demo|component)":.*)}}$/gm) // Split markdown into an array, separating demos
     .flatMap((text) => text.split(/^(<codeblock.*?<\/codeblock>)$/gmsu))
     .flatMap((text) => text.split(/^(<featureList.*?<\/featureList>)$/gmsu))
@@ -335,13 +430,9 @@ function createRender(context) {
       }
 
       // Remove links to avoid nested links in the TOCs
-      let headingText = headingHtml
-        .replace(/<a\b[^>]*>/gi, "")
-        .replace(/<\/a>/gi, "");
+      let headingText = removeHtmlTag(headingHtml, "a");
       // Remove `code` tags
-      headingText = headingText
-        .replace(/<code\b[^>]*>/gi, "")
-        .replace(/<\/code>/gi, "");
+      headingText = removeHtmlTag(headingText, "code");
 
       // Standardizes the hash from the default location (en) to different locations
       // Need english.md file parsed first

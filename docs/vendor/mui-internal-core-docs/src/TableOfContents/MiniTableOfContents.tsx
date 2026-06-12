@@ -26,8 +26,31 @@ function flatten(headings: TocItem[]): FlatTocItem[] {
   return items;
 }
 
+function getTocText(text: string) {
+  let result = "";
+  let insideTag = false;
+
+  for (const char of text) {
+    if (insideTag) {
+      if (char === ">") {
+        insideTag = false;
+      }
+      continue;
+    }
+
+    if (char === "<") {
+      insideTag = true;
+      continue;
+    }
+
+    result += char;
+  }
+
+  return result;
+}
+
 function getBarWidth(text: string, level: number) {
-  const length = text.replace(/<[^>]*>/g, "").length;
+  const length = getTocText(text).length;
   const base = level === 2 ? 8 : 10;
   const width = Math.min(base + length * 0.5, 24);
   return Math.round(width);
@@ -292,7 +315,7 @@ export function MiniTableOfContents(props: MiniTableOfContentsProps) {
           <Bar
             key={item.hash}
             href={`#${item.hash}`}
-            aria-label={item.text.replace(/<[^>]*>/g, "")}
+            aria-label={getTocText(item.text)}
             active={activeState === item.hash}
             highlighted={hoveredIndex === index}
             barWidth={
