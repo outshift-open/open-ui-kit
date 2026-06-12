@@ -45,42 +45,44 @@ export const DateTimePicker = ({
         views={["year", "month", "day", "hours", "minutes"]}
         format="MM/DD/YYYY HH:mm"
         {...pickerProps}
-        slotProps={{
-          ...sharedSlotProps,
-          ...slotProps,
-          desktopPaper: {
-            ...desktopPaperSlotProps,
-            sx: mergeSx(
-              getDateTimePickerStyle(theme),
-              desktopPaperSlotProps?.sx,
-            ),
-          },
-          actionBar: {
-            ...sharedSlotProps.actionBar,
-            actions: ["cancel", "accept"],
-            ...actionBarSlotProps,
-            sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
-          },
-          textField: {
-            ...textFieldSlotProps,
-            placeholder: label,
-            variant: "standard",
-            size: "small",
-            sx: mergeSx(
-              {
-                "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-                "& .MuiInputAdornment-root": { paddingRight: "8px" },
-              },
-              textFieldStyles,
-              textFieldSlotProps?.sx,
-            ),
-          },
-          popper: {
-            modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
-            ...popperSlotProps,
-            ...popperSlotPropsFromProps,
-          },
-        }}
+        slotProps={
+          {
+            ...sharedSlotProps,
+            ...slotProps,
+            desktopPaper: {
+              ...desktopPaperSlotProps,
+              sx: mergeSx(
+                getDateTimePickerStyle(theme),
+                desktopPaperSlotProps?.sx,
+              ),
+            },
+            actionBar: {
+              ...sharedSlotProps.actionBar,
+              actions: ["cancel", "accept"],
+              ...actionBarSlotProps,
+              sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
+            },
+            textField: {
+              ...textFieldSlotProps,
+              placeholder: label,
+              variant: "standard",
+              size: "small",
+              sx: mergeSx(
+                {
+                  "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
+                  "& .MuiInputAdornment-root": { paddingRight: "8px" },
+                },
+                textFieldStyles,
+                textFieldSlotProps?.sx,
+              ),
+            },
+            popper: {
+              modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
+              ...popperSlotProps,
+              ...popperSlotPropsFromProps,
+            },
+          } as DateTimePickerProps["slotProps"]
+        }
       />
     </LocalizationProvider>
   );

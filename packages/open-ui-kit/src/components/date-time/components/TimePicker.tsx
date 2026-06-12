@@ -44,40 +44,42 @@ export const TimePicker = ({
       <MuiDateTimePicker
         format="HH:mm"
         {...pickerProps}
-        slotProps={{
-          ...sharedSlotProps,
-          ...slotProps,
-          textField: {
-            ...textFieldSlotProps,
-            placeholder: label,
-            variant: "standard",
-            size: "small",
-            sx: mergeSx(
-              {
-                "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-                "& .MuiInputAdornment-root": { paddingRight: "8px" },
-              },
-              textFieldStyles,
-              textFieldSlotProps?.sx,
-            ),
-          },
-          popper: {
-            modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
-            ...popperSlotProps,
-            ...popperSlotPropsFromProps,
-          },
-          desktopPaper: {
-            ...sharedSlotProps.desktopPaper,
-            ...desktopPaperSlotProps,
-            sx: mergeSx(getTimePickerStyle(theme), desktopPaperSlotProps?.sx),
-          },
-          actionBar: {
-            ...sharedSlotProps.actionBar,
-            ...actionBarSlotProps,
-            actions: actionBarSlotProps?.actions ?? ["cancel", "accept"],
-            sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
-          },
-        }}
+        slotProps={
+          {
+            ...sharedSlotProps,
+            ...slotProps,
+            textField: {
+              ...textFieldSlotProps,
+              placeholder: label,
+              variant: "standard",
+              size: "small",
+              sx: mergeSx(
+                {
+                  "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
+                  "& .MuiInputAdornment-root": { paddingRight: "8px" },
+                },
+                textFieldStyles,
+                textFieldSlotProps?.sx,
+              ),
+            },
+            popper: {
+              modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
+              ...popperSlotProps,
+              ...popperSlotPropsFromProps,
+            },
+            desktopPaper: {
+              ...sharedSlotProps.desktopPaper,
+              ...desktopPaperSlotProps,
+              sx: mergeSx(getTimePickerStyle(theme), desktopPaperSlotProps?.sx),
+            },
+            actionBar: {
+              ...sharedSlotProps.actionBar,
+              ...actionBarSlotProps,
+              actions: actionBarSlotProps?.actions ?? ["cancel", "accept"],
+              sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
+            },
+          } as TimePickerProps["slotProps"]
+        }
       />
     </LocalizationProvider>
   );

@@ -44,39 +44,41 @@ export const DatePicker = ({
       <MuiDatePicker
         views={["year", "month", "day"]}
         {...pickerProps}
-        slotProps={{
-          ...sharedSlotProps,
-          ...slotProps,
-          desktopPaper: {
-            ...desktopPaperSlotProps,
-            sx: mergeSx(getDatePickerStyle(theme), desktopPaperSlotProps?.sx),
-          },
-          textField: {
-            ...textFieldSlotProps,
-            placeholder: label,
-            variant: "standard",
-            size: "small",
-            sx: mergeSx(
-              {
-                "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
-                "& .MuiInputAdornment-root": { paddingRight: "8px" },
-              },
-              textFieldStyles,
-              textFieldSlotProps?.sx,
-            ),
-          },
-          actionBar: {
-            ...sharedSlotProps.actionBar,
-            actions: ["cancel", "accept"],
-            ...actionBarSlotProps,
-            sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
-          },
-          popper: {
-            modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
-            ...popperSlotProps,
-            ...popperSlotPropsFromProps,
-          },
-        }}
+        slotProps={
+          {
+            ...sharedSlotProps,
+            ...slotProps,
+            desktopPaper: {
+              ...desktopPaperSlotProps,
+              sx: mergeSx(getDatePickerStyle(theme), desktopPaperSlotProps?.sx),
+            },
+            textField: {
+              ...textFieldSlotProps,
+              placeholder: label,
+              variant: "standard",
+              size: "small",
+              sx: mergeSx(
+                {
+                  "& .MuiInputBase-root": { marginTop: 0, width: "220px" },
+                  "& .MuiInputAdornment-root": { paddingRight: "8px" },
+                },
+                textFieldStyles,
+                textFieldSlotProps?.sx,
+              ),
+            },
+            actionBar: {
+              ...sharedSlotProps.actionBar,
+              actions: ["cancel", "accept"],
+              ...actionBarSlotProps,
+              sx: mergeSx(sharedSlotProps.actionBar.sx, actionBarSlotProps?.sx),
+            },
+            popper: {
+              modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
+              ...popperSlotProps,
+              ...popperSlotPropsFromProps,
+            },
+          } as DatePickerProps["slotProps"]
+        }
       />
     </LocalizationProvider>
   );
