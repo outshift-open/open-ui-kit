@@ -1,3 +1,10 @@
+# [2.0.0-beta.10](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2026-06-12)
+
+
+### Bug Fixes
+
+* harden docs markdown parsing ([3931a9d](https://github.com/outshift-open/open-ui-kit/commit/3931a9d6ed4d2c699967bdc17756770b3b627e06))
+
 # [2.0.0-beta.9](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2026-06-12)
 
 
