@@ -1,3 +1,10 @@
+# [2.0.0-beta.8](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-06-12)
+
+
+### Bug Fixes
+
+* avoid regex title parsing in docs ([1db9357](https://github.com/outshift-open/open-ui-kit/commit/1db93571593ebf235df79a85e3905248cd671d01))
+
 # [2.0.0-beta.7](https://github.com/outshift-open/open-ui-kit/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-06-12)
 
 
