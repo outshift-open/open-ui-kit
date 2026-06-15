@@ -1,3 +1,11 @@
+## [2.0.4](https://github.com/outshift-open/open-ui-kit/compare/v2.0.3...v2.0.4) (2026-06-15)
+
+
+### Bug Fixes
+
+* **docs:** show published versions in selector ([d725e73](https://github.com/outshift-open/open-ui-kit/commit/d725e734e12a17b0939fcf8cfff23e3772899750))
+* **table:** align sx prop merge typing ([5b39eb1](https://github.com/outshift-open/open-ui-kit/commit/5b39eb187f0468fe849c6d0fa1f320b47a47baf2))
+
 ## [2.0.3](https://github.com/outshift-open/open-ui-kit/compare/v2.0.2...v2.0.3) (2026-06-15)
 
 
