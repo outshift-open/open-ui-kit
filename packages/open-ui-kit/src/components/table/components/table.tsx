@@ -79,7 +79,7 @@ const mergeMrtSx =
   });
 
 type PropsWithSx = {
-  sx?: SxProps<Theme>;
+  sx?: unknown;
 };
 
 const resolvePropsOrFunc = <TProps, TArg>(
@@ -93,25 +93,25 @@ const resolvePropsOrFunc = <TProps, TArg>(
 const mergeMuiSxProps = <TProps extends PropsWithSx>(
   internalStyles: SxProps<Theme>,
   userProps: TProps | undefined,
-): TProps & { sx: SxProps<Theme> } => {
+): TProps => {
   const { sx, ...rest } = userProps ?? ({} as TProps);
 
   return {
     ...rest,
-    sx: mergeSx(internalStyles, sx),
-  } as TProps & { sx: SxProps<Theme> };
+    sx: mergeSx(internalStyles, sx as SxProps<Theme> | undefined),
+  } as TProps;
 };
 
 const mergeMrtSxProps = <TProps extends PropsWithSx>(
   internalStyles: SxProps<Theme>,
   userProps: TProps | undefined,
-): TProps & { sx: SxProps<Theme> } => {
+): TProps => {
   const { sx, ...rest } = userProps ?? ({} as TProps);
 
   return {
     ...rest,
-    sx: mergeMrtSx(internalStyles, sx),
-  } as TProps & { sx: SxProps<Theme> };
+    sx: mergeMrtSx(internalStyles, sx as SxProps<Theme> | undefined),
+  } as TProps;
 };
 
 const getObjectProps = <TProps,>(
