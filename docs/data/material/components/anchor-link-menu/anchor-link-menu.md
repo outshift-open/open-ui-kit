@@ -26,6 +26,19 @@ The component is intentionally controlled: pass `selectedId` to mark the current
 import { AnchorLinkMenu } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Anchor Link Menu on long detail pages where users need to jump between sections without leaving the route.
+It is useful for docs pages, settings forms, resource details, and reports with predictable section headings.
+
+Do not use it for primary app navigation or short pages where all content is already visible.
+
+## Anatomy
+
+The menu is a list of section links.
+Each item should point to a real element id on the page, and the label should match the visible heading.
+Nested items should represent subsections inside the parent section, not unrelated destinations.
+
 ## Variants
 
 Use `variant="rail"` when the menu sits in a fixed page column.
@@ -46,6 +59,12 @@ This keeps the hierarchy readable without adding collapsible behavior.
 Store the selected item in your page state, update it from scroll position or user selection, and pass it back through `selectedId`.
 
 {{"demo": "AnchorLinkMenuControlled.js", "bg": true}}
+
+## Behavior notes
+
+Uncontrolled menus can follow the current hash.
+Use controlled selection when you need scroll spy behavior, a custom scroll container, or route state integration.
+If sections render asynchronously, make sure the target ids exist before making the item active.
 
 ## Props
 

@@ -26,6 +26,19 @@ Use it when the interface is valid but has nothing meaningful to render yet: no 
 import { EmptyState, GeneralSize } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Empty State when a surface has no content and users need to understand why.
+It fits first-use setup, cleared filters, missing search results, permission gaps, and completed queues.
+
+Avoid showing only "nothing found" when there is a useful recovery action or explanation.
+
+## Anatomy
+
+An empty state has an illustration or icon, title, supporting text, and optional action.
+The title should name the state, while the supporting text explains the cause or next step.
+Actions should be included only when there is a clear, available recovery path.
+
 ## Variants
 
 Use the variant to match the emotional meaning of the empty view.
@@ -53,6 +66,12 @@ Actions are optional.
 Skip the action when the state is informational, automatically resolved, or already paired with nearby controls.
 
 {{"demo": "EmptyStateNoAction.js", "bg": true}}
+
+## Behavior notes
+
+Choose the variant based on why the content is empty, not just how the page looks.
+For first-use states, point users toward setup or creation.
+For filtered empty states, help users clear or adjust the active filters.
 
 ## Props
 

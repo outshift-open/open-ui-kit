@@ -25,6 +25,19 @@ Use initials or an icon when the image is missing, private, or not useful.
 import { Avatar, AvatarGroup } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Avatar to represent people, teams, organizations, integrations, or system actors.
+It helps dense product UI stay scannable when names, ownership, or identity matter.
+
+Avoid decorative avatars that do not add identity or context.
+
+## Anatomy
+
+An avatar can render an image, initials, an icon, or a fallback.
+Use images for known people or organizations, initials for named fallbacks, and icons for systems or integrations.
+Groups should show enough identity to be useful and pair overflow with a tooltip, menu, or detail view when needed.
+
 ## Content
 
 Avatar supports three content modes: `src`, `initials`, and `icon`.
@@ -44,6 +57,12 @@ Use `AvatarGroup` to show a small set of related people or entities.
 The group passes its `size` to child avatars so the stack stays visually consistent.
 
 {{"demo": "AvatarGroups.js", "bg": true}}
+
+## Behavior notes
+
+Pass enough text for fallback rendering and accessibility.
+Keep generated initials deterministic so the same person or entity is represented consistently.
+Check avatar contrast in both light and dark themes, especially when using custom colors.
 
 ## Props
 

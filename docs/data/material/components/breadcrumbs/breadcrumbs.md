@@ -27,6 +27,19 @@ Each item can include text, a route link, and an optional icon.
 import { Breadcrumbs } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Breadcrumbs to show where the current page sits in a hierarchy.
+They are useful for nested resources, settings areas, documentation, and deep product flows.
+
+Do not use breadcrumbs as the only app navigation or as a history trail.
+
+## Anatomy
+
+Breadcrumbs are made from ancestor links and a current page label.
+Items should reflect the information architecture, not the path the user happened to take.
+Icons can help recognition, but the text label should still be understandable on its own.
+
 ## Router provider
 
 Breadcrumb links use `react-router-dom` internally.
@@ -67,6 +80,12 @@ Use the medium size for most page headers.
 Use small in dense toolbars, side panels, or compact cards.
 
 {{"demo": "BreadcrumbsSizes.js", "bg": true}}
+
+## Behavior notes
+
+Keep labels short and stable, especially when they come from user-generated data.
+If a label loads asynchronously, reserve enough space or provide a sensible fallback.
+When collapsing long trails, keep the nearest parent and current page visible.
 
 ## Props
 

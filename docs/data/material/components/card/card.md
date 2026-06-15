@@ -32,6 +32,19 @@ import {
 } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Card when a set of content and actions should be perceived as one object.
+Cards work well for dashboards, summaries, resource previews, templates, reports, and selectable entities.
+
+Avoid using cards as general page decoration or nesting cards inside other cards.
+
+## Anatomy
+
+A card usually has a header, content area, and action row.
+The header identifies the object, the content explains its useful state, and actions expose the next available commands.
+Use `CardActionArea` only when the whole surface has one destination or action.
+
 ## Composition
 
 Build cards from familiar primitives: `CardHeader`, `CardContent`, and `CardActions`.
@@ -59,6 +72,12 @@ Cards do not have a dedicated `disabled` prop.
 When a card represents unavailable content, make that state explicit in surrounding logic and apply a muted style.
 
 {{"demo": "DisabledCard.js", "bg": true}}
+
+## Behavior notes
+
+If the whole card is clickable, make it behave like a single link or button and avoid nested interactive controls.
+When a card has multiple actions, keep them visible in `CardActions` rather than hiding them in the body.
+Use spacing and typography first; add borders, shadows, or custom backgrounds only when the card needs stronger grouping.
 
 ## Props
 

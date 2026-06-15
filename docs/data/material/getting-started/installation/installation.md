@@ -69,3 +69,8 @@ The provider applies `CssBaseline`, so most apps do not need a separate global r
 ## Next step
 
 After installation, continue with [Usage](/open-ui-kit-core/getting-started/usage/).
+
+## Continue reading
+
+- Previous: [Introduction](/open-ui-kit-core/getting-started/introduction/)
+- Next: [Usage](/open-ui-kit-core/getting-started/usage/)

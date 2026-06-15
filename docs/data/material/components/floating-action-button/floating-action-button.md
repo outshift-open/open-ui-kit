@@ -27,6 +27,19 @@ Use one primary floating action per surface whenever possible.
 import { FloatingButton } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Floating Button for a prominent contextual action that should stay easy to find inside a surface.
+It works for creation, applying changes, configuring a view, or launching a focused tool.
+
+Use regular buttons for routine inline actions and avoid floating buttons for destructive commands.
+
+## Anatomy
+
+Floating Button is a raised pill with optional icon, label, and elevation.
+The label should be short and action-led.
+The surrounding layout decides where the button floats and what content it affects.
+
 ## Variants
 
 Use `primary` when the button represents the main action in the current surface.
@@ -54,6 +67,12 @@ Use the disabled state when the action is visible but temporarily unavailable.
 Pair it with nearby context that explains what needs to change.
 
 {{"demo": "FloatingButtonDisabled.js", "bg": true}}
+
+## Behavior notes
+
+Keep the button close to the content it changes, especially in panels or embedded tools.
+Use one primary floating action per surface so users do not have to compare competing persistent actions.
+If the action is temporarily unavailable, disable the button and provide nearby context.
 
 ## Props
 

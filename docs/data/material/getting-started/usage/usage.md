@@ -64,3 +64,8 @@ export function ThemeToggle() {
 
 The component pages include props, examples, and implementation notes.
 Start with [Button](/open-ui-kit-core/react-button/) when you want to verify the theme is connected correctly.
+
+## Continue reading
+
+- Previous: [Installation](/open-ui-kit-core/getting-started/installation/)
+- Next: [Theming](/open-ui-kit-core/getting-started/theming/)

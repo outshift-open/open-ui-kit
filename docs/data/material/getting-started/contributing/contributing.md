@@ -53,3 +53,8 @@ Use Conventional Commit style for pull request titles, for example `fix(button):
 Include screenshots for visual changes and explain the product problem behind new APIs.
 
 For support channels and issue reporting details, continue to [Support](/open-ui-kit-core/getting-started/support/).
+
+## Continue reading
+
+- Previous: [Versions](/open-ui-kit-core/getting-started/versions/)
+- Next: [Support](/open-ui-kit-core/getting-started/support/)

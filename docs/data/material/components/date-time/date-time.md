@@ -31,6 +31,19 @@ import {
 } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Date Time components when users need to choose dates, times, ranges, or scheduled moments.
+They fit reports, filters, maintenance windows, scheduling flows, and audit views.
+
+Use simpler text, menu, or preset controls when the value space is small and fixed.
+
+## Anatomy
+
+The family includes date, time, date-time, range, and static picker patterns.
+Each picker should have a clear label, value, change handler, and validation message when needed.
+Helper text should clarify timezone, allowed range, and format expectations.
+
 ## Date and time
 
 Use `DateTimePicker` when the selected value needs both a calendar date and a time.
@@ -56,6 +69,12 @@ The range picker stores its current values as strings and exposes setter callbac
 Use static pickers when the calendar itself is the primary interaction, such as scheduling panels or dense configuration flows.
 
 {{"demo": "StaticDatePickerDemo.js", "bg": true}}
+
+## Behavior notes
+
+Decide whether values are local time, UTC, or domain-specific before wiring the picker.
+Normalize values at the app boundary so API calls, saved filters, and display formatting stay consistent.
+For filters, pair date changes with visible chips or result counts so users know the current query.
 
 ## Props
 

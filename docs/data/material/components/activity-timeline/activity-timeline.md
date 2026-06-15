@@ -27,6 +27,19 @@ Steps can also include a `subTitle` and `content`, which turns the row into an e
 import { ActivityTimeline, ActivityTimelineStepStatus } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Activity Timeline for ordered progress, history, and lifecycle states.
+It is a good fit for setup flows, deployments, request processing, approvals, reviews, and incident timelines.
+
+Use a regular list instead when order, completion state, or progress is not important.
+
+## Anatomy
+
+A timeline is built from steps.
+Each step should have a clear label, a status, and optional supporting content.
+Expandable content should explain what happened, what is blocked, or what the user can do next.
+
 ## Step statuses
 
 Use `ActivityTimelineStepStatus` to describe the state of each row.
@@ -54,6 +67,12 @@ Use `size="large"` for page-level process views.
 Use `size="medium"` for side panels, drawers, and compact workflow summaries.
 
 {{"demo": "ActivityTimelineSizes.js", "bg": true}}
+
+## Behavior notes
+
+Keep workflow data in the page or feature state and pass the timeline a stable list of steps.
+Use automatic progress only when the component can safely infer status from order.
+For audit trails, server events, or retryable workflows, pass explicit step statuses so the UI reflects the source of truth.
 
 ## Props
 

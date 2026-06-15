@@ -24,6 +24,19 @@ It uses Open UI Kit status colors, icons, spacing, and typography so messages fe
 import { Banner } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Banner for page-level messages that need attention without interrupting the current task.
+It fits maintenance notices, warnings, system status, reminders, and success confirmation that should stay visible.
+
+Use form validation, toast notifications, or dialogs for messages tied to a specific field, short-lived event, or decision.
+
+## Anatomy
+
+A banner has a status icon, message content, and optional close action.
+The first sentence should explain the state or impact.
+Custom icons should reinforce the message without replacing clear copy.
+
 ## Statuses
 
 Use `status` to communicate the type of message.
@@ -44,6 +57,12 @@ Pass `icon` when the message needs a product-specific visual cue.
 Use this sparingly so status icons remain predictable.
 
 {{"demo": "BannerCustomIcon.js", "bg": true}}
+
+## Behavior notes
+
+Keep dismissal state outside the banner when the choice should persist across routes or sessions.
+If a critical banner can be closed, make sure the underlying issue remains visible somewhere else.
+Use one banner per message priority so users are not forced to scan a stack of competing alerts.
 
 ## Props
 

@@ -241,3 +241,8 @@ Use `defaultMode` for a light or dark starting point.
 Use `useThemeMode` for app-level light and dark controls.
 Use `sx` for local component layout and one-off styling.
 Use `customTheme` when the whole product needs different semantic tokens, palette values, typography, or component defaults.
+
+## Continue reading
+
+- Previous: [Usage](/open-ui-kit-core/getting-started/usage/)
+- Next: [Versions](/open-ui-kit-core/getting-started/versions/)

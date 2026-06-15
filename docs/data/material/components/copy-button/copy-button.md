@@ -24,6 +24,19 @@ It is icon-only by design, so provide an accessible label for the specific value
 import { CopyButton } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Copy Button beside values users are likely to reuse, such as commands, URLs, tokens, ids, and generated snippets.
+It reduces selection mistakes and gives immediate feedback that the value was copied.
+
+Do not hide a primary workflow behind a copy-only interaction.
+
+## Anatomy
+
+Copy Button is an icon action with an accessible label, tooltip, and temporary success state.
+The copied value should be visually close to the button so users know what will go to the clipboard.
+For longer snippets, pair it with Code Block or a clearly framed text area.
+
 ## Sizes
 
 Use `large` when the button stands alone or appears beside a field.
@@ -49,6 +62,12 @@ Customize `copyLabel`, `copiedLabel`, and `tooltipPlacement` when the default to
 Use `position`, `top`, `left`, and `right` when the button needs to sit inside a relative container such as a code panel or read-only value box.
 
 {{"demo": "CopyButtonPositioned.js", "bg": true}}
+
+## Behavior notes
+
+Keep the copied string in the surrounding page state and pass the exact value to the button.
+Use success feedback to confirm the action without moving focus or opening a modal.
+For sensitive values, consider reveal, permission, or confirmation behavior before copying.
 
 ## Props
 

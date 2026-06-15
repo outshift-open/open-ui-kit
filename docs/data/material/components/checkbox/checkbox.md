@@ -26,6 +26,19 @@ For a mutually exclusive choice, use radio buttons instead.
 import { Checkbox } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Checkbox for independent on/off choices, multi-select lists, table selection, filters, and form preferences.
+It is the right control when users can select any number of options.
+
+Use radio buttons or selects for mutually exclusive choices, and switches for immediate settings changes.
+
+## Anatomy
+
+A checkbox needs an input, a visible label, and optional helper text.
+The label should describe what the checked state means.
+Groups should have a clear group label so users understand the relationship between options.
+
 ## Labels
 
 Pair every checkbox with visible text when possible.
@@ -57,6 +70,12 @@ Group related checkboxes under a short label so users understand the set they ar
 Use the underlying `size` prop when a compact row needs a smaller control.
 
 {{"demo": "CheckboxSizes.js", "bg": true}}
+
+## Behavior notes
+
+Use controlled state when the checkbox drives a form, filter, table selection, or external state.
+Use `indeterminate` only for parent-child selection where some, but not all, child options are selected.
+Keep disabled options visible only when users benefit from understanding that the option exists.
 
 ## Props
 

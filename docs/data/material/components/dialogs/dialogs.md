@@ -34,7 +34,20 @@ import {
 } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Dialog for focused tasks that temporarily interrupt the page.
+Dialogs work well for confirmations, short forms, previews, and decisions that need context before continuing.
+
+Use a page, drawer, or stepper instead for long workflows or content that users need to compare with the page.
+
 ## Anatomy
+
+A dialog has a title, content area, and action row.
+The title should name the task, content should explain the decision or form, and actions should be explicit.
+Destructive dialogs should make the risk clear in both the title and primary action.
+
+## Composition
 
 Compose a dialog from a title, optional subtitle, content, and actions.
 Use `aria-labelledby` and `aria-describedby` to connect the modal surface to its visible heading and supporting content.
@@ -54,6 +67,12 @@ Dialog supports standard `maxWidth` presets.
 Use `sm` for short confirmations, `md` for settings or form-like content, and `lg` only when the dialog needs comparison or dense supporting details.
 
 {{"demo": "DialogSizes.js", "bg": true}}
+
+## Behavior notes
+
+Keep `open` state in the parent surface so the page controls when the dialog appears and closes.
+Return focus to the triggering element after close when possible.
+Avoid stacking multiple dialogs; move complex branching flows into a dedicated page or wizard.
 
 ## Props
 

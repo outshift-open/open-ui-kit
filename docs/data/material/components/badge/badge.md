@@ -24,6 +24,19 @@ Use it when the value is short and useful at a glance.
 import { Badge } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Badge for compact counts, notification dots, and small state markers attached to another element.
+It works best when the badge changes how the user understands or prioritizes the anchor element.
+
+Use text, chips, or status rows instead when the state needs explanation.
+
+## Anatomy
+
+A badge has an anchor element and a marker.
+The marker can be numeric, dot-only, or status-like depending on the use case.
+Keep badge content short so it does not compete with the element it annotates.
+
 ## Types
 
 Use `type` to map the badge to a product meaning.
@@ -44,6 +57,12 @@ Use `styleBadge` for the badge container and `styleContent` for the text inside 
 Keep overrides small so the badge stays aligned with the design system.
 
 {{"demo": "BadgeCustomStyles.js", "bg": true}}
+
+## Behavior notes
+
+Use counts when the number itself matters, such as unread items or pending tasks.
+Use a dot when the presence of new activity is enough.
+Cap or format large counts in the page logic before passing the value to the badge.
 
 ## Props
 

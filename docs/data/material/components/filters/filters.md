@@ -27,6 +27,19 @@ It owns the drawer trigger and chip row, while your page owns the selected filte
 import { FiltersBar } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Filters for datasets that need search, favorites, facets, nested options, or saved query-style controls.
+They are useful for tables, card grids, asset lists, findings, policies, and dashboards.
+
+Use a single select, checkbox group, or search field when the filtering model is simple.
+
+## Anatomy
+
+Filters combine search, favorite controls, chips, an optional drawer trigger, and optional right-side actions.
+The drawer can group filters, support nested values, show loading state, and expose select-all behavior.
+The page owns the filtered data and decides how active filters affect results.
+
 ## Select all groups
 
 Enable `isSelectAllEnabled` on a filter group when the drawer should offer a faster path for selecting every option in that group.
@@ -54,6 +67,12 @@ Use `rightSideComponent` for page-level actions that should travel with the filt
 Keep the action related to the current result set, such as export, save view, or create report.
 
 {{"demo": "FiltersWithAction.js", "bg": true}}
+
+## Behavior notes
+
+Treat `filtersData` as application state and update visible results whenever it changes.
+Use stable `filterKey` values so filters can be persisted, serialized in URLs, or reported in analytics.
+Show active filters near the results so users can understand and undo the current query.
 
 ## Props
 

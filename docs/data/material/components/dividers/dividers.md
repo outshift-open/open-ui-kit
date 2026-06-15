@@ -27,6 +27,19 @@ Dividers work best between groups that are already related, such as form section
 import { Divider } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Divider to separate related groups when spacing alone is not enough.
+It is helpful in menus, lists, panels, dense forms, and layouts where users need a visual boundary.
+
+Avoid dividers as decoration when hierarchy can be solved with spacing, headings, or layout.
+
+## Anatomy
+
+A divider is a horizontal or vertical rule with optional text.
+Text dividers should label the group that follows.
+Vertical dividers need a stable container height so the rule does not collapse unexpectedly.
+
 ## Variants
 
 Use the default divider for subtle grouping.
@@ -53,6 +66,12 @@ Keep divider labels short and avoid using them as section headings.
 Use dividers inside cards, panels, and settings surfaces to group fields without creating extra containers.
 
 {{"demo": "DividerLayout.js", "bg": true}}
+
+## Behavior notes
+
+Prefer semantic grouping and spacing before adding a divider.
+Use text dividers sparingly; too many labeled rules can make a layout feel heavier than the content.
+For flex layouts, confirm the parent direction and alignment before using a vertical divider.
 
 ## Props
 

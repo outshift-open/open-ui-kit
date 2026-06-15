@@ -74,3 +74,8 @@ Upgrade checklist:
 
 The package uses semantic-release and Conventional Commits to determine release versions.
 Stable releases are published to npm with the `latest` tag, while beta releases are published with the `beta` tag for preview testing.
+
+## Continue reading
+
+- Previous: [Theming](/open-ui-kit-core/getting-started/theming/)
+- Next: [Contributing](/open-ui-kit-core/getting-started/contributing/)

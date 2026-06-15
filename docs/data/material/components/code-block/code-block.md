@@ -24,6 +24,19 @@ It is useful in installation steps, generated configuration, API examples, and c
 import { CodeBlock } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Code Block for code samples, commands, configuration, logs, or structured text that users need to read or copy.
+It is useful in docs, setup flows, developer tools, and troubleshooting surfaces.
+
+Use inline code for short values that do not need their own block.
+
+## Anatomy
+
+A code block includes highlighted content, optional language metadata, optional line numbers, and optional header actions.
+Header actions should support the snippet, such as copying or opening a related file.
+The surrounding text should explain why the snippet matters before the user reads it.
+
 ## Line numbers
 
 Use `showLineNumbers` when the surrounding copy refers to specific lines or when the snippet is long enough to benefit from scanning.
@@ -49,6 +62,12 @@ Use `header` for lightweight actions that change the snippet context, such as se
 Use `size="small"` for compact snippets inside dense panels or helper content.
 
 {{"demo": "CodeBlockSizes.js", "bg": true}}
+
+## Behavior notes
+
+Choose the language explicitly so syntax highlighting and accessibility labels stay accurate.
+Use wrapping for commands, JSON, and short config where full lines should stay visible.
+Prefer horizontal scrolling for source code where indentation and line breaks carry meaning.
 
 ## Props
 

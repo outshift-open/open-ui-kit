@@ -31,4 +31,6 @@ The goal is simple: make product interfaces feel like Open UI Kit from the first
 3. Import components from `@open-ui-kit/core`.
 4. Use the component docs to tune props, patterns, and behavior.
 
-Next: [Installation](/open-ui-kit-core/getting-started/installation/).
+## Continue reading
+
+- Next: [Introduction](/open-ui-kit-core/getting-started/introduction/)

@@ -40,3 +40,8 @@ Do not open public issues for suspected vulnerabilities.
 Use GitHub private vulnerability reporting for the repository and include the affected versions, reproduction steps, and any known mitigations.
 
 Maintainers aim to acknowledge security reports within three business days, then follow up with next steps within an additional three business days.
+
+## Continue reading
+
+- Previous: [Contributing](/open-ui-kit-core/getting-started/contributing/)
+- Next: [Development](/open-ui-kit-core/getting-started/developer-only/development/)

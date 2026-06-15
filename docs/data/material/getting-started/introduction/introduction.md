@@ -29,3 +29,8 @@ Storybook remains the interactive workshop for component behavior. These docs ar
 
 Use Open UI Kit Core when your app needs a production-ready UI baseline, a consistent theme, and components that feel familiar to React product teams.
 Start with [Installation](/open-ui-kit-core/getting-started/installation/), then move to [Usage](/open-ui-kit-core/getting-started/usage/) once the package is installed.
+
+## Continue reading
+
+- Previous: [Overview](/open-ui-kit-core/getting-started/)
+- Next: [Installation](/open-ui-kit-core/getting-started/installation/)

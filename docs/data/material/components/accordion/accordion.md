@@ -32,6 +32,19 @@ Open UI Kit keeps the expected accordion behavior and adds a simpler header cont
 import { Accordion } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Accordion when related content should stay available without taking over the page.
+It works well for settings groups, filters, summaries, policy details, and optional sections that users can scan before opening.
+
+Avoid Accordion for primary navigation, required step-by-step tasks, or content that must be visible for the page to make sense.
+
+## Anatomy
+
+An accordion is made of a summary button and a details region.
+The summary should identify the section with a short `title` and, when useful, a supporting `subTitle` or status.
+The details region should hold the form fields, explanations, lists, or actions that belong to that section.
+
 ## Arrow position
 
 Use `arrowPosition` to place the disclosure icon on the left or right side of the summary.
@@ -86,6 +99,12 @@ The Accordion component can be controlled or uncontrolled.
 
 Learn more about controlled and uncontrolled components in the [React documentation](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components).
 :::
+
+## Behavior notes
+
+Use `defaultExpanded` for simple uncontrolled panels.
+Use `expanded` and `onChange` when expansion needs to sync with a URL, form state, saved preference, or analytics event.
+Keep summary content short so collapsed panels remain easy to scan.
 
 ## Props
 
@@ -142,3 +161,11 @@ If you render the Accordion Details with a big component tree nested inside, or 
   slotProps={{ transition: { unmountOnExit: true } }}
 />
 ```
+
+## Usage guidance
+
+- Use Accordion for optional details, not required instructions.
+- Keep the summary readable without opening the panel.
+- Use `contained` when the item needs to feel like a standalone surface.
+- Use controlled state when expansion syncs with routing, forms, telemetry, or saved preferences.
+- Avoid destructive actions in the summary unless the action is explicit and confirmed elsewhere.

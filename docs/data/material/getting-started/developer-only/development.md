@@ -76,3 +76,7 @@ Use existing override files as the template so light and dark behavior stay cons
 
 Releases are handled through the repository automation.
 Use Conventional Commits so the release tooling can infer the correct package version and changelog entry.
+
+## Continue reading
+
+- Previous: [Support](/open-ui-kit-core/getting-started/support/)

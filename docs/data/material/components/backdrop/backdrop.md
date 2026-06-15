@@ -26,6 +26,19 @@ Open UI Kit exposes the expected backdrop API, so props such as `open`, `invisib
 import { Backdrop } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Backdrop when the rest of the interface is temporarily unavailable.
+It is appropriate for blocking loading states, modal work, route transitions, and flows where interaction must pause.
+
+Use inline progress or a skeleton instead when the user can keep working.
+
+## Anatomy
+
+A backdrop is a scrim with optional progress and optional message content.
+The message should describe what is happening, not simply repeat "loading".
+Use invisible backdrops only when another visible surface already communicates the blocking state.
+
 ## Loading state
 
 Pair Backdrop with `Spinner` when users need to wait for a blocking operation.
@@ -46,6 +59,12 @@ Use `invisible` when another component provides the visual context, but you stil
 This is useful for contextual surfaces such as popovers, menus, or custom panels.
 
 {{"demo": "InvisibleBackdrop.js", "bg": true}}
+
+## Behavior notes
+
+Drive the open state from page, route, or mutation state and clear it as soon as the blocking work finishes.
+If the backdrop appears above a dialog, focus management should remain with the active dialog or task surface.
+Avoid long-running backdrops without a recovery path.
 
 ## Props
 
