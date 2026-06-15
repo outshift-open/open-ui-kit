@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/outshift-open/open-ui-kit/compare/v2.0.2...v2.0.3) (2026-06-15)
+
+
+### Bug Fixes
+
+* update npm homepage ([50bf8b4](https://github.com/outshift-open/open-ui-kit/commit/50bf8b4f2e2742882b194befb52c3204fa93a800))
+
 ## [2.0.2](https://github.com/outshift-open/open-ui-kit/compare/v2.0.1...v2.0.2) (2026-06-15)
 
 
