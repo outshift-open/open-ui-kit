@@ -12,7 +12,7 @@ import {
 import {
   DEFAULT_DOCS_CONFIG,
   type DocsConfig,
-  VersionEntry,
+  type VersionEntry,
 } from "@mui/internal-core-docs/DocsProvider";
 import type { NotificationMessage } from "@mui/internal-core-docs/AppLayout";
 import findActivePage from "@mui/internal-core-docs/findActivePage";
@@ -37,36 +37,144 @@ export { fontClasses } from "@mui/internal-core-docs/nextFonts";
 printConsoleBanner();
 
 const packageName = "@open-ui-kit/core";
+const packageDocsUrl = "/open-ui-kit-core/";
+const maxVersionOptions = 10;
 const fallbackPackageVersion = `v${openUiKitCorePkgJson.version}`;
-let packageVersionRequest: Promise<string> | undefined;
+const fallbackVersionEntries: VersionEntry[] = [
+  { version: fallbackPackageVersion, url: packageDocsUrl },
+];
+let packageMetadataRequest: Promise<NpmPackageMetadata | null> | undefined;
+
+type NpmPackageMetadata = {
+  "dist-tags"?: Record<string, string | undefined>;
+  versions?: Record<string, unknown>;
+};
 
 function formatPackageVersion(version: string) {
   return version.startsWith("v") ? version : `v${version}`;
 }
 
-async function fetchPublishedPackageVersion() {
-  packageVersionRequest ??= fetch(
-    `https://registry.npmjs.org/${encodeURIComponent(packageName)}/latest`,
+function normalizePackageVersion(version: string) {
+  return version.replace(/^v/, "");
+}
+
+function isPrereleaseVersion(version: string) {
+  return normalizePackageVersion(version).includes("-");
+}
+
+function parsePackageVersion(version: string) {
+  const [versionCore, prerelease = ""] = normalizePackageVersion(version).split(
+    "-",
+    2,
+  );
+  const [major = 0, minor = 0, patch = 0] = versionCore
+    .split(".")
+    .map((part) => Number.parseInt(part, 10) || 0);
+
+  return { major, minor, patch, prerelease };
+}
+
+function comparePackageVersionsDesc(versionA: string, versionB: string) {
+  const parsedA = parsePackageVersion(versionA);
+  const parsedB = parsePackageVersion(versionB);
+
+  if (parsedA.major !== parsedB.major) {
+    return parsedB.major - parsedA.major;
+  }
+  if (parsedA.minor !== parsedB.minor) {
+    return parsedB.minor - parsedA.minor;
+  }
+  if (parsedA.patch !== parsedB.patch) {
+    return parsedB.patch - parsedA.patch;
+  }
+  if (parsedA.prerelease === parsedB.prerelease) {
+    return 0;
+  }
+  if (!parsedA.prerelease) {
+    return -1;
+  }
+  if (!parsedB.prerelease) {
+    return 1;
+  }
+
+  return parsedB.prerelease.localeCompare(parsedA.prerelease, undefined, {
+    numeric: true,
+  });
+}
+
+function uniquePackageVersions(versions: Array<string | undefined>) {
+  const seen = new Set<string>();
+
+  return versions.filter((version): version is string => {
+    if (!version) {
+      return false;
+    }
+
+    const normalizedVersion = normalizePackageVersion(version);
+    if (seen.has(normalizedVersion)) {
+      return false;
+    }
+
+    seen.add(normalizedVersion);
+    return true;
+  });
+}
+
+async function fetchPackageMetadata() {
+  packageMetadataRequest ??= fetch(
+    `https://registry.npmjs.org/${encodeURIComponent(packageName)}`,
   )
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch ${packageName}: ${response.status}`);
       }
-      return response.json() as Promise<{ version?: string }>;
+      return response.json() as Promise<NpmPackageMetadata>;
     })
-    .then((metadata) =>
-      metadata.version
-        ? formatPackageVersion(metadata.version)
-        : fallbackPackageVersion,
-    )
-    .catch(() => fallbackPackageVersion);
+    .catch(() => null);
 
-  return packageVersionRequest;
+  return packageMetadataRequest;
+}
+
+async function fetchPublishedPackageVersion() {
+  const metadata = await fetchPackageMetadata();
+  const latestVersion = metadata?.["dist-tags"]?.latest;
+
+  return latestVersion
+    ? formatPackageVersion(latestVersion)
+    : fallbackPackageVersion;
 }
 
 async function getOpenUiKitVersions(): Promise<VersionEntry[]> {
-  const version = await fetchPublishedPackageVersion();
-  return [{ version, url: "/open-ui-kit-core/" }];
+  const metadata = await fetchPackageMetadata();
+  const publishedVersions = Object.keys(metadata?.versions ?? {});
+
+  if (publishedVersions.length === 0) {
+    return fallbackVersionEntries;
+  }
+
+  const distTags = metadata?.["dist-tags"] ?? {};
+  const stableVersions = publishedVersions
+    .filter((version) => !isPrereleaseVersion(version))
+    .sort(comparePackageVersionsDesc)
+    .slice(0, 7);
+  const prereleaseVersions = publishedVersions
+    .filter(isPrereleaseVersion)
+    .sort(comparePackageVersionsDesc)
+    .slice(0, 3);
+  const selectedVersions = uniquePackageVersions([
+    distTags.latest,
+    distTags.beta,
+    ...stableVersions,
+    ...prereleaseVersions,
+  ]).slice(0, maxVersionOptions);
+
+  return (selectedVersions.length > 0 ? selectedVersions : publishedVersions)
+    .sort(comparePackageVersionsDesc)
+    .slice(0, maxVersionOptions)
+    .map((version) => ({
+      version: formatPackageVersion(version),
+      url: packageDocsUrl,
+    }));
 }
 
 async function getOpenUiKitNotifications(): Promise<NotificationMessage[]> {
@@ -75,12 +183,22 @@ async function getOpenUiKitNotifications(): Promise<NotificationMessage[]> {
   return [
     {
       id: 1000,
-      title: `Open UI Kit Core ${version}`,
-      text: `The docs are reading the latest published version from <code>npm:${packageName}</code>. The current npm version is <strong>${version}</strong>.`,
-      date: "2026-05-27",
+      title: `Open UI Kit Core ${version} is live`,
+      text: `The docs now read <code>npm:${packageName}</code> package metadata, so the version selector includes the latest release and recent published versions.`,
+      date: "2026-06-15",
     },
     ...staticNotifications,
   ];
+}
+
+function toProductVersions(versions: VersionEntry[]) {
+  const entries = versions.length > 0 ? versions : fallbackVersionEntries;
+
+  return entries.map((entry, index) => ({
+    text: entry.version,
+    href: entry.url,
+    current: index === 0,
+  }));
 }
 
 const docsConfig: DocsConfig = {
@@ -117,8 +235,12 @@ ReactDOM.createRoot(document.querySelector("#root")${type}).render(
 );`;
 }
 
-function useProductData(currentPackageVersion: string) {
+function useProductData(packageVersions: VersionEntry[]) {
   const router = useRouter();
+  const productVersions = React.useMemo(
+    () => toProductVersions(packageVersions),
+    [packageVersions],
+  );
   // TODO move productId & productCategoryId resolution to page layout.
   // We should use the productId field from the markdown and fallback to getProductInfoFromUrl()
   // if not present
@@ -133,7 +255,7 @@ function useProductData(currentPackageVersion: string) {
         logo: OpenUiKitLogomarkIcon,
         logoSvg: openUiKitSvgLogoString,
         wordmarkSvg: openUiKitSvgWordmarkString,
-        versions: [{ text: currentPackageVersion, current: true }],
+        versions: productVersions,
       };
     }
 
@@ -144,12 +266,12 @@ function useProductData(currentPackageVersion: string) {
         logo: OpenUiKitLogomarkIcon,
         logoSvg: openUiKitSvgLogoString,
         wordmarkSvg: openUiKitSvgWordmarkString,
-        versions: [{ text: currentPackageVersion, current: true }],
+        versions: productVersions,
       };
     }
 
     return null;
-  }, [currentPackageVersion, productId]);
+  }, [productId, productVersions]);
 
   return React.useMemo(() => {
     const pages: MuiPage[] = openUiKitPages as MuiPage[];
@@ -189,8 +311,10 @@ export default function MyApp(
   }>,
 ) {
   const { Component, pageProps } = props;
-  const currentPackageVersion =
-    pageProps.versions?.[0]?.version ?? fallbackPackageVersion;
+  const packageVersions =
+    pageProps.versions && pageProps.versions.length > 0
+      ? pageProps.versions
+      : fallbackVersionEntries;
   const {
     activePage,
     activePageParents,
@@ -198,7 +322,7 @@ export default function MyApp(
     productIdentifier,
     productId,
     productCategoryId,
-  } = useProductData(currentPackageVersion);
+  } = useProductData(packageVersions);
   const demoDisplayName = useDemoDisplayName();
 
   return (

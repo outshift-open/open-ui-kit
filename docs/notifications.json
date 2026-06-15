@@ -1,14 +1,14 @@
 [
   {
     "id": 1001,
-    "title": "Open UI Kit Core docs moved",
-    "text": "Open UI Kit Core docs now live under <a style=\"color: inherit;\" href=\"/open-ui-kit-core/\">/open-ui-kit-core</a>, with old docs routes redirected here.",
-    "date": "2026-05-27"
+    "title": "Component docs expanded",
+    "text": "Component pages now include usage guidance, package imports, examples, and links back to Storybook for interactive coverage.",
+    "date": "2026-06-15"
   },
   {
     "id": 1002,
-    "title": "Focused docs navigation",
-    "text": "The sidebar has been trimmed to getting started, component docs, and Storybook while the component pages are reviewed.",
-    "date": "2026-05-27"
+    "title": "Getting started flow refreshed",
+    "text": "Overview, installation, usage, support, and version pages now link together so teams can move through setup without losing context.",
+    "date": "2026-06-15"
   }
 ]
