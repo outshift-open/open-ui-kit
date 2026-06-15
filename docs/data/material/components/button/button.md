@@ -24,6 +24,19 @@ Use it for clear actions in toolbars, dialogs, forms, cards, and page headers.
 import { Button } from '@open-ui-kit/core';
 ```
 
+## When to use
+
+Use Button when the user needs to trigger an action, submit a form, open a flow, or make a clear choice.
+Buttons should communicate what happens next with a short, action-led label.
+
+Use links for navigation to another page and icon buttons only when the icon is familiar or paired with an accessible label.
+
+## Anatomy
+
+A button is made from a label, optional leading or trailing icon, visual priority, size, and state.
+The label carries the meaning of the action, while the variant and color communicate importance and risk.
+Icons should clarify the action, not replace the label unless the control is intentionally icon-only.
+
 ## Variants
 
 Use `primary` for the main action, `secondary` for supporting actions, `outlined` for lower emphasis, and `tertariary` for text-like actions.
@@ -57,6 +70,12 @@ Buttons support disabled and loading states through the standard button API.
 Use loading when the action has been accepted and is still processing.
 
 {{"demo": "ButtonStates.js", "bg": true}}
+
+## Behavior notes
+
+Use `type="submit"` for form submission and `type="button"` for non-submit actions inside forms.
+Use `loading` after an action has started so users know the click was accepted.
+Keep disabled buttons visible only when users benefit from understanding that the action exists but is currently unavailable.
 
 ## Props
 

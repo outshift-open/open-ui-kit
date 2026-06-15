@@ -71,6 +71,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "inputs",
     description:
       "Grouped buttons for related actions that need shared emphasis and alignment.",
+    hasMarkdownPage: true,
     importName: "ButtonGroup",
     routeSlug: "button-group",
     sourceUrl: packageBarrelUrl,
@@ -124,6 +125,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "inputs",
     description:
       "Text entry control with Open UI Kit spacing, helper text, and state treatments.",
+    hasMarkdownPage: true,
     importName: "InputField",
     packagePath: "input-field",
     routeSlug: "input-field",
@@ -134,6 +136,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "inputs",
     description:
       "Icon-only action button for compact toolbars, menus, and controls.",
+    hasMarkdownPage: true,
     importName: "IconButton",
     routeSlug: "icon-button",
     sourceUrl: packageBarrelUrl,
@@ -142,6 +145,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Picker item primitives for compact choice surfaces.",
+    hasMarkdownPage: true,
     importName: "PickerItem",
     packagePath: "picker",
     routeSlug: "picker",
@@ -151,6 +155,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Radio controls for choosing one option from a small set.",
+    hasMarkdownPage: true,
     importName: "RadioButton",
     packagePath: "radio",
     routeSlug: "radio",
@@ -161,6 +166,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "inputs",
     description:
       "Search field for filtering lists, tables, navigation, and command surfaces.",
+    hasMarkdownPage: true,
     importName: "SearchInput",
     packagePath: "search-input",
     routeSlug: "search-input",
@@ -170,6 +176,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Select control for choosing from a menu of options.",
+    hasMarkdownPage: true,
     importName: "Select",
     packagePath: "select",
     routeSlug: "select",
@@ -179,6 +186,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Range control for continuous numeric values.",
+    hasMarkdownPage: true,
     importName: "Slider",
     packagePath: "slider",
     routeSlug: "slider",
@@ -188,6 +196,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "inputs",
     description: "Switch-style control for enabling or disabling a setting.",
+    hasMarkdownPage: true,
     importName: "Toggle",
     packagePath: "toggle",
     routeSlug: "toggle",
@@ -198,6 +207,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "inputs",
     description:
       "File upload surface for choosing, validating, and reviewing selected files.",
+    hasMarkdownPage: true,
     importName: "Upload",
     packagePath: "upload",
     routeSlug: "upload",
@@ -282,6 +292,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Icon wrapper and iconography entry point for product visuals.",
+    hasMarkdownPage: true,
     importName: "Icon",
     packagePath: "icon",
     routeSlug: "icon",
@@ -292,6 +303,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Small numeric or status indicator for dense product surfaces.",
+    hasMarkdownPage: true,
     importName: "IndicatorBadge",
     packagePath: "indicator-badge",
     routeSlug: "indicator-badge",
@@ -302,6 +314,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Structured key-value rows for metadata, summaries, and detail panels.",
+    hasMarkdownPage: true,
     importName: "KeyValuePairs",
     packagePath: "key-value-pairs",
     routeSlug: "key-value-pairs",
@@ -312,6 +325,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Text primitive for headings, body copy, captions, and semantic text scales.",
+    hasMarkdownPage: true,
     importName: "Typography",
     routeSlug: "typography",
     sourceUrl: packageBarrelUrl,
@@ -321,6 +335,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Vertical list pattern for repeated rows with icons, secondary text, selection, dense, disabled, and divider states.",
+    hasMarkdownPage: true,
     importName: "List",
     packagePath: "list",
     routeSlug: "list",
@@ -331,6 +346,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "API data-state wrapper that renders loading, error, empty, and ready content from one place.",
+    hasMarkdownPage: true,
     importName: "LoadingErrorState",
     packagePath: "loading-error-state",
     routeSlug: "loading-error-state",
@@ -341,6 +357,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Spinner and skeleton reference patterns for indeterminate progress and placeholder content.",
+    hasMarkdownPage: true,
     importName: "LoadingStates",
     packagePath: "loading-states",
     routeSlug: "loading-states",
@@ -351,6 +368,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Short status message with success, error, warning, and info variants plus optional title, action, and dismiss control.",
+    hasMarkdownPage: true,
     importName: "Message",
     packagePath: "message",
     routeSlug: "message",
@@ -361,6 +379,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Tooltip helper for text that may truncate in constrained layouts.",
+    hasMarkdownPage: true,
     importName: "OverflowTooltip",
     packagePath: "overflow-tooltip",
     routeSlug: "overflow-tooltip",
@@ -370,6 +389,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "data-display",
     description: "Path display for file, route, or hierarchy strings.",
+    hasMarkdownPage: true,
     importName: "PathDisplay",
     packagePath: "path-display",
     routeSlug: "path-display",
@@ -380,6 +400,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Color indicator for severity enum values or numeric score systems with configurable thresholds.",
+    hasMarkdownPage: true,
     importName: "SeverityBadge",
     packagePath: "severity-badge",
     routeSlug: "severity-badge",
@@ -390,6 +411,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Severity indicator paired with a readable label, using the same enum and score system API as Severity Badge.",
+    hasMarkdownPage: true,
     importName: "SeverityBadgeLabel",
     packagePath: "severity-badge-label",
     routeSlug: "severity-badge-label",
@@ -400,6 +422,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Compact 4 by 32 pixel vertical color bar that communicates one severity level with minimal space.",
+    hasMarkdownPage: true,
     importName: "SeverityBar",
     packagePath: "severity-bar",
     routeSlug: "severity-bar",
@@ -410,6 +433,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Skeleton placeholders that reserve layout while content loads.",
+    hasMarkdownPage: true,
     importName: "Skeleton",
     packagePath: "skeleton",
     routeSlug: "skeleton",
@@ -419,6 +443,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "data-display",
     description: "Spinner indicator for indeterminate loading.",
+    hasMarkdownPage: true,
     importName: "Spinner",
     packagePath: "spinner",
     routeSlug: "spinner",
@@ -428,6 +453,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "data-display",
     description: "Tabular data display with product-ready table patterns.",
+    hasMarkdownPage: true,
     importName: "Table",
     packagePath: "table",
     routeSlug: "table",
@@ -438,6 +464,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Single compact label for categorizing, filtering, and annotating content with color, status, icon, avatar, and delete states.",
+    hasMarkdownPage: true,
     importName: "Tag",
     packagePath: "tags/tag",
     routeSlug: "tag",
@@ -448,6 +475,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "data-display",
     description:
       "Compact collection of tags with first-item summaries, overflow counts, truncation, and delete callbacks.",
+    hasMarkdownPage: true,
     importName: "Tags",
     packagePath: "tags/tags",
     routeSlug: "tags",
@@ -458,6 +486,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Bar chart for comparing quantities against a common baseline.",
+    hasMarkdownPage: true,
     importName: "BarChart",
     routeSlug: "bar-chart",
     sourceUrl: `${packageSourceUrl}/charts/bar-chart`,
@@ -468,6 +497,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Stacked bar graph for grouped health, status, or distribution data.",
+    hasMarkdownPage: true,
     importName: "BarGraph",
     routeSlug: "bar-graph",
     sourceUrl: `${packageSourceUrl}/charts/bar-graph`,
@@ -478,6 +508,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Dashboard widget shell for wrapping chart content with title, actions, and states.",
+    hasMarkdownPage: true,
     importName: "ChartWidget",
     routeSlug: "chart-widget",
     sourceUrl: `${packageSourceUrl}/charts/chart-widget`,
@@ -488,6 +519,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Donut chart for proportional breakdowns and compact summary visuals.",
+    hasMarkdownPage: true,
     importName: "DonutChart",
     routeSlug: "donut-chart",
     sourceUrl: `${packageSourceUrl}/charts/donut-chart`,
@@ -498,6 +530,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Gauge chart for progress, score, and threshold-oriented visual summaries.",
+    hasMarkdownPage: true,
     importName: "GaugeChart",
     routeSlug: "gauge-chart",
     sourceUrl: `${packageSourceUrl}/charts/gauge-chart`,
@@ -508,6 +541,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Horizontal bar chart for ranking categories and comparing ordered values.",
+    hasMarkdownPage: true,
     importName: "HorizontalBarChart",
     routeSlug: "horizontal-bar-chart",
     sourceUrl: `${packageSourceUrl}/charts/horizontal-bar-chart`,
@@ -517,6 +551,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "charts",
     description: "Line chart for trends, time series, and changing values.",
+    hasMarkdownPage: true,
     importName: "LineChart",
     routeSlug: "line-chart",
     sourceUrl: `${packageSourceUrl}/charts/line-chart`,
@@ -527,6 +562,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "charts",
     description:
       "Spider chart for comparing multi-axis scores across entities or categories.",
+    hasMarkdownPage: true,
     importName: "SpiderChart",
     routeSlug: "spider-chart",
     sourceUrl: `${packageSourceUrl}/charts/spider-chart`,
@@ -537,6 +573,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "feedback",
     description:
       "Modal confirmation flow with optional comment suggestions and dismiss checkbox.",
+    hasMarkdownPage: true,
     importName: "ActionsDialog",
     packagePath: "actions-dialog",
     routeSlug: "actions-dialog",
@@ -576,6 +613,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "feedback",
     description: "Floating contextual layer anchored to another element.",
+    hasMarkdownPage: true,
     importName: "Popover",
     packagePath: "popover",
     routeSlug: "popover",
@@ -585,6 +623,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "feedback",
     description: "Temporary notification for background outcomes and updates.",
+    hasMarkdownPage: true,
     importName: "Toast",
     packagePath: "toast",
     routeSlug: "toast",
@@ -594,6 +633,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "feedback",
     description: "Hover and focus helper text for compact controls.",
+    hasMarkdownPage: true,
     importName: "Tooltip",
     packagePath: "tooltip",
     routeSlug: "tooltip",
@@ -604,6 +644,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "layout",
     description:
       "Low-level layout wrapper for spacing, sizing, and responsive style composition.",
+    hasMarkdownPage: true,
     importName: "Box",
     routeSlug: "box",
     sourceUrl: packageBarrelUrl,
@@ -613,6 +654,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "layout",
     description:
       "Responsive page-width wrapper for keeping content aligned to a readable measure.",
+    hasMarkdownPage: true,
     importName: "Container",
     routeSlug: "container",
     sourceUrl: packageBarrelUrl,
@@ -622,6 +664,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "layout",
     description:
       "Responsive grid primitive for arranging content across columns and breakpoints.",
+    hasMarkdownPage: true,
     importName: "Grid",
     routeSlug: "grid",
     sourceUrl: packageBarrelUrl,
@@ -631,6 +674,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "layout",
     description:
       "One-dimensional layout primitive for vertical and horizontal spacing.",
+    hasMarkdownPage: true,
     importName: "Stack",
     routeSlug: "stack",
     sourceUrl: packageBarrelUrl,
@@ -640,6 +684,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "templates",
     description:
       "Page template with header, breadcrumbs, optional sub-navigation, and content area.",
+    hasMarkdownPage: true,
     importName: "BasePage",
     routeSlug: "base-page",
     sourceUrl: `${packageSourceUrl}/templates/base-page`,
@@ -650,6 +695,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "templates",
     description:
       "Application layout template for wrapping product navigation and page content.",
+    hasMarkdownPage: true,
     importName: "Layout",
     routeSlug: "layout",
     sourceUrl: `${packageSourceUrl}/templates/layout`,
@@ -660,6 +706,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "templates",
     description:
       "Page title template for consistent headings, descriptions, and page actions.",
+    hasMarkdownPage: true,
     importName: "PageTitle",
     routeSlug: "page-title",
     sourceUrl: `${packageSourceUrl}/templates/page-title`,
@@ -691,6 +738,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "surfaces",
     description:
       "Application footer layout for links, legal text, and branding.",
+    hasMarkdownPage: true,
     importName: "Footer",
     packagePath: "footer",
     routeSlug: "footer",
@@ -701,6 +749,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "surfaces",
     description:
       "Application header for brand, navigation, search, and actions.",
+    hasMarkdownPage: true,
     importName: "Header",
     packagePath: "header",
     routeSlug: "header",
@@ -711,6 +760,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "surfaces",
     description:
       "Composite card surface for metric, chart, and dashboard content with headline slots, actions, loading, and empty states.",
+    hasMarkdownPage: true,
     importName: "Widget",
     packagePath: "widget",
     routeSlug: "widget",
@@ -721,6 +771,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "surfaces",
     description:
       "Elevated surface primitive for panels, cards, menus, and contained content.",
+    hasMarkdownPage: true,
     importName: "Paper",
     routeSlug: "paper",
     sourceUrl: packageBarrelUrl,
@@ -729,6 +780,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "surfaces",
     description: "Drawer shell for secondary panels and side workflows.",
+    hasMarkdownPage: true,
     importName: "SideDrawer",
     packagePath: "side-drawer",
     routeSlug: "side-drawer",
@@ -758,6 +810,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Link component for standalone and inline navigation actions.",
+    hasMarkdownPage: true,
     importName: "Link",
     packagePath: "link",
     routeSlug: "link",
@@ -767,6 +820,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Menu surfaces and items for contextual command groups.",
+    hasMarkdownPage: true,
     importName: "Menu",
     packagePath: "menu",
     routeSlug: "menu",
@@ -776,6 +830,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Navigation rail and drawer patterns for product IA.",
+    hasMarkdownPage: true,
     importName: "Navigation",
     packagePath: "navigation",
     routeSlug: "navigation",
@@ -785,6 +840,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Nested menu for selecting items from hierarchical options.",
+    hasMarkdownPage: true,
     importName: "NestedMenu",
     packagePath: "nested-menu",
     routeSlug: "nested-menu",
@@ -795,6 +851,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "navigation",
     description:
       "Pagination controls for moving through page ranges with boundary buttons, sizes, variants, and disabled state.",
+    hasMarkdownPage: true,
     importName: "Pagination",
     packagePath: "pagination",
     routeSlug: "pagination",
@@ -804,6 +861,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Scroll area wrapper for constrained panes and long content.",
+    hasMarkdownPage: true,
     importName: "ScrollArea",
     packagePath: "scroll-area",
     routeSlug: "scroll-area",
@@ -814,6 +872,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "navigation",
     description:
       "Wizard-style panel with vertical steps, main content, optional footer actions, and a collapsible sidebar.",
+    hasMarkdownPage: true,
     importName: "StepperPanel",
     packagePath: "stepper",
     routeSlug: "stepper-panel",
@@ -825,6 +884,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
     category: "navigation",
     description:
       "Dialog-style stepped workflow with a horizontal step series, title area, body content, and footer actions.",
+    hasMarkdownPage: true,
     importName: "StepperModal",
     packagePath: "stepper",
     routeSlug: "stepper-modal",
@@ -835,6 +895,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "Tabs for switching between peer views inside one context.",
+    hasMarkdownPage: true,
     importName: "Tabs",
     packagePath: "tabs",
     routeSlug: "tabs",
@@ -844,6 +905,7 @@ export const openUIKitComponents: OpenUIKitComponentDoc[] = [
   {
     category: "navigation",
     description: "View switcher for toggling between equivalent presentations.",
+    hasMarkdownPage: true,
     importName: "ViewSwitcher",
     packagePath: "view-switcher",
     routeSlug: "view-switcher",

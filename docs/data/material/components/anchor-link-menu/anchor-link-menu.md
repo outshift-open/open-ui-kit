@@ -86,6 +86,12 @@ interface AnchorLinkMenuItem {
 }
 ```
 
+## Accessibility
+
+Use labels that match the destination section heading so screen-reader and keyboard users can predict where each item goes.
+Keep the active section visible through `selectedId`, and make sure each `id` maps to a real heading or landmark on the page.
+Do not use the menu as the only way to reach important content; the page should still read in a logical order.
+
 ## Usage guidance
 
 - Keep labels short and match the destination section heading.
