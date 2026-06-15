@@ -38,6 +38,16 @@ function writeJson(filePath, value) {
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function copyFirstExistingFile(sourcePaths, targetPath) {
+  const sourcePath = sourcePaths.find((candidatePath) =>
+    fs.existsSync(candidatePath),
+  );
+
+  if (sourcePath) {
+    fs.copyFileSync(sourcePath, targetPath);
+  }
+}
+
 function prepareReleasePackage({
   packageRoot = packageRootDefault,
   distRoot = distRootDefault,
@@ -70,6 +80,17 @@ function prepareReleasePackage({
 
   fs.mkdirSync(distRoot, { recursive: true });
   writeJson(distManifestPath, publishManifest);
+  copyFirstExistingFile(
+    [path.join(packageRoot, "README.md")],
+    path.join(distRoot, "README.md"),
+  );
+  copyFirstExistingFile(
+    [
+      path.join(packageRoot, "LICENSE"),
+      path.resolve(packageRoot, "..", "..", "LICENSE"),
+    ],
+    path.join(distRoot, "LICENSE"),
+  );
 
   return distManifestPath;
 }

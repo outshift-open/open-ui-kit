@@ -53,6 +53,8 @@ test("prepareReleasePackage writes a publishable dist manifest", () => {
       2,
     ),
   );
+  fs.writeFileSync(path.join(packageRoot, "README.md"), "# Core README\n");
+  fs.writeFileSync(path.join(workspace, "LICENSE"), "Apache license text\n");
 
   const manifestPath = prepareReleasePackage({
     packageRoot,
@@ -93,4 +95,12 @@ test("prepareReleasePackage writes a publishable dist manifest", () => {
   assert.equal("scripts" in manifest, false);
   assert.equal("devDependencies" in manifest, false);
   assert.equal("workspaces" in manifest, false);
+  assert.equal(
+    fs.readFileSync(path.join(distRoot, "README.md"), "utf8"),
+    "# Core README\n",
+  );
+  assert.equal(
+    fs.readFileSync(path.join(distRoot, "LICENSE"), "utf8"),
+    "Apache license text\n",
+  );
 });
