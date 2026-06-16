@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/outshift-open/open-ui-kit/compare/v2.0.4...v2.1.0) (2026-06-16)
+
+
+### Bug Fixes
+
+* exports ([dc308b3](https://github.com/outshift-open/open-ui-kit/commit/dc308b3aad69aa225c74f9bd5445176acec3e5e0))
+
+
+### Features
+
+* add ioc theme mode ([f5cd43f](https://github.com/outshift-open/open-ui-kit/commit/f5cd43f3a57fc17634b00c974dfa64780ce5e528))
+
 ## [2.0.4](https://github.com/outshift-open/open-ui-kit/compare/v2.0.3...v2.0.4) (2026-06-15)
 
 
