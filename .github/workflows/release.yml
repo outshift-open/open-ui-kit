@@ -1,7 +1,11 @@
 name: Release
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows:
+      - CI
+    types:
+      - completed
     branches:
       - main
       - beta
@@ -19,6 +23,7 @@ concurrency:
 jobs:
   release:
     name: Release
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       HUSKY: 0
@@ -27,7 +32,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref_name }}
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+      - name: Restore release branch context
+        if: github.event_name == 'workflow_run'
+        run: git checkout -B "${{ github.event.workflow_run.head_branch }}" "${{ github.event.workflow_run.head_sha }}"
 
       - name: Enable Corepack
         run: corepack enable
