@@ -27,7 +27,7 @@ While Open UI Kit follows Semantic Versioning, some changes may still be breakin
 - Consumers should use the exported `useThemeMode()` hook to read/control theme mode:
   - `mode`
   - `setMode`
-  - `toggleTheme`
+  - `setTheme`
 - The provider supports `defaultMode?: ThemeMode` to seed initial mode.
 
 **Why this is a breaking change**
@@ -44,10 +44,11 @@ import { ThemeMode, ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 import "@open-ui-kit/core/typography.css";
 
 function ThemeToggle() {
-  const { mode, toggleTheme } = useThemeMode();
+  const { mode, setTheme } = useThemeMode();
+  const nextMode = mode === ThemeMode.Dark ? ThemeMode.Light : ThemeMode.Dark;
 
   return (
-    <button type="button" onClick={toggleTheme}>
+    <button type="button" onClick={() => setTheme(nextMode)}>
       Switch to {mode === ThemeMode.Dark ? "Light" : "Dark"} mode
     </button>
   );
@@ -70,15 +71,18 @@ import React from "react";
 import { ThemeMode, useThemeMode } from "@open-ui-kit/core";
 
 export function ThemeModeSelect() {
-  const { mode, setMode } = useThemeMode();
+  const { mode, setTheme } = useThemeMode();
 
   return (
     <div>
-      <button type="button" disabled={mode === ThemeMode.Dark} onClick={() => setMode(ThemeMode.Dark)}>
+      <button type="button" disabled={mode === ThemeMode.Dark} onClick={() => setTheme(ThemeMode.Dark)}>
         Dark
       </button>
-      <button type="button" disabled={mode === ThemeMode.Light} onClick={() => setMode(ThemeMode.Light)}>
+      <button type="button" disabled={mode === ThemeMode.Light} onClick={() => setTheme(ThemeMode.Light)}>
         Light
+      </button>
+      <button type="button" disabled={mode === ThemeMode.IoC} onClick={() => setTheme(ThemeMode.IoC)}>
+        IoC
       </button>
     </div>
   );

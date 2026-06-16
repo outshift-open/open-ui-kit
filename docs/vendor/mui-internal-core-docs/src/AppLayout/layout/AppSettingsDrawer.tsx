@@ -8,6 +8,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
@@ -15,6 +16,14 @@ import FormatTextdirectionLToRIcon from "@mui/icons-material/FormatTextdirection
 import FormatTextdirectionRToLIcon from "@mui/icons-material/FormatTextdirectionRToL";
 import { useColorSchemeShim, useChangeTheme } from "../../ThemeContext";
 import { useTranslate } from "../../i18n";
+import { ThemeMode } from "@/theme-provider/theme-provider";
+import {
+  clearStoredOpenUiKitDocsMode,
+  getMuiDocsMode,
+  getStoredOpenUiKitDocsMode,
+  openUiKitDocsModeChangeEvent,
+  setStoredOpenUiKitDocsMode,
+} from "docs/src/openUiKitDocsMode";
 
 const Heading = styled(Typography)(({ theme }) => ({
   margin: "16px 0 8px",
@@ -34,7 +43,7 @@ const IconToggleButton = styled(ToggleButton)({
   },
 });
 
-type PaletteMode = "light" | "system" | "dark";
+type PaletteMode = "light" | "system" | "dark" | "ioc";
 
 interface ToggleThemeProps {
   value: PaletteMode | undefined;
@@ -83,6 +92,15 @@ function ToggleTheme(props: ToggleThemeProps) {
         <DarkModeOutlinedIcon fontSize="small" />
         {t("settings.dark")}
       </IconToggleButton>
+      <IconToggleButton
+        value="ioc"
+        aria-label="IoC"
+        data-ga-event-category="settings"
+        data-ga-event-action="ioc"
+      >
+        <AutoAwesomeOutlinedIcon fontSize="small" />
+        IoC
+      </IconToggleButton>
     </ToggleButtonGroup>
   );
 }
@@ -98,6 +116,14 @@ function ToggleVarTheme(props: ToggleThemeProps) {
       return;
     }
     props.onChange(event, paletteMode);
+
+    if (paletteMode === ThemeMode.IoC) {
+      setStoredOpenUiKitDocsMode(ThemeMode.IoC);
+      setMode(getMuiDocsMode(ThemeMode.IoC));
+      return;
+    }
+
+    clearStoredOpenUiKitDocsMode();
     setMode(paletteMode);
   };
   return <ToggleTheme value={props.value} onChange={handleChangeThemeMode} />;
@@ -116,6 +142,27 @@ export function AppSettingsDrawer(props: AppSettingsDrawerProps) {
 
   // TODO replace with useColorScheme once all pages support css vars
   const { mode, setMode } = useColorSchemeShim();
+  const [openUiKitMode, setOpenUiKitMode] = React.useState(
+    getStoredOpenUiKitDocsMode,
+  );
+
+  React.useEffect(() => {
+    const updateOpenUiKitMode = () => {
+      setOpenUiKitMode(getStoredOpenUiKitDocsMode());
+    };
+
+    window.addEventListener("storage", updateOpenUiKitMode);
+    window.addEventListener(openUiKitDocsModeChangeEvent, updateOpenUiKitMode);
+    updateOpenUiKitMode();
+
+    return () => {
+      window.removeEventListener("storage", updateOpenUiKitMode);
+      window.removeEventListener(
+        openUiKitDocsModeChangeEvent,
+        updateOpenUiKitMode,
+      );
+    };
+  }, []);
 
   const handleChangeThemeMode = (
     _event: React.MouseEvent<HTMLElement>,
@@ -124,6 +171,14 @@ export function AppSettingsDrawer(props: AppSettingsDrawerProps) {
     if (paletteMode === null) {
       return;
     }
+
+    if (paletteMode === ThemeMode.IoC) {
+      setStoredOpenUiKitDocsMode(ThemeMode.IoC);
+      setMode(getMuiDocsMode(ThemeMode.IoC));
+      return;
+    }
+
+    clearStoredOpenUiKitDocsMode();
     setMode(paletteMode);
   };
 
@@ -183,12 +238,12 @@ export function AppSettingsDrawer(props: AppSettingsDrawerProps) {
         </Heading>
         {upperTheme.vars ? (
           <ToggleVarTheme
-            value={mode as PaletteMode}
+            value={(openUiKitMode ?? mode) as PaletteMode}
             onChange={handleChangeThemeMode}
           />
         ) : (
           <ToggleTheme
-            value={mode as PaletteMode}
+            value={(openUiKitMode ?? mode) as PaletteMode}
             onChange={handleChangeThemeMode}
           />
         )}
