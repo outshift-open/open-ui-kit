@@ -16,7 +16,7 @@ export * from "./theme/style/color-palette";
 export { gradientsPalette } from "./theme/style/gradients";
 export { lightVars } from "./theme/light/light-vars";
 export { darkVars } from "./theme/dark/dark-vars";
-export * from "./theme/ioc";
+export { iocVars } from "./theme/ioc/ioc-vars";
 export type { VarsType } from "./types/vars";
 export {
   ThemeMode,
