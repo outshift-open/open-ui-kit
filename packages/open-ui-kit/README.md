@@ -9,7 +9,7 @@ A React component library and theme system built on Material UI, with Open UI Ki
 ## What you get
 
 - **Production-ready components** for application screens, forms, navigation, feedback, data display, and charts.
-- **Open UI Kit themes** with light and dark mode support through `ThemeProvider`.
+- **Open UI Kit light/dark and IoC themes** through `ThemeProvider`.
 - **Material UI compatibility** for `sx`, slots, theme overrides, and familiar component APIs.
 - **TypeScript support** with exported component and theme types.
 - **Interactive examples** in Storybook for component states, variants, and composition patterns.
@@ -45,8 +45,8 @@ Some components need additional peers, such as icons, date pickers, routing, mot
 Import the typography CSS once near your app root, then wrap the app with `ThemeProvider`.
 
 ```tsx
-import '@open-ui-kit/core/typography.css';
-import { Button, Stack, ThemeProvider, Typography } from '@open-ui-kit/core';
+import "@open-ui-kit/core/typography.css";
+import { Button, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export function App() {
   return (
@@ -65,23 +65,43 @@ export function App() {
 
 ## Theme mode
 
-Use `useThemeMode()` inside `ThemeProvider` to read or change the active light or dark theme.
+Use `useThemeMode()` inside `ThemeProvider` to read or change the active built-in theme.
+Open UI Kit ships `ThemeMode.Light`, `ThemeMode.Dark`, and `ThemeMode.IoC`.
 
 ```tsx
-import { Button, ThemeMode, useThemeMode } from '@open-ui-kit/core';
+import {
+  Button,
+  ThemeMode,
+  ThemeProvider,
+  useThemeMode,
+} from "@open-ui-kit/core";
+import type { ReactNode } from "react";
 
-export function ThemeToggle() {
-  const { mode, toggleTheme } = useThemeMode();
+export function ThemeSelector() {
+  const { mode, setTheme } = useThemeMode();
 
   return (
-    <Button variant="outlined" onClick={toggleTheme}>
-      Use {mode === ThemeMode.Dark ? 'light' : 'dark'} theme
+    <Button
+      variant="outlined"
+      onClick={() =>
+        setTheme(mode === ThemeMode.IoC ? ThemeMode.Light : ThemeMode.IoC)
+      }
+    >
+      Use {mode === ThemeMode.IoC ? "light" : "IoC"} theme
     </Button>
   );
+}
+
+export function IocApp({ children }: { children: ReactNode }) {
+  return <ThemeProvider defaultMode={ThemeMode.IoC}>{children}</ThemeProvider>;
 }
 ```
 
 Use `defaultMode={ThemeMode.Dark}` on `ThemeProvider` when an app needs to start in dark mode.
+Use `defaultMode={ThemeMode.IoC}` when an app should start with the IoC theme.
+
+IoC palette helpers such as `iocGradients`, `iocGlows`, and `iocShape` are exported for IoC-specific product surfaces.
+Reusable Open UI Kit components still read semantic colors from `theme.palette.vars`.
 
 ## Local development
 
@@ -106,6 +126,7 @@ yarn workspace @open-ui-kit/core storybook:build
 - Storybook: https://main--68cc22452afe30d90e4ca977.chromatic.com
 - Installation guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/installation/installation.md
 - Usage guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/usage/usage.md
+- Theming guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/theming/theming.md
 - Migration notes: https://github.com/outshift-open/open-ui-kit/blob/main/MIGRATION.md
 - Contributing: https://github.com/outshift-open/open-ui-kit/blob/main/CONTRIBUTING.md
 

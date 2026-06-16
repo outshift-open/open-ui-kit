@@ -4,10 +4,16 @@ import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
 import { ThemeOptionsContext, highDensity } from "../ThemeContext";
 import { BrandingCssVarsProvider } from "../branding";
 import {
+  iocDocsTheme,
   OpenUiKitTokenCssVars,
   openUiKitDarkDocsTheme,
   openUiKitLightDocsTheme,
 } from "docs/src/openUiKitDocsTheme";
+import { ThemeMode } from "@/theme-provider/theme-provider";
+import {
+  getStoredOpenUiKitDocsMode,
+  openUiKitDocsModeChangeEvent,
+} from "docs/src/openUiKitDocsMode";
 
 const defaultTheme = createTheme({
   colorSchemes: { light: true, dark: true },
@@ -37,7 +43,35 @@ export function DemoInstanceThemeProvider({
   const { dense, direction, paletteMode } =
     React.useContext(ThemeOptionsContext);
   const upperTheme = useTheme();
+  const [openUiKitMode, setOpenUiKitMode] = React.useState(
+    getStoredOpenUiKitDocsMode,
+  );
   const upperMode = paletteMode ?? upperTheme?.palette?.mode;
+  const muiMode = openUiKitMode === ThemeMode.IoC ? ThemeMode.Dark : upperMode;
+  const demoMode =
+    openUiKitMode === ThemeMode.IoC
+      ? ThemeMode.IoC
+      : muiMode === ThemeMode.Dark
+        ? ThemeMode.Dark
+        : ThemeMode.Light;
+
+  React.useEffect(() => {
+    const updateOpenUiKitMode = () => {
+      setOpenUiKitMode(getStoredOpenUiKitDocsMode());
+    };
+
+    window.addEventListener("storage", updateOpenUiKitMode);
+    window.addEventListener(openUiKitDocsModeChangeEvent, updateOpenUiKitMode);
+    updateOpenUiKitMode();
+
+    return () => {
+      window.removeEventListener("storage", updateOpenUiKitMode);
+      window.removeEventListener(
+        openUiKitDocsModeChangeEvent,
+        updateOpenUiKitMode,
+      );
+    };
+  }, []);
 
   const theme = React.useMemo(() => {
     const resultTheme = createTheme(
@@ -54,12 +88,16 @@ export function DemoInstanceThemeProvider({
       dense ? highDensity : {},
     );
 
-    if (upperMode && resultTheme.colorSchemes?.[upperMode]) {
-      Object.assign(resultTheme, resultTheme.colorSchemes[upperMode]);
+    if (muiMode && resultTheme.colorSchemes?.[muiMode]) {
+      Object.assign(resultTheme, resultTheme.colorSchemes[muiMode]);
     }
 
     const openUiKitTheme =
-      upperMode === "dark" ? openUiKitDarkDocsTheme : openUiKitLightDocsTheme;
+      demoMode === ThemeMode.IoC
+        ? iocDocsTheme
+        : demoMode === ThemeMode.Dark
+          ? openUiKitDarkDocsTheme
+          : openUiKitLightDocsTheme;
     resultTheme.palette.vars = openUiKitTheme.palette.vars;
     resultTheme.palette.mode = openUiKitTheme.palette.mode;
 
@@ -74,14 +112,16 @@ export function DemoInstanceThemeProvider({
       }
     }
     return resultTheme;
-  }, [runtimeTheme, dense, direction, upperMode]);
+  }, [runtimeTheme, dense, direction, muiMode, demoMode]);
 
   return (
     /* - use a function to ensure that the upper theme (branding theme) is not spread to the demo theme */
     /* - a function will skip the CSS vars generation logic */
     <ThemeProvider theme={() => theme}>
-      <OpenUiKitTokenCssVars />
-      {children}
+      <div className={`mode-${demoMode}`} style={{ display: "contents" }}>
+        <OpenUiKitTokenCssVars />
+        {children}
+      </div>
     </ThemeProvider>
   );
 }

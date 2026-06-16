@@ -9,10 +9,15 @@ import { ThemeOptionsContext } from "@mui/internal-core-docs/ThemeContext";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import {
+  iocDocsTheme,
   OpenUiKitTokenCssVars,
   openUiKitDarkDocsTheme,
   openUiKitLightDocsTheme,
 } from "./openUiKitDocsTheme";
+import {
+  getStoredOpenUiKitDocsMode,
+  openUiKitDocsModeChangeEvent,
+} from "./openUiKitDocsMode";
 
 export { Accordion } from "../../packages/open-ui-kit/src/components/accordion";
 export type { AccordionProps } from "../../packages/open-ui-kit/src/components/accordion";
@@ -214,18 +219,28 @@ function getDocsDarkMode() {
   );
 }
 
-function useDocsDarkMode(rootRef: React.RefObject<HTMLDivElement>) {
-  const [docsModeIsDark, setDocsModeIsDark] = React.useState(getDocsDarkMode);
+function getDocsMode(root: HTMLElement | null) {
+  const storedOpenUiKitMode = getStoredOpenUiKitDocsMode();
+
+  if (storedOpenUiKitMode) {
+    return storedOpenUiKitMode;
+  }
+
+  return getDocsDarkMode() || getNearestDarkSurface(root)
+    ? ThemeMode.Dark
+    : ThemeMode.Light;
+}
+
+function useDocsMode(rootRef: React.RefObject<HTMLDivElement>) {
+  const [docsMode, setDocsMode] = React.useState(() => getDocsMode(null));
   const themeOptions = React.useContext(ThemeOptionsContext);
   const muiTheme = useMuiTheme();
 
   useClientLayoutEffect(() => {
-    const updateDarkMode = () => {
-      setDocsModeIsDark(
-        getDocsDarkMode() || getNearestDarkSurface(rootRef.current),
-      );
+    const updateDocsMode = () => {
+      setDocsMode(getDocsMode(rootRef.current));
     };
-    const observer = new MutationObserver(updateDarkMode);
+    const observer = new MutationObserver(updateDocsMode);
     const systemQuery = window.matchMedia?.("(prefers-color-scheme: dark)");
 
     observer.observe(document.documentElement, {
@@ -240,22 +255,28 @@ function useDocsDarkMode(rootRef: React.RefObject<HTMLDivElement>) {
       });
     }
 
-    systemQuery?.addEventListener?.("change", updateDarkMode);
-    window.addEventListener("storage", updateDarkMode);
-    updateDarkMode();
+    systemQuery?.addEventListener?.("change", updateDocsMode);
+    window.addEventListener("storage", updateDocsMode);
+    window.addEventListener(openUiKitDocsModeChangeEvent, updateDocsMode);
+    updateDocsMode();
 
     return () => {
       observer.disconnect();
-      systemQuery?.removeEventListener?.("change", updateDarkMode);
-      window.removeEventListener("storage", updateDarkMode);
+      systemQuery?.removeEventListener?.("change", updateDocsMode);
+      window.removeEventListener("storage", updateDocsMode);
+      window.removeEventListener(openUiKitDocsModeChangeEvent, updateDocsMode);
     };
   }, [rootRef]);
 
-  return (
-    muiTheme.palette.mode === "dark" ||
-    themeOptions.paletteMode === "dark" ||
-    docsModeIsDark
-  );
+  if (docsMode === ThemeMode.IoC) {
+    return docsMode;
+  }
+
+  if (muiTheme.palette.mode === "dark" || themeOptions.paletteMode === "dark") {
+    return ThemeMode.Dark;
+  }
+
+  return docsMode;
 }
 
 export function ThemeProvider({
@@ -264,17 +285,19 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const docsDarkMode = useDocsDarkMode(rootRef);
-  const mode = defaultMode ?? (docsDarkMode ? ThemeMode.Dark : ThemeMode.Light);
+  const docsMode = useDocsMode(rootRef);
+  const mode = defaultMode ?? docsMode;
   const theme =
     customTheme ??
-    (mode === ThemeMode.Dark
-      ? openUiKitDarkDocsTheme
-      : openUiKitLightDocsTheme);
+    (mode === ThemeMode.IoC
+      ? iocDocsTheme
+      : mode === ThemeMode.Dark
+        ? openUiKitDarkDocsTheme
+        : openUiKitLightDocsTheme);
 
   return React.createElement(
     "div",
-    { ref: rootRef },
+    { className: `mode-${mode}`, ref: rootRef },
     React.createElement(
       MuiThemeProvider,
       { theme },

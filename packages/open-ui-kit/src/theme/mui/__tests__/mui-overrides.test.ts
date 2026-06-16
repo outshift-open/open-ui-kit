@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { darkTheme } from "@/theme/dark/dark-theme";
+import { iocTheme } from "@/theme/ioc/ioc-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 
 const componentKeys = (theme: typeof lightTheme) =>
@@ -51,23 +52,53 @@ describe("MUI theme overrides", () => {
       "MuiIconButton",
       "MuiSnackbar",
     ]);
+    expect(componentKeys(iocTheme)).toEqual([
+      "MuiAutocomplete",
+      "MuiButton",
+      "MuiButtonBase",
+      "MuiCssBaseline",
+      "MuiIconButton",
+      "MuiSnackbar",
+    ]);
 
     expect(lightTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
     expect(darkTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
+    expect(iocTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
 
     for (const removedComponent of [
+      "MuiAccordion",
+      "MuiAccordionDetails",
+      "MuiAccordionSummary",
+      "MuiAlert",
+      "MuiAppBar",
+      "MuiAvatar",
       "MuiBackdrop",
+      "MuiBadge",
+      "MuiCard",
+      "MuiChip",
       "MuiCircularProgress",
+      "MuiDialog",
+      "MuiDivider",
+      "MuiDrawer",
       "MuiList",
+      "MuiListItemButton",
+      "MuiLinearProgress",
+      "MuiMenu",
+      "MuiMenuItem",
+      "MuiPaper",
       "MuiRadio",
+      "MuiSlider",
       "MuiSkeleton",
       "MuiSwitch",
       "MuiTab",
+      "MuiTableCell",
       "MuiTabs",
+      "MuiTextField",
       "MuiTooltip",
     ]) {
       expect(lightTheme.components).not.toHaveProperty(removedComponent);
       expect(darkTheme.components).not.toHaveProperty(removedComponent);
+      expect(iocTheme.components).not.toHaveProperty(removedComponent);
     }
   });
 
@@ -82,6 +113,9 @@ describe("MUI theme overrides", () => {
       variant: "primary",
     });
     expect(darkTheme.components?.MuiButton?.defaultProps).toEqual(
+      lightTheme.components?.MuiButton?.defaultProps,
+    );
+    expect(iocTheme.components?.MuiButton?.defaultProps).toEqual(
       lightTheme.components?.MuiButton?.defaultProps,
     );
   });

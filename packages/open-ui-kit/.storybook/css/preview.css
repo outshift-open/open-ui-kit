@@ -11,7 +11,11 @@
   --ouk-text: #1a1f27;
   --ouk-text-muted: #59616b;
   --ouk-storybook-bg: var(--ouk-surface-200);
+  --ouk-storybook-border: var(--ouk-surface-600);
+  --ouk-storybook-link: var(--ouk-blue-500);
+  --ouk-storybook-muted-text: var(--ouk-text-muted);
   --ouk-storybook-preview-bg: var(--ouk-surface-50);
+  --ouk-storybook-text: var(--ouk-text);
 }
 
 body {
@@ -22,7 +26,7 @@ body {
     "Segoe UI",
     sans-serif;
   background: var(--ouk-storybook-bg);
-  color: var(--ouk-text);
+  color: var(--ouk-storybook-text);
 }
 
 .sb-show-main,
@@ -39,17 +43,19 @@ body {
 }
 
 .sbdocs-wrapper {
-  background:
-    linear-gradient(180deg, rgba(251, 252, 254, 0.96), rgba(239, 243, 252, 1)),
-    var(--ouk-surface-200) !important;
+  background: var(--ouk-storybook-bg) !important;
 }
 
 .sbdocs-content {
   max-width: 1040px;
 }
 
-.sbdocs-title {
-  color: var(--ouk-surface-dark-900) !important;
+.sbdocs-title,
+.sbdocs-content h1,
+.sbdocs-content h2,
+.sbdocs-content h3,
+.sbdocs-content h4 {
+  color: var(--ouk-storybook-text) !important;
   font-family:
     "Sharp Sans",
     Inter,
@@ -62,12 +68,25 @@ body {
 
 .sbdocs-subtitle,
 .sbdocs-p,
-.sbdocs-li {
-  color: var(--ouk-text-muted) !important;
+.sbdocs-li,
+.sbdocs-content p,
+.sbdocs-content li {
+  color: var(--ouk-storybook-muted-text) !important;
 }
 
-.sbdocs-a {
-  color: var(--ouk-blue-500) !important;
+.sbdocs-a,
+.sbdocs-content a {
+  color: var(--ouk-storybook-link) !important;
+}
+
+.sbdocs-p code,
+.sbdocs-li code,
+.sbdocs-content p code,
+.sbdocs-content li code {
+  background: var(--ouk-storybook-preview-bg) !important;
+  border: 1px solid var(--ouk-storybook-border) !important;
+  border-radius: 4px !important;
+  color: var(--ouk-storybook-text) !important;
 }
 
 .docblock-argstable,
@@ -75,10 +94,25 @@ body {
 .docblock-code-toggle,
 .docblock-typeset,
 .sbdocs-preview {
-  border-color: var(--ouk-surface-600) !important;
+  border-color: var(--ouk-storybook-border) !important;
   border-radius: 8px !important;
 }
 
 .sbdocs-preview {
   background: var(--ouk-storybook-preview-bg) !important;
+}
+
+.sbdocs-preview [role="toolbar"] {
+  background: var(--ouk-storybook-preview-bg) !important;
+  border-color: var(--ouk-storybook-border) !important;
+  color: var(--ouk-storybook-muted-text) !important;
+}
+
+.sbdocs-preview [role="toolbar"] button {
+  color: var(--ouk-storybook-muted-text) !important;
+}
+
+.sbdocs-preview [role="toolbar"] button:hover {
+  background: var(--ouk-storybook-bg) !important;
+  color: var(--ouk-storybook-link) !important;
 }

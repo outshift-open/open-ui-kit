@@ -28,7 +28,7 @@ function Copyright() {
 }
 
 function AppContent() {
-  const { mode, toggleTheme } = useThemeMode();
+  const { mode, setTheme } = useThemeMode();
   const modeIsDark = mode === ThemeMode.Dark;
   return (
     <Container maxWidth="md">
@@ -40,7 +40,9 @@ function AppContent() {
         control={
           <Switch
             checked={modeIsDark}
-            onChange={toggleTheme}
+            onChange={(_event, checked) => {
+              setTheme(checked ? ThemeMode.Dark : ThemeMode.Light);
+            }}
             name="themeMode"
             color="primary"
           />
