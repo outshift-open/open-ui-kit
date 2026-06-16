@@ -12,18 +12,20 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
 import { darkTheme } from "@/theme/dark/dark-theme";
+import { iocTheme } from "@/theme/ioc/ioc-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 export { useTheme } from "@mui/material";
 
 export enum ThemeMode {
   Light = "light",
   Dark = "dark",
+  IoC = "ioc",
 }
 
 export interface ThemeModeContextValue {
   mode: ThemeMode;
   setMode: React.Dispatch<React.SetStateAction<ThemeMode>>;
-  toggleTheme: () => void;
+  setTheme: (theme: ThemeMode) => void;
 }
 
 const ThemeModeContext = React.createContext<ThemeModeContextValue | null>(
@@ -50,6 +52,14 @@ export interface ThemeProviderProps {
   customTheme?: Theme;
 }
 
+function resolveBuiltInTheme(mode: ThemeMode): Theme {
+  if (mode === ThemeMode.IoC) {
+    return iocTheme;
+  }
+
+  return mode === ThemeMode.Dark ? darkTheme : lightTheme;
+}
+
 export const ThemeProvider = ({
   children,
   defaultMode,
@@ -59,22 +69,19 @@ export const ThemeProvider = ({
     defaultMode ?? ThemeMode.Light,
   );
 
-  const toggleTheme = React.useCallback(() => {
-    setMode((prev) =>
-      prev === ThemeMode.Dark ? ThemeMode.Light : ThemeMode.Dark,
-    );
+  const setTheme = React.useCallback((theme: ThemeMode) => {
+    setMode(theme);
   }, []);
 
-  const resolvedTheme =
-    customTheme ?? (mode === ThemeMode.Dark ? darkTheme : lightTheme);
+  const resolvedTheme = customTheme ?? resolveBuiltInTheme(mode);
 
   const themeModeValue = React.useMemo(
     () => ({
       mode,
       setMode,
-      toggleTheme,
+      setTheme,
     }),
-    [mode, toggleTheme],
+    [mode, setTheme],
   );
 
   return (

@@ -2,12 +2,14 @@ import { GlobalStyles } from "@mui/material";
 import { createTheme, type Theme } from "@mui/material/styles";
 import * as React from "react";
 import { darkTheme } from "../../packages/open-ui-kit/src/theme/dark/dark-theme";
+import { iocTheme } from "../../packages/open-ui-kit/src/theme/ioc/ioc-theme";
 import { lightTheme } from "../../packages/open-ui-kit/src/theme/light/light-theme";
 
 type OpenUiKitTokenVars = Record<string, string>;
 
 const lightTokenVars = lightTheme.palette.vars as OpenUiKitTokenVars;
 const darkTokenVars = darkTheme.palette.vars as OpenUiKitTokenVars;
+const iocTokenVars = iocTheme.palette.vars as OpenUiKitTokenVars;
 
 function toCssVarName(token: string) {
   return `--oui-${token}`;
@@ -37,6 +39,7 @@ export const openUiKitTokenCssVarStyles = {
     toCssVarDeclarations(lightTokenVars),
   "[data-mui-color-scheme='dark'], .mode-dark":
     toCssVarDeclarations(darkTokenVars),
+  ".mode-ioc": toCssVarDeclarations(iocTokenVars),
 };
 
 function createOpenUiKitDocsTheme(baseTheme: Theme) {
@@ -49,6 +52,7 @@ function createOpenUiKitDocsTheme(baseTheme: Theme) {
 
 export const openUiKitLightDocsTheme = createOpenUiKitDocsTheme(lightTheme);
 export const openUiKitDarkDocsTheme = createOpenUiKitDocsTheme(darkTheme);
+export const iocDocsTheme = createOpenUiKitDocsTheme(iocTheme);
 
 export function OpenUiKitTokenCssVars() {
   return React.createElement(GlobalStyles, {

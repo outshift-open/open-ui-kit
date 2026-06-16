@@ -9,6 +9,7 @@ import { ThemeOptionsContext } from "@mui/internal-core-docs/ThemeContext";
 import { useTheme as useMuiTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import {
+  iocDocsTheme,
   OpenUiKitTokenCssVars,
   openUiKitDarkDocsTheme,
   openUiKitLightDocsTheme,
@@ -268,13 +269,15 @@ export function ThemeProvider({
   const mode = defaultMode ?? (docsDarkMode ? ThemeMode.Dark : ThemeMode.Light);
   const theme =
     customTheme ??
-    (mode === ThemeMode.Dark
-      ? openUiKitDarkDocsTheme
-      : openUiKitLightDocsTheme);
+    (mode === ThemeMode.IoC
+      ? iocDocsTheme
+      : mode === ThemeMode.Dark
+        ? openUiKitDarkDocsTheme
+        : openUiKitLightDocsTheme);
 
   return React.createElement(
     "div",
-    { ref: rootRef },
+    { className: `mode-${mode}`, ref: rootRef },
     React.createElement(
       MuiThemeProvider,
       { theme },

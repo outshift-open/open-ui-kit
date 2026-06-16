@@ -7,8 +7,8 @@
 Once the package is installed, wrap your app with `ThemeProvider` and import components from `@open-ui-kit/core`.
 
 ```tsx
-import '@open-ui-kit/core/typography.css';
-import { Button, Stack, ThemeProvider, Typography } from '@open-ui-kit/core';
+import "@open-ui-kit/core/typography.css";
+import { Button, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
 export function App() {
   return (
@@ -16,7 +16,8 @@ export function App() {
       <Stack spacing={2} sx={{ maxWidth: 420 }}>
         <Typography variant="h4">Open UI Kit is ready</Typography>
         <Typography color="text.secondary">
-          The button below uses the Open UI Kit theme tokens and component props.
+          The button below uses the Open UI Kit theme tokens and component
+          props.
         </Typography>
         <Button variant="primary">Create project</Button>
       </Stack>
@@ -34,7 +35,7 @@ Use `sx`, theme overrides, slots, and component props when a screen needs local 
 <Button
   variant="outlined"
   sx={{
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     minWidth: 160,
   }}
 >
@@ -44,17 +45,22 @@ Use `sx`, theme overrides, slots, and component props when a screen needs local 
 
 ## Switching themes
 
-Use `useThemeMode` anywhere inside the provider to toggle between the Open UI Kit light and dark themes.
+Use `useThemeMode` anywhere inside the provider to switch between built-in themes.
 
 ```tsx
-import { Button, useThemeMode } from '@open-ui-kit/core';
+import { Button, ThemeMode, useThemeMode } from "@open-ui-kit/core";
 
-export function ThemeToggle() {
-  const { mode, toggleTheme } = useThemeMode();
+export function ThemeSelector() {
+  const { mode, setTheme } = useThemeMode();
 
   return (
-    <Button variant="outlined" onClick={toggleTheme}>
-      Use {mode === 'dark' ? 'light' : 'dark'} theme
+    <Button
+      variant="outlined"
+      onClick={() =>
+        setTheme(mode === ThemeMode.IoC ? ThemeMode.Light : ThemeMode.IoC)
+      }
+    >
+      Use {mode === ThemeMode.IoC ? "light" : "IoC"} theme
     </Button>
   );
 }

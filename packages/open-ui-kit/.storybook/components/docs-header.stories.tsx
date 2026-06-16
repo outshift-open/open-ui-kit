@@ -133,14 +133,25 @@ const ImportLine = ({ text }: { text: string }) => {
   );
 };
 
-const getInitialDarkMode = () => {
+const getInitialThemeMode = () => {
   if (typeof window === "undefined") {
-    return false;
+    return ThemeMode.Light;
   }
 
-  return new URLSearchParams(window.location.search)
+  const themeGlobal = new URLSearchParams(window.location.search)
     .get("globals")
-    ?.includes("theme:dark");
+    ?.split(";")
+    .find((global) => global.startsWith("theme:"))
+    ?.replace("theme:", "");
+
+  switch (themeGlobal) {
+    case ThemeMode.Dark:
+      return ThemeMode.Dark;
+    case ThemeMode.IoC:
+      return ThemeMode.IoC;
+    default:
+      return ThemeMode.Light;
+  }
 };
 
 export const DocsHeader = ({
@@ -155,9 +166,7 @@ export const DocsHeader = ({
   const hasGuideLink = Boolean(guideLink?.trim());
 
   return (
-    <ThemeProvider
-      defaultMode={getInitialDarkMode() ? ThemeMode.Dark : ThemeMode.Light}
-    >
+    <ThemeProvider defaultMode={getInitialThemeMode()}>
       <Stack component="header" gap={3.5} sx={{ mb: 5 }}>
         <Box
           sx={(theme) => ({

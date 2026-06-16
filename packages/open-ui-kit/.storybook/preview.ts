@@ -9,6 +9,7 @@ import { create } from "storybook/theming/create";
 import { mockDateDecorator } from "./mock-date-decorator";
 import { withScreenshot } from "@prantlf/storycap";
 import { darkTheme } from "../src/theme/dark/dark-theme";
+import { iocTheme } from "../src/theme/ioc/ioc-theme";
 import { lightTheme } from "../src/theme/light/light-theme";
 
 const docsTheme = create({
@@ -43,24 +44,94 @@ const muiThemeDecorator = withThemeFromJSXProvider({
   themes: {
     light: lightTheme,
     dark: darkTheme,
+    ioc: iocTheme,
   },
 });
 
 const themeBackgrounds = {
   light: "#EFF3FC",
   dark: "#00142B",
+  ioc: "#07111F",
 };
 
 const themeBackgroundTokens = {
   light: {
     background: themeBackgrounds.light,
+    border: "#DAE3F8",
+    link: "#0051AF",
+    mutedText: "#59616B",
     previewBackground: "#FBFCFE",
+    text: "#1A1F27",
   },
   dark: {
     background: themeBackgrounds.dark,
+    border: "#3D5980",
+    link: "#4FD5FF",
+    mutedText: "#C8D5E8",
     previewBackground: "#00142B",
+    text: "#E7EEF8",
+  },
+  ioc: {
+    background: themeBackgrounds.ioc,
+    border: "rgba(255, 255, 255, 0.09)",
+    link: "#00BCEB",
+    mutedText: "rgba(255, 255, 255, 0.55)",
+    previewBackground: "#07111F",
+    text: "rgba(255, 255, 255, 0.94)",
   },
 };
+
+const getThemeBackground = (theme?: string) =>
+  theme && theme in themeBackgroundTokens
+    ? themeBackgroundTokens[theme as keyof typeof themeBackgroundTokens]
+    : themeBackgroundTokens.light;
+
+const applyThemeBackgroundTokens = (theme?: string) => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const tokens = getThemeBackground(theme);
+
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-bg",
+    tokens.background,
+  );
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-preview-bg",
+    tokens.previewBackground,
+  );
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-border",
+    tokens.border,
+  );
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-link",
+    tokens.link,
+  );
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-muted-text",
+    tokens.mutedText,
+  );
+  document.documentElement.style.setProperty(
+    "--ouk-storybook-text",
+    tokens.text,
+  );
+};
+
+const getThemeGlobalFromLocation = () => {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
+
+  const globals = new URLSearchParams(window.location.search).get("globals");
+  return globals
+    ?.split(";")
+    .find((global) => global.startsWith("theme:"))
+    ?.replace("theme:", "");
+};
+
+applyThemeBackgroundTokens(getThemeGlobalFromLocation());
 
 const ThemeBackground = ({
   mode,
@@ -70,22 +141,24 @@ const ThemeBackground = ({
   children?: React.ReactNode;
 }) => {
   React.useEffect(() => {
-    const tokens = themeBackgroundTokens[mode];
     const previousBackgroundVariable =
       document.documentElement.style.getPropertyValue("--ouk-storybook-bg");
     const previousPreviewBackgroundVariable =
       document.documentElement.style.getPropertyValue(
         "--ouk-storybook-preview-bg",
       );
+    const previousBorderVariable =
+      document.documentElement.style.getPropertyValue("--ouk-storybook-border");
+    const previousLinkVariable =
+      document.documentElement.style.getPropertyValue("--ouk-storybook-link");
+    const previousMutedTextVariable =
+      document.documentElement.style.getPropertyValue(
+        "--ouk-storybook-muted-text",
+      );
+    const previousTextVariable =
+      document.documentElement.style.getPropertyValue("--ouk-storybook-text");
 
-    document.documentElement.style.setProperty(
-      "--ouk-storybook-bg",
-      tokens.background,
-    );
-    document.documentElement.style.setProperty(
-      "--ouk-storybook-preview-bg",
-      tokens.previewBackground,
-    );
+    applyThemeBackgroundTokens(mode);
 
     return () => {
       document.documentElement.style.setProperty(
@@ -96,6 +169,22 @@ const ThemeBackground = ({
         "--ouk-storybook-preview-bg",
         previousPreviewBackgroundVariable,
       );
+      document.documentElement.style.setProperty(
+        "--ouk-storybook-border",
+        previousBorderVariable,
+      );
+      document.documentElement.style.setProperty(
+        "--ouk-storybook-link",
+        previousLinkVariable,
+      );
+      document.documentElement.style.setProperty(
+        "--ouk-storybook-muted-text",
+        previousMutedTextVariable,
+      );
+      document.documentElement.style.setProperty(
+        "--ouk-storybook-text",
+        previousTextVariable,
+      );
     };
   }, [mode]);
 
@@ -103,7 +192,11 @@ const ThemeBackground = ({
 };
 
 const themeBackgroundDecorator: Decorator = (Story, context) => {
-  const theme = context.globals.theme === "dark" ? "dark" : "light";
+  const globalTheme = String(context.globals.theme ?? "light");
+  const theme =
+    globalTheme in themeBackgroundTokens
+      ? (globalTheme as keyof typeof themeBackgroundTokens)
+      : "light";
 
   return React.createElement(
     ThemeBackground,
@@ -129,6 +222,7 @@ export const globalTypes = {
       items: [
         { value: "light", icon: "sun", title: "Light" },
         { value: "dark", icon: "moon", title: "Dark" },
+        { value: "ioc", icon: "mirror", title: "IoC" },
       ],
       showName: false,
       dynamicTitle: false,

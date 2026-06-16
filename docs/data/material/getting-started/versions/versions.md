@@ -42,14 +42,19 @@ Open UI Kit Core 1.6 moved dark and light mode state into `ThemeProvider`.
 Use `useThemeMode()` inside the provider to read or change the active mode.
 
 ```tsx
-import { ThemeMode, ThemeProvider, useThemeMode } from '@open-ui-kit/core';
+import { ThemeMode, ThemeProvider, useThemeMode } from "@open-ui-kit/core";
 
-function ThemeToggle() {
-  const { mode, toggleTheme } = useThemeMode();
+function ThemeSelector() {
+  const { mode, setTheme } = useThemeMode();
 
   return (
-    <button type="button" onClick={toggleTheme}>
-      Switch to {mode === 'dark' ? 'light' : 'dark'} mode
+    <button
+      type="button"
+      onClick={() =>
+        setTheme(mode === ThemeMode.Dark ? ThemeMode.Light : ThemeMode.Dark)
+      }
+    >
+      Switch to {mode === ThemeMode.Dark ? "light" : "dark"} mode
     </button>
   );
 }
@@ -57,7 +62,7 @@ function ThemeToggle() {
 export function App() {
   return (
     <ThemeProvider defaultMode={ThemeMode.Light}>
-      <ThemeToggle />
+      <ThemeSelector />
     </ThemeProvider>
   );
 }
