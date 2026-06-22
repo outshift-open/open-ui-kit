@@ -174,17 +174,17 @@
     "@mui/system": "^7.0.1",
     "@mui/x-date-pickers": "^7.26.0",
     "copy-to-clipboard": "^3.3.3",
-    "date-fns": "^4.1.0",
-    "dayjs": "^1.11.13",
-    "framer-motion": "^12.6.2",
+    "date-fns": "^4.4.0",
+    "dayjs": "^1.11.21",
+    "framer-motion": "^12.40.0",
     "material-react-table": "^3.2.1",
     "react-code-blocks": "^0.1.6",
     "react-syntax-highlighter": "^15.6.1",
-    "react-virtuoso": "^4.12.6",
+    "react-virtuoso": "^4.18.7",
     "recharts": "^2.15.3",
     "sonner": "^2.0.5",
-    "use-debounce": "^10.0.4",
-    "zustand": "^5.0.5"
+    "use-debounce": "^10.1.1",
+    "zustand": "^5.0.14"
   },
   "workspaces": [
     "scripts"
