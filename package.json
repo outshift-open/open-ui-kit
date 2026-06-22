@@ -65,7 +65,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.0.3",
     "semantic-release": "^24.2.0",
-    "turbo": "^2.9.15"
+    "turbo": "^2.9.18"
   },
   "resolutions": {
     "@babel/plugin-transform-modules-systemjs": "7.29.7",
