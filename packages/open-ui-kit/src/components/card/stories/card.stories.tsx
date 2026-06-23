@@ -29,7 +29,7 @@ import {
 import { cardActiveStyles, cardSkeletonStyles } from "../styles";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
-const meta = {
+const meta: Meta<typeof Card> = {
   title: "Components/Card",
   component: Card,
   tags: ["autodocs"],
@@ -65,7 +65,7 @@ const meta = {
       ),
     },
   },
-} satisfies Meta<typeof Card>;
+};
 
 export default meta;
 

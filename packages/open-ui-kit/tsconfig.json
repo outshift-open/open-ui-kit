@@ -23,7 +23,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2017",
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
