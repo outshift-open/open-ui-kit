@@ -29,6 +29,15 @@ const getRequiredElement = (container: HTMLElement, selector: string) => {
   return element as HTMLElement;
 };
 
+const cssColor = (color: string) => {
+  const element = document.createElement("span");
+  element.style.color = color;
+  document.body.appendChild(element);
+  const computedColor = window.getComputedStyle(element).color;
+  element.remove();
+  return computedColor;
+};
+
 describe("Banner", () => {
   describe("rendering", () => {
     it("renders the text content", () => {
@@ -87,7 +96,9 @@ describe("Banner", () => {
       expect(window.getComputedStyle(banner).backgroundColor).toBe(
         "rgb(248, 229, 234)",
       );
-      expect(window.getComputedStyle(banner).borderTopColor).toBe("#c0244c");
+      expect(window.getComputedStyle(banner).borderTopColor).toBe(
+        cssColor("#c0244c"),
+      );
       expect(window.getComputedStyle(banner).height).toBe("40px");
       expect(window.getComputedStyle(banner).width).toBe("800px");
       expect(window.getComputedStyle(banner).padding).toBe("8px 4px 8px 12px");
@@ -129,7 +140,9 @@ describe("Banner", () => {
         expect(window.getComputedStyle(banner).backgroundColor).toBe(
           background,
         );
-        expect(window.getComputedStyle(banner).borderTopColor).toBe(border);
+        expect(window.getComputedStyle(banner).borderTopColor).toBe(
+          cssColor(border),
+        );
         expect(window.getComputedStyle(banner).color).toBe(text);
         unmount();
       });
@@ -152,7 +165,9 @@ describe("Banner", () => {
       expect(window.getComputedStyle(banner).backgroundColor).toBe(
         "rgba(198, 41, 83, 0.098)",
       );
-      expect(window.getComputedStyle(banner).borderTopColor).toBe("#c62953");
+      expect(window.getComputedStyle(banner).borderTopColor).toBe(
+        cssColor("#c62953"),
+      );
       expect(window.getComputedStyle(icon).color).toBe("rgb(207, 73, 109)");
       expect(window.getComputedStyle(banner).color).toBe("rgb(238, 191, 203)");
       expect(window.getComputedStyle(action).color).toBe("rgb(232, 233, 234)");

@@ -61,7 +61,7 @@ describe("Backdrop", () => {
 
       expect(backdrop).toBeInTheDocument();
       expect(getComputedStyle(backdrop as Element).backgroundColor).toBe(
-        "transparent",
+        "rgba(0, 0, 0, 0)",
       );
     });
 
