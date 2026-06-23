@@ -17,17 +17,10 @@ export interface ToastAction {
   onClick: () => void;
 }
 
-export interface ToastProps
-  extends Omit<
-    AlertProps,
-    | "variant"
-    | "severity"
-    | "children"
-    | "iconMapping"
-    | "action"
-    | "id"
-    | "icon"
-  > {
+export interface ToastProps extends Omit<
+  AlertProps,
+  "variant" | "severity" | "children" | "iconMapping" | "action" | "id" | "icon"
+> {
   /** Unique id used when dismissing via Sonner. */
   id: string;
   /** Visual type that controls the status icon and left border color. */

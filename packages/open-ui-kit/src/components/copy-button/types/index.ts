@@ -29,8 +29,7 @@ export interface CopyButtonStylesProps {
 }
 
 export interface CopyButtonProps
-  extends IconButtonProps,
-    CopyButtonStylesProps {
+  extends IconButtonProps, CopyButtonStylesProps {
   /** Text copied to the clipboard when the action is clicked. */
   text: string;
   /** Callback fired after the text is copied. */

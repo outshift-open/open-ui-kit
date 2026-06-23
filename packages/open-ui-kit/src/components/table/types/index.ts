@@ -41,8 +41,9 @@ interface RowData<TData extends MRT_RowData> {
   renderedCellValue: React.ReactNode;
 }
 
-interface TableProps<TData extends MRT_RowData>
-  extends MRT_TableOptions<TData> {
+interface TableProps<
+  TData extends MRT_RowData,
+> extends MRT_TableOptions<TData> {
   isLoading?: boolean;
   manualPagination?: boolean;
   manualSorting?: boolean;

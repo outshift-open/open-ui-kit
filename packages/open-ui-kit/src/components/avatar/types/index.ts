@@ -23,8 +23,10 @@ export interface AvatarProps extends Omit<MuiAvatarProps, "children"> {
   icon?: ReactNode;
 }
 
-export interface AvatarGroupProps
-  extends Omit<MuiAvatarGroupProps, "children"> {
+export interface AvatarGroupProps extends Omit<
+  MuiAvatarGroupProps,
+  "children"
+> {
   /** Controls the size applied to every avatar in the group. */
   size?: "L" | "M";
   /** Avatar children to stack with the configured group overlap. */

@@ -33,8 +33,9 @@ export interface SelectNodeType<T = unknown> {
   linkedData?: T;
 }
 
-export interface AugmentedSelectNodeType<T = unknown>
-  extends SelectNodeType<T> {
+export interface AugmentedSelectNodeType<
+  T = unknown,
+> extends SelectNodeType<T> {
   childNodes?: Array<AugmentedSelectNodeType<T>>;
 
   /**

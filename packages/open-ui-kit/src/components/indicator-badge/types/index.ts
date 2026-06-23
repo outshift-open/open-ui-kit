@@ -13,8 +13,10 @@ export interface IndicatorBadgeValueProps {
   isActive?: boolean;
 }
 
-export interface IndicatorBadgeProps
-  extends Pick<IndicatorBadgeValueProps, "color"> {
+export interface IndicatorBadgeProps extends Pick<
+  IndicatorBadgeValueProps,
+  "color"
+> {
   /** Segmented indicator value. Values fill from bottom to top. */
   value: IndicatorBadgeValue;
 }

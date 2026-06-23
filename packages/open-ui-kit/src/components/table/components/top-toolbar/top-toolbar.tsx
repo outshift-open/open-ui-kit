@@ -19,8 +19,9 @@ import ReloadTableButton from "./actions/reload-table-button";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { TableTitle, TopToolbarProps } from "../../types";
 
-interface TopToolbarInternalProps<TData extends MRT_RowData>
-  extends TopToolbarProps {
+interface TopToolbarInternalProps<
+  TData extends MRT_RowData,
+> extends TopToolbarProps {
   title?: TableTitle;
   titleExtension?: ReactNode;
   table: MRT_TableInstance<TData>;

@@ -20,8 +20,10 @@ export interface CodeBlockHeaderButton {
   onClick: () => void;
 }
 
-export interface CodeBlockProps
-  extends Omit<SyntaxHighlighterProps, "children"> {
+export interface CodeBlockProps extends Omit<
+  SyntaxHighlighterProps,
+  "children"
+> {
   /** Props forwarded to the horizontal scroll container around the code content. */
   containerProps?: StackProps;
   /** Code string rendered by the syntax highlighter and copied by the copy action. */

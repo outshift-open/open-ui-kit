@@ -196,8 +196,11 @@ export default [
       ...commonPlugins,
       typescript({
         tsconfig: "./tsconfig.json",
-        exclude: ["**/*.stories.tsx"],
-        compilerOptions: { ignoreDeprecations: undefined },
+        exclude: ["**/*.stories.tsx", "**/__tests__/**", "**/*.test.tsx"],
+        compilerOptions: {
+          ignoreDeprecations: "6.0",
+          rootDir: "src",
+        },
       }),
       commonjs({
         include: /node_modules/,

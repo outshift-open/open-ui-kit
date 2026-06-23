@@ -50,8 +50,10 @@ export enum TagStatus {
   "Deny" = "Deny",
 }
 
-export interface TagProps
-  extends Omit<ChipProps, "size" | "children" | "label" | "color" | "sx"> {
+export interface TagProps extends Omit<
+  ChipProps,
+  "size" | "children" | "label" | "color" | "sx"
+> {
   /** Background color token variant used for non-status tags. */
   color?: TagBackgroundColorVariants;
   /** Tag label content. */

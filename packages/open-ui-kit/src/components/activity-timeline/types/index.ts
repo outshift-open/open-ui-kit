@@ -30,8 +30,10 @@ export interface ActivityTimelineStep {
   defaultExpanded?: boolean;
 }
 
-export interface ActivityTimelineProps
-  extends Omit<MuiTimelineProps, "children" | "ref"> {
+export interface ActivityTimelineProps extends Omit<
+  MuiTimelineProps,
+  "children" | "ref"
+> {
   /** When true, step dots and connector colors are calculated from each step position. */
   automaticProgress?: boolean;
   /** Controls the timeline title typography and vertical spacing. */

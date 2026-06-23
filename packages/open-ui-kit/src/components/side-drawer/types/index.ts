@@ -69,7 +69,8 @@ export interface SideDrawerHeaderProps {
 }
 
 export interface SideDrawerProps
-  extends Omit<MuiDrawerProps, "onClose">,
+  extends
+    Omit<MuiDrawerProps, "onClose">,
     SideDrawerHeaderProps,
     SideDrawerFooterProps {
   /** Deprecated alias retained for compatibility; use `titleText`. */

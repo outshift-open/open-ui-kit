@@ -9,8 +9,10 @@ import type { SxProps, Theme } from "@mui/material";
 
 export type MessageType = "success" | "error" | "warning" | "info";
 
-export interface MessageProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface MessageProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "title"
+> {
   /** Visual status that controls the left rail, icon, and border color. */
   type?: MessageType;
   /** Main message content. Use the Figma-provided sentence for documentation examples. */

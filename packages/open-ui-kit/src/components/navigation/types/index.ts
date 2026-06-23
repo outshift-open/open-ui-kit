@@ -56,8 +56,10 @@ export interface NavigationProps extends HTMLAttributes<HTMLDivElement> {
   sx?: SxProps<Theme>;
 }
 
-export interface NavigationDrawerProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface NavigationDrawerProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "title"
+> {
   /** Drawer title shown in the header. */
   title?: ReactNode;
   /** Sections rendered inside the drawer. */
@@ -68,8 +70,7 @@ export interface NavigationDrawerProps
   sx?: SxProps<Theme>;
 }
 
-export interface NavigationSubNavigationProps
-  extends HTMLAttributes<HTMLDivElement> {
+export interface NavigationSubNavigationProps extends HTMLAttributes<HTMLDivElement> {
   /** Panel headline shown in the sub-navigation header. */
   headline?: ReactNode;
   /** Sections rendered in the secondary navigation panel. */

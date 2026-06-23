@@ -13,6 +13,8 @@ module.exports = {
     ...pathsToModuleNameMapper(compilerOptions.paths || {}, {
       prefix: "<rootDir>/",
     }),
+    "^react-syntax-highlighter$":
+      "<rootDir>/test-utils/react-syntax-highlighter.js",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Map CSS imports to a mock
   },
   transform: {

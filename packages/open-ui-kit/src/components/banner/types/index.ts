@@ -14,11 +14,10 @@ export type StatusBanner =
   | "info"
   | "excellent";
 
-export interface BannerProps
-  extends Omit<
-    AlertProps,
-    "variant" | "severity" | "children" | "iconMapping" | "action"
-  > {
+export interface BannerProps extends Omit<
+  AlertProps,
+  "variant" | "severity" | "children" | "iconMapping" | "action"
+> {
   /** Status color family and icon used by the banner. */
   status?: StatusBanner;
   /** Banner message content. */

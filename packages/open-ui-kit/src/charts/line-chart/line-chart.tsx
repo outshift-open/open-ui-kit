@@ -25,8 +25,7 @@ import { useTheme } from "@mui/material/styles";
 type SafeLineProps = Omit<LineProps, "ref">;
 
 export interface LineChartProps
-  extends ChartProps,
-    Pick<LineChartTooltipProps, "valueFormatter"> {
+  extends ChartProps, Pick<LineChartTooltipProps, "valueFormatter"> {
   /** Optional title shown in the default tooltip before the category values. */
   subject?: string;
   /** Props forwarded to the Recharts X axis for domain, tick, and formatter overrides. */

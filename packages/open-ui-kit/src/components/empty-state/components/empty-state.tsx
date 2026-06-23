@@ -49,8 +49,8 @@ export const EmptyState = ({
   );
   const showSecondaryAction = Boolean(
     secondaryActionCallback &&
-      secondaryActionTitle &&
-      size !== GeneralSize.Small,
+    secondaryActionTitle &&
+    size !== GeneralSize.Small,
   );
 
   return (

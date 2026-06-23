@@ -70,7 +70,8 @@ export interface FiltersBarActionsProps {
 }
 
 export interface FiltersBarProps
-  extends Pick<
+  extends
+    Pick<
       FiltersBarActionsProps,
       | "onFavorite"
       | "onSearch"

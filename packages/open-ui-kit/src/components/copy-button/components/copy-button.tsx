@@ -37,7 +37,7 @@ export const CopyButton = ({
   const showCopiedState = copied ?? isCopied;
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null;
+    let timeout: ReturnType<typeof setTimeout> | null = null;
     if (isCopied && copied === undefined) {
       timeout = setTimeout(() => {
         setIsCopied(false);

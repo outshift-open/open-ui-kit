@@ -7,8 +7,10 @@
 import type { TooltipProps } from "@/components/tooltip";
 import type { CSSProperties, ReactNode } from "react";
 
-export interface OverflowTooltipProps
-  extends Omit<TooltipProps, "title" | "children"> {
+export interface OverflowTooltipProps extends Omit<
+  TooltipProps,
+  "title" | "children"
+> {
   /** Content shown in the tooltip when the text overflows. */
   value: ReactNode;
   /** The text to display (and potentially truncate). */

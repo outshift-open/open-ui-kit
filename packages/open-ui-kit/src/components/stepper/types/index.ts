@@ -51,8 +51,10 @@ export interface StepperModalStep {
   state?: StepperStepState;
 }
 
-export interface StepperModalProps
-  extends Omit<DialogProps, "children" | "PaperProps" | "sx" | "title"> {
+export interface StepperModalProps extends Omit<
+  DialogProps,
+  "children" | "PaperProps" | "sx" | "title"
+> {
   /** Modal title. */
   title: string;
   /** Optional descriptor rendered below the title. */

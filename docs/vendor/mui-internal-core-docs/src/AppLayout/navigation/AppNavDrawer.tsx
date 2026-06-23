@@ -274,8 +274,10 @@ function renderNavItems(options: RenderNavItemsOptions) {
   );
 }
 
-interface ReduceChildRoutesContext
-  extends Omit<RenderNavItemsOptions, "pages"> {
+interface ReduceChildRoutesContext extends Omit<
+  RenderNavItemsOptions,
+  "pages"
+> {
   items: React.ReactNode[];
   page: MuiPage;
 }
