@@ -15,7 +15,10 @@ import {
   baseTooltipStyles,
   largeTooltipStyles,
   mediumTooltipStyles,
+  TOOLTIP_ARROW_HEIGHT,
+  TOOLTIP_ARROW_WIDTH,
   tooltipArrowStyles,
+  tooltipPopperSx,
 } from "../styles";
 import { TooltipSize } from "../types";
 
@@ -65,10 +68,17 @@ describe("Tooltip", () => {
       "right",
       "top-start",
       "top-end",
+      "bottom-start",
+      "bottom-end",
     ] as const;
     placements.forEach((placement) => {
-      it(`renders placement "${placement}" without throwing`, () => {
-        expect(() => renderTooltip({ placement })).not.toThrow();
+      it(`renders placement "${placement}" with arrow without throwing`, () => {
+        expect(() => renderTooltip({ placement, arrow: true })).not.toThrow();
+      });
+
+      it(`renders arrow element for placement "${placement}"`, () => {
+        renderTooltip({ placement, arrow: true });
+        expect(document.querySelector(".MuiTooltip-arrow")).toBeInTheDocument();
       });
     });
   });
@@ -94,8 +104,12 @@ describe("Tooltip", () => {
       });
       expect(tooltipArrowStyles(lightTheme)).toMatchObject({
         color: lightTheme.palette.vars.inactiveBackgroundActive,
-        height: "6px",
-        width: "10px",
+        height: `${TOOLTIP_ARROW_HEIGHT}px`,
+        width: `${TOOLTIP_ARROW_WIDTH}px`,
+        "&::before": {
+          height: "100%",
+          width: "100%",
+        },
       });
       expect(lightTheme.palette.vars.inactiveBackgroundActive).toBe("#272e37");
       expect(lightTheme.palette.vars.baseTextInverse).toBe("#e8e9ea");
@@ -121,6 +135,22 @@ describe("Tooltip", () => {
       expect(largeTooltipStyles).toMatchObject({
         height: "32px",
         padding: "8px 12px",
+      });
+    });
+
+    it("uses px-accurate popper margins for all arrow sides", () => {
+      expect(tooltipPopperSx).toMatchObject({
+        [`&[data-popper-placement*="bottom"] .MuiTooltip-arrow`]: {
+          marginTop: `-${TOOLTIP_ARROW_HEIGHT}px`,
+        },
+        [`&[data-popper-placement*="top"] .MuiTooltip-arrow`]: {
+          marginBottom: `-${TOOLTIP_ARROW_HEIGHT}px`,
+        },
+        [`&[data-popper-placement*="left"] .MuiTooltip-arrow, &[data-popper-placement*="right"] .MuiTooltip-arrow`]:
+          {
+            height: `${TOOLTIP_ARROW_WIDTH}px`,
+            width: `${TOOLTIP_ARROW_HEIGHT}px`,
+          },
       });
     });
   });
