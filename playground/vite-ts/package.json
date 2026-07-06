@@ -17,7 +17,7 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
-    "@mui/material": "latest",
+    "@mui/material": "^7.3.4",
     "@open-ui-kit/core": "workspace:*",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
@@ -27,6 +27,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16"
+    "vite": "^8.1.3"
   }
 }
