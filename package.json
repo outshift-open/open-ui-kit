@@ -63,9 +63,9 @@
     "@semantic-release/npm": "^13.1.5",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.4",
     "semantic-release": "^25.0.5",
-    "turbo": "^2.9.18"
+    "turbo": "^2.10.3"
   },
   "resolutions": {
     "@babel/plugin-transform-modules-systemjs": "7.29.7",
