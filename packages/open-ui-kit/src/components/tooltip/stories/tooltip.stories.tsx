@@ -10,7 +10,7 @@ import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Button } from "@/components/button";
 import { Tooltip } from "../components/tooltip";
-import { TooltipSize } from "../types";
+import { TooltipSize, type TooltipProps } from "../types";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -41,8 +41,10 @@ const DEMO_TOOLTIP_TITLE = "Tooltip text";
 const placementGroups = [
   ["top-start", "top", "top-end"],
   ["bottom-start", "bottom", "bottom-end"],
-  ["left", "right"],
 ] as const;
+
+/** Right anchor on the left; left anchor on the right — room for both sides. */
+const horizontalPlacements = ["right", "left"] as const;
 
 const TriggerChip = forwardRef<
   HTMLSpanElement,
@@ -80,6 +82,29 @@ const TriggerChip = forwardRef<
 
 TriggerChip.displayName = "TriggerChip";
 
+const PlacementDemo = ({
+  placement,
+  size,
+}: {
+  placement: NonNullable<TooltipProps["placement"]>;
+  size: TooltipSize;
+}) => (
+  <Stack spacing={1} alignItems="center">
+    <Tooltip
+      title={DEMO_TOOLTIP_TITLE}
+      placement={placement}
+      size={size}
+      arrow
+      open
+    >
+      <TriggerChip label={placement} />
+    </Tooltip>
+    <Typography variant="caption" color="text.secondary">
+      {placement}
+    </Typography>
+  </Stack>
+);
+
 const PlacementShowcase = ({
   size = TooltipSize.Medium,
 }: {
@@ -95,23 +120,20 @@ const PlacementShowcase = ({
         justifyContent="flex-start"
       >
         {group.map((placement) => (
-          <Stack key={placement} spacing={1} alignItems="center">
-            <Tooltip
-              title={DEMO_TOOLTIP_TITLE}
-              placement={placement}
-              size={size}
-              arrow
-              open
-            >
-              <TriggerChip label={placement} />
-            </Tooltip>
-            <Typography variant="caption" color="text.secondary">
-              {placement}
-            </Typography>
-          </Stack>
+          <PlacementDemo key={placement} placement={placement} size={size} />
         ))}
       </Stack>
     ))}
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ width: "100%", maxWidth: 360 }}
+    >
+      {horizontalPlacements.map((placement) => (
+        <PlacementDemo key={placement} placement={placement} size={size} />
+      ))}
+    </Stack>
   </Stack>
 );
 
