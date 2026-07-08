@@ -34,6 +34,14 @@ describe("Button", () => {
       renderButton({ children: "Click me" });
       expect(screen.getByRole("button")).toBeInTheDocument();
     });
+
+    it("forwards ref to the underlying button element", () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      renderButton({ children: "Click me", ref });
+      expect(ref.current).toBe(
+        screen.getByRole("button", { name: "Click me" }),
+      );
+    });
   });
 
   describe("variants", () => {
