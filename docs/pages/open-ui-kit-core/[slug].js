@@ -636,7 +636,7 @@ export function PopoverExample() {
         onClose={() => setAnchorEl(null)}
         title="Review change"
         body="Check the details before continuing."
-        arrowPosition="bottom-center"
+        placement="bottom"
       />
     </>
   );

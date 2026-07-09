@@ -14,7 +14,7 @@ githubSource: packages/open-ui-kit/src/components/popover
 ## Introduction
 
 Popover is part of the Open UI Kit Core public API.
-Use it to communicate status, interruption, confirmation, or contextual guidance.
+Use it for lightweight, anchored panels with optional title, body, actions, and a directional arrow.
 
 Use this page as the implementation entry point, then use Storybook to inspect visual states, prop combinations, and edge cases that are easier to understand interactively.
 
@@ -26,27 +26,52 @@ import { Popover } from '@open-ui-kit/core';
 
 ## When to use
 
-Use this component when the interface needs to explain what happened, what is happening, or what the user should do next.
+Use Popover when you need contextual information or a small decision surface next to a trigger, without taking over the full page like a dialog.
 
 ## Anatomy
 
-Feedback components usually combine a status treatment, message content, optional actions, and optional dismissal behavior.
+A popover combines an anchor trigger, a floating panel, optional title and body copy, optional action buttons, an optional leading icon, and an optional arrow that points at the anchor.
 
-Keep each part purposeful: the visible label or title should explain the object, the state should reflect real product data, and supporting content should help users decide what to do next.
+Keep each part purposeful: the title should explain the task, the body should add only the detail needed to decide, and actions should make the next step obvious.
 
 ## Basic example
 
 ```tsx
-import { Popover } from '@open-ui-kit/core';
+import * as React from 'react';
+import { Button, Popover } from '@open-ui-kit/core';
 
 export function PopoverExample() {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const open = Boolean(anchorEl);
+
   return (
-    <Popover>
-      Popover
-    </Popover>
+    <>
+      <Button onClick={(event) => setAnchorEl(event.currentTarget)}>
+        Open popover
+      </Button>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        title="Review change"
+        body="Check the details before continuing."
+        placement="bottom"
+      />
+    </>
   );
 }
 ```
+
+## Placement
+
+Set `placement` to position the panel and arrow relative to the anchor. Values follow the same convention as MUI Tooltip `placement` (without `auto` variants):
+
+- `top`, `top-start`, `top-end`
+- `bottom`, `bottom-start`, `bottom-end`
+- `left`, `left-start`, `left-end`
+- `right`, `right-start`, `right-end`
+
+Omit `placement` for a plain panel with no arrow. When `placement` is set, the component resolves `anchorOrigin` and `transformOrigin` internally and may flip the panel when there is not enough viewport space.
 
 ## Storybook scenarios
 
@@ -54,18 +79,22 @@ Storybook is the source of truth for interactive examples, controls, and visual 
 Start with the closest story, then adapt the props to match your product flow.
 
 - Default
+- Flips near viewport edge
+- Without arrow
 - Large
 - Feature Highlight
 - With Icon
-- Arrow Positions
+- Placement
 - Body Only
 - Custom Content
 
 ## Behavior notes
 
-- Match the strength of the surface to the urgency of the message.
-- Use blocking surfaces only when the user must decide before continuing.
-- Keep recovery actions explicit for warnings, errors, and destructive flows.
+- `placement` controls both panel position and arrow direction.
+- The popover can flip to stay inside the viewport when space is limited.
+- `disableScrollLock` defaults to `true` so opening a popover does not lock page scroll.
+- Use `size="large"` for wider confirmation or content-heavy panels.
+- Pass `children` instead of `title` / `body` / `actions` when you need fully custom panel content.
 
 ## Props
 
@@ -74,23 +103,33 @@ Use the exported TypeScript props for implementation details and keep local over
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| `Popover` props | Component-specific props | Controls the supported behavior, slots, state, and styling for Popover. |
-| `children` | `React.ReactNode` | Content rendered inside the component when the component supports composition. |
-| `className` | `string` | Adds a class to the root slot for product-level styling hooks. |
-| `sx` | `SxProps` | Applies local style overrides while still using the active Open UI Kit theme. |
+| `open` | `boolean` | Controls whether the popover is visible. |
+| `anchorEl` | `Element \| (() => Element) \| null` | Element the popover is positioned against. |
+| `onClose` | `function` | Called when the popover should close. |
+| `title` | `React.ReactNode` | Bold heading above the body. |
+| `body` | `React.ReactNode` | Supporting text below the title. |
+| `actions` | `React.ReactNode` | Action elements rendered at the bottom-right of the panel. |
+| `icon` | `React.ReactNode` | Optional icon rendered before the title/body column. |
+| `placement` | `PopoverPlacement` | MUI Tooltip-style placement. Enables the arrow. Omit for no arrow. |
+| `size` | `'medium' \| 'large'` | Panel width. Defaults to `medium`. |
+| `featureHighlight` | `boolean` | Applies active feature-highlight border and arrow styling. |
+| `showCloseButton` | `boolean` | Shows a close button in the top-right corner. |
+| `paperSx` | `SxProps` | Additional styles merged onto the Paper element. |
+| `children` | `React.ReactNode` | Custom panel content. Replaces the built-in title/body/actions layout. |
+| `disableScrollLock` | `boolean` | When `true`, page scroll is not locked while open. Defaults to `true`. |
 
 ## Accessibility
 
-- Use clear text that does not require the icon or color to understand the state.
-- Move focus only for interruptive surfaces that take over the current task.
+- Keep title and body text understandable without relying on icon or border color alone.
+- Ensure action labels describe the outcome, especially for destructive or irreversible flows.
 - Check light and dark mode contrast for message text and action labels.
 
 ## Usage guidance
 
-- Keep feedback close to the event or surface it describes.
-- Use one primary recovery action when possible.
-- Avoid stacking multiple urgent messages unless the user can act on each one.
-- Make dismissal behavior predictable and preserve critical state elsewhere.
+- Anchor the popover to the control it describes.
+- Prefer one primary action when the user must choose how to continue.
+- Use `showCloseButton` when dismissal should be obvious without clicking away.
+- Avoid stacking multiple open popovers over the same trigger region.
 
 ## Resources
 
