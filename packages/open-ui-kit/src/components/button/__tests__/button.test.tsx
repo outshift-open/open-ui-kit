@@ -135,6 +135,19 @@ describe("Button", () => {
         paddingTop: "8px",
       });
     });
+
+    it("grows width with label text and wraps only when constrained", () => {
+      renderButton({ size: "medium", children: "bottom-center" });
+
+      expect(screen.getByRole("button", { name: "bottom-center" })).toHaveStyle(
+        {
+          width: "max-content",
+          maxWidth: "100%",
+          minHeight: "32px",
+          height: "auto",
+        },
+      );
+    });
   });
 
   describe("negative color", () => {
