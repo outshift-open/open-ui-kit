@@ -13,11 +13,11 @@ import { Popover } from "../";
 import type { PopoverProps } from "../";
 import {
   POPOVER_PLACEMENTS,
-  PopoverHorizontalPlacement,
   PopoverPlacement,
   PopoverPlacementAlign,
   PopoverPlacementSide,
 } from "../";
+import { PopoverHorizontalPlacement } from "../types";
 import {
   getOriginsForPlacement,
   getPlacementAlign,

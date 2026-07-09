@@ -6,7 +6,7 @@
 
 import type { ButtonProps as MuiButtonProps } from "@mui/material";
 
-export interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends Omit<MuiButtonProps, "ref"> {
   /** Button label, icon, or composed content rendered inside the control. */
   children?: MuiButtonProps["children"];
   /** Visual style for the action: primary, secondary, outlined, or tertariary. */

@@ -15,7 +15,7 @@ const defaultArgs = {
   variant: "primary",
 } satisfies ButtonProps;
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
@@ -86,7 +86,7 @@ const meta: Meta<ButtonProps> = {
 
 export default meta;
 
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<typeof Button>;
 
 const buttonStateSx =
   (
