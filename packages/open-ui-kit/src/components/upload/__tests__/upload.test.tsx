@@ -126,7 +126,14 @@ describe("Upload", () => {
           },
         ],
       });
-      expect(screen.getByRole("img", { hidden: true })).toBeInTheDocument();
+      const row = screen
+        .getByText("thumbnail.png")
+        .closest('[data-slot="upload-file-row"]');
+      expect(row).not.toBeNull();
+      expect(row?.querySelector("img")).toHaveAttribute(
+        "src",
+        "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+      );
     });
 
     it("calls onFileRemove when remove button is clicked", () => {
