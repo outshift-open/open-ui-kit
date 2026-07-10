@@ -5,12 +5,19 @@
  */
 
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Typography } from "@/components";
+import { Box, Typography } from "@/components";
 import { Button } from "@/components/button";
 import { Popover } from "../";
-import type { PopoverArrowPosition } from "../";
+import type { PopoverProps } from "../";
+import {
+  POPOVER_PLACEMENTS,
+  PopoverPlacement,
+  PopoverPlacementAlign,
+  PopoverPlacementSide,
+} from "../";
+import { getPlacementAlign, getPlacementSide } from "../utils/placement";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const bodyText =
@@ -22,6 +29,17 @@ const actions = (
       button-link
     </Button>
     <Button size="small" variant="primary">
+      button-link
+    </Button>
+  </>
+);
+
+const largeActions = (
+  <>
+    <Button size="medium" variant="tertariary">
+      button-link
+    </Button>
+    <Button size="medium" variant="primary">
       button-link
     </Button>
   </>
@@ -58,17 +76,9 @@ const meta: Meta<typeof Popover> = {
     },
   },
   argTypes: {
-    arrowPosition: {
+    placement: {
       control: "select",
-      options: [
-        undefined,
-        "top-left",
-        "top-center",
-        "top-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
-      ],
+      options: [undefined, ...POPOVER_PLACEMENTS],
     },
     featureHighlight: { control: "boolean" },
     size: { control: "inline-radio", options: ["medium", "large"] },
@@ -83,6 +93,7 @@ const meta: Meta<typeof Popover> = {
     ),
     actions,
     size: "medium",
+    placement: PopoverPlacement.Bottom,
   },
 };
 
@@ -91,53 +102,176 @@ export default meta;
 type Story = StoryObj<typeof Popover>;
 
 function PopoverWithTrigger(
-  props: Partial<React.ComponentProps<typeof Popover>> & {
-    arrowPosition?: PopoverArrowPosition;
+  props: Partial<PopoverProps> & {
+    defaultOpen?: boolean;
+    triggerLabel?: string;
+    layout?: ReturnType<typeof getPlacementDemoLayout>;
   },
 ) {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLButtonElement>(null);
+  const {
+    defaultOpen = false,
+    placement,
+    triggerLabel = "Open popover",
+    layout,
+    ...popoverProps
+  } = props;
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <Box sx={{ padding: "24px" }}>
-      <Button ref={anchorRef} variant="primary" onClick={() => setOpen(true)}>
-        Open popover
+    <Box sx={layout?.container ?? { padding: "24px" }}>
+      <Button
+        ref={setAnchorEl}
+        variant="primary"
+        size={layout ? "medium" : undefined}
+        sx={layout?.anchor}
+        onClick={() => setOpen(true)}
+      >
+        {triggerLabel}
       </Button>
       <Popover
-        open={open}
-        anchorEl={anchorRef.current}
+        open={open && Boolean(anchorEl)}
+        anchorEl={anchorEl}
         onClose={() => setOpen(false)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        transformOrigin={{ vertical: "top", horizontal: "left" }}
-        {...props}
+        placement={placement}
+        {...popoverProps}
       />
     </Box>
   );
 }
 
+const DEMO_AREA_SIZE = 300;
+/** Wide enough for a 228px popover + arrow clearance + trigger on left/right demos. */
+const DEMO_AREA_HORIZONTAL_WIDTH = 380;
+
+const getPlacementDemoLayout = (placement: PopoverPlacement) => {
+  const side = getPlacementSide(placement);
+  const align = getPlacementAlign(placement);
+  const isHorizontalSide =
+    side === PopoverPlacementSide.Left || side === PopoverPlacementSide.Right;
+
+  const anchor: {
+    marginLeft?: string | number;
+    marginTop?: string | number;
+    marginRight?: string | number;
+    marginBottom?: string | number;
+  } = {};
+
+  // Push the trigger away from the edge the popover opens toward.
+  if (side === PopoverPlacementSide.Left) anchor.marginLeft = "auto";
+  if (side === PopoverPlacementSide.Right) anchor.marginRight = "auto";
+  if (side === PopoverPlacementSide.Top) anchor.marginTop = "auto";
+  if (side === PopoverPlacementSide.Bottom) anchor.marginBottom = "auto";
+
+  if (align === PopoverPlacementAlign.Center) {
+    if (
+      side === PopoverPlacementSide.Top ||
+      side === PopoverPlacementSide.Bottom
+    ) {
+      anchor.marginLeft = "auto";
+      anchor.marginRight = "auto";
+    } else {
+      anchor.marginTop = "auto";
+      anchor.marginBottom = "auto";
+    }
+  } else if (align === PopoverPlacementAlign.Start) {
+    if (
+      side === PopoverPlacementSide.Top ||
+      side === PopoverPlacementSide.Bottom
+    ) {
+      anchor.marginRight = "auto";
+    } else {
+      anchor.marginBottom = "auto";
+    }
+  } else if (align === PopoverPlacementAlign.End) {
+    if (
+      side === PopoverPlacementSide.Top ||
+      side === PopoverPlacementSide.Bottom
+    ) {
+      anchor.marginLeft = "auto";
+    } else {
+      anchor.marginTop = "auto";
+    }
+  }
+
+  return {
+    container: {
+      width: isHorizontalSide ? DEMO_AREA_HORIZONTAL_WIDTH : DEMO_AREA_SIZE,
+      height: DEMO_AREA_SIZE,
+      display: "flex",
+      flexShrink: 0,
+      boxSizing: "border-box" as const,
+      alignSelf: "flex-start" as const,
+      overflow: "hidden",
+    },
+    anchor,
+  };
+};
+
 export const Default: Story = {
+  render: (args) => (
+    <Box
+      sx={{
+        p: 3,
+        minHeight: 480,
+        display: "flex",
+        alignItems: "flex-start",
+      }}
+    >
+      <PopoverWithTrigger {...args} defaultOpen />
+    </Box>
+  ),
+};
+
+export const FlipsNearTop: Story = {
+  name: "Flips near viewport edge",
+  args: {
+    placement: PopoverPlacement.Top,
+  },
+  render: (args) => (
+    <Box sx={{ p: 3, pt: 2 }}>
+      <PopoverWithTrigger {...args} />
+    </Box>
+  ),
+};
+
+export const WithoutArrow: Story = {
+  name: "Without arrow",
+  args: {
+    placement: undefined,
+  },
   render: (args) => <PopoverWithTrigger {...args} />,
 };
 
 export const Large: Story = {
   args: {
     size: "large",
+    actions: largeActions,
   },
-  render: (args) => <PopoverWithTrigger {...args} />,
+  render: (args) => (
+    <Box
+      sx={{
+        p: 3,
+        minHeight: 480,
+        display: "flex",
+        alignItems: "flex-start",
+      }}
+    >
+      <PopoverWithTrigger {...args} />
+    </Box>
+  ),
 };
 
 export const FeatureHighlight: Story = {
   args: {
-    arrowPosition: "bottom-center",
+    placement: PopoverPlacement.Bottom,
     featureHighlight: true,
   },
   render: (args) => (
-    <Box sx={{ padding: "24px", paddingTop: "140px" }}>
-      <PopoverWithTrigger
-        {...args}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        transformOrigin={{ vertical: "bottom", horizontal: "center" }}
-      />
+    <Box
+      sx={{ p: 3, minHeight: 480, display: "flex", alignItems: "flex-start" }}
+    >
+      <PopoverWithTrigger {...args} />
     </Box>
   ),
 };
@@ -146,47 +280,39 @@ export const WithIcon: Story = {
   args: {
     icon: <WarningAmberOutlinedIcon color="warning" fontSize="small" />,
     size: "large",
+    actions: largeActions,
   },
-  render: (args) => <PopoverWithTrigger {...args} />,
+  render: (args) => (
+    <Box
+      sx={{ p: 3, minHeight: 480, display: "flex", alignItems: "flex-start" }}
+    >
+      <PopoverWithTrigger {...args} />
+    </Box>
+  ),
 };
 
-export const ArrowPositions: Story = {
+/** One demo row per MUI placement value (wider for left/right). */
+export const Placement: Story = {
   render: (args) => (
-    <Stack direction="row" gap="16px" flexWrap="wrap" sx={{ padding: "24px" }}>
-      {(
-        [
-          "bottom-left",
-          "bottom-center",
-          "bottom-right",
-          "top-left",
-          "top-center",
-          "top-right",
-        ] as PopoverArrowPosition[]
-      ).map((arrowPosition) => (
+    <Box
+      sx={{
+        p: 3,
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        alignItems: "flex-start",
+      }}
+    >
+      {POPOVER_PLACEMENTS.map((placement) => (
         <PopoverWithTrigger
-          key={arrowPosition}
+          key={placement}
           {...args}
-          arrowPosition={arrowPosition}
-          title={arrowPosition}
-          anchorOrigin={{
-            vertical: arrowPosition.startsWith("top") ? "bottom" : "top",
-            horizontal: arrowPosition.endsWith("left")
-              ? "left"
-              : arrowPosition.endsWith("right")
-                ? "right"
-                : "center",
-          }}
-          transformOrigin={{
-            vertical: arrowPosition.startsWith("top") ? "top" : "bottom",
-            horizontal: arrowPosition.endsWith("left")
-              ? "left"
-              : arrowPosition.endsWith("right")
-                ? "right"
-                : "center",
-          }}
+          placement={placement}
+          triggerLabel={placement}
+          layout={getPlacementDemoLayout(placement)}
         />
       ))}
-    </Stack>
+    </Box>
   ),
 };
 
@@ -196,17 +322,27 @@ export const BodyOnly: Story = {
     title: undefined,
     body: bodyText,
   },
-  render: (args) => <PopoverWithTrigger {...args} />,
+  render: (args) => (
+    <Box
+      sx={{ p: 3, minHeight: 480, display: "flex", alignItems: "flex-start" }}
+    >
+      <PopoverWithTrigger {...args} />
+    </Box>
+  ),
 };
 
 export const CustomContent: Story = {
   render: (args) => (
-    <PopoverWithTrigger {...args}>
-      <Box sx={{ padding: "12px 16px" }}>
-        <Typography variant="body2">
-          Custom content rendered as children.
-        </Typography>
-      </Box>
-    </PopoverWithTrigger>
+    <Box
+      sx={{ p: 3, minHeight: 480, display: "flex", alignItems: "flex-start" }}
+    >
+      <PopoverWithTrigger {...args}>
+        <Box sx={{ padding: "12px 16px" }}>
+          <Typography variant="body2">
+            Custom content rendered as children.
+          </Typography>
+        </Box>
+      </PopoverWithTrigger>
+    </Box>
   ),
 };

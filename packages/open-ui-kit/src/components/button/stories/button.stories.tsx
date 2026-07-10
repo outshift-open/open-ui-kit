@@ -15,7 +15,7 @@ const defaultArgs = {
   variant: "primary",
 } satisfies ButtonProps;
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
@@ -86,7 +86,7 @@ const meta: Meta<ButtonProps> = {
 
 export default meta;
 
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<typeof Button>;
 
 const buttonStateSx =
   (
@@ -286,6 +286,32 @@ export const Sizes: Story = {
           {size}
         </RenderButton>
       ))}
+    </Stack>
+  ),
+};
+
+const wrappingLabel = (size: (typeof sizes)[number]) =>
+  `Button size: ${size}. A long button label that wraps onto multiple lines when width is constrained`;
+
+export const WrappingLabelHeight: Story = {
+  name: "Wrapping label height",
+  render: (args) => (
+    <Stack spacing={3} sx={{ maxWidth: "360px" }}>
+      <Stack
+        spacing={2}
+        sx={{
+          maxWidth: "140px",
+          outline: "1px dashed",
+          outlineColor: "divider",
+          p: 1,
+        }}
+      >
+        {sizes.map((size) => (
+          <RenderButton key={size} {...defaultArgs} {...args} size={size}>
+            {wrappingLabel(size)}
+          </RenderButton>
+        ))}
+      </Stack>
     </Stack>
   ),
 };

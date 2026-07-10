@@ -10,6 +10,7 @@ import {
   largeTooltipStyles,
   mediumTooltipStyles,
   tooltipArrowStyles,
+  tooltipPopperSx,
 } from "../styles";
 import { TooltipSize, type TooltipProps } from "../types";
 
@@ -22,13 +23,7 @@ const tooltipPopper = {
       },
     },
   ],
-  sx: {
-    '&[data-popper-placement*="left"] .MuiTooltip-arrow, &[data-popper-placement*="right"] .MuiTooltip-arrow':
-      {
-        height: "10px",
-        width: "6px",
-      },
-  },
+  sx: tooltipPopperSx,
 };
 
 export const tooltipSlotProps = {

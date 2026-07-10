@@ -6,12 +6,12 @@
 
 import type { ButtonProps as MuiButtonProps } from "@mui/material";
 
-export interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends Omit<MuiButtonProps, "ref"> {
   /** Button label, icon, or composed content rendered inside the control. */
   children?: MuiButtonProps["children"];
   /** Visual style for the action: primary, secondary, outlined, or tertariary. */
   variant?: MuiButtonProps["variant"];
-  /** Button scale. Large is 40px tall, medium is 32px, and small is 24px. */
+  /** Button scale. Large min height is 40px, medium is 32px, and small is 24px. Width grows with label text until constrained, then height grows. */
   size?: MuiButtonProps["size"];
   /** Use `negative` for irreversible or destructive actions. */
   color?: MuiButtonProps["color"];

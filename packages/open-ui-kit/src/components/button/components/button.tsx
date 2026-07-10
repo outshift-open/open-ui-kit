@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Children, isValidElement } from "react";
+import { Children, forwardRef, isValidElement } from "react";
 import type { ButtonProps } from "../types";
 import { StyledButton } from "./elements";
 
@@ -46,33 +46,34 @@ const isIconOnlyChild = (children: ButtonProps["children"]) => {
 };
 
 /** Open UI Kit button wrapper with tokenized variants, sizes, icon spacing, and states. */
-export const Button = ({
-  children,
-  className,
-  disableRipple = true,
-  endIcon,
-  startIcon,
-  ...props
-}: ButtonProps) => {
-  const hasIcon = Boolean(startIcon || endIcon);
-  const isIconOnly = !hasIcon && isIconOnlyChild(children);
-  const buttonClassName = [
-    className,
-    hasIcon ? "OuiButton-hasIcon" : null,
-    isIconOnly ? "OuiButton-iconOnly" : null,
-  ]
-    .filter(Boolean)
-    .join(" ");
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    { children, className, disableRipple = true, endIcon, startIcon, ...props },
+    ref,
+  ) => {
+    const hasIcon = Boolean(startIcon || endIcon);
+    const isIconOnly = !hasIcon && isIconOnlyChild(children);
+    const buttonClassName = [
+      className,
+      hasIcon ? "OuiButton-hasIcon" : null,
+      isIconOnly ? "OuiButton-iconOnly" : null,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  return (
-    <StyledButton
-      className={buttonClassName || undefined}
-      disableRipple={disableRipple}
-      endIcon={endIcon}
-      startIcon={startIcon}
-      {...props}
-    >
-      {children}
-    </StyledButton>
-  );
-};
+    return (
+      <StyledButton
+        ref={ref}
+        className={buttonClassName || undefined}
+        disableRipple={disableRipple}
+        endIcon={endIcon}
+        startIcon={startIcon}
+        {...props}
+      >
+        {children}
+      </StyledButton>
+    );
+  },
+);
+
+Button.displayName = "Button";

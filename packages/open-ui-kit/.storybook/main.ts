@@ -5,8 +5,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 import type { PropItem } from "react-docgen-typescript";
 import type { UserConfig } from "vite";
 import { readFileSync, existsSync } from "node:fs";
-import { join, dirname, resolve } from "node:path";
-import TSConfigPaths from "vite-tsconfig-paths";
+import { dirname, join, resolve } from "node:path";
 import VitePluginImp from "vite-plugin-imp";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,8 +13,9 @@ const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 
 /**
- * Storybook + Vite: `paths` only map `@/*` and `storybook/components/*` (see root tsconfig.json).
- * Other `storybook/...` imports resolve via the `storybook` package (`moduleResolution: "bundler"` + `exports`).
+ * Storybook + Vite: `@/*` maps to `src/*` (tsconfig + alias). Local `.storybook` files use the
+ * `storybook/components/*` alias below; other `storybook/...` imports (test, actions, theming)
+ * resolve via the `storybook` npm package exports.
  */
 const storybookTsconfigPath = fileURLToPath(
   new URL("../tsconfig.storybook.json", import.meta.url),
@@ -98,9 +98,6 @@ const config: StorybookConfig = {
     config.base = "./";
     config.plugins = [
       ...(config.plugins || []),
-      TSConfigPaths({
-        projects: [storybookTsconfigPath],
-      }),
       VitePluginImp({
         libList: [
           {
@@ -112,8 +109,11 @@ const config: StorybookConfig = {
     ];
     config.resolve = {
       ...config.resolve,
+      tsconfigPaths: true,
       alias: {
         ...config.resolve?.alias,
+        // Must precede npm `storybook` package resolution (Rolldown uses exports strictly in build).
+        "storybook/components": resolve(__dirname, "components"),
         "@": resolve(__dirname, "../src"),
       },
     };

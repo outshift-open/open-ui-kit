@@ -24,10 +24,18 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Popover } from "../components/popover";
 import {
+  PopoverPlacement,
+  PopoverEdgeAlignment,
+  PopoverPlacementSide,
+} from "../types";
+import {
   getArrowStyles,
+  getPaperArrowOffset,
   getPopoverContentStyles,
   getPopoverPaperStyles,
+  popoverActionsStyles,
   popoverBodyStyles,
+  popoverSurfaceStyles,
   popoverTextStyles,
   popoverTitleStyles,
 } from "../styles";
@@ -97,8 +105,8 @@ describe("Popover", () => {
   });
 
   describe("arrow", () => {
-    it("renders arrow element when arrowPosition is set", () => {
-      renderPopover({ arrowPosition: "bottom-center", title: "Test" });
+    it("renders arrow element when placement is set", () => {
+      renderPopover({ placement: PopoverPlacement.Bottom, title: "Test" });
       expect(
         document.querySelector("[data-slot='popover-arrow']"),
       ).toBeInTheDocument();
@@ -111,8 +119,110 @@ describe("Popover", () => {
       ).not.toBeInTheDocument();
     });
 
-    it("renders arrow for top-center position", () => {
-      renderPopover({ arrowPosition: "top-center", title: "Test" });
+    it("renders arrow for top placement", () => {
+      renderPopover({ placement: PopoverPlacement.Top, title: "Test" });
+      expect(
+        document.querySelector("[data-slot='popover-arrow']"),
+      ).toBeInTheDocument();
+    });
+
+    it("positions bottom-side popovers with arrows on the top edge", () => {
+      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+
+      expect(getArrowStyles(PopoverPlacement.BottomStart, bg)).toMatchObject({
+        top: "-8px",
+        left: "12px",
+      });
+      expect(getArrowStyles(PopoverPlacement.Bottom, bg)).toMatchObject({
+        top: "-8px",
+        left: "calc(50% - 8px)",
+      });
+      expect(getArrowStyles(PopoverPlacement.BottomEnd, bg)).toMatchObject({
+        top: "-8px",
+        right: "12px",
+      });
+    });
+
+    it("positions top-side popovers with arrows on the bottom edge", () => {
+      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+
+      expect(getArrowStyles(PopoverPlacement.TopStart, bg)).toMatchObject({
+        bottom: "-8px",
+        left: "12px",
+      });
+      expect(getArrowStyles(PopoverPlacement.Top, bg)).toMatchObject({
+        bottom: "-8px",
+        left: "calc(50% - 8px)",
+      });
+      expect(getArrowStyles(PopoverPlacement.TopEnd, bg)).toMatchObject({
+        bottom: "-8px",
+        right: "12px",
+      });
+    });
+
+    it("offsets the paper to leave room for the protruding arrow", () => {
+      expect(
+        getPaperArrowOffset(
+          PopoverPlacement.Top,
+          { vertical: PopoverPlacementSide.Top },
+          { vertical: PopoverPlacementSide.Bottom },
+        ),
+      ).toEqual({ marginTop: "-8px" });
+      expect(
+        getPaperArrowOffset(
+          PopoverPlacement.Bottom,
+          { vertical: PopoverPlacementSide.Bottom },
+          { vertical: PopoverPlacementSide.Top },
+        ),
+      ).toEqual({ marginTop: "8px" });
+      expect(
+        getPaperArrowOffset(
+          PopoverPlacement.Left,
+          {
+            vertical: PopoverEdgeAlignment.Center,
+            horizontal: PopoverPlacementSide.Left,
+          },
+          {
+            vertical: PopoverEdgeAlignment.Center,
+            horizontal: PopoverPlacementSide.Right,
+          },
+        ),
+      ).toEqual({ marginLeft: "-8px" });
+      expect(
+        getPaperArrowOffset(
+          PopoverPlacement.Right,
+          {
+            vertical: PopoverEdgeAlignment.Center,
+            horizontal: PopoverPlacementSide.Right,
+          },
+          {
+            vertical: PopoverEdgeAlignment.Center,
+            horizontal: PopoverPlacementSide.Left,
+          },
+        ),
+      ).toEqual({ marginLeft: "8px" });
+      expect(getPaperArrowOffset(undefined)).toEqual({});
+    });
+
+    it("positions left and right arrows outside the side edges", () => {
+      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+
+      expect(getArrowStyles(PopoverPlacement.Left, bg)).toMatchObject({
+        right: "-8px",
+        top: "calc(50% - 8px)",
+        width: "8px",
+        height: "16px",
+      });
+      expect(getArrowStyles(PopoverPlacement.RightEnd, bg)).toMatchObject({
+        left: "-8px",
+        bottom: "12px",
+        width: "8px",
+        height: "16px",
+      });
+    });
+
+    it("renders arrow for left placement", () => {
+      renderPopover({ placement: PopoverPlacement.Left, title: "Test" });
       expect(
         document.querySelector("[data-slot='popover-arrow']"),
       ).toBeInTheDocument();
@@ -148,13 +258,23 @@ describe("Popover", () => {
     it("uses light mode design tokens", () => {
       expect(getPopoverPaperStyles(lightTheme)).toMatchObject({
         width: "228px",
+        minWidth: "228px",
+        maxWidth: "228px",
         background: lightTheme.palette.vars.controlBackgroundDefault,
         borderRadius: "6px",
         boxShadow: "none",
         overflow: "visible",
+        overflowX: "visible",
+        overflowY: "visible",
+      });
+      expect(popoverSurfaceStyles).toMatchObject({
+        position: "relative",
+        width: "100%",
       });
       expect(getPopoverPaperStyles(lightTheme, "large")).toMatchObject({
         width: "360px",
+        minWidth: "360px",
+        maxWidth: "360px",
       });
       expect(getPopoverContentStyles(lightTheme)).toMatchObject({
         background: lightTheme.palette.vars.controlBackgroundDefault,
@@ -163,6 +283,12 @@ describe("Popover", () => {
         gap: "16px",
         padding: "12px 16px",
       });
+      expect(getPopoverContentStyles(lightTheme, false, "large")).toMatchObject(
+        {
+          gap: "20px",
+          padding: "16px 20px",
+        },
+      );
       expect(getPopoverContentStyles(lightTheme, true)).toMatchObject({
         border: `2px solid ${lightTheme.palette.vars.controlBorderActive}`,
       });
@@ -182,9 +308,17 @@ describe("Popover", () => {
       expect(popoverTextStyles).toMatchObject({
         gap: "4px",
       });
+      expect(popoverActionsStyles).toMatchObject({
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
+        "& .MuiButton-root": {
+          flexShrink: 0,
+          whiteSpace: "nowrap",
+        },
+      });
       expect(
         getArrowStyles(
-          "bottom-center",
+          PopoverPlacement.Bottom,
           lightTheme.palette.vars.controlBorderActive,
         ),
       ).toMatchObject({

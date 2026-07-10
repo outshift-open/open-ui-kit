@@ -178,7 +178,6 @@ export default [
         tsconfig: "./tsconfig.json",
         exclude: ["**/*.stories.tsx", "**/__tests__/**", "**/*.test.tsx"],
         compilerOptions: {
-          ignoreDeprecations: "6.0",
           rootDir: "src",
         },
       }),

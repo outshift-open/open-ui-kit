@@ -23,10 +23,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2017",
-    "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "storybook/*": ["./.storybook/*"]
     },
     "allowJs": true

@@ -10,7 +10,7 @@ import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Button } from "@/components/button";
 import { Tooltip } from "../components/tooltip";
-import { TooltipSize } from "../types";
+import { TooltipSize, type TooltipProps } from "../types";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -34,6 +34,18 @@ const meta: Meta<typeof Tooltip> = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
+/** Narrow anchor so start/center/end placements are visually distinct from the tooltip. */
+const ANCHOR_WIDTH = 48;
+const DEMO_TOOLTIP_TITLE = "Tooltip text";
+
+const placementGroups = [
+  ["top-start", "top", "top-end"],
+  ["bottom-start", "bottom", "bottom-end"],
+] as const;
+
+/** Right anchor on the left; left anchor on the right — room for both sides. */
+const horizontalPlacements = ["right", "left"] as const;
+
 const TriggerChip = forwardRef<
   HTMLSpanElement,
   { label: string } & HTMLAttributes<HTMLSpanElement>
@@ -45,16 +57,22 @@ const TriggerChip = forwardRef<
     sx={(theme) => ({
       display: "inline-flex",
       alignItems: "center",
-      padding: "2px 8px",
+      justifyContent: "center",
+      width: ANCHOR_WIDTH,
+      padding: "2px 0",
       borderRadius: "4px",
       backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
       cursor: "default",
+      boxSizing: "border-box",
     })}
   >
     <Typography
       variant="caption"
+      noWrap
       sx={(theme) => ({
         color: theme.palette.vars.interactivePrimaryDefaultDefault,
+        maxWidth: "100%",
+        textAlign: "center",
       })}
     >
       {label}
@@ -64,67 +82,71 @@ const TriggerChip = forwardRef<
 
 TriggerChip.displayName = "TriggerChip";
 
+const PlacementDemo = ({
+  placement,
+  size,
+}: {
+  placement: NonNullable<TooltipProps["placement"]>;
+  size: TooltipSize;
+}) => (
+  <Stack spacing={1} alignItems="center">
+    <Tooltip
+      title={DEMO_TOOLTIP_TITLE}
+      placement={placement}
+      size={size}
+      arrow
+      open
+    >
+      <TriggerChip label={placement} />
+    </Tooltip>
+    <Typography variant="caption" color="text.secondary">
+      {placement}
+    </Typography>
+  </Stack>
+);
+
+const PlacementShowcase = ({
+  size = TooltipSize.Medium,
+}: {
+  size?: TooltipSize;
+}) => (
+  <Stack spacing={6} sx={{ p: 8 }}>
+    {placementGroups.map((group) => (
+      <Stack
+        key={group.join("-")}
+        direction="row"
+        spacing={8}
+        alignItems="center"
+        justifyContent="flex-start"
+      >
+        {group.map((placement) => (
+          <PlacementDemo key={placement} placement={placement} size={size} />
+        ))}
+      </Stack>
+    ))}
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ width: "100%", maxWidth: 360 }}
+    >
+      {horizontalPlacements.map((placement) => (
+        <PlacementDemo key={placement} placement={placement} size={size} />
+      ))}
+    </Stack>
+  </Stack>
+);
+
 /* ─── Size Medium — all positions ─── */
 export const SizeMedium: Story = {
   name: "Size M",
-  render: () => (
-    <Stack spacing={3} alignItems="flex-start" sx={{ p: 8 }}>
-      {(
-        [
-          "top-start",
-          "top",
-          "top-end",
-          "bottom-start",
-          "bottom",
-          "bottom-end",
-          "left",
-          "right",
-        ] as const
-      ).map((placement) => (
-        <Tooltip
-          key={placement}
-          title={placement}
-          placement={placement}
-          arrow
-          open
-        >
-          <TriggerChip label={placement} />
-        </Tooltip>
-      ))}
-    </Stack>
-  ),
+  render: () => <PlacementShowcase />,
 };
 
 /* ─── Size Large — all positions ─── */
 export const SizeLarge: Story = {
   name: "Size L",
-  render: () => (
-    <Stack spacing={3} alignItems="flex-start" sx={{ p: 8 }}>
-      {(
-        [
-          "top-start",
-          "top",
-          "top-end",
-          "bottom-start",
-          "bottom",
-          "bottom-end",
-          "left",
-          "right",
-        ] as const
-      ).map((placement) => (
-        <Tooltip
-          key={placement}
-          title={placement}
-          placement={placement}
-          size={TooltipSize.Large}
-          arrow
-          open
-        >
-          <TriggerChip label={placement} />
-        </Tooltip>
-      ))}
-    </Stack>
-  ),
+  render: () => <PlacementShowcase size={TooltipSize.Large} />,
 };
 
 /* ─── Interactive — hover the button to trigger the tooltip ─── */
@@ -172,7 +194,12 @@ export const Interactive: Story = {
         sx={{ p: 8, minHeight: "200px" }}
       >
         <Tooltip {...args}>
-          <Button variant="secondary">Hover me</Button>
+          <Button
+            variant="secondary"
+            sx={{ width: ANCHOR_WIDTH, minWidth: 0, px: 0 }}
+          >
+            Btn
+          </Button>
         </Tooltip>
       </Stack>
     );

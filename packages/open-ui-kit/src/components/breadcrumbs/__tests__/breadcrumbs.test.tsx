@@ -192,10 +192,13 @@ describe("Breadcrumbs", () => {
       expect(window.getComputedStyle(paper).backgroundColor).toBe(
         "rgb(245, 248, 253)",
       );
-      expect(window.getComputedStyle(paper).borderTopColor).toBe("#0051af");
+      expect(window.getComputedStyle(paper).borderTopColor).toBe(
+        "rgb(0, 81, 175)",
+      );
       expect(window.getComputedStyle(itemLink).minHeight).toBe("40px");
       expect(window.getComputedStyle(itemLink).padding).toBe("8px 16px");
-      expect(window.getComputedStyle(itemLink).color).toBe("rgb(60, 69, 81)");
+      expect(window.getComputedStyle(itemLink).color).toBe("inherit");
+      expect(window.getComputedStyle(item).color).toBe("rgb(60, 69, 81)");
     });
   });
 
@@ -246,7 +249,9 @@ describe("Breadcrumbs", () => {
       expect(window.getComputedStyle(paper).backgroundColor).toBe(
         "rgb(13, 39, 77)",
       );
-      expect(window.getComputedStyle(paper).borderTopColor).toBe("#12c1ff");
+      expect(window.getComputedStyle(paper).borderTopColor).toBe(
+        "rgb(18, 193, 255)",
+      );
       expect(window.getComputedStyle(item).color).toBe("rgb(232, 233, 234)");
     });
   });

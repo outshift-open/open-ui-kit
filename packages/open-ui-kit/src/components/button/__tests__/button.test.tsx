@@ -34,6 +34,14 @@ describe("Button", () => {
       renderButton({ children: "Click me" });
       expect(screen.getByRole("button")).toBeInTheDocument();
     });
+
+    it("forwards ref to the underlying button element", () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      renderButton({ children: "Click me", ref });
+      expect(ref.current).toBe(
+        screen.getByRole("button", { name: "Click me" }),
+      );
+    });
   });
 
   describe("variants", () => {
@@ -126,6 +134,19 @@ describe("Button", () => {
         paddingRight: "16px",
         paddingTop: "8px",
       });
+    });
+
+    it("grows width with label text and wraps only when constrained", () => {
+      renderButton({ size: "medium", children: "bottom-center" });
+
+      expect(screen.getByRole("button", { name: "bottom-center" })).toHaveStyle(
+        {
+          width: "max-content",
+          maxWidth: "100%",
+          minHeight: "32px",
+          height: "auto",
+        },
+      );
     });
   });
 

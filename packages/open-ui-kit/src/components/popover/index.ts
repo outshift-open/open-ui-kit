@@ -5,9 +5,10 @@
  */
 
 export { Popover } from "./components/popover";
-export type {
-  PopoverProps,
-  PopoverOrigin,
-  PopoverArrowPosition,
-  PopoverSize,
+export type { PopoverProps, PopoverOrigin, PopoverSize } from "./types";
+export {
+  PopoverPlacement,
+  PopoverPlacementSide,
+  PopoverPlacementAlign,
+  POPOVER_PLACEMENTS,
 } from "./types";
