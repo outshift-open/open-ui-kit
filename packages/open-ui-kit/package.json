@@ -145,7 +145,7 @@
     "prettier": "^3.8.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.0",
     "rollup": "^4.62.2",
     "rollup-plugin-circular-dependencies": "^2.0.1",
