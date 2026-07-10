@@ -30,6 +30,16 @@ import {
 import type { PopoverProps } from "../types";
 import { PopoverHorizontalPlacement, PopoverPlacementSide } from "../types";
 
+export const DEFAULT_POPOVER_ANCHOR_ORIGIN = {
+  vertical: PopoverPlacementSide.Top,
+  horizontal: PopoverHorizontalPlacement.Left,
+} as const;
+
+export const DEFAULT_POPOVER_TRANSFORM_ORIGIN = {
+  vertical: PopoverPlacementSide.Top,
+  horizontal: PopoverHorizontalPlacement.Left,
+} as const;
+
 export type { PopoverProps };
 
 export const Popover = ({
@@ -44,14 +54,8 @@ export const Popover = ({
   paperSx,
   onClose,
   children,
-  anchorOrigin = {
-    vertical: PopoverPlacementSide.Top,
-    horizontal: PopoverHorizontalPlacement.Left,
-  },
-  transformOrigin = {
-    vertical: PopoverPlacementSide.Top,
-    horizontal: PopoverHorizontalPlacement.Left,
-  },
+  anchorOrigin = DEFAULT_POPOVER_ANCHOR_ORIGIN,
+  transformOrigin = DEFAULT_POPOVER_TRANSFORM_ORIGIN,
   open = false,
   disableScrollLock = true,
   ...props

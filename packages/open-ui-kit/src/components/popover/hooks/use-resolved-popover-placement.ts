@@ -54,6 +54,31 @@ const resolvePlacementState = ({
   return { anchorOrigin, transformOrigin, placement };
 };
 
+type ResolvedPlacementState = ReturnType<typeof resolvePlacementState>;
+
+const isSameResolvedState = (
+  current: ResolvedPlacementState,
+  next: ResolvedPlacementState,
+) =>
+  current.placement === next.placement &&
+  current.anchorOrigin.vertical === next.anchorOrigin.vertical &&
+  current.anchorOrigin.horizontal === next.anchorOrigin.horizontal &&
+  current.transformOrigin.vertical === next.transformOrigin.vertical &&
+  current.transformOrigin.horizontal === next.transformOrigin.horizontal;
+
+const getPreferenceOrigins = ({
+  anchorOrigin,
+  transformOrigin,
+  placement,
+}: {
+  anchorOrigin: PopoverOrigin;
+  transformOrigin: PopoverOrigin;
+  placement?: PopoverProps["placement"];
+}) =>
+  placement
+    ? getOriginsForPlacement(placement)
+    : { anchorOrigin, transformOrigin };
+
 export const useResolvedPopoverPlacement = ({
   open,
   anchorEl,
@@ -71,10 +96,15 @@ export const useResolvedPopoverPlacement = ({
   const [resolved, setResolved] = useState(() =>
     resolvePlacementState({ anchorOrigin, transformOrigin, placement }),
   );
+  const updateResolved = (next: ResolvedPlacementState) => {
+    setResolved((current) =>
+      isSameResolvedState(current, next) ? current : next,
+    );
+  };
 
   useLayoutEffect(() => {
     if (!open) {
-      setResolved(
+      updateResolved(
         resolvePlacementState({ anchorOrigin, transformOrigin, placement }),
       );
       return;
@@ -82,6 +112,11 @@ export const useResolvedPopoverPlacement = ({
 
     const anchorRect = resolveAnchorRect(anchorEl);
     if (!anchorRect) return;
+
+    const {
+      anchorOrigin: preferenceAnchorOrigin,
+      transformOrigin: preferenceTransformOrigin,
+    } = getPreferenceOrigins({ anchorOrigin, transformOrigin, placement });
 
     const measure = () => {
       const paper = paperRef.current;
@@ -95,10 +130,13 @@ export const useResolvedPopoverPlacement = ({
           placementSide === PopoverPlacementSide.Bottom
         ) {
           const preferAbove =
-            getVerticalPreference(anchorOrigin, transformOrigin) === "above";
+            getVerticalPreference(
+              preferenceAnchorOrigin,
+              preferenceTransformOrigin,
+            ) === "above";
           const preferHorizontal = getHorizontalPreference(
-            anchorOrigin,
-            transformOrigin,
+            preferenceAnchorOrigin,
+            preferenceTransformOrigin,
           );
           const verticalPlacement = resolveVerticalPlacement({
             preferAbove,
@@ -120,7 +158,7 @@ export const useResolvedPopoverPlacement = ({
             horizontalPlacement,
           );
           const origins = getOriginsForPlacement(nextPlacement);
-          setResolved({
+          updateResolved({
             anchorOrigin: origins.anchorOrigin,
             transformOrigin: origins.transformOrigin,
             placement: nextPlacement,
@@ -150,7 +188,7 @@ export const useResolvedPopoverPlacement = ({
           edgeAlignment,
         );
         const origins = getOriginsForPlacement(nextPlacement);
-        setResolved({
+        updateResolved({
           anchorOrigin: origins.anchorOrigin,
           transformOrigin: origins.transformOrigin,
           placement: nextPlacement,
@@ -159,7 +197,10 @@ export const useResolvedPopoverPlacement = ({
       }
 
       const preferAbove =
-        getVerticalPreference(anchorOrigin, transformOrigin) === "above";
+        getVerticalPreference(
+          preferenceAnchorOrigin,
+          preferenceTransformOrigin,
+        ) === "above";
       const verticalPlacement = resolveVerticalPlacement({
         preferAbove,
         spaceAbove: anchorRect.top,
@@ -169,8 +210,8 @@ export const useResolvedPopoverPlacement = ({
       });
       const horizontalPlacement = resolveHorizontalPlacement({
         preferHorizontal: getHorizontalPreference(
-          anchorOrigin,
-          transformOrigin,
+          preferenceAnchorOrigin,
+          preferenceTransformOrigin,
         ),
         anchorLeft: anchorRect.left,
         anchorRight: anchorRect.right,
@@ -182,7 +223,7 @@ export const useResolvedPopoverPlacement = ({
         verticalPlacement,
         horizontalPlacement,
       );
-      setResolved({
+      updateResolved({
         anchorOrigin: origins.anchorOrigin,
         transformOrigin: origins.transformOrigin,
         placement,

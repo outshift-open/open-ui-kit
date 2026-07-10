@@ -17,12 +17,7 @@ import {
   PopoverPlacementAlign,
   PopoverPlacementSide,
 } from "../";
-import { PopoverHorizontalPlacement } from "../types";
-import {
-  getOriginsForPlacement,
-  getPlacementAlign,
-  getPlacementSide,
-} from "../utils/placement";
+import { getPlacementAlign, getPlacementSide } from "../utils/placement";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const bodyText =
@@ -116,26 +111,12 @@ function PopoverWithTrigger(
   const {
     defaultOpen = false,
     placement,
-    anchorOrigin,
-    transformOrigin,
     triggerLabel = "Open popover",
     layout,
     ...popoverProps
   } = props;
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(defaultOpen);
-  const origins = placement
-    ? getOriginsForPlacement(placement)
-    : {
-        anchorOrigin: anchorOrigin ?? {
-          vertical: PopoverPlacementSide.Top,
-          horizontal: PopoverHorizontalPlacement.Left,
-        },
-        transformOrigin: transformOrigin ?? {
-          vertical: PopoverPlacementSide.Bottom,
-          horizontal: PopoverHorizontalPlacement.Left,
-        },
-      };
 
   return (
     <Box sx={layout?.container ?? { padding: "24px" }}>
@@ -153,7 +134,6 @@ function PopoverWithTrigger(
         anchorEl={anchorEl}
         onClose={() => setOpen(false)}
         placement={placement}
-        {...origins}
         {...popoverProps}
       />
     </Box>
