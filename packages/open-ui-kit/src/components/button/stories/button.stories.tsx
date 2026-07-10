@@ -290,6 +290,32 @@ export const Sizes: Story = {
   ),
 };
 
+const wrappingLabel = (size: (typeof sizes)[number]) =>
+  `Button size: ${size}. A long button label that wraps onto multiple lines when width is constrained`;
+
+export const WrappingLabelHeight: Story = {
+  name: "Wrapping label height",
+  render: (args) => (
+    <Stack spacing={3} sx={{ maxWidth: "360px" }}>
+      <Stack
+        spacing={2}
+        sx={{
+          maxWidth: "140px",
+          outline: "1px dashed",
+          outlineColor: "divider",
+          p: 1,
+        }}
+      >
+        {sizes.map((size) => (
+          <RenderButton key={size} {...defaultArgs} {...args} size={size}>
+            {wrappingLabel(size)}
+          </RenderButton>
+        ))}
+      </Stack>
+    </Stack>
+  ),
+};
+
 export const WithIcons: Story = {
   args: {
     ...defaultArgs,
