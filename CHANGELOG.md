@@ -1,3 +1,26 @@
+# [2.2.0](https://github.com/outshift-open/open-ui-kit/compare/v2.1.0...v2.2.0) (2026-07-13)
+
+
+### Bug Fixes
+
+* **button:** forward ref to the underlying button element ([48ea7aa](https://github.com/outshift-open/open-ui-kit/commit/48ea7aac7ab4bb9b31d3f8450adde6943e429600))
+* **button:** let label text drive width and wrapping height ([3f13d21](https://github.com/outshift-open/open-ui-kit/commit/3f13d21bf021a1f64a0ab0b6dfce65015838c37a))
+* **ci:** restore dependency update checks ([6e4f321](https://github.com/outshift-open/open-ui-kit/commit/6e4f321058cf7ef316f1c7780d9c0ccd1ca5a66e))
+* **ci:** use Node 22 for semantic-release v25 ([b567cd3](https://github.com/outshift-open/open-ui-kit/commit/b567cd394676b93dd14c032cf1940fcc910a6a6f))
+* **deps:** keep combined updates compatible ([dd19ad1](https://github.com/outshift-open/open-ui-kit/commit/dd19ad13699365c22e39398e3dbc813617cc54ea))
+* **popover:** wire placement resolution, arrow offsets, and large sizing ([3fb17ec](https://github.com/outshift-open/open-ui-kit/commit/3fb17ec6cbac1e29d3085b14ad782382ef425a3b))
+* **popover:** wire placement resolution, arrow offsets, and large sizing ([b06c6d7](https://github.com/outshift-open/open-ui-kit/commit/b06c6d7189db79a98aa24c409425a8186c59f45e))
+* **storybook:** use native tsconfig paths and resolve local storybook imports ([09832db](https://github.com/outshift-open/open-ui-kit/commit/09832db7a8067a22b068862e346c284d95da7dfb))
+* **test:** normalize computed css color assertions ([5587078](https://github.com/outshift-open/open-ui-kit/commit/5587078704a8c69ca94e71d3aed02c7d5901a4c6))
+* tooltip story to make the proper position visible ([0b7bf9c](https://github.com/outshift-open/open-ui-kit/commit/0b7bf9c63dad7fee5607aa2abdcea12d373349ce))
+* **tooltip:** align arrow sizing and placement across all sides ([4375a7e](https://github.com/outshift-open/open-ui-kit/commit/4375a7eec0eb630bd419f0b950f6795f4c0b39ea))
+* **types:** button and popover stories, and button props ([7c30923](https://github.com/outshift-open/open-ui-kit/commit/7c30923c16b85ba7b062d45358b1c0821663830e))
+
+
+### Features
+
+* **popover:** add Tooltip-style placement with viewport-aware flip logic ([ffa9848](https://github.com/outshift-open/open-ui-kit/commit/ffa98485458ddfb6eb01f1c2e02b05c1e9a56c98))
+
 # [2.1.0](https://github.com/outshift-open/open-ui-kit/compare/v2.0.4...v2.1.0) (2026-06-16)
 
 
