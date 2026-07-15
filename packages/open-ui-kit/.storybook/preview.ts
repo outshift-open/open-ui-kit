@@ -233,7 +233,7 @@ export const globalTypes = {
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      disable: true,
+      disabled: true,
     },
     themes: {
       disable: true,
