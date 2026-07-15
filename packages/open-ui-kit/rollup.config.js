@@ -124,7 +124,6 @@ export default [
           "@emotion/react": "react",
           "@emotion/styled": "styled",
           "use-debounce": "useDebounce",
-          "react-code-blocks": "reactCodeBlocks",
           "@mui/icons-material/ContentCopy": "ContentCopyIcon",
           "@mui/icons-material/DoneRounded": "DoneRoundedIcon",
           "copy-to-clipboard": "copy",

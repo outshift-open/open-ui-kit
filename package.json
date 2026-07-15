@@ -111,6 +111,7 @@
     "picomatch@npm:^4.0.3": "4.0.4",
     "postcss": "8.5.15",
     "prismjs": "1.30.0",
+    "refractor@npm:^3.6.0>prismjs": "1.30.0",
     "rollup@npm:^4.20.0": "4.61.1",
     "rollup@npm:^4.34.9": "4.61.1",
     "semver": "7.7.4",
