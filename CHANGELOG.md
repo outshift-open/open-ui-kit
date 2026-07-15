@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/outshift-open/open-ui-kit/compare/v2.2.0...v2.2.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **deps:** remove react-code-blocks and pin prismjs to 1.30.0 ([8469c24](https://github.com/outshift-open/open-ui-kit/commit/8469c24287bb7ad1c22fc19b9d54dae8ea40b2f1))
+* **storybook:** align IDE tsconfig rootDir with src imports ([ec44d06](https://github.com/outshift-open/open-ui-kit/commit/ec44d06e2bdced7783194378f7ddc42f6182f378))
+* **storybook:** strip auto-injected mocker plugin until upstream fix ([0f28cdb](https://github.com/outshift-open/open-ui-kit/commit/0f28cdb1cd5c64c27cbdaa891e0b7f54b97e8cce))
+
 # [2.2.0](https://github.com/outshift-open/open-ui-kit/compare/v2.1.0...v2.2.0) (2026-07-13)
 
 
