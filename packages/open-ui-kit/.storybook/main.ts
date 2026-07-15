@@ -96,8 +96,21 @@ const config: StorybookConfig = {
 
   viteFinal: async (config: UserConfig) => {
     config.base = "./";
+    // Workaround: @storybook/builder-vite auto-injects `vite:storybook-inject-mocker-runtime`
+    // whenever `.storybook/preview.ts` exists (for `sb.mock()`), but that plugin serves
+    // `/vite-inject-mocker-entry.js` unreliably in dev with Vite 8 and `base: "./"` (404).
+    // OUK does not use `sb.mock()`; Vitest story tests use vitest.config.ts instead.
+    // Remove this filter once Storybook fixes upstream (e.g. storybookjs/storybook#34320).
     config.plugins = [
-      ...(config.plugins || []),
+      ...(config.plugins || []).filter(
+        (plugin) =>
+          !(
+            plugin &&
+            typeof plugin === "object" &&
+            "name" in plugin &&
+            plugin.name === "vite:storybook-inject-mocker-runtime"
+          ),
+      ),
       VitePluginImp({
         libList: [
           {

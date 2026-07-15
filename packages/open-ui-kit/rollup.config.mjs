@@ -130,7 +130,6 @@ export default [
           "@emotion/react": "react",
           "@emotion/styled": "styled",
           "use-debounce": "useDebounce",
-          "react-code-blocks": "reactCodeBlocks",
           "@mui/icons-material/FileUpload": "FileUploadIcon",
           "@mui/icons-material/AttachFile": "AttachFileIcon",
           "@mui/icons-material/ErrorOutline": "ErrorOutlineIcon",
