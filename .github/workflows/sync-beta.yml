@@ -1,0 +1,44 @@
+name: Sync Beta
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Release
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-beta
+  cancel-in-progress: false
+
+jobs:
+  sync-beta:
+    name: Sync beta from main
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+      - name: Fast-forward beta
+        run: |
+          git fetch origin beta
+
+          if ! git merge-base --is-ancestor origin/beta origin/main; then
+            echo "beta has commits that are not in main; refusing to overwrite it."
+            exit 1
+          fi
+
+          git push origin origin/main:beta
