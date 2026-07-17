@@ -1,3 +1,11 @@
+## [2.2.2](https://github.com/outshift-open/open-ui-kit/compare/v2.2.1...v2.2.2) (2026-07-17)
+
+
+### Bug Fixes
+
+* **release:** trigger npm trusted publishing release ([f6a02e6](https://github.com/outshift-open/open-ui-kit/commit/f6a02e6b0bbe0b9d8716aa0010e9e1a2d28f4ce1))
+* **release:** use npm trusted publishing ([bb27262](https://github.com/outshift-open/open-ui-kit/commit/bb27262a024203b71f9505c46a46ac374dc4166a))
+
 ## [2.2.1](https://github.com/outshift-open/open-ui-kit/compare/v2.2.0...v2.2.1) (2026-07-15)
 
 
