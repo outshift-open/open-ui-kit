@@ -53,7 +53,7 @@ const defaultPackageNames: Record<string, string | undefined> = {
   system: "@mui/system",
 };
 
-const STORYBOOK_URL = "https://main--68cc22452afe30d90e4ca977.chromatic.com";
+const STORYBOOK_URL = "/storybook";
 
 export interface ComponentLinkHeaderProps {
   design?: boolean;

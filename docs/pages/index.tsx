@@ -148,10 +148,7 @@ export default function HomePage() {
             {[
               ["Docs", "/open-ui-kit-core/"],
               ["Components", "/open-ui-kit-core/all-components/"],
-              [
-                "Storybook",
-                "https://main--68cc22452afe30d90e4ca977.chromatic.com",
-              ],
+              ["Storybook", "/storybook"],
             ].map(([label, href]) => {
               const isExternal = href.startsWith("http");
 

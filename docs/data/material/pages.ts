@@ -66,7 +66,7 @@ const pages: MuiPage[] = [
     ],
   },
   {
-    pathname: "https://main--68cc22452afe30d90e4ca977.chromatic.com",
+    pathname: "/storybook",
     title: "Storybook",
     icon: standardNavIcons.WebIcon,
     linkProps: {
