@@ -6,6 +6,10 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import { styled } from "@mui/material/styles";
 import { type MarkdownHeaders } from "@mui/internal-markdown";
+import {
+  getOpenUIKitComponentByRouteSlug,
+  getOpenUIKitStorybookUrl,
+} from "docs/src/open-ui-kit-component-registry";
 import { W3CIcon, MarkdownIcon, StorybookIcon } from "../svgIcons";
 import { useTranslate } from "../i18n";
 
@@ -53,7 +57,25 @@ const defaultPackageNames: Record<string, string | undefined> = {
   system: "@mui/system",
 };
 
-const STORYBOOK_URL = "/storybook";
+const STORYBOOK_URL = "/storybook/";
+
+function getStorybookUrlFromRoute(asPath: string) {
+  const routeSlug = asPath
+    .split("?")[0]
+    .split("#")[0]
+    .replace(/\/$/, "")
+    .split("/")
+    .pop()
+    ?.replace(/^react-/, "");
+
+  if (!routeSlug) {
+    return STORYBOOK_URL;
+  }
+
+  const component = getOpenUIKitComponentByRouteSlug(routeSlug);
+
+  return component ? getOpenUIKitStorybookUrl(component) : STORYBOOK_URL;
+}
 
 export interface ComponentLinkHeaderProps {
   design?: boolean;
@@ -69,6 +91,7 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
   } = props;
   const t = useTranslate();
   const router = useRouter();
+  const storybookHref = getStorybookUrlFromRoute(router.asPath);
 
   const packageName =
     headers.packageName ??
@@ -105,7 +128,7 @@ export function ComponentLinkHeader(props: ComponentLinkHeaderProps) {
           variant="outlined"
           target="_blank"
           rel="noopener noreferrer"
-          href={STORYBOOK_URL}
+          href={storybookHref}
           icon={<StorybookIcon />}
           label="Storybook"
         />

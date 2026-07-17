@@ -148,7 +148,7 @@ export default function HomePage() {
             {[
               ["Docs", "/open-ui-kit-core/"],
               ["Components", "/open-ui-kit-core/all-components/"],
-              ["Storybook", "/storybook"],
+              ["Storybook", "/storybook/"],
             ].map(([label, href]) => {
               const isExternal = href.startsWith("http");
 

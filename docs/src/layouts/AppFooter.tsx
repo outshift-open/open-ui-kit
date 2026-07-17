@@ -17,7 +17,7 @@ const footerGroups = [
       { label: "Components", href: "/open-ui-kit-core/all-components/" },
       {
         label: "Storybook",
-        href: "/storybook",
+        href: "/storybook/",
       },
     ],
   },
@@ -47,7 +47,7 @@ const footerGroups = [
       { label: "Text Field", href: "/open-ui-kit-core/react-text-field/" },
       {
         label: "Storybook",
-        href: "/storybook",
+        href: "/storybook/",
       },
     ],
   },
