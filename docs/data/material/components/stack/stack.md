@@ -88,5 +88,5 @@ Use the exported TypeScript props for implementation details and keep local over
 
 ## Resources
 
-- [Storybook home](/storybook)
+- [Storybook home](/storybook/)
 - [Source](https://github.com/outshift-open/open-ui-kit/blob/main/packages/open-ui-kit/src/components/index.ts)
