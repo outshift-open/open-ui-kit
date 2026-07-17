@@ -21,7 +21,7 @@ export type OpenUIKitComponentDoc = {
   title: string;
 };
 
-const storybookBaseUrl = "/storybook";
+const storybookBaseUrl = "/storybook/";
 const packageSourceUrl =
   "https://github.com/outshift-open/open-ui-kit/tree/main/packages/open-ui-kit/src";
 const packageBarrelUrl =
@@ -948,5 +948,5 @@ export function getOpenUIKitStorybookUrl(component: OpenUIKitComponentDoc) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-  return `${storybookBaseUrl}/?path=/docs/${storybookId}--docs`;
+  return `${storybookBaseUrl}?path=/docs/${storybookId}--docs`;
 }

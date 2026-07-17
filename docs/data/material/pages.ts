@@ -66,7 +66,7 @@ const pages: MuiPage[] = [
     ],
   },
   {
-    pathname: "/storybook",
+    pathname: "/storybook/",
     title: "Storybook",
     icon: standardNavIcons.WebIcon,
     linkProps: {
