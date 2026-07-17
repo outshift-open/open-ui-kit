@@ -21,7 +21,7 @@ export type OpenUIKitComponentDoc = {
   title: string;
 };
 
-const storybookBaseUrl = "https://main--68cc22452afe30d90e4ca977.chromatic.com";
+const storybookBaseUrl = "/storybook";
 const packageSourceUrl =
   "https://github.com/outshift-open/open-ui-kit/tree/main/packages/open-ui-kit/src";
 const packageBarrelUrl =

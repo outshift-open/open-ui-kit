@@ -3,7 +3,7 @@
 A React component library and theme system built on Material UI, with Open UI Kit defaults for product interfaces.
 
 [![npm](https://img.shields.io/badge/npm-package-CB3837?logo=npm)](https://www.npmjs.com/package/@open-ui-kit/core)
-[![Storybook](https://img.shields.io/badge/storybook-view%20docs-ff69b4)](https://main--68cc22452afe30d90e4ca977.chromatic.com)
+[![Storybook](https://img.shields.io/badge/storybook-view%20docs-ff69b4)](https://open-ui-kit.outshift.ai/storybook/)
 [![License](https://img.shields.io/github/license/outshift-open/open-ui-kit)](../../LICENSE)
 
 ## What you get
@@ -123,7 +123,7 @@ yarn workspace @open-ui-kit/core storybook:build
 
 ## Documentation
 
-- Storybook: https://main--68cc22452afe30d90e4ca977.chromatic.com
+- Storybook: https://open-ui-kit.outshift.ai/storybook/
 - Installation guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/installation/installation.md
 - Usage guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/usage/usage.md
 - Theming guide: https://github.com/outshift-open/open-ui-kit/blob/main/docs/data/material/getting-started/theming/theming.md

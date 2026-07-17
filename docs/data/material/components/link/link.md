@@ -96,5 +96,5 @@ Use the exported TypeScript props for implementation details and keep local over
 
 ## Resources
 
-- [Storybook](https://main--68cc22452afe30d90e4ca977.chromatic.com/?path=/docs/components-link--docs)
+- [Storybook](/storybook/?path=/docs/components-link--docs)
 - [Source](https://github.com/outshift-open/open-ui-kit/tree/main/packages/open-ui-kit/src/components/link)
