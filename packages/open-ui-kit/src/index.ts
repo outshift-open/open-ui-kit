@@ -17,6 +17,7 @@ export { gradientsPalette } from "./theme/style/gradients";
 export { lightVars } from "./theme/light/light-vars";
 export { darkVars } from "./theme/dark/dark-vars";
 export { iocVars } from "./theme/ioc/ioc-vars";
+export { midnightVars } from "./theme/midnight/midnight-vars";
 export type { VarsType } from "./types/vars";
 export {
   ThemeMode,
