@@ -113,7 +113,7 @@ describe("Message", () => {
         getMessageRootStyles(lightTheme, "success", false, false),
       ).toMatchObject({
         width: "320px",
-        height: "48px",
+        height: "auto",
         padding: "12px 16px",
         gap: "12px",
         background: lightTheme.palette.vars.baseBackgroundWeak,
@@ -125,30 +125,26 @@ describe("Message", () => {
         getMessageRootStyles(lightTheme, "success", false, true),
       ).toMatchObject({
         width: "480px",
-        height: "64px",
+        height: "auto",
       });
       expect(getMessageRootStyles(lightTheme, "warning", true, false)).toEqual(
-        expect.objectContaining({ width: "317px", height: "92px" }),
+        expect.objectContaining({ width: "320px", height: "auto" }),
       );
       expect(getMessageRootStyles(lightTheme, "info", true, false)).toEqual(
-        expect.objectContaining({ width: "339px", height: "92px" }),
+        expect.objectContaining({ width: "320px", height: "auto" }),
       );
-      expect(getMessageContentStyles("success", true, false)).toMatchObject({
-        width: "251px",
+      expect(getMessageContentStyles(true, false)).toMatchObject({
+        flex: "1 1 auto",
+        minWidth: 0,
+        width: "stretch",
         gap: "4px",
       });
-      expect(getMessageContentStyles("warning", true, false)).toMatchObject({
-        width: "249px",
-      });
-      expect(getMessageContentStyles("info", true, false)).toMatchObject({
-        width: "271px",
-      });
-      expect(getMessageContentStyles("success", false, true)).toMatchObject({
+      expect(getMessageContentStyles(false, true)).toMatchObject({
         gap: "16px",
         paddingRight: "8px",
       });
-      expect(getMessageTitleRowStyles("info")).toMatchObject({
-        width: "271px",
+      expect(getMessageTitleRowStyles()).toMatchObject({
+        width: "stretch",
         height: "24px",
         gap: "4px",
       });
@@ -210,8 +206,8 @@ describe("Message", () => {
       expect(
         getMessageRootStyles(darkTheme, "info", true, false),
       ).toMatchObject({
-        width: "339px",
-        height: "92px",
+        width: "320px",
+        height: "auto",
         background: darkTheme.palette.vars.baseBackgroundWeak,
         color: darkTheme.palette.vars.baseTextDefault,
       });
@@ -219,7 +215,7 @@ describe("Message", () => {
         getMessageRootStyles(darkTheme, "success", false, true),
       ).toMatchObject({
         width: "480px",
-        height: "64px",
+        height: "auto",
         background: darkTheme.palette.vars.baseBackgroundWeak,
       });
       expect(getMessageActionStyles(darkTheme)).toMatchObject({

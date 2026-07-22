@@ -67,11 +67,7 @@ export const Message = ({
       {...props}
     >
       <MessageIcon type={type} />
-      <StyledMessageContent
-        messageType={type}
-        hasTitle={hasTitle}
-        hasAction={hasAction}
-      >
+      <StyledMessageContent hasTitle={hasTitle} hasAction={hasAction}>
         {title ? (
           <StyledMessageTitleRow messageType={type}>
             <StyledMessageTitle>{title}</StyledMessageTitle>

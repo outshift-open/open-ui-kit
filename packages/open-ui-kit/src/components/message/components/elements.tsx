@@ -31,13 +31,11 @@ export const StyledMessageRoot: React.ComponentType<
 );
 
 export const StyledMessageContent: React.ComponentType<
-  BoxProps & { messageType: MessageType; hasTitle: boolean; hasAction: boolean }
+  BoxProps & { hasTitle: boolean; hasAction: boolean }
 > = styled(Box, {
-  shouldForwardProp: (prop) =>
-    prop !== "messageType" && prop !== "hasTitle" && prop !== "hasAction",
-})<{ messageType: MessageType; hasTitle: boolean; hasAction: boolean }>(
-  ({ messageType, hasTitle, hasAction }) =>
-    getMessageContentStyles(messageType, hasTitle, hasAction),
+  shouldForwardProp: (prop) => prop !== "hasTitle" && prop !== "hasAction",
+})<{ hasTitle: boolean; hasAction: boolean }>(({ hasTitle, hasAction }) =>
+  getMessageContentStyles(hasTitle, hasAction),
 );
 
 export const StyledMessageTitle: React.ComponentType<
@@ -48,9 +46,7 @@ export const StyledMessageTitleRow: React.ComponentType<
   BoxProps & { messageType: MessageType }
 > = styled(Box, {
   shouldForwardProp: (prop) => prop !== "messageType",
-})<{ messageType: MessageType }>(({ messageType }) =>
-  getMessageTitleRowStyles(messageType),
-);
+})<{ messageType: MessageType }>(() => getMessageTitleRowStyles());
 
 export const StyledMessageText: React.ComponentType<
   React.HTMLAttributes<HTMLParagraphElement>

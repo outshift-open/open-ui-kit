@@ -45,30 +45,6 @@ export const getMessageIconColor = (
   return theme.palette.vars.successIconDefault;
 };
 
-const getMessageTitleWidth = (type: MessageType): string => {
-  if (type === "warning") {
-    return "317px";
-  }
-
-  if (type === "info") {
-    return "339px";
-  }
-
-  return "319px";
-};
-
-const getMessageTitleContentWidth = (type: MessageType): string => {
-  if (type === "warning") {
-    return "249px";
-  }
-
-  if (type === "info") {
-    return "271px";
-  }
-
-  return "251px";
-};
-
 export const getMessageRootStyles = (
   theme: Theme,
   type: MessageType,
@@ -79,8 +55,8 @@ export const getMessageRootStyles = (
   display: "flex",
   flexDirection: "row",
   alignItems: hasTitle ? "flex-start" : "center",
-  width: hasAction ? "480px" : hasTitle ? getMessageTitleWidth(type) : "320px",
-  height: hasAction ? "64px" : hasTitle ? "92px" : "48px",
+  width: hasAction ? "480px" : "320px",
+  height: "auto",
   padding: "12px 16px",
   gap: "12px",
   background: theme.palette.vars.baseBackgroundWeak,
@@ -102,25 +78,25 @@ export const getMessageIconStyles = (
 });
 
 export const getMessageContentStyles = (
-  type: MessageType,
   hasTitle: boolean,
   hasAction: boolean,
 ): CSSObject => ({
   display: "flex",
   flexDirection: hasTitle ? "column" : "row",
   alignItems: hasTitle ? "flex-start" : "center",
-  flex: hasTitle ? "0 0 auto" : "1 1 auto",
+  flex: "1 1 auto",
   minWidth: 0,
-  ...(hasTitle ? { width: getMessageTitleContentWidth(type) } : {}),
+  width: "stretch",
   gap: hasTitle ? "4px" : "16px",
   ...(hasAction ? { paddingRight: "8px" } : {}),
 });
 
-export const getMessageTitleRowStyles = (type: MessageType): CSSObject => ({
+export const getMessageTitleRowStyles = (): CSSObject => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  width: getMessageTitleContentWidth(type),
+  flex: "1 1 auto",
+  width: "stretch",
   height: "24px",
   gap: "4px",
 });
