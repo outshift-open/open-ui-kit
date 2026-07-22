@@ -10,7 +10,7 @@ import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
-import { Message } from "..";
+import { Message, type MessageType } from "..";
 import {
   getMessageActionStyles,
   getMessageCloseStyles,
@@ -113,7 +113,7 @@ describe("Message", () => {
         getMessageRootStyles(lightTheme, "success", false, false),
       ).toMatchObject({
         width: "320px",
-        height: "48px",
+        height: "auto",
         padding: "12px 16px",
         gap: "12px",
         background: lightTheme.palette.vars.baseBackgroundWeak,
@@ -125,30 +125,24 @@ describe("Message", () => {
         getMessageRootStyles(lightTheme, "success", false, true),
       ).toMatchObject({
         width: "480px",
-        height: "64px",
+        height: "auto",
       });
-      expect(getMessageRootStyles(lightTheme, "warning", true, false)).toEqual(
-        expect.objectContaining({ width: "317px", height: "92px" }),
-      );
-      expect(getMessageRootStyles(lightTheme, "info", true, false)).toEqual(
-        expect.objectContaining({ width: "339px", height: "92px" }),
-      );
-      expect(getMessageContentStyles("success", true, false)).toMatchObject({
-        width: "251px",
+      expect(getMessageContentStyles(true, false)).toMatchObject({
+        flex: "1 1 auto",
+        minWidth: 0,
+        width: "stretch",
         gap: "4px",
       });
-      expect(getMessageContentStyles("warning", true, false)).toMatchObject({
-        width: "249px",
-      });
-      expect(getMessageContentStyles("info", true, false)).toMatchObject({
-        width: "271px",
-      });
-      expect(getMessageContentStyles("success", false, true)).toMatchObject({
+      expect(getMessageContentStyles(false, true)).toMatchObject({
+        flex: "1 1 auto",
+        minWidth: 0,
+        width: "stretch",
         gap: "16px",
         paddingRight: "8px",
       });
-      expect(getMessageTitleRowStyles("info")).toMatchObject({
-        width: "271px",
+      expect(getMessageTitleRowStyles()).toMatchObject({
+        flex: "1 1 auto",
+        width: "stretch",
         height: "24px",
         gap: "4px",
       });
@@ -208,18 +202,10 @@ describe("Message", () => {
 
     it("uses dark layout tokens", () => {
       expect(
-        getMessageRootStyles(darkTheme, "info", true, false),
-      ).toMatchObject({
-        width: "339px",
-        height: "92px",
-        background: darkTheme.palette.vars.baseBackgroundWeak,
-        color: darkTheme.palette.vars.baseTextDefault,
-      });
-      expect(
         getMessageRootStyles(darkTheme, "success", false, true),
       ).toMatchObject({
         width: "480px",
-        height: "64px",
+        height: "auto",
         background: darkTheme.palette.vars.baseBackgroundWeak,
       });
       expect(getMessageActionStyles(darkTheme)).toMatchObject({
@@ -228,6 +214,52 @@ describe("Message", () => {
       expect(getMessageCloseStyles(darkTheme)).toMatchObject({
         color: darkTheme.palette.vars.controlIconDefault,
       });
+    });
+  });
+
+  describe("layout width", () => {
+    const types: MessageType[] = ["success", "error", "warning", "info"];
+
+    it.each(types)(
+      "keeps root width at 320px for %s regardless of title",
+      (type) => {
+        expect(getMessageRootStyles(lightTheme, type, false, false).width).toBe(
+          "320px",
+        );
+        expect(getMessageRootStyles(lightTheme, type, true, false).width).toBe(
+          "320px",
+        );
+      },
+    );
+
+    it.each(types)(
+      "keeps root width at 480px for %s when an action is present",
+      (type) => {
+        expect(getMessageRootStyles(lightTheme, type, false, true).width).toBe(
+          "480px",
+        );
+        expect(getMessageRootStyles(lightTheme, type, true, true).width).toBe(
+          "480px",
+        );
+      },
+    );
+
+    it("lets content fill the root instead of using type-specific widths", () => {
+      for (const type of types) {
+        expect(getMessageContentStyles(true, false)).toEqual(
+          expect.objectContaining({
+            flex: "1 1 auto",
+            minWidth: 0,
+            width: "stretch",
+          }),
+        );
+        expect(getMessageRootStyles(lightTheme, type, true, false)).toEqual(
+          expect.objectContaining({
+            width: "320px",
+            height: "auto",
+          }),
+        );
+      }
     });
   });
 });
