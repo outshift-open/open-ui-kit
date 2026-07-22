@@ -99,7 +99,6 @@ describe("Banner", () => {
       expect(window.getComputedStyle(banner).borderTopColor).toBe(
         cssColor("#c0244c"),
       );
-      expect(window.getComputedStyle(banner).height).toBe("40px");
       expect(window.getComputedStyle(banner).width).toBe("800px");
       expect(window.getComputedStyle(banner).padding).toBe("8px 4px 8px 12px");
       expect(window.getComputedStyle(icon).color).toBe("rgb(192, 36, 76)");
@@ -177,6 +176,20 @@ describe("Banner", () => {
       BANNER_STATUSES.forEach((status) => {
         expect(() => renderBanner({ text: "msg", status }, true)).not.toThrow();
       });
+    });
+  });
+
+  describe("layout", () => {
+    it("aligns icon, message, and close in a top-aligned row", () => {
+      const { container } = renderBanner({ text: "msg" });
+      const banner = getRequiredElement(container, ".MuiAlert-root");
+      const message = getRequiredElement(container, ".MuiAlert-message");
+
+      expect(window.getComputedStyle(banner).display).toBe("flex");
+      expect(window.getComputedStyle(banner).flexDirection).toBe("row");
+      expect(window.getComputedStyle(banner).alignItems).toBe("flex-start");
+      expect(window.getComputedStyle(banner).height).not.toBe("40px");
+      expect(window.getComputedStyle(message).height).not.toBe("24px");
     });
   });
 
