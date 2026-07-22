@@ -1,3 +1,11 @@
+## [2.2.3](https://github.com/outshift-open/open-ui-kit/compare/v2.2.2...v2.2.3) (2026-07-22)
+
+
+### Bug Fixes
+
+* **banner:** use auto height and top-aligned row layout ([6b32c61](https://github.com/outshift-open/open-ui-kit/commit/6b32c615673ed748a1b2e5c6861f40b76a77bc44))
+* **message:** use fixed root width for all types and titles ([f03f432](https://github.com/outshift-open/open-ui-kit/commit/f03f43285e1bfd938cf8f392f5f250f8db9056fd))
+
 ## [2.2.2](https://github.com/outshift-open/open-ui-kit/compare/v2.2.1...v2.2.2) (2026-07-17)
 
 
