@@ -644,9 +644,13 @@ export const darkNavyPalette = {
 export const electricBlue300 = "#0ab6ff";
 export const electricBlue500 = "#558bff";
 export const electricBlue700 = "#1469cc";
+export const electricBlueAlpha40 = "#558bff66";
+export const electricBlueAlpha10 = "#558bff19";
 
 export const electricBluePalette = {
   300: electricBlue300,
   500: electricBlue500,
   700: electricBlue700,
+  alpha40: electricBlueAlpha40,
+  alpha10: electricBlueAlpha10,
 };

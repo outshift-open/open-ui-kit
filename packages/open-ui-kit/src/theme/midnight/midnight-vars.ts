@@ -11,7 +11,7 @@ import {
   greyPalette,
   darkNavyPalette,
   electricBluePalette,
-  surfaceDark900Alpha10,
+  surfaceDark900,
 } from "@/theme/style/color-palette";
 
 // Midnight is a dark-family theme. It shares most semantic tokens with the
@@ -51,11 +51,11 @@ export const midnightVars: VarsType = {
   interactivePrimaryDefaultDefault: electricBluePalette[500], // #558bff
   interactivePrimaryDefaultHover: electricBluePalette[300], // #0ab6ff
   interactivePrimaryDefaultActive: electricBluePalette[700], // #1469cc
-  interactivePrimaryDefaultDisabled: electricBluePalette[500],
+  interactivePrimaryDefaultDisabled: electricBluePalette["alpha40"],
   interactivePrimaryWeakDefault: darkNavyPalette[200],
   interactivePrimaryWeakHover: darkNavyPalette[100],
   interactivePrimaryWeakActive: darkNavyPalette[100],
-  interactivePrimaryWeakDisabled: surfaceDark900Alpha10,
+  interactivePrimaryWeakDisabled: electricBluePalette["alpha10"],
 
   // Interactive — Secondary
   interactiveSecondaryDefaultDefault: greyPalette[50],
@@ -73,31 +73,32 @@ export const midnightVars: VarsType = {
   interactiveInverseBackgroundActive: greyPalette[200],
   interactiveInverseBackgroundDisabled: greyPalette[200],
   interactiveInverseTextHover: surfaceDarkPalette[600],
+  interactiveInverseTextDisabled: surfaceDark900,
 
   // Excellent — Electric Blue
   excellentBackgroundDefault: electricBluePalette[700],
-  excellentBackgroundWeak: electricBluePalette[300],
-  excellentBackgroundDisabled: electricBluePalette[500],
+  excellentBackgroundWeak: electricBluePalette["alpha10"],
+  excellentBackgroundDisabled: electricBluePalette["alpha40"],
   excellentBackgroundHover: electricBluePalette[500],
   excellentBackgroundActive: electricBluePalette[700],
   excellentTextDefault: electricBluePalette[300],
   excellentTextHover: electricBluePalette[300],
   excellentTextActive: electricBluePalette[300],
   excellentTextInDefault: electricBluePalette[300],
-  excellentTextInDisabled: electricBluePalette[300],
+  excellentTextInDisabled: electricBluePalette["alpha10"],
   excellentBorderDefault: electricBluePalette[500],
   excellentBorderHover: electricBluePalette[300],
   excellentBorderActive: electricBluePalette[700],
-  excellentBorderDisabled: electricBluePalette[500],
+  excellentBorderDisabled: electricBluePalette["alpha40"],
   excellentBorderWeak: electricBluePalette[500],
   excellentIconDefault: electricBluePalette[500],
   excellentIconHover: electricBluePalette[300],
   excellentIconActive: electricBluePalette[700],
-  excellentIconDisabled: electricBluePalette[500],
+  excellentIconDisabled: electricBluePalette["alpha40"],
   excellentIconInDefault: electricBluePalette[300],
   excellentIconInHover: electricBluePalette[300],
   excellentIconInActive: electricBluePalette[300],
-  excellentIconInDisabled: electricBluePalette[300],
+  excellentIconInDisabled: electricBluePalette["alpha10"],
 
   // Brand — Electric Blue + Dark Navy
   brandIconPrimaryDefault: electricBluePalette[500],
