@@ -9,6 +9,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ImageGrid } from "@/custom-icons";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
 import { Button } from "../components/button";
 
 const renderButton = (
@@ -57,9 +58,24 @@ describe("Button", () => {
       ).not.toThrow();
     });
 
+    it("renders gradient variant without throwing", () => {
+      expect(() =>
+        renderButton({ variant: "gradient", children: "Gradient" }),
+      ).not.toThrow();
+    });
+
     it("renders outlined variant without throwing", () => {
       expect(() =>
         renderButton({ variant: "outlined", children: "Outlined" }),
+      ).not.toThrow();
+    });
+
+    it("renders gradientOutlined variant without throwing", () => {
+      expect(() =>
+        renderButton({
+          variant: "gradientOutlined",
+          children: "Gradient Outlined",
+        }),
       ).not.toThrow();
     });
 
@@ -67,6 +83,73 @@ describe("Button", () => {
       expect(() =>
         renderButton({ variant: "tertariary", children: "Tertiary" }),
       ).not.toThrow();
+    });
+
+    it("applies the MUI variant class for the gradient variants", () => {
+      const { getByRole, unmount } = renderButton({
+        variant: "gradient",
+        children: "Gradient",
+      });
+      expect(getByRole("button").className).toContain("MuiButton-gradient");
+      unmount();
+
+      const ring = renderButton({
+        variant: "gradientOutlined",
+        children: "Gradient Outlined",
+      });
+      expect(ring.getByRole("button").className).toContain(
+        "MuiButton-gradientOutlined",
+      );
+      ring.unmount();
+    });
+  });
+
+  // The button gradients are deliberately shared across every theme rather than
+  // overridden per theme, so the variants must look the same everywhere.
+  describe("gradient variants render on every theme", () => {
+    const GRADIENT_VARIANTS = ["gradient", "gradientOutlined"] as const;
+    const MODES = [
+      ThemeMode.Light,
+      ThemeMode.Dark,
+      ThemeMode.IoC,
+      ThemeMode.Midnight,
+    ];
+
+    const renderIn = (
+      mode: ThemeMode,
+      variant: (typeof GRADIENT_VARIANTS)[number],
+    ) =>
+      render(
+        <ThemeProvider defaultMode={mode}>
+          <Button variant={variant}>Gradient</Button>
+        </ThemeProvider>,
+      );
+
+    it("paints a gradient fill on every theme", () => {
+      for (const mode of MODES) {
+        const { getByRole, unmount } = renderIn(mode, "gradient");
+        const background = getComputedStyle(getByRole("button")).background;
+        expect({
+          mode,
+          gradient: background.includes("linear-gradient"),
+        }).toEqual({ mode, gradient: true });
+        unmount();
+      }
+    });
+
+    it("stays visible on every theme", () => {
+      for (const mode of MODES) {
+        for (const variant of GRADIENT_VARIANTS) {
+          const { getByRole, unmount } = renderIn(mode, variant);
+          const display = getComputedStyle(getByRole("button")).display;
+          expect({ mode, variant, hidden: display === "none" }).toEqual({
+            mode,
+            variant,
+            hidden: false,
+          });
+          unmount();
+        }
+      }
     });
   });
 
@@ -254,6 +337,60 @@ describe("Button", () => {
       );
 
       expect(screen.getByRole("button")).toHaveClass("OuiButton-iconOnly");
+    });
+  });
+
+  // Figma: `Icon Button AI` (274421:47620), the `Button - Dictation` control.
+  describe("icon-only gradient variant (Icon Button AI)", () => {
+    it("carries both classes the treatment is keyed on", () => {
+      renderButton({ variant: "gradient", children: <ImageGrid /> });
+
+      const button = screen.getByRole("button");
+      // The style hangs off `.MuiButton-gradient.OuiButton-iconOnly`, so a
+      // gradient button only picks it up once it is also detected icon-only.
+      expect(button).toHaveClass("MuiButton-gradient");
+      expect(button).toHaveClass("OuiButton-iconOnly");
+    });
+
+    it("does not apply to a gradient button with a label", () => {
+      renderButton({ variant: "gradient", children: "Save" });
+
+      expect(screen.getByRole("button")).not.toHaveClass("OuiButton-iconOnly");
+    });
+
+    it("renders on every theme without throwing", () => {
+      for (const mode of [
+        ThemeMode.Light,
+        ThemeMode.Dark,
+        ThemeMode.Midnight,
+        ThemeMode.IoC,
+      ]) {
+        expect(() =>
+          render(
+            <ThemeProvider defaultMode={mode}>
+              <Button variant="gradient">
+                <ImageGrid />
+              </Button>
+            </ThemeProvider>,
+          ),
+        ).not.toThrow();
+      }
+    });
+
+    it("resolves to the icon-button tokens, not the primary fill", () => {
+      // Both already existed in the theme; the variant introduces no new
+      // gradient, it just reaches for the icon-button pair instead.
+      const g = midnightTheme.palette.gradients;
+
+      expect(g.gradientIconButtonBlue).toBe(
+        "linear-gradient(180deg, #043abc 0%, #113ca1 54.12%, #011d62 120.67%)",
+      );
+      expect(g.gradientIconButtonBlueGlow).toBe(
+        "linear-gradient(90deg, #3974ff 0%, rgba(57, 116, 255, 0) 100%)",
+      );
+      expect(g.gradientIconButtonBlue).not.toBe(
+        g.gradientGlobalButtonPrimaryFill,
+      );
     });
   });
 

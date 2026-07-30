@@ -53,7 +53,14 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: "radio",
-      options: ["primary", "secondary", "outlined", "tertariary"],
+      options: [
+        "primary",
+        "secondary",
+        "gradient",
+        "outlined",
+        "gradientOutlined",
+        "tertariary",
+      ],
     },
   },
   decorators: [
@@ -241,7 +248,9 @@ const sizes = ["large", "medium", "small"] as const;
 const variants: Array<{ label: string; variant: ButtonVariant }> = [
   { label: "Primary", variant: "primary" },
   { label: "Secondary", variant: "secondary" },
+  { label: "Gradient", variant: "gradient" },
   { label: "Outlined", variant: "outlined" },
+  { label: "Gradient Outlined", variant: "gradientOutlined" },
   { label: "Tertiary", variant: "tertariary" },
 ];
 
@@ -258,10 +267,28 @@ export const Secondary: Story = {
   render: (args) => <RenderButton {...args} />,
 };
 
+/** Gradient background fill — Figma token `Gradient/Global-Button-Primary/Fill`. */
+export const Gradient: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "gradient",
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
 export const Outlined: Story = {
   args: {
     ...defaultArgs,
     variant: "outlined",
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+/** Gradient border ring — Figma token `Gradient/Global-Button-Primary/Border-Glow`. */
+export const GradientOutlined: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "gradientOutlined",
   },
   render: (args) => <RenderButton {...args} />,
 };
@@ -330,6 +357,19 @@ export const IconOnly: Story = {
   args: {
     ...defaultArgs,
     children: <ImageGrid aria-label="Grid" />,
+  },
+  render: (args) => <RenderButton {...args} />,
+};
+
+/**
+ * Icon-only carries its own gradient treatment 
+ */
+export const IconButtonAI: Story = {
+  name: "Icon Button AI",
+  args: {
+    ...defaultArgs,
+    children: <ImageGrid aria-label="Grid" />,
+    variant: "gradient",
   },
   render: (args) => <RenderButton {...args} />,
 };

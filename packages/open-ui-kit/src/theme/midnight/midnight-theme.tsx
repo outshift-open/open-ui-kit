@@ -31,6 +31,7 @@ import {
   Shadows,
 } from "@mui/material";
 import { midnightVars } from "./midnight-vars";
+import { midnightGradientVars } from "./midnight-gradient-vars";
 import {
   buttonComponent,
   inputComponents,
@@ -66,6 +67,7 @@ const palette: PaletteOptions = {
   orange: orangePalette,
   grey: greyPalette,
   vars: midnightVars,
+  gradients: midnightGradientVars,
   text: {
     primary: midnightVars.baseTextStrong,
     secondary: midnightVars.baseTextDefault,

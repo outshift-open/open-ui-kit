@@ -13,6 +13,7 @@ import "@mui/material/Tab";
 import React from "react";
 import type { Color } from "@mui/material/styles";
 import { VarsType } from "./vars";
+import { GradientVarsType } from "./gradient-vars";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -20,6 +21,7 @@ declare module "@mui/material/styles" {
     negative: Palette["primary"];
     orange: Palette["primary"];
     vars: VarsType;
+    gradients: GradientVarsType;
   }
 
   interface PaletteOptions {
@@ -27,6 +29,7 @@ declare module "@mui/material/styles" {
     negative?: PaletteOptions["primary"];
     orange?: PaletteOptions["primary"];
     vars?: VarsType;
+    gradients?: GradientVarsType;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- MUI module augmentation hook (same as `ColorPartial` in createPalette)
@@ -68,7 +71,11 @@ declare module "@mui/material/Button" {
     contained: false;
     primary: true;
     secondary: true;
+    /** Gradient background fill. Figma: `Gradient/Global-Button-Primary/Fill`. */
+    gradient: true;
     outlined: true;
+    /** Gradient border ring. Figma: `Gradient/Global-Button-Primary/Border-Glow`. */
+    gradientOutlined: true;
     tertariary: true;
   }
 

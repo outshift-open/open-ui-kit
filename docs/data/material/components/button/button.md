@@ -64,6 +64,13 @@ For icon-only buttons, pass the icon as the only child and provide an accessible
 
 {{"demo": "ButtonIcons.js", "bg": true}}
 
+### Icon Button AI
+
+An icon-only button on the `gradient` variant gets its own treatment rather than the text button scaled down: a round control filled with the `Icon-Button-Blue` gradient and ringed by `Icon-Button-Blue-Glow`.
+It applies automatically — pass the icon as the only child, as above, and set `variant="gradient"`.
+
+{{"demo": "ButtonIconOnlyGradient.js", "bg": true}}
+
 ## States
 
 Buttons support disabled and loading states through the standard button API.

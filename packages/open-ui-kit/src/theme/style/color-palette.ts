@@ -654,3 +654,83 @@ export const electricBluePalette = {
   alpha40: electricBlueAlpha40,
   alpha10: electricBlueAlpha10,
 };
+
+// Midnight gradient stops.
+//
+// Source: Figma "OXP" (wvTxiCkZBmP2jH24hzydHR), frame 274405:38026
+// "Components with Gradients". Keys are named after the Figma variable where
+// one exists (e.g. `Gradient/Graph-Flow/Teal` -> `graphFlowTeal`); the rest are
+// named after the component that consumes them.
+//
+// This mirrors the existing `gradientStopColors` block: gradient ramps need
+// intermediate colors that do not belong to a semantic 50-900 hue scale.
+// Stops that DO already exist are not duplicated here — reuse `teal300`
+// (#5de2e8), `blue300` (#187adc), `blue500` (#0051af), `red800` (#b11939),
+// `red900` (#a40f29) and `illustrationNegativeGradientStart` (#e09e89).
+export const midnightGradientStops = {
+  // Graph flow (Figma variables: Gradient/Graph-Flow/*)
+  graphFlowGray: "#c6c6c6",
+  graphFlowTeal: "#017580",
+  graphFlowMaroon: "#892727",
+
+  // Data viz
+  dataVizPink: "#f634a2", // Gradient/Dashboard-Background-Ring/Stroke/Stop-2-Pink
+  dataVizMagenta: "#901f5f",
+  dataVizPurple: "#8118dc",
+  dataVizCyan: "#02c8ff",
+  dataVizTeal: "#197690", // Gradient/Data-Viz-Cyan-Teal/Stop-1-Teal
+  dataVizOrange: "#ff9000",
+  dataVizAmber: "#995600",
+  dataVizGold: "#dcae18",
+  dataVizBlue: "#3b82f6",
+  dataVizMint: "#77e7cd",
+  dataVizFadeGray: "#d9d9d9",
+
+  // Gauge arc (Figma variables: Gradient/Gauge-Arc-*)
+  gaugeArcCyan: "#29b0fc",
+  gaugeArcTealStart: "#29fcc4",
+  gaugeArcTealEnd: "#00af2f",
+  gaugeArcAmber: "#ffae4c",
+
+  // Buttons and icons
+  buttonPrimaryFillStart: "#0745b8",
+  buttonPrimaryFillEnd: "#2e6ee5",
+  buttonPrimaryGlowBlue: "#3b76ea", // Gradient/Global-Button-Primary/Border-Glow/Stop-0-Blue
+  buttonPrimaryGlowCyan: "#00bceb", // ...Stop-1-Cyan
+  buttonPrimaryGlowTeal: "#63fff7", // ...Stop-2-Teal
+  iconSubtractBlue: "#5096ff",
+  iconButtonBlueStart: "#043abc",
+  iconButtonBlueMid: "#113ca1",
+  iconButtonBlueEnd: "#011d62",
+  iconButtonGlowBlue: "#3974ff",
+
+  // Panels, borders and connectors
+  panelExecBorderBlue: "#0a60ff", // Gradient/Panel-Exec-Border/Stop-0-Blue
+  panelBorderCyanDark: "#16bdeb", // Gradient/Panel-Border-Blue-Cyan-Dark/Stop-1-Cyan
+  // NOTE: the `Global-Border/Fade` swatch labels its first stop #0a66ff, but the
+  // rendered stroke measures #0a60ff (`panelExecBorderBlue`). The label appears
+  // to be stale, so no #0a66ff stop is defined here.
+  globalBorderSlate: "#3d5066",
+  globalBorderSlateWeak: "#4d6380",
+  globalDividerPink: "#ff007f",
+  graphConnectorBlue: "#c7d3ea", // Gradient/Graph-Connector-Stroke/Stop-*
+  graphNodeFillBlue: "#2972ff",
+  graphNodeFillDark: "#01060d",
+
+  // Surfaces and overlays
+  welcomeCardStart: "#060b26",
+  welcomeCardEnd: "#1a1f37",
+  overlayBlack: "#000000",
+  overlayGray: "#666666",
+  glassWhite: "#ffffff",
+  glassWhiteWeak: "#f1f1f1",
+  glassGray: "#999999",
+
+  // Glows
+  glowOrangeStart: "#ff9d00",
+  glowOrangeEnd: "#ffd48e",
+  glowBlueStart: "#4a6ac8",
+  glowBlueMid: "#6abfff",
+  glowBlueDeep: "#3b69bc",
+  glowBlueEnd: "#1b4288",
+} as const;
