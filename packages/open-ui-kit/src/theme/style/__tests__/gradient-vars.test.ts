@@ -92,6 +92,19 @@ describe("midnight gradient values", () => {
     );
   });
 
+  // Glow dots — radial gradient from the top-left corner.
+  it("matches the Figma values for the glow dots", () => {
+    expect(midnightGradientVars.gradientGlowGreen).toBe(
+      "radial-gradient(circle at 0% 0%, rgba(17, 255, 200, 0.7) 0%, rgba(179, 255, 129, 0.7) 100%)",
+    );
+    expect(midnightGradientVars.gradientGlowOrange).toBe(
+      "radial-gradient(circle at 0% 0%, rgba(255, 157, 0, 0.8) 0%, rgba(255, 212, 142, 0.8) 100%)",
+    );
+    expect(midnightGradientVars.gradientGlowRed).toBe(
+      "radial-gradient(circle at 0% 0%, rgba(255, 3, 41, 0.4) 0%, rgba(255, 87, 70, 0.4) 100%)",
+    );
+  });
+
   // `Gradient/Alert-Line-Red` has identical stops and offsets to the existing
   // `gradientsRedPressed` token, so it reuses it rather than re-deriving the
   // angle from an aspect-ratio-distorted Figma export.

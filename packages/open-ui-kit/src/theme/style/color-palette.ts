@@ -733,6 +733,10 @@ export const midnightGradientStops = {
   // Glows
   glowOrangeStart: "#ff9d00",
   glowOrangeEnd: "#ffd48e",
+  glowGreenStart: "#11ffc8",
+  glowGreenEnd: "#b3ff81",
+  glowRedStart: "#ff0329",
+  glowRedEnd: "#ff5746",
   glowBlueStart: "#4a6ac8",
   glowBlueMid: "#6abfff",
   glowBlueDeep: "#3b69bc",

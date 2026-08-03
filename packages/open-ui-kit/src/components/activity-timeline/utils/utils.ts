@@ -24,3 +24,39 @@ export const setStepColor = (
       return theme.palette.vars?.interactiveTertiaryActive;
   }
 };
+
+/** Solid center color for a gradient-variant dot, by status. */
+export const getStepDotColor = (
+  status: ActivityTimelineStepStatus,
+  theme: Theme,
+): string => {
+  switch (status) {
+    case ActivityTimelineStepStatus.Complete:
+      return theme.palette.vars?.excellentIconDefault;
+    case ActivityTimelineStepStatus.InProgress:
+      return theme.palette.vars?.warningIconDefault;
+    case ActivityTimelineStepStatus.Error:
+      return theme.palette.vars?.negativeIconDefault;
+    case ActivityTimelineStepStatus.Neutral:
+      return theme.palette.vars?.controlIconMedium;
+    default:
+      return theme.palette.vars?.controlIconDefault;
+  }
+};
+
+/** Radial glow fill for a gradient dot, or `undefined` when it renders solid. */
+export const getStepGlow = (
+  status: ActivityTimelineStepStatus,
+  theme: Theme,
+): string | undefined => {
+  switch (status) {
+    case ActivityTimelineStepStatus.Complete:
+      return theme.palette.gradients?.gradientGlowGreen;
+    case ActivityTimelineStepStatus.InProgress:
+      return theme.palette.gradients?.gradientGlowOrange;
+    case ActivityTimelineStepStatus.Error:
+      return theme.palette.gradients?.gradientGlowRed;
+    default:
+      return undefined;
+  }
+};

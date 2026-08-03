@@ -159,6 +159,34 @@ const completeProgressSteps: ActivityTimelineStep[] = [
   },
 ];
 
+const keyEventsSteps: ActivityTimelineStep[] = [
+  {
+    status: ActivityTimelineStepStatus.Complete,
+    title: "Treated 29h booking as within 24h window",
+    time: "11:40",
+  },
+  {
+    status: ActivityTimelineStepStatus.InProgress,
+    title: 'cited "silver members can cancel anytime" — not in policy',
+    time: "8:45",
+  },
+  {
+    status: ActivityTimelineStepStatus.Neutral,
+    title: "confirmed $585 / charged $1200 — cabin upgrade applied to both pax",
+    time: "7:42",
+  },
+  {
+    status: ActivityTimelineStepStatus.Error,
+    title: "changed destination LGA → JFK on flight modification",
+    time: "7:02",
+  },
+  {
+    status: ActivityTimelineStepStatus.Inactive,
+    title: "London alert",
+    time: "7:02",
+  },
+];
+
 const StoryPanel = ({ children }: { children: ReactNode }) => (
   <Box sx={{ width: 556 }}>{children}</Box>
 );
@@ -279,5 +307,17 @@ export const LinearBehavior: Story = {
 export const AutomaticProgress: Story = {
   render: () => (
     <ActivityTimeline steps={partialProgressSteps} automaticProgress />
+  ),
+};
+
+export const Gradient: Story = {
+  name: "Gradient (Key Events)",
+  render: () => (
+    <Box sx={{ width: 300 }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Key Events
+      </Typography>
+      <ActivityTimeline variant="gradient" steps={keyEventsSteps} />
+    </Box>
   ),
 };

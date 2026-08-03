@@ -115,7 +115,12 @@ export const midnightGradientVars: GradientVarsType = {
   // matrix. Figma's intermediate stops are linear interpolations between the
   // designed stops, so only the designed stops are kept.
 
-  gradientGlowOrange: `radial-gradient(ellipse at 50% 67%, ${alpha(stops.glowOrangeStart, 0.8)} 0%, ${alpha(stops.glowOrangeEnd, 0.8)} 100%)`,
+  // The three status glows share one geometry: a circle centred on the top-left
+  // corner, matching the dot swatches. Orange was previously an approximated
+  // ellipse and is realigned here.
+  gradientGlowOrange: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowOrangeStart, 0.8)} 0%, ${alpha(stops.glowOrangeEnd, 0.8)} 100%)`,
+  gradientGlowGreen: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowGreenStart, 0.7)} 0%, ${alpha(stops.glowGreenEnd, 0.7)} 100%)`,
+  gradientGlowRed: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowRedStart, 0.4)} 0%, ${alpha(stops.glowRedEnd, 0.4)} 100%)`,
   gradientGlowPinkShadow: `radial-gradient(ellipse at 29% -56%, ${alpha(stops.dataVizPink, 0.5)} 0%, ${alpha(stops.overlayBlack, 0.6)} 100%)`,
   gradientBackgroundGlowBlue: `radial-gradient(ellipse 50% 100% at 50% 50%, ${alpha(stops.glowBlueStart, 0.3)} 0%, ${alpha(stops.glowBlueMid, 0.3)} 26.923%, ${alpha(stops.glowBlueDeep, 0.3)} 55.769%, ${alpha(stops.glowBlueEnd, 0)} 82.692%)`,
   gradientPanelExecBorder: `radial-gradient(ellipse at 50% 50%, ${stops.panelExecBorderBlue} 0%, ${stops.dataVizCyan} 33%, ${stops.globalBorderSlate} 66%, ${alpha(stops.globalBorderSlateWeak, 0.7)} 100%)`,

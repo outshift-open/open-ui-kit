@@ -81,6 +81,7 @@ For audit trails, server events, or retryable workflows, pass explicit step stat
 | `steps` | `ActivityTimelineStep[]` | - | Ordered list of timeline steps. |
 | `automaticProgress` | `boolean` | `false` | Calculates progress from step position instead of using only step status. |
 | `size` | `'medium' \| 'large'` | `'large'` | Controls text sizing and spacing. |
+| `variant` | `'default' \| 'gradient'` | `'default'` | Renders glowing status dots, a per-step time, and a fade-out down older steps. |
 
 ## Step shape
 
@@ -90,7 +91,26 @@ interface ActivityTimelineStep {
   title: string;
   subTitle?: string;
   content?: React.ReactNode;
+  time?: string;
 }
+```
+
+## Gradient variant
+
+Set `variant="gradient"` to show events with glowing status dots and a time
+against the timeline. Older steps fade out down the list.
+
+```tsx
+<ActivityTimeline
+  variant="gradient"
+  steps={[
+    {
+      status: ActivityTimelineStepStatus.Complete,
+      title: 'Treated 29h booking as within 24h window',
+      time: '11:40',
+    },
+  ]}
+/>
 ```
 
 ## Accessibility

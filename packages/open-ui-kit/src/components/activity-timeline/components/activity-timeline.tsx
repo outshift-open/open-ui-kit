@@ -15,18 +15,33 @@ import {
   StyledTimeline,
   StyledTimelineConnector,
   StyledTimelineContent,
+  StyledTimelineGlowConnector,
   StyledTimelineItem,
+  StyledTimelineOppositeContent,
   StyledTimelineSeparator,
+  StyledTimelineTimeContent,
 } from "./elements";
 
 export const ActivityTimeline = ({
   automaticProgress = false,
   size = "large",
+  variant = "default",
   steps,
   ...props
 }: ActivityTimelineProps) => {
   const theme = useTheme();
   const isMedium = size === "medium";
+
+  // Older steps fade down the list.
+  const stepOpacity = useCallback(
+    (stepIdx: number): number => {
+      if (steps.length <= 1) {
+        return 1;
+      }
+      return Math.max(0.3, 1 - (stepIdx / (steps.length - 1)) * 0.7);
+    },
+    [steps.length],
+  );
 
   const setPercent = useCallback(
     (stepIdx: number): number => {
@@ -39,6 +54,61 @@ export const ActivityTimeline = ({
     },
     [steps.length],
   );
+
+  if (variant === "gradient") {
+    return (
+      <StyledTimeline
+        {...props}
+        sx={[
+          ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
+        ]}
+      >
+        {steps.map((step, index) => (
+          // Fade each slot, not the item, so the connector stays uniform.
+          <StyledTimelineItem key={index}>
+            <StyledTimelineOppositeContent
+              sx={{ opacity: stepOpacity(index) }}
+            >
+              <Typography
+                variant="body1"
+                sx={{
+                  color: theme.palette.vars?.baseTextDefault,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                {step.titleStartIcon}
+                {step.title}
+              </Typography>
+            </StyledTimelineOppositeContent>
+            <StyledTimelineSeparator>
+              <ActivityTimelineDot
+                glow
+                status={step.status}
+                sx={{ opacity: stepOpacity(index) }}
+              />
+              {index < steps.length - 1 && (
+                <StyledTimelineGlowConnector
+                  lineColor={theme.palette.vars?.controlBorderDefault}
+                />
+              )}
+            </StyledTimelineSeparator>
+            <StyledTimelineTimeContent sx={{ opacity: stepOpacity(index) }}>
+              {step.time && (
+                <Typography
+                  variant="captionSemibold"
+                  sx={{ color: theme.palette.vars?.controlIconDefault }}
+                >
+                  {step.time}
+                </Typography>
+              )}
+            </StyledTimelineTimeContent>
+          </StyledTimelineItem>
+        ))}
+      </StyledTimeline>
+    );
+  }
 
   return (
     <StyledTimeline

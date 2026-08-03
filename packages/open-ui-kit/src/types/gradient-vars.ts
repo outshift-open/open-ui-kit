@@ -67,6 +67,8 @@ export interface GradientVarsType {
 
   // --- Radial glows --------------------------------------------------------
   gradientGlowOrange: string;
+  gradientGlowGreen: string;
+  gradientGlowRed: string;
   gradientGlowPinkShadow: string;
   gradientBackgroundGlowBlue: string;
   gradientPanelExecBorder: string;

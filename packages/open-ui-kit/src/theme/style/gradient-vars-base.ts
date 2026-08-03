@@ -104,6 +104,8 @@ export const baseGradientVars: GradientVarsType = {
 
   // --- Radial glows --------------------------------------------------------
   gradientGlowOrange: gradientsIllustrationsOrange,
+  gradientGlowGreen: gradientsIllustrationsGreen,
+  gradientGlowRed: gradientsRedPressed,
   gradientGlowPinkShadow: gradientsIllustrationsPink,
   gradientBackgroundGlowBlue: gradientsIllustrationsBlue,
   gradientPanelExecBorder: gradientsSecondaryDefault,

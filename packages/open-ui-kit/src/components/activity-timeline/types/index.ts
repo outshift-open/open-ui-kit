@@ -28,6 +28,8 @@ export interface ActivityTimelineStep {
   content?: ReactNode;
   /** Expands accordion content by default when content is provided. */
   defaultExpanded?: boolean;
+  /** Optional time label shown beside the step in the gradient variant. */
+  time?: string;
 }
 
 export interface ActivityTimelineProps extends Omit<
@@ -38,6 +40,8 @@ export interface ActivityTimelineProps extends Omit<
   automaticProgress?: boolean;
   /** Controls the timeline title typography and vertical spacing. */
   size?: "large" | "medium";
+  /** Renders glowing status dots, a per-step time, and a fade-out when set to gradient. */
+  variant?: "default" | "gradient";
   /** Ordered steps rendered in the activity timeline. */
   steps: ActivityTimelineStep[];
 }

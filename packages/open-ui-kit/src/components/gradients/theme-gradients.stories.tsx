@@ -27,6 +27,8 @@ const STROKE_TOKENS: readonly TokenKey[] = [
 
 const RADIAL_TOKENS: readonly TokenKey[] = [
   "gradientGlowOrange",
+  "gradientGlowGreen",
+  "gradientGlowRed",
   "gradientGlowPinkShadow",
   "gradientBackgroundGlowBlue",
   "gradientPanelExecBorder",
