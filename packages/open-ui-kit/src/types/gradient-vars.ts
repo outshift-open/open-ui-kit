@@ -39,6 +39,8 @@ export interface GradientVarsType {
   /** Renamed: Figma reuses `Graph-Flow` for this distinct maroon ramp. */
   gradientGraphFlowMaroon: string;
   gradientGlobalButtonPrimaryFill: string;
+  /** Gradient text fill (`background-clip: text`). Figma: `Gradient/Text-White-Blue`. */
+  gradientTextWhiteBlue: string;
   gradientGlobalDividerFade: string;
   gradientOverlayBlackFadeIn: string;
   gradientWelcomeCardBgDark: string;

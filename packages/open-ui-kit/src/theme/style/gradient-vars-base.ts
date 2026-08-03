@@ -33,10 +33,20 @@ export const gradientButtonPrimaryFill = `linear-gradient(90deg, ${stops.buttonP
 export const gradientButtonPrimaryBorderGlow = `linear-gradient(90deg, ${stops.buttonPrimaryGlowBlue} 0%, ${stops.buttonPrimaryGlowCyan} 50%, ${stops.buttonPrimaryGlowTeal} 100%)`;
 
 /*
+ * Text gradient — shared by every theme, like the button gradients above.
+ *
+ * A real design value (not a placeholder). Design has not diverged it per theme,
+ * so it is defined once and reused everywhere via `background-clip: text`.
+ * Source: Figma "OXP" (wvTxiCkZBmP2jH24hzydHR), `Gradient/Text-White-Blue`
+ * (frame 274405:44228, "Welcome Amy!"), white -> blue, left to right.
+ */
+export const gradientTextWhiteBlue = `linear-gradient(90deg, ${stops.textWhiteBlueStart} 0%, ${stops.textWhiteBlueEnd} 100%)`;
+
+/*
  * Base gradient tokens — the fallback every theme starts from.
  *
- * Apart from the two button gradients above, this deliberately contains NO new
- * design values.
+ * Apart from the three shared gradients above (the two button gradients and the
+ * text gradient), this deliberately contains NO new design values.
  *
  * The gradient set was designed for the Midnight theme only (Figma "OXP",
  * frame 274405:38026). Light, Dark and IoC have no design-approved gradients
@@ -49,8 +59,9 @@ export const gradientButtonPrimaryBorderGlow = `linear-gradient(90deg, ${stops.b
  * Dark / IoC gradients, add a `*-gradient-vars.ts` per theme that spreads this
  * object and overrides, exactly as `midnight-gradient-vars.ts` does.
  *
- * Midnight overrides every provisional entry, so only the shared button
- * gradients above reach the Midnight theme from this file.
+ * Midnight overrides every provisional entry, so only the three shared
+ * gradients above (the two button gradients and the text gradient) reach the
+ * Midnight theme from this file.
  */
 export const baseGradientVars: GradientVarsType = {
   // --- Fills ---------------------------------------------------------------
@@ -71,6 +82,7 @@ export const baseGradientVars: GradientVarsType = {
   gradientGraphFlowTeal: gradientsIllustrationsGreen,
   gradientGraphFlowMaroon: gradientsRedPressed,
   gradientGlobalButtonPrimaryFill: gradientButtonPrimaryFill,
+  gradientTextWhiteBlue,
   gradientGlobalDividerFade: gradientsIllustrationsRainbow,
   gradientOverlayBlackFadeIn: gradientsBackgroundDark,
   gradientWelcomeCardBgDark: gradientsBackgroundDark,

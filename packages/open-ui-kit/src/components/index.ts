@@ -64,12 +64,12 @@ export * from "./view-switcher";
 export * from "./scroll-area";
 export * from "./pagination";
 export * from "./widget";
+export * from "./typography";
 
 // MUI exports — only primitives with no local wrapper
 export {
   Box,
   Stack,
-  Typography,
   Grid,
   IconButton,
   Container,

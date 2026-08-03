@@ -113,4 +113,12 @@ declare module "@mui/material/Typography" {
     body2Semibold: true;
     headingSubSection: true;
   }
+
+  interface TypographyOwnProps {
+    /**
+     * Fill the text with a gradient (`background-clip: text`) instead of a
+     * flat color. Composes with any `variant`. Figma: `Gradient/Text-White-Blue`.
+     */
+    gradient?: boolean;
+  }
 }

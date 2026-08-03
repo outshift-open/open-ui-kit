@@ -10,6 +10,7 @@ import {
   baseGradientVars,
   gradientButtonPrimaryBorderGlow,
   gradientButtonPrimaryFill,
+  gradientTextWhiteBlue,
 } from "@/theme/style/gradient-vars-base";
 import { gradientsRedPressed } from "@/theme/style/gradients";
 import {
@@ -57,6 +58,8 @@ export const midnightGradientVars: GradientVarsType = {
 
   // Shared with every theme — see `gradient-vars-base.ts`.
   gradientGlobalButtonPrimaryFill: gradientButtonPrimaryFill,
+  // Shared with every theme — see `gradient-vars-base.ts`.
+  gradientTextWhiteBlue,
   gradientGlobalDividerFade: `linear-gradient(90deg, ${stops.panelExecBorderBlue} 0%, ${stops.dataVizCyan} 0%, ${stops.dataVizCyan} 21.692%, ${stops.dataVizOrange} 55.827%, ${stops.globalDividerPink} 100%)`,
 
   gradientOverlayBlackFadeIn: `linear-gradient(180deg, ${alpha(stops.overlayBlack, 0.65)} 52.404%, ${alpha(stops.overlayGray, 0)} 100%)`,

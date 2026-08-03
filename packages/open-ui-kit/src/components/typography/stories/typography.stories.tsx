@@ -101,3 +101,27 @@ export const Example: Story = {
     variant: "h1",
   },
 };
+
+/**
+ * The `gradient` prop fills the text with a gradient (`background-clip: text`)
+ * instead of a flat color. It is a boolean, so it composes with any `variant`.
+ * Figma: `Gradient/Text-White-Blue`.
+ */
+export const Gradient: Story = {
+  render: () => (
+    <Stack gap={2}>
+      <Typography variant="h1" gradient>
+        Welcome Amy!
+      </Typography>
+      <Typography variant="h3" gradient>
+        Gradient heading
+      </Typography>
+      <Typography variant="subtitle1" gradient>
+        Gradient subtitle
+      </Typography>
+      <Typography variant="body1" gradient>
+        Gradient body text — the fill works on any variant.
+      </Typography>
+    </Stack>
+  ),
+};

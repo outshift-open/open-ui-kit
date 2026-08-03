@@ -704,6 +704,10 @@ export const midnightGradientStops = {
   iconButtonBlueEnd: "#011d62",
   iconButtonGlowBlue: "#3974ff",
 
+  // Text (Figma variable: Gradient/Text-White-Blue)
+  textWhiteBlueStart: "#ffffff",
+  textWhiteBlueEnd: "#3f7def",
+
   // Panels, borders and connectors
   panelExecBorderBlue: "#0a60ff", // Gradient/Panel-Exec-Border/Stop-0-Blue
   panelBorderCyanDark: "#16bdeb", // Gradient/Panel-Border-Blue-Cyan-Dark/Stop-1-Cyan
