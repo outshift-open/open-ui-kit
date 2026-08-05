@@ -7,5 +7,7 @@
 export { SpiderChart } from "./components/spider-chart";
 export type {
   SpiderChartProps,
+  SpiderChartGradient,
   ExtendedDataPoint,
+  RadarType,
 } from "./types/spider-chart.types";

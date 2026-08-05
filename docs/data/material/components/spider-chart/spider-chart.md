@@ -50,11 +50,34 @@ export function SpiderChartExample() {
 }
 ```
 
+## Gradient variant
+
+Set `gradient` on a radar series to use one of the four design-approved data-viz ramps.
+The ramp fills the radar area, its paired accent draws the outline, and every data vertex gets a ring in the same accent.
+
+```tsx
+<SpiderChart
+  data={data}
+  radars={[{ name: 'Concierge Agent', dataKey: 'variableA', gradient: 'pinkPurple' }]}
+/>
+```
+
+| `gradient` | Gradient token |
+| --- | --- |
+| `pinkPurple` | `Gradient/Data-Viz-Pink-Purple` |
+| `cyanBlue` | `Gradient/Data-Viz-Cyan-Blue` |
+| `orangeGold` | `Gradient/Data-Viz-Orange-Gold` |
+| `blueDark` | `Gradient/Data-Viz-Blue-Dark` |
+
+The ramps are design-approved in the Midnight theme; the other themes fall back to the closest gradient the library already ships.
+Use one ramp per series, and pass `background`, `stroke`, or `dot` on the series to override any part of the treatment.
+
 ## Storybook scenarios
 
 Storybook is the source of truth for interactive examples, controls, and visual state checks.
 Start with the closest story, then adapt the props to match your product flow.
 
+- `Gradient` — the four data-viz ramps, one agent per ramp.
 - Dedicated Storybook coverage is still being expanded for this export.
 
 ## Behavior notes

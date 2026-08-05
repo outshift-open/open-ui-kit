@@ -14,9 +14,30 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
+import {
+  blue500,
+  blueAlpha40,
+  lightAlphaOrange40,
+  lightOrange600,
+  midnightGradientStops,
+  night700,
+  purple600,
+  purpleAlpha40,
+} from "@/theme/style/color-palette";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
+import CustomGradientRadar from "../components/custom-gradient-radar";
 import { SpiderChart } from "../components/spider-chart";
-import type { ExtendedDataPoint, RadarType } from "../types/spider-chart.types";
+import {
+  getSpiderChartGradient,
+  SPIDER_GRADIENT_DOT_RADIUS,
+  SPIDER_GRADIENT_STROKE_WIDTH,
+} from "../styles/spider-chart.styles";
+import type {
+  ExtendedDataPoint,
+  RadarType,
+  SpiderChartGradient,
+} from "../types/spider-chart.types";
 
 jest.mock("recharts", () => ({
   ResponsiveContainer: ({
@@ -68,12 +89,16 @@ jest.mock("recharts", () => ({
     dataKey,
     fill,
     name,
+    shape,
+    stroke,
     strokeWidth,
   }: {
     color: string;
     dataKey: string;
     fill: string;
     name: string;
+    shape: unknown;
+    stroke?: string;
     strokeWidth: number;
   }) => (
     <div
@@ -81,6 +106,19 @@ jest.mock("recharts", () => ({
       data-data-key={dataKey}
       data-fill={fill}
       data-name={name}
+      // Recharts clones the shape element with the Radar props, so the dot
+      // geometry is asserted where it is authored: on the element.
+      data-dot-radius={
+        isValidElement(shape)
+          ? String((shape.props as { dotRadius?: number }).dotRadius ?? "")
+          : ""
+      }
+      data-dot-fill={
+        isValidElement(shape)
+          ? ((shape.props as { dotFill?: string }).dotFill ?? "")
+          : ""
+      }
+      data-stroke={stroke ?? ""}
       data-stroke-width={strokeWidth}
       data-testid="radar-series"
     />
@@ -231,6 +269,239 @@ describe("SpiderChart", () => {
     expect(tooltipShell).toHaveStyle({
       backgroundColor: lightTheme.palette.vars.inactiveBackgroundActive,
       color: lightTheme.palette.vars.baseTextInverse,
+    });
+  });
+
+  // Figma: `Spider Chart` (274417:44533), one widget per `gradient-token`
+  // swatch. Stroke and dot colors are the widget's own data polygon and
+  // vertex rings.
+  describe("gradient treatment", () => {
+    const variants: [SpiderChartGradient, string, string, string, string][] = [
+      [
+        "pinkPurple",
+        midnightTheme.palette.gradients.gradientDataVizPinkPurple,
+        purple600,
+        purpleAlpha40,
+        purple600,
+      ],
+      [
+        "cyanBlue",
+        midnightTheme.palette.gradients.gradientDataVizCyanBlue,
+        night700,
+        blueAlpha40,
+        night700,
+      ],
+      [
+        "orangeGold",
+        midnightTheme.palette.gradients.gradientDataVizOrangeGold,
+        lightOrange600,
+        lightAlphaOrange40,
+        lightOrange600,
+      ],
+      [
+        "blueDark",
+        midnightTheme.palette.gradients.gradientDataVizBlueDark,
+        blue500,
+        "rgba(185, 171, 239, 0.76)",
+        // The one variant whose dot rings diverge from the outline color.
+        midnightGradientStops.dataVizBlue,
+      ],
+    ];
+
+    it.each(variants)(
+      "resolves the %s label to its theme gradient and accents",
+      (gradient, background, stroke, dotFill, dotStroke) => {
+        expect(getSpiderChartGradient(midnightTheme, gradient)).toEqual({
+          background,
+          stroke,
+          dotFill,
+          dotStroke,
+        });
+      },
+    );
+
+    it("fills, outlines and dots the radar from the named ramp", () => {
+      renderSpiderChart(false, {
+        radars: [
+          {
+            name: "Concierge Agent",
+            dataKey: "variableA",
+            gradient: "cyanBlue",
+          },
+        ],
+      });
+
+      expect(screen.getByTestId("radar-series")).toMatchObject({
+        dataset: expect.objectContaining({
+          color: lightTheme.palette.gradients.gradientDataVizCyanBlue,
+          stroke: night700,
+          strokeWidth: String(SPIDER_GRADIENT_STROKE_WIDTH),
+          dotRadius: String(SPIDER_GRADIENT_DOT_RADIUS),
+          dotFill: blueAlpha40,
+        }),
+      });
+    });
+
+    it("lets explicit background, stroke and dot props win over the ramp", () => {
+      renderSpiderChart(false, {
+        radars: [
+          {
+            name: "Coverage",
+            dataKey: "variableA",
+            gradient: "cyanBlue",
+            background: "linear-gradient(90deg, red 0%, blue 100%)",
+            stroke: "#ff0000",
+            dot: false,
+          },
+        ],
+      });
+
+      expect(screen.getByTestId("radar-series")).toMatchObject({
+        dataset: expect.objectContaining({
+          color: "linear-gradient(90deg, red 0%, blue 100%)",
+          stroke: "#ff0000",
+          dotRadius: "0",
+        }),
+      });
+    });
+
+    it("leaves radars without a gradient unstroked and undotted", () => {
+      renderSpiderChart();
+
+      expect(screen.getByTestId("radar-series")).toMatchObject({
+        dataset: expect.objectContaining({
+          stroke: "",
+          strokeWidth: "0",
+          dotRadius: "",
+        }),
+      });
+    });
+  });
+
+  // The suite mocks recharts, so the shape never renders through `Radar`.
+  describe("gradient radar shape", () => {
+    const points = [
+      { x: 0, y: 0 },
+      { x: 10, y: 0 },
+      { x: 10, y: 10 },
+    ];
+    const path = "M0 0 L10 0 L10 10Z";
+
+    const renderShape = (
+      props: Partial<React.ComponentProps<typeof CustomGradientRadar>> = {},
+    ) =>
+      render(
+        <CustomGradientRadar
+          points={points}
+          color={midnightTheme.palette.gradients.gradientDataVizCyanBlue}
+          stroke={night700}
+          strokeWidth={SPIDER_GRADIENT_STROKE_WIDTH}
+          dotRadius={SPIDER_GRADIENT_DOT_RADIUS}
+          dotFill={blueAlpha40}
+          {...props}
+        />,
+      );
+
+    it("clips the ramp to the polygon, outlines it and rings each vertex", () => {
+      const { container } = renderShape();
+
+      const clip = container.querySelector("clipPath");
+      expect(clip?.querySelector("path")).toHaveAttribute("d", path);
+
+      const foreignObject = container.querySelector("foreignObject");
+      expect(foreignObject).toHaveAttribute(
+        "clip-path",
+        `url(#${clip?.getAttribute("id")})`,
+      );
+      // The ramp spans the polygon's bounding box, matching Figma's
+      // object-bounding-box gradient fill.
+      expect(foreignObject).toHaveAttribute("x", "0");
+      expect(foreignObject).toHaveAttribute("y", "0");
+      expect(foreignObject).toHaveAttribute("width", "10");
+      expect(foreignObject).toHaveAttribute("height", "10");
+      expect(foreignObject?.querySelector("div")).toHaveStyle({
+        background: midnightTheme.palette.gradients.gradientDataVizCyanBlue,
+      });
+
+      const outline = container.querySelector("svg > path");
+      expect(outline).toHaveAttribute("d", path);
+      expect(outline).toHaveAttribute("stroke", night700);
+      expect(outline).toHaveAttribute(
+        "stroke-width",
+        String(SPIDER_GRADIENT_STROKE_WIDTH),
+      );
+      expect(outline).toHaveAttribute("fill", "none");
+
+      const dots = container.querySelectorAll("circle");
+      expect(dots).toHaveLength(points.length);
+      expect(dots[0]).toHaveAttribute("cx", "0");
+      expect(dots[0]).toHaveAttribute("cy", "0");
+      expect(dots[0]).toHaveAttribute("r", String(SPIDER_GRADIENT_DOT_RADIUS));
+      expect(dots[0]).toHaveAttribute("fill", blueAlpha40);
+      expect(dots[0]).toHaveAttribute("stroke", night700);
+      expect(dots[0]).toHaveAttribute(
+        "stroke-width",
+        String(SPIDER_GRADIENT_STROKE_WIDTH),
+      );
+    });
+
+    it("falls back to solid outline-colored dots without a dotFill", () => {
+      const { container } = renderShape({ dotFill: undefined });
+
+      expect(container.querySelector("circle")).toHaveAttribute(
+        "fill",
+        night700,
+      );
+    });
+
+    // Blue-dark rings its dots in the ramp's 3B82F6 stop, not the outline
+    // color.
+    it("lets dotStroke diverge from the outline color", () => {
+      const { container } = renderShape({
+        stroke: blue500,
+        dotStroke: midnightGradientStops.dataVizBlue,
+      });
+
+      expect(container.querySelector("svg > path")).toHaveAttribute(
+        "stroke",
+        blue500,
+      );
+      expect(container.querySelector("circle")).toHaveAttribute(
+        "stroke",
+        midnightGradientStops.dataVizBlue,
+      );
+    });
+
+    it("keeps the outline but drops the dots at a zero radius", () => {
+      const { container } = renderShape({ dotRadius: 0 });
+
+      expect(container.querySelector("svg > path")).toBeInTheDocument();
+      expect(container.querySelectorAll("circle")).toHaveLength(0);
+    });
+
+    it("renders nothing without points", () => {
+      const { container } = renderShape({ points: [] });
+
+      expect(container).toBeEmptyDOMElement();
+    });
+
+    // Four gradient radars share one page in the Figma frame, so a constant
+    // clip id would let them resolve each other's polygon.
+    it("gives each instance its own clip id", () => {
+      const { container } = render(
+        <>
+          <CustomGradientRadar points={points} color="red" />
+          <CustomGradientRadar points={points} color="blue" />
+        </>,
+      );
+
+      const ids = [...container.querySelectorAll("clipPath")].map((clip) =>
+        clip.getAttribute("id"),
+      );
+
+      expect(ids).toHaveLength(2);
+      expect(new Set(ids).size).toBe(2);
+      expect(ids.every((id) => id && !id.includes(":"))).toBe(true);
     });
   });
 
