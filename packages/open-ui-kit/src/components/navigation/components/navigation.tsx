@@ -176,7 +176,10 @@ export const Navigation = ({
                       subNavigationItem?.id === item.id
                         ? "open"
                         : getItemState(item, selectedItemId);
-                    const selected = state === "selected" || state === "open";
+                    // Only "selected" takes the primary icon ramp. An item with
+                    // its sub-menu open keeps the secondary ramp, matching the
+                    // Figma frame.
+                    const selected = state === "selected";
 
                     return (
                       <StyledNavigationItem

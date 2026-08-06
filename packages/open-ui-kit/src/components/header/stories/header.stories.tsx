@@ -6,7 +6,7 @@
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Box, Stack, Typography } from "@/components";
+import { Badge, Box, Stack, Typography } from "@/components";
 import {
   AccountCircleOutlined,
   ExpandMore,
@@ -193,32 +193,11 @@ const defaultActions: HeaderAction[] = [
   {
     id: "notifications",
     icon: (
-      <Box
-        sx={{
-          position: "relative",
-          display: "inline-flex",
-          "&::after": (theme) => ({
-            alignItems: "center",
-            backgroundColor: theme.palette.vars.excellentBackgroundDefault,
-            color: theme.palette.vars.baseTextInverse,
-            borderRadius: "64px",
-            content: '"1"',
-            display: "flex",
-            fontSize: "10px",
-            lineHeight: "16px",
-            height: "16px",
-            justifyContent: "center",
-            minWidth: "19px",
-            padding: "0 6.5px",
-            position: "absolute",
-            right: "-6px",
-            top: "-8px",
-            boxSizing: "border-box",
-          }),
-        }}
-      >
-        <NotificationsNone />
-      </Box>
+      <Badge
+        type="excellent"
+        notificationContent="1"
+        content={<NotificationsNone />}
+      />
     ),
     tooltip: "Notifications",
     "aria-label": "notifications",

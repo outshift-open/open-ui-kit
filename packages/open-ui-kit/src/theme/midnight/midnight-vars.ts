@@ -105,9 +105,10 @@ export const midnightVars: VarsType = {
   brandIconPrimaryStrong: electricBluePalette[700],
   brandIconPrimaryMedium: electricBluePalette[300],
   brandIconPrimaryWeak: electricBluePalette[300],
-  brandIconSecondaryDefault: electricBluePalette[300],
-  brandIconSecondaryWeak: greyPalette[100],
-  brandIconSecondaryMedium: greyPalette[200],
+  // The Brand/Icon/Secondary ramp is not redefined for Midnight — the Figma
+  // Midnight mode resolves it to the same Surface values the Dark theme uses
+  // (Weak #e3eafa, Medium #c8d5f5, Default #4f628d), so it inherits from
+  // `darkVars` rather than being overridden here.
   brandBackgroundPrimaryDefault: darkNavyPalette[200],
   brandBackgroundPrimaryWeak: darkNavyPalette[100],
   brandBackgroundPrimaryMedium: surfaceDarkPalette[400],

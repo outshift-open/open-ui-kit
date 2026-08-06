@@ -168,14 +168,25 @@ describe("Navigation", () => {
       ).toMatchObject({
         height: "40px",
         padding: "8px",
-        backgroundColor: lightTheme.palette.vars.interactivePrimaryWeakDefault,
-        color: lightTheme.palette.vars.interactivePrimaryDefaultActive,
+        backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryWeak,
+        color: lightTheme.palette.vars.brandTextPrimary,
+        // Figma binds no border on selected; only the open-submenu state has one.
+        border: "1px solid transparent",
+        borderRadius: "8px",
       });
       expect(getNavigationItemStyles(lightTheme, "open", false)).toMatchObject({
-        backgroundColor: lightTheme.palette.vars.interactivePrimaryWeakDefault,
-        color: lightTheme.palette.vars.interactivePrimaryDefaultActive,
-        border: `1px solid ${lightTheme.palette.vars.controlBorderStrong}`,
+        backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryWeak,
+        // Open submenu keeps the secondary label color and is distinguished by
+        // its border, unlike selected.
+        color: lightTheme.palette.vars.brandTextSecondary,
+        border: `1px solid ${lightTheme.palette.vars.baseBorderStrong}`,
         borderRightWidth: 0,
+      });
+      expect(
+        getNavigationItemStyles(lightTheme, "default", false),
+      ).toMatchObject({
+        backgroundColor: "transparent",
+        color: lightTheme.palette.vars.brandTextSecondary,
       });
       expect(
         getNavigationCollapseButtonStyles(lightTheme, false),
@@ -208,8 +219,8 @@ describe("Navigation", () => {
       expect(
         getNavigationItemStyles(darkTheme, "selected", false),
       ).toMatchObject({
-        backgroundColor: darkTheme.palette.vars.brandBackgroundSecondaryDefault,
-        color: darkTheme.palette.vars.brandIconPrimaryDefault,
+        backgroundColor: darkTheme.palette.vars.brandBackgroundPrimaryWeak,
+        color: darkTheme.palette.vars.brandTextPrimary,
       });
       expect(getNavigationCollapseButtonStyles(darkTheme, true)).toMatchObject({
         marginTop: "auto",
