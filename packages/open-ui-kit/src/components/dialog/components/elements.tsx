@@ -74,5 +74,9 @@ export const StyledDialogActions: ComponentType<DialogActionsProps> = styled(
 export const StyledDialogContentText: ComponentType<DialogContentTextProps> =
   styled(MuiDialogContentText)(({ theme }) => ({
     ...theme.typography.body2,
-    color: theme.palette.vars.baseTextDefault,
+    // MUI injects color="textSecondary" as a system prop whose styles are
+    // emitted after this override; the doubled selector outranks it.
+    "&&": {
+      color: theme.palette.vars.baseTextDefault,
+    },
   }));

@@ -50,11 +50,16 @@ body {
   max-width: 1040px;
 }
 
+/* The bare-element selectors below must exclude `.sb-unstyled` subtrees.
+   Storybook renders stories inline inside `.sbdocs-content`, so an unguarded
+   `.sbdocs-content a` (etc.) repaints the rendered components themselves and
+   the Docs tab stops showing their real token colors. */
+
 .sbdocs-title,
-.sbdocs-content h1,
-.sbdocs-content h2,
-.sbdocs-content h3,
-.sbdocs-content h4 {
+.sbdocs-content h1:not(.sb-unstyled *),
+.sbdocs-content h2:not(.sb-unstyled *),
+.sbdocs-content h3:not(.sb-unstyled *),
+.sbdocs-content h4:not(.sb-unstyled *) {
   color: var(--ouk-storybook-text) !important;
   font-family:
     "Sharp Sans",
@@ -69,20 +74,20 @@ body {
 .sbdocs-subtitle,
 .sbdocs-p,
 .sbdocs-li,
-.sbdocs-content p,
-.sbdocs-content li {
+.sbdocs-content p:not(.sb-unstyled *),
+.sbdocs-content li:not(.sb-unstyled *) {
   color: var(--ouk-storybook-muted-text) !important;
 }
 
 .sbdocs-a,
-.sbdocs-content a {
+.sbdocs-content a:not(.sb-unstyled *) {
   color: var(--ouk-storybook-link) !important;
 }
 
 .sbdocs-p code,
 .sbdocs-li code,
-.sbdocs-content p code,
-.sbdocs-content li code {
+.sbdocs-content p:not(.sb-unstyled *) code,
+.sbdocs-content li:not(.sb-unstyled *) code {
   background: var(--ouk-storybook-preview-bg) !important;
   border: 1px solid var(--ouk-storybook-border) !important;
   border-radius: 4px !important;

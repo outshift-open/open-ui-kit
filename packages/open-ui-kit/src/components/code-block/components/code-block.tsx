@@ -16,6 +16,10 @@ import {
 } from "@/components/code-block/styles";
 import React from "react";
 import { Prism, type SyntaxHighlighterProps } from "react-syntax-highlighter";
+// Adds the `declaration-name` and `identifier` tokens that `prismStyle` paints
+// with Accent/G and Accent/H. Imported for its side effect on the shared
+// refractor grammar.
+import "@/components/code-block/prism-grammar";
 import { Separator } from "./separator";
 import { CopyButton } from "@/components/copy-button";
 import type { CodeBlockProps } from "../types";
@@ -83,7 +87,7 @@ export const CodeBlock = (props: CodeBlockProps) => {
           />
           <SyntaxHighlighter
             language="javascript"
-            style={prismStyle}
+            style={prismStyle(theme)}
             showLineNumbers={showLineNumbers}
             startingLineNumber={startingLineNumber}
             {...highlighterProps}

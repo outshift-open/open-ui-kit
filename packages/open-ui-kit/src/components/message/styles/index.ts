@@ -59,7 +59,7 @@ export const getMessageRootStyles = (
   height: "auto",
   padding: "12px 16px",
   gap: "12px",
-  background: theme.palette.vars.baseBackgroundWeak,
+  background: theme.palette.vars.controlBackgroundDefault,
   borderStyle: "solid",
   borderColor: getMessageStatusColor(theme, type),
   borderWidth: "1px 1px 1px 4px",

@@ -325,7 +325,7 @@ export const getNavigationDrawerItemStyles = (
   "&:hover": {
     backgroundColor: selected
       ? theme.palette.vars.interactivePrimaryWeakHover
-      : theme.palette.vars.baseBackgroundHover,
+      : theme.palette.vars.brandBackgroundPrimaryMedium,
   },
 });
 

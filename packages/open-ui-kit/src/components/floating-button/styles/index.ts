@@ -16,10 +16,15 @@ export const getFloatingButtonStyles = (
       ? theme.palette.vars.interactivePrimaryDefaultDefault
       : theme.palette.vars.controlBorderDefault;
 
+  const backgroundColor =
+    variant === "primary"
+      ? theme.palette.vars.baseBackgroundWeak
+      : theme.palette.vars.controlBackgroundDefault;
+
   return {
     borderRadius: "100px",
     boxShadow: theme.shadows[4],
-    background: `${theme.palette.vars.controlBackgroundDefault} !important`,
+    background: `${backgroundColor} !important`,
     color: `${theme.palette.vars.baseTextStrong} !important`,
     border: `2px solid ${borderColor} !important`,
     letterSpacing: "0.1px",

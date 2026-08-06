@@ -254,7 +254,9 @@ export const BareStates: Story = {
                 {...args}
                 {...checkboxStateProps(checkState, visualState)}
               />
-              <Typography variant="body2">{stateLabel[checkState]}</Typography>
+              <LabelText disabled={visualState === "disabled"}>
+                {stateLabel[checkState]}
+              </LabelText>
             </Stack>
           ))}
         </Stack>

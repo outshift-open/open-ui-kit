@@ -97,7 +97,7 @@ describe("FloatingButton", () => {
   describe("token styles", () => {
     it("uses light theme tokens for primary styling", () => {
       expect(getFloatingButtonStyles(lightTheme, "primary")).toMatchObject({
-        background: `${lightTheme.palette.vars.controlBackgroundDefault} !important`,
+        background: `${lightTheme.palette.vars.baseBackgroundWeak} !important`,
         border: `2px solid ${lightTheme.palette.vars.interactivePrimaryDefaultDefault} !important`,
         color: `${lightTheme.palette.vars.baseTextStrong} !important`,
         boxShadow: lightTheme.shadows[4],

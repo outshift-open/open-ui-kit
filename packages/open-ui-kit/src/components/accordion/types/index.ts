@@ -40,6 +40,8 @@ export interface AccordionProps extends MuiAccordionProps {
   endSlot?: ReactNode;
   /** Overrides the default summary divider visibility. Medium uncontained accordions show it by default. */
   showDivider?: boolean;
+  /** Overrides the default top border visibility. Medium uncontained accordions show it by default. */
+  showBorder?: boolean;
   /** Props forwarded to the internal MUI AccordionSummary. */
   accordionSummaryProps?: AccordionSummaryProps;
   /** Props forwarded to the details content wrapper. */

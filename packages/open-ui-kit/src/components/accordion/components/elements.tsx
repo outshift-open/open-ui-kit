@@ -19,9 +19,9 @@ import {
 } from "@mui/material";
 
 export const StyledAccordion = styled(Accordion, {
-  shouldForwardProp: (prop) => prop !== "contained" && prop !== "mediumSize",
-})<{ contained?: boolean; mediumSize?: boolean }>(
-  ({ theme, contained, mediumSize }) => ({
+  shouldForwardProp: (prop) => prop !== "contained" && prop !== "showBorder",
+})<{ contained?: boolean; showBorder?: boolean }>(
+  ({ theme, contained, showBorder }) => ({
     padding: 0,
     color: theme.palette.vars.baseTextStrong,
     backgroundColor: "transparent",
@@ -36,7 +36,7 @@ export const StyledAccordion = styled(Accordion, {
       color: theme.palette.vars.baseTextDisabled,
       backgroundColor: "transparent",
     },
-    ...(mediumSize &&
+    ...(showBorder &&
       !contained && {
         borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
       }),
@@ -54,7 +54,7 @@ export const StyledAccordion = styled(Accordion, {
     }),
   }),
 ) as ComponentType<
-  AccordionProps & { contained?: boolean; mediumSize?: boolean }
+  AccordionProps & { contained?: boolean; showBorder?: boolean }
 >;
 
 export const StyledAccordionSummary = styled(AccordionSummary, {

@@ -171,7 +171,7 @@ export const getPopoverPaperStyles = (
     width,
     minWidth: width,
     maxWidth: width,
-    background: theme.palette.vars?.controlBackgroundDefault,
+    background: theme.palette.vars?.baseBackgroundWeak,
     borderRadius: "6px",
     boxShadow: "none",
     filter:
@@ -208,7 +208,7 @@ export const getPopoverContentStyles = (
     gap: layout.gap,
     padding: layout.padding,
     width: "100%",
-    background: theme.palette.vars?.controlBackgroundDefault,
+    background: theme.palette.vars?.baseBackgroundWeak,
     border: featureHighlight
       ? `2px solid ${theme.palette.vars?.controlBorderActive}`
       : "0px solid transparent",
