@@ -71,7 +71,7 @@ const HoverState = ({ children }: { children: ReactNode }) => (
   <Box
     sx={(theme) => ({
       "& .MuiAvatar-root": {
-        bgcolor: theme.palette.vars.brandBackgroundPrimaryMedium,
+        bgcolor: theme.palette.vars.interactivePrimaryWeakHover,
         color: theme.palette.vars.brandIconPrimaryStrong,
       },
       "& .MuiSvgIcon-root": {
