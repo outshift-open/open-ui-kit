@@ -9,7 +9,7 @@ import {
   DashboardSelected,
   DashboardUnSelected,
   KeyboardArrowRight,
-  OrgSwitcherDefault,
+  OrgSwitcher,
 } from "@/custom-icons";
 import { useEffect, useState, type ReactNode } from "react";
 import type {
@@ -153,7 +153,7 @@ export const Navigation = ({
             selected={isOrganizationDrawerOpen}
             type="button"
           >
-            <OrgSwitcherDefault fontSize="small" />
+            <OrgSwitcher fontSize="small" />
             {!isCompact ? (
               <>
                 <StyledNavigationSwitcherLabel>

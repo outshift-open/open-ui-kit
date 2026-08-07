@@ -20,12 +20,16 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+  CardSubheader,
   Link,
   LinkType,
   Skeleton,
   Stack,
+  Tag,
+  TagStatus,
   Typography,
 } from "@/components";
+import { GeneralSize } from "@/common";
 import { cardActiveStyles, cardSkeletonStyles } from "../styles";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
@@ -83,7 +87,12 @@ const CardStats = () => (
       color: theme.palette.vars.baseTextMedium,
     })}
   >
-    <CheckCircleOutline color="success" sx={{ fontSize: 16 }} />
+    <CheckCircleOutline
+      sx={(theme) => ({
+        color: theme.palette.vars.successIconDefault,
+        fontSize: 16,
+      })}
+    />
     <GridView sx={{ fontSize: 16 }} />
     <StarBorder sx={{ fontSize: 16 }} />
     <Typography variant="subtitle2">10k</Typography>
@@ -131,23 +140,29 @@ const ImportCardContent = () => (
       <Box
         sx={(theme) => ({
           alignItems: "center",
+          backgroundColor: theme.palette.vars.baseBackgroundMedium,
           border: `1px solid ${theme.palette.vars.controlBorderActive}`,
           borderRadius: "4px",
+          color: theme.palette.vars.controlIconDefault,
           display: "flex",
-          height: 32,
+          height: 40,
           justifyContent: "center",
-          width: 32,
+          width: 40,
         })}
       >
-        <InsertPhotoOutlined sx={{ fontSize: 20 }} />
+        <InsertPhotoOutlined sx={{ fontSize: 24 }} />
       </Box>
       <Stack direction="row" gap={0.5} sx={{ alignItems: "center" }}>
         <Typography variant="body1Semibold">Import Existing</Typography>
-        <Badge content="30 sec" type="info" />
+        <Badge
+          content="30 sec"
+          styleBadge={(theme) => ({
+            backgroundColor: theme.palette.vars.accentGWeak,
+          })}
+          type="info"
+        />
       </Stack>
-      <CardDescription>
-        Upload A2A card, MCP config, or OASF file
-      </CardDescription>
+      <CardSubheader>Upload A2A card, MCP config, or OASF file</CardSubheader>
     </Stack>
     <CardContent>
       <CardDescription>
@@ -260,7 +275,9 @@ export const Metrics: Story = {
           Headline not clickable
         </Typography>
         <InfoOutlined sx={{ fontSize: 14 }} />
-        <Badge content="0%" type="success" />
+        <Tag size={GeneralSize.Small} status={TagStatus.Positive}>
+          0%
+        </Tag>
       </Stack>
       <Stack
         direction="row"

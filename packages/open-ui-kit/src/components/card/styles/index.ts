@@ -31,8 +31,8 @@ export const cardActiveStyles = (theme: Theme): CSSObject => ({
 });
 
 export const cardDisabledStyles = (theme: Theme): CSSObject => ({
-  backgroundColor: theme.palette.vars.controlBackgroundWeak,
-  border: `1px solid ${theme.palette.vars.controlBorderWeak}`,
+  backgroundColor: theme.palette.vars.controlBackgroundDisabled,
+  border: `1px solid ${theme.palette.vars.controlBorderDisabled}`,
   boxShadow: theme.shadows[2],
   color: theme.palette.vars.baseTextDisabled,
   pointerEvents: "none" as const,
