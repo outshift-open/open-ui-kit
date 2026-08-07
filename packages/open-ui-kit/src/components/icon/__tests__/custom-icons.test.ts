@@ -6,6 +6,10 @@
 
 import fs from "node:fs";
 import path from "node:path";
+// The suite only reads sources, but it still needs the jest globals to be
+// typed, and `typeRoots` in tsconfig.json does not reach the hoisted
+// `@types/jest`. Every other suite picks them up through this import.
+import "@testing-library/jest-dom";
 
 const customIconsDir = path.resolve(__dirname, "../../../custom-icons");
 
@@ -25,8 +29,48 @@ function getSource(filePath: string) {
   return fs.readFileSync(filePath, "utf8");
 }
 
+// A color written straight into the icon — hex, or any of the CSS color
+// functions. These are what must never appear: they survive a theme switch and
+// leave the mark painted for one mode only.
+const LITERAL_COLOR =
+  /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\s*\(/i;
+
+const QUOTED_STRING = /"[^"]*"|'[^']*'/g;
+
+function unquote(value: string) {
+  return value.slice(1, -1).trim().toLowerCase();
+}
+
+function isInheritedPaint(value: string) {
+  return value === "none" || value === "currentcolor";
+}
+
+// `fill`/`stroke` may either inherit (`currentColor`), paint nothing (`none`),
+// or resolve through the theme — a `vars.*` token, a palette constant, or a
+// prop carrying one of those. The multi-tone marks need that third form: the
+// Outshift logo paints four fixed brand colors, the Dashboard navigation icon
+// swaps a three-tone ramp between its selected and unselected states, and the
+// OrgSwitcher mark is two-tone. A caller only carries one inherited color, so
+// forcing those onto `currentColor` would flatten them.
+function isAcceptablePaint(rawValue: string) {
+  const value = rawValue.trim();
+
+  if (!value.startsWith("{")) {
+    return isInheritedPaint(unquote(value));
+  }
+
+  const expression = value.slice(1, -1);
+
+  return (
+    !LITERAL_COLOR.test(expression) &&
+    (expression.match(QUOTED_STRING) ?? []).every((literal) =>
+      isInheritedPaint(unquote(literal)),
+    )
+  );
+}
+
 describe("custom icons", () => {
-  it("uses currentColor for SVG fills and strokes", () => {
+  it("keeps SVG fills and strokes off hardcoded colors", () => {
     const badPaintAttributes = iconFiles.flatMap((filePath) => {
       const source = getSource(filePath);
       const matches = [
@@ -36,15 +80,7 @@ describe("custom icons", () => {
       ];
 
       return matches
-        .filter((match) => {
-          const value = match[1].toLowerCase();
-          return (
-            value !== '"none"' &&
-            value !== "'none'" &&
-            value !== '"currentcolor"' &&
-            value !== "'currentcolor'"
-          );
-        })
+        .filter((match) => !isAcceptablePaint(match[1]))
         .map(
           (match) => `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
         );
