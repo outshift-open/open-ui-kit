@@ -305,7 +305,10 @@ describe("CodeBlock", () => {
           walk(child, classes);
         }
       };
-      walk(refractor.highlight(SAMPLE, "javascript") as unknown as HastNode, []);
+      walk(
+        refractor.highlight(SAMPLE, "javascript") as unknown as HastNode,
+        [],
+      );
       return found[0] ?? [];
     };
 

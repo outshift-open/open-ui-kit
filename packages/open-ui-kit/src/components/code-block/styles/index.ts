@@ -150,7 +150,10 @@ export const prismStyle = (theme: Theme): { [key: string]: CSSProperties } => {
   const { vars } = theme.palette;
 
   return {
-    'pre[class*="language-"]': { background: "transparent", textShadow: "none" },
+    'pre[class*="language-"]': {
+      background: "transparent",
+      textShadow: "none",
+    },
     'code[class*="language-"]': {
       background: "transparent",
       textShadow: "none",
