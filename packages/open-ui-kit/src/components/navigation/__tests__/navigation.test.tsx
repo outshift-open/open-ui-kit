@@ -12,6 +12,7 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Navigation, NavigationDrawer, NavigationSubNavigation } from "..";
 import {
+  getNavigationDrawerItemStyles,
   getNavigationDrawerStyles,
   getNavigationCollapseButtonStyles,
   getNavigationItemStyles,
@@ -187,6 +188,24 @@ describe("Navigation", () => {
       ).toMatchObject({
         backgroundColor: "transparent",
         color: lightTheme.palette.vars.brandTextSecondary,
+      });
+      // Hovering a sub-menu option adds the fill but keeps the label on
+      // Brand/Text/Secondary; only selected holds Brand/Text/Primary.
+      expect(getNavigationDrawerItemStyles(lightTheme, false)).toMatchObject({
+        backgroundColor: "transparent",
+        color: lightTheme.palette.vars.brandTextSecondary,
+        "&:hover": {
+          backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+          color: lightTheme.palette.vars.brandTextSecondary,
+        },
+      });
+      expect(getNavigationDrawerItemStyles(lightTheme, true)).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+        color: lightTheme.palette.vars.brandTextPrimary,
+        "&:hover": {
+          backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+          color: lightTheme.palette.vars.brandTextPrimary,
+        },
       });
       expect(
         getNavigationCollapseButtonStyles(lightTheme, false),
