@@ -30,7 +30,27 @@ import {
  * Source: Figma frames 274405:44106 and I274405:38087;25258:78851.
  */
 export const gradientButtonPrimaryFill = `linear-gradient(90deg, ${stops.buttonPrimaryFillStart} 0%, ${stops.buttonPrimaryFillEnd} 100%)`;
-export const gradientButtonPrimaryBorderGlow = `linear-gradient(90deg, ${stops.buttonPrimaryGlowBlue} 0%, ${stops.buttonPrimaryGlowCyan} 50%, ${stops.buttonPrimaryGlowTeal} 100%)`;
+
+/*
+ * The ramp runs bottom-to-top, not left-to-right: the `Border-Glow` swatch is a
+ * horizontal rectangle, but the button that applies it
+ * (I274405:38087;25258:78851) carries the ramp up its 105 x 28 box, blue along
+ * the bottom edge to cyan along the top. Same swatch-vs-application split as
+ * `gradientCardHighlightRadial`.
+ *
+ * The stroke's paint cannot be read back through the MCP server, so the
+ * geometry was fitted to the rendered node: sampling its straight edges gives a
+ * ramp 7.5 degrees off vertical whose blue and cyan stops sit at 10% and 90% of
+ * the gradient line. The three stops stay evenly spaced, which puts teal at
+ * 170% — off the box, which is why the frame shows no teal at this size. Those
+ * numbers reproduce the render to a maximum channel error of 3/255; the
+ * previous `90deg, 0/50/100` averaged 46.
+ *
+ * The angle is exact for the frame's aspect ratio. Figma maps the handle
+ * through the layer's bounding box, so a much wider button tilts further there
+ * than a fixed CSS angle can follow — immaterial at this tilt.
+ */
+export const gradientButtonPrimaryBorderGlow = `linear-gradient(7.5deg, ${stops.buttonPrimaryGlowBlue} 10%, ${stops.buttonPrimaryGlowCyan} 90%, ${stops.buttonPrimaryGlowTeal} 170%)`;
 
 /*
  * Card insight border — `Gradient/Panel-Exec-Border`, shared by every theme.

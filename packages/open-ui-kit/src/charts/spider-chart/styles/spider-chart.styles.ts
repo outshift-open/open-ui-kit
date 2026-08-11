@@ -7,13 +7,8 @@
 import { alpha, styled, type Theme } from "@mui/material";
 import type { ComponentType, HTMLAttributes } from "react";
 import {
-  blue500,
   blueAlpha40,
   lightAlphaOrange40,
-  lightOrange600,
-  midnightGradientStops,
-  night700,
-  purple600,
   purpleAlpha40,
 } from "@/theme/style/color-palette";
 import type { SpiderChartGradient } from "../types/spider-chart.types";
@@ -46,55 +41,58 @@ export const SPIDER_GRADIENT_DOT_RADIUS = 2.5;
  * gradients — while the outline and dot colors are read off the widget's own
  * data polygon and vertex rings, and every one is a named palette value:
  *
- * | Ramp         | Outline (`stroke`)     | Dot fill                    | Dot ring |
- * | ------------ | ---------------------- | --------------------------- | -------- |
- * | `pinkPurple` | `purple600` (9C4EEA)   | `purpleAlpha40` (B76DFF66)  | outline  |
- * | `cyanBlue`   | `night700` (1C2B7F)    | `blueAlpha40` (0051AF66)    | outline  |
- * | `orangeGold` | `lightOrange600`       | `lightAlphaOrange40`        | outline  |
- * | `blueDark`   | `blue500` (0051AF)     | B9ABEF @ 76%, no palette name | `dataVizBlue` (3B82F6) |
+ * | Ramp         | Outline (`stroke`)                 | Dot fill                      | Dot ring |
+ * | ------------ | ---------------------------------- | ----------------------------- | -------- |
+ * | `pinkPurple` | `infoBorderDefault`                | `purpleAlpha40` (B76DFF66)    | outline  |
+ * | `cyanBlue`   | `accentHDefault`                   | `blueAlpha40` (0051AF66)      | outline  |
+ * | `orangeGold` | `warningBorderDefault`             | `lightAlphaOrange40`          | outline  |
+ * | `blueDark`   | `interactivePrimaryDefaultActive`  | B9ABEF @ 76%, no palette name | `interactivePrimaryDefaultDefault` |
  *
- * Blue-dark is the one variant whose dot rings are not the outline color: the
- * frame strokes them with the ramp's own `3B82F6` stop.
+ * Blue-dark is the one variant whose dot rings are not the outline color. The
+ * frame (OXP `Itinerary Planner`) rings them a step lighter than the outline —
+ * 558BFF against 1469CC in Midnight — so the two take the Default and Active
+ * ends of the same Interactive/Primary ramp rather than one shared value.
  *
- * They are fixed palette values rather than theme vars for the same reason as
- * the toast glow shadows: the ramp itself is Midnight-only, and design has not
- * diverged the accents per theme.
+ * The outlines are theme vars, so they retone with the theme rather than
+ * staying pinned to the Midnight frame. The dot fills are still fixed palette
+ * alphas: design has not diverged those per theme.
  */
 export const getSpiderChartGradient = (
   theme: Theme,
   gradient: SpiderChartGradient,
 ): { background: string; stroke: string; dotFill: string; dotStroke: string } => {
   const gradients = theme.palette.gradients;
+  const { vars } = theme.palette;
 
   switch (gradient) {
     case "cyanBlue":
       return {
         background: gradients.gradientDataVizCyanBlue,
-        stroke: night700,
+        stroke: vars.accentHDefault,
         dotFill: blueAlpha40,
-        dotStroke: night700,
+        dotStroke: vars.accentHDefault,
       };
     case "orangeGold":
       return {
         background: gradients.gradientDataVizOrangeGold,
-        stroke: lightOrange600,
+        stroke: vars.warningBorderDefault,
         dotFill: lightAlphaOrange40,
-        dotStroke: lightOrange600,
+        dotStroke: vars.warningBorderDefault,
       };
     case "blueDark":
       return {
         background: gradients.gradientDataVizBlueDark,
-        stroke: blue500,
+        stroke: vars.interactivePrimaryDefaultActive,
         dotFill: alpha("#b9abef", 0.76),
-        dotStroke: midnightGradientStops.dataVizBlue,
+        dotStroke: vars.interactivePrimaryDefaultDefault,
       };
     case "pinkPurple":
     default:
       return {
         background: gradients.gradientDataVizPinkPurple,
-        stroke: purple600,
+        stroke: vars.infoBorderDefault,
         dotFill: purpleAlpha40,
-        dotStroke: purple600,
+        dotStroke: vars.infoBorderDefault,
       };
   }
 };

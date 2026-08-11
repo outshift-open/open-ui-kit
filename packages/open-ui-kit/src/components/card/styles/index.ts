@@ -396,6 +396,26 @@ export const cardImageStyles = (theme: Theme, image: string): CSSObject => ({
     position: "relative",
     zIndex: 1,
   },
+  /*
+   * Tertiary actions read as text on this surface, not as links on a page:
+   * `Interactive/Text In` rather than the variant's `Interactive/Primary`
+   * blue, which the scrim leaves sitting too dark against the photo.
+   *
+   * The variant's own rule is `&.MuiButton-tertariary` — the styled class plus
+   * the variant class, so two classes. Matching that from here with a
+   * descendant selector would only tie, leaving the winner up to emotion's
+   * injection order; naming `.MuiButton-root` as well takes it to three and
+   * settles it.
+   */
+  "& .MuiButton-root.MuiButton-tertariary": {
+    color: theme.palette.vars.interactiveTextInDefault,
+    "&:hover": {
+      color: theme.palette.vars.interactiveTextInHover,
+    },
+    "&:active": {
+      color: theme.palette.vars.interactiveTextInActive,
+    },
+  },
 });
 
 export const cardSkeletonStyles = (theme: Theme): CSSObject => ({

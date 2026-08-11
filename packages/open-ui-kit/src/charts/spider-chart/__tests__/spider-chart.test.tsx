@@ -19,10 +19,8 @@ import {
   blue500,
   blueAlpha40,
   lightAlphaOrange40,
-  lightOrange600,
   midnightGradientStops,
   night700,
-  purple600,
   purpleAlpha40,
 } from "@/theme/style/color-palette";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
@@ -280,31 +278,33 @@ describe("SpiderChart", () => {
       [
         "pinkPurple",
         midnightTheme.palette.gradients.gradientDataVizPinkPurple,
-        purple600,
+        midnightTheme.palette.vars.infoBorderDefault,
         purpleAlpha40,
-        purple600,
+        midnightTheme.palette.vars.infoBorderDefault,
       ],
       [
         "cyanBlue",
         midnightTheme.palette.gradients.gradientDataVizCyanBlue,
-        night700,
+        midnightTheme.palette.vars.accentHDefault,
         blueAlpha40,
-        night700,
+        midnightTheme.palette.vars.accentHDefault,
       ],
       [
         "orangeGold",
         midnightTheme.palette.gradients.gradientDataVizOrangeGold,
-        lightOrange600,
+        midnightTheme.palette.vars.warningBorderDefault,
         lightAlphaOrange40,
-        lightOrange600,
+        midnightTheme.palette.vars.warningBorderDefault,
       ],
       [
         "blueDark",
         midnightTheme.palette.gradients.gradientDataVizBlueDark,
-        blue500,
+        midnightTheme.palette.vars.interactivePrimaryDefaultActive,
         "rgba(185, 171, 239, 0.76)",
-        // The one variant whose dot rings diverge from the outline color.
-        midnightGradientStops.dataVizBlue,
+        // The one variant whose dot rings diverge from the outline color: the
+        // frame rings them a step lighter (558BFF against the outline's
+        // 1469CC in Midnight).
+        midnightTheme.palette.vars.interactivePrimaryDefaultDefault,
       ],
     ];
 
@@ -334,7 +334,7 @@ describe("SpiderChart", () => {
       expect(screen.getByTestId("radar-series")).toMatchObject({
         dataset: expect.objectContaining({
           color: lightTheme.palette.gradients.gradientDataVizCyanBlue,
-          stroke: night700,
+          stroke: lightTheme.palette.vars.accentHDefault,
           strokeWidth: String(SPIDER_GRADIENT_STROKE_WIDTH),
           dotRadius: String(SPIDER_GRADIENT_DOT_RADIUS),
           dotFill: blueAlpha40,

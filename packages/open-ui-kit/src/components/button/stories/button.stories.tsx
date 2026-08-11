@@ -267,7 +267,6 @@ export const Secondary: Story = {
   render: (args) => <RenderButton {...args} />,
 };
 
-/** Gradient background fill — Figma token `Gradient/Global-Button-Primary/Fill`. */
 export const Gradient: Story = {
   args: {
     ...defaultArgs,
@@ -284,7 +283,6 @@ export const Outlined: Story = {
   render: (args) => <RenderButton {...args} />,
 };
 
-/** Gradient border ring — Figma token `Gradient/Global-Button-Primary/Border-Glow`. */
 export const GradientOutlined: Story = {
   args: {
     ...defaultArgs,

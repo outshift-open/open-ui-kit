@@ -129,7 +129,6 @@ describe("midnight gradient values", () => {
       const strokes = [
         g.gradientGlobalBorderFade,
         g.gradientGlobalBorderRainbow,
-        g.gradientGlobalButtonPrimaryBorderGlow,
         g.gradientDashboardGraphNodeBorder,
         g.gradientGraphConnectorStroke,
         g.gradientIconButtonBlueGlow,
@@ -137,6 +136,15 @@ describe("midnight gradient values", () => {
       for (const value of strokes) {
         expect(value.startsWith("linear-gradient(90deg,")).toBe(true);
       }
+    });
+
+    // Also swatch-horizontal but applied vertically: the button at
+    // I274405:38087;25258:78851 runs blue along its bottom edge up to cyan,
+    // which pushes the evenly-spaced teal stop off the box entirely.
+    it("runs the button border glow up the button", () => {
+      expect(g.gradientGlobalButtonPrimaryBorderGlow).toBe(
+        "linear-gradient(7.5deg, #3b76ea 10%, #00bceb 90%, #63fff7 170%)",
+      );
     });
 
     // The odd one out: its swatch is a horizontal rectangle, but the Activity

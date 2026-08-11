@@ -29,66 +29,54 @@ function getSource(filePath: string) {
   return fs.readFileSync(filePath, "utf8");
 }
 
-// The dashboard nav icon paints a multi-tone ramp that a single inherited
-// color can't express, so it's exempt from the `currentColor` rule (see the
-// comment above DashboardMark in navigation/dashboard.tsx).
-const MULTI_TONE_ICON_FILES = new Set([
-  path.join("navigation", "dashboard.tsx"),
-]);
+function stripQuotes(value: string) {
+  return value.replace(/^['"]/, "").replace(/['"]$/, "").trim();
+}
 
-// OutshiftBrand paints the Outshift mark in fixed brand colors instead of
-// `currentColor` by design (see the comment above the component in
-// brand-logos.tsx): the mark must keep its brand colors regardless of theme.
-// AgntcyBrand and CiscoBrand in the same file are still held to the normal
-// rule.
-const OUTSHIFT_BRAND_FILE = "brand-logos.tsx";
-const OUTSHIFT_BRAND_COLOR_IDENTIFIERS = new Set([
-  "{outshiftLogoLightBlue}",
-  "{outshiftLogoGreen}",
-  "{outshiftLogoOrange}",
-  "{outshiftBlue}",
-  "{vars.brandLogoSecondary}",
-]);
+// `none` and `currentColor` are the only paint keywords an icon may hardcode.
+function isPaintKeyword(value: string) {
+  const keyword = stripQuotes(value).toLowerCase();
+
+  return keyword === "none" || keyword === "currentcolor";
+}
+
+// A JSX expression that is a plain identifier or member access — `{tones.block}`,
+// `{vars.brandLogoSecondary}`, `{outshiftLogoGreen}` — resolves to a design token
+// or palette constant, which is how multi-tone marks (the Outshift logo, the
+// Dashboard navigation icon) paint shapes that cannot share one inherited color.
+const TOKEN_REFERENCE = /^[A-Za-z_$][\w$]*(?:\??\.[A-Za-z_$][\w$]*)*$/;
+
+function isAllowedPaint(value: string) {
+  const trimmed = value.trim();
+
+  if (trimmed.startsWith("{")) {
+    const expression = trimmed.replace(/^\{/, "").replace(/\}$/, "").trim();
+
+    // A string literal inside braces is still a hardcoded color.
+    return /^['"]/.test(expression)
+      ? isPaintKeyword(expression)
+      : TOKEN_REFERENCE.test(expression);
+  }
+
+  return isPaintKeyword(trimmed);
+}
 
 describe("custom icons", () => {
-  it("uses currentColor for SVG fills and strokes", () => {
-    const badPaintAttributes = iconFiles
-      .filter(
-        (filePath) =>
-          !MULTI_TONE_ICON_FILES.has(path.relative(customIconsDir, filePath)),
-      )
-      .flatMap((filePath) => {
-        const source = getSource(filePath);
-        const matches = [
-          ...source.matchAll(
-            /\b(?:fill|stroke)\s*=\s*(\{[^}]*\}|"[^"]*"|'[^']*')/g,
-          ),
-        ];
-        const isOutshiftBrandFile =
-          path.relative(customIconsDir, filePath) === OUTSHIFT_BRAND_FILE;
+  it("never hardcodes SVG fill and stroke colors", () => {
+    const badPaintAttributes = iconFiles.flatMap((filePath) => {
+      const source = getSource(filePath);
+      const matches = [
+        ...source.matchAll(
+          /\b(?:fill|stroke)\s*=\s*(\{[^}]*\}|"[^"]*"|'[^']*')/g,
+        ),
+      ];
 
-        return matches
-          .filter((match) => {
-            if (
-              isOutshiftBrandFile &&
-              OUTSHIFT_BRAND_COLOR_IDENTIFIERS.has(match[1])
-            ) {
-              return false;
-            }
-
-            const value = match[1].toLowerCase();
-            return (
-              value !== '"none"' &&
-              value !== "'none'" &&
-              value !== '"currentcolor"' &&
-              value !== "'currentcolor'"
-            );
-          })
-          .map(
-            (match) =>
-              `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
-          );
-      });
+      return matches
+        .filter((match) => !isAllowedPaint(match[1]))
+        .map(
+          (match) => `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
+        );
+    });
 
     expect(badPaintAttributes).toEqual([]);
   });

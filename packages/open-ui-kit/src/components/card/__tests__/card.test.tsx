@@ -724,5 +724,62 @@ describe("Card", () => {
         "data-card-image",
       );
     });
+
+    /*
+     * Tertiary actions on this surface read as text over the photo scrim, so
+     * they take the Interactive/Text In ramp rather than the variant's
+     * Interactive/Primary blue, which the scrim leaves sitting too dark.
+     */
+    describe("tertiary action colour", () => {
+      const tertiaryRule = (theme: Theme) =>
+        cardImageStyles(theme, image)[
+          "& .MuiButton-root.MuiButton-tertariary"
+        ] as Record<string, Record<string, string> | string>;
+
+      it.each([
+        ["midnight", midnightTheme],
+        ["light", lightTheme],
+        ["dark", darkTheme],
+      ])("puts the whole %s ramp on Interactive/Text In", (_mode, theme) => {
+        const rule = tertiaryRule(theme);
+        const { vars } = theme.palette;
+
+        expect(rule.color).toBe(vars.interactiveTextInDefault);
+        expect(rule["&:hover"]).toEqual({
+          color: vars.interactiveTextInHover,
+        });
+        expect(rule["&:active"]).toEqual({
+          color: vars.interactiveTextInActive,
+        });
+      });
+
+      it("moves every state off the variant's Interactive/Primary blue", () => {
+        const rule = tertiaryRule(midnightTheme);
+        const { vars } = midnightTheme.palette;
+
+        // Leaving hover or active behind would make the button jump colour
+        // ramps mid-interaction.
+        expect(rule.color).not.toBe(vars.interactivePrimaryDefaultDefault);
+        expect(rule["&:hover"]).not.toEqual({
+          color: vars.interactivePrimaryDefaultHover,
+        });
+        expect(rule["&:active"]).not.toEqual({
+          color: vars.interactivePrimaryDefaultActive,
+        });
+      });
+
+      it("names the button root so the rule outweighs the variant's own", () => {
+        const selectors = Object.keys(cardImageStyles(midnightTheme, image));
+
+        /*
+         * The variant styles itself with `&.MuiButton-tertariary` — the styled
+         * class plus the variant class, two classes. A descendant selector
+         * naming only the variant class would tie, leaving the winner to
+         * emotion's injection order; `.MuiButton-root` takes this to three.
+         */
+        expect(selectors).toContain("& .MuiButton-root.MuiButton-tertariary");
+        expect(selectors).not.toContain("& .MuiButton-tertariary");
+      });
+    });
   });
 });
