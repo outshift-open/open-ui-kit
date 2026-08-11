@@ -60,15 +60,10 @@ export const StyledCard = styled(MuiCard, {
   ...(connector ? cardConnectorStyles(theme) : {}),
   ...(alert ? cardAlertStyles(theme, alert) : {}),
   ...(glow ? cardGlowStyles(theme) : {}),
-  // These treatments all paint a translucent or gradient background; a hover
-  // colour would show through their semi-transparent stops.
-  ...(image || glass || alert || connector
-    ? {}
-    : {
-        "&:hover": {
-          backgroundColor: theme.palette.vars.baseBackgroundWeak,
-        },
-      }),
+  // Hover deliberately leaves the background alone. The interactive card gets
+  // its hover feedback from the `controlBorderActive` border that
+  // `StyledCardActionArea` applies, and the decorative treatments paint
+  // translucent or gradient backgrounds that a hover colour would show through.
   '&[aria-disabled="true"]': cardDisabledStyles(theme),
 })) as ComponentType<
   MuiCardProps & {
