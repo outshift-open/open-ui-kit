@@ -39,22 +39,27 @@ export const StyledCard = styled(MuiCard, {
 
 export const StyledCardActionArea = styled(MuiCardActionArea)(({ theme }) => ({
   borderRadius: "8px",
-  "&:hover .MuiCard-root, &:focus-visible .MuiCard-root": {
-    ...cardInteractiveStyles(theme),
-    "& .MuiCardActionArea-focusHighlight": {
-      opacity: 0,
-    },
-  },
+  "&:hover .MuiCard-root, &:focus-visible .MuiCard-root":
+    cardInteractiveStyles(theme),
   "&:active .MuiCard-root": cardActiveStyles(theme),
   "&.Mui-disabled .MuiCard-root": cardDisabledStyles(theme),
+  // MUI paints a translucent overlay (`focusHighlight`) across the whole action
+  // area on hover and focus. It is a sibling of the card, not a descendant, so
+  // it cannot be reached from a `.MuiCard-root` rule, and MUI scopes its own
+  // rules as `&:hover .focusHighlight` / `&.Mui-focusVisible .focusHighlight`.
+  // A bare `& .focusHighlight` is one specificity step lower and loses to them,
+  // so each selector has to be matched directly to keep the overlay hidden.
   "& .MuiCardActionArea-focusHighlight": {
+    opacity: 0,
+  },
+  "&:hover .MuiCardActionArea-focusHighlight": {
+    opacity: 0,
+  },
+  "&.Mui-focusVisible .MuiCardActionArea-focusHighlight": {
     opacity: 0,
   },
   "&:focus-visible": {
     outline: "none",
-    "& .MuiCardActionArea-focusHighlight": {
-      opacity: 0,
-    },
   },
 })) as ComponentType<MuiCardActionAreaProps>;
 

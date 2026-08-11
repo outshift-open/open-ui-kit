@@ -6,6 +6,10 @@
 
 import fs from "node:fs";
 import path from "node:path";
+// The suite only reads sources, but it still needs the jest globals to be
+// typed, and `typeRoots` in tsconfig.json does not reach the hoisted
+// `@types/jest`. Every other suite picks them up through this import.
+import "@testing-library/jest-dom";
 
 const customIconsDir = path.resolve(__dirname, "../../../custom-icons");
 

@@ -320,8 +320,9 @@ export const getNavigationDrawerItemStyles = (
   borderRadius: "6px",
   // Tokens follow the Figma "Navigation" drawer item states (frame node
   // 179634:5030, `.drawer-item`). Default rests on Brand/Text/Secondary with no
-  // fill; hover and selected are the same treatment —
-  // Brand/Background/Primary/Medium behind Brand/Text/Primary.
+  // fill; hover adds the Brand/Background/Primary/Medium fill but keeps the
+  // label on Brand/Text/Secondary. Only selected paints Brand/Text/Primary, and
+  // it holds that ramp while hovered.
   backgroundColor: selected
     ? theme.palette.vars.brandBackgroundPrimaryMedium
     : "transparent",
@@ -333,7 +334,9 @@ export const getNavigationDrawerItemStyles = (
   textAlign: "left",
   "&:hover": {
     backgroundColor: theme.palette.vars.brandBackgroundPrimaryMedium,
-    color: theme.palette.vars.brandTextPrimary,
+    color: selected
+      ? theme.palette.vars.brandTextPrimary
+      : theme.palette.vars.brandTextSecondary,
   },
 });
 
