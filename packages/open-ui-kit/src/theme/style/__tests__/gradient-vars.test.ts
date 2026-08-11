@@ -95,13 +95,13 @@ describe("midnight gradient values", () => {
   // Glow dots — radial gradient from the top-left corner.
   it("matches the Figma values for the glow dots", () => {
     expect(midnightGradientVars.gradientGlowGreen).toBe(
-      "radial-gradient(circle at 0% 0%, rgba(17, 255, 200, 0.7) 0%, rgba(179, 255, 129, 0.7) 100%)",
+      "radial-gradient(circle farthest-side at 0% 0%, rgba(17, 255, 200, 0.7) 0%, rgba(179, 255, 129, 0.7) 100%)",
     );
     expect(midnightGradientVars.gradientGlowOrange).toBe(
-      "radial-gradient(circle at 0% 0%, rgba(255, 157, 0, 0.8) 0%, rgba(255, 212, 142, 0.8) 100%)",
+      "radial-gradient(circle farthest-side at 0% 0%, rgba(255, 157, 0, 0.8) 0%, rgba(255, 212, 142, 0.8) 100%)",
     );
     expect(midnightGradientVars.gradientGlowRed).toBe(
-      "radial-gradient(circle at 0% 0%, rgba(255, 3, 41, 0.4) 0%, rgba(255, 87, 70, 0.4) 100%)",
+      "radial-gradient(circle farthest-side at 0% 0%, rgba(255, 3, 41, 0.4) 0%, rgba(255, 87, 70, 0.4) 100%)",
     );
   });
 
@@ -133,11 +133,18 @@ describe("midnight gradient values", () => {
         g.gradientDashboardGraphNodeBorder,
         g.gradientGraphConnectorStroke,
         g.gradientIconButtonBlueGlow,
-        g.gradientCardHighlightRadial,
       ];
       for (const value of strokes) {
         expect(value.startsWith("linear-gradient(90deg,")).toBe(true);
       }
+    });
+
+    // The odd one out: its swatch is a horizontal rectangle, but the Activity
+    // Timeline rail that applies it runs the ramp top to bottom.
+    it("runs the card highlight ramp vertically", () => {
+      expect(g.gradientCardHighlightRadial).toBe(
+        "linear-gradient(180deg, #ffffff 0%, rgba(153, 153, 153, 0) 100%)",
+      );
     });
 
     // Glass card family — exact values from the SVG exports in `Glass Card`

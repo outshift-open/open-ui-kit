@@ -178,19 +178,23 @@ export const midnightGradientVars: GradientVarsType = {
   gradientIconButtonBlueGlow: `linear-gradient(90deg, ${stops.iconButtonGlowBlue} 0%, ${alpha(stops.iconButtonGlowBlue, 0)} 100%)`,
   // Named `Card-Highlight-Radial` in Figma, but the swatch fill is linear.
   // Measured: starts fully opaque, not at the 70% the label implies.
-  gradientCardHighlightRadial: `linear-gradient(90deg, ${stops.glassWhite} 0%, ${alpha(stops.glassGray, 0)} 100%)`,
+  // Vertical, not horizontal: the swatch rectangle is drawn sideways, but the
+  // only place the ramp is applied — the Activity Timeline rail (274455:53823)
+  // — runs it top to bottom. Same swatch-vs-instance split as the toast border.
+  gradientCardHighlightRadial: `linear-gradient(180deg, ${stops.glassWhite} 0%, ${alpha(stops.glassGray, 0)} 100%)`,
 
   // --- Radial glows --------------------------------------------------------
-  // TODO(verify): geometry approximated from Figma's SVG `gradientTransform`
-  // matrix. Figma's intermediate stops are linear interpolations between the
-  // designed stops, so only the designed stops are kept.
+  // Figma's intermediate stops are linear interpolations between the designed
+  // stops, so only the designed stops are kept.
 
   // The three status glows share one geometry: a circle centred on the top-left
-  // corner, matching the dot swatches. Orange was previously an approximated
-  // ellipse and is realigned here.
-  gradientGlowOrange: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowOrangeStart, 0.8)} 0%, ${alpha(stops.glowOrangeEnd, 0.8)} 100%)`,
-  gradientGlowGreen: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowGreenStart, 0.7)} 0%, ${alpha(stops.glowGreenEnd, 0.7)} 100%)`,
-  gradientGlowRed: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowRedStart, 0.4)} 0%, ${alpha(stops.glowRedEnd, 0.4)} 100%)`,
+  // corner, matching the dot swatches. `farthest-side` because the timeline dot
+  // export (274455:53827) puts the end stop one box-width from that corner, not
+  // one diagonal — CSS would otherwise default to `farthest-corner` and stretch
+  // the ramp 41% too far, so the end colour never actually landed.
+  gradientGlowOrange: `radial-gradient(circle farthest-side at 0% 0%, ${alpha(stops.glowOrangeStart, 0.8)} 0%, ${alpha(stops.glowOrangeEnd, 0.8)} 100%)`,
+  gradientGlowGreen: `radial-gradient(circle farthest-side at 0% 0%, ${alpha(stops.glowGreenStart, 0.7)} 0%, ${alpha(stops.glowGreenEnd, 0.7)} 100%)`,
+  gradientGlowRed: `radial-gradient(circle farthest-side at 0% 0%, ${alpha(stops.glowRedStart, 0.4)} 0%, ${alpha(stops.glowRedEnd, 0.4)} 100%)`,
   gradientGlowPinkShadow: `radial-gradient(ellipse at 29% -56%, ${alpha(stops.dataVizPink, 0.5)} 0%, ${alpha(stops.overlayBlack, 0.6)} 100%)`,
   gradientBackgroundGlowBlue: `radial-gradient(ellipse 50% 100% at 50% 50%, ${alpha(stops.glowBlueStart, 0.3)} 0%, ${alpha(stops.glowBlueMid, 0.3)} 26.923%, ${alpha(stops.glowBlueDeep, 0.3)} 55.769%, ${alpha(stops.glowBlueEnd, 0)} 82.692%)`,
   // Measured, not radial despite the swatch label — see `gradient-vars-base.ts`.

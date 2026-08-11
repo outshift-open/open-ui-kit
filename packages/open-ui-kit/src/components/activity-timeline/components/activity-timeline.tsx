@@ -12,15 +12,19 @@ import { useCallback } from "react";
 import { Typography, useTheme } from "@mui/material";
 import { Accordion } from "@/components/accordion";
 import {
+  StyledGradientTimeline,
   StyledTimeline,
   StyledTimelineConnector,
   StyledTimelineContent,
-  StyledTimelineGlowConnector,
   StyledTimelineItem,
   StyledTimelineOppositeContent,
   StyledTimelineSeparator,
   StyledTimelineTimeContent,
 } from "./elements";
+
+// Only the oldest two events dim, newest first: Figma holds every step above
+// them at full strength (274455:53836 at 50%, 274455:53840 at 30%).
+const OLDEST_STEP_OPACITY = [0.3, 0.5];
 
 export const ActivityTimeline = ({
   automaticProgress = false,
@@ -35,10 +39,12 @@ export const ActivityTimeline = ({
   // Older steps fade down the list.
   const stepOpacity = useCallback(
     (stepIdx: number): number => {
-      if (steps.length <= 1) {
+      const fromOldest = steps.length - 1 - stepIdx;
+      // The newest step stays solid however short the list is.
+      if (stepIdx === 0 || fromOldest >= OLDEST_STEP_OPACITY.length) {
         return 1;
       }
-      return Math.max(0.3, 1 - (stepIdx / (steps.length - 1)) * 0.7);
+      return OLDEST_STEP_OPACITY[fromOldest];
     },
     [steps.length],
   );
@@ -57,18 +63,17 @@ export const ActivityTimeline = ({
 
   if (variant === "gradient") {
     return (
-      <StyledTimeline
+      <StyledGradientTimeline
         {...props}
+        showRail={steps.length > 1}
         sx={[
           ...(Array.isArray(props.sx) ? props.sx : props.sx ? [props.sx] : []),
         ]}
       >
         {steps.map((step, index) => (
-          // Fade each slot, not the item, so the connector stays uniform.
+          // Fade each slot, not the item, so the rail keeps its own ramp.
           <StyledTimelineItem key={index}>
-            <StyledTimelineOppositeContent
-              sx={{ opacity: stepOpacity(index) }}
-            >
+            <StyledTimelineOppositeContent sx={{ opacity: stepOpacity(index) }}>
               <Typography
                 variant="body1"
                 sx={{
@@ -88,11 +93,6 @@ export const ActivityTimeline = ({
                 status={step.status}
                 sx={{ opacity: stepOpacity(index) }}
               />
-              {index < steps.length - 1 && (
-                <StyledTimelineGlowConnector
-                  lineColor={theme.palette.vars?.controlBorderDefault}
-                />
-              )}
             </StyledTimelineSeparator>
             <StyledTimelineTimeContent sx={{ opacity: stepOpacity(index) }}>
               {step.time && (
@@ -106,7 +106,7 @@ export const ActivityTimeline = ({
             </StyledTimelineTimeContent>
           </StyledTimelineItem>
         ))}
-      </StyledTimeline>
+      </StyledGradientTimeline>
     );
   }
 

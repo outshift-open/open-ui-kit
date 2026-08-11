@@ -10,6 +10,7 @@ import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
 import { ActivityTimeline } from "../components/activity-timeline";
 import { ActivityTimelineDot } from "../components/activity-timeline-dot";
 import { getActivityTimelineDotStyle } from "../styles";
@@ -198,6 +199,127 @@ describe("ActivityTimeline", () => {
         />,
       );
       expect(screen.getByText("Only")).toBeInTheDocument();
+    });
+  });
+
+  describe("gradient variant", () => {
+    const keyEvents = [
+      {
+        status: ActivityTimelineStepStatus.Complete,
+        title: "Newest",
+        time: "11:40",
+      },
+      {
+        status: ActivityTimelineStepStatus.InProgress,
+        title: "Second",
+        time: "8:45",
+      },
+      {
+        status: ActivityTimelineStepStatus.Neutral,
+        title: "Third",
+        time: "7:42",
+      },
+      {
+        status: ActivityTimelineStepStatus.Error,
+        title: "Fourth",
+        time: "7:02",
+      },
+      {
+        status: ActivityTimelineStepStatus.Inactive,
+        title: "Oldest",
+        time: "6:15",
+      },
+    ];
+
+    const renderKeyEvents = (steps = keyEvents) =>
+      render(
+        <ThemeProvider defaultMode={ThemeMode.Dark}>
+          <ActivityTimeline variant="gradient" steps={steps} />
+        </ThemeProvider>,
+      );
+
+    const slotOpacity = (title: string) =>
+      screen.getByText(title).closest(".MuiTimelineOppositeContent-root");
+
+    it("renders a time beside every step", () => {
+      renderKeyEvents();
+      expect(screen.getByText("11:40")).toBeInTheDocument();
+      expect(screen.getByText("6:15")).toBeInTheDocument();
+    });
+
+    // Figma holds every step above the oldest two at full strength, then drops
+    // to 50% and 30% — it is not a ramp spread across the whole list.
+    it("fades only the oldest two steps", () => {
+      renderKeyEvents();
+
+      expect(slotOpacity("Newest")).toHaveStyle({ opacity: "1" });
+      expect(slotOpacity("Second")).toHaveStyle({ opacity: "1" });
+      expect(slotOpacity("Third")).toHaveStyle({ opacity: "1" });
+      expect(slotOpacity("Fourth")).toHaveStyle({ opacity: "0.5" });
+      expect(slotOpacity("Oldest")).toHaveStyle({ opacity: "0.3" });
+    });
+
+    it("keeps the newest step solid in a two-step list", () => {
+      renderKeyEvents(keyEvents.slice(0, 2));
+
+      expect(slotOpacity("Newest")).toHaveStyle({ opacity: "1" });
+      expect(slotOpacity("Second")).toHaveStyle({ opacity: "0.3" });
+    });
+
+    // One rail for the list, so the ramp does not restart at every dot.
+    it("draws no per-step connector", () => {
+      const { container } = renderKeyEvents();
+      expect(
+        container.querySelectorAll(".MuiTimelineConnector-root"),
+      ).toHaveLength(0);
+    });
+
+    it("leaves the default variant on per-step connectors", () => {
+      const { container } = renderWithTheme(<ActivityTimeline steps={steps} />);
+      expect(
+        container.querySelectorAll(".MuiTimelineConnector-root").length,
+      ).toBeGreaterThan(0);
+    });
+
+    const rail = (container: HTMLElement) =>
+      container.querySelector(".MuiTimeline-root")?.className;
+
+    // A lone step has nothing to connect, so it gets no dangling line — the
+    // default variant leaves a single step without a connector too.
+    it("drops the rail for a single step", () => {
+      const { container } = renderKeyEvents(keyEvents.slice(0, 1));
+      expect(rail(container)).not.toBe(rail(renderKeyEvents().container));
+    });
+
+    it("renders an empty step list without throwing", () => {
+      expect(() => renderKeyEvents([])).not.toThrow();
+    });
+
+    it("keeps the time column and the rail on one width", () => {
+      const { container } = renderKeyEvents();
+      const time = container.querySelectorAll(".MuiTimelineContent-root")[0];
+      expect(time).toHaveStyle({ flex: "0 0 48px" });
+    });
+
+    it("carries the Figma rail ramp on the Midnight theme", () => {
+      expect(midnightTheme.palette.gradients.gradientCardHighlightRadial).toBe(
+        "linear-gradient(180deg, #ffffff 0%, rgba(153, 153, 153, 0) 100%)",
+      );
+    });
+
+    // Figma's dot export ends the ramp one box-width from the corner, so the
+    // glow must not fall back to the CSS default of `farthest-corner`.
+    it("closes the dot glow on the far side, not the far corner", () => {
+      const g = midnightTheme.palette.gradients;
+      for (const glow of [
+        g.gradientGlowGreen,
+        g.gradientGlowOrange,
+        g.gradientGlowRed,
+      ]) {
+        expect(
+          glow.startsWith("radial-gradient(circle farthest-side at 0% 0%,"),
+        ).toBe(true);
+      }
     });
   });
 

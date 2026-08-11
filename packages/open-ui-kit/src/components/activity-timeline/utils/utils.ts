@@ -40,7 +40,9 @@ export const getStepDotColor = (
     case ActivityTimelineStepStatus.Neutral:
       return theme.palette.vars?.controlIconMedium;
     default:
-      return theme.palette.vars?.controlIconDefault;
+      // Figma's inactive dot (274455:53846) is pure white, not the off-white
+      // `controlIconDefault` the rest of the timeline uses for text.
+      return theme.palette.vars?.controlIconStrong;
   }
 };
 

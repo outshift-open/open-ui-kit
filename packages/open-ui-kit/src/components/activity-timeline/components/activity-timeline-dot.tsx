@@ -10,7 +10,7 @@ import { Box, CircularProgress, useTheme, type BoxProps } from "@mui/material";
 import { ActivityTimelineStepStatus } from "../types";
 import { getActivityTimelineDotStyle } from "../styles";
 import { getStepDotColor, getStepGlow } from "../utils/utils";
-import { StyledTimelineDotRoot } from "./elements";
+import { GLOW_DOT_SIZE, StyledTimelineDotRoot } from "./elements";
 
 export interface ActivityTimelineDotProps extends BoxProps {
   /** Uses percent-driven progress rendering instead of status icons. */
@@ -39,13 +39,14 @@ export const ActivityTimelineDot = ({
 
   if (glow) {
     // Gradient statuses fill the dot with the radial glow; the rest are solid.
-    const dotFill = getStepGlow(status, theme) ?? getStepDotColor(status, theme);
+    const dotFill =
+      getStepGlow(status, theme) ?? getStepDotColor(status, theme);
     return (
       <StyledTimelineDotRoot aria-label={status} {...props}>
         <Box
           sx={{
-            width: "7.142px",
-            height: "7.142px",
+            width: `${GLOW_DOT_SIZE}px`,
+            height: `${GLOW_DOT_SIZE}px`,
             borderRadius: "50%",
             background: dotFill,
           }}
