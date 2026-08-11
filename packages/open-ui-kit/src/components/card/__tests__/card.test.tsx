@@ -7,7 +7,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import type { Theme } from "@mui/material/styles";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
