@@ -55,7 +55,7 @@ export const gradientCardInsightBorder = `linear-gradient(135deg, ${stops.panelE
  * Source: Figma "OXP" (wvTxiCkZBmP2jH24hzydHR), `Gradient/Text-White-Blue`
  * (frame 274405:44228, "Welcome Amy!"), white -> blue, left to right.
  */
-export const gradientTextWhiteBlue = `linear-gradient(90deg, ${stops.textWhiteBlueStart} 0%, ${stops.textWhiteBlueEnd} 100%)`;
+export const gradientTextWhiteBlue = `linear-gradient(90deg, ${stops.textWhiteBlueStart} 0%, ${stops.textWhiteBlueMid} 51.28%, ${stops.textWhiteBlueEnd} 100%)`;
 
 /*
  * Base gradient tokens — the fallback every theme starts from.

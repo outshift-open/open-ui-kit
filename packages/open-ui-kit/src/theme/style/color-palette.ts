@@ -760,6 +760,10 @@ export const midnightGradientStops = {
 
   // Text (Figma variable: Gradient/Text-White-Blue)
   textWhiteBlueStart: "#ffffff",
+  // Figma emits this stop at 51.28%. It sits exactly on the line between the
+  // two ends, so it changes nothing visually — carried so the token reads the
+  // same as the design's own CSS.
+  textWhiteBlueMid: "#9dbcf7",
   textWhiteBlueEnd: "#3f7def",
 
   // Panels, borders and connectors

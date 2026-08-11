@@ -79,7 +79,7 @@ describe("midnight gradient values", () => {
       "linear-gradient(90deg, #0745b8 0%, #2e6ee5 100%)",
     );
     expect(g.gradientTextWhiteBlue).toBe(
-      "linear-gradient(90deg, #ffffff 0%, #3f7def 100%)",
+      "linear-gradient(90deg, #ffffff 0%, #9dbcf7 51.28%, #3f7def 100%)",
     );
     expect(g.gradientGaugeArcTeal).toBe(
       "linear-gradient(90deg, #29fcc4 0%, #00af2f 100%)",
