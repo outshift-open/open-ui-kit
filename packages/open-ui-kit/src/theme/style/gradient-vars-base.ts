@@ -33,7 +33,22 @@ export const gradientButtonPrimaryFill = `linear-gradient(90deg, ${stops.buttonP
 export const gradientButtonPrimaryBorderGlow = `linear-gradient(90deg, ${stops.buttonPrimaryGlowBlue} 0%, ${stops.buttonPrimaryGlowCyan} 50%, ${stops.buttonPrimaryGlowTeal} 100%)`;
 
 /*
- * Text gradient — shared by every theme, like the button gradients above.
+ * Card insight border — `Gradient/Panel-Exec-Border`, shared by every theme.
+ *
+ * The Figma swatch is LABELLED "Radial", but it is not. Sampling the border of
+ * the rendered `Card/Basic Interactive` (274405:44327) and of the swatch itself
+ * gives the same diagonal signature — the top edge ramps blue -> cyan -> slate,
+ * the right edge is uniformly slate, and the left edge holds blue before
+ * turning cyan near the bottom. That is a diagonal linear ramp.
+ *
+ * Angle and offsets are measured from the 318x214 card, which is the real
+ * usage. Figma normalises gradient transforms to the layer box, so the same
+ * token measures differently on the 120x60 documentation swatch — re-measure
+ * before reusing this on a very differently proportioned surface.
+ */
+export const gradientCardInsightBorder = `linear-gradient(135deg, ${stops.panelExecBorderBlue} 25%, ${stops.dataVizCyan} 34%, ${stops.globalBorderSlate} 60%, rgba(77, 99, 128, 0.7) 100%)`;
+
+/* Text gradient — shared by every theme, like the button gradients above.
  *
  * A real design value (not a placeholder). Design has not diverged it per theme,
  * so it is defined once and reused everywhere via `background-clip: text`.
@@ -89,11 +104,15 @@ export const baseGradientVars: GradientVarsType = {
   gradientAlertLineRed: gradientsRedPressed,
   gradientDashboardGraphNodeFill: gradientsSecondaryDefault,
   gradientGraphConnectorFill: gradientsSecondaryHover,
+  gradientGraphConnectorGlow: gradientsSecondaryHover,
   gradientIconButtonBlue: gradientsSecondaryDefault,
 
   // --- Strokes -------------------------------------------------------------
   gradientCardGlassBg: gradientsSecondaryHover,
   gradientCardGlassBgSubtle: gradientsSecondaryHover,
+  gradientCardGlassBorder: gradientsSecondaryHover,
+  gradientDashboardCardFillCyanPurple: gradientsSecondaryHover,
+  gradientCardGlassCtaGlow: gradientsIllustrationsRainbow,
   gradientGlobalBorderFade: gradientsSecondaryDefault,
   gradientInputBorderBlue: gradientsSecondaryDefault,
   gradientGlobalBorderRainbow: gradientsIllustrationsRainbow,
@@ -109,6 +128,6 @@ export const baseGradientVars: GradientVarsType = {
   gradientGlowRed: gradientsRedPressed,
   gradientGlowPinkShadow: gradientsIllustrationsPink,
   gradientBackgroundGlowBlue: gradientsIllustrationsBlue,
-  gradientPanelExecBorder: gradientsSecondaryDefault,
+  gradientPanelExecBorder: gradientCardInsightBorder,
   gradientPanelBorderBlueCyanDark: gradientsSecondaryDefault,
 };

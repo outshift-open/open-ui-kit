@@ -26,9 +26,10 @@ const THEMES: ReadonlyArray<[string, Theme]> = [
 describe("gradient vars contract", () => {
   it("exposes the same token set on every theme", () => {
     for (const [name, theme] of THEMES) {
-      expect({ name, keys: Object.keys(theme.palette.gradients).sort() }).toEqual(
-        { name, keys: TOKEN_KEYS },
-      );
+      expect({
+        name,
+        keys: Object.keys(theme.palette.gradients).sort(),
+      }).toEqual({ name, keys: TOKEN_KEYS });
     }
   });
 
@@ -38,9 +39,8 @@ describe("gradient vars contract", () => {
   it("survives createTheme on every theme", () => {
     for (const [name, theme] of THEMES) {
       for (const key of TOKEN_KEYS) {
-        const value = theme.palette.gradients[
-          key as keyof typeof baseGradientVars
-        ];
+        const value =
+          theme.palette.gradients[key as keyof typeof baseGradientVars];
         expect({ name, key, empty: !value }).toEqual({
           name,
           key,
@@ -127,8 +127,6 @@ describe("midnight gradient values", () => {
 
     it("uses a horizontal ramp for every stroke", () => {
       const strokes = [
-        g.gradientCardGlassBg,
-        g.gradientCardGlassBgSubtle,
         g.gradientGlobalBorderFade,
         g.gradientGlobalBorderRainbow,
         g.gradientGlobalButtonPrimaryBorderGlow,
@@ -142,21 +140,56 @@ describe("midnight gradient values", () => {
       }
     });
 
-    it("holds the glass ramp flat until 72%", () => {
+    // Glass card family — exact values from the SVG exports in `Glass Card`
+    // (274490:55387); see the block comment in `midnight-gradient-vars.ts`.
+    it("anchors the glass fill radial at the top-right corner", () => {
       expect(g.gradientCardGlassBg).toBe(
-        "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(241, 241, 241, 0.3) 72%, rgba(153, 153, 153, 0) 100%)",
+        "radial-gradient(100% 100% at 100% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 100%)",
       );
     });
 
-    // Renders pixel-identical to the non-subtle variant despite its "70%" label.
-    it("keeps both glass variants identical", () => {
-      expect(g.gradientCardGlassBgSubtle).toBe(g.gradientCardGlassBg);
+    it("scales the subtle glass variant to 70% of the fill", () => {
+      expect(g.gradientCardGlassBgSubtle).toBe(
+        "radial-gradient(100% 100% at 100% 0%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.035) 100%)",
+      );
+    });
+
+    it("fades the glass border out toward the bottom", () => {
+      expect(g.gradientCardGlassBorder).toBe(
+        "linear-gradient(180deg, rgba(255, 255, 255, 0.3) 10%, rgba(241, 241, 241, 0.3) 75%, rgba(153, 153, 153, 0) 100%)",
+      );
+    });
+
+    it("runs the glass flair cyan to periwinkle down the streak", () => {
+      expect(g.gradientDashboardCardFillCyanPurple).toBe(
+        "linear-gradient(180deg, rgba(0, 187, 255, 0.37) -83.247%, rgba(161, 166, 254, 0.73) 100%)",
+      );
+    });
+
+    it("sweeps the CTA glow mint to gold with tight midpoints", () => {
+      expect(g.gradientCardGlassCtaGlow).toBe(
+        "radial-gradient(87% 72% at 6.5% 14%, #74ffc7 44%, #03b3ff 50%, #f634a2 58%, #ffe070 99%)",
+      );
     });
 
     // Alpha ramps up left to right, opposite to the order shown on the label.
+    // Confirmed verbatim by the card SVG in `Section 3` (274455:54313).
     it("ramps the graph connector stroke upward", () => {
       expect(g.gradientGraphConnectorStroke).toBe(
         "linear-gradient(90deg, rgba(199, 211, 234, 0.06) 0%, rgba(199, 211, 234, 0.16) 100%)",
+      );
+    });
+
+    // Graph-connector fill and glow — exact, from the same SVG export.
+    it("uses the card-accurate angle for the connector fill", () => {
+      expect(g.gradientGraphConnectorFill).toBe(
+        "linear-gradient(155.21deg, rgba(199, 211, 234, 0.035) 0%, rgba(199, 211, 234, 0.016) 100%)",
+      );
+    });
+
+    it("anchors the connector glow at the bottom of the card", () => {
+      expect(g.gradientGraphConnectorGlow).toBe(
+        "radial-gradient(85% 85% at 50% 100%, rgba(199, 211, 234, 0.064) 0%, rgba(199, 211, 234, 0.008) 100%)",
       );
     });
 

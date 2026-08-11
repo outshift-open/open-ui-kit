@@ -317,6 +317,52 @@ export const gradientStopColors = {
   secondaryBlueHoverWeak: "#b3cbe7",
 } as const;
 
+// Card insight glow — the blue drop shadow paired with the gradient card
+// border. Figma: `Card/Basic Interactive` (274405:44327).
+//
+// Deliberately NOT added to any theme's `shadows` array: that array is
+// positional and `dialog.test.tsx` asserts index-to-token identity, so
+// inserting an entry would renumber every elevation.
+export const cardInsightGlow = "0px 4px 17px rgba(10, 96, 255, 0.4)";
+
+// Glass card drop shadow. Figma: `Glass Card` (274417:44469), effect variables
+// `4/X: 0`, `4/Y: 12`, `4/Blur: 48`, `4/Spread: 0`, `4/Color: #00000040`.
+//
+// Kept out of the `shadows` array for the same reason as `cardInsightGlow`.
+export const cardGlassShadow = "0px 12px 48px rgba(0, 0, 0, 0.25)";
+
+// Backdrop blur behind the glass card fill. No longer estimated: the updated
+// `Glass Card` frame (274490:55387) exports the card surface as an SVG whose
+// foreignObject carries `backdrop-filter: blur(35.71px)` at the mockup's
+// 0.8928 scale — 35.71 / 0.8928 = 40px. Matches the swatch label
+// `Radial + Background Blur - 72`, since Figma's 71.4 blur radius halves on
+// the way to CSS.
+export const cardGlassBlur = "40px";
+
+// Graph-connector card. Figma: `Section 3` (274455:54313). Both values are
+// read off the card's SVG export rather than estimated: the drop shadow from
+// its `feOffset dx="6"` / `feGaussianBlur stdDeviation="2"` (CSS blur is twice
+// the deviation) and colour matrix `#0d1622` at 0.25, and the blur from the
+// export's own `backdrop-filter`.
+export const cardConnectorShadow = "6px 0px 4px rgba(13, 22, 34, 0.25)";
+export const cardConnectorBlur = "30px";
+
+// Alert card severity label colours. Figma: `Alerts Card` (274421:47415) —
+// critical (274421:47325) and warning (274421:47332).
+//
+// These are the design's literal values rather than the `negativeTextDefault` /
+// `warningTextDefault` semantic tokens, which resolve to `#eebfcb` and
+// `#ffe7c7` — far too pale to read as a severity accent on this surface.
+// Figma binds the critical one to a library variable named `Red/55`, from a red
+// scale this library does not carry; the warning one is the same value already
+// present above as `gaugeArcAmber`, repeated here under its semantic name.
+export const alertCriticalText = "#eb4651";
+export const alertWarningText = "#ffae4c";
+
+// Alert card drop shadow, at the frame's 0.869 scale factor divided out.
+// Kept out of the `shadows` array for the same reason as `cardInsightGlow`.
+export const cardAlertShadow = "0px 4px 4px rgba(0, 0, 0, 0.1)";
+
 // Toast glow. Figma: `Toast message Glow` (274417:44480), the two `Text Card`
 // instances. Both use the same offset and blur; the glow is stronger on the
 // variant that carries a header (0.4) than on the message-only one (0.2).
@@ -736,6 +782,15 @@ export const midnightGradientStops = {
   overlayGray: "#666666",
   glassWhite: "#ffffff",
   glassWhiteWeak: "#f1f1f1",
+
+  // Glass card flair and CTA glow. Figma: `Glass Card` (274490:55387) —
+  // swatches `Gradient/Dashboard-Card/Fill/Cyan-Purple` and `Gradient/Card-Glass-CTA-Glow`.
+  // The CTA's pink stop is the existing `dataVizPink`, so it is not repeated.
+  glassGlowCyan: "#00bbff", // Dashboard-Card/Fill/Cyan-Purple/Stop-0
+  glassGlowPeriwinkle: "#a1a6fe", // Dashboard-Card/Fill/Cyan-Purple/Stop-1
+  glassCtaMint: "#74ffc7", // Card-Glass-CTA-Glow/Stop-0
+  glassCtaBlue: "#03b3ff", // Card-Glass-CTA-Glow/Stop-1
+  glassCtaGold: "#ffe070", // Card-Glass-CTA-Glow/Stop-3
   glassGray: "#999999",
 
   // Glows

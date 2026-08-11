@@ -10,6 +10,7 @@ import {
   baseGradientVars,
   gradientButtonPrimaryBorderGlow,
   gradientButtonPrimaryFill,
+  gradientCardInsightBorder,
   gradientTextWhiteBlue,
 } from "@/theme/style/gradient-vars-base";
 import { gradientsRedPressed } from "@/theme/style/gradients";
@@ -73,8 +74,28 @@ export const midnightGradientVars: GradientVarsType = {
 
   // TODO(verify): 150.642deg read from a 2:1 swatch. Two stacked fills.
   gradientDashboardGraphNodeFill: `linear-gradient(90deg, ${alpha(stops.overlayBlack, 0.2)} 0%, ${alpha(stops.overlayBlack, 0.2)} 100%), linear-gradient(150.642deg, ${alpha(stops.graphNodeFillBlue, 0.09)} 26.471%, ${alpha(stops.graphNodeFillDark, 0.15)} 88.419%)`,
-  // TODO(verify): 166.51deg read from a 2:1 swatch.
-  gradientGraphConnectorFill: `linear-gradient(166.51deg, ${alpha(stops.graphConnectorBlue, 0.035)} 0%, ${alpha(stops.graphConnectorBlue, 0.016)} 100%)`,
+  /*
+   * Graph-connector card family — Figma `Section 3` (274455:54313).
+   *
+   * The TODO that used to sit here ("166.51deg read from a 2:1 swatch") is
+   * resolved: the card in that section exports as an SVG carrying all three
+   * gradient defs verbatim, so these are exact rather than sampled.
+   *
+   * The angle differs from the old swatch reading because Figma normalises a
+   * gradient transform to its layer box — the same caveat recorded on
+   * `gradientCardInsightBorder`. On the 215x207 card the fill vector runs
+   * (0,4) -> (116.6,256.4), which is 155.21deg in CSS; the 120x60 swatch
+   * squeezes that to the 166.51deg previously recorded. The card is the real
+   * usage, so it wins.
+   *
+   * Both fills carry `fill-opacity="0.16"` in the export — the "(16%)" on the
+   * swatch labels. That is baked into the stops here rather than left for the
+   * consumer: 0.22 -> 0.035, 0.10 -> 0.016, 0.40 -> 0.064, 0.05 -> 0.008.
+   */
+  gradientGraphConnectorFill: `linear-gradient(155.21deg, ${alpha(stops.graphConnectorBlue, 0.035)} 0%, ${alpha(stops.graphConnectorBlue, 0.016)} 100%)`,
+  // Anchored bottom-centre, radii 85% of the card in both axes — the export
+  // rotates a (176.14, 182.947) scale by -90deg about (107.5, 211).
+  gradientGraphConnectorGlow: `radial-gradient(85% 85% at 50% 100%, ${alpha(stops.graphConnectorBlue, 0.064)} 0%, ${alpha(stops.graphConnectorBlue, 0.008)} 100%)`,
 
   gradientIconButtonBlue: `linear-gradient(180deg, ${stops.iconButtonBlueStart} 0%, ${stops.iconButtonBlueMid} 54.12%, ${stops.iconButtonBlueEnd} 120.67%)`,
 
@@ -87,13 +108,51 @@ export const midnightGradientVars: GradientVarsType = {
   // by pixel, then un-compositing against the card background. Direction and
   // stop offsets below are measured, not guessed. All nine are horizontal.
 
-  // Measured: alpha holds at 0.30 to ~72%, then falls linearly to 0.
-  gradientCardGlassBg: `linear-gradient(90deg, ${alpha(stops.glassWhite, 0.3)} 0%, ${alpha(stops.glassWhiteWeak, 0.3)} 72%, ${alpha(stops.glassGray, 0)} 100%)`,
-  // Figma labels this swatch "LINEAR - 70%", but it renders pixel-identical to
-  // `gradientCardGlassBg` — the 70% is not applied to the fill. Kept as a
-  // separate token because the design documents it as one; values intentionally
-  // match until design confirms whether the label or the fill is authoritative.
-  gradientCardGlassBgSubtle: `linear-gradient(90deg, ${alpha(stops.glassWhite, 0.3)} 0%, ${alpha(stops.glassWhiteWeak, 0.3)} 72%, ${alpha(stops.glassGray, 0)} 100%)`,
+  /*
+   * Glass card family — Figma `Glass Card` (274490:55387).
+   *
+   * These are EXACT, not sampled: the updated frame exports the card surface
+   * and its flair as SVGs whose gradient defs can be read directly (nodes
+   * 274490:55140 and 274490:55139, at the mockup's 0.8928 scale). An earlier
+   * linear 5% -> 35% reading of the fill was a pixel-fit of this same radial:
+   * a corner-anchored radial sampled along one row degrades to exactly that
+   * ramp, and both agree with the published `Card-Glass-BG/Stop-0-White-5%`
+   * variable at the far corner.
+   *
+   * The fill is a radial anchored at the card's TOP-RIGHT corner (the SVG
+   * centres it at its own origin and the mockup rotates it 90deg clockwise),
+   * with both radii spanning the full card. Behind it sits the Glow-Teal
+   * flair, and the whole surface backdrop-blurs at `cardGlassBlur`.
+   */
+  gradientCardGlassBg: `radial-gradient(100% 100% at 100% 0%, ${alpha(stops.glassWhite, 0.4)} 0%, ${alpha(stops.glassWhite, 0.05)} 100%)`,
+  // The "70%" the old swatch label carried, applied to the fill: the value to
+  // reach for on an already-light surface.
+  gradientCardGlassBgSubtle: `radial-gradient(100% 100% at 100% 0%, ${alpha(stops.glassWhite, 0.28)} 0%, ${alpha(stops.glassWhite, 0.035)} 100%)`,
+  // `Card-Glass-BORDER`: the hairline is a vertical ramp that holds white 30%
+  // over the upper card and fades out entirely by the bottom edge. From the
+  // SVG stroke def (offsets 10% / 75% / 100% after the 90deg rotation).
+  gradientCardGlassBorder: `linear-gradient(180deg, ${alpha(stops.glassWhite, 0.3)} 10%, ${alpha(stops.glassWhiteWeak, 0.3)} 75%, ${alpha(stops.glassGray, 0)} 100%)`,
+  // `Dashboard-Card/Fill/Cyan-Purple`: the flair behind the glass blur. The swatch says
+  // "Radial" but the layer's own def is linear (same label drift as
+  // `gradientCardHighlightRadial` below); cyan at the top of the streak,
+  // periwinkle at the bottom. Alphas are part of the token (37% / 73%).
+  //
+  // The negative first offset is the whole point of this token. In Figma the
+  // ramp is defined over the LAYER box (121.4132 tall, y -19.1782 -> 102.235 in
+  // the export of node 274666:38565), but the crescent actually painted inside
+  // that box only spans y 35.9785 -> 102.235 — its path's cubic
+  // `C327.375 20.2369, 172.023 18.837, 39.3263 83.4893` bottoms out at
+  // t = 0.50983, well short of the control points near y 19.
+  //
+  // So the visible flair never shows pure cyan: its top edge already sits
+  // (35.9785 + 19.1782) / 121.4132 = 45.429% of the way to periwinkle.
+  // Anchoring the ramp at -83.247% reproduces that slice over a box that IS
+  // the crescent — solve (0 - p) / (100 - p) = 0.45429 for p.
+  gradientDashboardCardFillCyanPurple: `linear-gradient(180deg, ${alpha(stops.glassGlowCyan, 0.37)} -83.247%, ${alpha(stops.glassGlowPeriwinkle, 0.73)} 100%)`,
+  // `Card-Glass-CTA-Glow`: mint -> blue -> pink -> gold sweep behind the glass
+  // CTA button, designed to be layer-blurred (~45) by the consumer. Geometry is
+  // the flattened export's own: centre and radii normalised to its viewBox.
+  gradientCardGlassCtaGlow: `radial-gradient(87% 72% at 6.5% 14%, ${stops.glassCtaMint} 44%, ${stops.glassCtaBlue} 50%, ${stops.dataVizPink} 58%, ${stops.glassCtaGold} 99%)`,
 
   // Measured: the blue stop renders #0a60ff, not the #0a66ff shown on the label.
   // Ramps slate to blue, matching the toast instances that use it — the swatch
@@ -111,7 +170,10 @@ export const midnightGradientVars: GradientVarsType = {
   // Shared with every theme — see `gradient-vars-base.ts`.
   gradientGlobalButtonPrimaryBorderGlow: gradientButtonPrimaryBorderGlow,
   gradientDashboardGraphNodeBorder: `linear-gradient(90deg, ${alpha(stops.globalBorderSlateWeak, 0.7)} 0%, ${stops.globalBorderSlate} 100%)`,
-  // Measured: alpha ramps UP left to right (6% -> 16%), opposite to the label order.
+  // Alpha ramps UP left to right (6% -> 16%), opposite to the label order.
+  // Originally measured by sampling; the card SVG in `Section 3`
+  // (274455:54313) exports this stroke def verbatim and confirms it exactly,
+  // including the pure-horizontal vector (0,107.5) -> (215,107.5).
   gradientGraphConnectorStroke: `linear-gradient(90deg, ${alpha(stops.graphConnectorBlue, 0.06)} 0%, ${alpha(stops.graphConnectorBlue, 0.16)} 100%)`,
   gradientIconButtonBlueGlow: `linear-gradient(90deg, ${stops.iconButtonGlowBlue} 0%, ${alpha(stops.iconButtonGlowBlue, 0)} 100%)`,
   // Named `Card-Highlight-Radial` in Figma, but the swatch fill is linear.
@@ -131,6 +193,8 @@ export const midnightGradientVars: GradientVarsType = {
   gradientGlowRed: `radial-gradient(circle at 0% 0%, ${alpha(stops.glowRedStart, 0.4)} 0%, ${alpha(stops.glowRedEnd, 0.4)} 100%)`,
   gradientGlowPinkShadow: `radial-gradient(ellipse at 29% -56%, ${alpha(stops.dataVizPink, 0.5)} 0%, ${alpha(stops.overlayBlack, 0.6)} 100%)`,
   gradientBackgroundGlowBlue: `radial-gradient(ellipse 50% 100% at 50% 50%, ${alpha(stops.glowBlueStart, 0.3)} 0%, ${alpha(stops.glowBlueMid, 0.3)} 26.923%, ${alpha(stops.glowBlueDeep, 0.3)} 55.769%, ${alpha(stops.glowBlueEnd, 0)} 82.692%)`,
-  gradientPanelExecBorder: `radial-gradient(ellipse at 50% 50%, ${stops.panelExecBorderBlue} 0%, ${stops.dataVizCyan} 33%, ${stops.globalBorderSlate} 66%, ${alpha(stops.globalBorderSlateWeak, 0.7)} 100%)`,
+  // Measured, not radial despite the swatch label — see `gradient-vars-base.ts`.
+  // Shared with every theme.
+  gradientPanelExecBorder: gradientCardInsightBorder,
   gradientPanelBorderBlueCyanDark: `radial-gradient(ellipse at 50% 50%, ${stops.panelExecBorderBlue} 0%, ${stops.panelBorderCyanDark} 100%)`,
 };

@@ -47,6 +47,8 @@ export interface GradientVarsType {
   gradientAlertLineRed: string;
   gradientDashboardGraphNodeFill: string;
   gradientGraphConnectorFill: string;
+  /** `Graph-Connector-Glow`: radial lift from the bottom edge of the card. */
+  gradientGraphConnectorGlow: string;
   gradientIconButtonBlue: string;
 
   // --- Strokes -------------------------------------------------------------
@@ -55,6 +57,12 @@ export interface GradientVarsType {
   gradientCardGlassBg: string;
   /** Renamed: same stops as `gradientCardGlassBg` at 70% layer opacity. */
   gradientCardGlassBgSubtle: string;
+  /** `Card-Glass-BORDER`: white hairline that fades out toward the bottom. */
+  gradientCardGlassBorder: string;
+  /** `Dashboard-Card/Fill/Cyan-Purple`: cyan-to-periwinkle flair behind the glass blur. */
+  gradientDashboardCardFillCyanPurple: string;
+  /** `Card-Glass-CTA-Glow`: mint-blue-pink-gold glow behind the glass CTA. */
+  gradientCardGlassCtaGlow: string;
   gradientGlobalBorderFade: string;
   /** `Input-Border-Blue`: white-to-blue ramp around the prompt input field. */
   gradientInputBorderBlue: string;
