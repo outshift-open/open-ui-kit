@@ -56,6 +56,8 @@ export interface GradientVarsType {
   /** Renamed: same stops as `gradientCardGlassBg` at 70% layer opacity. */
   gradientCardGlassBgSubtle: string;
   gradientGlobalBorderFade: string;
+  /** `Input-Border-Blue`: white-to-blue ramp around the prompt input field. */
+  gradientInputBorderBlue: string;
   /** Renamed: Figma reuses `Global-Border/Fade` for this distinct rainbow ramp. */
   gradientGlobalBorderRainbow: string;
   gradientGlobalButtonPrimaryBorderGlow: string;

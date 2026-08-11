@@ -97,6 +97,12 @@ export const midnightGradientVars: GradientVarsType = {
 
   // Measured: first stop renders #0a60ff, not the #0a66ff shown on the label.
   gradientGlobalBorderFade: `linear-gradient(90deg, ${stops.panelExecBorderBlue} 0%, ${stops.buttonPrimaryGlowCyan} 50%, ${stops.globalBorderSlate} 70%, ${alpha(stops.globalBorderSlateWeak, 0.7)} 100%)`,
+  // `Input-Border-Blue` — Figma `Input Field` (274417:44475), swatch labelled
+  // "DARK original: FFFFFF -> 0A60FF". Both stops already exist, so this adds
+  // no new colour. Sampling the rendered field's top border confirms a plain
+  // horizontal ramp: near-white at 13% across, (130,173,254) at 50%, and
+  // (39,114,255) at 88%, extrapolating to #0a60ff at the right edge.
+  gradientInputBorderBlue: `linear-gradient(90deg, ${stops.glassWhite} 0%, ${stops.panelExecBorderBlue} 100%)`,
   // Figma reuses `Global-Border/Fade` for this distinct rainbow ramp.
   gradientGlobalBorderRainbow: `linear-gradient(90deg, ${stops.panelExecBorderBlue} 0%, ${stops.dataVizCyan} 33%, ${stops.globalDividerPink} 83%, ${stops.dataVizOrange} 100%)`,
 

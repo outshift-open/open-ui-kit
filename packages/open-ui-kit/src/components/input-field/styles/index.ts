@@ -160,6 +160,59 @@ export const getInputFieldStyles = (theme: Theme): CSSObject => ({
   },
 });
 
+/**
+ * Glow treatment: gradient border — Figma `Input Field` (274417:44475).
+ *
+ * A pill-shaped prompt field edged with `Gradient/Input-Border-Blue`, whose
+ * swatch reads "DARK original: FFFFFF -> 0A60FF". The token is new to the
+ * theme but introduces no new colour — both stops already existed.
+ *
+ * The ramp cannot be a `border-color`, so the border is drawn as a 1px
+ * mask-composite ring on the input root, matching how the other gradient
+ * borders in the kit are built. No `overflow: hidden`, which would thin the
+ * ring's arcs — and at this radius the arcs are most of the outline.
+ *
+ * Keyed on `&&` rather than `&` so it layers over `getInputFieldStyles`
+ * instead of replacing its `.MuiInput-root` block: the two objects are spread
+ * together, and a matching key would drop the base field's typography, height
+ * and underline resets wholesale.
+ */
+export const getInputFieldGlowStyles = (theme: Theme): CSSObject => ({
+  "&& .MuiInput-root": {
+    position: "relative",
+    border: "none",
+    // Figma's 40px radius on a 40px-tall field — a full pill.
+    borderRadius: "40px",
+    padding: "8px 16px",
+    backgroundColor: "transparent",
+
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      borderRadius: "inherit",
+      padding: "1px",
+      background: theme.palette.gradients.gradientInputBorderBlue,
+      WebkitMask:
+        "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+      WebkitMaskComposite: "xor",
+      maskComposite: "exclude",
+      pointerEvents: "none",
+      // MUI's underline pseudo-elements are already neutralised above; this
+      // one is the ring, so it must not be caught by those resets.
+      borderBottom: "0 !important",
+      transform: "none !important",
+      zIndex: 0,
+    },
+
+    // The field keeps its ring on hover and focus rather than swapping to the
+    // control border tokens the standard field uses.
+    "&:hover, &.Mui-focused": {
+      border: "none",
+    },
+  },
+});
+
 export const getStoryFocusedSx = (theme: Theme) =>
   ({
     "& .MuiInput-root": {

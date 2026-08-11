@@ -19,4 +19,9 @@ export type InputFieldProps = MuiTextFieldProps & {
   error?: MuiTextFieldProps["error"];
   /** Custom MUI slot props, merged with the internal shrunk label behavior. */
   slotProps?: MuiTextFieldProps["slotProps"];
+  /**
+   * Applies the glow treatment: a pill-shaped field edged with the
+   * `Input-Border-Blue` ramp, for prompt-style inputs.
+   */
+  glow?: boolean;
 };

@@ -10,8 +10,9 @@ import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
 import { InputField } from "..";
-import { getInputFieldStyles } from "../styles";
+import { getInputFieldGlowStyles, getInputFieldStyles } from "../styles";
 
 const renderInputField = (
   props: React.ComponentProps<typeof InputField>,
@@ -65,6 +66,52 @@ describe("InputField", () => {
       expect(() =>
         renderInputField({ label: "Label", type: "number", defaultValue: 1 }),
       ).not.toThrow();
+    });
+
+  });
+
+  describe("glow variant", () => {
+    it("renders without throwing", () => {
+      expect(() =>
+        renderInputField({ label: "Label", glow: true }),
+      ).not.toThrow();
+      expect(() =>
+        renderInputField({ glow: true, placeholder: "Placeholder text" }),
+      ).not.toThrow();
+    });
+
+    it("draws a borderless pill edged by the Input-Border-Blue ramp", () => {
+      expect(getInputFieldGlowStyles(midnightTheme)).toMatchObject({
+        "&& .MuiInput-root": expect.objectContaining({
+          border: "none",
+          borderRadius: "40px",
+          backgroundColor: "transparent",
+          "&::after": expect.objectContaining({
+            background:
+              midnightTheme.palette.gradients.gradientInputBorderBlue,
+            maskComposite: "exclude",
+          }),
+        }),
+      });
+    });
+
+    it("keeps the ring — rather than a solid border — on hover and focus", () => {
+      expect(
+        getInputFieldGlowStyles(midnightTheme)["&& .MuiInput-root"],
+      ).toMatchObject({
+        "&:hover, &.Mui-focused": { border: "none" },
+      });
+    });
+
+    it("uses the exact stops documented for Midnight: white to #0a60ff", () => {
+      expect(midnightTheme.palette.gradients.gradientInputBorderBlue).toBe(
+        "linear-gradient(90deg, #ffffff 0%, #0a60ff 100%)",
+      );
+    });
+
+    it("defines the token for every theme, not only Midnight", () => {
+      expect(lightTheme.palette.gradients.gradientInputBorderBlue).toBeTruthy();
+      expect(darkTheme.palette.gradients.gradientInputBorderBlue).toBeTruthy();
     });
   });
 

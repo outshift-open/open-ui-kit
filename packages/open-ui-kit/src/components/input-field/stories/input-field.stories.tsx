@@ -169,6 +169,18 @@ export const WithAdornment: Story = {
   ),
 };
 
+export const WithBorderGlow: Story = {
+  name: "With border glow",
+  args: {
+    defaultValue: "Entered text",
+  },
+  render: (args) => (
+    <StoryCanvas>
+      <InputField {...args} sx={storyFieldSx} glow />
+    </StoryCanvas>
+  ),
+};
+
 export const Focused: Story = {
   args: {
     defaultValue: "Entered text",

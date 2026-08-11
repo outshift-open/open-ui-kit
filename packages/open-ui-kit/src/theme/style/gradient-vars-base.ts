@@ -95,6 +95,7 @@ export const baseGradientVars: GradientVarsType = {
   gradientCardGlassBg: gradientsSecondaryHover,
   gradientCardGlassBgSubtle: gradientsSecondaryHover,
   gradientGlobalBorderFade: gradientsSecondaryDefault,
+  gradientInputBorderBlue: gradientsSecondaryDefault,
   gradientGlobalBorderRainbow: gradientsIllustrationsRainbow,
   gradientGlobalButtonPrimaryBorderGlow: gradientButtonPrimaryBorderGlow,
   gradientDashboardGraphNodeBorder: gradientsSecondaryDefault,
