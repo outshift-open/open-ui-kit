@@ -317,6 +317,14 @@ export const gradientStopColors = {
   secondaryBlueHoverWeak: "#b3cbe7",
 } as const;
 
+// Toast glow. Figma: `Toast message Glow` (274417:44480), the two `Text Card`
+// instances. Both use the same offset and blur; the glow is stronger on the
+// variant that carries a header (0.4) than on the message-only one (0.2).
+// The colour is `panelExecBorderBlue` (#0a60ff), the first stop of the
+// `Global-Border/Fade` ramp that draws the toast's border.
+export const toastGlow = "0px -1px 34px rgba(10, 96, 255, 0.2)";
+export const toastGlowStrong = "0px -1px 34px rgba(10, 96, 255, 0.4)";
+
 // Light Mode Box Shadows
 export const lightModeCardLifted = "0px 4px 4px rgba(200, 213, 245, 0.33)";
 export const lightModeCardSubtle = "0px 2px 5px rgba(200, 213, 245, 0.4)";

@@ -164,10 +164,11 @@ describe("midnight gradient values", () => {
       expect(g.gradientGlobalBorderRainbow).toContain("#ff007f 83%");
     });
 
-    // The label says #0a66ff; the rendered stroke measures #0a60ff.
-    it("uses the measured first stop for the border fade", () => {
+    // The label says #0a66ff; the rendered stroke measures #0a60ff. Direction
+    // comes from the toast instances, not the swatch, which runs the other way.
+    it("ramps the border fade slate to blue", () => {
       expect(g.gradientGlobalBorderFade).toBe(
-        "linear-gradient(90deg, #0a60ff 0%, #00bceb 50%, #3d5066 70%, rgba(77, 99, 128, 0.7) 100%)",
+        "linear-gradient(90deg, rgba(77, 99, 128, 0.7) 10%, #3d5066 31%, #00bceb 51%, #0a60ff 79%)",
       );
     });
   });

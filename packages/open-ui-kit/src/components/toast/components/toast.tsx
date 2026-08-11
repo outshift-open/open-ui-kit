@@ -31,6 +31,7 @@ export const Toast = ({
   action,
   id,
   customActions,
+  glow,
   ...props
 }: ToastProps) => {
   const [show, setShow] = React.useState(true);
@@ -58,6 +59,7 @@ export const Toast = ({
       type={type}
       hasTitle={Boolean(title)}
       hasAction={Boolean(action)}
+      glow={glow}
       icon={<IconToast type={type} />}
     >
       <Box sx={toastInnerStyle}>

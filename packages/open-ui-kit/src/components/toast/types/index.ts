@@ -27,6 +27,12 @@ export interface ToastProps extends Omit<
   type?: ToastType;
   /** Optional bold title line rendered above the message. */
   title?: string;
+  /**
+   * Applies the glow treatment: a `Global-Border/Fade` gradient border and a
+   * blue glow cast from behind the toast. The glow is stronger when the toast
+   * also has a `title`.
+   */
+  glow?: boolean;
   /** Optional body message shown in the toast content area. */
   description?: string;
   /** Shows the close button when true. */

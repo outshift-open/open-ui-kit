@@ -6,6 +6,7 @@
 
 import type { CSSObject, Theme } from "@mui/material";
 import type { ToastType } from "../types";
+import { toastGlow, toastGlowStrong } from "@/theme/style/color-palette";
 
 const isStatusToast = (type?: ToastType) => type && type !== "default";
 
@@ -76,6 +77,54 @@ export const toastRootStyle = (
     color: theme.palette.vars.baseTextDefault,
   };
 };
+
+/**
+ * Glow treatment — Figma `Toast message Glow` (274417:44480).
+ *
+ * The section documents one gradient, `Gradient/Global-Border/Fade`, and points
+ * it at both toast instances. It is already in the theme as
+ * `gradientGlobalBorderFade`, so this adds no new gradient. It runs dim on the
+ * left to bright blue on the right, matching the instances.
+ *
+ * Two things carry the treatment: a 1px gradient border and a blue glow cast
+ * upward from behind the toast. The glow is the stronger of the two documented
+ * values when the toast has a header and the softer one when it does not —
+ * which is exactly how the two instances in the frame differ.
+ *
+ * The border is a mask-composite ring rather than a `border`, since a gradient
+ * cannot be assigned to `border-color`. No `overflow: hidden`, which would
+ * thin the ring's corner arcs.
+ */
+export const toastGlowStyle = (
+  theme: Theme,
+  hasTitle?: boolean,
+): CSSObject => ({
+  border: "none",
+  borderLeftWidth: 0,
+  // Figma pads these 18px rather than the 12/16 the standard toast uses.
+  padding: "18px",
+  position: "relative",
+  boxShadow: hasTitle ? toastGlowStrong : toastGlow,
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    borderRadius: "inherit",
+    padding: "1px",
+    background: theme.palette.gradients.gradientGlobalBorderFade,
+    WebkitMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    WebkitMaskComposite: "xor",
+    maskComposite: "exclude",
+    pointerEvents: "none",
+    zIndex: 0,
+  },
+  // The ring is positioned, so lift the toast's own slots above it.
+  "& > *": {
+    position: "relative",
+    zIndex: 1,
+  },
+});
 
 export const toastIconSlotStyle = (
   theme: Theme,

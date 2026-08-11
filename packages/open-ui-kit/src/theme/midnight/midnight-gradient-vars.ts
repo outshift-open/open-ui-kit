@@ -95,8 +95,10 @@ export const midnightGradientVars: GradientVarsType = {
   // match until design confirms whether the label or the fill is authoritative.
   gradientCardGlassBgSubtle: `linear-gradient(90deg, ${alpha(stops.glassWhite, 0.3)} 0%, ${alpha(stops.glassWhiteWeak, 0.3)} 72%, ${alpha(stops.glassGray, 0)} 100%)`,
 
-  // Measured: first stop renders #0a60ff, not the #0a66ff shown on the label.
-  gradientGlobalBorderFade: `linear-gradient(90deg, ${stops.panelExecBorderBlue} 0%, ${stops.buttonPrimaryGlowCyan} 50%, ${stops.globalBorderSlate} 70%, ${alpha(stops.globalBorderSlateWeak, 0.7)} 100%)`,
+  // Measured: the blue stop renders #0a60ff, not the #0a66ff shown on the label.
+  // Ramps slate to blue, matching the toast instances that use it — the swatch
+  // preview runs the other way, but the applied instances are authoritative.
+  gradientGlobalBorderFade: `linear-gradient(90deg, ${alpha(stops.globalBorderSlateWeak, 0.7)} 10%, ${stops.globalBorderSlate} 31%, ${stops.buttonPrimaryGlowCyan} 51%, ${stops.panelExecBorderBlue} 79%)`,
   // `Input-Border-Blue` — Figma `Input Field` (274417:44475), swatch labelled
   // "DARK original: FFFFFF -> 0A60FF". Both stops already exist, so this adds
   // no new colour. Sampling the rendered field's top border confirms a plain
