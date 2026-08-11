@@ -6,6 +6,10 @@
 
 import fs from "node:fs";
 import path from "node:path";
+// The suite only reads sources, but it still needs the jest globals to be
+// typed, and `typeRoots` in tsconfig.json does not reach the hoisted
+// `@types/jest`. Every other suite picks them up through this import.
+import "@testing-library/jest-dom";
 
 const customIconsDir = path.resolve(__dirname, "../../../custom-icons");
 
@@ -25,30 +29,66 @@ function getSource(filePath: string) {
   return fs.readFileSync(filePath, "utf8");
 }
 
+// The dashboard nav icon paints a multi-tone ramp that a single inherited
+// color can't express, so it's exempt from the `currentColor` rule (see the
+// comment above DashboardMark in navigation/dashboard.tsx).
+const MULTI_TONE_ICON_FILES = new Set([
+  path.join("navigation", "dashboard.tsx"),
+]);
+
+// OutshiftBrand paints the Outshift mark in fixed brand colors instead of
+// `currentColor` by design (see the comment above the component in
+// brand-logos.tsx): the mark must keep its brand colors regardless of theme.
+// AgntcyBrand and CiscoBrand in the same file are still held to the normal
+// rule.
+const OUTSHIFT_BRAND_FILE = "brand-logos.tsx";
+const OUTSHIFT_BRAND_COLOR_IDENTIFIERS = new Set([
+  "{outshiftLogoLightBlue}",
+  "{outshiftLogoGreen}",
+  "{outshiftLogoOrange}",
+  "{outshiftBlue}",
+  "{vars.brandLogoSecondary}",
+]);
+
 describe("custom icons", () => {
   it("uses currentColor for SVG fills and strokes", () => {
-    const badPaintAttributes = iconFiles.flatMap((filePath) => {
-      const source = getSource(filePath);
-      const matches = [
-        ...source.matchAll(
-          /\b(?:fill|stroke)\s*=\s*(\{[^}]*\}|"[^"]*"|'[^']*')/g,
-        ),
-      ];
+    const badPaintAttributes = iconFiles
+      .filter(
+        (filePath) =>
+          !MULTI_TONE_ICON_FILES.has(path.relative(customIconsDir, filePath)),
+      )
+      .flatMap((filePath) => {
+        const source = getSource(filePath);
+        const matches = [
+          ...source.matchAll(
+            /\b(?:fill|stroke)\s*=\s*(\{[^}]*\}|"[^"]*"|'[^']*')/g,
+          ),
+        ];
+        const isOutshiftBrandFile =
+          path.relative(customIconsDir, filePath) === OUTSHIFT_BRAND_FILE;
 
-      return matches
-        .filter((match) => {
-          const value = match[1].toLowerCase();
-          return (
-            value !== '"none"' &&
-            value !== "'none'" &&
-            value !== '"currentcolor"' &&
-            value !== "'currentcolor'"
+        return matches
+          .filter((match) => {
+            if (
+              isOutshiftBrandFile &&
+              OUTSHIFT_BRAND_COLOR_IDENTIFIERS.has(match[1])
+            ) {
+              return false;
+            }
+
+            const value = match[1].toLowerCase();
+            return (
+              value !== '"none"' &&
+              value !== "'none'" &&
+              value !== '"currentcolor"' &&
+              value !== "'currentcolor'"
+            );
+          })
+          .map(
+            (match) =>
+              `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
           );
-        })
-        .map(
-          (match) => `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
-        );
-    });
+      });
 
     expect(badPaintAttributes).toEqual([]);
   });

@@ -12,6 +12,7 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Navigation, NavigationDrawer, NavigationSubNavigation } from "..";
 import {
+  getNavigationDrawerItemStyles,
   getNavigationDrawerStyles,
   getNavigationCollapseButtonStyles,
   getNavigationItemStyles,
@@ -188,6 +189,24 @@ describe("Navigation", () => {
         backgroundColor: "transparent",
         color: lightTheme.palette.vars.brandTextSecondary,
       });
+      // Hovering a sub-menu option adds the fill but keeps the label on
+      // Brand/Text/Secondary; only selected holds Brand/Text/Primary.
+      expect(getNavigationDrawerItemStyles(lightTheme, false)).toMatchObject({
+        backgroundColor: "transparent",
+        color: lightTheme.palette.vars.brandTextSecondary,
+        "&:hover": {
+          backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+          color: lightTheme.palette.vars.brandTextSecondary,
+        },
+      });
+      expect(getNavigationDrawerItemStyles(lightTheme, true)).toMatchObject({
+        backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+        color: lightTheme.palette.vars.brandTextPrimary,
+        "&:hover": {
+          backgroundColor: lightTheme.palette.vars.brandBackgroundPrimaryMedium,
+          color: lightTheme.palette.vars.brandTextPrimary,
+        },
+      });
       expect(
         getNavigationCollapseButtonStyles(lightTheme, false),
       ).toMatchObject({
@@ -227,6 +246,50 @@ describe("Navigation", () => {
         color: darkTheme.palette.vars.baseTextStrong,
         border: `2px solid ${darkTheme.palette.vars.warningBorderDefault}`,
       });
+    });
+  });
+
+  /*
+   * Figma `.Switcher` (179634:5059) resolves the bracket and the arrow to
+   * Brand/Icon/Secondary/Weak and the diamond to Brand/Icon/Secondary/Default.
+   * Two tones cannot ride on `currentColor`, since the switcher button passes
+   * down only one inherited colour — which is why the nav renders the complete
+   * `OrgSwitcher` rather than the single-tone `OrgSwitcherDefault`.
+   */
+  describe("organization switcher mark", () => {
+    const switcherPaths = (container: HTMLElement) =>
+      Array.from(
+        container.querySelectorAll(
+          'button[aria-label="[Organization]"] svg path, button[aria-label="[Organization]"] path',
+        ),
+      ).map((path) => path.getAttribute("fill"));
+
+    it.each([
+      ["light", false, lightTheme],
+      ["dark", true, darkTheme],
+    ])("paints all three %s layers on the brand ramp", (_mode, dark, theme) => {
+      const { container } = wrap(
+        <Navigation compact sections={sections} />,
+        dark,
+      );
+      const fills = switcherPaths(container);
+
+      expect(fills).toEqual([
+        theme.palette.vars.brandIconSecondaryWeak,
+        theme.palette.vars.brandIconSecondaryWeak,
+        theme.palette.vars.brandIconSecondaryDefault,
+      ]);
+      // The single-tone mark would have collapsed the layers onto one
+      // inherited colour.
+      expect(fills).not.toContain("currentColor");
+    });
+
+    it("keeps the two tones distinguishable in both themes", () => {
+      for (const theme of [lightTheme, darkTheme]) {
+        expect(theme.palette.vars.brandIconSecondaryWeak).not.toBe(
+          theme.palette.vars.brandIconSecondaryDefault,
+        );
+      }
     });
   });
 });
