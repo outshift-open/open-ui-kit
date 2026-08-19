@@ -48,25 +48,37 @@ describe("Typography", () => {
       });
     });
 
-    // Figma anchors the ramp to the text layer's own box — 858 wide over 440
-    // of glyphs, so the text covers 51.28% of the ramp and ends on #9dbcf7.
-    // Fitting the box to the glyphs makes that independent of the container;
-    // 858 / 440 = 1.95 puts the last glyph back on the same stop at any size.
-    it("fits the box to the text and stretches the ramp past it", () => {
+    // Sizing the ramp to the text pins every string to the same colour, so a
+    // short line stops looking any different from a long one.
+    it("lets the ramp span the element, not the glyphs", () => {
       renderTypography(<Typography gradient>Welcome Amy!</Typography>);
 
-      expect(screen.getByText("Welcome Amy!")).toHaveStyle({
-        width: "fit-content",
-        backgroundSize: "195% 100%",
-        backgroundRepeat: "no-repeat",
-      });
+      const el = screen.getByText("Welcome Amy!");
+      expect(el).not.toHaveStyle({ width: "fit-content" });
+      expect(el).not.toHaveStyle({ backgroundRepeat: "no-repeat" });
+      expect(el).not.toHaveStyle({ boxDecorationBreak: "clone" });
+    });
+
+    // One ramp shared by every line is what gives a short trailing line its
+    // paler fill, so the element must stay block-level.
+    it("keeps the fill on a block element so lines share one ramp", () => {
+      renderTypography(
+        <Typography variant="h1" gradient>
+          Welcome Amy!
+        </Typography>,
+      );
+
+      const el = screen.getByText("Welcome Amy!");
+      expect(el).toHaveClass("MuiTypography-h1");
+      expect(el).not.toHaveStyle({ display: "inline" });
+      expect(el.querySelector("span")).toBeNull();
     });
 
     it("leaves ungradiented text alone", () => {
       renderTypography(<Typography>Plain text</Typography>);
 
       const el = screen.getByText("Plain text");
-      expect(el).not.toHaveStyle({ width: "fit-content" });
+      expect(el.querySelector("span")).toBeNull();
       expect(el).not.toHaveStyle({ WebkitTextFillColor: "transparent" });
     });
   });
