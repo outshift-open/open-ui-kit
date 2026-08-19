@@ -1,3 +1,20 @@
+# [2.3.0](https://github.com/outshift-open/open-ui-kit/compare/v2.2.3...v2.3.0) (2026-08-19)
+
+
+### Bug Fixes
+
+* Format code for better readability in CodeBlock tests and styles ([3fe8d0a](https://github.com/outshift-open/open-ui-kit/commit/3fe8d0a76cedfae9782ec62e9352f70e4bf9fb49))
+* Midnight Theme | Tokens Fixes ([37f3b44](https://github.com/outshift-open/open-ui-kit/commit/37f3b44536ea8e85b721fd4ff0935a4d47faea1f))
+* Navigation and Header Component ([#15](https://github.com/outshift-open/open-ui-kit/issues/15)) ([7487b93](https://github.com/outshift-open/open-ui-kit/commit/7487b93d137527f768037668334f22857406a3a5))
+* Navigation Component UI Fix ([6c8657e](https://github.com/outshift-open/open-ui-kit/commit/6c8657e2f92288b26bdbf7664df388e31c3db521))
+* Remove unused Theme import from Card tests ([ef44912](https://github.com/outshift-open/open-ui-kit/commit/ef44912809fbaa4b0383332b0aa0bd05a6afb3aa))
+* **theme:** correct Midnight excellent/interactive disabled token opacity ([85589d4](https://github.com/outshift-open/open-ui-kit/commit/85589d4e9d5e04653e4133d18b61c22055327896))
+
+
+### Features
+
+* add Midnight theme foundation ([b3be1fe](https://github.com/outshift-open/open-ui-kit/commit/b3be1fe122639af5877daacb160baa9943929463))
+
 ## [2.2.3](https://github.com/outshift-open/open-ui-kit/compare/v2.2.2...v2.2.3) (2026-07-22)
 
 
