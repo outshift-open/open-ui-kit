@@ -10,6 +10,7 @@ import { useTheme as useMuiTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import {
   iocDocsTheme,
+  midnightDocsTheme,
   OpenUiKitTokenCssVars,
   openUiKitDarkDocsTheme,
   openUiKitLightDocsTheme,
@@ -124,6 +125,7 @@ export type { CardDescriptionProps } from "../../packages/open-ui-kit/src/compon
 export { default as CardSubheader } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
 export type { CardSubheaderProps } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
 export {
+  ThemeMode,
   useTheme,
   useThemeMode,
 } from "../../packages/open-ui-kit/src/theme-provider/theme-provider";
@@ -279,6 +281,24 @@ function useDocsMode(rootRef: React.RefObject<HTMLDivElement>) {
   return docsMode;
 }
 
+/**
+ * Docs equivalent of `resolveBuiltInTheme` in the package's ThemeProvider. Kept
+ * in the same shape so a new ThemeMode is obviously missing from one of them.
+ */
+function resolveDocsTheme(mode: ThemeMode) {
+  if (mode === ThemeMode.IoC) {
+    return iocDocsTheme;
+  }
+
+  if (mode === ThemeMode.Midnight) {
+    return midnightDocsTheme;
+  }
+
+  return mode === ThemeMode.Dark
+    ? openUiKitDarkDocsTheme
+    : openUiKitLightDocsTheme;
+}
+
 export function ThemeProvider({
   defaultMode,
   customTheme,
@@ -287,13 +307,7 @@ export function ThemeProvider({
   const rootRef = React.useRef<HTMLDivElement>(null);
   const docsMode = useDocsMode(rootRef);
   const mode = defaultMode ?? docsMode;
-  const theme =
-    customTheme ??
-    (mode === ThemeMode.IoC
-      ? iocDocsTheme
-      : mode === ThemeMode.Dark
-        ? openUiKitDarkDocsTheme
-        : openUiKitLightDocsTheme);
+  const theme = customTheme ?? resolveDocsTheme(mode);
 
   return React.createElement(
     "div",
