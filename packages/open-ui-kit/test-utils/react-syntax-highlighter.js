@@ -13,13 +13,20 @@ const SyntaxHighlighter = ({
   lineNumberStyle,
   showLineNumbers,
   startingLineNumber = 1,
+  style,
 }) => {
   const lines = String(children ?? "").split("\n");
   const { style: codeStyle, ...restCodeTagProps } = codeTagProps;
 
   return React.createElement(
     "pre",
-    { style: customStyle },
+    {
+      style: customStyle,
+      // The real highlighter turns `style` into per-token colors. The mock
+      // cannot tokenize, so it records the map instead — otherwise a wrong or
+      // missing syntax palette would be invisible to every test.
+      "data-prism-style": style ? JSON.stringify(style) : undefined,
+    },
     showLineNumbers
       ? React.createElement(
           "span",

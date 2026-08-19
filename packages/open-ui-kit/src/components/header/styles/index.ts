@@ -153,7 +153,7 @@ export const getStoryMenuPaperStyles = (theme: Theme) => ({
     boxSizing: "border-box",
     borderRadius: "8px",
     border: `2px solid ${theme.palette.vars.interactivePrimaryDefaultActive}`,
-    backgroundColor: theme.palette.vars.baseBackgroundMedium,
+    backgroundColor: theme.palette.vars.controlBackgroundWeak,
     boxShadow: theme.shadows[2],
     padding: "8px 0",
   },
@@ -166,7 +166,7 @@ export const getStoryMenuItemStyles = (theme: Theme) => ({
   height: "40px",
   padding: "8px 16px",
   color: theme.palette.vars.baseTextDefault,
-  backgroundColor: theme.palette.vars.baseBackgroundMedium,
+  backgroundColor: theme.palette.vars.controlBackgroundWeak,
   "&:hover": {
     backgroundColor: theme.palette.vars.baseBackgroundHover,
   },

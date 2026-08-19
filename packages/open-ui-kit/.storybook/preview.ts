@@ -11,6 +11,7 @@ import { withScreenshot } from "@prantlf/storycap";
 import { darkTheme } from "../src/theme/dark/dark-theme";
 import { iocTheme } from "../src/theme/ioc/ioc-theme";
 import { lightTheme } from "../src/theme/light/light-theme";
+import { midnightTheme } from "../src/theme/midnight/midnight-theme";
 
 const docsTheme = create({
   base: "light",
@@ -45,6 +46,7 @@ const muiThemeDecorator = withThemeFromJSXProvider({
     light: lightTheme,
     dark: darkTheme,
     ioc: iocTheme,
+    midnight: midnightTheme,
   },
 });
 
@@ -52,6 +54,7 @@ const themeBackgrounds = {
   light: "#EFF3FC",
   dark: "#00142B",
   ioc: "#07111F",
+  midnight: "#060A0F",
 };
 
 const themeBackgroundTokens = {
@@ -78,6 +81,14 @@ const themeBackgroundTokens = {
     mutedText: "rgba(255, 255, 255, 0.55)",
     previewBackground: "#07111F",
     text: "rgba(255, 255, 255, 0.94)",
+  },
+  midnight: {
+    background: themeBackgrounds.midnight,
+    border: "#3A4E77",
+    link: "#558BFF",
+    mutedText: "#C5C7CB",
+    previewBackground: "#060A0F",
+    text: "#E8E9EA",
   },
 };
 
@@ -223,6 +234,7 @@ export const globalTypes = {
         { value: "light", icon: "sun", title: "Light" },
         { value: "dark", icon: "moon", title: "Dark" },
         { value: "ioc", icon: "mirror", title: "IoC" },
+        { value: "midnight", icon: "starhollow", title: "Midnight" },
       ],
       showName: false,
       dynamicTitle: false,

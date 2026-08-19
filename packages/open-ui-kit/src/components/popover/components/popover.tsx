@@ -76,7 +76,7 @@ export const Popover = ({
   });
   const bg = featureHighlight
     ? theme.palette.vars.controlBorderActive
-    : theme.palette.vars.controlBackgroundDefault;
+    : theme.palette.vars.baseBackgroundWeak;
 
   return (
     <MuiPopover

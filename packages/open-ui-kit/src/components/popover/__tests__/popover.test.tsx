@@ -127,7 +127,7 @@ describe("Popover", () => {
     });
 
     it("positions bottom-side popovers with arrows on the top edge", () => {
-      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+      const bg = lightTheme.palette.vars.baseBackgroundWeak;
 
       expect(getArrowStyles(PopoverPlacement.BottomStart, bg)).toMatchObject({
         top: "-8px",
@@ -144,7 +144,7 @@ describe("Popover", () => {
     });
 
     it("positions top-side popovers with arrows on the bottom edge", () => {
-      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+      const bg = lightTheme.palette.vars.baseBackgroundWeak;
 
       expect(getArrowStyles(PopoverPlacement.TopStart, bg)).toMatchObject({
         bottom: "-8px",
@@ -205,7 +205,7 @@ describe("Popover", () => {
     });
 
     it("positions left and right arrows outside the side edges", () => {
-      const bg = lightTheme.palette.vars.controlBackgroundDefault;
+      const bg = lightTheme.palette.vars.baseBackgroundWeak;
 
       expect(getArrowStyles(PopoverPlacement.Left, bg)).toMatchObject({
         right: "-8px",
@@ -260,7 +260,7 @@ describe("Popover", () => {
         width: "228px",
         minWidth: "228px",
         maxWidth: "228px",
-        background: lightTheme.palette.vars.controlBackgroundDefault,
+        background: lightTheme.palette.vars.baseBackgroundWeak,
         borderRadius: "6px",
         boxShadow: "none",
         overflow: "visible",
@@ -277,7 +277,7 @@ describe("Popover", () => {
         maxWidth: "360px",
       });
       expect(getPopoverContentStyles(lightTheme)).toMatchObject({
-        background: lightTheme.palette.vars.controlBackgroundDefault,
+        background: lightTheme.palette.vars.baseBackgroundWeak,
         border: "0px solid transparent",
         borderRadius: "6px",
         gap: "16px",
@@ -324,7 +324,7 @@ describe("Popover", () => {
       ).toMatchObject({
         background: lightTheme.palette.vars.controlBorderActive,
       });
-      expect(lightTheme.palette.vars.controlBackgroundDefault).toBe("#fbfcfe");
+      expect(lightTheme.palette.vars.baseBackgroundWeak).toBe("#fbfcfe");
       expect(lightTheme.palette.vars.controlBorderActive).toBe("#0051af");
       expect(lightTheme.palette.vars.baseTextStrong).toBe("#00142b");
       expect(lightTheme.palette.vars.baseTextDefault).toBe("#3c4551");
@@ -332,10 +332,10 @@ describe("Popover", () => {
 
     it("uses dark mode design tokens", () => {
       expect(getPopoverPaperStyles(darkTheme)).toMatchObject({
-        background: darkTheme.palette.vars.controlBackgroundDefault,
+        background: darkTheme.palette.vars.baseBackgroundWeak,
       });
       expect(getPopoverContentStyles(darkTheme, true)).toMatchObject({
-        background: darkTheme.palette.vars.controlBackgroundDefault,
+        background: darkTheme.palette.vars.baseBackgroundWeak,
         border: `2px solid ${darkTheme.palette.vars.controlBorderActive}`,
       });
       expect(popoverTitleStyles(darkTheme)).toMatchObject({
@@ -344,7 +344,7 @@ describe("Popover", () => {
       expect(popoverBodyStyles(darkTheme)).toMatchObject({
         color: darkTheme.palette.vars.baseTextDefault,
       });
-      expect(darkTheme.palette.vars.controlBackgroundDefault).toBe("#183056");
+      expect(darkTheme.palette.vars.baseBackgroundWeak).toBe("#183056");
       expect(darkTheme.palette.vars.controlBorderActive).toBe("#12c1ff");
       expect(darkTheme.palette.vars.baseTextStrong).toBe("#ffffff");
       expect(darkTheme.palette.vars.baseTextDefault).toBe("#e8e9ea");

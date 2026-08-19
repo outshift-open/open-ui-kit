@@ -14,12 +14,14 @@ import {
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { iocTheme } from "@/theme/ioc/ioc-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
 export { useTheme } from "@mui/material";
 
 export enum ThemeMode {
   Light = "light",
   Dark = "dark",
   IoC = "ioc",
+  Midnight = "midnight",
 }
 
 export interface ThemeModeContextValue {
@@ -55,6 +57,10 @@ export interface ThemeProviderProps {
 function resolveBuiltInTheme(mode: ThemeMode): Theme {
   if (mode === ThemeMode.IoC) {
     return iocTheme;
+  }
+
+  if (mode === ThemeMode.Midnight) {
+    return midnightTheme;
   }
 
   return mode === ThemeMode.Dark ? darkTheme : lightTheme;

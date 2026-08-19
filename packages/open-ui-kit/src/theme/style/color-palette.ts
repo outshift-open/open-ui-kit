@@ -626,3 +626,31 @@ export const OS_LIGHT_COLORS = {
   sunset: sunsetPalette,
   brand: brandColors,
 };
+
+// Dark Navy (Midnight deep surfaces)
+export const darkNavy100 = "#1e293b";
+export const darkNavy200 = "#0a141f";
+export const darkNavy300 = "#0f1623";
+export const darkNavy400 = "#060a0f";
+
+export const darkNavyPalette = {
+  100: darkNavy100,
+  200: darkNavy200,
+  300: darkNavy300,
+  400: darkNavy400,
+};
+
+// Electric Blue (Midnight primary / interactive)
+export const electricBlue300 = "#0ab6ff";
+export const electricBlue500 = "#558bff";
+export const electricBlue700 = "#1469cc";
+export const electricBlueAlpha40 = "#558bff66";
+export const electricBlueAlpha10 = "#558bff19";
+
+export const electricBluePalette = {
+  300: electricBlue300,
+  500: electricBlue500,
+  700: electricBlue700,
+  alpha40: electricBlueAlpha40,
+  alpha10: electricBlueAlpha10,
+};

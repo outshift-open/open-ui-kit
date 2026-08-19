@@ -32,6 +32,7 @@ export const Accordion = ({
   action,
   endSlot,
   showDivider,
+  showBorder,
   accordionSummaryProps,
   detailsContentBoxProps,
   children,
@@ -41,9 +42,14 @@ export const Accordion = ({
   const summaryTextLineHeight = size === "large" ? "24px" : "20px";
   const mediumSize = size === "medium";
   const shouldShowDivider = showDivider ?? (mediumSize && !contained);
+  const shouldShowBorder = showBorder ?? (mediumSize && !contained);
 
   return (
-    <StyledAccordion {...props} mediumSize={mediumSize} contained={contained}>
+    <StyledAccordion
+      {...props}
+      showBorder={shouldShowBorder}
+      contained={contained}
+    >
       <StyledAccordionSummary
         aria-controls="panel-content"
         disableRipple

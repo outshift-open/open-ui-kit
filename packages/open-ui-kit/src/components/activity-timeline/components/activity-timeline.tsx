@@ -74,6 +74,10 @@ export const ActivityTimeline = ({
                 titleStartIcon={step.titleStartIcon}
                 subTitle={step.subTitle}
                 size={size}
+                // The timeline supplies its own separators, so the medium
+                // accordion's top border and summary divider are redundant here.
+                showBorder={false}
+                showDivider={false}
               >
                 {step.content}
               </Accordion>

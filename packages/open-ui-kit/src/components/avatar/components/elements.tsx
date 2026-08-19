@@ -24,7 +24,7 @@ export const StyledAvatar = styled(MuiAvatar, {
     borderRadius: "50px",
     backgroundColor: hasImage
       ? "transparent"
-      : theme.palette.vars.brandBackgroundPrimaryWeak,
+      : theme.palette.vars.interactivePrimaryWeakDefault,
     color: theme.palette.vars.brandIconPrimaryDefault,
     fontSize: avatarSize === "L" ? "16px" : "12px",
     fontWeight: 600,
@@ -49,7 +49,7 @@ export const StyledAvatar = styled(MuiAvatar, {
     "&:hover": {
       backgroundColor: hasImage
         ? "transparent"
-        : theme.palette.vars.brandBackgroundPrimaryMedium,
+        : theme.palette.vars.interactivePrimaryWeakHover,
       color: theme.palette.vars.brandIconPrimaryStrong,
 
       "& .MuiSvgIcon-root": {
@@ -81,7 +81,7 @@ export const StyledAvatarGroup = styled(MuiAvatarGroup, {
     width: avatarSize === "L" ? 40 : 32,
     height: avatarSize === "L" ? 40 : 32,
     borderRadius: "50px",
-    backgroundColor: theme.palette.vars.brandBackgroundPrimaryWeak,
+    backgroundColor: theme.palette.vars.interactivePrimaryWeakDefault,
     border: `2px solid ${
       theme.palette.mode === "dark"
         ? theme.palette.vars.baseBorderWeak

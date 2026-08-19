@@ -116,7 +116,7 @@ describe("Message", () => {
         height: "auto",
         padding: "12px 16px",
         gap: "12px",
-        background: lightTheme.palette.vars.baseBackgroundWeak,
+        background: lightTheme.palette.vars.controlBackgroundDefault,
         color: lightTheme.palette.vars.baseTextDefault,
         borderWidth: "1px 1px 1px 4px",
         borderRadius: "4px",
@@ -206,7 +206,7 @@ describe("Message", () => {
       ).toMatchObject({
         width: "480px",
         height: "auto",
-        background: darkTheme.palette.vars.baseBackgroundWeak,
+        background: darkTheme.palette.vars.controlBackgroundDefault,
       });
       expect(getMessageActionStyles(darkTheme)).toMatchObject({
         color: darkTheme.palette.vars.interactivePrimaryDefaultDefault,

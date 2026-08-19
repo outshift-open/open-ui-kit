@@ -9,7 +9,7 @@ import {
   DashboardSelected,
   DashboardUnSelected,
   KeyboardArrowRight,
-  OrgSwitcherDefault,
+  OrgSwitcher,
 } from "@/custom-icons";
 import { useEffect, useState, type ReactNode } from "react";
 import type {
@@ -153,7 +153,7 @@ export const Navigation = ({
             selected={isOrganizationDrawerOpen}
             type="button"
           >
-            <OrgSwitcherDefault fontSize="small" />
+            <OrgSwitcher fontSize="small" />
             {!isCompact ? (
               <>
                 <StyledNavigationSwitcherLabel>
@@ -176,7 +176,10 @@ export const Navigation = ({
                       subNavigationItem?.id === item.id
                         ? "open"
                         : getItemState(item, selectedItemId);
-                    const selected = state === "selected" || state === "open";
+                    // Only "selected" takes the primary icon ramp. An item with
+                    // its sub-menu open keeps the secondary ramp, matching the
+                    // Figma frame.
+                    const selected = state === "selected";
 
                     return (
                       <StyledNavigationItem

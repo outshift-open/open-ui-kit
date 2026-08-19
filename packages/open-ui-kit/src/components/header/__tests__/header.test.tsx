@@ -210,7 +210,7 @@ describe("Header", () => {
         height: "96px",
         borderRadius: "8px",
         border: `2px solid ${lightTheme.palette.vars.interactivePrimaryDefaultActive}`,
-        backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
+        backgroundColor: lightTheme.palette.vars.controlBackgroundWeak,
         boxShadow: lightTheme.shadows[2],
         padding: "8px 0",
       }),
@@ -225,7 +225,7 @@ describe("Header", () => {
       height: "40px",
       padding: "8px 16px",
       color: darkTheme.palette.vars.baseTextDefault,
-      backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+      backgroundColor: darkTheme.palette.vars.controlBackgroundWeak,
       "&:hover": {
         backgroundColor: darkTheme.palette.vars.baseBackgroundHover,
       },

@@ -167,8 +167,13 @@ export const getNavigationItemStyles = (
   state: NavigationItemState,
   compact = false,
 ): CSSObject => {
-  const selected = state === "selected" || state === "open";
+  // Tokens follow the Figma "Navigation" item states (frame node 179634:5030,
+  // `.menu-item`). `selected` and `open` share a background but not a text
+  // color: the frame paints selected labels Brand/Text/Primary and open-submenu
+  // labels Brand/Text/Secondary, distinguishing open by its border alone.
+  const selected = state === "selected";
   const open = state === "open";
+  const active = selected || open;
   const disabled = state === "disabled";
 
   return {
@@ -182,19 +187,21 @@ export const getNavigationItemStyles = (
     gap: "8px",
     position: "relative",
     isolation: "isolate",
-    border: selected
-      ? `1px solid ${theme.palette.vars.controlBorderStrong}`
+    // Only the open-submenu state binds a border; it opens on the right edge to
+    // merge into the sub-navigation panel. Selected is fully rounded.
+    border: open
+      ? `1px solid ${theme.palette.vars.baseBorderStrong}`
       : "1px solid transparent",
-    borderRightWidth: selected ? 0 : "1px",
-    borderRadius: selected ? "8px 0px 0px 8px" : "8px",
-    backgroundColor: selected
-      ? getNavigationActiveBackground(theme)
+    borderRightWidth: open ? 0 : "1px",
+    borderRadius: open ? "8px 0px 0px 8px" : "8px",
+    backgroundColor: active
+      ? theme.palette.vars.brandBackgroundPrimaryWeak
       : "transparent",
     color: disabled
       ? theme.palette.vars.baseTextDisabled
       : selected
-        ? getNavigationActiveColor(theme)
-        : theme.palette.vars.baseTextStrong,
+        ? theme.palette.vars.brandTextPrimary
+        : theme.palette.vars.brandTextSecondary,
     cursor: disabled ? "default" : "pointer",
     font: "inherit",
     textAlign: "left",
@@ -207,18 +214,16 @@ export const getNavigationItemStyles = (
           right: compact ? "-24px" : "-23px",
           width: compact ? "24px" : "23px",
           height: "40px",
-          backgroundColor: getNavigationActiveBackground(theme),
-          borderTop: `1px solid ${theme.palette.vars.controlBorderStrong}`,
-          borderBottom: `1px solid ${theme.palette.vars.controlBorderStrong}`,
+          backgroundColor: theme.palette.vars.brandBackgroundPrimaryWeak,
+          borderTop: `1px solid ${theme.palette.vars.baseBorderStrong}`,
+          borderBottom: `1px solid ${theme.palette.vars.baseBorderStrong}`,
           zIndex: -1,
         }
       : undefined,
     "&:hover": disabled
       ? {}
       : {
-          backgroundColor: selected
-            ? getNavigationActiveBackground(theme)
-            : theme.palette.vars.baseBackgroundHover,
+          backgroundColor: theme.palette.vars.brandBackgroundPrimaryWeak,
         },
   };
 };
@@ -313,19 +318,25 @@ export const getNavigationDrawerItemStyles = (
   gap: "2px",
   border: 0,
   borderRadius: "6px",
+  // Tokens follow the Figma "Navigation" drawer item states (frame node
+  // 179634:5030, `.drawer-item`). Default rests on Brand/Text/Secondary with no
+  // fill; hover adds the Brand/Background/Primary/Medium fill but keeps the
+  // label on Brand/Text/Secondary. Only selected paints Brand/Text/Primary, and
+  // it holds that ramp while hovered.
   backgroundColor: selected
-    ? theme.palette.vars.interactivePrimaryWeakHover
+    ? theme.palette.vars.brandBackgroundPrimaryMedium
     : "transparent",
   color: selected
-    ? theme.palette.vars.interactivePrimaryDefaultActive
-    : theme.palette.vars.baseTextStrong,
+    ? theme.palette.vars.brandTextPrimary
+    : theme.palette.vars.brandTextSecondary,
   cursor: "pointer",
   font: "inherit",
   textAlign: "left",
   "&:hover": {
-    backgroundColor: selected
-      ? theme.palette.vars.interactivePrimaryWeakHover
-      : theme.palette.vars.baseBackgroundHover,
+    backgroundColor: theme.palette.vars.brandBackgroundPrimaryMedium,
+    color: selected
+      ? theme.palette.vars.brandTextPrimary
+      : theme.palette.vars.brandTextSecondary,
   },
 });
 

@@ -28,7 +28,14 @@ const ProductNode = () => (
     >
       {`© ${new Date().getFullYear()} Cisco Systems Inc. • powered by`}
     </Typography>
-    <AgntcyBrand sx={{ width: 64, height: 16, flexShrink: 0 }} />
+    <AgntcyBrand
+      sx={(theme) => ({
+        width: 66,
+        height: 15,
+        flexShrink: 0,
+        color: theme.palette.vars.interactivePrimaryDefaultDefault,
+      })}
+    />
     <Typography
       variant="caption"
       sx={(theme) => ({

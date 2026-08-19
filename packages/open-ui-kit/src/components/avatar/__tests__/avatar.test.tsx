@@ -108,10 +108,10 @@ describe("Avatar", () => {
       expect(styles.fontWeight).toBe("600");
       expect(styles.lineHeight).toBe("133%");
       expect(styles.letterSpacing).toBe("0.15px");
-      expect(lightTheme.palette.vars.brandBackgroundPrimaryWeak).toBe(
+      expect(lightTheme.palette.vars.interactivePrimaryWeakDefault).toBe(
         "#e8f1ff",
       );
-      expect(lightTheme.palette.vars.brandBackgroundPrimaryMedium).toBe(
+      expect(lightTheme.palette.vars.interactivePrimaryWeakHover).toBe(
         "#9bcaff",
       );
       expect(lightTheme.palette.vars.brandIconPrimaryDefault).toBe("#187adc");
@@ -148,8 +148,10 @@ describe("Avatar", () => {
 
       expect(styles.backgroundColor).toBe("rgb(6, 34, 66)");
       expect(styles.color).toBe("rgb(27, 205, 255)");
-      expect(darkTheme.palette.vars.brandBackgroundPrimaryWeak).toBe("#062242");
-      expect(darkTheme.palette.vars.brandBackgroundPrimaryMedium).toBe(
+      expect(darkTheme.palette.vars.interactivePrimaryWeakDefault).toBe(
+        "#062242",
+      );
+      expect(darkTheme.palette.vars.interactivePrimaryWeakHover).toBe(
         "#263b62",
       );
       expect(darkTheme.palette.vars.brandIconPrimaryDefault).toBe("#1bcdff");

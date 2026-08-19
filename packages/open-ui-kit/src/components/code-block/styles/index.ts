@@ -9,7 +9,9 @@ import type { CSSProperties } from "react";
 
 export const containerStackStyles = (theme: Theme): CSSProperties => ({
   backgroundColor: theme.palette.vars.controlBackgroundDefault,
-  border: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+  // Figma binds the card outline to Control/Border/Weak; Control/Border/Default
+  // is reserved for the controls inside it, such as the copy button.
+  border: `1px solid ${theme.palette.vars.controlBorderWeak}`,
   borderRadius: "6px",
   position: "relative",
 });
@@ -35,7 +37,9 @@ export const customStyle = (
     margin: "0",
     backgroundColor: theme.palette.vars.controlBackgroundDefault,
     borderRadius: showLineNumbers ? "0 0 4px 4px" : "4px",
-    color: theme.palette.vars.baseTextDefault,
+    // Figma paints the code area of a highlighted block with Base/Text/Strong;
+    // unhighlighted grammar tokens inherit this color.
+    color: theme.palette.vars.baseTextStrong,
   };
 };
 
@@ -115,42 +119,117 @@ export const headerButtonStyles = (theme: Theme): CSSProperties => ({
   color: theme.palette.vars.brandIconPrimaryDefault,
 });
 
-// Syntax tokens intentionally keep Prism palette literals; no Spark semantic
-// tokens exist for language grammar colors in the current design system.
-export const prismStyle: { [key: string]: CSSProperties } = {
-  'pre[class*="language-"]': { background: "transparent", textShadow: "none" },
-  'code[class*="language-"]': { background: "transparent", textShadow: "none" },
-  comment: { color: "slategray" },
-  prolog: { color: "slategray" },
-  doctype: { color: "slategray" },
-  cdata: { color: "slategray" },
-  punctuation: { color: "#999" },
-  property: { color: "#905" },
-  tag: { color: "#905" },
-  boolean: { color: "#905" },
-  number: { color: "#905" },
-  constant: { color: "#905" },
-  symbol: { color: "#905" },
-  deleted: { color: "#905" },
-  selector: { color: "#690" },
-  "attr-name": { color: "#690" },
-  string: { color: "#690" },
-  char: { color: "#690" },
-  builtin: { color: "#690" },
-  inserted: { color: "#690" },
-  operator: { color: "#9a6e3a" },
-  entity: { color: "#9a6e3a", cursor: "help" },
-  url: { color: "#9a6e3a" },
-  ".language-css .token.string": { color: "#9a6e3a" },
-  ".style .token.string": { color: "#9a6e3a" },
-  atrule: { color: "#07a" },
-  "attr-value": { color: "#07a" },
-  keyword: { color: "#07a" },
-  function: { color: "#DD4A68" },
-  "class-name": { color: "#DD4A68" },
-  regex: { color: "#e90" },
-  important: { color: "#e90", fontWeight: "bold" },
-  variable: { color: "#e90" },
-  bold: { fontWeight: "bold" },
-  italic: { fontStyle: "italic" },
+// Syntax colors follow the Figma "Code block" frame, which paints language
+// grammar with the Spark accent ramp instead of a stock Prism palette:
+//
+//   Accent/A  keywords (function, const, new, async) and the arrow `=>`
+//   Accent/B  control-flow keywords (return, await)
+//   Accent/E  comments
+//   Accent/F  function names and call sites
+//   Accent/G  declaration names (const a = ...)
+//   Accent/H  parameters and identifier references
+//   Accent/J  classes and constructors (Promise)
+//   Success/Text/Default  numeric literals
+//   Base/Text/Strong      punctuation and unclassified code
+//
+// The highlighter is `react-syntax-highlighter`'s full `Prism` export, which is
+// bound to `refractor/all` rather than the stock prismjs grammar. refractor
+// emits a richer token set, so most of the frame maps directly: `control-flow`
+// splits `return`/`await` off `keyword`, `arrow` separates `=>` from the other
+// operators, and `parameter` covers declaration-site parameters.
+//
+// Two roles have no refractor token — the binding name in a declaration and a
+// bare identifier reference. `prism-grammar.ts` adds `declaration-name` and
+// `identifier` for those; without that module they fall back to punctuation.
+//
+// Taking tokens rather than the frame's literals also fixes the theme: the
+// Figma midnight frame resolves the accent ramp to its light-theme values,
+// which is why parameters and punctuation are barely legible there. Reading
+// through `theme.palette.vars` gives each theme its own ramp.
+export const prismStyle = (theme: Theme): { [key: string]: CSSProperties } => {
+  const { vars } = theme.palette;
+
+  return {
+    'pre[class*="language-"]': {
+      background: "transparent",
+      textShadow: "none",
+    },
+    'code[class*="language-"]': {
+      background: "transparent",
+      textShadow: "none",
+    },
+
+    // Punctuation and operators stay on the code area's own text color.
+    punctuation: { color: vars.baseTextStrong },
+    operator: { color: vars.baseTextStrong },
+
+    // Comments — Accent/E
+    comment: { color: vars.accentEDefault },
+    prolog: { color: vars.accentEDefault },
+    doctype: { color: vars.accentEDefault },
+    cdata: { color: vars.accentEDefault },
+
+    // Keywords — Accent/A. `arrow` is a sub-token of `operator`; the frame
+    // paints `=>` with the keyword color, and class order lets it win.
+    keyword: { color: vars.accentADefault },
+    atrule: { color: vars.accentADefault },
+    arrow: { color: vars.accentADefault },
+
+    // Control-flow keywords — Accent/B. refractor tags these with both
+    // `keyword` and `control-flow`; `control-flow` is last, so it wins.
+    "control-flow": { color: vars.accentBDefault },
+
+    // Function names and call sites — Accent/F
+    function: { color: vars.accentFDefault },
+    "function-variable": { color: vars.accentFDefault },
+
+    // Classes, constructors and language builtins — Accent/J
+    "class-name": { color: vars.accentJDefault },
+    builtin: { color: vars.accentJDefault },
+    entity: { color: vars.accentJDefault, cursor: "help" },
+
+    // Parameters, identifiers and property names — Accent/H.
+    // `identifier` comes from `prism-grammar.ts` and catches bare references
+    // (`x`, `b`, `console`) that no other pattern claimed. `variable` carries
+    // refractor's `dom` token, so `document` matches `console` rather than
+    // rendering as attention/regex.
+    parameter: { color: vars.accentHDefault },
+    identifier: { color: vars.accentHDefault },
+    variable: { color: vars.accentHDefault },
+    property: { color: vars.accentHDefault },
+    "literal-property": { color: vars.accentHDefault },
+    "string-property": { color: vars.accentHDefault },
+    "attr-name": { color: vars.accentHDefault },
+    tag: { color: vars.accentHDefault },
+    selector: { color: vars.accentHDefault },
+
+    // Declaration binding names — Accent/G. Also from `prism-grammar.ts`.
+    "declaration-name": { color: vars.accentGDefault },
+
+    // Literals — Success/Text/Default. The Figma sample is JavaScript with no
+    // string in it, so it does not specify a string color; grouping strings
+    // with numbers keeps every literal on one token now that Accent/G carries
+    // declaration names.
+    number: { color: vars.successTextDefault },
+    boolean: { color: vars.successTextDefault },
+    string: { color: vars.successTextDefault },
+    char: { color: vars.successTextDefault },
+    "attr-value": { color: vars.successTextDefault },
+    url: { color: vars.successTextDefault },
+    inserted: { color: vars.successTextDefault },
+    ".language-css .token.string": { color: vars.successTextDefault },
+    ".style .token.string": { color: vars.successTextDefault },
+
+    // Regex, symbols and emphasis — Accent/B, alongside control flow above.
+    regex: { color: vars.accentBDefault },
+    "regex-delimiter": { color: vars.accentBDefault },
+    "regex-source": { color: vars.accentBDefault },
+    constant: { color: vars.accentBDefault },
+    symbol: { color: vars.accentBDefault },
+    deleted: { color: vars.accentBDefault },
+    important: { color: vars.accentBDefault, fontWeight: "bold" },
+
+    bold: { fontWeight: "bold" },
+    italic: { fontStyle: "italic" },
+  };
 };
