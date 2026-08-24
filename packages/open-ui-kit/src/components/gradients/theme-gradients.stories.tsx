@@ -48,7 +48,11 @@ function FillSwatch({ name, value }: { name: string; value: string }) {
           border: `1px solid ${theme.palette.vars.baseBorderWeak}`,
         }}
       />
-      <Typography variant="captionMedium" color={theme.palette.vars.baseTextDefault} noWrap>
+      <Typography
+        variant="captionMedium"
+        color={theme.palette.vars.baseTextDefault}
+        noWrap
+      >
         {name}
       </Typography>
     </Stack>
@@ -70,7 +74,11 @@ function StrokeSwatch({ name, value }: { name: string; value: string }) {
           background: `linear-gradient(${theme.palette.vars.baseBackgroundStrong}, ${theme.palette.vars.baseBackgroundStrong}) padding-box, ${value} border-box`,
         }}
       />
-      <Typography variant="captionMedium" color={theme.palette.vars.baseTextDefault} noWrap>
+      <Typography
+        variant="captionMedium"
+        color={theme.palette.vars.baseTextDefault}
+        noWrap
+      >
         {name}
       </Typography>
     </Stack>
@@ -93,7 +101,10 @@ function Group({
   return (
     <Stack gap="14px">
       <Stack gap="2px">
-        <Typography variant="body2Semibold" color={theme.palette.vars.baseTextStrong}>
+        <Typography
+          variant="body2Semibold"
+          color={theme.palette.vars.baseTextStrong}
+        >
           {title}
         </Typography>
         {note ? (
@@ -139,14 +150,18 @@ const ThemeGradientsDemo = () => {
       }}
     >
       <Stack gap="8px">
-        <Typography variant="h6" fontWeight={700} color={theme.palette.vars.baseTextStrong}>
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          color={theme.palette.vars.baseTextStrong}
+        >
           Theme gradients
         </Typography>
         <Typography variant="body2" color={theme.palette.vars.baseTextDefault}>
-          Read from <code>theme.palette.gradients</code>. Switch the theme in the
-          toolbar — every swatch re-resolves with no code branching. Values are
-          designed for Midnight; Light, Dark and IoC currently fall back to a
-          provisional base set.
+          Read from <code>theme.palette.gradients</code>. Switch the theme in
+          the toolbar — every swatch re-resolves with no code branching. Values
+          are designed for Midnight; Light, Dark and IoC currently fall back to
+          a provisional base set.
         </Typography>
       </Stack>
 

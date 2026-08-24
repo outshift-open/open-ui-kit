@@ -137,7 +137,7 @@ Card primitives support the underlying card props.
 | `CardActionArea` | `CardActionAreaProps` | Makes the card surface interactive. |
 | `CardDescription` | `TypographyProps` | Body text with Open UI Kit card description styling. |
 | `CardSubheader` | `TypographyProps` | Compact supporting text with Open UI Kit card subheader styling. |
-| `CardAlertHeader` | `StackProps` | Severity label and timestamp row for alert cards. |
+| `CardAlertHeader` | `CardAlertHeaderProps` | Severity label and timestamp row for alert cards. |
 
 `Card` adds three props on top of `CardProps`:
 

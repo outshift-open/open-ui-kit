@@ -67,7 +67,6 @@ describe("InputField", () => {
         renderInputField({ label: "Label", type: "number", defaultValue: 1 }),
       ).not.toThrow();
     });
-
   });
 
   describe("glow variant", () => {
@@ -87,8 +86,7 @@ describe("InputField", () => {
           borderRadius: "40px",
           backgroundColor: "transparent",
           "&::after": expect.objectContaining({
-            background:
-              midnightTheme.palette.gradients.gradientInputBorderBlue,
+            background: midnightTheme.palette.gradients.gradientInputBorderBlue,
             maskComposite: "exclude",
           }),
         }),

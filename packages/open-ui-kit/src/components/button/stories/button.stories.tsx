@@ -360,7 +360,7 @@ export const IconOnly: Story = {
 };
 
 /**
- * Icon-only carries its own gradient treatment 
+ * Icon-only carries its own gradient treatment
  */
 export const IconButtonAI: Story = {
   name: "Icon Button AI",

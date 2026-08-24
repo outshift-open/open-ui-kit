@@ -110,12 +110,15 @@ export {
   Card,
   CardActionArea,
   CardActions,
+  CardAlertHeader,
   CardContent,
   CardHeader,
 } from "../../packages/open-ui-kit/src/components/card";
 export type {
   CardActionAreaProps,
   CardActionsProps,
+  CardAlertHeaderProps,
+  CardAlertSeverity,
   CardContentProps,
   CardHeaderProps,
   CardProps,

@@ -574,7 +574,9 @@ describe("Card", () => {
       // (y -19.1782 -> 102.235) but only paints the crescent inside it
       // (y 35.9785 -> 102.235), so the visible top edge is already 45.429% of
       // the way to periwinkle and never shows pure cyan.
-      expect(midnightTheme.palette.gradients.gradientDashboardCardFillCyanPurple).toBe(
+      expect(
+        midnightTheme.palette.gradients.gradientDashboardCardFillCyanPurple,
+      ).toBe(
         "linear-gradient(180deg, rgba(0, 187, 255, 0.37) -83.247%, rgba(161, 166, 254, 0.73) 100%)",
       );
       // A bottom-anchored crescent: flat along the bottom edge, arcing up

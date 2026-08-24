@@ -60,7 +60,12 @@ export const SPIDER_GRADIENT_DOT_RADIUS = 2.5;
 export const getSpiderChartGradient = (
   theme: Theme,
   gradient: SpiderChartGradient,
-): { background: string; stroke: string; dotFill: string; dotStroke: string } => {
+): {
+  background: string;
+  stroke: string;
+  dotFill: string;
+  dotStroke: string;
+} => {
   const gradients = theme.palette.gradients;
   const { vars } = theme.palette;
 

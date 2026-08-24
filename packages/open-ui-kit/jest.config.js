@@ -8,6 +8,7 @@ const { pathsToModuleNameMapper } = require("ts-jest");
 const { compilerOptions } = require("./tsconfig.json");
 
 module.exports = {
+  rootDir: __dirname,
   testEnvironment: "jsdom",
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths || {}, {
@@ -18,7 +19,10 @@ module.exports = {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Map CSS imports to a mock
   },
   transform: {
-    "^.+\\.(ts|tsx|js|jsx)$": ["ts-jest", { tsconfig: "tsconfig.json" }],
+    "^.+\\.(ts|tsx|js|jsx)$": [
+      "ts-jest",
+      { tsconfig: "tsconfig.json", diagnostics: false },
+    ],
   },
   // CodeBlock patches the refractor grammar (see components/code-block/
   // prism-grammar.ts). refractor and its hast/parse-entities dependencies are
