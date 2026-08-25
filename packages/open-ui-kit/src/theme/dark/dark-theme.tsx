@@ -31,6 +31,7 @@ import {
   Shadows,
 } from "@mui/material";
 import { darkVars } from "./dark-vars";
+import { baseGradientVars } from "@/theme/style/gradient-vars-base";
 import {
   buttonComponent,
   inputComponents,
@@ -65,6 +66,7 @@ const palette: PaletteOptions = {
   orange: orangePalette,
   grey: greyPalette,
   vars: darkVars,
+  gradients: baseGradientVars,
   text: {
     primary: darkVars.baseTextStrong,
     secondary: darkVars.baseTextDefault,

@@ -8,6 +8,7 @@ import { Alert, styled, Theme, type AlertProps } from "@mui/material";
 import type { ComponentType } from "react";
 import { ToastType } from "../types";
 import {
+  toastGlowStyle,
   toastIconSlotStyle,
   toastMessageSlotStyle,
   toastRootStyle,
@@ -21,28 +22,40 @@ import {
 
 export const StyledToast = styled(Alert, {
   shouldForwardProp: (prop) =>
-    prop !== "type" && prop !== "hasTitle" && prop !== "hasAction",
-})<{ type?: ToastType; hasTitle?: boolean; hasAction?: boolean }>(
-  ({ theme, type, hasTitle, hasAction }) => ({
-    ...toastRootStyle(theme as Theme, type, hasTitle, hasAction),
-    "& .MuiAlertTitle-root, & .MuiAlert-message": {
-      margin: 0,
-    },
-    "& .MuiAlert-icon": {
-      ...toastIconSlotStyle(theme as Theme, type),
-    },
-    "& .MuiAlert-action": {
-      display: "none",
-    },
-    "& .MuiAlert-message": {
-      ...toastMessageSlotStyle,
-    },
-    "& .MuiAlert-icon + .MuiAlert-message": {
-      margin: 0,
-    },
-  }),
-) as ComponentType<
-  AlertProps & { type?: ToastType; hasTitle?: boolean; hasAction?: boolean }
+    prop !== "type" &&
+    prop !== "hasTitle" &&
+    prop !== "hasAction" &&
+    prop !== "glow",
+})<{
+  type?: ToastType;
+  hasTitle?: boolean;
+  hasAction?: boolean;
+  glow?: boolean;
+}>(({ theme, type, hasTitle, hasAction, glow }) => ({
+  ...toastRootStyle(theme as Theme, type, hasTitle, hasAction),
+  ...(glow ? toastGlowStyle(theme as Theme, hasTitle) : {}),
+  "& .MuiAlertTitle-root, & .MuiAlert-message": {
+    margin: 0,
+  },
+  "& .MuiAlert-icon": {
+    ...toastIconSlotStyle(theme as Theme, type),
+  },
+  "& .MuiAlert-action": {
+    display: "none",
+  },
+  "& .MuiAlert-message": {
+    ...toastMessageSlotStyle,
+  },
+  "& .MuiAlert-icon + .MuiAlert-message": {
+    margin: 0,
+  },
+})) as ComponentType<
+  AlertProps & {
+    type?: ToastType;
+    hasTitle?: boolean;
+    hasAction?: boolean;
+    glow?: boolean;
+  }
 >;
 
 export const IconToast = ({ type }: { type?: ToastType }) => {

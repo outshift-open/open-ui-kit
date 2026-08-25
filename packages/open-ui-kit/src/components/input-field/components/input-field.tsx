@@ -13,9 +13,10 @@ const toSxArray = (sx: SxProps<Theme> | undefined) =>
   Array.isArray(sx) ? sx : sx ? [sx] : [];
 
 export const InputField = React.forwardRef<HTMLDivElement, InputFieldProps>(
-  ({ slotProps, sx, variant = "standard", ...props }, ref) => (
+  ({ glow, slotProps, sx, variant = "standard", ...props }, ref) => (
     <StyledInputField
       ref={ref}
+      glow={glow}
       slotProps={{
         ...slotProps,
         inputLabel: {

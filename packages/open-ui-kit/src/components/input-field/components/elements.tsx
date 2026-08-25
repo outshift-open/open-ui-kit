@@ -10,8 +10,11 @@ import {
   type TextFieldProps as MuiTextFieldProps,
 } from "@mui/material";
 import type { ComponentType } from "react";
-import { getInputFieldStyles } from "../styles";
+import { getInputFieldGlowStyles, getInputFieldStyles } from "../styles";
 
-export const StyledInputField = styled(MuiTextField)(({ theme }) =>
-  getInputFieldStyles(theme),
-) as ComponentType<MuiTextFieldProps>;
+export const StyledInputField = styled(MuiTextField, {
+  shouldForwardProp: (prop) => prop !== "glow",
+})<{ glow?: boolean }>(({ theme, glow }) => ({
+  ...getInputFieldStyles(theme),
+  ...(glow ? getInputFieldGlowStyles(theme) : {}),
+})) as ComponentType<MuiTextFieldProps & { glow?: boolean }>;

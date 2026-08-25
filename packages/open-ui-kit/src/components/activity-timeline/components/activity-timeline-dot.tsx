@@ -6,10 +6,11 @@
 
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import { CircularProgress, useTheme, type BoxProps } from "@mui/material";
+import { Box, CircularProgress, useTheme, type BoxProps } from "@mui/material";
 import { ActivityTimelineStepStatus } from "../types";
 import { getActivityTimelineDotStyle } from "../styles";
-import { StyledTimelineDotRoot } from "./elements";
+import { getStepDotColor, getStepGlow } from "../utils/utils";
+import { GLOW_DOT_SIZE, StyledTimelineDotRoot } from "./elements";
 
 export interface ActivityTimelineDotProps extends BoxProps {
   /** Uses percent-driven progress rendering instead of status icons. */
@@ -18,12 +19,15 @@ export interface ActivityTimelineDotProps extends BoxProps {
   percent?: number;
   /** Visual state for the dot. */
   status?: ActivityTimelineStepStatus;
+  /** Renders a small solid dot with a radial glow (gradient variant). */
+  glow?: boolean;
 }
 
 export const ActivityTimelineDot = ({
   automaticProgress = false,
   percent,
   status = ActivityTimelineStepStatus.Inactive,
+  glow = false,
   ...props
 }: ActivityTimelineDotProps) => {
   const theme = useTheme();
@@ -32,6 +36,24 @@ export const ActivityTimelineDot = ({
   const timelineDotStyle = getActivityTimelineDotStyle(effectiveStatus, theme);
   const isInProgress =
     effectiveStatus === ActivityTimelineStepStatus.InProgress;
+
+  if (glow) {
+    // Gradient statuses fill the dot with the radial glow; the rest are solid.
+    const dotFill =
+      getStepGlow(status, theme) ?? getStepDotColor(status, theme);
+    return (
+      <StyledTimelineDotRoot aria-label={status} {...props}>
+        <Box
+          sx={{
+            width: `${GLOW_DOT_SIZE}px`,
+            height: `${GLOW_DOT_SIZE}px`,
+            borderRadius: "50%",
+            background: dotFill,
+          }}
+        />
+      </StyledTimelineDotRoot>
+    );
+  }
 
   return (
     <StyledTimelineDotRoot aria-label={effectiveStatus} {...props}>

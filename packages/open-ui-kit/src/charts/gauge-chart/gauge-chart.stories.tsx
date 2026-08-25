@@ -45,6 +45,12 @@ const meta: Meta<typeof GaugeChart> = {
       control: false,
       description: "Optional width, height, and label-position overrides.",
     },
+    variant: {
+      control: "select",
+      options: ["amber", "teal", "blue"],
+      description:
+        "Applies the design-approved gradient treatment: ramped 270° arc, ambient glow, and a % suffix.",
+    },
   },
 };
 
@@ -112,38 +118,26 @@ const CriticalTemplate = (args: Partial<GaugeChartProps>) => {
     <GaugeFrame>
       <GaugeChart
         {...args}
-        data={getGaugeData(
-          theme,
-          25,
-          theme.palette.vars.negativeBackgroundDefault,
-        )}
+        data={getGaugeData(theme, 25, theme.palette.vars.negativeBorderDefault)}
       />
     </GaugeFrame>
   );
 };
 
-const StatesTemplate = () => {
-  const theme = useTheme();
-
-  return (
-    <Stack direction="row" flexWrap="wrap" gap="24px">
-      {[100, 75, 50, 25].map((value, index) => {
-        const color =
-          index === 0
-            ? theme.palette.vars.successBackgroundDefault
-            : index === 1
-              ? theme.palette.vars.warningBackgroundDefault
-              : theme.palette.vars.negativeBackgroundDefault;
-
-        return (
-          <GaugeFrame key={value}>
-            <GaugeChart data={getGaugeData(theme, value, color)} />
-          </GaugeFrame>
-        );
-      })}
-    </Stack>
-  );
-};
+/*
+ * Each gauge omits its data item's `color`, so the arc comes from the
+ * component's own status ramp: success at 100, warning at 75, severe warning
+ * at 50, negative at 25.
+ */
+const StatesTemplate = () => (
+  <Stack direction="row" flexWrap="wrap" gap="24px">
+    {[100, 75, 50, 25].map((value) => (
+      <GaugeFrame key={value}>
+        <GaugeChart data={[{ name: "Score", value }]} />
+      </GaugeFrame>
+    ))}
+  </Stack>
+);
 
 const WithLabelTemplate = () => {
   const theme = useTheme();
@@ -182,11 +176,80 @@ const CustomMaxTemplate = () => {
   );
 };
 
+/*
+ * Gradient treatment — Figma `Gauge Chart` (274417:44466).
+ *
+ * One entry per widget in the frame, with the frame's labels and values:
+ * each pairs a `gradient-token` arc swatch with the `Solid` glow swatch
+ * behind the value.
+ */
+const gradientVariants: {
+  label: string;
+  variant: NonNullable<GaugeChartProps["variant"]>;
+  value: number;
+}[] = [
+  { label: "Trip Planner", variant: "amber", value: 50 },
+  { label: "Aether", variant: "teal", value: 82 },
+  { label: "E-Commerce App", variant: "blue", value: 67 },
+];
+
+const GradientTemplate = ({
+  label,
+  variant,
+  value,
+}: {
+  label: string;
+  variant: GaugeChartProps["variant"];
+  value: number;
+}) => {
+  const theme = useTheme();
+
+  return (
+    <Stack gap="16px" width="fit-content">
+      <Typography variant="h6" color={theme.palette.vars.baseTextDefault}>
+        {label}
+      </Typography>
+      <Stack alignItems="center" gap="8px">
+        <Stack height="172px" width="172px">
+          <GaugeChart
+            data={getGaugeData(
+              theme,
+              value,
+              theme.palette.vars.successBackgroundDefault,
+            )}
+            variant={variant}
+            styleProps={{ customWidth: 172, customHeight: 172 }}
+          />
+        </Stack>
+        <Typography variant="caption" color={theme.palette.vars.baseTextMedium}>
+          Overall Performance
+        </Typography>
+      </Stack>
+    </Stack>
+  );
+};
+
 export const Default: Story = {
   render: (args) => <GaugeTemplate {...args} />,
   args: {
     maxValue: 100,
   },
+};
+
+/**
+ * The three design-approved gauge ramps, one widget per `variant`: amber
+ * (`Gradient/Gauge-Arc-Amber`), teal (`Gradient/Gauge-Arc-Teal`), and blue
+ * (`Gradient/Icon-Subtract-Blue`), each glowing its paired solid behind the
+ * value.
+ */
+export const Gradient: Story = {
+  render: () => (
+    <Stack direction="row" flexWrap="wrap" gap="48px">
+      {gradientVariants.map((variant) => (
+        <GradientTemplate key={variant.variant} {...variant} />
+      ))}
+    </Stack>
+  ),
 };
 
 export const Warning: Story = {

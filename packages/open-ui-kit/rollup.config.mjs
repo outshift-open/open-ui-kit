@@ -18,7 +18,7 @@ import clear from "rollup-plugin-clear";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import alias from "@rollup/plugin-alias";
 import path from "path";
-import cleanup from "rollup-plugin-cleanup";
+import terser from "@rollup/plugin-terser";
 
 const require = createRequire(import.meta.url);
 const pkg = require("./package.json");
@@ -42,7 +42,6 @@ const makeExternalPredicate = () => {
 
 const externalLibs = makeExternalPredicate();
 const input = "src/index.ts";
-const extensions = ["js", "jsx", "ts", "tsx"];
 
 const commonPlugins = [
   clear({
@@ -69,9 +68,10 @@ const commonPlugins = [
     preventAssignment: true,
   }),
   commonjs(),
-  cleanup({
-    extensions,
-    comments: "none",
+  terser({
+    format: { comments: false },
+    compress: false,
+    mangle: false,
   }),
   svgr(),
   image(),

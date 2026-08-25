@@ -317,6 +317,60 @@ export const gradientStopColors = {
   secondaryBlueHoverWeak: "#b3cbe7",
 } as const;
 
+// Card insight glow — the blue drop shadow paired with the gradient card
+// border. Figma: `Card/Basic Interactive` (274405:44327).
+//
+// Deliberately NOT added to any theme's `shadows` array: that array is
+// positional and `dialog.test.tsx` asserts index-to-token identity, so
+// inserting an entry would renumber every elevation.
+export const cardInsightGlow = "0px 4px 17px rgba(10, 96, 255, 0.4)";
+
+// Glass card drop shadow. Figma: `Glass Card` (274417:44469), effect variables
+// `4/X: 0`, `4/Y: 12`, `4/Blur: 48`, `4/Spread: 0`, `4/Color: #00000040`.
+//
+// Kept out of the `shadows` array for the same reason as `cardInsightGlow`.
+export const cardGlassShadow = "0px 12px 48px rgba(0, 0, 0, 0.25)";
+
+// Backdrop blur behind the glass card fill. No longer estimated: the updated
+// `Glass Card` frame (274490:55387) exports the card surface as an SVG whose
+// foreignObject carries `backdrop-filter: blur(35.71px)` at the mockup's
+// 0.8928 scale — 35.71 / 0.8928 = 40px. Matches the swatch label
+// `Radial + Background Blur - 72`, since Figma's 71.4 blur radius halves on
+// the way to CSS.
+export const cardGlassBlur = "40px";
+
+// Graph-connector card. Figma: `Section 3` (274455:54313). Both values are
+// read off the card's SVG export rather than estimated: the drop shadow from
+// its `feOffset dx="6"` / `feGaussianBlur stdDeviation="2"` (CSS blur is twice
+// the deviation) and colour matrix `#0d1622` at 0.25, and the blur from the
+// export's own `backdrop-filter`.
+export const cardConnectorShadow = "6px 0px 4px rgba(13, 22, 34, 0.25)";
+export const cardConnectorBlur = "30px";
+
+// Alert card severity label colours. Figma: `Alerts Card` (274421:47415) —
+// critical (274421:47325) and warning (274421:47332).
+//
+// These are the design's literal values rather than the `negativeTextDefault` /
+// `warningTextDefault` semantic tokens, which resolve to `#eebfcb` and
+// `#ffe7c7` — far too pale to read as a severity accent on this surface.
+// Figma binds the critical one to a library variable named `Red/55`, from a red
+// scale this library does not carry; the warning one is the same value already
+// present above as `gaugeArcAmber`, repeated here under its semantic name.
+export const alertCriticalText = "#eb4651";
+export const alertWarningText = "#ffae4c";
+
+// Alert card drop shadow, at the frame's 0.869 scale factor divided out.
+// Kept out of the `shadows` array for the same reason as `cardInsightGlow`.
+export const cardAlertShadow = "0px 4px 4px rgba(0, 0, 0, 0.1)";
+
+// Toast glow. Figma: `Toast message Glow` (274417:44480), the two `Text Card`
+// instances. Both use the same offset and blur; the glow is stronger on the
+// variant that carries a header (0.4) than on the message-only one (0.2).
+// The colour is `panelExecBorderBlue` (#0a60ff), the first stop of the
+// `Global-Border/Fade` ramp that draws the toast's border.
+export const toastGlow = "0px -1px 34px rgba(10, 96, 255, 0.2)";
+export const toastGlowStrong = "0px -1px 34px rgba(10, 96, 255, 0.4)";
+
 // Light Mode Box Shadows
 export const lightModeCardLifted = "0px 4px 4px rgba(200, 213, 245, 0.33)";
 export const lightModeCardSubtle = "0px 2px 5px rgba(200, 213, 245, 0.4)";
@@ -654,3 +708,104 @@ export const electricBluePalette = {
   alpha40: electricBlueAlpha40,
   alpha10: electricBlueAlpha10,
 };
+
+// Midnight gradient stops.
+//
+// Source: Figma "OXP" (wvTxiCkZBmP2jH24hzydHR), frame 274405:38026
+// "Components with Gradients". Keys are named after the Figma variable where
+// one exists (e.g. `Gradient/Graph-Flow/Teal` -> `graphFlowTeal`); the rest are
+// named after the component that consumes them.
+//
+// This mirrors the existing `gradientStopColors` block: gradient ramps need
+// intermediate colors that do not belong to a semantic 50-900 hue scale.
+// Stops that DO already exist are not duplicated here — reuse `teal300`
+// (#5de2e8), `blue300` (#187adc), `blue500` (#0051af), `red800` (#b11939),
+// `red900` (#a40f29) and `illustrationNegativeGradientStart` (#e09e89).
+export const midnightGradientStops = {
+  // Graph flow (Figma variables: Gradient/Graph-Flow/*)
+  graphFlowGray: "#c6c6c6",
+  graphFlowTeal: "#017580",
+  graphFlowMaroon: "#892727",
+
+  // Data viz
+  dataVizPink: "#f634a2", // Gradient/Dashboard-Background-Ring/Stroke/Stop-2-Pink
+  dataVizMagenta: "#901f5f",
+  dataVizPurple: "#8118dc",
+  dataVizCyan: "#02c8ff",
+  dataVizTeal: "#197690", // Gradient/Data-Viz-Cyan-Teal/Stop-1-Teal
+  dataVizOrange: "#ff9000",
+  dataVizAmber: "#995600",
+  dataVizGold: "#dcae18",
+  dataVizBlue: "#3b82f6",
+  dataVizMint: "#77e7cd",
+  dataVizFadeGray: "#d9d9d9",
+
+  // Gauge arc (Figma variables: Gradient/Gauge-Arc-*)
+  gaugeArcCyan: "#29b0fc",
+  gaugeArcTealStart: "#29fcc4",
+  gaugeArcTealEnd: "#00af2f",
+  gaugeArcAmber: "#ffae4c",
+
+  // Buttons and icons
+  buttonPrimaryFillStart: "#0745b8",
+  buttonPrimaryFillEnd: "#2e6ee5",
+  buttonPrimaryGlowBlue: "#3b76ea", // Gradient/Global-Button-Primary/Border-Glow/Stop-0-Blue
+  buttonPrimaryGlowCyan: "#00bceb", // ...Stop-1-Cyan
+  buttonPrimaryGlowTeal: "#63fff7", // ...Stop-2-Teal
+  iconSubtractBlue: "#5096ff",
+  iconButtonBlueStart: "#043abc",
+  iconButtonBlueMid: "#113ca1",
+  iconButtonBlueEnd: "#011d62",
+  iconButtonGlowBlue: "#3974ff",
+
+  // Text (Figma variable: Gradient/Text-White-Blue)
+  textWhiteBlueStart: "#ffffff",
+  // Figma emits this stop at 51.28%. It sits exactly on the line between the
+  // two ends, so it changes nothing visually — carried so the token reads the
+  // same as the design's own CSS.
+  textWhiteBlueMid: "#9dbcf7",
+  textWhiteBlueEnd: "#3f7def",
+
+  // Panels, borders and connectors
+  panelExecBorderBlue: "#0a60ff", // Gradient/Panel-Exec-Border/Stop-0-Blue
+  panelBorderCyanDark: "#16bdeb", // Gradient/Panel-Border-Blue-Cyan-Dark/Stop-1-Cyan
+  // NOTE: the `Global-Border/Fade` swatch labels its first stop #0a66ff, but the
+  // rendered stroke measures #0a60ff (`panelExecBorderBlue`). The label appears
+  // to be stale, so no #0a66ff stop is defined here.
+  globalBorderSlate: "#3d5066",
+  globalBorderSlateWeak: "#4d6380",
+  globalDividerPink: "#ff007f",
+  graphConnectorBlue: "#c7d3ea", // Gradient/Graph-Connector-Stroke/Stop-*
+  graphNodeFillBlue: "#2972ff",
+  graphNodeFillDark: "#01060d",
+
+  // Surfaces and overlays
+  welcomeCardStart: "#060b26",
+  welcomeCardEnd: "#1a1f37",
+  overlayBlack: "#000000",
+  overlayGray: "#666666",
+  glassWhite: "#ffffff",
+  glassWhiteWeak: "#f1f1f1",
+
+  // Glass card flair and CTA glow. Figma: `Glass Card` (274490:55387) —
+  // swatches `Gradient/Dashboard-Card/Fill/Cyan-Purple` and `Gradient/Card-Glass-CTA-Glow`.
+  // The CTA's pink stop is the existing `dataVizPink`, so it is not repeated.
+  glassGlowCyan: "#00bbff", // Dashboard-Card/Fill/Cyan-Purple/Stop-0
+  glassGlowPeriwinkle: "#a1a6fe", // Dashboard-Card/Fill/Cyan-Purple/Stop-1
+  glassCtaMint: "#74ffc7", // Card-Glass-CTA-Glow/Stop-0
+  glassCtaBlue: "#03b3ff", // Card-Glass-CTA-Glow/Stop-1
+  glassCtaGold: "#ffe070", // Card-Glass-CTA-Glow/Stop-3
+  glassGray: "#999999",
+
+  // Glows
+  glowOrangeStart: "#ff9d00",
+  glowOrangeEnd: "#ffd48e",
+  glowGreenStart: "#11ffc8",
+  glowGreenEnd: "#b3ff81",
+  glowRedStart: "#ff0329",
+  glowRedEnd: "#ff5746",
+  glowBlueStart: "#4a6ac8",
+  glowBlueMid: "#6abfff",
+  glowBlueDeep: "#3b69bc",
+  glowBlueEnd: "#1b4288",
+} as const;

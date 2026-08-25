@@ -16,26 +16,75 @@ import {
   CardContentProps as MuiCardContentProps,
   CardActions as MuiCardActions,
   CardActionsProps as MuiCardActionsProps,
+  Stack,
+  StackProps,
   Typography,
   TypographyProps,
   styled,
 } from "@mui/material";
+import type { CardAlertSeverity } from "../types";
 import {
   cardActiveStyles,
+  cardAlertStyles,
+  cardConnectorStyles,
   cardDisabledStyles,
+  cardGlassStyles,
+  cardGlowStyles,
+  cardImageStyles,
   cardInteractiveStyles,
   cardRootStyles,
 } from "../styles";
 
 export const StyledCard = styled(MuiCard, {
-  shouldForwardProp: (prop) => prop !== "disabled",
-})<{ disabled?: boolean }>(({ theme }) => ({
+  shouldForwardProp: (prop) =>
+    prop !== "alert" &&
+    prop !== "connector" &&
+    prop !== "disabled" &&
+    prop !== "glass" &&
+    prop !== "glow" &&
+    prop !== "image",
+})<{
+  alert?: CardAlertSeverity;
+  connector?: boolean;
+  disabled?: boolean;
+  glass?: boolean;
+  glow?: boolean;
+  image?: string;
+}>(({ theme, alert, connector, glass, glow, image }) => ({
   ...cardRootStyles(theme),
-  "&:hover": {
-    backgroundColor: theme.palette.vars.baseBackgroundWeak,
-  },
+  // The decorative treatments are documented as mutually exclusive. They are
+  // still applied in a fixed order so a card that sets more than one gets a
+  // predictable result rather than whichever spread happened to land last.
+  ...(image ? cardImageStyles(theme, image) : {}),
+  ...(glass ? cardGlassStyles(theme) : {}),
+  ...(connector ? cardConnectorStyles(theme) : {}),
+  ...(alert ? cardAlertStyles(theme, alert) : {}),
+  ...(glow ? cardGlowStyles(theme) : {}),
+  // Hover deliberately leaves the background alone. The interactive card gets
+  // its hover feedback from the `controlBorderActive` border that
+  // `StyledCardActionArea` applies, and the decorative treatments paint
+  // translucent or gradient backgrounds that a hover colour would show through.
   '&[aria-disabled="true"]': cardDisabledStyles(theme),
-})) as ComponentType<MuiCardProps & { disabled?: boolean }>;
+})) as ComponentType<
+  MuiCardProps & {
+    alert?: CardAlertSeverity;
+    connector?: boolean;
+    disabled?: boolean;
+    glass?: boolean;
+    glow?: boolean;
+    image?: string;
+  }
+>;
+
+// Meta row at the top of an alert card: severity label left, timestamp right.
+// Figma: `Alerts Card` (274421:47415).
+export const StyledCardAlertHeader = styled(Stack)(() => ({
+  alignItems: "center",
+  alignSelf: "stretch",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  width: "100%",
+})) as ComponentType<StackProps>;
 
 export const StyledCardActionArea = styled(MuiCardActionArea)(({ theme }) => ({
   borderRadius: "8px",
@@ -73,6 +122,10 @@ export const StyledCardHeader = styled(MuiCardHeader)(({ theme }) => ({
     ...theme.typography.captionMedium,
     color: theme.palette.vars.baseTextMedium,
   },
+  '[data-card-image="true"] & .MuiCardHeader-title, [data-card-image="true"] & .MuiCardHeader-subheader':
+    {
+      color: "inherit",
+    },
   '[aria-disabled="true"] & .MuiCardHeader-title, [aria-disabled="true"] & .MuiCardHeader-subheader':
     {
       color: theme.palette.vars.baseTextDisabled,
@@ -92,6 +145,9 @@ export const StyledCardActions = styled(MuiCardActions)(() => ({
 
 export const StyledCardDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextDefault,
+  '[data-card-image="true"] &': {
+    color: "inherit",
+  },
   '[aria-disabled="true"] &': {
     color: theme.palette.vars.baseTextDisabled,
   },
@@ -99,6 +155,9 @@ export const StyledCardDescription = styled(Typography)(({ theme }) => ({
 
 export const StyledCardSubheader = styled(Typography)(({ theme }) => ({
   color: theme.palette.vars.baseTextMedium,
+  '[data-card-image="true"] &': {
+    color: "inherit",
+  },
   '[aria-disabled="true"] &': {
     color: theme.palette.vars.baseTextDisabled,
   },

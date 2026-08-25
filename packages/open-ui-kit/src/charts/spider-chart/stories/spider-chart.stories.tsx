@@ -7,12 +7,13 @@
 import { useTheme } from "@mui/material/styles";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
-import { Stack } from "@/components";
+import { Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { SpiderChart } from "../components/spider-chart";
 import type {
   ExtendedDataPoint,
   RadarType,
+  SpiderChartGradient,
   SpiderChartProps,
 } from "../types/spider-chart.types";
 
@@ -58,7 +59,8 @@ const meta: Meta<typeof SpiderChart> = {
     },
     radars: {
       control: false,
-      description: "Radar series definitions and token colors.",
+      description:
+        "Radar series definitions and token colors. Set `gradient` on a series for the design-approved data-viz ramps.",
     },
     scale: {
       control: "number",
@@ -186,4 +188,79 @@ export const CustomTooltipContent: Story = {
 
 export const WithoutTooltip: Story = {
   render: () => <SpiderChartTemplate showTooltip={false} />,
+};
+
+/*
+ * Gradient treatment — Figma `Spider Chart` (274417:44533).
+ *
+ * The frame scores one agent per widget on the same six axes, and pairs each
+ * widget with the `gradient-token` swatch its radar is filled from. The four
+ * stories below keep that pairing: the agent names and axes are the frame's,
+ * and each `gradient` key is the swatch label.
+ */
+const agentData: ExtendedDataPoint[] = [
+  { subject: "Cost", variableA: 82 },
+  { subject: "Tool Utilization Accuracy", variableA: 74 },
+  { subject: "Response Completeness", variableA: 61 },
+  { subject: "Intent Recognition Accuracy", variableA: 88 },
+  { subject: "Answer Relevancy", variableA: 70 },
+  { subject: "Groundedness", variableA: 79 },
+];
+
+// Offsets follow the chart's sorted axis order (Answer Relevancy at the top,
+// clockwise). The two long labels land on the left, where start-anchored text
+// would run into the polygon, so they are pulled out and past the grid corner.
+const agentLabelOffsets = [
+  { cx: 34, cy: 10 }, // Answer Relevancy
+  { cx: -4, cy: 12 }, // Cost
+  { cx: -10, cy: -22 }, // Groundedness
+  { cx: -30, cy: 0 }, // Intent Recognition Accuracy
+  { cx: -48, cy: 28 }, // Response Completeness
+  { cx: -48, cy: -26 }, // Tool Utilization Accuracy
+];
+
+const gradientVariants: { label: string; gradient: SpiderChartGradient }[] = [
+  { label: "Concierge Agent", gradient: "pinkPurple" },
+  { label: "Scheduling Agent", gradient: "cyanBlue" },
+  { label: "Moderator Agent", gradient: "orangeGold" },
+  { label: "Itinerary Planner", gradient: "blueDark" },
+];
+
+const GradientVariant = ({
+  label,
+  gradient,
+}: {
+  label: string;
+  gradient: SpiderChartGradient;
+}) => (
+  <Stack spacing={1}>
+    <Typography
+      variant="h6"
+      sx={(theme) => ({ color: theme.palette.vars.baseTextDefault })}
+    >
+      {label}
+    </Typography>
+    <ChartFrame>
+      <SpiderChart
+        data={agentData}
+        radars={[{ name: label, dataKey: "variableA", gradient }]}
+        labelOffsets={agentLabelOffsets}
+      />
+    </ChartFrame>
+  </Stack>
+);
+
+/**
+ * The four design-approved data-viz ramps. Each fills the radar with its
+ * `Gradient/Data-Viz-*` token, outlines it in the ramp's paired accent, and
+ * rings every data vertex in the same accent.
+ */
+export const Gradient: Story = {
+  render: () => (
+    <Stack direction="row" flexWrap="wrap" gap={4}>
+      {gradientVariants.map((variant) => (
+        <GradientVariant key={variant.gradient} {...variant} />
+      ))}
+    </Stack>
+  ),
 };

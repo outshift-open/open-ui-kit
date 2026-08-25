@@ -48,6 +48,23 @@ export function TypographyExample() {
 }
 ```
 
+## Gradient text
+
+Set the `gradient` prop to fill the text with a gradient instead of a flat color.
+It is a boolean, so it composes with any `variant`.
+
+```tsx
+import { Typography } from '@open-ui-kit/core';
+
+export function GradientTextExample() {
+  return (
+    <Typography variant="h1" gradient>
+      Welcome Amy!
+    </Typography>
+  );
+}
+```
+
 ## Storybook scenarios
 
 Storybook is the source of truth for interactive examples, controls, and visual state checks.
@@ -69,6 +86,7 @@ Use the exported TypeScript props for implementation details and keep local over
 | Prop | Type | Description |
 | --- | --- | --- |
 | `Typography` props | Component-specific props | Controls the supported behavior, slots, state, and styling for Typography. |
+| `gradient` | `boolean` | Fills the text with a gradient (via `background-clip: text`) instead of a flat color. Composes with any `variant`. |
 | `children` | `React.ReactNode` | Content rendered inside the component when the component supports composition. |
 | `className` | `string` | Adds a class to the root slot for product-level styling hooks. |
 | `sx` | `SxProps` | Applies local style overrides while still using the active Open UI Kit theme. |

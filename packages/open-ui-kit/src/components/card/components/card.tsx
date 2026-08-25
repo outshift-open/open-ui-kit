@@ -24,11 +24,24 @@ const mergeSx = (sx: SxProps<Theme> | undefined): SxProps<Theme> => [
   ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
 ];
 
-export const Card = ({ disabled = false, sx, ...props }: CardProps) => (
+export const Card = ({
+  alert,
+  disabled = false,
+  image,
+  sx,
+  ...props
+}: CardProps) => (
   <StyledCard
     {...props}
+    alert={alert}
     aria-disabled={disabled || props["aria-disabled"] ? true : undefined}
+    // Lets descendants react to the treatment the same way they react to
+    // `aria-disabled` — the photo one for text colour, the alert one so
+    // `CardAlertHeader` can tell it is inside an alert card.
+    data-card-alert={alert}
+    data-card-image={image ? "true" : undefined}
     disabled={disabled}
+    image={image}
     sx={mergeSx(sx)}
   />
 );

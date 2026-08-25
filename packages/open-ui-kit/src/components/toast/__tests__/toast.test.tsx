@@ -12,12 +12,15 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { Toaster } from "../components/toaster";
 import { Toast } from "../components/toast";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
+import { toastGlow, toastGlowStrong } from "@/theme/style/color-palette";
 import {
   toastActionButtonStyle,
   toastCloseButtonStyle,
   toastCloseIconStyle,
   toastContentStyle,
   toastDescriptionStyle,
+  toastGlowStyle,
   toastIconSlotStyle,
   toastInnerStyle,
   toastMessageSlotStyle,
@@ -303,6 +306,72 @@ describe("Toast", () => {
         fontWeight: 600,
         lineHeight: "125%",
       });
+    });
+  });
+
+  // Figma: `Toast message Glow` (274417:44480), its two `Text Card` instances.
+  describe("glow treatment", () => {
+    it("draws the border as a gradient ring, not a border property", () => {
+      const styles = toastGlowStyle(midnightTheme, true);
+      const ring = styles["&::before"] as Record<string, unknown>;
+
+      // The section documents one gradient and points it at both instances.
+      // It already exists in the theme, so the treatment adds none.
+      expect(ring.background).toBe(
+        midnightTheme.palette.gradients.gradientGlobalBorderFade,
+      );
+      // A gradient cannot be a `border-color`, hence the ring.
+      expect(styles.border).toBe("none");
+      expect(ring.padding).toBe("1px");
+      expect(ring.maskComposite).toBe("exclude");
+      expect(ring.borderRadius).toBe("inherit");
+      // Would thin the ring's corner arcs.
+      expect(styles.overflow).toBeUndefined();
+      expect(styles["& > *"]).toEqual({ position: "relative", zIndex: 1 });
+    });
+
+    it("strengthens the glow when the toast has a header", () => {
+      expect(toastGlowStyle(midnightTheme, true).boxShadow).toBe(
+        toastGlowStrong,
+      );
+      expect(toastGlowStyle(midnightTheme, false).boxShadow).toBe(toastGlow);
+      // Same offset and blur; only the alpha differs between the instances.
+      expect(toastGlow).toBe("0px -1px 34px rgba(10, 96, 255, 0.2)");
+      expect(toastGlowStrong).toBe("0px -1px 34px rgba(10, 96, 255, 0.4)");
+    });
+
+    it("pads to the 18px the frame uses, not the standard toast padding", () => {
+      expect(toastGlowStyle(midnightTheme, true).padding).toBe("18px");
+      expect(toastRootStyle(midnightTheme, "default").padding).toBe(
+        "12px 16px",
+      );
+    });
+
+    it("renders both header states without throwing", () => {
+      expect(() =>
+        renderToast({
+          id: "glow-header",
+          glow: true,
+          title: "New Successful Reasoning Strategy",
+          description: "A new successful reasoning strategy cluster emerged.",
+        }),
+      ).not.toThrow();
+      expect(
+        screen.getByText("New Successful Reasoning Strategy"),
+      ).toBeInTheDocument();
+
+      // The helper defaults a title in, so clear it for the no-header case.
+      expect(() =>
+        renderToast({
+          id: "glow-no-header",
+          glow: true,
+          title: undefined,
+          description: "User queries naturally organize around travel.",
+        }),
+      ).not.toThrow();
+      expect(
+        screen.getByText("User queries naturally organize around travel."),
+      ).toBeInTheDocument();
     });
   });
 });

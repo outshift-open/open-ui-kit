@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export { default as CardAlertHeader } from "./components/card-alert-header";
 export { default as CardDescription } from "./components/card-description";
 export { default as CardSubheader } from "./components/card-subheader";
 export {
@@ -16,6 +17,8 @@ export {
 export type {
   CardActionAreaProps,
   CardActionsProps,
+  CardAlertHeaderProps,
+  CardAlertSeverity,
   CardContentProps,
   CardDescriptionProps,
   CardHeaderProps,

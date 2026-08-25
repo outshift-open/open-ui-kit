@@ -17,6 +17,7 @@ import {
   Card,
   CardActionArea,
   CardActions,
+  CardAlertHeader,
   CardContent,
   CardDescription,
   CardHeader,
@@ -48,9 +49,30 @@ const meta: Meta<typeof Card> = {
     disabled: false,
   },
   argTypes: {
+    alert: {
+      control: "select",
+      options: [undefined, "warning", "critical"],
+      description:
+        "Applies the alert treatment. `critical` adds the rainbow gradient border; `warning` has no border.",
+    },
     disabled: {
       control: "boolean",
       description: "Applies the disabled card treatment.",
+    },
+    connector: {
+      control: "boolean",
+      description:
+        "Applies the graph-connector treatment: fill and glow gradients over a backdrop blur, edged with the matching gradient stroke.",
+    },
+    glass: {
+      control: "boolean",
+      description:
+        "Applies the frosted-glass treatment. Needs imagery or a patterned surface behind it to refract.",
+    },
+    image: {
+      control: "text",
+      description:
+        "Background image URL. Layers the photo over `Gradient/Welcome-Card-BG-Dark` and under a `Gradient/Overlay-Black-Fade-In` scrim. Mutually exclusive with `glow`.",
     },
     sx: {
       control: false,
@@ -77,6 +99,12 @@ type Story = StoryObj<typeof meta>;
 
 const cardWidth = 318;
 const horizontalCardWidth = 820;
+const imageCardWidth = 432;
+const alertCardWidth = 435;
+// The Figma card is 215 wide; widened here so the title is not quite so ragged.
+const connectorCardWidth = 280;
+// Figma `Welcome Card` (274405:44234) hero, photo by Braden Collum (Unsplash).
+const cardImage = "/assets/welcome-card.jpg";
 
 const CardStats = () => (
   <Stack
@@ -131,6 +159,24 @@ const StrategyCardContent = () => (
     <CardActions>
       <CardStats />
     </CardActions>
+  </>
+);
+
+const ConnectorCardContent = () => (
+  <>
+    <Typography
+      variant="captionSemibold"
+      sx={(theme) => ({ color: theme.palette.vars.baseTextMedium })}
+    >
+      Divergent Planning Paths
+    </Typography>
+    <CardHeader title="Agents fail to converge on a consistent decision state" />
+    <CardContent>
+      <CardDescription variant="body2">
+        The Itinerary Planner and Schedule Planner increasingly disagree on the
+        ordering of the same set of activities.
+      </CardDescription>
+    </CardContent>
   </>
 );
 
@@ -193,6 +239,96 @@ export const Interactive: Story = {
       </Card>
     </CardActionArea>
   ),
+};
+
+/**
+ * The two gradient-bordered surfaces, side by side: `glow` draws the blue
+ * ring with its glow, `connector` the softer graph-canvas treatment.
+ */
+export const Glow: Story = {
+  render: () => (
+    <Stack direction="row" gap={2} sx={{ alignItems: "flex-start" }}>
+      <Card glow sx={{ minHeight: 172, width: cardWidth }}>
+        <StrategyCardContent />
+      </Card>
+      <Card connector sx={{ width: connectorCardWidth }}>
+        <ConnectorCardContent />
+      </Card>
+    </Stack>
+  ),
+};
+
+export const CriticalAlert: Story = {
+  args: {
+    alert: "critical",
+    sx: { width: alertCardWidth },
+    children: (
+      <>
+        <CardAlertHeader timestamp="4m ago">CRITICAL ALERT</CardAlertHeader>
+        <CardHeader title="Optimization Failure in High-Density Travel Planning Cluster" />
+        <CardContent>
+          <CardDescription variant="body2">
+            The system detected a revision loop during itinerary optimization
+            within a high-density semantic cluster (“Travel itineraries to
+            cities”). The agent initially produced an itinerary that violated
+            walking constraints, triggering an optimization cycle before
+            producing the final output.
+          </CardDescription>
+        </CardContent>
+      </>
+    ),
+  },
+};
+
+export const WarningAlert: Story = {
+  args: {
+    alert: "warning",
+    sx: { width: alertCardWidth },
+    children: (
+      <>
+        <CardAlertHeader timestamp="3h ago">WARNING</CardAlertHeader>
+        <CardHeader title="Post-generation correction occurred" />
+        <CardContent>
+          <CardDescription variant="body2">
+            Initial itinerary violated constraints and required a revision pass.
+            Consider improving constraint conditioning upstream.
+          </CardDescription>
+        </CardContent>
+      </>
+    ),
+  },
+};
+
+export const Glass: Story = {
+  args: {
+    children: <StrategyCardContent />,
+    glass: true,
+    sx: { minHeight: 172, width: cardWidth },
+  },
+};
+
+export const WithImage: Story = {
+  args: {
+    image: cardImage,
+    sx: { minHeight: 172, width: imageCardWidth },
+    children: (
+      <>
+        <Stack gap={0.5} sx={{ alignSelf: "stretch", paddingRight: "80px" }}>
+          <Typography variant="h4">Explain</Typography>
+          <CardDescription variant="caption">
+            Uncover the <strong>“why”</strong> behind your app’s behavior. Get
+            clear, AI-powered explanations for events, anomalies, or performance
+            changes.
+          </CardDescription>
+        </Stack>
+        <CardActions sx={{ alignSelf: "stretch", justifyContent: "flex-end" }}>
+          <Button endIcon={<ArrowForward />} size="small" variant="tertariary">
+            Get Started
+          </Button>
+        </CardActions>
+      </>
+    ),
+  },
 };
 
 export const Active: Story = {

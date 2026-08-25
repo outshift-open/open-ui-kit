@@ -63,6 +63,20 @@ Start with the closest story, then adapt the props to match your product flow.
 - Without Action
 - All Types
 - All Types Without Title
+- Glow / With header
+- Glow / Without header
+
+## Glow
+
+Pass `glow` for the "Toast message Glow" treatment: a `Global-Border/Fade` gradient border with a blue glow cast from behind the toast.
+
+It comes in two forms, picked automatically from whether a `title` is set:
+
+- **With header** — title above the message, carrying the stronger glow.
+- **Without header** — message only, with the softer glow.
+
+Use it for AI-generated insights and summaries, where the toast reports something the system noticed rather than the outcome of a user action.
+Keep the status `type` at its default; the gradient border replaces the status border, so pairing the two reads as two competing signals.
 
 ## Behavior notes
 
@@ -78,6 +92,7 @@ Use the exported TypeScript props for implementation details and keep local over
 | Prop | Type | Description |
 | --- | --- | --- |
 | `Toast` props | Component-specific props | Controls the supported behavior, slots, state, and styling for Toast. |
+| `glow` | `boolean` | Applies the glow treatment. The glow is stronger when `title` is also set. |
 | `children` | `React.ReactNode` | Content rendered inside the component when the component supports composition. |
 | `className` | `string` | Adds a class to the root slot for product-level styling hooks. |
 | `sx` | `SxProps` | Applies local style overrides while still using the active Open UI Kit theme. |

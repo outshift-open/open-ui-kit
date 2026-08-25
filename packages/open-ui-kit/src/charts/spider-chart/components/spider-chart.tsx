@@ -15,12 +15,18 @@ import {
 } from "recharts";
 import { useTheme, type Theme } from "@mui/material/styles";
 import CustomConicalGradient from "./custom-conical-gradient";
+import CustomGradientRadar from "./custom-gradient-radar";
 import CustomLines from "./custom-lines";
 import CustomPolarGrid from "./custom-polar-grid";
 import CustomLabels from "./custom-radar-labels";
 import CustomRadarTick from "./custom-radar-tick";
 import CustomTooltip from "./custom-tooltip";
-import { StyledRadarChart } from "../styles/spider-chart.styles";
+import {
+  getSpiderChartGradient,
+  SPIDER_GRADIENT_DOT_RADIUS,
+  SPIDER_GRADIENT_STROKE_WIDTH,
+  StyledRadarChart,
+} from "../styles/spider-chart.styles";
 import {
   ExtendedDataPoint,
   SpiderChartProps,
@@ -129,21 +135,51 @@ export const SpiderChart = ({
               .map((_, i) => i * angleStep + computedAngleOffset)}
           />
 
-          {radars.map((radar, index) => (
-            <Radar
-              key={`radar-${index}`}
-              name={radar.name}
-              animationEasing={"ease-in"}
-              animationDuration={1750}
-              dataKey={radar.dataKey}
-              fill={radar.fill ?? theme.palette.vars.neutralBackgroundWeak}
-              strokeWidth={0}
-              scale={scale}
-              color={radar.background ?? getDefaultRadarBackground(theme)}
-              r={0}
-              shape={radar.shape ?? CustomConicalGradient}
-            />
-          ))}
+          {radars.map((radar, index) => {
+            // The gradient treatment only supplies defaults: an explicit
+            // `background`, `stroke` or `dot` on the radar still wins.
+            const gradient = radar.gradient
+              ? getSpiderChartGradient(theme, radar.gradient)
+              : undefined;
+            const stroke = radar.stroke ?? gradient?.stroke;
+            const showDots = radar.dot ?? Boolean(gradient);
+
+            return (
+              <Radar
+                key={`radar-${index}`}
+                name={radar.name}
+                animationEasing={"ease-in"}
+                animationDuration={1750}
+                dataKey={radar.dataKey}
+                fill={radar.fill ?? theme.palette.vars.neutralBackgroundWeak}
+                // Recharts clones the shape with the `Radar` props, so the
+                // outline reaches the shape from here. `dotRadius`/`dotFill`
+                // are not `Radar` props, so they survive the clone on the
+                // element below.
+                stroke={stroke}
+                strokeWidth={stroke ? SPIDER_GRADIENT_STROKE_WIDTH : 0}
+                scale={scale}
+                color={
+                  radar.background ??
+                  gradient?.background ??
+                  getDefaultRadarBackground(theme)
+                }
+                r={0}
+                shape={
+                  radar.shape ??
+                  (stroke ? (
+                    <CustomGradientRadar
+                      dotRadius={showDots ? SPIDER_GRADIENT_DOT_RADIUS : 0}
+                      dotFill={gradient?.dotFill}
+                      dotStroke={gradient?.dotStroke}
+                    />
+                  ) : (
+                    CustomConicalGradient
+                  ))
+                }
+              />
+            );
+          })}
           {showTooltip && (
             <Tooltip
               wrapperStyle={{ outline: "none", zIndex: 1 }}

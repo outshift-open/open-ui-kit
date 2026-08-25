@@ -50,11 +50,30 @@ export function GaugeChartExample() {
 }
 ```
 
+## Gradient variant
+
+Set `variant` on the chart to use one of the three design-approved gauge ramps.
+The ramp strokes a 270° value arc over an equal-weight track, a matching glow renders behind the value, and the value gains a muted `%` suffix.
+
+```tsx
+<GaugeChart data={[{ name: 'Score', value: 50, color: '' }]} variant="amber" />
+```
+
+| `variant` | Gradient token | Glow |
+| --- | --- | --- |
+| `amber` | `Gradient/Gauge-Arc-Amber` | `FBAF45` |
+| `teal` | `Gradient/Gauge-Arc-Teal` | `00B98D` |
+| `blue` | `Gradient/Icon-Subtract-Blue` | `187ADC` |
+
+The ramps are design-approved in the Midnight theme.
+The data item's `color` is unused while `variant` is set.
+
 ## Storybook scenarios
 
 Storybook is the source of truth for interactive examples, controls, and visual state checks.
 Start with the closest story, then adapt the props to match your product flow.
 
+- `Gradient` — the three gauge ramps in one frame, with the frame's labels and values.
 - Dedicated Storybook coverage is still being expanded for this export.
 
 ## Behavior notes

@@ -29,48 +29,40 @@ function getSource(filePath: string) {
   return fs.readFileSync(filePath, "utf8");
 }
 
-// A color written straight into the icon — hex, or any of the CSS color
-// functions. These are what must never appear: they survive a theme switch and
-// leave the mark painted for one mode only.
-const LITERAL_COLOR =
-  /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\s*\(/i;
-
-const QUOTED_STRING = /"[^"]*"|'[^']*'/g;
-
-function unquote(value: string) {
-  return value.slice(1, -1).trim().toLowerCase();
+function stripQuotes(value: string) {
+  return value.replace(/^['"]/, "").replace(/['"]$/, "").trim();
 }
 
-function isInheritedPaint(value: string) {
-  return value === "none" || value === "currentcolor";
+// `none` and `currentColor` are the only paint keywords an icon may hardcode.
+function isPaintKeyword(value: string) {
+  const keyword = stripQuotes(value).toLowerCase();
+
+  return keyword === "none" || keyword === "currentcolor";
 }
 
-// `fill`/`stroke` may either inherit (`currentColor`), paint nothing (`none`),
-// or resolve through the theme — a `vars.*` token, a palette constant, or a
-// prop carrying one of those. The multi-tone marks need that third form: the
-// Outshift logo paints four fixed brand colors, the Dashboard navigation icon
-// swaps a three-tone ramp between its selected and unselected states, and the
-// OrgSwitcher mark is two-tone. A caller only carries one inherited color, so
-// forcing those onto `currentColor` would flatten them.
-function isAcceptablePaint(rawValue: string) {
-  const value = rawValue.trim();
+// A JSX expression that is a plain identifier or member access — `{tones.block}`,
+// `{vars.brandLogoSecondary}`, `{outshiftLogoGreen}` — resolves to a design token
+// or palette constant, which is how multi-tone marks (the Outshift logo, the
+// Dashboard navigation icon) paint shapes that cannot share one inherited color.
+const TOKEN_REFERENCE = /^[A-Za-z_$][\w$]*(?:\??\.[A-Za-z_$][\w$]*)*$/;
 
-  if (!value.startsWith("{")) {
-    return isInheritedPaint(unquote(value));
+function isAllowedPaint(value: string) {
+  const trimmed = value.trim();
+
+  if (trimmed.startsWith("{")) {
+    const expression = trimmed.replace(/^\{/, "").replace(/\}$/, "").trim();
+
+    // A string literal inside braces is still a hardcoded color.
+    return /^['"]/.test(expression)
+      ? isPaintKeyword(expression)
+      : TOKEN_REFERENCE.test(expression);
   }
 
-  const expression = value.slice(1, -1);
-
-  return (
-    !LITERAL_COLOR.test(expression) &&
-    (expression.match(QUOTED_STRING) ?? []).every((literal) =>
-      isInheritedPaint(unquote(literal)),
-    )
-  );
+  return isPaintKeyword(trimmed);
 }
 
 describe("custom icons", () => {
-  it("keeps SVG fills and strokes off hardcoded colors", () => {
+  it("never hardcodes SVG fill and stroke colors", () => {
     const badPaintAttributes = iconFiles.flatMap((filePath) => {
       const source = getSource(filePath);
       const matches = [
@@ -80,7 +72,7 @@ describe("custom icons", () => {
       ];
 
       return matches
-        .filter((match) => !isAcceptablePaint(match[1]))
+        .filter((match) => !isAllowedPaint(match[1]))
         .map(
           (match) => `${path.relative(customIconsDir, filePath)}: ${match[0]}`,
         );

@@ -10,7 +10,7 @@ import {
 export default function DisabledCard() {
   return (
     <ThemeProvider>
-      <Card aria-disabled="true" sx={{ maxWidth: 360, opacity: 0.5 }}>
+      <Card disabled sx={{ maxWidth: 360 }}>
         <CardHeader title="Audit export" subheader="Unavailable" />
         <CardContent>
           <CardDescription>

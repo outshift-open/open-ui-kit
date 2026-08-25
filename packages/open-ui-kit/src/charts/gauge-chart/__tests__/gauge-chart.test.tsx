@@ -9,9 +9,22 @@ import "@testing-library/jest-dom";
 import type { ComponentProps, CSSProperties, ReactNode } from "react";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import {
+  blue300,
+  blue500,
+  green500,
+  greyAlpha40,
+  lightOrange500,
+  midnightGradientStops,
+} from "@/theme/style/color-palette";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { GaugeChart } from "../gauge-chart";
-import { barShadow, gaugeWrapper } from "../styles";
+import {
+  barShadow,
+  gaugeWrapper,
+  getGaugeChartGradient,
+  type GaugeChartGradient,
+} from "../styles";
 import type { ChartDataItem } from "../../common/types";
 
 jest.mock("recharts", () => ({
@@ -49,6 +62,7 @@ jest.mock("recharts", () => ({
     </svg>
   ),
   Pie: ({
+    activeShape,
     children,
     data,
     dataKey,
@@ -58,7 +72,8 @@ jest.mock("recharts", () => ({
     startAngle,
     strokeWidth,
   }: {
-    children: ReactNode;
+    activeShape?: (props: Record<string, unknown>) => ReactNode;
+    children?: ReactNode;
     data: Array<{ fill: string; value: number }>;
     dataKey: string;
     endAngle: number;
@@ -68,18 +83,30 @@ jest.mock("recharts", () => ({
     strokeWidth: number;
   }) => (
     <g
-      data-background-fill={data[1].fill}
-      data-background-value={data[1].value}
+      data-background-fill={data[1]?.fill}
+      data-background-value={data[1]?.value}
       data-data-key={dataKey}
       data-end-angle={endAngle}
       data-inner-radius={innerRadius}
-      data-main-fill={data[0].fill}
-      data-main-value={data[0].value}
+      data-main-fill={data[0]?.fill}
+      data-main-value={data[0]?.value}
       data-outer-radius={outerRadius}
       data-start-angle={startAngle}
       data-stroke-width={strokeWidth}
       data-testid="pie"
     >
+      {/* Recharts resolves the sector's geometry against the chart box before
+          handing it to `activeShape`; the mock stands in for that, centring
+          the 132px gauge the way `cx`/`cy` of `50%` would. */}
+      {activeShape?.({
+        cx: 66,
+        cy: 66,
+        endAngle,
+        fill: data[0]?.fill,
+        innerRadius,
+        outerRadius,
+        startAngle,
+      })}
       {children}
     </g>
   ),
@@ -221,6 +248,61 @@ describe("GaugeChart", () => {
     });
   });
 
+  it.each([
+    [100, "successBackgroundDefault"],
+    [76, "successBackgroundDefault"],
+    [75, "warningBackgroundDefault"],
+    [51, "warningBackgroundDefault"],
+    [50, "severeWarningBorderDefault"],
+    [26, "severeWarningBorderDefault"],
+    [25, "negativeBackgroundDefault"],
+    [0, "negativeBackgroundDefault"],
+  ] as const)(
+    "colors the arc from the value when no color is given (%i%% -> %s)",
+    (value, token) => {
+      renderGauge(false, { data: [{ name: "Score", value }] });
+
+      expect(screen.getByTestId("pie")).toMatchObject({
+        dataset: expect.objectContaining({
+          mainFill: lightTheme.palette.vars[token],
+        }),
+      });
+    },
+  );
+
+  it("bands the status ramp against maxValue rather than the raw value", () => {
+    // 30/40 is 75%, the warning band; the raw 30 would band to severe warning.
+    renderGauge(false, {
+      maxValue: 40,
+      data: [{ name: "Score", value: 30 }],
+    });
+
+    expect(screen.getByTestId("pie")).toMatchObject({
+      dataset: expect.objectContaining({
+        mainFill: lightTheme.palette.vars.warningBackgroundDefault,
+      }),
+    });
+  });
+
+  it("keeps an explicit data color ahead of the status ramp", () => {
+    // 25% would band to negative if the item did not name a color.
+    renderGauge(false, {
+      data: [
+        {
+          name: "Score",
+          value: 25,
+          color: lightTheme.palette.vars.accentADefault,
+        },
+      ],
+    });
+
+    expect(screen.getByTestId("pie")).toMatchObject({
+      dataset: expect.objectContaining({
+        mainFill: lightTheme.palette.vars.accentADefault,
+      }),
+    });
+  });
+
   it("applies token-aware shadow and custom sizing", () => {
     renderGauge(false, {
       styleProps: {
@@ -254,5 +336,156 @@ describe("GaugeChart", () => {
     });
 
     expect(screen.getByText("Good")).toBeInTheDocument();
+  });
+
+  // Figma: `Gauge Chart` (274417:44466), one widget per `gradient-token`
+  // swatch, with the paired `Solid` swatch as the glow.
+  describe("gradient treatment", () => {
+    const variants: [GaugeChartGradient, string, string, number, string][] = [
+      [
+        "amber",
+        midnightGradientStops.gaugeArcAmber,
+        midnightGradientStops.gaugeArcAmber,
+        0.78,
+        lightOrange500,
+      ],
+      [
+        "teal",
+        midnightGradientStops.gaugeArcTealStart,
+        midnightGradientStops.gaugeArcTealEnd,
+        1,
+        green500,
+      ],
+      ["blue", midnightGradientStops.iconSubtractBlue, blue500, 1, blue300],
+    ];
+
+    it.each(variants)(
+      "resolves the %s label to its arc stops and glow",
+      (gradient, from, to, toOpacity, glow) => {
+        expect(getGaugeChartGradient(gradient)).toEqual({
+          from,
+          to,
+          toOpacity,
+          glow,
+        });
+      },
+    );
+
+    it("rings the ramped arc over an equal-weight track with a glow behind", () => {
+      const { container } = renderGauge(false, { variant: "teal" });
+
+      // The gradient treatment drops the dividers, but stays on the same
+      // PieChart wrapper and `Pie`s the default gauge uses.
+      expect(container.querySelectorAll("line")).toHaveLength(0);
+      expect(screen.getByTestId("pie-chart")).toBeInTheDocument();
+
+      const [track, arc] = screen.getAllByTestId("pie");
+
+      // The frame's 5.275px arc stroke, normalized from its 171.7px gauge to
+      // the default 132px one, is shared by the track — one line weight
+      // through the junction — and both rings are centred on a radius inset
+      // so the stroke's outer edge clears the svg viewport by a pixel instead
+      // of being shaved flat against it.
+      const strokeThickness = (132 * 5.275) / 171.704;
+      const arcRadius = (132 - strokeThickness) / 2 - 1;
+
+      expect(track.dataset.mainFill).toBe(greyAlpha40);
+      expect(Number(track.dataset.innerRadius)).toBeCloseTo(
+        arcRadius - strokeThickness / 2,
+        2,
+      );
+      expect(Number(track.dataset.outerRadius)).toBeCloseTo(
+        arcRadius + strokeThickness / 2,
+        2,
+      );
+      // The outer edge lands a pixel inside the 132px box on every side.
+      expect(Number(track.dataset.outerRadius)).toBeCloseTo(132 / 2 - 1, 2);
+      // The full 270° sweep: 225° clockwise to -45°.
+      expect(Number(track.dataset.startAngle)).toBe(225);
+      expect(Number(track.dataset.endAngle)).toBe(-45);
+
+      const gradientDef = container.querySelector("linearGradient");
+      expect(arc.dataset.mainFill).toBe(`url(#${gradientDef?.id})`);
+      expect(Number(arc.dataset.innerRadius)).toBeCloseTo(
+        arcRadius - strokeThickness / 2,
+        2,
+      );
+      expect(Number(arc.dataset.outerRadius)).toBeCloseTo(
+        arcRadius + strokeThickness / 2,
+        2,
+      );
+      // 75 of 100 fills three quarters of the 270° sweep.
+      expect(Number(arc.dataset.startAngle)).toBe(225);
+      expect(Number(arc.dataset.endAngle)).toBeCloseTo(225 - 0.75 * 270, 2);
+
+      // Each `Pie` paints its sector as a stroke down the middle of the ring,
+      // so both ends carry a round cap and the thickness cannot drift.
+      const point = (angle: number) => {
+        const radian = (angle * Math.PI) / 180;
+        return `${66 + arcRadius * Math.cos(radian)},${
+          66 - arcRadius * Math.sin(radian)
+        }`;
+      };
+      // Swept clockwise (`sweep-flag` 1) from 225°, taking the large arc past
+      // a half turn.
+      const expectedPath = (sweep: number) =>
+        `M${point(225)}A${arcRadius},${arcRadius},0,${
+          sweep > 180 ? 1 : 0
+        },1,${point(225 - sweep)}`;
+
+      const trackPath = track.querySelector("path") as SVGPathElement;
+      const arcPath = arc.querySelector("path") as SVGPathElement;
+
+      expect(trackPath).toHaveAttribute("d", expectedPath(270));
+      expect(trackPath).toHaveAttribute("stroke", greyAlpha40);
+      expect(trackPath).toHaveAttribute("stroke-linecap", "round");
+      expect(Number(trackPath.getAttribute("stroke-width"))).toBeCloseTo(
+        strokeThickness,
+        2,
+      );
+
+      expect(arcPath).toHaveAttribute("d", expectedPath(0.75 * 270));
+      expect(arcPath).toHaveAttribute("stroke", `url(#${gradientDef?.id})`);
+      expect(arcPath).toHaveAttribute("stroke-linecap", "round");
+      expect(Number(arcPath.getAttribute("stroke-width"))).toBeCloseTo(
+        strokeThickness,
+        2,
+      );
+
+      const stopElements = gradientDef?.querySelectorAll("stop");
+      expect(stopElements?.[0]).toHaveAttribute(
+        "stop-color",
+        midnightGradientStops.gaugeArcTealStart,
+      );
+      expect(stopElements?.[1]).toHaveAttribute(
+        "stop-color",
+        midnightGradientStops.gaugeArcTealEnd,
+      );
+
+      const glow = container.querySelector("svg")
+        ?.previousElementSibling as HTMLElement;
+      expect(glow).toHaveStyle({ background: green500 });
+      expect(glow.style.filter).toContain("blur");
+    });
+
+    it("renders the value with a muted % suffix", () => {
+      renderGauge(false, { variant: "amber" });
+
+      expect(screen.getByText("75")).toBeInTheDocument();
+      expect(screen.getByText("%")).toBeInTheDocument();
+    });
+
+    it("drops the value arc at zero without dropping the track", () => {
+      const { container } = renderGauge(false, {
+        variant: "blue",
+        data: [{ name: "Score", value: 0, color: "#000" }],
+      });
+
+      // A zero sweep would otherwise leave a lone round cap sitting at 225°.
+      const pies = screen.getAllByTestId("pie");
+      expect(pies).toHaveLength(1);
+      expect(pies[0].dataset.mainFill).toBe(greyAlpha40);
+      expect(container.querySelectorAll("path")).toHaveLength(1);
+    });
   });
 });

@@ -18,6 +18,26 @@ export type ExtendedDataPoint = {
   variableA?: number;
 } & DataPoint;
 
+/**
+ * Design-approved data-viz ramps for a radar series.
+ *
+ * Each key is the `gradient-token` label on the matching widget in Figma
+ * `Spider Chart` (274417:44533), camelCased the same way `GradientVarsType`
+ * camelCases the Figma path:
+ *
+ * | Key          | Figma token                     | Theme token                  |
+ * | ------------ | ------------------------------- | ---------------------------- |
+ * | `pinkPurple` | `Gradient/Data-Viz-Pink-Purple` | `gradientDataVizPinkPurple`  |
+ * | `cyanBlue`   | `Gradient/Data-Viz-Cyan-Blue`   | `gradientDataVizCyanBlue`    |
+ * | `orangeGold` | `Gradient/Data-Viz-Orange-Gold` | `gradientDataVizOrangeGold`  |
+ * | `blueDark`   | `Gradient/Data-Viz-Blue-Dark`   | `gradientDataVizBlueDark`    |
+ */
+export type SpiderChartGradient =
+  | "pinkPurple"
+  | "cyanBlue"
+  | "orangeGold"
+  | "blueDark";
+
 export type RadarType = {
   /** Legend and tooltip name for the radar series. */
   name: string;
@@ -27,6 +47,20 @@ export type RadarType = {
   fill?: string;
   /** CSS gradient or tokenized background used by the custom radar shape. */
   background?: string;
+  /**
+   * Applies the gradient treatment: the named data-viz ramp fills the radar
+   * area, the ramp's paired accent draws the outline, and each data vertex
+   * gets a ring in the same accent over a translucent fill. Sets
+   * `background`, `stroke` and `dot` unless those are given explicitly.
+   */
+  gradient?: SpiderChartGradient;
+  /**
+   * Outline color for the radar polygon. Defaults to the accent paired with
+   * `gradient`; without either, the polygon has no outline.
+   */
+  stroke?: string;
+  /** Renders a ring at each data vertex, stroked in the outline color. */
+  dot?: boolean;
   /** Optional Recharts shape override for the radar polygon. */
   shape?: ReactElement;
 };

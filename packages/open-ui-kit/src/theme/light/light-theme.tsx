@@ -32,6 +32,7 @@ import {
 import { commonMixins, breakpoints } from "@/theme/style/common";
 import { typography } from "@/theme/style/typography";
 import { lightVars } from "./light-vars";
+import { baseGradientVars } from "@/theme/style/gradient-vars-base";
 import {
   buttonComponent,
   inputComponents,
@@ -66,6 +67,7 @@ const palette: PaletteOptions = {
   orange: orangePalette,
   grey: greyPalette,
   vars: lightVars,
+  gradients: baseGradientVars,
   text: {
     primary: greyPalette[500],
     secondary: greyPalette[50],

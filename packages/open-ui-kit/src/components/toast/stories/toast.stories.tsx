@@ -35,6 +35,11 @@ const meta = {
     },
     title: { control: "text" },
     description: { control: "text" },
+    glow: {
+      control: "boolean",
+      description:
+        "Applies the glow treatment: a `Global-Border/Fade` gradient border and a blue glow. Stronger when the toast also has a title.",
+    },
     showCloseButton: { control: "boolean" },
     useNativeClose: { control: "boolean" },
     action: { control: false },
@@ -68,6 +73,41 @@ export const WithoutTitle: Story = {
   args: {
     id: "without-title",
     title: undefined,
+  },
+};
+
+/**
+ * Toast message Glow — Figma `Toast message Glow` (274417:44480), with header.
+ *
+ * A `Global-Border/Fade` gradient border and a blue glow cast from behind the
+ * toast. With a header the glow is the stronger of the two values the frame
+ * documents.
+ */
+export const GlowWithHeader: Story = {
+  name: "Glow / With header",
+  args: {
+    id: "glow-with-header",
+    glow: true,
+    title: "New Successful Reasoning Strategy",
+    description:
+      "A new successful reasoning strategy cluster emerged this week.",
+    action: undefined,
+  },
+};
+
+/**
+ * Toast message Glow — the same treatment with no header, carrying the softer
+ * of the two glow values.
+ */
+export const GlowWithoutHeader: Story = {
+  name: "Glow / Without header",
+  args: {
+    id: "glow-without-header",
+    glow: true,
+    title: undefined,
+    description:
+      "User queries naturally organize around long-distance travel coordination and local route optimization, with inter-city planning emerging as the primary interaction theme.",
+    action: undefined,
   },
 };
 
