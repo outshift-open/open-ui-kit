@@ -1,3 +1,27 @@
+# [2.4.0](https://github.com/outshift-open/open-ui-kit/compare/v2.3.0...v2.4.0) (2026-08-25)
+
+
+### Bug Fixes
+
+* Button | Gradient Variant ([1d3528d](https://github.com/outshift-open/open-ui-kit/commit/1d3528d08de7561486c19f7e8a739cb4daefb2fe))
+* enhance custom icon tests to handle multi-tone and brand color exceptions ([007e52a](https://github.com/outshift-open/open-ui-kit/commit/007e52a6266b069f047115840bcfa7ed4dc95f4d))
+* enhance custom icon tests to handle multi-tone and brand color exceptions ([984291c](https://github.com/outshift-open/open-ui-kit/commit/984291cb979ebd2ac6217eb11120b9da95a995d7))
+* format code and improve readability in various files ([a7b1729](https://github.com/outshift-open/open-ui-kit/commit/a7b1729284f5feec31580bfa73a72fb893b844ce))
+* Gradient fixes ([f5eeeb5](https://github.com/outshift-open/open-ui-kit/commit/f5eeeb5033874487bc36114ce49d0f0d83015479))
+* Midnight Theme | Tokens Fixes ([c78a732](https://github.com/outshift-open/open-ui-kit/commit/c78a732c885398cddea7681d7804e78c555d9f1a))
+* Navigation Component UI Fix ([3b13c9b](https://github.com/outshift-open/open-ui-kit/commit/3b13c9b8678a59aa8802e6e8814632b4939d30fd))
+* **typography:** let the gradient span the text block ([1a1d99c](https://github.com/outshift-open/open-ui-kit/commit/1a1d99c43ae178e14aabf7d93c2c55f2e25b166f))
+
+
+### Features
+
+* **activity-timeline:** add gradient variant ([#11](https://github.com/outshift-open/open-ui-kit/issues/11)) ([e9368d4](https://github.com/outshift-open/open-ui-kit/commit/e9368d4f47aa0e51f84adca1df86d2f6ad57955b))
+* Gauge Chart | Gradient Variants ([ed59cbf](https://github.com/outshift-open/open-ui-kit/commit/ed59cbff78bfb20bb3d06f540ca946908c326670))
+* Gradient for Cards Component ([484c435](https://github.com/outshift-open/open-ui-kit/commit/484c4355b1641840d8dc6eb4c026912f01435324))
+* Input Component Gradient ([13e647e](https://github.com/outshift-open/open-ui-kit/commit/13e647e72b69ee9e1993118df821b30b44b94aed))
+* Toast Component Gradient support ([662ebd1](https://github.com/outshift-open/open-ui-kit/commit/662ebd1910e97f9c5176bb3a0fc9f423bb572421))
+* **typography:** add gradient text variant ([#7](https://github.com/outshift-open/open-ui-kit/issues/7)) ([a162eae](https://github.com/outshift-open/open-ui-kit/commit/a162eaebd6791db0bbb819b447f74c8fd1a2b49f)), closes [#3F7](https://github.com/outshift-open/open-ui-kit/issues/3F7)
+
 # [2.3.0](https://github.com/outshift-open/open-ui-kit/compare/v2.2.3...v2.3.0) (2026-08-19)
 
 
