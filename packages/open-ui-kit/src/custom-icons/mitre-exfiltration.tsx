@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `MitreExfiltration` yet — it remains available via
- * `LegacyIcons.MitreExfiltration` until migrated.
+ * @deprecated Use `MitreExfiltration` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreExfiltration`.
  */
 export function MitreExfiltration(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `MitrePriviledgeEscalation` yet — it remains available via
- * `LegacyIcons.MitrePriviledgeEscalation` until migrated.
+ * @deprecated Use `MitrePriviledgeEscalation` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitrePriviledgeEscalation`.
  */
 export function MitrePriviledgeEscalation(props: SvgIconProps) {
   return (

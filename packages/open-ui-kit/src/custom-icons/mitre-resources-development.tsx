@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `MitreResourcesDevelopment` yet — it remains available via
- * `LegacyIcons.MitreResourcesDevelopment` until migrated.
+ * @deprecated Use `MitreResourcesDevelopment` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreResourcesDevelopment`.
  */
 export function MitreResourcesDevelopment(props: SvgIconProps) {
   return (

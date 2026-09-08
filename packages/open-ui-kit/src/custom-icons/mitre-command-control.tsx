@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `MitreCommandControl` yet — it remains available via
- * `LegacyIcons.MitreCommandControl` until migrated.
+ * @deprecated Use `MitreCommandControl` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreCommandControl`.
  */
 export function MitreCommandControl(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `RootCauseAnalysis` yet — it remains available via
- * `LegacyIcons.RootCauseAnalysis` until migrated.
+ * @deprecated Use `RootCauseAnalysis` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.RootCauseAnalysis`.
  */
 export function RootCauseAnalysis(props: SvgIconProps) {
   return (

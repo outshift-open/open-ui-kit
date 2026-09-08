@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `PostureRisks` yet — it remains available via
- * `LegacyIcons.PostureRisks` until migrated.
+ * @deprecated Use `PostureRisks` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PostureRisks`.
  */
 export function PostureRisks(props: SvgIconProps) {
   return (

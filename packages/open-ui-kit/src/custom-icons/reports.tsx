@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Reports` yet — it remains available via
- * `LegacyIcons.Reports` until migrated.
+ * @deprecated Use `Reports` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Reports`.
  */
 export function Reports(props: SvgIconProps) {
   return (
