@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Cloudtrail` yet — it remains available via
- * `LegacyIcons.Cloudtrail` until migrated.
+ * @deprecated Use `Cloudtrail` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Cloudtrail`.
  */
 export function Cloudtrail(props: SvgIconProps) {
   return (

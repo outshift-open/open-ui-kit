@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `AzureDevops` yet — it remains available via
- * `LegacyIcons.AzureDevops` until migrated.
+ * @deprecated Use `AzureDevops` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AzureDevops`.
  */
 export function AzureDevops(props: SvgIconProps) {
   return (

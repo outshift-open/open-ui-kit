@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Docker` yet — it remains available via
- * `LegacyIcons.Docker` until migrated.
+ * @deprecated Use `Docker` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Docker`.
  */
 export function Docker(props: SvgIconProps) {
   return (

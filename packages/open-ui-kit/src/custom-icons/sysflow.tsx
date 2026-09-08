@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Sysflow` yet — it remains available via
- * `LegacyIcons.Sysflow` until migrated.
+ * @deprecated Use `Sysflow` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Sysflow`.
  */
 export function Sysflow(props: SvgIconProps) {
   return (

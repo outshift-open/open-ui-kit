@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `AWS` yet — it remains available via
- * `LegacyIcons.AWS` until migrated.
+ * @deprecated Use `Aws` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AWS`.
  */
 export function AWS(props: SvgIconProps) {
   return (

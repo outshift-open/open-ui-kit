@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Kspm` yet — it remains available via
- * `LegacyIcons.Kspm` until migrated.
+ * @deprecated Use `Kspm` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Kspm`.
  */
 export function Kspm(props: SvgIconProps) {
   return (

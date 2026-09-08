@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `AzureRepoAsset` yet — it remains available via
- * `LegacyIcons.AzureRepoAsset` until migrated.
+ * @deprecated Use `AzureRepoAsset` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AzureRepoAsset`.
  */
 export function AzureRepoAsset(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Fluentbit` yet — it remains available via
- * `LegacyIcons.Fluentbit` until migrated.
+ * @deprecated Use `Fluentbit` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Fluentbit`.
  */
 export function Fluentbit(props: SvgIconProps) {
   return (
