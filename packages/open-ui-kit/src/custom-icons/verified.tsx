@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Verified` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Verified`.
+ */
 export function Verified(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.78 18">
