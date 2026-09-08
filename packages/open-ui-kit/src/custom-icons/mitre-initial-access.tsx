@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MitreInitialAccess` yet — it remains available via
+ * `LegacyIcons.MitreInitialAccess` until migrated.
+ */
 export function MitreInitialAccess(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 15.24 20">

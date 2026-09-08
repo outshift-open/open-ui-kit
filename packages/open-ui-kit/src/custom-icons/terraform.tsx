@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Terraform` yet — it remains available via
+ * `LegacyIcons.Terraform` until migrated.
+ */
 export function Terraform(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

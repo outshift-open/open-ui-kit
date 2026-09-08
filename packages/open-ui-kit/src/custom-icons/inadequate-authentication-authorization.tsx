@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `InadequateAuthenticationAuthorization` yet — it remains available via
+ * `LegacyIcons.InadequateAuthenticationAuthorization` until migrated.
+ */
 export function InadequateAuthenticationAuthorization(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.2 16.671">

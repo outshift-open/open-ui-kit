@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `InlineX` yet — it remains available via
+ * `LegacyIcons.InlineX` until migrated.
+ */
 export function InlineX(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

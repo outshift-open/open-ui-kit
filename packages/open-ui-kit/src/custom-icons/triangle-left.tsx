@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `TriangleLeft` yet — it remains available via
+ * `LegacyIcons.TriangleLeft` until migrated.
+ */
 export function TriangleLeft(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 5.792 10.589">

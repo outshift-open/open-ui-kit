@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `GithubLogo` yet — it remains available via
+ * `LegacyIcons.GithubLogo` until migrated.
+ */
 export const GithubLogo = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.6">
@@ -17,6 +22,11 @@ export const GithubLogo = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `GithubLogoColored` yet — it remains available via
+ * `LegacyIcons.GithubLogoColored` until migrated.
+ */
 export const GithubLogoColored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.6">

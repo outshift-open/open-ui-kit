@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MenuReports` yet — it remains available via
+ * `LegacyIcons.MenuReports` until migrated.
+ */
 export function MenuReports(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

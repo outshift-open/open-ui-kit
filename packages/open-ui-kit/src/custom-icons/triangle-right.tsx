@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `TriangleRight` yet — it remains available via
+ * `LegacyIcons.TriangleRight` until migrated.
+ */
 export function TriangleRight(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 5.792 10.589">

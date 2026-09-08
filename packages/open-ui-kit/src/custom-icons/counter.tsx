@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Counter` yet — it remains available via
+ * `LegacyIcons.Counter` until migrated.
+ */
 export function Counter(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 7.68 14">

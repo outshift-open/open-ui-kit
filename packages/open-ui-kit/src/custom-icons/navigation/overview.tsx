@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OverviewSelected` yet — it remains available via
+ * `LegacyIcons.OverviewSelected` until migrated.
+ */
 export const OverviewSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.778">
@@ -37,6 +42,11 @@ export const OverviewSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OverviewUnSelected` yet — it remains available via
+ * `LegacyIcons.OverviewUnSelected` until migrated.
+ */
 export const OverviewUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.778">
@@ -68,6 +78,11 @@ export const OverviewUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OverviewDisabled` yet — it remains available via
+ * `LegacyIcons.OverviewDisabled` until migrated.
+ */
 export const OverviewDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.778">

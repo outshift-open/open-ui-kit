@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `GaugeFilled` yet — it remains available via
+ * `LegacyIcons.GaugeFilled` until migrated.
+ */
 export function GaugeFilled(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

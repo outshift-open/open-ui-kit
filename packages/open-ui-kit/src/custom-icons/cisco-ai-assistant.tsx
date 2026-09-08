@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CiscoAIAssistantDefault` yet — it remains available via
+ * `LegacyIcons.CiscoAIAssistantDefault` until migrated.
+ */
 export const CiscoAIAssistantDefault = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 28 26">
@@ -33,6 +38,11 @@ export const CiscoAIAssistantDefault = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CiscoAIAssistantProcessing_loop` yet — it remains available via
+ * `LegacyIcons.CiscoAIAssistantProcessing_loop` until migrated.
+ */
 export const CiscoAIAssistantProcessing_loop = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 26 26">
@@ -52,6 +62,11 @@ export const CiscoAIAssistantProcessing_loop = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CiscoAIAssistantProcessing_start` yet — it remains available via
+ * `LegacyIcons.CiscoAIAssistantProcessing_start` until migrated.
+ */
 export const CiscoAIAssistantProcessing_start = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 28 26">
@@ -79,6 +94,11 @@ export const CiscoAIAssistantProcessing_start = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CiscoAIAssistantProcessing_end` yet — it remains available via
+ * `LegacyIcons.CiscoAIAssistantProcessing_end` until migrated.
+ */
 export const CiscoAIAssistantProcessing_end = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 26 28">

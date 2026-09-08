@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityGraphSelected` yet — it remains available via
+ * `LegacyIcons.SecurityGraphSelected` until migrated.
+ */
 export const SecurityGraphSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.885">
@@ -25,6 +30,11 @@ export const SecurityGraphSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityGraphUnSelected` yet — it remains available via
+ * `LegacyIcons.SecurityGraphUnSelected` until migrated.
+ */
 export const SecurityGraphUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.884">
@@ -44,6 +54,11 @@ export const SecurityGraphUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityGraphDisabled` yet — it remains available via
+ * `LegacyIcons.SecurityGraphDisabled` until migrated.
+ */
 export const SecurityGraphDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.885">

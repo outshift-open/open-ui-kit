@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ReportsSelected` yet — it remains available via
+ * `LegacyIcons.ReportsSelected` until migrated.
+ */
 export const ReportsSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 17.28 20">
@@ -35,6 +40,11 @@ export const ReportsSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ReportsUnSelected` yet — it remains available via
+ * `LegacyIcons.ReportsUnSelected` until migrated.
+ */
 export const ReportsUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 17.28 20">
@@ -64,6 +74,11 @@ export const ReportsUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ReportsDisabled` yet — it remains available via
+ * `LegacyIcons.ReportsDisabled` until migrated.
+ */
 export const ReportsDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 17.3 20">

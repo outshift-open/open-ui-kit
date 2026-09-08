@@ -6,6 +6,11 @@
 
 import { SvgIconProps, SvgIcon } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Pin` yet — it remains available via
+ * `LegacyIcons.Pin` until migrated.
+ */
 export function Pin(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

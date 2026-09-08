@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Resize` yet — it remains available via
+ * `LegacyIcons.Resize` until migrated.
+ */
 export function Resize(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.104 18.097">

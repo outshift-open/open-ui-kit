@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `StarEmpty` yet — it remains available via
+ * `LegacyIcons.StarEmpty` until migrated.
+ */
 export function StarEmpty(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 17.2">

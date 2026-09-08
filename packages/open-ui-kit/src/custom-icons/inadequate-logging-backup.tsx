@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `InadequateLoggingBackup` yet — it remains available via
+ * `LegacyIcons.InadequateLoggingBackup` until migrated.
+ */
 export function InadequateLoggingBackup(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 16.18 18.103">

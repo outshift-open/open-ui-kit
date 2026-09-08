@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ScanReportsUnselected` yet — it remains available via
+ * `LegacyIcons.ScanReportsUnselected` until migrated.
+ */
 export const ScanReportsUnselected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -43,6 +48,11 @@ export const ScanReportsUnselected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ScanReportsSelected` yet — it remains available via
+ * `LegacyIcons.ScanReportsSelected` until migrated.
+ */
 export const ScanReportsSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -80,6 +90,11 @@ export const ScanReportsSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ScanReportsDisabled` yet — it remains available via
+ * `LegacyIcons.ScanReportsDisabled` until migrated.
+ */
 export const ScanReportsDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>

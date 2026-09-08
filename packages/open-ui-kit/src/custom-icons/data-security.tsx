@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataSecurity` yet — it remains available via
+ * `LegacyIcons.DataSecurity` until migrated.
+ */
 export function DataSecurity(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19 18">

@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `McdGateway` yet — it remains available via
+ * `LegacyIcons.McdGateway` until migrated.
+ */
 export function McdGateway(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

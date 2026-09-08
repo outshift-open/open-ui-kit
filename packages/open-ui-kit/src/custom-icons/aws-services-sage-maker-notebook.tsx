@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesSageMakerNotebook` yet — it remains available via
+ * `LegacyIcons.AWSServicesSageMakerNotebook` until migrated.
+ */
 export function AWSServicesSageMakerNotebook(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

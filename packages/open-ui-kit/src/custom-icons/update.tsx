@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Update` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Update`.
+ */
 export function Update(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

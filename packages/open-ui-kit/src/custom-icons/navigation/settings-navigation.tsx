@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SettingsNavigationUnselected` yet — it remains available via
+ * `LegacyIcons.SettingsNavigationUnselected` until migrated.
+ */
 export const SettingsNavigationUnselected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -39,6 +44,11 @@ export const SettingsNavigationUnselected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SettingsNavigationSelected` yet — it remains available via
+ * `LegacyIcons.SettingsNavigationSelected` until migrated.
+ */
 export const SettingsNavigationSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -86,6 +96,11 @@ export const SettingsNavigationSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SettingsNavigationDisabled` yet — it remains available via
+ * `LegacyIcons.SettingsNavigationDisabled` until migrated.
+ */
 export const SettingsNavigationDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>

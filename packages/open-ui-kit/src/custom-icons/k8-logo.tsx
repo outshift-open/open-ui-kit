@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `K8` yet — it remains available via
+ * `LegacyIcons.K8` until migrated.
+ */
 export const K8 = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 17.528">
@@ -17,6 +22,11 @@ export const K8 = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `K8Colored` yet — it remains available via
+ * `LegacyIcons.K8Colored` until migrated.
+ */
 export const K8Colored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 17.528">

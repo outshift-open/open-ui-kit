@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesTransitGateway` yet — it remains available via
+ * `LegacyIcons.AWSServicesTransitGateway` until migrated.
+ */
 export function AWSServicesTransitGateway(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

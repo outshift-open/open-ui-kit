@@ -12,6 +12,11 @@ import {
   outshiftLogoOrange,
 } from "@/theme/style/color-palette";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AgntcyBrand` yet — it remains available via
+ * `LegacyIcons.AgntcyBrand` until migrated.
+ */
 export const AgntcyBrand = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="72.613 0 65.387 14.882">
@@ -23,6 +28,11 @@ export const AgntcyBrand = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CiscoBrand` yet — it remains available via
+ * `LegacyIcons.CiscoBrand` until migrated.
+ */
 export const CiscoBrand = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 45.1 24">
@@ -98,6 +108,11 @@ export const CiscoBrand = (props: SvgIconProps) => {
 //
 // The brand colors are fixed in every theme; only the wordmark follows the
 // theme, so it reads `brandLogoSecondary` instead of a palette constant.
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OutshiftBrand` yet — it remains available via
+ * `LegacyIcons.OutshiftBrand` until migrated.
+ */
 export const OutshiftBrand = (props: SvgIconProps) => {
   const { vars } = useTheme().palette;
 

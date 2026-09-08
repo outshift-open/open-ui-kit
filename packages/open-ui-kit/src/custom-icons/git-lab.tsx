@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Gitlab` yet — it remains available via
+ * `LegacyIcons.Gitlab` until migrated.
+ */
 export function Gitlab(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.5">

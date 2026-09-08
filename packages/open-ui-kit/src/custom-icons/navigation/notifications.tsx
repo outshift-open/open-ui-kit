@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `NotificationsSelected` yet — it remains available via
+ * `LegacyIcons.NotificationsSelected` until migrated.
+ */
 export const NotificationsSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.088 20">
@@ -31,6 +36,11 @@ export const NotificationsSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `NotificationsUnSelected` yet — it remains available via
+ * `LegacyIcons.NotificationsUnSelected` until migrated.
+ */
 export const NotificationsUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.088 20">
@@ -56,6 +66,11 @@ export const NotificationsUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `NotificationsDisabled` yet — it remains available via
+ * `LegacyIcons.NotificationsDisabled` until migrated.
+ */
 export const NotificationsDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.088 20">

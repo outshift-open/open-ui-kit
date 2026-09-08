@@ -65,6 +65,11 @@ const DashboardMark = ({
   </SvgIcon>
 );
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DashboardSelected` yet — it remains available via
+ * `LegacyIcons.DashboardSelected` until migrated.
+ */
 export const DashboardSelected = (props: SvgIconProps) => {
   const { vars } = useTheme().palette;
 
@@ -80,6 +85,11 @@ export const DashboardSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DashboardUnSelected` yet — it remains available via
+ * `LegacyIcons.DashboardUnSelected` until migrated.
+ */
 export const DashboardUnSelected = (props: SvgIconProps) => {
   const { vars } = useTheme().palette;
 
@@ -97,6 +107,11 @@ export const DashboardUnSelected = (props: SvgIconProps) => {
 
 // The disabled state has no tonal ramp in the frame — it stays flat and takes
 // the item's inherited disabled text color.
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DashboardDisabled` yet — it remains available via
+ * `LegacyIcons.DashboardDisabled` until migrated.
+ */
 export const DashboardDisabled = (props: SvgIconProps) => (
   <DashboardMark
     {...props}

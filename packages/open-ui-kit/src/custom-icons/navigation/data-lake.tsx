@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataLakeSelected` yet — it remains available via
+ * `LegacyIcons.DataLakeSelected` until migrated.
+ */
 export const DataLakeSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17">
@@ -23,6 +28,11 @@ export const DataLakeSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataLakeUnSelected` yet — it remains available via
+ * `LegacyIcons.DataLakeUnSelected` until migrated.
+ */
 export const DataLakeUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17">
@@ -40,6 +50,11 @@ export const DataLakeUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataLakeDisabled` yet — it remains available via
+ * `LegacyIcons.DataLakeDisabled` until migrated.
+ */
 export const DataLakeDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17">

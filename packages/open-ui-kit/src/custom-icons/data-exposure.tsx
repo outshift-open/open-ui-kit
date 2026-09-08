@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataExposure` yet — it remains available via
+ * `LegacyIcons.DataExposure` until migrated.
+ */
 export function DataExposure(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.72 19.87">

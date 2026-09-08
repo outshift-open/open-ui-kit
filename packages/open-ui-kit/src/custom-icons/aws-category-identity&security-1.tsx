@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSCategoryIdentitySecurity1` yet — it remains available via
+ * `LegacyIcons.AWSCategoryIdentitySecurity1` until migrated.
+ */
 export function AWSCategoryIdentitySecurity1(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

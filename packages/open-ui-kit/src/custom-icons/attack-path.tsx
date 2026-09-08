@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AttackPath` yet — it remains available via
+ * `LegacyIcons.AttackPath` until migrated.
+ */
 export function AttackPath(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

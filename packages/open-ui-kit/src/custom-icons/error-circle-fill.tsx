@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ErrorCircleFill` yet — it remains available via
+ * `LegacyIcons.ErrorCircleFill` until migrated.
+ */
 export function ErrorCircleFill(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

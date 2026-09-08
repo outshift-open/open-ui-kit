@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RootCauseAnalysisSelected` yet — it remains available via
+ * `LegacyIcons.RootCauseAnalysisSelected` until migrated.
+ */
 export const RootCauseAnalysisSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -39,6 +44,11 @@ export const RootCauseAnalysisSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RootCauseAnalysisUnSelected` yet — it remains available via
+ * `LegacyIcons.RootCauseAnalysisUnSelected` until migrated.
+ */
 export const RootCauseAnalysisUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -72,6 +82,11 @@ export const RootCauseAnalysisUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RootCauseAnalysisDisabled` yet — it remains available via
+ * `LegacyIcons.RootCauseAnalysisDisabled` until migrated.
+ */
 export const RootCauseAnalysisDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

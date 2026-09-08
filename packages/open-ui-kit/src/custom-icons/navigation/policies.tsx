@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `PoliciesSelected` yet — it remains available via
+ * `LegacyIcons.PoliciesSelected` until migrated.
+ */
 export const PoliciesSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 21">
@@ -25,6 +30,11 @@ export const PoliciesSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `PoliciesUnSelected` yet — it remains available via
+ * `LegacyIcons.PoliciesUnSelected` until migrated.
+ */
 export const PoliciesUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 21">
@@ -44,6 +54,11 @@ export const PoliciesUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `PoliciesDisabled` yet — it remains available via
+ * `LegacyIcons.PoliciesDisabled` until migrated.
+ */
 export const PoliciesDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 21">

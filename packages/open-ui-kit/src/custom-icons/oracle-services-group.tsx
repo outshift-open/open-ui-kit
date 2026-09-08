@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OracleServicesGroup` yet — it remains available via
+ * `LegacyIcons.OracleServicesGroup` until migrated.
+ */
 export function OracleServicesGroup(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

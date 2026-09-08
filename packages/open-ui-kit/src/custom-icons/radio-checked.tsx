@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RadioChecked` yet — it remains available via
+ * `LegacyIcons.RadioChecked` until migrated.
+ */
 export function RadioChecked(props: SvgIconProps) {
   return (
     <SvgIcon viewBox="0 0 18 18" {...props}>

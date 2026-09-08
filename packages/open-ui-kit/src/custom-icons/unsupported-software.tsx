@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `UnsupportedSoftware` yet — it remains available via
+ * `LegacyIcons.UnsupportedSoftware` until migrated.
+ */
 export function UnsupportedSoftware(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 16.548">

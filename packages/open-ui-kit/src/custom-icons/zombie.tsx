@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Zombie` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Zombie`.
+ */
 export function Zombie(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

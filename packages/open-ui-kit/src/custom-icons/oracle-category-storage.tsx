@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OracleCategoryStorage` yet — it remains available via
+ * `LegacyIcons.OracleCategoryStorage` until migrated.
+ */
 export function OracleCategoryStorage(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

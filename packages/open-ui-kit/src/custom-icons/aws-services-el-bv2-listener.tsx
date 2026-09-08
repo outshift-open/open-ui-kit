@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesELBv2Listener` yet — it remains available via
+ * `LegacyIcons.AWSServicesELBv2Listener` until migrated.
+ */
 export function AWSServicesELBv2Listener(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

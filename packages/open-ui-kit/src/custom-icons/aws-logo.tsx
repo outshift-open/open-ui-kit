@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSLogo` yet — it remains available via
+ * `LegacyIcons.AWSLogo` until migrated.
+ */
 export const AWSLogo = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 12">
@@ -17,6 +22,11 @@ export const AWSLogo = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSLogoColored` yet — it remains available via
+ * `LegacyIcons.AWSLogoColored` until migrated.
+ */
 export const AWSLogoColored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 12">

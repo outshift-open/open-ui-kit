@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityPostureSelected` yet — it remains available via
+ * `LegacyIcons.SecurityPostureSelected` until migrated.
+ */
 export const SecurityPostureSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -21,6 +26,11 @@ export const SecurityPostureSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityPostureUnSelected` yet — it remains available via
+ * `LegacyIcons.SecurityPostureUnSelected` until migrated.
+ */
 export const SecurityPostureUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -36,6 +46,11 @@ export const SecurityPostureUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SecurityPostureDisabled` yet — it remains available via
+ * `LegacyIcons.SecurityPostureDisabled` until migrated.
+ */
 export const SecurityPostureDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

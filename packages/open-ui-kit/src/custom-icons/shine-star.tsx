@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `PAShineStar` yet — it remains available via
+ * `LegacyIcons.PAShineStar` until migrated.
+ */
 export const PAShineStar = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>

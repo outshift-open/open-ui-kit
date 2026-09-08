@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesTargetGroup` yet — it remains available via
+ * `LegacyIcons.AWSServicesTargetGroup` until migrated.
+ */
 export function AWSServicesTargetGroup(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

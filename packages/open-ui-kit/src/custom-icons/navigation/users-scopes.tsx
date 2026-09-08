@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `UsersScopesSelected` yet — it remains available via
+ * `LegacyIcons.UsersScopesSelected` until migrated.
+ */
 export const UsersScopesSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 14.569">
@@ -23,6 +28,11 @@ export const UsersScopesSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `UsersScopesUnSelected` yet — it remains available via
+ * `LegacyIcons.UsersScopesUnSelected` until migrated.
+ */
 export const UsersScopesUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 14.569">
@@ -40,6 +50,11 @@ export const UsersScopesUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `UsersScopesDisabled` yet — it remains available via
+ * `LegacyIcons.UsersScopesDisabled` until migrated.
+ */
 export const UsersScopesDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 14.57">

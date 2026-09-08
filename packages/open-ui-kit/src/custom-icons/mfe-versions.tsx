@@ -6,6 +6,11 @@
 
 import { SvgIconProps, SvgIcon } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MFEVersionsIconUnSelected` yet — it remains available via
+ * `LegacyIcons.MFEVersionsIconUnSelected` until migrated.
+ */
 export const MFEVersionsIconUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -27,6 +32,11 @@ export const MFEVersionsIconUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MFEVersionsIconSelected` yet — it remains available via
+ * `LegacyIcons.MFEVersionsIconSelected` until migrated.
+ */
 export const MFEVersionsIconSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -48,6 +58,11 @@ export const MFEVersionsIconSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MFEVersionsIconDisabled` yet — it remains available via
+ * `LegacyIcons.MFEVersionsIconDisabled` until migrated.
+ */
 export const MFEVersionsIconDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>

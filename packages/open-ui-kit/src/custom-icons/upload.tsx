@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Upload` yet — it remains available via
+ * `LegacyIcons.Upload` until migrated.
+ */
 export function Upload(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 16 16">

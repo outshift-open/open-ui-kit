@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AzureServicesNetworkPolicy` yet — it remains available via
+ * `LegacyIcons.AzureServicesNetworkPolicy` until migrated.
+ */
 export function AzureServicesNetworkPolicy(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

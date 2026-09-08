@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `BookmarkEmpty` yet — it remains available via
+ * `LegacyIcons.BookmarkEmpty` until migrated.
+ */
 export function BookmarkEmpty(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 14 18">

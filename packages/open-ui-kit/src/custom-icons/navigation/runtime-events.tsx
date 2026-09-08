@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RuntimeEventsSelected` yet — it remains available via
+ * `LegacyIcons.RuntimeEventsSelected` until migrated.
+ */
 export const RuntimeEventsSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.182">
@@ -60,6 +65,11 @@ export const RuntimeEventsSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RuntimeEventsUnSelected` yet — it remains available via
+ * `LegacyIcons.RuntimeEventsUnSelected` until migrated.
+ */
 export const RuntimeEventsUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.182">
@@ -114,6 +124,11 @@ export const RuntimeEventsUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RuntimeEventsDisabled` yet — it remains available via
+ * `LegacyIcons.RuntimeEventsDisabled` until migrated.
+ */
 export const RuntimeEventsDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.182">

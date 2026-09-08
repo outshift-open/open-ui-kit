@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Label` yet — it remains available via
+ * `LegacyIcons.Label` until migrated.
+ */
 export function Label(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.778 14">

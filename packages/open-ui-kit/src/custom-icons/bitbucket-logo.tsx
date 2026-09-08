@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `BitbucketLogo` yet — it remains available via
+ * `LegacyIcons.BitbucketLogo` until migrated.
+ */
 export const BitbucketLogo = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.2">
@@ -19,6 +24,11 @@ export const BitbucketLogo = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `BitbucketLogoColored` yet — it remains available via
+ * `LegacyIcons.BitbucketLogoColored` until migrated.
+ */
 export const BitbucketLogoColored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.2">

@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `FrameworksSelected` yet — it remains available via
+ * `LegacyIcons.FrameworksSelected` until migrated.
+ */
 export const FrameworksSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18.16 20">
@@ -31,6 +36,11 @@ export const FrameworksSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `FrameworksUnSelected` yet — it remains available via
+ * `LegacyIcons.FrameworksUnSelected` until migrated.
+ */
 export const FrameworksUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18.16 20">
@@ -56,6 +66,11 @@ export const FrameworksUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `FrameworksDisabled` yet — it remains available via
+ * `LegacyIcons.FrameworksDisabled` until migrated.
+ */
 export const FrameworksDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18.16 20">

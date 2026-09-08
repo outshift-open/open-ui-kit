@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ArrowBack` yet — it remains available via
+ * `LegacyIcons.ArrowBack` until migrated.
+ */
 export function ArrowBack(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 15.58 15.163">

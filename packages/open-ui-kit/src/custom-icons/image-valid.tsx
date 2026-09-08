@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ImageValid` yet — it remains available via
+ * `LegacyIcons.ImageValid` until migrated.
+ */
 export function ImageValid(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

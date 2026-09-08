@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesCloudFormationStack` yet — it remains available via
+ * `LegacyIcons.AWSServicesCloudFormationStack` until migrated.
+ */
 export function AWSServicesCloudFormationStack(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>
