@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `KeyboardForwardSlash` yet — it remains available via
- * `LegacyIcons.KeyboardForwardSlash` until migrated.
+ * @deprecated Use `KeyboardForwardSlash` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.KeyboardForwardSlash`.
  */
 export function KeyboardForwardSlash(props: SvgIconProps) {
   return (

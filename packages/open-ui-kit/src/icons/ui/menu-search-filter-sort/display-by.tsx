@@ -1,0 +1,20 @@
+/*
+ * Copyright 2025 Cisco Systems, Inc. and its affiliates
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { SvgIcon, SvgIconProps } from "@mui/material";
+
+export function DisplayBy(props: SvgIconProps) {
+  return (
+    <SvgIcon {...props} viewBox="0 0 18 18">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1.7998 5.7998H16.2002V1.7998H1.7998V5.7998ZM18 6.59961C18 7.11727 17.6066 7.54338 17.1025 7.59473L17 7.59961H3.55782V13.2268H7.2V11.4004C7.2 10.8827 7.59333 10.4566 8.09746 10.4053L8.2 10.4004H16.9998C17.5521 10.4004 17.9998 10.8481 17.9998 11.4004V17C17.9998 17.5523 17.5521 18 16.9998 18H8.2C7.64772 18 7.2 17.5523 7.2 17V15.0275H2.65743C2.16037 15.0275 1.75704 14.6242 1.75704 14.1271V7.59961H1C0.447715 7.59961 0 7.15189 0 6.59961V1C0 0.447715 0.447715 0 1 0H17L17.1025 0.00488281C17.6067 0.0562147 18 0.482323 18 1V6.59961ZM8.9998 16.2002H16.2V12.2002H8.9998V16.2002Z"
+        fill="currentColor"
+      />
+    </SvgIcon>
+  );
+}

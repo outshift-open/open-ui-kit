@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Groups` yet — it remains available via
- * `LegacyIcons.Groups` until migrated.
+ * @deprecated Use `Groups` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Groups`.
  */
 export function Groups(props: SvgIconProps) {
   return (

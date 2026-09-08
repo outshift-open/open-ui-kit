@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `StopCircleOutline` yet — it remains available via
- * `LegacyIcons.StopCircleOutline` until migrated.
+ * @deprecated Use `StopCircleOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.StopCircleOutline`.
  */
 export function StopCircleOutline(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ArrowInsert` yet — it remains available via
- * `LegacyIcons.ArrowInsert` until migrated.
+ * @deprecated Use `ArrowInsert` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ArrowInsert`.
  */
 export function ArrowInsert(props: SvgIconProps) {
   return (

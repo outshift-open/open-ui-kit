@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Edit` yet — it remains available via
- * `LegacyIcons.Edit` until migrated.
+ * @deprecated Use `Edit` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Edit`.
  */
 export function Edit(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `BookmarkFilled` yet — it remains available via
- * `LegacyIcons.BookmarkFilled` until migrated.
+ * @deprecated Use `BookmarkFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.BookmarkFilled`.
  */
 export function BookmarkFilled(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `NotificationOffOutline` yet — it remains available via
- * `LegacyIcons.NotificationOffOutline` until migrated.
+ * @deprecated Use `NotificationOffOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.NotificationOffOutline`.
  */
 export function NotificationOffOutline(props: SvgIconProps) {
   return (

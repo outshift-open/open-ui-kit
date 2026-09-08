@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Plus` yet — it remains available via
- * `LegacyIcons.Plus` until migrated.
+ * @deprecated Use `Plus` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Plus`.
  */
 export function Plus(props: SvgIconProps) {
   return (

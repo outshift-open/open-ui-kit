@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `SkipNext` yet — it remains available via
- * `LegacyIcons.SkipNext` until migrated.
+ * @deprecated Use `SkipNext` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SkipNext`.
  */
 export function SkipNext(props: SvgIconProps) {
   return (

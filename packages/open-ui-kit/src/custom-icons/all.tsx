@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `All` yet — it remains available via
- * `LegacyIcons.All` until migrated.
+ * @deprecated Use `All` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.All`.
  */
 export function All(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `VisibilityOff` yet — it remains available via
- * `LegacyIcons.VisibilityOff` until migrated.
+ * @deprecated Use `VisibilityOff` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.VisibilityOff`.
  */
 export function VisibilityOff(props: SvgIconProps) {
   return (

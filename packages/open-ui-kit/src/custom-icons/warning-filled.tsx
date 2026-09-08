@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `WarningFilled` yet — it remains available via
- * `LegacyIcons.WarningFilled` until migrated.
+ * @deprecated Use `WarningFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.WarningFilled`.
  */
 export function WarningFilled(props: SvgIconProps) {
   return (

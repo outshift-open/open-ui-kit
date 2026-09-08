@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Minus` yet — it remains available via
- * `LegacyIcons.Minus` until migrated.
+ * @deprecated Use `Minus` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Minus`.
  */
 export function Minus(props: SvgIconProps) {
   return (

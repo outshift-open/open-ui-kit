@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `DragHorizontal` yet — it remains available via
- * `LegacyIcons.DragHorizontal` until migrated.
+ * @deprecated Use `DragHorizontal` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.DragHorizontal`.
  */
 export function DragHorizontal(props: SvgIconProps) {
   return (

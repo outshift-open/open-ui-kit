@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Dots` yet — it remains available via
- * `LegacyIcons.Dots` until migrated.
+ * @deprecated Use `Dots` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Dots`.
  */
 export function Dots(props: SvgIconProps) {
   return (

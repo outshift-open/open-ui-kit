@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ImageOutline` yet — it remains available via
- * `LegacyIcons.ImageOutline` until migrated.
+ * @deprecated Use `ImageOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ImageOutline`.
  */
 export function ImageOutline(props: SvgIconProps) {
   return (

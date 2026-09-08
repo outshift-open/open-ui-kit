@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ManageColumns` yet — it remains available via
- * `LegacyIcons.ManageColumns` until migrated.
+ * @deprecated Use `ManageColumns` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ManageColumns`.
  */
 export function ManageColumns(props: SvgIconProps) {
   return (

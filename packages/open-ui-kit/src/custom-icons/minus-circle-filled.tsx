@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `MinusCircleFilled` yet — it remains available via
- * `LegacyIcons.MinusCircleFilled` until migrated.
+ * @deprecated Use `MinusCircleFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MinusCircleFilled`.
  */
 export function MinusCircleFilled(props: SvgIconProps) {
   return (

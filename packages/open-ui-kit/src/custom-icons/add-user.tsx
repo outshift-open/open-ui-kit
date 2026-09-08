@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `AddUser` yet — it remains available via
- * `LegacyIcons.AddUser` until migrated.
+ * @deprecated Use `AddUser` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AddUser`.
  */
 export function AddUser(props: SvgIconProps) {
   return (

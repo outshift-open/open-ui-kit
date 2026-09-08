@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `Bolt` yet — it remains available via
- * `LegacyIcons.Bolt` until migrated.
+ * @deprecated Use `Bolt` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Bolt`.
  */
 export function Bolt(props: SvgIconProps) {
   return (

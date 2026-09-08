@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `GroupBy` yet — it remains available via
- * `LegacyIcons.GroupBy` until migrated.
+ * @deprecated Use `GroupBy` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.GroupBy`.
  */
 export function GroupBy(props: SvgIconProps) {
   return (

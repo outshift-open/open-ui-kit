@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `AccountCircleLive` yet — it remains available via
- * `LegacyIcons.AccountCircleLive` until migrated.
+ * @deprecated Use `AccountCircleLive` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AccountCircleLive`.
  */
 export function AccountCircleLive(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `FileUpload` yet — it remains available via
- * `LegacyIcons.FileUpload` until migrated.
+ * @deprecated Use `FileUpload` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.FileUpload`.
  */
 export function FileUpload(props: SvgIconProps) {
   return (

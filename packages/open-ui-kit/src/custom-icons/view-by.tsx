@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ViewBy` yet — it remains available via
- * `LegacyIcons.ViewBy` until migrated.
+ * @deprecated Use `ViewBy` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ViewBy`.
  */
 export function ViewBy(props: SvgIconProps) {
   return (

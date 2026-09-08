@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ArrowDownCircleFilled` yet — it remains available via
- * `LegacyIcons.ArrowDownCircleFilled` until migrated.
+ * @deprecated Use `ArrowDownCircleFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ArrowDownCircleFilled`.
  */
 export function ArrowDownCircleFilled(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `KeyboardDoubleArrowLeft` yet — it remains available via
- * `LegacyIcons.KeyboardDoubleArrowLeft` until migrated.
+ * @deprecated Use `KeyboardDoubleArrowLeft` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.KeyboardDoubleArrowLeft`.
  */
 export function KeyboardDoubleArrowLeft(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `EmergencyFilled` yet — it remains available via
- * `LegacyIcons.EmergencyFilled` until migrated.
+ * @deprecated Use `EmergencyFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.EmergencyFilled`.
  */
 export function EmergencyFilled(props: SvgIconProps) {
   return (

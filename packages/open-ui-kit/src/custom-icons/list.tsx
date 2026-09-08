@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `List` yet — it remains available via
- * `LegacyIcons.List` until migrated.
+ * @deprecated Use `List` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.List`.
  */
 export function List(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `SouthEast` yet — it remains available via
- * `LegacyIcons.SouthEast` until migrated.
+ * @deprecated Use `SouthEast` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SouthEast`.
  */
 export function SouthEast(props: SvgIconProps) {
   return (
