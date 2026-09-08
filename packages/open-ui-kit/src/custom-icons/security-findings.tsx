@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `SecurityFindings` yet — it remains available via
- * `LegacyIcons.SecurityFindings` until migrated.
+ * @deprecated Use `SecurityFindings` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SecurityFindings`.
  */
 export function SecurityFindings(props: SvgIconProps) {
   return (

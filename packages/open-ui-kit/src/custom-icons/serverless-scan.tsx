@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `ServerlessScan` yet — it remains available via
- * `LegacyIcons.ServerlessScan` until migrated.
+ * @deprecated Use `ServerlessScan` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ServerlessScan`.
  */
 export function ServerlessScan(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `DatabaseAttackPath` yet — it remains available via
- * `LegacyIcons.DatabaseAttackPath` until migrated.
+ * @deprecated Use `DatabaseAttackPath` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.DatabaseAttackPath`.
  */
 export function DatabaseAttackPath(props: SvgIconProps) {
   return (
