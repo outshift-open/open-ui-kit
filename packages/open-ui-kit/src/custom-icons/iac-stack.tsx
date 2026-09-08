@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `IacStack` yet — it remains available via
- * `LegacyIcons.IacStack` until migrated.
+ * @deprecated Use `IacStack` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.IacStack`.
  */
 export function IacStack(props: SvgIconProps) {
   return (

@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `SecretExposure` yet — it remains available via
- * `LegacyIcons.SecretExposure` until migrated.
+ * @deprecated Use `SecretExposure` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SecretExposure`.
  */
 export const SecretExposure = (props: SvgIconProps) => (
   <SvgIcon {...props}>

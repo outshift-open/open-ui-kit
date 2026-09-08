@@ -7,9 +7,8 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
- * No direct replacement has been identified for `PermissiveAccess` yet — it remains available via
- * `LegacyIcons.PermissiveAccess` until migrated.
+ * @deprecated Use `PermissiveAccess` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PermissiveAccess`.
  */
 export function PermissiveAccess(props: SvgIconProps) {
   return (
