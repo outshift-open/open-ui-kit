@@ -695,16 +695,26 @@ export const darkNavyPalette = {
 };
 
 // Electric Blue (Midnight primary / interactive)
+export const electricBlue50 = "#eef6ff";
+export const electricBlue100 = "#cce7ff";
 export const electricBlue300 = "#0ab6ff";
+export const electricBlue400 = "#2fa0ff";
 export const electricBlue500 = "#558bff";
+export const electricBlue600 = "#347ae5";
 export const electricBlue700 = "#1469cc";
+export const electricBlue900 = "#083a73";
 export const electricBlueAlpha40 = "#558bff66";
 export const electricBlueAlpha10 = "#558bff19";
 
 export const electricBluePalette = {
+  50: electricBlue50,
+  100: electricBlue100,
   300: electricBlue300,
+  400: electricBlue400,
   500: electricBlue500,
+  600: electricBlue600,
   700: electricBlue700,
+  900: electricBlue900,
   alpha40: electricBlueAlpha40,
   alpha10: electricBlueAlpha10,
 };

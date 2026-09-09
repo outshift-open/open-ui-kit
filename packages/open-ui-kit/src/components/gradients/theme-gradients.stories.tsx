@@ -159,9 +159,9 @@ const ThemeGradientsDemo = () => {
         </Typography>
         <Typography variant="body2" color={theme.palette.vars.baseTextDefault}>
           Read from <code>theme.palette.gradients</code>. Switch the theme in
-          the toolbar — every swatch re-resolves with no code branching. Values
-          are designed for Midnight; Light, Dark and IoC currently fall back to
-          a provisional base set.
+          the toolbar — every swatch re-resolves with no code branching. Design
+          has delivered Midnight, and IoC resolves the same set; Light and Dark
+          still fall back to a provisional base set.
         </Typography>
       </Stack>
 

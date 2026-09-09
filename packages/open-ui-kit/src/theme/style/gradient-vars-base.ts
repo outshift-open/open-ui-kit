@@ -91,12 +91,14 @@ export const gradientTextWhiteBlue = `linear-gradient(90deg, ${stops.textWhiteBl
  * render something on-brand rather than nothing.
  *
  * Those are PROVISIONAL, not design-approved. When design delivers Light /
- * Dark / IoC gradients, add a `*-gradient-vars.ts` per theme that spreads this
+ * Dark gradients, add a `*-gradient-vars.ts` per theme that spreads this
  * object and overrides, exactly as `midnight-gradient-vars.ts` does.
  *
- * Midnight overrides every provisional entry, so only the three shared
- * gradients above (the two button gradients and the text gradient) reach the
- * Midnight theme from this file.
+ * Midnight overrides 41 of the 46 entries. The five it keeps are the three
+ * shared gradients above, `gradientPanelExecBorder`, and `gradientAlertLineRed`
+ * — which Midnight reuses unchanged rather than re-deriving. IoC resolves
+ * Midnight's set rather than this one, see `ioc-gradient-vars.ts`, so Light and
+ * Dark are the only themes this fallback still serves in full.
  */
 export const baseGradientVars: GradientVarsType = {
   // --- Fills ---------------------------------------------------------------

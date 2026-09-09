@@ -20,6 +20,7 @@ export { iocVars } from "./theme/ioc/ioc-vars";
 export { midnightVars } from "./theme/midnight/midnight-vars";
 export { baseGradientVars } from "./theme/style/gradient-vars-base";
 export { midnightGradientVars } from "./theme/midnight/midnight-gradient-vars";
+export { iocGradientVars } from "./theme/ioc/ioc-gradient-vars";
 export type { VarsType } from "./types/vars";
 export type { GradientVarsType } from "./types/gradient-vars";
 export {

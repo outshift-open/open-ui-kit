@@ -12,6 +12,7 @@ import { iocTheme } from "@/theme/ioc/ioc-theme";
 import { midnightTheme } from "@/theme/midnight/midnight-theme";
 import { baseGradientVars } from "../gradient-vars-base";
 import { midnightGradientVars } from "@/theme/midnight/midnight-gradient-vars";
+import { iocGradientVars } from "@/theme/ioc/ioc-gradient-vars";
 import { gradientsRedPressed } from "../gradients";
 
 const TOKEN_KEYS = Object.keys(baseGradientVars).sort();
@@ -54,10 +55,13 @@ describe("gradient vars contract", () => {
     expect(midnightTheme.palette.gradients).toEqual(midnightGradientVars);
   });
 
-  it("falls back to the base set on the non-Midnight themes", () => {
+  it("resolves IoC to the IoC gradient set", () => {
+    expect(iocTheme.palette.gradients).toEqual(iocGradientVars);
+  });
+
+  it("falls back to the base set on the themes design has not delivered", () => {
     expect(lightTheme.palette.gradients).toEqual(baseGradientVars);
     expect(darkTheme.palette.gradients).toEqual(baseGradientVars);
-    expect(iocTheme.palette.gradients).toEqual(baseGradientVars);
   });
 
   it("switches value when the theme switches", () => {

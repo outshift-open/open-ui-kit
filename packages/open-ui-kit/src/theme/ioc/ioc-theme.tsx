@@ -21,7 +21,7 @@ import {
   Shadows,
 } from "@mui/material";
 import { iocVars } from "./ioc-vars";
-import { baseGradientVars } from "@/theme/style/gradient-vars-base";
+import { iocGradientVars } from "@/theme/ioc/ioc-gradient-vars";
 import {
   iocTealPalette,
   iocBluePalette,
@@ -71,7 +71,7 @@ const palette: PaletteOptions = {
   orange: orangePalette,
   grey: greyPalette,
   vars: iocVars,
-  gradients: baseGradientVars,
+  gradients: iocGradientVars,
   text: {
     primary: iocTextPrimary,
     secondary: iocTextSecondary,
@@ -144,4 +144,4 @@ const iocThemeOptions: ThemeOptions = {
 
 export const iocTheme: Theme = createTheme(baseTheme, iocThemeOptions);
 iocTheme.palette.vars = iocVars;
-iocTheme.palette.gradients = baseGradientVars;
+iocTheme.palette.gradients = iocGradientVars;
