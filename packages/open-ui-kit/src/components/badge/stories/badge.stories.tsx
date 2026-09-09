@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Mail } from "@mui/icons-material";
+import { Mail, Star } from "@mui/icons-material";
 import { Stack } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Badge } from "../components/badge";
 import type { BadgeProps } from "../types";
-import { BADGE_TYPES } from "../styles";
+import { BADGE_SHAPES, BADGE_SIZES, BADGE_TYPES } from "../styles";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -31,11 +31,22 @@ const meta: Meta<typeof Badge> = {
       control: "select",
       options: BADGE_TYPES,
     },
+    shape: {
+      control: "select",
+      options: [undefined, ...BADGE_SHAPES],
+    },
+    size: {
+      control: "inline-radio",
+      options: BADGE_SIZES,
+    },
     content: {
       control: "text",
     },
     notificationContent: {
       control: "text",
+    },
+    icon: {
+      table: { disable: true },
     },
     styleBadge: {
       table: { disable: true },
@@ -83,4 +94,64 @@ export const WithLongLabel: Story = {
     type: "info",
     content: "Beta",
   },
+};
+
+/**
+  Badge with Mulitple Shapes
+ */
+export const Shapes: Story = {
+  render: (args: BadgeProps) => (
+    <Stack direction="row" spacing={4} useFlexGap alignItems="center">
+      {(
+        [
+          { shape: "circle", size: "medium", type: "info" },
+          { shape: "circle", size: "large", type: "success" },
+          { shape: "triangleUp", size: "large", type: "warning" },
+          { shape: "triangleDown", size: "large", type: "error" },
+          { shape: "dash", size: "large", type: "inactive" },
+        ] as const
+      ).map(({ shape, size, type }) => (
+        <Badge
+          key={`${shape}-${size}`}
+          {...args}
+          shape={shape}
+          size={size}
+          type={type}
+        />
+      ))}
+    </Stack>
+  ),
+};
+
+/**
+  Badge with Dynamic content
+ */
+export const OptionalBehaviors: Story = {
+  render: (args: BadgeProps) => (
+    <Stack spacing={3} direction="row" useFlexGap>
+      <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+        <Badge
+          key="optional-behavior"
+          {...args}
+          type={"excellent"}
+          icon={<Star />}
+          content={1}
+        />
+      </Stack>
+      <Stack direction="row" spacing={3} useFlexGap flexWrap="wrap">
+        {([{ type: "excellent", label: "Info" }] as const).map(
+          ({ type, label }) => (
+            <Badge
+              key={`labelled-${type}`}
+              {...args}
+              shape="circle"
+              type={type}
+              content={label}
+              size="medium"
+            />
+          ),
+        )}
+      </Stack>
+    </Stack>
+  ),
 };

@@ -5,4 +5,4 @@
  */
 
 export { Badge } from "./components/badge";
-export type { BadgeProps, BadgeType } from "./types";
+export type { BadgeProps, BadgeShape, BadgeSize, BadgeType } from "./types";
