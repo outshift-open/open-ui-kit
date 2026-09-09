@@ -11,6 +11,7 @@ export * from "./charts";
 export * from "./templates";
 export * as Icons from "./icons";
 export * as LegacyIcons from "./custom-icons";
+export * as Graphics from "./graphics";
 export * from "./custom-illustrations";
 export * from "./common";
 export * from "./theme/style/color-palette";

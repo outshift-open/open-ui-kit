@@ -1,0 +1,15 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Graphics from "@/graphics";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { GraphicsGalleryDocs } from "./graphics-gallery";
+
+<Meta title="Foundations/Graphics" />
+
+<DocsHeader
+  title="Graphics"
+  blurb={`Open UI Kit graphic icon set: ${Object.keys(Graphics).length} exports (${Object.keys(Graphics).length / 3} navigation/submenu marks × 3 states) migrated from Figma's "Graphics" section. Unlike Icons, each state paints its own theme.palette.vars tokens instead of currentColor. Click any tile to copy its export name.`}
+  importLine='import { Graphics } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
+
+<GraphicsGalleryDocs allGraphics={Graphics} />
