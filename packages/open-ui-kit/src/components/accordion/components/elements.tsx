@@ -25,6 +25,7 @@ export const StyledAccordion = styled(Accordion, {
     padding: 0,
     color: theme.palette.vars.baseTextStrong,
     backgroundColor: "transparent",
+    backgroundImage: "none",
     boxShadow: "none",
     "&::before": {
       display: "none",
@@ -41,15 +42,10 @@ export const StyledAccordion = styled(Accordion, {
         borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
       }),
     ...(contained && {
-      backgroundColor: theme.palette.vars.baseBackgroundWeak,
       border: "1px solid transparent",
       borderRadius: "8px !important",
       "&:hover:not(.Mui-disabled)": {
         borderColor: theme.palette.vars.controlBorderHover,
-      },
-      "&.Mui-disabled": {
-        backgroundColor: theme.palette.vars.baseBackgroundMedium,
-        borderColor: "transparent",
       },
     }),
   }),
@@ -80,9 +76,7 @@ export const StyledAccordionSummary = styled(AccordionSummary, {
     },
   },
   "&.Mui-focusVisible, &:focus-visible": {
-    backgroundColor: contained
-      ? theme.palette.vars.baseBackgroundWeak
-      : "transparent",
+    backgroundColor: "transparent",
     boxShadow: `inset 0 0 0 2px ${theme.palette.vars.controlBorderActive}`,
   },
   [`& .${accordionSummaryClasses.content}`]: {
