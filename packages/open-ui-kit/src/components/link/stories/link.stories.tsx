@@ -6,11 +6,13 @@
 
 import { BrowserRouter } from "react-router-dom";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Theme } from "@mui/material";
 import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { GeneralSize, IconPosition } from "@/common";
 import { Link as LinkIcon } from "@/custom-icons";
 import { Link } from "../components/link";
+import { getLinkColors } from "../styles";
 import { LinkColorEnum, LinkType } from "../types";
 
 const meta: Meta<typeof Link> = {
@@ -84,8 +86,44 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const storyStackStyles = {
+  display: "flex",
+  flexDirection: "row",
+  gap: 4,
   alignItems: "flex-start",
 };
+
+type PinnedState = "hover" | "pressed" | "focus";
+
+/**
+ * Hover, pressed, and focus resolve from pointer and keyboard interaction, so the docs
+ * page would otherwise only ever show the default state. These stories pin one state at a
+ * time using the same tokens the component uses, matching the Link spec sheet in Figma.
+ * The focus ring uses each color family's own default token, so primary and secondary
+ * links carry their own ring rather than a shared one.
+ */
+const pinnedStateSx =
+  (state: PinnedState, color: LinkColorEnum) => (theme: Theme) => {
+    const colors = getLinkColors(theme, color);
+
+    if (state === "focus") {
+      return {
+        color: colors.default,
+        outline: `2px solid ${colors.default}`,
+        outlineOffset: "1px",
+        "&:hover": { color: colors.default },
+        "&:active": { color: colors.default },
+      };
+    }
+
+    const pinnedColor = state === "hover" ? colors.hover : colors.pressed;
+
+    return {
+      color: pinnedColor,
+      textDecoration: "underline",
+      "&:hover": { color: pinnedColor },
+      "&:active": { color: pinnedColor },
+    };
+  };
 
 export const Default: Story = {};
 
@@ -105,6 +143,57 @@ export const StandaloneBold: Story = {
   args: {
     linkType: LinkType.StandaloneBold,
   },
+};
+
+export const Hover: Story = {
+  render: (args) => (
+    <Stack gap={2} sx={storyStackStyles}>
+      <Link
+        {...args}
+        color={LinkColorEnum.Primary}
+        sx={pinnedStateSx("hover", LinkColorEnum.Primary)}
+      />
+      <Link
+        {...args}
+        color={LinkColorEnum.Secondary}
+        sx={pinnedStateSx("hover", LinkColorEnum.Secondary)}
+      />
+    </Stack>
+  ),
+};
+
+export const Pressed: Story = {
+  render: (args) => (
+    <Stack gap={2} sx={storyStackStyles}>
+      <Link
+        {...args}
+        color={LinkColorEnum.Primary}
+        sx={pinnedStateSx("pressed", LinkColorEnum.Primary)}
+      />
+      <Link
+        {...args}
+        color={LinkColorEnum.Secondary}
+        sx={pinnedStateSx("pressed", LinkColorEnum.Secondary)}
+      />
+    </Stack>
+  ),
+};
+
+export const Focused: Story = {
+  render: (args) => (
+    <Stack gap={2} sx={storyStackStyles}>
+      <Link
+        {...args}
+        color={LinkColorEnum.Primary}
+        sx={pinnedStateSx("focus", LinkColorEnum.Primary)}
+      />
+      <Link
+        {...args}
+        color={LinkColorEnum.Secondary}
+        sx={pinnedStateSx("focus", LinkColorEnum.Secondary)}
+      />
+    </Stack>
+  ),
 };
 
 export const Disabled: Story = {
