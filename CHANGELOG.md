@@ -1,3 +1,11 @@
+# [2.5.0](https://github.com/outshift-open/open-ui-kit/compare/v2.4.0...v2.5.0) (2026-09-09)
+
+
+### Features
+
+* **ioc:** adopt the proposed IoC colour tokens ([1b8cd91](https://github.com/outshift-open/open-ui-kit/commit/1b8cd910749e242c26097c8386c51a02ed0cf411))
+* **ioc:** resolve design-approved gradients for the IoC theme ([29140ff](https://github.com/outshift-open/open-ui-kit/commit/29140fffa10ebdfec3637cbddb5b1a2df0fbabdb))
+
 # [2.4.0](https://github.com/outshift-open/open-ui-kit/compare/v2.3.0...v2.4.0) (2026-08-25)
 
 
