@@ -1,3 +1,32 @@
+# [3.0.0](https://github.com/outshift-open/open-ui-kit/compare/v2.5.0...v3.0.0) (2026-09-10)
+
+
+* feat(icons)!: expose migrated icons via Icons and move legacy set to LegacyIcons ([6953041](https://github.com/outshift-open/open-ui-kit/commit/6953041d2085e9f2efbd216c3a753be7dd88fd57))
+
+
+### Bug Fixes
+
+* **icons:** move Payments icon to its correct Figma category ([e715083](https://github.com/outshift-open/open-ui-kit/commit/e715083ba90123b5242c4037ad28d473935a3ce4))
+
+
+### Features
+
+* **graphics:** migrate nav and submenu graphic icon sets from Figma ([4b8a364](https://github.com/outshift-open/open-ui-kit/commit/4b8a3649525c73ff24b0d0aa56fffe908f08d6ed))
+* **icons:** add the first Figma-migrated icon set under icons/ ([c0fb82c](https://github.com/outshift-open/open-ui-kit/commit/c0fb82c82d6230cb84c5c24da68896e1f2fec08b))
+* **icons:** migrate Data, Asset inventory, Policies, Bug, API, and Network icon categories from Figma ([14a5db4](https://github.com/outshift-open/open-ui-kit/commit/14a5db4b84b1563fea9eb283c64a9df26e445d03))
+* **icons:** migrate Integrations and brand-logo Code & build icon categories from Figma ([30b426d](https://github.com/outshift-open/open-ui-kit/commit/30b426d63d26eca658f5a1dfe72cbbfb2bdc9cb0))
+* **icons:** migrate Left Nav, Health & Safety, and Mitre icon categories from Figma ([acb64ca](https://github.com/outshift-open/open-ui-kit/commit/acb64cac03a15280124dd9e54589baad1eabda3e))
+* **icons:** migrate remaining General system icon categories from Figma ([243ad2e](https://github.com/outshift-open/open-ui-kit/commit/243ad2e1349fd4090ec207cf554e2f0e5519b1b9))
+* **icons:** migrate Security Posture and generic Code & build icon categories from Figma ([9068125](https://github.com/outshift-open/open-ui-kit/commit/90681250b64f514acce81797af8da16524b662f9))
+* **storybook:** group Iconography docs by Figma categories, split legacy view ([4f25201](https://github.com/outshift-open/open-ui-kit/commit/4f25201439b230c0ed0074e1f5d58dc5a02b1d96))
+
+
+### BREAKING CHANGES
+
+* Icons.* now resolves to the Figma-migrated icon set; the previous icon set is available via LegacyIcons.*.
+
+Signed-off-by: misi-bp <mkaloczy@cisco.com>
+
 # [2.5.0](https://github.com/outshift-open/open-ui-kit/compare/v2.4.0...v2.5.0) (2026-09-09)
 
 
