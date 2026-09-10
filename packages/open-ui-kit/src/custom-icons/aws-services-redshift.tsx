@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesRedshift` yet — it remains available via
+ * `LegacyIcons.AWSServicesRedshift` until migrated.
+ */
 export function AWSServicesRedshift(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

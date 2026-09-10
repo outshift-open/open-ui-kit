@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `A2a` yet — it remains available via
+ * `LegacyIcons.A2a` until migrated.
+ */
 export function A2a(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 22 8.3">

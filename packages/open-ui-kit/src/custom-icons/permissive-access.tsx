@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `PermissiveAccess` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PermissiveAccess`.
+ */
 export function PermissiveAccess(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.65 17.825">

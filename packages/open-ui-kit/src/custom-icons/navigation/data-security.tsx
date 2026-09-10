@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataSecuritySelected` yet — it remains available via
+ * `LegacyIcons.DataSecuritySelected` until migrated.
+ */
 export const DataSecuritySelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.114">
@@ -29,6 +34,11 @@ export const DataSecuritySelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataSecurityUnSelected` yet — it remains available via
+ * `LegacyIcons.DataSecurityUnSelected` until migrated.
+ */
 export const DataSecurityUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.114">
@@ -52,6 +62,11 @@ export const DataSecurityUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DataSecurityDisabled` yet — it remains available via
+ * `LegacyIcons.DataSecurityDisabled` until migrated.
+ */
 export const DataSecurityDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18.114">

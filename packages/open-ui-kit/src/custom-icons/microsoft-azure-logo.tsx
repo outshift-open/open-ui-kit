@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MicrosoftAzure` yet — it remains available via
+ * `LegacyIcons.MicrosoftAzure` until migrated.
+ */
 export const MicrosoftAzure = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 15">
@@ -19,6 +24,11 @@ export const MicrosoftAzure = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MicrosoftAzureColored` yet — it remains available via
+ * `LegacyIcons.MicrosoftAzureColored` until migrated.
+ */
 export const MicrosoftAzureColored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 15">

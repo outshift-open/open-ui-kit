@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `FolderOpen` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.FolderOpen`.
+ */
 export function FolderOpen(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 21.744 16.501">

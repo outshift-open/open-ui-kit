@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `StarHalf` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.StarHalf`.
+ */
 export function StarHalf(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 17.201">

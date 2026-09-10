@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `GitlabRepoAsset` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.GitLabRepoAsset`.
+ */
 export function GitLabRepoAsset(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

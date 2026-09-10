@@ -1,0 +1,15 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as Icons from "@/icons";
+import { DocsHeader } from "storybook/components/docs-header.stories";
+import { IconGalleryGroupedDocs } from "./icon-gallery-grouped";
+
+<Meta title="Foundations/Iconography" />
+
+<DocsHeader
+  title="Iconography"
+  blurb={`Open UI Kit icon set: ${Object.keys(Icons).length} icons migrated from Figma, grouped to match the Figma "Icons" section exactly. Click any icon to copy its export name.`}
+  importLine='import { Icons } from "@open-ui-kit/core";'
+  includeStories={false}
+/>
+
+<IconGalleryGroupedDocs allIcons={Icons} />

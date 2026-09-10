@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `BookmarkAdded` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.BookmarkAdded`.
+ */
 export function BookmarkAdded(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.38 16.977">

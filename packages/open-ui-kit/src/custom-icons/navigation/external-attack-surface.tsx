@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ExternalAttackSurfaceSelected` yet — it remains available via
+ * `LegacyIcons.ExternalAttackSurfaceSelected` until migrated.
+ */
 export const ExternalAttackSurfaceSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 16.154">
@@ -23,6 +28,11 @@ export const ExternalAttackSurfaceSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ExternalAttackSurfaceUnSelected` yet — it remains available via
+ * `LegacyIcons.ExternalAttackSurfaceUnSelected` until migrated.
+ */
 export const ExternalAttackSurfaceUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 16.154">
@@ -40,6 +50,11 @@ export const ExternalAttackSurfaceUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ExternalAttackSurfaceDisabled` yet — it remains available via
+ * `LegacyIcons.ExternalAttackSurfaceDisabled` until migrated.
+ */
 export const ExternalAttackSurfaceDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 16.154">

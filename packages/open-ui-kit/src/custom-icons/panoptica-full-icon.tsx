@@ -4,6 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `PanopticaFullLogo` yet — it remains available via
+ * `LegacyIcons.PanopticaFullLogo` until migrated.
+ */
 export function PanopticaFullLogo() {
   return (
     <svg

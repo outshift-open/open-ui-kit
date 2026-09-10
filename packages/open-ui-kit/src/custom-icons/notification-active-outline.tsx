@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `NotificationActiveOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.NotificationActiveOutline`.
+ */
 export function NotificationActiveOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19.912 20">

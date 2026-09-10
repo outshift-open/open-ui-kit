@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Falcon` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Falcon`.
+ */
 export function Falcon(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

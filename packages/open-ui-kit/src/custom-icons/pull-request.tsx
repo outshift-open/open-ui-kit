@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `PullRequest` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PullRequest`.
+ */
 export function PullRequest(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

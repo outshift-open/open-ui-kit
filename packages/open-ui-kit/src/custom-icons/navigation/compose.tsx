@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ComposeSelected` yet — it remains available via
+ * `LegacyIcons.ComposeSelected` until migrated.
+ */
 export const ComposeSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -26,6 +31,11 @@ export const ComposeSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ComposeUnSelected` yet — it remains available via
+ * `LegacyIcons.ComposeUnSelected` until migrated.
+ */
 export const ComposeUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -46,6 +56,11 @@ export const ComposeUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ComposeDisabled` yet — it remains available via
+ * `LegacyIcons.ComposeDisabled` until migrated.
+ */
 export const ComposeDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

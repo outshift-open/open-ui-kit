@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Integrations` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Integrations`.
+ */
 export function Integrations(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 14.545">

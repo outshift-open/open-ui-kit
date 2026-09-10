@@ -8,6 +8,10 @@ import { SvgIcon, SvgIconProps } from "@mui/material";
 
 type PaReloadProps = SvgIconProps & { disabled?: boolean };
 
+/**
+ * @deprecated Use `Reload` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Reload`.
+ */
 export function Reload(props: PaReloadProps) {
   return (
     <SvgIcon {...props}>

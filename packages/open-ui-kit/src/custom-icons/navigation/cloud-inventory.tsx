@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CloudInventorySelected` yet — it remains available via
+ * `LegacyIcons.CloudInventorySelected` until migrated.
+ */
 export const CloudInventorySelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.748">
@@ -41,6 +46,11 @@ export const CloudInventorySelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CloudInventoryUnSelected` yet — it remains available via
+ * `LegacyIcons.CloudInventoryUnSelected` until migrated.
+ */
 export const CloudInventoryUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.748">
@@ -76,6 +86,11 @@ export const CloudInventoryUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CloudInventoryDisabled` yet — it remains available via
+ * `LegacyIcons.CloudInventoryDisabled` until migrated.
+ */
 export const CloudInventoryDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.748">

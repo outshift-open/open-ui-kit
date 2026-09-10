@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Bug` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Bug`.
+ */
 export function Bug(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

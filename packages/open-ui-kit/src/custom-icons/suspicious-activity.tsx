@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `SuspiciousActivity` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SuspiciousActivity`.
+ */
 export function SuspiciousActivity(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.52 17.5">

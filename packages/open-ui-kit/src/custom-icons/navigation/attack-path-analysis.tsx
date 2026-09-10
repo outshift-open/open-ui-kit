@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AttackPathAnalysisSelected` yet — it remains available via
+ * `LegacyIcons.AttackPathAnalysisSelected` until migrated.
+ */
 export const AttackPathAnalysisSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20.27 19.11">
@@ -27,6 +32,11 @@ export const AttackPathAnalysisSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AttackPathAnalysisUnSelected` yet — it remains available via
+ * `LegacyIcons.AttackPathAnalysisUnSelected` until migrated.
+ */
 export const AttackPathAnalysisUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20.27 19.11">
@@ -48,6 +58,11 @@ export const AttackPathAnalysisUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AttackPathAnalysisDisabled` yet — it remains available via
+ * `LegacyIcons.AttackPathAnalysisDisabled` until migrated.
+ */
 export const AttackPathAnalysisDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.11">

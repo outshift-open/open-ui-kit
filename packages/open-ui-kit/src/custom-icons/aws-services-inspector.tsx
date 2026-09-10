@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesInspector` yet — it remains available via
+ * `LegacyIcons.AWSServicesInspector` until migrated.
+ */
 export function AWSServicesInspector(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

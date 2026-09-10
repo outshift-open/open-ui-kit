@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SThreeBucket` yet — it remains available via
+ * `LegacyIcons.SThreeBucket` until migrated.
+ */
 export function SThreeBucket(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

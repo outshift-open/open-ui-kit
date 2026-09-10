@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `CheckSmall` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.CheckSmall`.
+ */
 export function CheckSmall(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 11.15 8.575">

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `MitreDefenceEvasion` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreDefenceEvasion`.
+ */
 export function MitreDefenceEvasion(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17">

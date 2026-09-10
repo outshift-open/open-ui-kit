@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `SkipNext` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SkipNext`.
+ */
 export function SkipNext(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `HealthStatusHeart` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.HealthStatusHeart`.
+ */
 export function HealthStatusHeart(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 18">

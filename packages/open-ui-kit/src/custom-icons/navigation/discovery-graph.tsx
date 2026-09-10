@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DiscoryGraphSelected` yet — it remains available via
+ * `LegacyIcons.DiscoryGraphSelected` until migrated.
+ */
 export const DiscoryGraphSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -33,6 +38,11 @@ export const DiscoryGraphSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DiscoryGraphUnSelected` yet — it remains available via
+ * `LegacyIcons.DiscoryGraphUnSelected` until migrated.
+ */
 export const DiscoryGraphUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
@@ -54,6 +64,11 @@ export const DiscoryGraphUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `DiscoryGraphDisabled` yet — it remains available via
+ * `LegacyIcons.DiscoryGraphDisabled` until migrated.
+ */
 export const DiscoryGraphDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>

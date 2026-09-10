@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Search` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Search`.
+ */
 export function Search(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.58 17.575">

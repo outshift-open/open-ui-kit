@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `PlayOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PlayOutline`.
+ */
 export function PlayOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 10.12 12.35">

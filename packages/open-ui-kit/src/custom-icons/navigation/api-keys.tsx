@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `APIKeysSelected` yet — it remains available via
+ * `LegacyIcons.APIKeysSelected` until migrated.
+ */
 export const APIKeysSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.816">
@@ -35,6 +40,11 @@ export const APIKeysSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `APIKeysUnSelected` yet — it remains available via
+ * `LegacyIcons.APIKeysUnSelected` until migrated.
+ */
 export const APIKeysUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.816">
@@ -64,6 +74,11 @@ export const APIKeysUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `APIKeysDisabled` yet — it remains available via
+ * `LegacyIcons.APIKeysDisabled` until migrated.
+ */
 export const APIKeysDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 17.816">

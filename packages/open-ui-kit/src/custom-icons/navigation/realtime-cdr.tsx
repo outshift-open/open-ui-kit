@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RealtimeCDRSelected` yet — it remains available via
+ * `LegacyIcons.RealtimeCDRSelected` until migrated.
+ */
 export const RealtimeCDRSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.8 20">
@@ -25,6 +30,11 @@ export const RealtimeCDRSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RealtimeCDRUnSelected` yet — it remains available via
+ * `LegacyIcons.RealtimeCDRUnSelected` until migrated.
+ */
 export const RealtimeCDRUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.79 20">
@@ -44,6 +54,11 @@ export const RealtimeCDRUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `RealtimeCDRDisabled` yet — it remains available via
+ * `LegacyIcons.RealtimeCDRDisabled` until migrated.
+ */
 export const RealtimeCDRDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.8 20">

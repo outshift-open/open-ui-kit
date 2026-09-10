@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ImageOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ImageOutline`.
+ */
 export function ImageOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

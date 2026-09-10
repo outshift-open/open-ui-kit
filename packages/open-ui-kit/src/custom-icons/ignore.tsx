@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Ignore` yet — it remains available via
+ * `LegacyIcons.Ignore` until migrated.
+ */
 export function Ignore(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

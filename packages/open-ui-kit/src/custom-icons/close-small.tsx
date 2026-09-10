@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `CloseSmall` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.CloseSmall`.
+ */
 export function CloseSmall(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 10 10">

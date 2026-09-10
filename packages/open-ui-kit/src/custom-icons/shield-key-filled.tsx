@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ShieldKeyFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ShieldKeyFilled`.
+ */
 export function ShieldKeyFilled(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 16.2 20">

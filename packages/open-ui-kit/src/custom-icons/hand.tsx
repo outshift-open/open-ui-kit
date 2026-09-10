@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Hand` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Hand`.
+ */
 export function Hand(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.481 18">

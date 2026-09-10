@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `BookmarkFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.BookmarkFilled`.
+ */
 export function BookmarkFilled(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 14 18">

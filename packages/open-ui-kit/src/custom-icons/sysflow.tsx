@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Sysflow` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Sysflow`.
+ */
 export function Sysflow(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

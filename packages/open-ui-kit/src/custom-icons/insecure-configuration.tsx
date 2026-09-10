@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `InsecureConfiguration` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.InsecureConfiguration`.
+ */
 export const InsecureConfiguration = (props: SvgIconProps) => (
   <SvgIcon {...props}>
     <svg

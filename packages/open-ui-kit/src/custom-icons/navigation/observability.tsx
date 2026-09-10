@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ObservabilitySelected` yet — it remains available via
+ * `LegacyIcons.ObservabilitySelected` until migrated.
+ */
 export const ObservabilitySelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.04">
@@ -23,6 +28,11 @@ export const ObservabilitySelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ObservabilityUnSelected` yet — it remains available via
+ * `LegacyIcons.ObservabilityUnSelected` until migrated.
+ */
 export const ObservabilityUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.04">
@@ -40,6 +50,11 @@ export const ObservabilityUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `ObservabilityDisabled` yet — it remains available via
+ * `LegacyIcons.ObservabilityDisabled` until migrated.
+ */
 export const ObservabilityDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 19.04">

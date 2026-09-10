@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ArrowUp` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.VulArrowUp`.
+ */
 export function VulArrowUp(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

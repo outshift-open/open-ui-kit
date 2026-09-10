@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesGlue` yet — it remains available via
+ * `LegacyIcons.AWSServicesGlue` until migrated.
+ */
 export function AWSServicesGlue(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

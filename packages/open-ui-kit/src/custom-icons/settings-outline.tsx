@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `SettingsOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SettingsOutline`.
+ */
 export function SettingsOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

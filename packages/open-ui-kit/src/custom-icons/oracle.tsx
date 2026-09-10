@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Oracle` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Oracle`.
+ */
 export function Oracle(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 12.624">

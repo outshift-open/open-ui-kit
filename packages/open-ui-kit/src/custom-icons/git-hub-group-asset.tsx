@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `GithubGroupAsset` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.GitHubGroupAsset`.
+ */
 export function GitHubGroupAsset(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

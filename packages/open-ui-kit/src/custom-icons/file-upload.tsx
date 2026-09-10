@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `FileUpload` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.FileUpload`.
+ */
 export function FileUpload(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 16">

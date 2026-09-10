@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Counter` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Counter`.
+ */
 export function Counter(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 7.68 14">

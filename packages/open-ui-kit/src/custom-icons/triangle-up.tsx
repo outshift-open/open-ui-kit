@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `TriangleUp` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.TriangleUp`.
+ */
 export function TriangleUp(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 10.589 5.793">

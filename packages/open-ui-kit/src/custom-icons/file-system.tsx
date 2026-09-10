@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `FileSystem` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.FileSystem`.
+ */
 export function FileSystem(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

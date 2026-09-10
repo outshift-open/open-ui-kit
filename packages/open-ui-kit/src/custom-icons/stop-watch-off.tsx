@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `StopwatchOff` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.StopWatchOff`.
+ */
 export function StopWatchOff(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.12 20">

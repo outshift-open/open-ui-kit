@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesS3Bucket` yet — it remains available via
+ * `LegacyIcons.AWSServicesS3Bucket` until migrated.
+ */
 export function AWSServicesS3Bucket(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

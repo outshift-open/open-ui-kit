@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `GCP` yet — it remains available via
+ * `LegacyIcons.GCP` until migrated.
+ */
 export function GCP(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19 15.4">

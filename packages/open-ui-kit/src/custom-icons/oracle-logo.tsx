@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OracleLogo` yet — it remains available via
+ * `LegacyIcons.OracleLogo` until migrated.
+ */
 export const OracleLogo = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 12.624">
@@ -17,6 +22,11 @@ export const OracleLogo = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OracleLogoColored` yet — it remains available via
+ * `LegacyIcons.OracleLogoColored` until migrated.
+ */
 export const OracleLogoColored = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 12.625">

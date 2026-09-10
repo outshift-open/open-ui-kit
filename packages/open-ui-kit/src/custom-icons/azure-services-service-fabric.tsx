@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AzureServicesServiceFabric` yet — it remains available via
+ * `LegacyIcons.AzureServicesServiceFabric` until migrated.
+ */
 export function AzureServicesServiceFabric(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

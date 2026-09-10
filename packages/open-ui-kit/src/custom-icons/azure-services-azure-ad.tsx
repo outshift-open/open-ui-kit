@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AzureServicesAzureAD` yet — it remains available via
+ * `LegacyIcons.AzureServicesAzureAD` until migrated.
+ */
 export function AzureServicesAzureAD(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

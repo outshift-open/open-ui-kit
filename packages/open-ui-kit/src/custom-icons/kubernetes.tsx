@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Kubernetes` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Kubernetes`.
+ */
 export function Kubernetes(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

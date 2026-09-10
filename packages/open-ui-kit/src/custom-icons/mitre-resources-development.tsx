@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `MitreResourcesDevelopment` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreResourcesDevelopment`.
+ */
 export function MitreResourcesDevelopment(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19.96 20">

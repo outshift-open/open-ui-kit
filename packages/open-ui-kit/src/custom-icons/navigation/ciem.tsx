@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CIEMSelected` yet — it remains available via
+ * `LegacyIcons.CIEMSelected` until migrated.
+ */
 export const CIEMSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -31,6 +36,11 @@ export const CIEMSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CIEMUnSelected` yet — it remains available via
+ * `LegacyIcons.CIEMUnSelected` until migrated.
+ */
 export const CIEMUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -56,6 +66,11 @@ export const CIEMUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `CIEMDisabled` yet — it remains available via
+ * `LegacyIcons.CIEMDisabled` until migrated.
+ */
 export const CIEMDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `MitrePersistence` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitrePersistence`.
+ */
 export function MitrePersistence(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19.857 20">

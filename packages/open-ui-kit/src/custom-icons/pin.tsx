@@ -6,6 +6,10 @@
 
 import { SvgIconProps, SvgIcon } from "@mui/material";
 
+/**
+ * @deprecated Use `Pin` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Pin`.
+ */
 export function Pin(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

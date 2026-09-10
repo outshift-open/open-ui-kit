@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ArrowForward` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ArrowForward`.
+ */
 export function ArrowForward(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 15.58 15.163">

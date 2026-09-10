@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SoftwareSupplyChainSelected` yet — it remains available via
+ * `LegacyIcons.SoftwareSupplyChainSelected` until migrated.
+ */
 export const SoftwareSupplyChainSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.12 20">
@@ -31,6 +36,11 @@ export const SoftwareSupplyChainSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SoftwareSupplyChainUnSelected` yet — it remains available via
+ * `LegacyIcons.SoftwareSupplyChainUnSelected` until migrated.
+ */
 export const SoftwareSupplyChainUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.12 20">
@@ -56,6 +66,11 @@ export const SoftwareSupplyChainUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `SoftwareSupplyChainDisabled` yet — it remains available via
+ * `LegacyIcons.SoftwareSupplyChainDisabled` until migrated.
+ */
 export const SoftwareSupplyChainDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 19.12 20">

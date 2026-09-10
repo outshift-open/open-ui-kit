@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `DataExposure` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.DataExposure`.
+ */
 export function DataExposure(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.72 19.87">

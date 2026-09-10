@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AzureServicesPublicIP` yet — it remains available via
+ * `LegacyIcons.AzureServicesPublicIP` until migrated.
+ */
 export function AzureServicesPublicIP(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

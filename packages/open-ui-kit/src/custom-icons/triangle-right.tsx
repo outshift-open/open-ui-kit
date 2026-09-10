@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `TriangleRight` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.TriangleRight`.
+ */
 export function TriangleRight(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 5.792 10.589">

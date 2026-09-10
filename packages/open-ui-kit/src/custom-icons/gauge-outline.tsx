@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `GaugeOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.GaugeOutline`.
+ */
 export function GaugeOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

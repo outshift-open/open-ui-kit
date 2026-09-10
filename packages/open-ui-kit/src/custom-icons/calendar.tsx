@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Calendar` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Calendar`.
+ */
 export function Calendar(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

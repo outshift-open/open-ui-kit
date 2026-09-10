@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `LLMSelected` yet — it remains available via
+ * `LegacyIcons.LLMSelected` until migrated.
+ */
 export const LLMSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -55,6 +60,11 @@ export const LLMSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `LLMUnSelected` yet — it remains available via
+ * `LegacyIcons.LLMUnSelected` until migrated.
+ */
 export const LLMUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">
@@ -104,6 +114,11 @@ export const LLMUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `LLMDisabled` yet — it remains available via
+ * `LegacyIcons.LLMDisabled` until migrated.
+ */
 export const LLMDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

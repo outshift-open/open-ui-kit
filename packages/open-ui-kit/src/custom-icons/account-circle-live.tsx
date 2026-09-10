@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `AccountCircleLive` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AccountCircleLive`.
+ */
 export function AccountCircleLive(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 19.8">

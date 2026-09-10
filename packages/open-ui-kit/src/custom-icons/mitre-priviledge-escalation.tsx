@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `MitrePriviledgeEscalation` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitrePriviledgeEscalation`.
+ */
 export function MitrePriviledgeEscalation(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

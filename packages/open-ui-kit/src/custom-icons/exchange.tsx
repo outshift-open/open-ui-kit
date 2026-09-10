@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Exchange` yet — it remains available via
+ * `LegacyIcons.Exchange` until migrated.
+ */
 export function Exchange(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

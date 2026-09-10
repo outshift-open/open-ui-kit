@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `DragVertical` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.DragVertical`.
+ */
 export function DragVertical(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 8.34 13.334">

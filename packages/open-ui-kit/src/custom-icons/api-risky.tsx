@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ApiRisky` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.APIRisky`.
+ */
 export function APIRisky(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18.36 15.02">

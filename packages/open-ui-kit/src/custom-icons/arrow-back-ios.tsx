@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ArrowBackIos` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ArrowBackIOS`.
+ */
 export function ArrowBackIOS(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

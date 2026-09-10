@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Evaluation` yet — it remains available via
+ * `LegacyIcons.Evaluation` until migrated.
+ */
 export function Evaluation(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 22 8.44">

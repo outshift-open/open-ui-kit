@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ThumbsDown` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ThumbsDown`.
+ */
 export function ThumbsDown(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 19.48 18">

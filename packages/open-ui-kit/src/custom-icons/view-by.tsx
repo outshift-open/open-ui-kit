@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ViewBy` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ViewBy`.
+ */
 export function ViewBy(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.74 18">

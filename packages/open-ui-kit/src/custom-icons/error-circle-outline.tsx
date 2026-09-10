@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ErrorCircleOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ErrorCircleOutline`.
+ */
 export function ErrorCircleOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

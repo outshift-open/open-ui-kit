@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `GroupBy` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.GroupBy`.
+ */
 export function GroupBy(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.712">

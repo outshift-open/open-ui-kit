@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AzureServicesAzureHDInsight` yet — it remains available via
+ * `LegacyIcons.AzureServicesAzureHDInsight` until migrated.
+ */
 export function AzureServicesAzureHDInsight(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

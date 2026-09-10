@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Collapse` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Collapse`.
+ */
 export function Collapse(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

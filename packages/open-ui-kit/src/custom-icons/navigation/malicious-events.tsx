@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MaliciousEventsSelected` yet — it remains available via
+ * `LegacyIcons.MaliciousEventsSelected` until migrated.
+ */
 export const MaliciousEventsSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.197">
@@ -109,6 +114,11 @@ export const MaliciousEventsSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MaliciousEventsUnSelected` yet — it remains available via
+ * `LegacyIcons.MaliciousEventsUnSelected` until migrated.
+ */
 export const MaliciousEventsUnSelected = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.197">
@@ -212,6 +222,11 @@ export const MaliciousEventsUnSelected = (props: SvgIconProps) => {
   );
 };
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `MaliciousEventsDisabled` yet — it remains available via
+ * `LegacyIcons.MaliciousEventsDisabled` until migrated.
+ */
 export const MaliciousEventsDisabled = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props} viewBox="0 0 18 16.197">

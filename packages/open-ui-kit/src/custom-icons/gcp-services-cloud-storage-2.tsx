@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `GCPServicesCloudStorage2` yet — it remains available via
+ * `LegacyIcons.GCPServicesCloudStorage2` until migrated.
+ */
 export function GCPServicesCloudStorage2(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

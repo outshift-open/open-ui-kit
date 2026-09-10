@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ArrowInsert` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ArrowInsert`.
+ */
 export function ArrowInsert(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 12.58 12.575">

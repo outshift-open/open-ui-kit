@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `AWSServicesElasticIP1` yet — it remains available via
+ * `LegacyIcons.AWSServicesElasticIP1` until migrated.
+ */
 export function AWSServicesElasticIP1(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

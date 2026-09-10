@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `PlayCircleOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.PlayCircleOutline`.
+ */
 export function PlayCircleOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 18 18">

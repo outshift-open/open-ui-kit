@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `Loading` yet — it remains available via
+ * `LegacyIcons.Loading` until migrated.
+ */
 export function Loading(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `KeyboardDoubleArrowUp` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.KeyboardDoubleArrowUp`.
+ */
 export function KeyboardDoubleArrowUp(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 11.161 12.561">

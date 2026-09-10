@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Documentation` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Documentation`.
+ */
 export function Documentation(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

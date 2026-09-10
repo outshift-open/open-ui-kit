@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `EmergencyOutlined` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.EmergencyOutlined`.
+ */
 export function EmergencyOutlined(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20 20">

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `LockOff` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.LockOff`.
+ */
 export function LockOff(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

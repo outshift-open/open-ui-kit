@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Dots` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Dots`.
+ */
 export function Dots(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 4 16">

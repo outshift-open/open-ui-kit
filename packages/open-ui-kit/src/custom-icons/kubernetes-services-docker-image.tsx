@@ -6,6 +6,11 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `KubernetesServicesDockerImage` yet — it remains available via
+ * `LegacyIcons.KubernetesServicesDockerImage` until migrated.
+ */
 export function KubernetesServicesDockerImage(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

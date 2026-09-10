@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Uninstall` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Uninstall`.
+ */
 export function Uninstall(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

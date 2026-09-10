@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Attack` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Attack`.
+ */
 export function Attack(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.081 18.5">

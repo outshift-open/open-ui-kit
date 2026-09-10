@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `MitreImpact` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.MitreImpact`.
+ */
 export function MitreImpact(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 15.84 18">

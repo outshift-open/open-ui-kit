@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `SecretExposure` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.SecretExposure`.
+ */
 export const SecretExposure = (props: SvgIconProps) => (
   <SvgIcon {...props}>
     <svg

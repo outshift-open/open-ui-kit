@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `AzureGroupAsset` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.AzureGroupAsset`.
+ */
 export function AzureGroupAsset(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

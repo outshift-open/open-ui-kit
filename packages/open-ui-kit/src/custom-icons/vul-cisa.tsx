@@ -6,6 +6,11 @@
 
 import { SvgIconProps, SvgIcon } from "@mui/material";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `VulCisa` yet — it remains available via
+ * `LegacyIcons.VulCisa` until migrated.
+ */
 export function VulCisa(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

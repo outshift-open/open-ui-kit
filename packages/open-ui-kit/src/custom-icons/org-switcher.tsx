@@ -20,6 +20,11 @@ const ARROW_PATH =
 const DIAMOND_PATH =
   "M 6.29,0.293 C 6.68,-0.097 7.32,-0.097 7.71,0.293 L 11.29,3.883 C 11.68,4.273 11.68,4.903 11.29,5.293 L 7.71,8.883 C 7.32,9.273 6.68,9.273 6.29,8.883 L 2.71,5.293 C 2.32,4.903 2.32,4.273 2.71,3.883 L 6.29,0.293";
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OrgSwitcherWeak` yet — it remains available via
+ * `LegacyIcons.OrgSwitcherWeak` until migrated.
+ */
 export function OrgSwitcherWeak(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20.0 18.583">
@@ -28,6 +33,11 @@ export function OrgSwitcherWeak(props: SvgIconProps) {
   );
 }
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OrgSwitcherMedium` yet — it remains available via
+ * `LegacyIcons.OrgSwitcherMedium` until migrated.
+ */
 export function OrgSwitcherMedium(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20.0 18.583">
@@ -36,6 +46,11 @@ export function OrgSwitcherMedium(props: SvgIconProps) {
   );
 }
 
+/**
+ * @deprecated Superseded by the Figma-migrated icon set (`Icons`, packages/open-ui-kit/src/icons).
+ * No direct replacement has been identified for `OrgSwitcherDefault` yet — it remains available via
+ * `LegacyIcons.OrgSwitcherDefault` until migrated.
+ */
 export function OrgSwitcherDefault(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 20.0 18.583">

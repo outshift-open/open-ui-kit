@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Publish` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Publish`.
+ */
 export function Publish(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 16 16">

@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `Attachment` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.Attachment`.
+ */
 export function Attachment(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 17.17 18.54">

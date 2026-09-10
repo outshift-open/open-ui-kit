@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `LightMode` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.LightMode`.
+ */
 export function LightMode(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 22 22">

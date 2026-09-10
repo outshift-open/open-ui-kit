@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `ManageColumns` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.ManageColumns`.
+ */
 export function ManageColumns(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>

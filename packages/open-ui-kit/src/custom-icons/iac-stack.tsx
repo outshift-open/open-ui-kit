@@ -6,6 +6,10 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
+/**
+ * @deprecated Use `IacStack` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * This legacy version remains available via `LegacyIcons.IacStack`.
+ */
 export function IacStack(props: SvgIconProps) {
   return (
     <SvgIcon {...props}>
