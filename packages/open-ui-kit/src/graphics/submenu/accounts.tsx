@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const AccountsSubmenuGraphicBold = (props: SvgIconProps) => {
+export const AccountsSubmenuGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -19,15 +20,15 @@ export const AccountsSubmenuGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const AccountsSubmenuGraphicActive = (props: SvgIconProps) => {
+export const AccountsSubmenuGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -42,15 +43,15 @@ export const AccountsSubmenuGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconPrimaryStrong}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const AccountsSubmenuGraphicInactive = (props: SvgIconProps) => {
+export const AccountsSubmenuGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -65,6 +66,6 @@ export const AccountsSubmenuGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

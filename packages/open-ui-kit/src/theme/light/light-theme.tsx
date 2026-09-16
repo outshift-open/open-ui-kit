@@ -37,6 +37,7 @@ import {
   buttonComponent,
   inputComponents,
   snackbarComponent,
+  svgIconComponent,
 } from "@/theme/mui";
 
 export const shadows: Shadows = [
@@ -97,6 +98,7 @@ const lightThemeOptions: ThemeOptions = {
     ...buttonComponent(theme),
     ...inputComponents(theme),
     ...snackbarComponent(theme),
+    ...svgIconComponent(),
   },
 };
 

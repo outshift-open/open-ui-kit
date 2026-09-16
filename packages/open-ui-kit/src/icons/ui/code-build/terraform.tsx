@@ -8,9 +8,9 @@ import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export function Terraform(props: SvgIconProps) {
   return (
-    <SvgIcon {...props} viewBox="0 0 18 20">
+    <SvgIcon {...props} viewBox="0 0 24 24">
       <path
-        d="M18 3.46535V9.80198L12.4 12.9703V6.73267L18 3.46535ZM11.8 6.73267V12.9703L6.2 9.80198V3.46535L11.8 6.73267ZM11.8 13.6634V20L6.2 16.8317V10.495L11.8 13.6634ZM5.6 3.16832V9.50495L0 6.33663V0L5.6 3.16832Z"
+        d="M21 5.46535V11.802L15.4 14.9703V8.73267L21 5.46535ZM14.8 8.73267V14.9703L9.2 11.802V5.46535L14.8 8.73267ZM14.8 15.6634V22L9.2 18.8317V12.495L14.8 15.6634ZM8.6 5.16832V11.505L3 8.33663V2L8.6 5.16832Z"
         fill="currentColor"
       />
     </SvgIcon>

@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const DataLakeSubmenuGraphicBold = (props: SvgIconProps) => {
+export const DataLakeSubmenuGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -25,15 +26,15 @@ export const DataLakeSubmenuGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const DataLakeSubmenuGraphicActive = (props: SvgIconProps) => {
+export const DataLakeSubmenuGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -48,15 +49,15 @@ export const DataLakeSubmenuGraphicActive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const DataLakeSubmenuGraphicInactive = (props: SvgIconProps) => {
+export const DataLakeSubmenuGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -71,6 +72,6 @@ export const DataLakeSubmenuGraphicInactive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

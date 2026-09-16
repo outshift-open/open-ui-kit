@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const DataSecurityGraphicBold = (props: SvgIconProps) => {
+export const DataSecurityGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -25,15 +26,15 @@ export const DataSecurityGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const DataSecurityGraphicActive = (props: SvgIconProps) => {
+export const DataSecurityGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M16.6651 19.1814C18.9654 19.1814 20.8302 18.0418 20.8302 16.636V14.0907V11.5453C20.8302 10.1396 18.9654 9 16.6651 9C14.3648 9 12.5 10.1396 12.5 11.5453V14.0907V16.636C12.5 18.0418 14.3648 19.1814 16.6651 19.1814Z"
@@ -52,15 +53,15 @@ export const DataSecurityGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconPrimaryStrong}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const DataSecurityGraphicInactive = (props: SvgIconProps) => {
+export const DataSecurityGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M16.6651 19.1814C18.9654 19.1814 20.8302 18.0418 20.8302 16.636V14.0907V11.5453C20.8302 10.1396 18.9654 9 16.6651 9C14.3648 9 12.5 10.1396 12.5 11.5453V14.0907V16.636C12.5 18.0418 14.3648 19.1814 16.6651 19.1814Z"
@@ -79,6 +80,6 @@ export const DataSecurityGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

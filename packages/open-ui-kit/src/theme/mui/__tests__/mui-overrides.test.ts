@@ -9,6 +9,7 @@ import path from "node:path";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { iocTheme } from "@/theme/ioc/ioc-theme";
 import { lightTheme } from "@/theme/light/light-theme";
+import { midnightTheme } from "@/theme/midnight/midnight-theme";
 
 const componentKeys = (theme: typeof lightTheme) =>
   Object.keys(theme.components ?? {}).sort();
@@ -21,7 +22,12 @@ describe("MUI theme overrides", () => {
       .filter((file) => file.endsWith(".tsx"))
       .sort();
 
-    expect(files).toEqual(["button.tsx", "input.tsx", "snack-bar.tsx"]);
+    expect(files).toEqual([
+      "button.tsx",
+      "input.tsx",
+      "snack-bar.tsx",
+      "svg-icon.tsx",
+    ]);
     expect(
       fs.existsSync(path.resolve(process.cwd(), "src/components/button")),
     ).toBe(true);
@@ -43,6 +49,7 @@ describe("MUI theme overrides", () => {
       "MuiButtonBase",
       "MuiIconButton",
       "MuiSnackbar",
+      "MuiSvgIcon",
     ]);
     expect(componentKeys(darkTheme)).toEqual([
       "MuiAutocomplete",
@@ -51,6 +58,7 @@ describe("MUI theme overrides", () => {
       "MuiCssBaseline",
       "MuiIconButton",
       "MuiSnackbar",
+      "MuiSvgIcon",
     ]);
     expect(componentKeys(iocTheme)).toEqual([
       "MuiAutocomplete",
@@ -59,11 +67,22 @@ describe("MUI theme overrides", () => {
       "MuiCssBaseline",
       "MuiIconButton",
       "MuiSnackbar",
+      "MuiSvgIcon",
+    ]);
+    expect(componentKeys(midnightTheme)).toEqual([
+      "MuiAutocomplete",
+      "MuiButton",
+      "MuiButtonBase",
+      "MuiCssBaseline",
+      "MuiIconButton",
+      "MuiSnackbar",
+      "MuiSvgIcon",
     ]);
 
     expect(lightTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
     expect(darkTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
     expect(iocTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
+    expect(midnightTheme.components?.MuiButton?.styleOverrides).toBeUndefined();
 
     for (const removedComponent of [
       "MuiAccordion",
@@ -99,6 +118,21 @@ describe("MUI theme overrides", () => {
       expect(lightTheme.components).not.toHaveProperty(removedComponent);
       expect(darkTheme.components).not.toHaveProperty(removedComponent);
       expect(iocTheme.components).not.toHaveProperty(removedComponent);
+      expect(midnightTheme.components).not.toHaveProperty(removedComponent);
+    }
+  });
+
+  it("defines the Open UI Kit SvgIcon size scale", () => {
+    for (const theme of [lightTheme, darkTheme, iocTheme, midnightTheme]) {
+      expect(theme.components?.MuiSvgIcon?.styleOverrides).toMatchObject({
+        fontSizeSmall: { fontSize: "20px" },
+        fontSizeMedium: { fontSize: "24px" },
+        fontSizeLarge: { fontSize: "32px" },
+      });
+      expect(theme.components?.MuiSvgIcon?.variants).toContainEqual({
+        props: { fontSize: "base" },
+        style: { fontSize: "16px" },
+      });
     }
   });
 

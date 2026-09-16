@@ -36,6 +36,7 @@ import {
   buttonComponent,
   inputComponents,
   snackbarComponent,
+  svgIconComponent,
 } from "@/theme/mui";
 
 export const shadows: Shadows = [
@@ -96,6 +97,7 @@ const darkThemeOptions: ThemeOptions = {
     ...buttonComponent(theme),
     ...inputComponents(theme),
     ...snackbarComponent(theme),
+    ...svgIconComponent(),
     MuiCssBaseline: {
       styleOverrides: {
         html: {

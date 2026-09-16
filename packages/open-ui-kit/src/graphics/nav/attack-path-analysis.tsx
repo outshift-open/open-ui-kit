@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const AttackPathAnalysisGraphicBold = (props: SvgIconProps) => {
+export const AttackPathAnalysisGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -25,15 +26,15 @@ export const AttackPathAnalysisGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const AttackPathAnalysisGraphicActive = (props: SvgIconProps) => {
+export const AttackPathAnalysisGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M9.27307 4.59877C10.6426 4.28866 12.0747 4.40129 13.3729 4.92011C13.8811 5.12322 14.4578 4.87586 14.6609 4.36762C14.864 3.85938 14.6167 3.28273 14.1084 3.07962C12.4363 2.41138 10.5951 2.26724 8.83536 2.66569C7.07556 3.06416 5.48 3.98659 4.26754 5.30995C3.05486 6.63354 2.28446 8.29399 2.06478 10.0656C1.84508 11.8373 2.18734 13.6307 3.04372 15.2003C3.89997 16.7697 5.22734 18.037 6.84184 18.832C8.45612 19.6269 10.2802 19.9118 12.0657 19.6494C13.5395 19.4329 14.9298 18.8519 16.1087 17.9663L19.4073 21.2649C19.7943 21.6519 20.4218 21.6519 20.8088 21.2649C21.1958 20.8778 21.1958 20.2504 20.8088 19.8634L17.5493 16.6038C18.4717 15.5077 19.1104 14.1997 19.3998 12.7926C19.51 12.2564 19.1648 11.7325 18.6286 11.6223C18.0925 11.512 17.5686 11.8573 17.4584 12.3934C17.1823 13.7361 16.4907 14.9665 15.4747 15.9152C14.4584 16.8641 13.1675 17.4843 11.7776 17.6885C10.3876 17.8927 8.96955 17.6705 7.71742 17.0539C6.46552 16.4375 5.44195 15.4577 4.78362 14.2511C4.12541 13.0447 3.86322 11.6684 4.03173 10.3095C4.20027 8.9504 4.79182 7.67171 5.72893 6.64888C6.66626 5.62582 7.90358 4.90887 9.27307 4.59877Z"
@@ -50,15 +51,15 @@ export const AttackPathAnalysisGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconTertiaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const AttackPathAnalysisGraphicInactive = (props: SvgIconProps) => {
+export const AttackPathAnalysisGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M9.27307 4.59877C10.6426 4.28866 12.0747 4.40129 13.3729 4.92011C13.8811 5.12322 14.4578 4.87586 14.6609 4.36762C14.864 3.85938 14.6167 3.28273 14.1084 3.07962C12.4363 2.41138 10.5951 2.26724 8.83536 2.66569C7.07556 3.06416 5.48 3.98659 4.26754 5.30995C3.05486 6.63354 2.28446 8.29399 2.06478 10.0656C1.84508 11.8373 2.18734 13.6307 3.04372 15.2003C3.89997 16.7697 5.22734 18.037 6.84184 18.832C8.45612 19.6269 10.2802 19.9118 12.0657 19.6494C13.5395 19.4329 14.9298 18.8519 16.1087 17.9663L19.4073 21.2649C19.7943 21.6519 20.4218 21.6519 20.8088 21.2649C21.1958 20.8778 21.1958 20.2504 20.8088 19.8634L17.5493 16.6038C18.4717 15.5077 19.1104 14.1997 19.3998 12.7926C19.51 12.2564 19.1648 11.7325 18.6286 11.6223C18.0925 11.512 17.5686 11.8573 17.4584 12.3934C17.1823 13.7361 16.4907 14.9665 15.4747 15.9152C14.4584 16.8641 13.1675 17.4843 11.7776 17.6885C10.3876 17.8927 8.96955 17.6705 7.71742 17.0539C6.46552 16.4375 5.44195 15.4577 4.78362 14.2511C4.12541 13.0447 3.86322 11.6684 4.03173 10.3095C4.20027 8.9504 4.79182 7.67171 5.72893 6.64888C6.66626 5.62582 7.90358 4.90887 9.27307 4.59877Z"
@@ -75,6 +76,6 @@ export const AttackPathAnalysisGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryWeak}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

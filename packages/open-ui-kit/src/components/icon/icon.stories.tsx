@@ -7,7 +7,10 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { SvgIconComponent } from "@mui/icons-material";
 import type React from "react";
 import { Box, Stack, Typography } from "@/components";
-import { Add, API, Google, Settings } from "@/custom-icons";
+import { Settings } from "@/icons";
+// CustomIcons intentionally samples LegacyIcons so this story can show the
+// older custom-icon set. Keep these imports even though they are @deprecated.
+import { Add, API, Google, Settings as LegacySettings } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Settings> = {
@@ -36,7 +39,7 @@ const meta: Meta<typeof Settings> = {
     },
     fontSize: {
       control: "select",
-      options: [undefined, "inherit", "small", "medium", "large"],
+      options: [undefined, "inherit", "base", "small", "medium", "large"],
     },
     sx: {
       control: false,
@@ -68,11 +71,13 @@ const materialIcons = [
   { label: "Magic", Icon: AutoAwesomeIcon },
 ];
 
+// CustomIcons intentionally uses deprecated LegacyIcons. Do not replace these
+// with `Icons` — this story is the exception that documents the old set.
 const customIcons = [
   { label: "Add", Icon: Add },
   { label: "API", Icon: API },
   { label: "Google", Icon: Google },
-  { label: "Settings", Icon: Settings },
+  { label: "Settings", Icon: LegacySettings },
 ];
 
 type SvgSampleProps = React.ComponentProps<typeof RocketLaunchIcon>;
@@ -87,7 +92,15 @@ const iconColors: SvgSampleProps["color"][] = [
   "success",
 ];
 
-const iconSizes: SvgSampleProps["fontSize"][] = ["small", "medium", "large"];
+const iconSizes: Array<{
+  label: string;
+  fontSize: SvgSampleProps["fontSize"];
+}> = [
+  { label: "base · 16 × 16px", fontSize: "base" },
+  { label: "small · 20 × 20px", fontSize: "small" },
+  { label: "medium · 24 × 24px", fontSize: "medium" },
+  { label: "large · 32 × 32px", fontSize: "large" },
+];
 
 function SampleTile({
   label,
@@ -185,10 +198,18 @@ export const SxColor: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Icon fontSize categories use the icon scale. Graphics use the same category names through a separate, graphics-only type and size scale.",
+      },
+    },
+  },
   render: () => (
     <SampleRow>
-      {iconSizes.map((fontSize) => (
-        <SampleTile key={fontSize} label={fontSize ?? "default"}>
+      {iconSizes.map(({ label, fontSize }) => (
+        <SampleTile key={label} label={label}>
           <Settings fontSize={fontSize} aria-hidden />
         </SampleTile>
       ))}

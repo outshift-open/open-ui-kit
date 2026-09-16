@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `CheckSquareOutlined` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `CheckSquareOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.CheckSquareOutlined`.
  */
 export function CheckSquareOutlined(props: SvgIconProps) {

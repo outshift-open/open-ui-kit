@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `MitrePriviledgeEscalation` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `MitrePrivilegeExecution` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.MitrePriviledgeEscalation`.
  */
 export function MitrePriviledgeEscalation(props: SvgIconProps) {

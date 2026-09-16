@@ -7,3 +7,4 @@
 export * from "./button";
 export * from "./input";
 export * from "./snack-bar";
+export * from "./svg-icon";

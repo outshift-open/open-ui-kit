@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `ErrorCircleFill` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `ErrorCircleFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.ErrorCircleFill`.
  */
 export function ErrorCircleFill(props: SvgIconProps) {

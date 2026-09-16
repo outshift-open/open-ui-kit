@@ -35,7 +35,12 @@ import {
   iocShadowMd,
   iocShadowLg,
 } from "./ioc-color-palette";
-import { buttonComponent, inputComponents, snackbarComponent } from "../mui";
+import {
+  buttonComponent,
+  inputComponents,
+  snackbarComponent,
+  svgIconComponent,
+} from "../mui";
 
 export const iocShadows: Shadows = [
   "none",
@@ -138,6 +143,7 @@ const iocThemeOptions: ThemeOptions = {
     ...buttonComponent(baseTheme),
     ...inputComponents(baseTheme),
     ...snackbarComponent(baseTheme),
+    ...svgIconComponent(),
     ...iocCssBaselineComponent,
   },
 };

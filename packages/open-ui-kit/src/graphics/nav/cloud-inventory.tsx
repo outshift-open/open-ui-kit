@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const CloudInventoryGraphicBold = (props: SvgIconProps) => {
+export const CloudInventoryGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M5.61914 7.98811C5.61914 7.49106 6.02208 7.08811 6.51914 7.08811H14.0525C14.5495 7.08811 14.9525 7.49106 14.9525 7.98811C14.9525 8.48517 14.5495 8.88811 14.0525 8.88811H6.51914C6.02208 8.88811 5.61914 8.48517 5.61914 7.98811Z"
@@ -41,15 +42,15 @@ export const CloudInventoryGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CloudInventoryGraphicActive = (props: SvgIconProps) => {
+export const CloudInventoryGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M5.61914 7.98811C5.61914 7.49106 6.02208 7.08811 6.51914 7.08811H14.0525C14.5495 7.08811 14.9525 7.49106 14.9525 7.98811C14.9525 8.48517 14.5495 8.88811 14.0525 8.88811H6.51914C6.02208 8.88811 5.61914 8.48517 5.61914 7.98811Z"
@@ -80,15 +81,15 @@ export const CloudInventoryGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconTertiaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CloudInventoryGraphicInactive = (props: SvgIconProps) => {
+export const CloudInventoryGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M5.61914 8.03108C5.61914 7.53403 6.02208 7.13108 6.51914 7.13108H14.0525C14.5495 7.13108 14.9525 7.53403 14.9525 8.03108C14.9525 8.52814 14.5495 8.93108 14.0525 8.93108H6.51914C6.02208 8.93108 5.61914 8.52814 5.61914 8.03108Z"
@@ -119,6 +120,6 @@ export const CloudInventoryGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryWeak}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

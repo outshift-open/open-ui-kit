@@ -11,8 +11,7 @@
  * This mirrors the exact structure of the Figma file (top-level "General
  * system icons" / "Feature related icons" headers, each containing named
  * category frames such as "Arrows" or "Agentic Services"). It is derived by
- * matching each icon's Figma node-id to the category frame it is nested in
- * (see docs/guides/icon-migration-tracker.md for the per-icon node-ids).
+ * matching each icon's Figma node-id to the category frame it is nested in.
  *
  * Update this file whenever a new icon is migrated into `icons/`, so the
  * grouped Iconography Storybook page stays in sync with Figma's taxonomy.
@@ -157,22 +156,22 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
         iconNames: [
           "Check",
           "CheckSmall",
-          "CheckCircle",
+          "CheckCircleOutline",
           "Verified",
-          "CheckCircleFill",
-          "CheckSquareOutlined",
+          "CheckCircleFilled",
+          "CheckSquareOutline",
           "CheckSquareFilled",
         ],
       },
       {
         name: "Alerts",
         iconNames: [
-          "Warning",
+          "WarningOutline",
           "WarningFilled",
-          "EmergencyOutlined",
+          "EmergencyOutline",
           "EmergencyFilled",
           "ErrorCircleOutline",
-          "ErrorCircleFill",
+          "ErrorCircleFilled",
         ],
       },
       {
@@ -181,15 +180,15 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
       },
       {
         name: "Question",
-        iconNames: ["Help"],
+        iconNames: ["QuestionCircleOutline"],
       },
       {
         name: "Notification",
         iconNames: [
-          "NotificationOutlined",
-          "NotificationOffOutline",
-          "NotificationActiveOutline",
-          "NotificationImportantOutlined",
+          "NotificationOutline",
+          "NotificationsOffOutline",
+          "NotificationsActiveOutline",
+          "NotificationsImportantOutline",
           "Lightbulb",
         ],
       },
@@ -201,7 +200,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "MinusCircleFilled",
           "Plus",
           "PlusCircleOutline",
-          "AddCircleFill",
+          "PlusCircleFilled",
           "Partial",
           "Equal",
           "NotEqual",
@@ -320,7 +319,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
       {
         name: "Policies",
         iconNames: [
-          "SecurityGraph",
+          "SecurityGraphs",
           "CloudConfiguration",
           "WorkloadProtection",
           "Discovery",
@@ -344,13 +343,13 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "Database",
           "DatabaseSensitive",
           "DatabaseRisky",
-          "DatabaseAttackPath",
+          "AssetsAttackPath",
           "DataManualLabeling",
           "DataLake",
           "MemoryStore",
           "ServerlessScan",
           "DataSecurity",
-          "Cdr",
+          "RealtimeCdr",
         ],
       },
       {
@@ -358,7 +357,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
         iconNames: [
           "AssetInventory",
           "GaugeOutline",
-          "GaugeFilled",
+          "GaugeFull",
           "Sensitive",
           "SecurityFindings",
           "Pin",
@@ -374,8 +373,8 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "VulnerabilityManagement",
           "CodeSecurity",
           "PostureRisks",
-          "ExternalAttackSurface",
-          "ComplianceReport",
+          "EternalAttacks",
+          "ComplianceReports",
           "ScanReport",
           "SecurityPosture",
         ],
@@ -388,8 +387,8 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "Scan",
           "ShieldKeyOutline",
           "ShieldKeyFilled",
-          "ShieldOutlineWarning",
-          "ShieldFilledWarning",
+          "ShieldWarningOutline",
+          "ShieldWarningFilled",
           "ShieldApproved",
           "Attack",
           "SuspiciousActivity",
@@ -400,7 +399,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
         iconNames: [
           "Mitre",
           "MitreExecution",
-          "MitrePriviledgeEscalation",
+          "MitrePrivilegeExecution",
           "MitreDefenceEvasion",
           "MitreCredentialAccess",
           "MitreInitialAccess",
@@ -423,12 +422,12 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "DataExposure",
           "UnsupportedSoftware",
           "InsecureConfiguration",
-          "InsufficientEncryption",
+          "InsuficientEncryption",
           "InadequateAuthenticationAuthorization",
           "PublicExposure",
-          "InsufficientMonitoring",
+          "InsuficientMonitoring",
           "InadequateLoggingBackup",
-          "PermissiveAccess",
+          "PermisiveAccess",
         ],
       },
       {
@@ -440,7 +439,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "IacStack",
           "ImageGrid",
           "FileSystem",
-          "DeveloperTools",
+          "DeveloperToolsAsset",
           "Singleton",
           "Secret",
           "CodeVulnerability",
@@ -464,6 +463,7 @@ export const ICON_CATEGORY_GROUPS: IconCategoryGroup[] = [
           "Sysflow",
           "Fluentbit",
           "Jira",
+          "Github",
           "Gitlab",
           "AzureDevops",
           "Docker",

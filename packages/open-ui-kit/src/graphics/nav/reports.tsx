@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const ReportsGraphicBold = (props: SvgIconProps) => {
+export const ReportsGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -37,15 +38,15 @@ export const ReportsGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const ReportsGraphicActive = (props: SvgIconProps) => {
+export const ReportsGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M8.81818 2C7.81403 2 7 2.81403 7 3.81818V5.63636H8.81818V3.81818H15.7144L18.8182 6.92201V16.5455H17V18.3636H18.8182C19.8223 18.3636 20.6364 17.5496 20.6364 16.5455V6.92201C20.6364 6.4398 20.4448 5.97734 20.1038 5.63636L17 2.53253C16.659 2.19156 16.1966 2 15.7144 2H8.81818Z"
@@ -72,15 +73,15 @@ export const ReportsGraphicActive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const ReportsGraphicInactive = (props: SvgIconProps) => {
+export const ReportsGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M8.81818 2C7.81403 2 7 2.81403 7 3.81818V5.63636H8.81818V3.81818H15.7144L18.8182 6.92201V16.5455H17V18.3636H18.8182C19.8223 18.3636 20.6364 17.5496 20.6364 16.5455V6.92201C20.6364 6.4398 20.4448 5.97734 20.1038 5.63636L17 2.53253C16.659 2.19156 16.1966 2 15.7144 2H8.81818Z"
@@ -107,6 +108,6 @@ export const ReportsGraphicInactive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

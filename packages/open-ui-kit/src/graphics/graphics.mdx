@@ -1,15 +1,34 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-import * as Graphics from "@/graphics";
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { GraphicsGalleryDocs } from "./graphics-gallery";
+import * as GraphicsStories from "./graphics.stories";
 
-<Meta title="Foundations/Graphics" />
+<Meta of={GraphicsStories} />
 
 <DocsHeader
   title="Graphics"
-  blurb={`Open UI Kit graphic icon set: ${Object.keys(Graphics).length} exports (${Object.keys(Graphics).length / 3} navigation/submenu marks × 3 states) migrated from Figma's "Graphics" section. Unlike Icons, each state paints its own theme.palette.vars tokens instead of currentColor. Click any tile to copy its export name.`}
+  blurb="Graphics are larger product visuals with their own fontSize scale, separate from the icon scale. Navigation and submenu graphics provide three visual states; the collection also includes provider logos, the Cisco AI Assistant symbol, and brand wordmarks."
   importLine='import { Graphics } from "@open-ui-kit/core";'
   includeStories={false}
 />
 
-<GraphicsGalleryDocs allGraphics={Graphics} />
+## Sizes
+
+Graphics accept `fontSize="base" | "small" | "medium" | "large" | "xlarge"`.
+These category names belong to the graphics API and intentionally resolve to
+different pixel values than identically named icon categories.
+
+| Category | Graphic size |
+| --- | --- |
+| `base` | 20 × 20 px |
+| `small` | 24 × 24 px |
+| `medium` | 32 × 32 px (default) |
+| `large` | 48 × 48 px |
+| `xlarge` | 64 × 64 px |
+
+```tsx
+import { Graphics } from "@open-ui-kit/core";
+
+<Graphics.ApiSecurityGraphicActive fontSize="large" />;
+```
+
+<Canvas of={GraphicsStories.Sizes} />

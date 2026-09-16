@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const SecurityPostureGraphicBold = (props: SvgIconProps) => {
+export const SecurityPostureGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -25,15 +26,15 @@ export const SecurityPostureGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const SecurityPostureGraphicActive = (props: SvgIconProps) => {
+export const SecurityPostureGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M12 20.3333C10.8472 20.3333 9.76389 20.1146 8.75 19.6771C7.73611 19.2396 6.85417 18.6458 6.10417 17.8958C5.35417 17.1458 4.76042 16.2639 4.32292 15.25C3.88542 14.2361 3.66667 13.1528 3.66667 12C3.66667 10.8472 3.88542 9.76389 4.32292 8.75C4.76042 7.73611 5.35417 6.85417 6.10417 6.10417C6.85417 5.35417 7.73611 4.76042 8.75 4.32292C9.76389 3.88542 10.8472 3.66667 12 3.66667C13.1528 3.66667 14.2361 3.88542 15.25 4.32292C16.2639 4.76042 17.1458 5.35417 17.8958 6.10417C18.6458 6.85417 19.2396 7.73611 19.6771 8.75C20.1146 9.76389 20.3333 10.8472 20.3333 12C20.3333 13.1528 20.1146 14.2361 19.6771 15.25C19.2396 16.2639 18.6458 17.1458 17.8958 17.8958C17.1458 18.6458 16.2639 19.2396 15.25 19.6771C14.2361 20.1146 13.1528 20.3333 12 20.3333ZM12 18.6667C13.8611 18.6667 15.4375 18.0208 16.7292 16.7292C18.0208 15.4375 18.6667 13.8611 18.6667 12C18.6667 10.1389 18.0208 8.5625 16.7292 7.27083C15.4375 5.97917 13.8611 5.33333 12 5.33333C10.1389 5.33333 8.5625 5.97917 7.27083 7.27083C5.97917 8.5625 5.33333 10.1389 5.33333 12C5.33333 13.8611 5.97917 15.4375 7.27083 16.7292C8.5625 18.0208 10.1389 18.6667 12 18.6667Z"
@@ -44,15 +45,15 @@ export const SecurityPostureGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconTertiaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const SecurityPostureGraphicInactive = (props: SvgIconProps) => {
+export const SecurityPostureGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           d="M11.9329 20.5944C10.7801 20.5944 9.69675 20.3756 8.68286 19.9381C7.66897 19.5006 6.78703 18.9069 6.03703 18.1569C5.28703 17.4069 4.69328 16.5249 4.25578 15.511C3.81828 14.4971 3.59953 13.4138 3.59953 12.261C3.59953 11.1082 3.81828 10.0249 4.25578 9.01103C4.69328 7.99714 5.28703 7.11519 6.03703 6.36519C6.78703 5.61519 7.66897 5.02144 8.68286 4.58394C9.69675 4.14644 10.7801 3.92769 11.9329 3.92769C13.0856 3.92769 14.169 4.14644 15.1829 4.58394C16.1968 5.02144 17.0787 5.61519 17.8287 6.36519C18.5787 7.11519 19.1724 7.99714 19.6099 9.01103C20.0474 10.0249 20.2662 11.1082 20.2662 12.261C20.2662 13.4138 20.0474 14.4971 19.6099 15.511C19.1724 16.5249 18.5787 17.4069 17.8287 18.1569C17.0787 18.9069 16.1968 19.5006 15.1829 19.9381C14.169 20.3756 13.0856 20.5944 11.9329 20.5944ZM11.9329 18.9277C13.794 18.9277 15.3704 18.2819 16.662 16.9902C17.9537 15.6985 18.5995 14.1221 18.5995 12.261C18.5995 10.3999 17.9537 8.82353 16.662 7.53186C15.3704 6.24019 13.794 5.59436 11.9329 5.59436C10.0717 5.59436 8.49536 6.24019 7.20369 7.53186C5.91203 8.82353 5.26619 10.3999 5.26619 12.261C5.26619 14.1221 5.91203 15.6985 7.20369 16.9902C8.49536 18.2819 10.0717 18.9277 11.9329 18.9277Z"
@@ -63,6 +64,6 @@ export const SecurityPostureGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryWeak}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
