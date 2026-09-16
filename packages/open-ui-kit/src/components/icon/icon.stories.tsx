@@ -36,7 +36,7 @@ const meta: Meta<typeof Settings> = {
     },
     fontSize: {
       control: "select",
-      options: [undefined, "inherit", "small", "medium", "large"],
+      options: [undefined, "inherit", "base", "small", "medium", "large"],
     },
     sx: {
       control: false,
@@ -87,7 +87,15 @@ const iconColors: SvgSampleProps["color"][] = [
   "success",
 ];
 
-const iconSizes: SvgSampleProps["fontSize"][] = ["small", "medium", "large"];
+const iconSizes: Array<{
+  label: string;
+  fontSize: SvgSampleProps["fontSize"];
+}> = [
+  { label: "base · 16 × 16px", fontSize: "base" },
+  { label: "small · 20 × 20px", fontSize: "small" },
+  { label: "medium · 24 × 24px", fontSize: "medium" },
+  { label: "large · 32 × 32px", fontSize: "large" },
+];
 
 function SampleTile({
   label,
@@ -185,10 +193,18 @@ export const SxColor: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Icon fontSize categories use the icon scale. Graphics use the same category names through a separate, graphics-only type and size scale.",
+      },
+    },
+  },
   render: () => (
     <SampleRow>
-      {iconSizes.map((fontSize) => (
-        <SampleTile key={fontSize} label={fontSize ?? "default"}>
+      {iconSizes.map(({ label, fontSize }) => (
+        <SampleTile key={label} label={label}>
           <Settings fontSize={fontSize} aria-hidden />
         </SampleTile>
       ))}

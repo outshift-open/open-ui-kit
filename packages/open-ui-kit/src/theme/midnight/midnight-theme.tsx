@@ -36,6 +36,7 @@ import {
   buttonComponent,
   inputComponents,
   snackbarComponent,
+  svgIconComponent,
 } from "@/theme/mui";
 
 // Midnight reuses the Dark theme's shadow set (identical drop-shadow values).
@@ -97,6 +98,7 @@ const midnightThemeOptions: ThemeOptions = {
     ...buttonComponent(theme),
     ...inputComponents(theme),
     ...snackbarComponent(theme),
+    ...svgIconComponent(),
     MuiCssBaseline: {
       styleOverrides: {
         html: {

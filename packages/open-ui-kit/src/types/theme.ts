@@ -8,6 +8,7 @@ import "@mui/material/styles";
 import "@mui/material/Typography";
 import "@mui/material/Button";
 import "@mui/material/Divider";
+import "@mui/material/SvgIcon";
 import "@mui/material/Tab";
 
 import React from "react";
@@ -94,6 +95,12 @@ declare module "@mui/material/Button" {
 declare module "@mui/material/Divider" {
   interface DividerPropsVariantOverrides {
     bold: true;
+  }
+}
+
+declare module "@mui/material/SvgIcon" {
+  interface SvgIconPropsSizeOverrides {
+    base: true;
   }
 }
 
