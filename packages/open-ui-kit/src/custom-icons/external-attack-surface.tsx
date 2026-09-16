@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `ExternalAttackSurface` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `EternalAttacks` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.ExternalAttackSurface`.
  */
 export function ExternalAttackSurface(props: SvgIconProps) {

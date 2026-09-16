@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `ShieldFilledWarning` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `ShieldWarningFilled` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.ShieldFilledWarning`.
  */
 export function ShieldFilledWarning(props: SvgIconProps) {

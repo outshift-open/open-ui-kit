@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `Help` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `QuestionCircleOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.Help`.
  */
 export function Help(props: SvgIconProps) {

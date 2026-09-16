@@ -6,7 +6,7 @@
 
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
-export function ShieldOutlineWarning(props: SvgIconProps) {
+export function ShieldWarningOutline(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 24 24">
       <path

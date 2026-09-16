@@ -8,11 +8,11 @@ import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export function Azure(props: SvgIconProps) {
   return (
-    <SvgIcon {...props} viewBox="0 0 20 15.5999">
+    <SvgIcon {...props} viewBox="0 0 24 24">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M0 14.0762L5.18932 5.08831L11.25 0L4.67866 14.0901V14.0762H0ZM13.9923 13.9109L9.10999 8.05268L11.6513 1.00642L20 15.5999H4.5L13.9923 13.9109Z"
+        d="M2 18.2759L7.18932 9.28802L13.25 4.19971L6.67866 18.2898V18.2759H2ZM15.9923 18.1106L11.11 12.2524L13.6513 5.20613L22 19.7996H6.5L15.9923 18.1106Z"
         fill="currentColor"
       />
     </SvgIcon>

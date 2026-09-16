@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `InsufficientEncryption` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `InsuficientEncryption` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.InsufficientEncryption`.
  */
 export function InsufficientEncryption(props: SvgIconProps) {

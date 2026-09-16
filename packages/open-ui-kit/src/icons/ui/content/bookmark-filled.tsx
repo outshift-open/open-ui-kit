@@ -8,9 +8,9 @@ import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export function BookmarkFilled(props: SvgIconProps) {
   return (
-    <SvgIcon {...props} viewBox="0 0 14 18">
+    <SvgIcon {...props} viewBox="0 0 24 24">
       <path
-        d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
+        d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z"
         fill="currentColor"
       />
     </SvgIcon>

@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `DeveloperTools` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `DeveloperToolsAsset` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.PADeveloperTools`.
  */
 export const PADeveloperTools = (props: SvgIconProps) => {

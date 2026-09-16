@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `CheckCircle` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `CheckCircleOutline` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.CheckCircle`.
  */
 export function CheckCircle(props: SvgIconProps) {

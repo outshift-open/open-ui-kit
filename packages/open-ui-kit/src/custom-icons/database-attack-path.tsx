@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `DatabaseAttackPath` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `AssetsAttackPath` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.DatabaseAttackPath`.
  */
 export function DatabaseAttackPath(props: SvgIconProps) {

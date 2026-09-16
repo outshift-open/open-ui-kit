@@ -7,7 +7,7 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 /**
- * @deprecated Use `ComplianceReport` from `Icons` (packages/open-ui-kit/src/icons) instead.
+ * @deprecated Use `ComplianceReports` from `Icons` (packages/open-ui-kit/src/icons) instead.
  * This legacy version remains available via `LegacyIcons.ComplianceReport`.
  */
 export function ComplianceReport(props: SvgIconProps) {
