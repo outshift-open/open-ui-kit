@@ -7,44 +7,50 @@ githubSource: packages/open-ui-kit/src/components/icon
 
 # Icon
 
-<p class="description">Icon wrapper and iconography entry point for product visuals.</p>
+<p class="description">Small SVG glyphs for actions, status, objects, and product concepts.</p>
 
 {{"component": "@mui/internal-core-docs/ComponentLinkHeader"}}
 
 ## Introduction
 
-Icon is part of the Open UI Kit Core public API.
-Use it to make status, metadata, repeated content, or supporting information easier to scan.
-
-Use this page as the implementation entry point, then use Storybook to inspect visual states, prop combinations, and edge cases that are easier to understand interactively.
+Open UI Kit icons use the shared `MuiSvgIcon` size scale. The scale is intended
+for compact interface glyphs. Graphics use a separate scale even where the
+`fontSize` category names overlap.
 
 ## Import
 
 ```tsx
-import { Icon } from '@open-ui-kit/core';
+import { Icons } from '@open-ui-kit/core';
 ```
 
 ## When to use
 
-Use this component when the page needs to communicate product information without introducing a new workflow.
+Use an icon for compact controls, actions, status, and supporting interface
+information. Use a graphic for a larger product visual, provider logo, or
+navigation illustration.
 
-## Anatomy
+## Sizes
 
-Data-display components usually combine a value, label, state treatment, and optional supporting content.
+Set a predefined size with the `fontSize` prop.
 
-Keep each part purposeful: the visible label or title should explain the object, the state should reflect real product data, and supporting content should help users decide what to do next.
+| Category | Icon size |
+| --- | --- |
+| `base` | 16 × 16 px |
+| `small` | 20 × 20 px |
+| `medium` | 24 × 24 px (default) |
+| `large` | 32 × 32 px |
+
+Graphics intentionally resolve the shared category names differently. For
+example, `fontSize="large"` is 32 × 32 px on an icon and 48 × 48 px on a
+graphic. TypeScript exposes the appropriate categories for each component.
 
 ## Basic example
 
 ```tsx
-import { Icon } from '@open-ui-kit/core';
+import { Icons } from '@open-ui-kit/core';
 
 export function IconExample() {
-  return (
-    <Icon>
-      Icon
-    </Icon>
-  );
+  return <Icons.Settings fontSize="small" aria-label="Settings" />;
 }
 ```
 
@@ -61,34 +67,35 @@ Start with the closest story, then adapt the props to match your product flow.
 
 ## Behavior notes
 
-- Keep values and labels stable so repeated content is easy to compare.
-- Handle long content, empty content, and loading content before shipping a dense view.
-- Choose the smallest visual treatment that still communicates the state.
+- `medium` is the default when `fontSize` is omitted.
+- `inherit` remains available for icons that must follow a parent font size.
+- Use `sx={{ fontSize: ... }}` only when a predefined category cannot represent
+  the required size.
+- The size controls the square SVG viewport; the source `viewBox` keeps the
+  artwork proportional.
 
 ## Props
 
-Icon is exported from `@open-ui-kit/core`.
-Use the exported TypeScript props for implementation details and keep local overrides narrow.
+Icons are exported from the `Icons` namespace in `@open-ui-kit/core`.
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| `Icon` props | Component-specific props | Controls the supported behavior, slots, state, and styling for Icon. |
-| `children` | `React.ReactNode` | Content rendered inside the component when the component supports composition. |
-| `className` | `string` | Adds a class to the root slot for product-level styling hooks. |
-| `sx` | `SxProps` | Applies local style overrides while still using the active Open UI Kit theme. |
+| `fontSize` | `'inherit' \| 'base' \| 'small' \| 'medium' \| 'large'` | Selects the icon size category. |
+| `color` | `SvgIconProps['color']` | Selects a supported theme color. |
+| `className` | `string` | Adds a class to the SVG root. |
+| `sx` | `SxProps` | Applies a narrow local style override. |
 
 ## Accessibility
 
-- Pair visual status with readable text when the meaning is not obvious.
-- Keep semantic structure intact for lists, tables, headings, and descriptions.
-- Check contrast for low-emphasis labels and status colors in both themes.
+- Give standalone actionable icons an accessible name.
+- Mark decorative icons with `aria-hidden`.
+- Do not rely on an icon alone when its meaning is unfamiliar or ambiguous.
 
 ## Usage guidance
 
-- Pair values with labels when the meaning is not self-evident.
-- Use tooltip or overflow behavior only when truncation is unavoidable.
-- Keep repeated rows visually consistent.
-- Avoid using decorative emphasis for data that users need to compare precisely.
+- Use one size consistently for icons serving the same role.
+- Prefer predefined categories over one-off pixel values.
+- Do not use the graphics scale to size icons.
 
 ## Resources
 
