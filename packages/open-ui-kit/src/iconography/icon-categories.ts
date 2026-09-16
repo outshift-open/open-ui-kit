@@ -11,8 +11,7 @@
  * This mirrors the exact structure of the Figma file (top-level "General
  * system icons" / "Feature related icons" headers, each containing named
  * category frames such as "Arrows" or "Agentic Services"). It is derived by
- * matching each icon's Figma node-id to the category frame it is nested in
- * (see docs/guides/icon-migration-tracker.md for the per-icon node-ids).
+ * matching each icon's Figma node-id to the category frame it is nested in.
  *
  * Update this file whenever a new icon is migrated into `icons/`, so the
  * grouped Iconography Storybook page stays in sync with Figma's taxonomy.
