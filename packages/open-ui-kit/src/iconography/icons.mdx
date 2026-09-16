@@ -1,9 +1,9 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
 import * as Icons from "@/icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { IconGalleryGroupedDocs } from "./icon-gallery-grouped";
+import * as IconStories from "./icons.stories";
 
-<Meta title="Foundations/Iconography" />
+<Meta of={IconStories} />
 
 <DocsHeader
   title="Iconography"
@@ -12,4 +12,21 @@ import { IconGalleryGroupedDocs } from "./icon-gallery-grouped";
   includeStories={false}
 />
 
-<IconGalleryGroupedDocs allIcons={Icons} />
+## Sizes
+
+Icons use the `fontSize` prop for the Open UI Kit size scale:
+
+- `base`: 16px
+- `small`: 20px
+- `medium`: 24px (default; use for more complex icons)
+- `large`: 32px
+- `inherit`: the surrounding font size
+
+```tsx
+<Icons.Check fontSize="base" />
+<Icons.Close fontSize="small" />
+<Icons.Settings />
+<Icons.Settings fontSize="large" />
+```
+
+<Canvas of={IconStories.Sizes} />
