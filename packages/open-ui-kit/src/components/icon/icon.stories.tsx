@@ -7,7 +7,10 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { SvgIconComponent } from "@mui/icons-material";
 import type React from "react";
 import { Box, Stack, Typography } from "@/components";
-import { Add, API, Google, Settings } from "@/custom-icons";
+import { Settings } from "@/icons";
+// CustomIcons intentionally samples LegacyIcons so this story can show the
+// older custom-icon set. Keep these imports even though they are @deprecated.
+import { Add, API, Google, Settings as LegacySettings } from "@/custom-icons";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 
 const meta: Meta<typeof Settings> = {
@@ -68,11 +71,13 @@ const materialIcons = [
   { label: "Magic", Icon: AutoAwesomeIcon },
 ];
 
+// CustomIcons intentionally uses deprecated LegacyIcons. Do not replace these
+// with `Icons` — this story is the exception that documents the old set.
 const customIcons = [
   { label: "Add", Icon: Add },
   { label: "API", Icon: API },
   { label: "Google", Icon: Google },
-  { label: "Settings", Icon: Settings },
+  { label: "Settings", Icon: LegacySettings },
 ];
 
 type SvgSampleProps = React.ComponentProps<typeof RocketLaunchIcon>;
