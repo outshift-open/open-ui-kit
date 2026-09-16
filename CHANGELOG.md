@@ -1,3 +1,13 @@
+# [3.1.0](https://github.com/outshift-open/open-ui-kit/compare/v3.0.0...v3.1.0) (2026-09-16)
+
+
+### Features
+
+* **graphics:** add remaining Figma sets and a dedicated Graphic size API ([d9343fe](https://github.com/outshift-open/open-ui-kit/commit/d9343fef380e235a32da76c2eda7b2bb33c59259))
+* **icons:** align migrated icons with Figma names and artwork ([c1b4828](https://github.com/outshift-open/open-ui-kit/commit/c1b4828e7214630997ffd2c49e5e0bbc9f0bab0a))
+* **storybook:** unify Iconography and Graphics as Docs, Sizes, and one gallery ([725d9eb](https://github.com/outshift-open/open-ui-kit/commit/725d9ebec6b70188b771a0e7dfd6738ffe23fe33))
+* **theme:** expose first-class SvgIcon sizes at 16, 20, 24, and 32px ([5acf652](https://github.com/outshift-open/open-ui-kit/commit/5acf652f97694e93c3956eef7d09acfde84922c1))
+
 # [3.0.0](https://github.com/outshift-open/open-ui-kit/compare/v2.5.0...v3.0.0) (2026-09-10)
 
 
