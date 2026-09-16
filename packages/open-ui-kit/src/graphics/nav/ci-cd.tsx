@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const CiCdGraphicBold = (props: SvgIconProps) => {
+export const CiCdGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -35,15 +36,15 @@ export const CiCdGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CiCdGraphicActive = (props: SvgIconProps) => {
+export const CiCdGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -82,15 +83,15 @@ export const CiCdGraphicActive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CiCdGraphicInactive = (props: SvgIconProps) => {
+export const CiCdGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -117,6 +118,6 @@ export const CiCdGraphicInactive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

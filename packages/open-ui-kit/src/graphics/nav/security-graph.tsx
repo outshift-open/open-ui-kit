@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const SecurityGraphGraphicBold = (props: SvgIconProps) => {
+export const SecurityGraphGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -19,15 +20,15 @@ export const SecurityGraphGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const SecurityGraphGraphicActive = (props: SvgIconProps) => {
+export const SecurityGraphGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -42,15 +43,15 @@ export const SecurityGraphGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconTertiaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const SecurityGraphGraphicInactive = (props: SvgIconProps) => {
+export const SecurityGraphGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -65,6 +66,6 @@ export const SecurityGraphGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryWeak}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

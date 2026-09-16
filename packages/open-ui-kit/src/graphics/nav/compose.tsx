@@ -4,14 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const ComposeGraphicBold = (props: SvgIconProps) => {
+export const ComposeGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 20 20">
-      <g>
+    <Graphic {...props} viewBox="0 0 24 24">
+      <g transform="translate(2 2)">
         <path
           d="M8.94031 10.5717C8.94031 9.63767 9.69859 8.88052 10.634 8.88052H17.6204C18.5558 8.88052 19.3141 9.63767 19.3141 10.5717V17.5476C19.3141 18.4816 18.5558 19.2388 17.6204 19.2388H10.634C9.69859 19.2388 8.94031 18.4816 8.94031 17.5476V10.5717Z"
           fill={vars.controlIconWeak}
@@ -26,16 +27,16 @@ export const ComposeGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const ComposeGraphicActive = (props: SvgIconProps) => {
+export const ComposeGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 20 20">
-      <g>
+    <Graphic {...props} viewBox="0 0 24 24">
+      <g transform="translate(2 2)">
         <path
           d="M8.94031 10.5717C8.94031 9.63767 9.69859 8.88052 10.634 8.88052H17.6204C18.5558 8.88052 19.3141 9.63767 19.3141 10.5717V17.5476C19.3141 18.4816 18.5558 19.2388 17.6204 19.2388H10.634C9.69859 19.2388 8.94031 18.4816 8.94031 17.5476V10.5717Z"
           fill={vars.brandIconPrimaryWeak}
@@ -50,16 +51,16 @@ export const ComposeGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconPrimaryStrong}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const ComposeGraphicInactive = (props: SvgIconProps) => {
+export const ComposeGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 20 20">
-      <g>
+    <Graphic {...props} viewBox="0 0 24 24">
+      <g transform="translate(2 2)">
         <path
           d="M8.94031 10.5717C8.94031 9.63767 9.69859 8.88052 10.634 8.88052H17.6204C18.5558 8.88052 19.3141 9.63767 19.3141 10.5717V17.5476C19.3141 18.4816 18.5558 19.2388 17.6204 19.2388H10.634C9.69859 19.2388 8.94031 18.4816 8.94031 17.5476V10.5717Z"
           fill={vars.brandIconSecondaryWeak}
@@ -74,6 +75,6 @@ export const ComposeGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./graphic";
+
 export * from "./nav/api-security";
 export * from "./nav/attack-path-analysis";
 export * from "./nav/ci-cd";
@@ -18,6 +20,7 @@ export * from "./nav/integrations";
 export * from "./nav/llm";
 export * from "./nav/malicious-events";
 export * from "./nav/observability";
+export * from "./nav/organization-switcher";
 export * from "./nav/overview";
 export * from "./nav/policies";
 export * from "./nav/realtime-cdr";
@@ -46,3 +49,22 @@ export * from "./submenu/notifications";
 export * from "./submenu/profile";
 export * from "./submenu/scanners";
 export * from "./submenu/users-scopes";
+
+export * from "./ai/cisco-ai-assistant-symbol";
+
+export * from "./logos/alibaba-cloud";
+export * from "./logos/aws";
+export * from "./logos/azure";
+export * from "./logos/azure-devops";
+export * from "./logos/bitbucket";
+export * from "./logos/cisco";
+export * from "./logos/gcp";
+export * from "./logos/github";
+export * from "./logos/gitlab";
+export * from "./logos/google";
+export * from "./logos/kubernetes";
+export * from "./logos/oracle";
+
+export * from "./brand-logos/agntcy";
+export * from "./brand-logos/cisco";
+export * from "./brand-logos/outshift";

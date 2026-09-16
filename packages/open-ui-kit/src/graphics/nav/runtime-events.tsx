@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const RuntimeEventsGraphicBold = (props: SvgIconProps) => {
+export const RuntimeEventsGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -57,15 +58,15 @@ export const RuntimeEventsGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const RuntimeEventsGraphicActive = (props: SvgIconProps) => {
+export const RuntimeEventsGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -119,15 +120,15 @@ export const RuntimeEventsGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconPrimaryStrong}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const RuntimeEventsGraphicInactive = (props: SvgIconProps) => {
+export const RuntimeEventsGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -181,6 +182,6 @@ export const RuntimeEventsGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

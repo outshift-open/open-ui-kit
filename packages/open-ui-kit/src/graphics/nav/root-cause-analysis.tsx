@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const RootCauseAnalysisGraphicBold = (props: SvgIconProps) => {
+export const RootCauseAnalysisGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -31,15 +32,15 @@ export const RootCauseAnalysisGraphicBold = (props: SvgIconProps) => {
           fill={vars.controlIconDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const RootCauseAnalysisGraphicActive = (props: SvgIconProps) => {
+export const RootCauseAnalysisGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -68,15 +69,15 @@ export const RootCauseAnalysisGraphicActive = (props: SvgIconProps) => {
           fill={vars.brandIconTertiaryDefault}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const RootCauseAnalysisGraphicInactive = (props: SvgIconProps) => {
+export const RootCauseAnalysisGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -105,6 +106,6 @@ export const RootCauseAnalysisGraphicInactive = (props: SvgIconProps) => {
           fill={vars.brandIconSecondaryWeak}
         />
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };

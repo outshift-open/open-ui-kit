@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { SvgIcon, SvgIconProps, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Graphic, type GraphicProps } from "../graphic";
 
-export const CiemGraphicBold = (props: SvgIconProps) => {
+export const CiemGraphicBold = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <g>
           <path
@@ -33,15 +34,15 @@ export const CiemGraphicBold = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CiemGraphicActive = (props: SvgIconProps) => {
+export const CiemGraphicActive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -64,15 +65,15 @@ export const CiemGraphicActive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
 
-export const CiemGraphicInactive = (props: SvgIconProps) => {
+export const CiemGraphicInactive = (props: GraphicProps) => {
   const { vars } = useTheme().palette;
 
   return (
-    <SvgIcon {...props} viewBox="0 0 24 24">
+    <Graphic {...props} viewBox="0 0 24 24">
       <g>
         <path
           fillRule="evenodd"
@@ -95,6 +96,6 @@ export const CiemGraphicInactive = (props: SvgIconProps) => {
           />
         </g>
       </g>
-    </SvgIcon>
+    </Graphic>
   );
 };
