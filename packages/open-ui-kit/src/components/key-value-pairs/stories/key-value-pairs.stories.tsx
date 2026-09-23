@@ -7,11 +7,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
-import { GeneralSize, Severity } from "@/common";
+import { Severity } from "@/common";
 import { CopyButton } from "@/components/copy-button";
 import { SeverityBadge } from "@/components/severity-badge";
-import { Tag } from "@/components/tags";
-import { KeyValuePairs } from "..";
+import { TagStatus } from "@/components/tags";
+import { KeyValuePairs, KeyValuePairStatus, KeyValuePairTags } from "..";
 import {
   DEFAULT_KEY_VALUE_ITEMS,
   getInlineCodeStyles,
@@ -66,6 +66,16 @@ const multiColumnItems = Array.from({ length: 2 }).flatMap(() =>
   DEFAULT_KEY_VALUE_ITEMS.map((item) => ({ ...item })),
 );
 
+const TAG_LABELS = [
+  "Tag one",
+  "Tag two",
+  "Tag three",
+  "Tag four",
+  "Tag five",
+  "Tag six",
+  "Tag seven",
+] as const;
+
 const RichValueExamples = [
   { key: "Name", value: "Value" },
   {
@@ -94,15 +104,11 @@ const RichValueExamples = [
   },
   {
     key: "Tags",
-    value: (
-      <Stack direction="row" gap={1} flexWrap="wrap" maxWidth="240px">
-        {["Tag", "Tag", "Tag", "Tag", "+3", "Tag"].map((label, index) => (
-          <Tag key={`${label}-${index}`} size={GeneralSize.Small}>
-            {label}
-          </Tag>
-        ))}
-      </Stack>
-    ),
+    value: <KeyValuePairTags tags={TAG_LABELS} />,
+  },
+  {
+    key: "Status",
+    value: <KeyValuePairStatus status={TagStatus.Positive} />,
   },
   {
     key: "Severity",

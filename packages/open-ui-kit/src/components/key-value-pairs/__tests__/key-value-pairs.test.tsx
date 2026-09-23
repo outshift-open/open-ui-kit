@@ -10,14 +10,24 @@ import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
-import { KeyValuePairs } from "..";
+import { TagStatus } from "@/components/tags";
+import { KeyValuePairs, KeyValuePairStatus, KeyValuePairTags } from "..";
 import {
   DEFAULT_KEY_VALUE_ITEMS,
   getKeyValueKeyStyles,
   getKeyValuePairStyles,
   getKeyValuePairsStyles,
+  getKeyValueTagCountStyles,
+  getKeyValueTagsStyles,
   getKeyValueValueStyles,
 } from "../styles";
+
+const withTheme = (node: React.ReactNode, dark = false) =>
+  render(
+    <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
+      {node}
+    </ThemeProvider>,
+  );
 
 const renderKeyValuePairs = (
   props: React.ComponentProps<typeof KeyValuePairs>,
@@ -105,6 +115,57 @@ describe("KeyValuePairs", () => {
     });
     expect(getKeyValueValueStyles(darkTheme)).toMatchObject({
       color: darkTheme.palette.vars.baseTextDefault,
+    });
+  });
+
+  it("renders the tags value state with an overflow counter", () => {
+    withTheme(
+      <KeyValuePairTags
+        tags={["One", "Two", "Three", "Four", "Five", "Six", "Seven"]}
+        maxVisible={4}
+      />,
+    );
+
+    expect(screen.getByText("Four")).toBeInTheDocument();
+    expect(screen.queryByText("Five")).not.toBeInTheDocument();
+    expect(screen.getByText("+3")).toBeInTheDocument();
+  });
+
+  it("omits the overflow counter when every tag fits", () => {
+    withTheme(<KeyValuePairTags tags={["One", "Two"]} maxVisible={4} />);
+
+    expect(screen.getByText("One")).toBeInTheDocument();
+    expect(screen.getByText("Two")).toBeInTheDocument();
+    expect(screen.queryByText(/^\+/)).not.toBeInTheDocument();
+  });
+
+  it("renders the status value state and defaults the label to the status", () => {
+    withTheme(<KeyValuePairStatus status={TagStatus.Positive} />);
+
+    expect(screen.getByText(TagStatus.Positive)).toBeInTheDocument();
+  });
+
+  it("allows a custom status label", () => {
+    withTheme(
+      <KeyValuePairStatus status={TagStatus.Warning} label="Needs review" />,
+    );
+
+    expect(screen.getByText("Needs review")).toBeInTheDocument();
+  });
+
+  it("uses expected tag value state styles", () => {
+    expect(getKeyValueTagsStyles("306px")).toMatchObject({
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "8px",
+      maxWidth: "306px",
+    });
+    expect(getKeyValueTagCountStyles(lightTheme)).toMatchObject({
+      backgroundColor: "transparent",
+      border: `2px solid ${lightTheme.palette.vars.controlBackgroundMedium}`,
+    });
+    expect(getKeyValueTagCountStyles(darkTheme)).toMatchObject({
+      border: `2px solid ${darkTheme.palette.vars.controlBackgroundMedium}`,
     });
   });
 
