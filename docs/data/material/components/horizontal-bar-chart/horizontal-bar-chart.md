@@ -59,6 +59,8 @@ Start with the closest story, then adapt the props to match your product flow.
 
 ## Behavior notes
 
+- Bars are 18px tall with a constant 8px gap between rows.
+- When the rows are taller than the chart's container, they scroll vertically. Give the chart a height to decide how many rows show before it scrolls.
 - Validate the expected data shape against the Storybook examples before wiring live data.
 - Keep labels and legends close to the marks they describe.
 - Use empty and loading states around the chart when data is not ready.

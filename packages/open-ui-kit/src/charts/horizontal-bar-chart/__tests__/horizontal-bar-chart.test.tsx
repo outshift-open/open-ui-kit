@@ -11,7 +11,12 @@ import { darkTheme } from "@/theme/dark/dark-theme";
 import { lightTheme } from "@/theme/light/light-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { HorizontalBarChart } from "../horizontal-bar-chart";
-import { getBarStyle } from "../styles";
+import {
+  getBarStyle,
+  MIN_BAR_HEIGHT_PX,
+  SPACE_BETWEEN_BARS_PX,
+  styles,
+} from "../styles";
 import type { ChartDataItem } from "../../common/types";
 
 const TestIcon = () => <svg data-testid="row-icon" />;
@@ -54,7 +59,7 @@ describe("HorizontalBarChart", () => {
       getBarStyle(4, 10, lightTheme.palette.vars.accentADefault),
     ).toMatchObject({
       width: "40%",
-      height: 8,
+      height: 18,
       borderRadius: 0.5,
       backgroundColor: lightTheme.palette.vars.accentADefault,
     });
@@ -62,6 +67,23 @@ describe("HorizontalBarChart", () => {
       getBarStyle(4, 10, darkTheme.palette.vars.accentADefault),
     ).toMatchObject({
       backgroundColor: darkTheme.palette.vars.accentADefault,
+    });
+  });
+
+  it("uses an 18px bar height and an 8px gap between rows", () => {
+    expect(MIN_BAR_HEIGHT_PX).toBe(18);
+    expect(SPACE_BETWEEN_BARS_PX).toBe(8);
+    expect(styles.barsContainer).toMatchObject({ gap: "8px" });
+  });
+
+  it("scrolls rows vertically inside the height it is given", () => {
+    // Shrinkable flex child with vertical overflow — the pieces that make the
+    // rows scroll instead of stretching the chart past its container.
+    expect(styles.barsContainer).toMatchObject({
+      flex: 1,
+      minHeight: 0,
+      overflowY: "auto",
+      overflowX: "hidden",
     });
   });
 
@@ -107,5 +129,36 @@ describe("HorizontalBarChart", () => {
 
     expect(handleClick).toHaveBeenCalledTimes(3);
     expect(handleClick).toHaveBeenCalledWith(data[0]);
+  });
+
+  describe("inline variant", () => {
+    it("renders the name before the bar and the value after it, on the same line", () => {
+      renderChart(false, {
+        variant: "inline",
+        categories: [{ name: "Attack Purpose" }, { name: "No. Attacks" }],
+      });
+
+      // The category header is unrelated to per-row layout and still renders.
+      expect(screen.getByText("Attack Purpose")).toBeInTheDocument();
+      expect(screen.getByText("Cryptomining")).toBeInTheDocument();
+      expect(screen.getByText("10")).toBeInTheDocument();
+      expect(screen.getByTestId("row-icon")).toBeInTheDocument();
+    });
+
+    it("still supports mouse and keyboard activation", () => {
+      const handleClick = jest.fn();
+      renderChart(false, { variant: "inline", handleClick });
+
+      const cryptominingRow = screen.getByRole("button", {
+        name: "Cryptomining 10",
+      });
+
+      fireEvent.click(cryptominingRow);
+      fireEvent.keyDown(cryptominingRow, { key: "Enter" });
+      fireEvent.keyDown(cryptominingRow, { key: " " });
+
+      expect(handleClick).toHaveBeenCalledTimes(3);
+      expect(handleClick).toHaveBeenCalledWith(data[0]);
+    });
   });
 });
