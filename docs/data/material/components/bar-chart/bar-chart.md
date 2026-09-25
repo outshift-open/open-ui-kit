@@ -59,6 +59,8 @@ Start with the closest story, then adapt the props to match your product flow.
 
 ## Behavior notes
 
+- Bars share the plot width with a constant 8px gap between them, and never get thinner than 18px.
+- When the container is too narrow to fit every bar at 18px, the chart scrolls horizontally instead of squeezing the bars. Size the container to decide how many bars show before it scrolls.
 - Validate the expected data shape against the Storybook examples before wiring live data.
 - Keep labels and legends close to the marks they describe.
 - Use empty and loading states around the chart when data is not ready.
