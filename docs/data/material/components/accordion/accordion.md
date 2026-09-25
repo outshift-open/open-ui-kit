@@ -61,10 +61,17 @@ Use `size="large"` for page-level sections and `size="medium"` for compact lists
 
 ## Contained
 
-Use `contained` when each item needs a visible surface.
+Use `contained` (or `variant="contained"`) when each item needs a visible surface.
 This is useful inside cards, side panels, and stacked configuration blocks.
 
 {{"demo": "AccordionContained.js", "bg": true}}
+
+## Hover
+
+Use `variant="hover"` when you want the contained surface treatment to appear only on hover.
+The accordion otherwise looks like the default variant, and gains the rounded filled background and border on hover.
+
+{{"demo": "AccordionHover.js", "bg": true}}
 
 ## Dividers
 
@@ -124,7 +131,8 @@ The Open UI Kit Accordion keeps familiar disclosure behavior and adds a small se
 | `endSlot` | `ReactNode` | - | Optional final summary content after the action. |
 | `size` | `'medium' \| 'large'` | `'large'` | Controls summary typography and spacing. |
 | `arrowPosition` | `'left' \| 'right'` | `'left'` | Places the expand indicator before or after the content. |
-| `contained` | `boolean` | `false` | Renders the item as a bordered surface. |
+| `contained` | `boolean` | `false` | Renders the item as a bordered surface. Deprecated, use `variant` instead. |
+| `variant` | `'default' \| 'contained' \| 'hover'` | `'default'` | Controls the surface treatment. `contained` shows a persistent filled surface; `hover` shows the filled surface only on hover. |
 | `showDivider` | `boolean` | `size === 'medium' && !contained` | Controls the summary divider between title and subtitle. |
 | `useDotsStyle` | `boolean` | `false` | Applies a dotted outline to the details content box. |
 | `accordionSummaryProps` | `AccordionSummaryProps` | - | Passes props to the internal summary button. |

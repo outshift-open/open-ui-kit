@@ -18,6 +18,7 @@ import {
 } from "./elements";
 
 export const Accordion = ({
+  variant,
   contained = false,
   size = "large",
   arrowPosition = "left",
@@ -38,24 +39,28 @@ export const Accordion = ({
   children,
   ...props
 }: AccordionProps) => {
+  const resolvedVariant = variant ?? (contained ? "contained" : "default");
+  const isContained = resolvedVariant === "contained";
+  const isHover = resolvedVariant === "hover";
+  const hasSurface = isContained || isHover;
   const textVariant = size === "large" ? "h6" : "body2Semibold";
   const summaryTextLineHeight = size === "large" ? "24px" : "20px";
   const mediumSize = size === "medium";
-  const shouldShowDivider = showDivider ?? (mediumSize && !contained);
-  const shouldShowBorder = showBorder ?? (mediumSize && !contained);
+  const shouldShowDivider = showDivider ?? (mediumSize && !hasSurface);
+  const shouldShowBorder = showBorder ?? (mediumSize && !hasSurface);
 
   return (
     <StyledAccordion
       {...props}
       showBorder={shouldShowBorder}
-      contained={contained}
+      variant={resolvedVariant}
     >
       <StyledAccordionSummary
         aria-controls="panel-content"
         disableRipple
         expandIcon={<KeyboardArrowRight fontSize="small" />}
         {...accordionSummaryProps}
-        contained={contained}
+        variant={resolvedVariant}
         arrowPosition={arrowPosition}
         mediumSize={mediumSize}
       >
@@ -113,7 +118,7 @@ export const Accordion = ({
           </StyledSummaryAction>
         )}
       </StyledAccordionSummary>
-      <StyledAccordionDetails contained={contained}>
+      <StyledAccordionDetails variant={resolvedVariant}>
         <StyledAccordionContent {...detailsContentBoxProps}>
           {children}
         </StyledAccordionContent>

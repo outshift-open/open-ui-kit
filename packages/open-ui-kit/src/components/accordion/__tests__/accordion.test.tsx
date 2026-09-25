@@ -253,6 +253,40 @@ describe("Accordion", () => {
       expect(screen.getByTestId("subtitle-start-icon")).toBeInTheDocument();
       expect(screen.getByTestId("subtitle-end-icon")).toBeInTheDocument();
     });
+
+    it("renders the hover variant without throwing", () => {
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          variant: "hover",
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+    });
+
+    it("treats contained=true as the contained variant", () => {
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          contained: true,
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+    });
+
+    it("prefers variant over contained when both are provided", () => {
+      expect(() =>
+        renderAccordion({
+          title: "Title",
+          subTitle: "Text",
+          variant: "hover",
+          contained: true,
+          children: <p>Content</p>,
+        }),
+      ).not.toThrow();
+    });
   });
 
   describe("light theme token coverage", () => {

@@ -77,6 +77,10 @@ const meta: Meta<AccordionProps> = {
     contained: {
       control: "boolean",
     },
+    variant: {
+      control: "radio",
+      options: ["default", "contained", "hover"],
+    },
     detailsContentBoxProps: {
       control: false,
     },
@@ -125,7 +129,7 @@ const meta: Meta<AccordionProps> = {
     (Story) => (
       <Box
         sx={(theme) => ({
-          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          backgroundColor: "transparent",
           boxSizing: "border-box",
           color: theme.palette.vars.baseTextDefault,
           p: 3,
@@ -155,7 +159,13 @@ export default meta;
 type Story = StoryObj<AccordionProps>;
 
 const ConstrainedAccordion = (props: AccordionProps) => (
-  <Box sx={{ maxWidth: "100%", width: storyWidth[props.size ?? "large"] }}>
+  <Box
+    sx={{
+      maxWidth: "100%",
+      width: storyWidth[props.size ?? "large"],
+      background: "transparent",
+    }}
+  >
     <Accordion {...props} />
   </Box>
 );
@@ -179,6 +189,7 @@ const stateSummaryProps = (
     ...(state === "hover"
       ? [
           (theme: Theme) => ({
+            backgroundColor: theme.palette.vars.baseBackgroundWeak,
             ".MuiAccordionSummary-expandIconWrapper": {
               color: theme.palette.vars.controlIconStrong,
             },
@@ -224,6 +235,15 @@ export const Contained: Story = {
 };
 
 export const Hover: Story = {
+  args: {
+    ...defaultArgs,
+    variant: "hover",
+    size: "medium",
+  },
+  render: renderConstrainedAccordion,
+};
+
+export const HoverState: Story = {
   args: {
     ...defaultArgs,
     accordionSummaryProps: stateSummaryProps("hover"),

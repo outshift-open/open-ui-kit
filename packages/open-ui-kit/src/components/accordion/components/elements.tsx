@@ -13,111 +13,131 @@ import {
   accordionSummaryClasses,
   styled,
   type AccordionDetailsProps,
-  type AccordionProps,
-  type AccordionSummaryProps,
+  type AccordionProps as MuiAccordionProps,
+  type AccordionSummaryProps as MuiAccordionSummaryProps,
   type BoxProps,
 } from "@mui/material";
 
 export const StyledAccordion = styled(Accordion, {
-  shouldForwardProp: (prop) => prop !== "contained" && prop !== "showBorder",
-})<{ contained?: boolean; showBorder?: boolean }>(
-  ({ theme, contained, showBorder }) => ({
-    padding: 0,
-    color: theme.palette.vars.baseTextStrong,
-    backgroundColor: "transparent",
-    backgroundImage: "none",
-    boxShadow: "none",
-    "&::before": {
-      display: "none",
-    },
-    "&.Mui-expanded": {
-      marginTop: 0,
-    },
-    "&.Mui-disabled": {
-      color: theme.palette.vars.baseTextDisabled,
+  shouldForwardProp: (prop) => prop !== "variant" && prop !== "showBorder",
+})<{ variant?: "default" | "contained" | "hover"; showBorder?: boolean }>(
+  ({ theme, variant, showBorder }) => {
+    const hasSurface = variant === "contained" || variant === "hover";
+    return {
+      padding: 0,
+      color: theme.palette.vars.baseTextStrong,
       backgroundColor: "transparent",
-    },
-    ...(showBorder &&
-      !contained && {
-        borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
-      }),
-    ...(contained && {
-      border: "1px solid transparent",
-      borderRadius: "8px !important",
-      "&:hover:not(.Mui-disabled)": {
-        borderColor: theme.palette.vars.controlBorderHover,
+      backgroundImage: "none",
+      boxShadow: "none",
+      "&::before": {
+        display: "none",
       },
-    }),
-  }),
+      "&.Mui-expanded": {
+        marginTop: 0,
+      },
+      "&.Mui-disabled": {
+        color: theme.palette.vars.baseTextDisabled,
+        backgroundColor: "transparent",
+      },
+      ...(showBorder &&
+        !hasSurface && {
+          borderTop: `1px solid ${theme.palette.vars.controlBorderDefault}`,
+        }),
+      ...(!hasSurface && {
+        "&:hover:not(.Mui-disabled)": {
+          borderColor: theme.palette.vars.controlBorderHover,
+        },
+      }),
+      ...(hasSurface && {
+        border: "1px solid transparent",
+        borderRadius: "8px !important",
+        ...(variant === "contained" && {
+          backgroundColor: theme.palette.vars.baseBackgroundWeak,
+        }),
+        "&:hover:not(.Mui-disabled)": {
+          ...(variant === "hover" && {
+            backgroundColor: theme.palette.vars.baseBackgroundWeak,
+          }),
+          borderColor: theme.palette.vars.controlBorderHover,
+        },
+      }),
+    };
+  },
 ) as ComponentType<
-  AccordionProps & { contained?: boolean; showBorder?: boolean }
+  Omit<MuiAccordionProps, "variant"> & {
+    variant?: "default" | "contained" | "hover";
+    showBorder?: boolean;
+  }
 >;
 
 export const StyledAccordionSummary = styled(AccordionSummary, {
   shouldForwardProp: (prop) =>
-    prop !== "contained" && prop !== "arrowPosition" && prop !== "mediumSize",
+    prop !== "variant" && prop !== "arrowPosition" && prop !== "mediumSize",
 })<{
-  contained?: boolean;
+  variant?: "default" | "contained" | "hover";
   arrowPosition?: "left" | "right";
   mediumSize?: boolean;
-}>(({ theme, contained, arrowPosition, mediumSize }) => ({
-  minHeight: "unset",
-  gap: "8px",
-  padding: contained ? "16px" : "0px",
-  paddingTop: contained ? "16px" : mediumSize ? "16px" : "0px",
-  borderRadius: contained ? "8px" : "4px",
-  "&.Mui-expanded": {
+}>(({ theme, variant, arrowPosition, mediumSize }) => {
+  const hasSurface = variant === "contained" || variant === "hover";
+  return {
     minHeight: "unset",
-  },
-  "@media (max-width: 600px)": {
-    minHeight: "44px",
+    gap: "8px",
+    padding: hasSurface ? "16px" : "0px",
+    paddingTop: hasSurface ? "16px" : mediumSize ? "16px" : "0px",
+    borderRadius: hasSurface ? "8px" : "4px",
     "&.Mui-expanded": {
+      minHeight: "unset",
+    },
+    "@media (max-width: 600px)": {
       minHeight: "44px",
+      "&.Mui-expanded": {
+        minHeight: "44px",
+      },
     },
-  },
-  "&.Mui-focusVisible, &:focus-visible": {
-    backgroundColor: "transparent",
-    boxShadow: `inset 0 0 0 2px ${theme.palette.vars.controlBorderActive}`,
-  },
-  [`& .${accordionSummaryClasses.content}`]: {
-    alignItems: "center",
-    display: "flex",
-    gap: "16px",
-    margin: 0,
-    width: "100%",
-    "&.Mui-expanded": {
+    "&.Mui-focusVisible, &:focus-visible": {
+      backgroundColor: "transparent",
+      boxShadow: `inset 0 0 0 2px ${theme.palette.vars.controlBorderActive}`,
+    },
+    [`& .${accordionSummaryClasses.content}`]: {
+      alignItems: "center",
+      display: "flex",
+      gap: "16px",
       margin: 0,
+      width: "100%",
+      "&.Mui-expanded": {
+        margin: 0,
+      },
     },
-  },
-  [`& .${accordionSummaryClasses.expandIconWrapper}`]: {
-    alignContent: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    height: "20px",
-    justifyContent: "center",
-    width: "20px",
-    color: theme.palette.vars.controlIconDefault,
-    "&.Mui-expanded": {
-      transform: "rotate(90deg)",
-    },
-  },
-  [`&:hover:not(.Mui-disabled) .${accordionSummaryClasses.expandIconWrapper}`]:
-    {
-      color: theme.palette.vars.controlIconStrong,
-    },
-  "&.Mui-disabled": {
-    opacity: 1,
-    color: theme.palette.vars.baseTextDisabled,
     [`& .${accordionSummaryClasses.expandIconWrapper}`]: {
-      color: theme.palette.vars.baseTextDisabled,
+      alignContent: "center",
+      display: "flex",
+      flexWrap: "wrap",
+      height: "20px",
+      justifyContent: "center",
+      width: "20px",
+      color: theme.palette.vars.controlIconDefault,
+      "&.Mui-expanded": {
+        transform: "rotate(90deg)",
+      },
     },
-  },
-  ...(arrowPosition === "left" && {
-    flexDirection: "row-reverse",
-  }),
-})) as ComponentType<
-  AccordionSummaryProps & {
-    contained?: boolean;
+    [`&:hover:not(.Mui-disabled) .${accordionSummaryClasses.expandIconWrapper}`]:
+      {
+        color: theme.palette.vars.controlIconStrong,
+      },
+    "&.Mui-disabled": {
+      opacity: 1,
+      color: theme.palette.vars.baseTextDisabled,
+      [`& .${accordionSummaryClasses.expandIconWrapper}`]: {
+        color: theme.palette.vars.baseTextDisabled,
+      },
+    },
+    ...(arrowPosition === "left" && {
+      flexDirection: "row-reverse",
+    }),
+  };
+}) as ComponentType<
+  Omit<MuiAccordionSummaryProps, "variant"> & {
+    variant?: "default" | "contained" | "hover";
     arrowPosition?: "left" | "right";
     mediumSize?: boolean;
   }
@@ -146,10 +166,17 @@ export const StyledSummaryDivider = styled(Box)(({ theme }) => ({
 })) as ComponentType<BoxProps>;
 
 export const StyledAccordionDetails = styled(AccordionDetails, {
-  shouldForwardProp: (prop) => prop !== "contained",
-})<{ contained?: boolean }>(({ contained }) => ({
-  padding: contained ? "0px 16px 16px" : "16px 0px 0px",
-})) as ComponentType<AccordionDetailsProps & { contained?: boolean }>;
+  shouldForwardProp: (prop) => prop !== "variant",
+})<{ variant?: "default" | "contained" | "hover" }>(({ variant }) => {
+  const hasSurface = variant === "contained" || variant === "hover";
+  return {
+    padding: hasSurface ? "0px 16px 16px" : "16px 0px 0px",
+  };
+}) as ComponentType<
+  Omit<AccordionDetailsProps, "variant"> & {
+    variant?: "default" | "contained" | "hover";
+  }
+>;
 
 export const StyledAccordionContent = styled(Box)(() => ({
   width: "100%",
