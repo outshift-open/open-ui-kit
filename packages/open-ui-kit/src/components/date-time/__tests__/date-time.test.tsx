@@ -340,20 +340,20 @@ describe("DateTime picker styles", () => {
     const styles = getDateTimePickerStyle(darkTheme) as Record<string, unknown>;
 
     expect(styles).toMatchObject({
-      width: "558px",
+      width: "605px",
       height: "412px",
       backgroundColor: darkTheme.palette.vars.controlBackgroundWeak,
       border: `2px solid ${darkTheme.palette.vars.controlBorderActive}`,
       backgroundImage: "none",
     });
     expect(styles["& .MuiPickersLayout-contentWrapper"]).toMatchObject({
-      width: "526px",
-      gridTemplateColumns: "293px 1px 232px",
+      width: "569px",
+      gridTemplateColumns: "293px 44px 232px",
     });
     expect(styles["& .MuiMultiSectionDigitalClock-root"]).toMatchObject({
       width: "232px",
-      height: "80px",
-      maxHeight: "80px",
+      height: "336px",
+      maxHeight: "336px",
     });
   });
 });
