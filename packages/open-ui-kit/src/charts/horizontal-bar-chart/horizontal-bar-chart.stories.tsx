@@ -33,7 +33,7 @@ const meta: Meta<typeof HorizontalBarChart> = {
       page: () => (
         <DocsHeader
           title="Horizontal Bar Chart"
-          blurb="HorizontalBarChart displays items as horizontal progress bars. Bar width is proportional to the item's value relative to the maximum."
+          blurb="HorizontalBarChart displays items as horizontal progress bars. Bar width is proportional to the item's value relative to the maximum, and each value is printed just after the end of its own bar."
           guideLink="#"
           importLine='import { HorizontalBarChart } from "@open-ui-kit/core";'
         />
@@ -56,7 +56,12 @@ const meta: Meta<typeof HorizontalBarChart> = {
       control: "radio",
       options: ["labelled", "inline"],
       description:
-        '"labelled" (default) shows the name/value row above each bar. "inline" shows the name before the bar and the value after it, all on the same line.',
+        '"labelled" (default) shows the name above each bar. "inline" shows the name before the bar, all on the same line. Both print the value immediately after the end of the bar.',
+    },
+    showValues: {
+      control: "boolean",
+      description:
+        "Prints each bar's value just past the end of its fill. Off releases the right-hand gutter, so the bars span the full row width.",
     },
   },
 };
@@ -164,6 +169,35 @@ const InlineTemplate = () => {
   );
 };
 
+/**
+ * A near-zero value next to a full-width one, with four digits on the longest
+ * bar: the extremes of value placement, and the case where the trailing value
+ * has the least room.
+ */
+const SPREAD: [name: string, value: number][] = [
+  ["Cryptomining", 1204],
+  ["Ransomware", 620],
+  ["Data Exfiltration", 180],
+  ["Insider Threat", 12],
+];
+
+const SpreadTemplate = (args: Partial<HorizontalBarChartProps>) => {
+  const theme = useTheme();
+
+  return (
+    <ChartFrame>
+      <HorizontalBarChart
+        {...args}
+        data={SPREAD.map(([name, value]) => ({
+          name,
+          value,
+          color: theme.palette.vars.accentADefault,
+        }))}
+      />
+    </ChartFrame>
+  );
+};
+
 export const Default: Story = {
   render: (args) => <DefaultTemplate {...args} />,
 };
@@ -185,4 +219,28 @@ export const Empty: Story = {
 
 export const Inline: Story = {
   render: () => <InlineTemplate />,
+};
+
+/** Values follow the end of their bar, so they step across with bar length. */
+export const ValuePlacement: Story = {
+  render: (args) => <SpreadTemplate {...args} />,
+};
+
+export const ValuePlacementInline: Story = {
+  render: (args) => <SpreadTemplate {...args} />,
+  args: {
+    variant: "inline",
+  },
+};
+
+/**
+ * The design also ships the chart without values, for places where a surrounding
+ * table already carries the numbers. The gutter goes with them, so the bars run
+ * the full width of the row.
+ */
+export const WithoutValues: Story = {
+  render: (args) => <SpreadTemplate {...args} />,
+  args: {
+    showValues: false,
+  },
 };

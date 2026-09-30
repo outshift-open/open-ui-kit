@@ -32,12 +32,18 @@ const meta: Meta<typeof BarChart> = {
     },
     valueFormatter: {
       control: false,
-      description: "Formats the 0 and maximum labels on the value axis.",
+      description:
+        "Formats the 0 and maximum labels on the value axis and the value above each bar.",
     },
     categoryLabels: {
       control: "object",
       description:
         "Start and end labels under the plot. Defaults to the first and last item names.",
+    },
+    showValues: {
+      control: "boolean",
+      description:
+        "Prints each bar's value above it. Off releases the space reserved above the bars, so the plot uses the full height.",
     },
     showTooltip: {
       control: "boolean",
@@ -57,7 +63,7 @@ const meta: Meta<typeof BarChart> = {
       page: () => (
         <DocsHeader
           title="Bar Chart"
-          blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars share the plot width over a quarter grid, with the scale ends and the first and last categories labelled."
+          blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars share the plot width over a quarter grid, each carrying its value above it, with the scale ends and the first and last categories labelled."
           guideLink="#"
           importLine='import { BarChart } from "@open-ui-kit/core";'
         />
@@ -179,6 +185,19 @@ const preventSelection = (item: ChartDataItem) => {
 export const Default: Story = {
   args: {
     showTooltip: false,
+  },
+  render: (args) => <ThemedBarChart {...args} />,
+};
+
+/**
+ * The design also ships the chart without values, for places where a legend or
+ * table alongside already carries the numbers. The space reserved above the bars
+ * goes with them, so the plot uses the full height.
+ */
+export const WithoutValues: Story = {
+  args: {
+    showTooltip: false,
+    showValues: false,
   },
   render: (args) => <ThemedBarChart {...args} />,
 };

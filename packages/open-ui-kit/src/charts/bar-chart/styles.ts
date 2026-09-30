@@ -10,6 +10,10 @@ import type { SxProps, Theme } from "@mui/material/styles";
 export const BAR_CHART_Y_AXIS_WIDTH_PX = 44;
 /** Vertical space between the plot area and the category labels. */
 export const BAR_CHART_LABEL_GAP_PX = 8;
+/** Height of the box the design stacks above each bar to hold its value. */
+export const BAR_CHART_VALUE_LABEL_HEIGHT_PX = 18;
+/** Gap between that box and the top of the bar it belongs to. */
+export const BAR_CHART_VALUE_LABEL_GAP_PX = 2;
 
 export const getBarChartTooltipStyles = (theme: Theme): SxProps<Theme> => ({
   backgroundColor: theme.palette.vars.baseBackgroundMedium,
@@ -32,6 +36,22 @@ export const getBarChartAxisTickStyles = (theme: Theme) => ({
   fontSize: 12,
   fontWeight: 400,
   letterSpacing: 0.4,
+  fill: theme.palette.vars.baseTextMedium,
+});
+
+/**
+ * The value printed above each bar. Recharts draws it as SVG text, so the caption
+ * variant is unpacked into presentation attributes instead of being handed over as
+ * an `sx`; `lineHeight` is left out because a one-line SVG label has no line box to
+ * sit in — its vertical placement comes from the offset above the bar. It shares
+ * `captionSemibold` and `baseTextMedium` with the horizontal bar chart's value so
+ * the two charts read as the same component family.
+ */
+export const getBarChartValueLabelStyles = (theme: Theme) => ({
+  fontFamily: theme.typography.captionSemibold.fontFamily,
+  fontSize: theme.typography.captionSemibold.fontSize,
+  fontWeight: theme.typography.captionSemibold.fontWeight,
+  letterSpacing: theme.typography.captionSemibold.letterSpacing,
   fill: theme.palette.vars.baseTextMedium,
 });
 

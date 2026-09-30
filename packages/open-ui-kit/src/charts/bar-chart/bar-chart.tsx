@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Bar,
   Cell,
+  LabelList,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -23,9 +24,12 @@ import type {
 import { ChartDataItem, ChartProps } from "../common/types";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import {
+  BAR_CHART_VALUE_LABEL_GAP_PX,
+  BAR_CHART_VALUE_LABEL_HEIGHT_PX,
   BAR_CHART_Y_AXIS_WIDTH_PX,
   getBarChartAxisTickStyles,
   getBarChartGridColor,
+  getBarChartValueLabelStyles,
   styles,
 } from "./styles";
 
@@ -33,11 +37,29 @@ import {
 export const MIN_BAR_SIZE_PX = 18;
 /** Gap between neighbouring bars — constant, whatever the bar width. */
 export const SPACE_BETWEEN_BARS_PX = 8;
+/**
+ * Room the plot keeps clear above the bars while `showValues` is on. Without it a
+ * bar at the very top of the scale would push its own label out of the chart, and
+ * the bars would stop sharing a common height budget. With the values off the
+ * band is dropped, so the plot uses the full height.
+ */
+export const SPACE_ABOVE_BARS_PX =
+  BAR_CHART_VALUE_LABEL_HEIGHT_PX + BAR_CHART_VALUE_LABEL_GAP_PX;
+/**
+ * Recharts measures a `top` label's offset from the bar up to the text's anchor
+ * point, and `dominantBaseline="central"` puts that anchor in the middle of the
+ * glyphs — so the offset reaches the centre of the design's label box rather than
+ * its bottom edge, and no font metrics have to be guessed at.
+ */
+const VALUE_LABEL_OFFSET_PX =
+  BAR_CHART_VALUE_LABEL_GAP_PX + BAR_CHART_VALUE_LABEL_HEIGHT_PX / 2;
 const BAR_RADIUS: [number, number, number, number] = [4, 4, 0, 0];
 /** The plot is divided into quarters in both directions. */
 const GRID_FRACTIONS = [0, 0.25, 0.5, 0.75, 1];
 /**
  * Lets bars/tooltips escape the chart's SVG (default UA overflow is `hidden`).
+ * Value labels rely on it too: the design's label box is wider than a bar, so the
+ * outermost labels overhang the plot.
  * `overflow` is a valid passthrough SVG attribute on the root <svg>, but recharts'
  * CategoricalChartProps type doesn't declare it, so it's spread in rather than
  * passed as a direct JSX prop to avoid a type error.
@@ -115,10 +137,21 @@ export interface BarChartProps extends ChartProps {
   handleClick?: (item: ChartDataItem) => void;
   /** Value at the top of the scale. Defaults to the largest value in `data`. */
   maxValue?: number | undefined;
-  /** Formats the scale labels at the bottom and top of the value axis. */
+  /**
+   * Formats the scale labels at the bottom and top of the value axis, and the
+   * value printed above each bar — the two read as the same quantity, so a unit
+   * added to one belongs on the other.
+   */
   valueFormatter?: ((value: number) => string) | undefined;
   /** Labels under the start and end of the plot. Defaults to the first and last item names. */
   categoryLabels?: [start: string, end: string] | undefined;
+  /**
+   * Prints each bar's value above it. The design ships the chart both ways — with
+   * the values for a chart read on its own, without them where a legend or table
+   * alongside already carries the numbers. Turning them off also releases the
+   * space reserved above the bars, so the plot uses the full height.
+   */
+  showValues?: boolean;
 }
 
 export const BarChart = ({
@@ -129,6 +162,7 @@ export const BarChart = ({
   maxValue,
   valueFormatter = String,
   categoryLabels,
+  showValues = true,
 }: BarChartProps) => {
   const theme = useTheme();
   const items = data as ChartDataItem[];
@@ -176,7 +210,14 @@ export const BarChart = ({
             <RechartsBarChart
               data={items}
               barSize={barSize}
-              margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+              margin={{
+                // Only the labelled chart needs room above the bars; without them
+                // the plot would carry an unexplained band of empty space.
+                top: showValues ? SPACE_ABOVE_BARS_PX : 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              }}
               {...SVG_OVERFLOW_VISIBLE}
             >
               {/* Dotted value lines, solid time divisions — both on quarters, not per bar. */}
@@ -216,6 +257,22 @@ export const BarChart = ({
                     })}
                   />
                 ))}
+                {/*
+                  Recharts owns the label's placement so it tracks the bar it
+                  belongs to: centred on the column and lifted clear of its top
+                  edge. It is drawn outside the bars' clip path, so the tallest
+                  bar's value survives `allowDataOverflow` on the value axis.
+                */}
+                {showValues && (
+                  <LabelList
+                    dataKey="value"
+                    position="top"
+                    offset={VALUE_LABEL_OFFSET_PX}
+                    dominantBaseline="central"
+                    formatter={valueFormatter}
+                    {...getBarChartValueLabelStyles(theme)}
+                  />
+                )}
               </Bar>
               {showTooltip && (
                 <Tooltip

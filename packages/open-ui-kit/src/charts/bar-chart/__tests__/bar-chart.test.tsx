@@ -14,15 +14,19 @@ import {
   BarChart,
   getBarChartLayout,
   MIN_BAR_SIZE_PX,
+  SPACE_ABOVE_BARS_PX,
   SPACE_BETWEEN_BARS_PX,
   type BarChartProps,
 } from "../bar-chart";
 import {
+  BAR_CHART_VALUE_LABEL_GAP_PX,
+  BAR_CHART_VALUE_LABEL_HEIGHT_PX,
   BAR_CHART_Y_AXIS_WIDTH_PX,
   getBarChartAxisTickStyles,
   getBarChartGridColor,
   getBarChartTooltipStyles,
   getBarChartTooltipTypographyStyles,
+  getBarChartValueLabelStyles,
 } from "../styles";
 import type { ChartDataItem } from "../../common/types";
 
@@ -49,11 +53,17 @@ jest.mock("recharts", () => {
     BarChart: ({
       children,
       barSize,
+      margin,
     }: {
       children: ReactNode;
       barSize: number;
+      margin: { top: number };
     }) => (
-      <div data-bar-size={barSize} data-testid="recharts-bar-chart">
+      <div
+        data-bar-size={barSize}
+        data-margin-top={margin.top}
+        data-testid="recharts-bar-chart"
+      >
         {children}
       </div>
     ),
@@ -127,6 +137,40 @@ jest.mock("recharts", () => {
         type="button"
       />
     ),
+    // The formatter is exercised on a fixed value: the stub has no bar geometry
+    // to hand it, and what matters here is that the chart's formatter reaches it.
+    LabelList: ({
+      dataKey,
+      dominantBaseline,
+      fill,
+      fontSize,
+      fontWeight,
+      formatter,
+      offset,
+      position,
+    }: {
+      dataKey: string;
+      dominantBaseline: string;
+      fill: string;
+      fontSize: string;
+      fontWeight: number;
+      formatter: (value: number) => string;
+      offset: number;
+      position: string;
+    }) => (
+      <div
+        data-baseline={dominantBaseline}
+        data-data-key={dataKey}
+        data-fill={fill}
+        data-font-size={fontSize}
+        data-font-weight={fontWeight}
+        data-offset={offset}
+        data-position={position}
+        data-testid="bar-value-labels"
+      >
+        {formatter(20)}
+      </div>
+    ),
     Tooltip: () => <div data-testid="tooltip" />,
   };
 });
@@ -180,6 +224,13 @@ describe("BarChart", () => {
     expect(getBarChartTooltipTypographyStyles(lightTheme)).toMatchObject({
       color: lightTheme.palette.vars.baseTextStrong,
     });
+    // The value above a bar is the caption semibold variant, not a local scale.
+    expect(getBarChartValueLabelStyles(lightTheme)).toMatchObject({
+      fontFamily: lightTheme.typography.captionSemibold.fontFamily,
+      fontSize: "12px",
+      fontWeight: 600,
+      fill: lightTheme.palette.vars.baseTextMedium,
+    });
   });
 
   it("uses grid, axis and tooltip tokens in dark mode", () => {
@@ -193,6 +244,9 @@ describe("BarChart", () => {
     });
     expect(getBarChartTooltipStyles(darkTheme)).toMatchObject({
       backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
+    });
+    expect(getBarChartValueLabelStyles(darkTheme)).toMatchObject({
+      fill: darkTheme.palette.vars.baseTextMedium,
     });
   });
 
@@ -261,6 +315,54 @@ describe("BarChart", () => {
     expect(screen.getByTestId("bar-chart")).not.toHaveStyle({
       overflowX: "auto",
     });
+  });
+
+  it("prints the formatted value above every bar", () => {
+    renderBarChart({ valueFormatter: (value) => `${value}%` });
+
+    const labels = screen.getByTestId("bar-value-labels");
+    expect(labels).toHaveAttribute("data-data-key", "value");
+    expect(labels).toHaveAttribute("data-position", "top");
+    expect(labels).toHaveTextContent("20%");
+    // The label is anchored through its middle, so the offset is the 2px gap plus
+    // half the 18px label box rather than the whole box.
+    expect(labels).toHaveAttribute("data-baseline", "central");
+    expect(labels).toHaveAttribute(
+      "data-offset",
+      String(
+        BAR_CHART_VALUE_LABEL_GAP_PX + BAR_CHART_VALUE_LABEL_HEIGHT_PX / 2,
+      ),
+    );
+    expect(labels).toHaveAttribute(
+      "data-fill",
+      lightTheme.palette.vars.baseTextMedium,
+    );
+    expect(labels).toHaveAttribute("data-font-size", "12px");
+    expect(labels).toHaveAttribute("data-font-weight", "600");
+  });
+
+  it("keeps the label box and its gap clear above the tallest bar", () => {
+    renderBarChart();
+
+    expect(SPACE_ABOVE_BARS_PX).toBe(
+      BAR_CHART_VALUE_LABEL_HEIGHT_PX + BAR_CHART_VALUE_LABEL_GAP_PX,
+    );
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-margin-top",
+      String(SPACE_ABOVE_BARS_PX),
+    );
+  });
+
+  it("drops the labels and the space they reserved when showValues is false", () => {
+    renderBarChart({ showValues: false });
+
+    expect(screen.queryByTestId("bar-value-labels")).not.toBeInTheDocument();
+    // The reserved band exists only to hold the labels — leaving it behind would
+    // read as an unexplained gap above the bars.
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-margin-top",
+      "0",
+    );
   });
 
   describe("getBarChartLayout", () => {
