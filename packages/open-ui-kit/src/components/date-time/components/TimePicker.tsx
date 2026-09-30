@@ -14,6 +14,7 @@ import {
   getTimePickerStyle,
   mergeSx,
 } from "../styles";
+import { renderTimeWheelView } from "./TimeWheel";
 
 export const TimePicker = ({
   label,
@@ -43,6 +44,11 @@ export const TimePicker = ({
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiDateTimePicker
         format="HH:mm"
+        viewRenderers={{
+          hours: renderTimeWheelView,
+          minutes: renderTimeWheelView,
+          meridiem: renderTimeWheelView,
+        }}
         {...pickerProps}
         slotProps={
           {

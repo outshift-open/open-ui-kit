@@ -128,11 +128,15 @@ export const DateRangePicker = ({
     });
 
     return (
+      // A fixed 7-column grid keeps every day under its weekday and packs a
+      // short last week to the left instead of spreading it across the row.
       <Box
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="space-between"
-        sx={{ width: "293px" }}
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(7, 32px)",
+          justifyContent: "space-between",
+          width: "293px",
+        }}
       >
         {daysArray}
       </Box>

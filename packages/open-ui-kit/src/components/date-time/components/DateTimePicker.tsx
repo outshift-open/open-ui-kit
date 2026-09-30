@@ -14,6 +14,7 @@ import {
   getSharedSlotPropsDateTimePicker,
   mergeSx,
 } from "../styles";
+import { renderTimeWheelView } from "./TimeWheel";
 
 export const DateTimePicker = ({
   label,
@@ -44,6 +45,11 @@ export const DateTimePicker = ({
       <MuiDateTimePicker
         views={["year", "month", "day", "hours", "minutes"]}
         format="MM/DD/YYYY HH:mm"
+        viewRenderers={{
+          hours: renderTimeWheelView,
+          minutes: renderTimeWheelView,
+          meridiem: renderTimeWheelView,
+        }}
         {...pickerProps}
         slotProps={
           {
