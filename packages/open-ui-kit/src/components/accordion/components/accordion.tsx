@@ -48,6 +48,7 @@ export const Accordion = ({
   const mediumSize = size === "medium";
   const shouldShowDivider = showDivider ?? (mediumSize && !hasSurface);
   const shouldShowBorder = showBorder ?? (mediumSize && !hasSurface);
+  const hasAction = Boolean(action);
 
   return (
     <StyledAccordion
@@ -64,7 +65,7 @@ export const Accordion = ({
         arrowPosition={arrowPosition}
         mediumSize={mediumSize}
       >
-        <StyledSummaryValue>
+        <StyledSummaryValue hug={hasAction}>
           {titleStartIcon}
           <Typography
             variant={textVariant}
@@ -87,7 +88,7 @@ export const Accordion = ({
         </StyledSummaryValue>
         {shouldShowDivider && <StyledSummaryDivider aria-hidden />}
         {(subTitle || subTitleStartIcon || subTitleEndIcon || subTitleSlot) && (
-          <StyledSummaryValue>
+          <StyledSummaryValue hug={hasAction}>
             {subTitleStartIcon}
             {subTitle && (
               <Typography
@@ -111,6 +112,7 @@ export const Accordion = ({
             {subTitleEndIcon}
           </StyledSummaryValue>
         )}
+        {hasAction && shouldShowDivider && <StyledSummaryDivider aria-hidden />}
         {(action || endSlot) && (
           <StyledSummaryAction>
             {action}

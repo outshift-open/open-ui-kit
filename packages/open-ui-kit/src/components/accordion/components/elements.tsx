@@ -140,13 +140,17 @@ export const StyledAccordionSummary = styled(AccordionSummary, {
   }
 >;
 
-export const StyledSummaryValue = styled(Box)(() => ({
+export const StyledSummaryValue = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "hug",
+})<{ hug?: boolean }>(({ hug }) => ({
   alignItems: "center",
   display: "flex",
-  flex: 1,
+  // With an action the design packs Title | Text | Action into one row, each
+  // hugging its content with 16px gaps; they still shrink with ellipsis.
+  flex: hug ? "0 1 auto" : 1,
   gap: "8px",
   minWidth: 0,
-})) as ComponentType<BoxProps>;
+})) as ComponentType<BoxProps & { hug?: boolean }>;
 
 export const StyledSummaryAction = styled(Box)(() => ({
   alignItems: "center",

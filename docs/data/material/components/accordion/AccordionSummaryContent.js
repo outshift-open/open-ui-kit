@@ -2,6 +2,7 @@ import * as React from "react";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import GridView from "@mui/icons-material/GridView";
 import Hub from "@mui/icons-material/Hub";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { Box } from "@mui/material";
 import { Accordion, Stack, ThemeProvider, Typography } from "@open-ui-kit/core";
 
@@ -35,14 +36,44 @@ export default function AccordionSummaryContent() {
           titleStartIcon={<GridView fontSize="small" />}
           subTitleEndIcon={<Hub fontSize="small" />}
           action={
-            <Typography
-              variant="body2Semibold"
-              sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
-            >
-              View all
-            </Typography>
+            <Stack direction="row" alignItems="center" gap="8px">
+              <Stack
+                direction="row"
+                alignItems="center"
+                gap="4px"
+                sx={(theme) => ({
+                  color: theme.palette.vars.interactiveSecondaryDefaultDefault,
+                })}
+              >
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  sx={{ lineHeight: 1.25 }}
+                >
+                  View all
+                </Typography>
+                <ArrowForward fontSize="small" />
+              </Stack>
+              <KeyboardArrowRight
+                fontSize="small"
+                sx={(theme) => ({
+                  color: theme.palette.vars.controlIconDefault,
+                  transition: theme.transitions.create("transform", {
+                    duration: theme.transitions.duration.shortest,
+                  }),
+                  ".MuiAccordionSummary-root:hover:not(.Mui-disabled) &": {
+                    color: theme.palette.vars.controlIconStrong,
+                  },
+                  ".MuiAccordionSummary-root.Mui-expanded &": {
+                    transform: "rotate(90deg)",
+                  },
+                  ".Mui-disabled &": {
+                    color: theme.palette.vars.baseTextDisabled,
+                  },
+                })}
+              />
+            </Stack>
           }
-          endSlot={<ArrowForward fontSize="small" />}
         >
           <Typography>
             Add icons and action content when the summary needs extra context
