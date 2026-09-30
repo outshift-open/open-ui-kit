@@ -60,6 +60,13 @@ describe("TimeWheel", () => {
     expect(announced("Minutes")).toHaveLength(12);
   });
 
+  it("lists every minute by default", () => {
+    renderWheel({ timeSteps: undefined });
+
+    expect(announced("Minutes")).toHaveLength(60);
+    expect(announced("Minutes").slice(0, 4)).toEqual(["00", "01", "02", "03"]);
+  });
+
   it("marks the current hour and minute as selected", () => {
     renderWheel();
 

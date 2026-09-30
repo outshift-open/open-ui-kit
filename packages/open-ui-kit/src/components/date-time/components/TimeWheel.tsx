@@ -477,7 +477,7 @@ export const TimeWheel = ({
   );
   const interactive = !readOnly && !disabled;
   const hourStep = timeSteps?.hours ?? 1;
-  const minuteStep = timeSteps?.minutes ?? minutesStep ?? 5;
+  const minuteStep = timeSteps?.minutes ?? minutesStep ?? 1;
   const isPm = base.hour() >= 12;
 
   const isOutOfRange = useCallback(

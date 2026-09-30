@@ -50,6 +50,8 @@ export const DateTimePicker = ({
           minutes: renderTimeWheelView,
           meridiem: renderTimeWheelView,
         }}
+        // Every minute, not MUI's desktop default of 5; override via timeSteps.
+        timeSteps={{ hours: 1, minutes: 1 }}
         {...pickerProps}
         slotProps={
           {
