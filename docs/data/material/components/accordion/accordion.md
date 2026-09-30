@@ -68,8 +68,8 @@ This is useful inside cards, side panels, and stacked configuration blocks.
 
 ## Hover
 
-Use `variant="hover"` when you want the contained surface treatment to appear only on hover.
-The accordion otherwise looks like the default variant, and gains the rounded filled background and border on hover.
+Use `variant="hover"` when you want the accordion to highlight on hover without a filled surface.
+It uses the contained spacing and rounded corners, has no background color, and shows its border only on hover.
 
 {{"demo": "AccordionHover.js", "bg": true}}
 
@@ -132,7 +132,7 @@ The Open UI Kit Accordion keeps familiar disclosure behavior and adds a small se
 | `size` | `'medium' \| 'large'` | `'large'` | Controls summary typography and spacing. |
 | `arrowPosition` | `'left' \| 'right'` | `'left'` | Places the expand indicator before or after the content. |
 | `contained` | `boolean` | `false` | Renders the item as a bordered surface. Deprecated, use `variant` instead. |
-| `variant` | `'default' \| 'contained' \| 'hover'` | `'default'` | Controls the surface treatment. `contained` shows a persistent filled surface; `hover` shows the filled surface only on hover. |
+| `variant` | `'default' \| 'contained' \| 'hover'` | `'default'` | Controls the surface treatment. `contained` shows a persistent filled surface; `hover` has no background and shows the border only on hover. |
 | `showDivider` | `boolean` | `size === 'medium' && !contained` | Controls the summary divider between title and subtitle. |
 | `useDotsStyle` | `boolean` | `false` | Applies a dotted outline to the details content box. |
 | `accordionSummaryProps` | `AccordionSummaryProps` | - | Passes props to the internal summary button. |

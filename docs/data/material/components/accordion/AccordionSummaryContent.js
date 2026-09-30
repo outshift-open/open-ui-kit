@@ -35,7 +35,10 @@ export default function AccordionSummaryContent() {
           titleStartIcon={<GridView fontSize="small" />}
           subTitleEndIcon={<Hub fontSize="small" />}
           action={
-            <Typography variant="body2Semibold" color="primary">
+            <Typography
+              variant="body2Semibold"
+              sx={(theme) => ({ color: theme.palette.vars.baseTextStrong })}
+            >
               View all
             </Typography>
           }

@@ -189,7 +189,6 @@ const stateSummaryProps = (
     ...(state === "hover"
       ? [
           (theme: Theme) => ({
-            backgroundColor: theme.palette.vars.baseBackgroundWeak,
             ".MuiAccordionSummary-expandIconWrapper": {
               color: theme.palette.vars.controlIconStrong,
             },
@@ -237,15 +236,6 @@ export const Contained: Story = {
 export const Hover: Story = {
   args: {
     ...defaultArgs,
-    variant: "hover",
-    size: "medium",
-  },
-  render: renderConstrainedAccordion,
-};
-
-export const HoverState: Story = {
-  args: {
-    ...defaultArgs,
     accordionSummaryProps: stateSummaryProps("hover"),
   },
   render: renderConstrainedAccordion,
@@ -282,15 +272,27 @@ export const WithIcons: Story = {
 export const WithAction: Story = {
   args: {
     ...defaultArgs,
-    action: (
-      <Typography variant="body2Semibold" color="primary">
-        Link
-      </Typography>
-    ),
     endSlot: <ArrowForward fontSize="small" />,
     showDivider: true,
   },
-  render: renderConstrainedAccordion,
+  // Matches the title/subtitle text token for the current size.
+  render: (args) =>
+    renderConstrainedAccordion({
+      ...args,
+      action: (
+        <Typography
+          variant="body2Semibold"
+          sx={(theme) => ({
+            color:
+              args.size === "medium"
+                ? theme.palette.vars.baseTextDefault
+                : theme.palette.vars.baseTextStrong,
+          })}
+        >
+          Link
+        </Typography>
+      ),
+    }),
 };
 
 export const WithSlots: Story = {

@@ -55,9 +55,6 @@ export const StyledAccordion = styled(Accordion, {
           backgroundColor: theme.palette.vars.baseBackgroundWeak,
         }),
         "&:hover:not(.Mui-disabled)": {
-          ...(variant === "hover" && {
-            backgroundColor: theme.palette.vars.baseBackgroundWeak,
-          }),
           borderColor: theme.palette.vars.controlBorderHover,
         },
       }),
@@ -82,8 +79,8 @@ export const StyledAccordionSummary = styled(AccordionSummary, {
   return {
     minHeight: "unset",
     gap: "8px",
-    padding: hasSurface ? "16px" : "0px",
-    paddingTop: hasSurface ? "16px" : mediumSize ? "16px" : "0px",
+    padding: hasSurface ? "16px" : "4px",
+    paddingTop: hasSurface ? "16px" : mediumSize ? "16px" : "4px",
     borderRadius: hasSurface ? "8px" : "4px",
     "&.Mui-expanded": {
       minHeight: "unset",

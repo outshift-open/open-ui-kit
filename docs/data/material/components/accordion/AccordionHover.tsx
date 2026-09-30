@@ -8,22 +8,21 @@ export default function AccordionHover() {
         <Accordion
           variant="hover"
           defaultExpanded
-          title="Notification settings"
-          subTitle="Email and in-app"
+          title="Access policy"
+          subTitle="Private by default"
         >
           <Typography>
-            Hover accordions look like the default variant until the pointer is
-            over them, then show the contained surface.
+            Hover accordions stay transparent and show their border only on
+            hover.
           </Typography>
         </Accordion>
         <Accordion
           variant="hover"
-          title="Connected apps"
-          subTitle="3 integrations"
+          title="Audit log"
+          subTitle="30 days retained"
         >
           <Typography>
-            Use this variant for dense lists where a permanent surface would add
-            too much visual weight.
+            Keep related controls visually grouped without adding another card.
           </Typography>
         </Accordion>
       </Stack>
