@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/outshift-open/open-ui-kit/compare/v3.1.0...v3.2.0) (2026-10-05)
+
+
+### Features
+
+* **charts:** print each bar's value against the bar itself ([81dd99f](https://github.com/outshift-open/open-ui-kit/commit/81dd99fc15dcbb0f6bbd5b39153167c72fa6bca1))
+
 # [3.1.0](https://github.com/outshift-open/open-ui-kit/compare/v3.0.0...v3.1.0) (2026-09-16)
 
 
