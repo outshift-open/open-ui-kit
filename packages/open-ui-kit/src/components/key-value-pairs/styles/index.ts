@@ -67,6 +67,25 @@ export const getKeyValueValueStyles = (
   letterSpacing: "0.25px",
 });
 
+export const getKeyValueTagsStyles = (
+  maxWidth: string | number,
+): CSSObject => ({
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "flex-start",
+  alignContent: "flex-start",
+  gap: "8px",
+  maxWidth,
+});
+
+export const getKeyValueTagCountStyles = (theme: Theme): CSSObject => ({
+  backgroundColor: "transparent",
+  border: `2px solid ${theme.palette.vars.controlBackgroundMedium}`,
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
+});
+
 export const getStoryDotStyles = (theme: Theme): CSSObject => ({
   width: "8px",
   height: "8px",

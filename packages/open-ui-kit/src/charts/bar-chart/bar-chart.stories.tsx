@@ -22,7 +22,28 @@ const meta: Meta<typeof BarChart> = {
   argTypes: {
     data: {
       control: "object",
-      description: "Series values rendered as compact vertical bars.",
+      description:
+        "Series values rendered as vertical bars that share the plot width.",
+    },
+    maxValue: {
+      control: "number",
+      description:
+        "Value at the top of the scale. Defaults to the largest value in data.",
+    },
+    valueFormatter: {
+      control: false,
+      description:
+        "Formats the 0 and maximum labels on the value axis and the value above each bar.",
+    },
+    categoryLabels: {
+      control: "object",
+      description:
+        "Start and end labels under the plot. Defaults to the first and last item names.",
+    },
+    showValues: {
+      control: "boolean",
+      description:
+        "Prints each bar's value above it. Off releases the space reserved above the bars, so the plot uses the full height.",
     },
     showTooltip: {
       control: "boolean",
@@ -42,7 +63,7 @@ const meta: Meta<typeof BarChart> = {
       page: () => (
         <DocsHeader
           title="Bar Chart"
-          blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars align left; empty slots are hidden."
+          blurb="BarChart expresses quantities through a bar's length using a common baseline. Bars share the plot width over a quarter grid, each carrying its value above it, with the scale ends and the first and last categories labelled."
           guideLink="#"
           importLine='import { BarChart } from "@open-ui-kit/core";'
         />
@@ -55,19 +76,31 @@ export default meta;
 
 type Story = StoryObj<typeof BarChart>;
 
-const ChartFrame = ({ children }: { children: ReactNode }) => (
-  <Box sx={{ width: "230px", height: "188px" }}>{children}</Box>
-);
+const ChartFrame = ({
+  children,
+  width = "492px",
+}: {
+  children: ReactNode;
+  width?: string;
+}) => <Box sx={{ width, height: "164px" }}>{children}</Box>;
+
+const percentFormatter = (value: number) => `${value}%`;
+
+const TIME_SLOT_VALUES = [20, 15, 39, 20, 39, 24, 15, 24, 39, 24, 15];
 
 const useBarChartData = () => {
   const theme = useTheme();
 
-  return [
-    { name: "Critical", value: 82, color: theme.palette.vars.accentADefault },
-    { name: "High", value: 64, color: theme.palette.vars.accentADefault },
-    { name: "Medium", value: 48, color: theme.palette.vars.accentADefault },
-    { name: "Low", value: 24, color: theme.palette.vars.accentADefault },
-  ];
+  return TIME_SLOT_VALUES.map((value, i) => {
+    const minutes = 11 + i * 12;
+    const hour = 15 + Math.floor(minutes / 60);
+
+    return {
+      name: `${hour}:${String(minutes % 60).padStart(2, "0")}`,
+      value,
+      color: theme.palette.vars.accentADefault,
+    };
+  });
 };
 
 const useBarChartCountStates = () => {
@@ -113,8 +146,12 @@ const CountStates = () => (
         <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Typography variant="button">{state.title}</Typography>
           <Divider />
-          <ChartFrame>
-            <BarChart data={state.data} />
+          <ChartFrame width="238px">
+            <BarChart
+              data={state.data}
+              maxValue={100}
+              valueFormatter={percentFormatter}
+            />
           </ChartFrame>
         </CardContent>
       </Card>
@@ -130,7 +167,13 @@ const ThemedBarChart = ({
 
   return (
     <ChartFrame>
-      <BarChart data={data ?? fallbackData} {...args} />
+      <BarChart
+        data={data ?? fallbackData}
+        maxValue={100}
+        valueFormatter={percentFormatter}
+        categoryLabels={["15:11", "17:11"]}
+        {...args}
+      />
     </ChartFrame>
   );
 };
@@ -146,11 +189,33 @@ export const Default: Story = {
   render: (args) => <ThemedBarChart {...args} />,
 };
 
+/**
+ * The design also ships the chart without values, for places where a legend or
+ * table alongside already carries the numbers. The space reserved above the bars
+ * goes with them, so the plot uses the full height.
+ */
+export const WithoutValues: Story = {
+  args: {
+    showTooltip: false,
+    showValues: false,
+  },
+  render: (args) => <ThemedBarChart {...args} />,
+};
+
 export const CountVariants: Story = {
   parameters: {
     controls: { disable: true },
   },
   render: () => <CountStates />,
+};
+
+export const AutoScale: Story = {
+  args: {
+    maxValue: undefined,
+    valueFormatter: undefined,
+    categoryLabels: undefined,
+  },
+  render: (args) => <ThemedBarChart {...args} />,
 };
 
 export const WithTooltip: Story = {

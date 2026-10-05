@@ -225,7 +225,7 @@ describe("DateTime picker styles", () => {
       "& .MuiPaper-root": {
         boxSizing: "border-box",
         width: "325px",
-        height: "306px",
+        height: "auto",
         overflow: "hidden",
         backgroundColor: lightTheme.palette.vars.controlBackgroundWeak,
         backgroundImage: "none",
@@ -285,54 +285,15 @@ describe("DateTime picker styles", () => {
     });
   });
 
-  it("uses compact TimePicker surface tokens from CSS", () => {
+  it("sizes the TimePicker popper around the time wheel", () => {
     const styles = getTimePickerStyle(lightTheme) as Record<string, unknown>;
 
     expect(styles).toMatchObject({
       width: "264px",
-      height: "156px",
+      height: "auto",
       backgroundColor: lightTheme.palette.vars.controlBackgroundWeak,
       border: `2px solid ${lightTheme.palette.vars.controlBorderActive}`,
       backgroundImage: "none",
-    });
-    expect(styles["& .MuiMultiSectionDigitalClock-root"]).toMatchObject({
-      width: "232px",
-      maxHeight: "80px",
-      overflow: "hidden",
-      borderBottom: 0,
-      position: "relative",
-    });
-    expect(styles["& .MuiMultiSectionDigitalClockSection-root"]).toMatchObject({
-      overflowY: "auto",
-      overflowX: "hidden",
-      scrollbarWidth: "none",
-    });
-    expect(styles["& .MuiMultiSectionDigitalClockSection-item"]).toMatchObject({
-      minWidth: "69px",
-      width: "69px",
-      height: "60px",
-      borderRadius: "8px",
-      backgroundColor: lightTheme.palette.vars.controlBackgroundDefault,
-      border: `1px solid ${lightTheme.palette.vars.interactiveSecondaryWeakDefault}`,
-    });
-    expect(styles["& .MuiMultiSectionDigitalClock-root::before"]).toMatchObject(
-      {
-        content: '":"',
-        left: "69px",
-        width: "24px",
-        height: "60px",
-        color: lightTheme.palette.vars.interactiveTextInDefault,
-      },
-    );
-    expect(
-      styles[
-        "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item"
-      ],
-    ).toMatchObject({
-      width: "43px",
-      height: "30px",
-      minHeight: "30px",
-      padding: "5px 10px",
     });
   });
 
@@ -340,20 +301,15 @@ describe("DateTime picker styles", () => {
     const styles = getDateTimePickerStyle(darkTheme) as Record<string, unknown>;
 
     expect(styles).toMatchObject({
-      width: "558px",
+      width: "605px",
       height: "412px",
       backgroundColor: darkTheme.palette.vars.controlBackgroundWeak,
       border: `2px solid ${darkTheme.palette.vars.controlBorderActive}`,
       backgroundImage: "none",
     });
     expect(styles["& .MuiPickersLayout-contentWrapper"]).toMatchObject({
-      width: "526px",
-      gridTemplateColumns: "293px 1px 232px",
-    });
-    expect(styles["& .MuiMultiSectionDigitalClock-root"]).toMatchObject({
-      width: "232px",
-      height: "80px",
-      maxHeight: "80px",
+      width: "569px",
+      gridTemplateColumns: "293px 44px 232px",
     });
   });
 });

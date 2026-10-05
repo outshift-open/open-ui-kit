@@ -5,8 +5,12 @@
  */
 
 export { KeyValuePairs } from "./components/key-value-pairs";
+export { KeyValuePairStatus } from "./components/key-value-pair-status";
+export { KeyValuePairTags } from "./components/key-value-pair-tags";
 export type {
   KeyValuePairItem,
+  KeyValuePairStatusProps,
+  KeyValuePairTagsProps,
   KeyValuePairsLayout,
   KeyValuePairsProps,
 } from "./types";

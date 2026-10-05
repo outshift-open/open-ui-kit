@@ -45,9 +45,28 @@ export const getSharedStyle = (theme: Theme) =>
       maxHeight: "24px",
       margin: "0 0 12px",
       padding: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
     },
+    // The design's header is just the month and year between the two chevrons.
+    // The label container keeps its own click handler, so the year and month
+    // views stay reachable by clicking the label.
+    "& .MuiPickersCalendarHeader-switchViewButton": {
+      display: "none",
+    },
+    // The arrow switcher still takes 24px of flow at the end of the header, so
+    // auto margins would centre the label in the remaining space. Pin it to the
+    // header's true centre instead.
     "& .MuiPickersCalendarHeader-labelContainer": {
-      margin: "auto",
+      position: "absolute",
+      left: "50%",
+      transform: "translateX(-50%)",
+      margin: "0 !important",
+    },
+    // Gap that belonged to the hidden caret.
+    "& .MuiPickersCalendarHeader-label": {
+      marginRight: 0,
     },
     "& .MuiPickersArrowSwitcher-root": {
       width: "24px",
@@ -58,10 +77,12 @@ export const getSharedStyle = (theme: Theme) =>
       padding: 0,
       borderRadius: "4px",
     },
+    // Same width and spacing as the week rows, so each weekday letter sits
+    // centred over its 32px column of dates.
     "& .MuiDayCalendar-header": {
       width: "293px",
       height: "20px",
-      padding: "0 12px",
+      padding: 0,
       justifyContent: "space-between",
     },
     "& .MuiDayCalendar-weekDayLabel": {
@@ -123,6 +144,12 @@ export const getSharedStyle = (theme: Theme) =>
     },
     "& .MuiMultiSectionDigitalClockSection-root": {
       padding: 0,
+    },
+    // MUI draws a left rule on every section after the first. Match its own
+    // `:not(:first-of-type)` selector so this wins on specificity; the design
+    // has no rules between the hour, minute and period columns.
+    "& .MuiMultiSectionDigitalClockSection-root:not(:first-of-type)": {
+      borderLeft: 0,
     },
     "& .MuiMultiSectionDigitalClockSection-item": {
       ...theme.typography.subtitle2,
@@ -215,52 +242,40 @@ export const getStaticDateTimePickerStyle = (theme: Theme) =>
     },
   }) as SxProps<Theme>;
 
-const getPeriodItemStyles = (theme: Theme) =>
-  ({
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item":
-      {
-        ...theme.typography.subtitle2,
-        minWidth: "43px",
-        width: "43px",
-        height: "30px",
-        minHeight: "30px",
-        padding: "5px 10px",
-        margin: 0,
-        borderStyle: "solid",
-        color: theme.palette.vars.interactiveTextInDefault,
-        backgroundColor: theme.palette.vars.controlBackgroundDefault,
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item:first-of-type":
-      {
-        borderWidth: "1px 1px 0 1px",
-        borderColor: theme.palette.vars.interactiveSecondaryWeakDefault,
-        borderRadius: "8px 8px 0 0",
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item:last-of-type":
-      {
-        borderWidth: "0 1px 1px 1px",
-        borderColor: theme.palette.vars.interactiveSecondaryWeakDefault,
-        borderRadius: "0 0 8px 8px",
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item.Mui-selected":
-      {
-        backgroundColor: `${theme.palette.vars.controlBackgroundDefault} !important`,
-        border: `1px solid ${theme.palette.vars.interactiveTertiaryActive}`,
-        color: theme.palette.vars.baseTextDefault,
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item.Mui-selected:first-of-type":
-      {
-        borderRadius: "8px 8px 0 0",
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item.Mui-selected:last-of-type":
-      {
-        borderRadius: "0 0 8px 8px",
-      },
-  }) as SxProps<Theme>;
+/**
+ * Year-view correction for the calendar surfaces that expose it. Spread AFTER
+ * `getSharedStyle` so the button width override sits alongside the shared
+ * button styling rather than replacing it.
+ */
+const getYearViewStyles = {
+  // The year list is flex-wrapped with content-width buttons, which leaves the
+  // third column short of the calendar edge. Lay it out as three equal columns
+  // that fill the full width instead.
+  "& .MuiYearCalendar-root": {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    columnGap: "8px",
+    rowGap: "8px",
+    width: "293px",
+    padding: 0,
+  },
+  "& .MuiPickersYear-root": {
+    width: "100%",
+    flexBasis: "auto",
+    margin: 0,
+  },
+  // Scoped under the year cell so the shared button styling still applies.
+  "& .MuiPickersYear-root .MuiYearCalendar-button, & .MuiPickersYear-root .MuiPickersYear-yearButton":
+    {
+      width: "100%",
+      margin: "0 !important",
+    },
+};
 
 export const getDatePickerStyle = (theme: Theme) =>
   ({
     ...getSharedStyle(theme),
+    ...getYearViewStyles,
     "& .MuiPickersLayout-root, & .MuiPickersLayout-contentWrapper, & .MuiDateCalendar-root":
       {
         width: "293px",
@@ -330,178 +345,52 @@ export const getStaticMonthPickerStyle = (theme: Theme) =>
 export const getDateTimePickerStyle = (theme: Theme) =>
   ({
     ...getSharedStyle(theme),
-    width: "558px",
+    width: "605px",
     height: "412px",
     "& .MuiPickersLayout-root": {
-      width: "526px",
+      width: "569px",
       height: "380px",
-      gridTemplateColumns: "0 526px 0",
+      gridTemplateColumns: "0 569px 0",
       gridTemplateRows: "0 336px 0 0 32px",
     },
     "& .MuiPickersLayout-contentWrapper": {
       display: "grid",
-      width: "526px",
+      width: "569px",
       height: "336px",
-      gridTemplateColumns: "293px 1px 232px",
+      // 44px gutter = the date panel's 16px inset, the 12px panel gap, and the
+      // time panel's 16px inset from the design. The divider still occupies the
+      // column so the clock stays in the third track.
+      gridTemplateColumns: "293px 44px 232px",
     },
     "& .MuiDateCalendar-root": {
       width: "293px",
       height: "336px",
     },
-    "& .MuiMultiSectionDigitalClock-root": {
-      width: "232px",
-      height: "80px",
-      maxHeight: "80px",
-      overflow: "hidden",
-      borderBottom: 0,
-      position: "relative",
-    },
-    "& .MuiMultiSectionDigitalClock-root::before": {
-      ...theme.typography.h3,
-      content: '":"',
-      position: "absolute",
-      left: "69px",
-      top: 0,
-      zIndex: 1,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "24px",
-      height: "60px",
-      color: theme.palette.vars.interactiveTextInDefault,
-      pointerEvents: "none",
-    },
-    "& .MuiMultiSectionDigitalClockSection-root": {
-      padding: 0,
-      width: "70px",
-      flex: "0 0 70px",
-      overflowY: "auto",
-      overflowX: "hidden",
-      scrollbarWidth: "none",
-      "&::-webkit-scrollbar": {
-        display: "none",
-      },
-      "&:nth-of-type(2)": {
-        width: "82px",
-        flexBasis: "82px",
-        marginLeft: "24px",
-      },
-      "&:nth-of-type(3)": {
-        width: "44px",
-        flexBasis: "44px",
-        marginLeft: "12px",
-        marginTop: "4px",
-      },
-    },
-    "& .MuiMultiSectionDigitalClockSection-item": {
-      ...theme.typography.h3,
-      minWidth: "69px",
-      width: "69px",
-      height: "60px",
-      margin: 0,
-      borderRadius: "8px",
-      color: theme.palette.vars.interactiveTextInDefault,
-      backgroundColor: theme.palette.vars.controlBackgroundDefault,
-      border: `1px solid ${theme.palette.vars.interactiveSecondaryWeakDefault}`,
-    },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(2) .MuiMultiSectionDigitalClockSection-item":
-      {
-        minWidth: "81px",
-        width: "81px",
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item":
-      {
-        minWidth: "43px",
-        width: "43px",
-      },
+    ...getYearViewStyles,
+    // The gutter column carries the spacing; the design has no visible rule.
     "& .MuiDivider-root": {
-      borderColor: theme.palette.vars.controlBorderWeak,
+      borderColor: "transparent",
     },
     "& .MuiPickersLayout-actionBar": {
-      width: "526px",
+      width: "569px",
       height: "32px",
       justifyContent: "flex-end",
       padding: 0,
       marginRight: 0,
       marginTop: "12px",
+      gap: "16px",
     },
-    ...getPeriodItemStyles(theme),
   }) as SxProps<Theme>;
 
 export const getTimePickerStyle = (theme: Theme) =>
   ({
     ...getSharedStyle(theme),
     width: "264px",
-    height: "156px",
+    // Sized by the 336px clock plus the action bar.
+    height: "auto",
     "& .MuiPickersLayout-root, & .MuiPickersLayout-contentWrapper": {
       width: "232px",
     },
-    "& .MuiMultiSectionDigitalClock-root": {
-      width: "232px",
-      maxHeight: "80px",
-      overflow: "hidden",
-      borderBottom: 0,
-      position: "relative",
-    },
-    "& .MuiMultiSectionDigitalClock-root::before": {
-      ...theme.typography.h3,
-      content: '":"',
-      position: "absolute",
-      left: "69px",
-      top: 0,
-      zIndex: 1,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "24px",
-      height: "60px",
-      color: theme.palette.vars.interactiveTextInDefault,
-      pointerEvents: "none",
-    },
-    "& .MuiMultiSectionDigitalClockSection-root": {
-      padding: 0,
-      width: "70px",
-      flex: "0 0 70px",
-      maxHeight: "80px",
-      overflowY: "auto",
-      overflowX: "hidden",
-      scrollbarWidth: "none",
-      "&::-webkit-scrollbar": {
-        display: "none",
-      },
-      "&:nth-of-type(2)": {
-        width: "82px",
-        flexBasis: "82px",
-        marginLeft: "24px",
-      },
-      "&:nth-of-type(3)": {
-        width: "44px",
-        flexBasis: "44px",
-        marginLeft: "12px",
-        marginTop: "4px",
-      },
-    },
-    "& .MuiMultiSectionDigitalClockSection-item": {
-      ...theme.typography.h3,
-      minWidth: "69px",
-      width: "69px",
-      height: "60px",
-      margin: 0,
-      borderRadius: "8px",
-      color: theme.palette.vars.interactiveTextInDefault,
-      backgroundColor: theme.palette.vars.controlBackgroundDefault,
-      border: `1px solid ${theme.palette.vars.interactiveSecondaryWeakDefault}`,
-    },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(2) .MuiMultiSectionDigitalClockSection-item":
-      {
-        minWidth: "81px",
-        width: "81px",
-      },
-    "& .MuiMultiSectionDigitalClockSection-root:nth-of-type(3) .MuiMultiSectionDigitalClockSection-item":
-      {
-        minWidth: "43px",
-        width: "43px",
-      },
     "& .MuiDialogActions-root, & .MuiPickersLayout-actionBar": {
       width: "232px",
       height: "32px",
@@ -510,7 +399,6 @@ export const getTimePickerStyle = (theme: Theme) =>
       marginTop: "12px",
       gap: "16px",
     },
-    ...getPeriodItemStyles(theme),
   }) as SxProps<Theme>;
 
 export const getSharedSlotPropsDateTimePicker = (theme: Theme) =>
@@ -624,7 +512,9 @@ export const getDateRangePickerStyles = (theme: Theme) => {
       boxSizing: "border-box",
       padding: "16px",
       width: "325px",
-      height: "306px",
+      // Months span four to six weeks; size to the rows so the actions are
+      // never clipped.
+      height: "auto",
       overflow: "hidden",
       backgroundColor: theme.palette.vars.controlBackgroundWeak,
       backgroundImage: "none",

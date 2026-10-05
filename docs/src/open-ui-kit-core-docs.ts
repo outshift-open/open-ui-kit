@@ -124,9 +124,9 @@ export type {
   CardProps,
 } from "../../packages/open-ui-kit/src/components/card";
 export { default as CardDescription } from "../../packages/open-ui-kit/src/components/card/components/card-description";
-export type { CardDescriptionProps } from "../../packages/open-ui-kit/src/components/card/components/card-description";
+export type { CardDescriptionProps } from "../../packages/open-ui-kit/src/components/card/types";
 export { default as CardSubheader } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
-export type { CardSubheaderProps } from "../../packages/open-ui-kit/src/components/card/components/card-subheader";
+export type { CardSubheaderProps } from "../../packages/open-ui-kit/src/components/card/types";
 export {
   ThemeMode,
   useTheme,

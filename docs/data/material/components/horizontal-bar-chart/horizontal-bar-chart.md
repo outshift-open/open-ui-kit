@@ -59,6 +59,10 @@ Start with the closest story, then adapt the props to match your product flow.
 
 ## Behavior notes
 
+- Bars are 18px tall with a constant 8px gap between rows.
+- Each value is printed 2px after the end of its own bar, so it tracks the bar's length instead of sitting in a fixed right-hand column. Rows keep that space free on the right, so the longest bar still has room for its value.
+- `variant="labelled"` (default) puts the name above the bar; `variant="inline"` puts it before the bar on the same line. Both place the value after the bar.
+- When the rows are taller than the chart's container, they scroll vertically. Give the chart a height to decide how many rows show before it scrolls.
 - Validate the expected data shape against the Storybook examples before wiring live data.
 - Keep labels and legends close to the marks they describe.
 - Use empty and loading states around the chart when data is not ready.

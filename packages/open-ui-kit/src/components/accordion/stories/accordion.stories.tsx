@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { Theme } from "@mui/material/styles";
-import { ArrowForward, Github, ImageGrid } from "@/custom-icons";
+import {
+  ArrowForward,
+  Github,
+  ImageGrid,
+  KeyboardArrowRight,
+} from "@/custom-icons";
 import { Box, Stack, Typography } from "@/components";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Accordion } from "../components/accordion";
@@ -77,6 +82,10 @@ const meta: Meta<AccordionProps> = {
     contained: {
       control: "boolean",
     },
+    variant: {
+      control: "radio",
+      options: ["default", "contained", "hover"],
+    },
     detailsContentBoxProps: {
       control: false,
     },
@@ -125,7 +134,7 @@ const meta: Meta<AccordionProps> = {
     (Story) => (
       <Box
         sx={(theme) => ({
-          backgroundColor: theme.palette.vars.baseBackgroundStrong,
+          backgroundColor: "transparent",
           boxSizing: "border-box",
           color: theme.palette.vars.baseTextDefault,
           p: 3,
@@ -155,7 +164,13 @@ export default meta;
 type Story = StoryObj<AccordionProps>;
 
 const ConstrainedAccordion = (props: AccordionProps) => (
-  <Box sx={{ maxWidth: "100%", width: storyWidth[props.size ?? "large"] }}>
+  <Box
+    sx={{
+      maxWidth: "100%",
+      width: storyWidth[props.size ?? "large"],
+      background: "transparent",
+    }}
+  >
     <Accordion {...props} />
   </Box>
 );
@@ -259,18 +274,63 @@ export const WithIcons: Story = {
   render: renderConstrainedAccordion,
 };
 
+// Title | Text | Link → ›, as designed: the link (text + forward arrow, 4px
+// apart) and a chevron button that mirrors the expand arrow, all one action.
 export const WithAction: Story = {
   args: {
     ...defaultArgs,
-    action: (
-      <Typography variant="body2Semibold" color="primary">
-        Link
-      </Typography>
-    ),
-    endSlot: <ArrowForward fontSize="small" />,
     showDivider: true,
   },
-  render: renderConstrainedAccordion,
+  render: (args) =>
+    renderConstrainedAccordion({
+      ...args,
+      action: (
+        <Stack direction="row" alignItems="center" gap="8px">
+          <Stack
+            direction="row"
+            alignItems="center"
+            gap="4px"
+            sx={(theme) => ({
+              color: theme.palette.vars.interactiveSecondaryDefaultDefault,
+            })}
+          >
+            {/* Same type size as the title and text. */}
+            <Typography
+              variant={args.size === "medium" ? "body2Semibold" : "h6"}
+              color="inherit"
+              sx={{ lineHeight: 1.25 }}
+            >
+              Link
+            </Typography>
+            {/* The glyph fills its box edge to edge; 3px of inset brings it to
+                the design's ~14px arrow while keeping the 20px footprint. */}
+            <ArrowForward
+              fontSize="small"
+              sx={{ boxSizing: "border-box", padding: "3px" }}
+            />
+          </Stack>
+          {/* Mirrors the expand arrow: same icon, size, colours and rotation. */}
+          <KeyboardArrowRight
+            fontSize="small"
+            sx={(theme) => ({
+              color: theme.palette.vars.controlIconDefault,
+              transition: theme.transitions.create("transform", {
+                duration: theme.transitions.duration.shortest,
+              }),
+              ".MuiAccordionSummary-root:hover:not(.Mui-disabled) &": {
+                color: theme.palette.vars.controlIconStrong,
+              },
+              ".MuiAccordionSummary-root.Mui-expanded &": {
+                transform: "rotate(90deg)",
+              },
+              ".Mui-disabled &": {
+                color: theme.palette.vars.baseTextDisabled,
+              },
+            })}
+          />
+        </Stack>
+      ),
+    }),
 };
 
 export const WithSlots: Story = {

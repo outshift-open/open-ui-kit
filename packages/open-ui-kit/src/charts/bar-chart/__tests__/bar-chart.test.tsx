@@ -10,13 +10,28 @@ import type { ReactNode } from "react";
 import { lightTheme } from "@/theme/light/light-theme";
 import { darkTheme } from "@/theme/dark/dark-theme";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
-import { BarChart } from "../bar-chart";
 import {
+  BarChart,
+  getBarChartLayout,
+  MIN_BAR_SIZE_PX,
+  SPACE_ABOVE_BARS_PX,
+  SPACE_BETWEEN_BARS_PX,
+  type BarChartProps,
+} from "../bar-chart";
+import {
+  BAR_CHART_VALUE_LABEL_GAP_PX,
+  BAR_CHART_VALUE_LABEL_HEIGHT_PX,
+  BAR_CHART_Y_AXIS_WIDTH_PX,
+  getBarChartAxisTickStyles,
+  getBarChartGridColor,
   getBarChartTooltipStyles,
   getBarChartTooltipTypographyStyles,
-  getBarChartTrackColor,
+  getBarChartValueLabelStyles,
 } from "../styles";
 import type { ChartDataItem } from "../../common/types";
+
+type Offset = { top: number; left: number; width: number; height: number };
+type CoordinatesGenerator = (props: { offset: Offset }) => number[];
 
 jest.mock("recharts", () => {
   const ReactRuntime = jest.requireActual("react");
@@ -35,38 +50,86 @@ jest.mock("recharts", () => {
 
       return <div data-testid="responsive-container">{children}</div>;
     },
-    BarChart: ({ children }: { children: ReactNode }) => (
-      <div data-testid="recharts-bar-chart">{children}</div>
-    ),
-    XAxis: () => <div data-testid="x-axis" />,
-    Bar: ({
-      background,
+    BarChart: ({
       children,
+      barSize,
+      margin,
     }: {
-      background: { fill: string; radius: number };
       children: ReactNode;
+      barSize: number;
+      margin: { top: number };
     }) => (
       <div
-        data-background-fill={background.fill}
-        data-background-radius={background.radius}
-        data-testid="bar-series"
+        data-bar-size={barSize}
+        data-margin-top={margin.top}
+        data-testid="recharts-bar-chart"
       >
         {children}
       </div>
     ),
+    CartesianGrid: ({
+      horizontal,
+      stroke,
+      strokeDasharray,
+      horizontalCoordinatesGenerator,
+      verticalCoordinatesGenerator,
+    }: {
+      horizontal?: boolean;
+      stroke: string;
+      strokeDasharray?: string;
+      horizontalCoordinatesGenerator?: CoordinatesGenerator;
+      verticalCoordinatesGenerator?: CoordinatesGenerator;
+    }) => {
+      const offset = { top: 8, left: 44, width: 400, height: 132 };
+      const generator =
+        horizontal === false
+          ? verticalCoordinatesGenerator
+          : horizontalCoordinatesGenerator;
+
+      return (
+        <div
+          data-coordinates={generator?.({ offset }).join(",")}
+          data-dash={strokeDasharray ?? "solid"}
+          data-stroke={stroke}
+          data-testid={horizontal === false ? "grid-columns" : "grid-rows"}
+        />
+      );
+    },
+    XAxis: () => <div data-testid="x-axis" />,
+    YAxis: ({
+      domain,
+      ticks,
+      tickFormatter,
+      tick,
+    }: {
+      domain: [number, number];
+      ticks: number[];
+      tickFormatter: (value: number) => string;
+      tick: { fill: string };
+    }) => (
+      <div
+        data-domain={domain.join(",")}
+        data-tick-fill={tick.fill}
+        data-testid="y-axis"
+      >
+        {ticks.map((value) => (
+          <span key={value}>{tickFormatter(value)}</span>
+        ))}
+      </div>
+    ),
+    Bar: ({ children }: { children: ReactNode }) => (
+      <div data-testid="bar-series">{children}</div>
+    ),
     Cell: ({
       cursor,
-      display,
       fill,
       onClick,
     }: {
       cursor?: string;
-      display?: string;
       fill: string;
       onClick?: () => void;
     }) => (
       <button
-        data-display={display}
         data-fill={fill}
         data-testid="bar-cell"
         onClick={onClick}
@@ -74,40 +137,85 @@ jest.mock("recharts", () => {
         type="button"
       />
     ),
-    Tooltip: ({ content }: { content: ReactNode }) => (
-      <div data-testid="tooltip">
-        {typeof content === "function" ? null : content}
+    // The formatter is exercised on a fixed value: the stub has no bar geometry
+    // to hand it, and what matters here is that the chart's formatter reaches it.
+    LabelList: ({
+      dataKey,
+      dominantBaseline,
+      fill,
+      fontSize,
+      fontWeight,
+      formatter,
+      offset,
+      position,
+    }: {
+      dataKey: string;
+      dominantBaseline: string;
+      fill: string;
+      fontSize: string;
+      fontWeight: number;
+      formatter: (value: number) => string;
+      offset: number;
+      position: string;
+    }) => (
+      <div
+        data-baseline={dominantBaseline}
+        data-data-key={dataKey}
+        data-fill={fill}
+        data-font-size={fontSize}
+        data-font-weight={fontWeight}
+        data-offset={offset}
+        data-position={position}
+        data-testid="bar-value-labels"
+      >
+        {formatter(20)}
       </div>
     ),
+    Tooltip: () => <div data-testid="tooltip" />,
   };
 });
 
 const data: ChartDataItem[] = [
-  {
-    name: "Critical",
-    value: 82,
-    color: lightTheme.palette.vars.accentADefault,
-  },
-  { name: "High", value: 64, color: lightTheme.palette.vars.accentADefault },
+  { name: "15:11", value: 20, color: lightTheme.palette.vars.accentADefault },
+  { name: "16:11", value: 40, color: lightTheme.palette.vars.accentADefault },
+  { name: "17:11", value: 16, color: lightTheme.palette.vars.accentADefault },
 ];
 
-const renderBarChart = (
-  dark = false,
-  handleClick?: (item: ChartDataItem) => void,
-) =>
+/** Width the stubbed ResizeObserver reports for the chart's viewport. */
+let viewportWidth = 230;
+
+beforeEach(() => {
+  viewportWidth = 230;
+  window.ResizeObserver = class {
+    constructor(private callback: ResizeObserverCallback) {}
+    observe = () =>
+      this.callback(
+        [{ contentRect: { width: viewportWidth } } as ResizeObserverEntry],
+        this as unknown as ResizeObserver,
+      );
+    unobserve = jest.fn();
+    disconnect = jest.fn();
+  } as unknown as typeof ResizeObserver;
+});
+
+const renderBarChart = (props: Partial<BarChartProps> = {}, dark = false) =>
   render(
     <ThemeProvider defaultMode={dark ? ThemeMode.Dark : ThemeMode.Light}>
-      <BarChart data={data} handleClick={handleClick} showTooltip />
+      <BarChart data={data} showTooltip {...props} />
     </ThemeProvider>,
   );
 
 describe("BarChart", () => {
-  it("uses chart track and tooltip tokens in light mode", () => {
-    expect(getBarChartTrackColor(lightTheme)).toBe(
+  it("uses grid, axis and tooltip tokens in light mode", () => {
+    expect(getBarChartGridColor(lightTheme)).toBe(
       lightTheme.palette.vars.controlBorderMedium,
     );
     expect(lightTheme.palette.vars.controlBorderMedium).toBe("#dae3f8");
     expect(lightTheme.palette.vars.accentADefault).toBe("#5c6ddd");
+    expect(getBarChartAxisTickStyles(lightTheme)).toMatchObject({
+      fontSize: 12,
+      fill: lightTheme.palette.vars.baseTextMedium,
+    });
     expect(getBarChartTooltipStyles(lightTheme)).toMatchObject({
       backgroundColor: lightTheme.palette.vars.baseBackgroundMedium,
       padding: "2px 8px",
@@ -116,43 +224,237 @@ describe("BarChart", () => {
     expect(getBarChartTooltipTypographyStyles(lightTheme)).toMatchObject({
       color: lightTheme.palette.vars.baseTextStrong,
     });
+    // The value above a bar is the caption semibold variant, not a local scale.
+    expect(getBarChartValueLabelStyles(lightTheme)).toMatchObject({
+      fontFamily: lightTheme.typography.captionSemibold.fontFamily,
+      fontSize: "12px",
+      fontWeight: 600,
+      fill: lightTheme.palette.vars.baseTextMedium,
+    });
   });
 
-  it("uses chart track and tooltip tokens in dark mode", () => {
-    expect(getBarChartTrackColor(darkTheme)).toBe(
+  it("uses grid, axis and tooltip tokens in dark mode", () => {
+    expect(getBarChartGridColor(darkTheme)).toBe(
       darkTheme.palette.vars.controlBorderMedium,
     );
     expect(darkTheme.palette.vars.controlBorderMedium).toBe("#31466e");
     expect(darkTheme.palette.vars.accentADefault).toBe("#bac1ff");
+    expect(getBarChartAxisTickStyles(darkTheme)).toMatchObject({
+      fill: darkTheme.palette.vars.baseTextMedium,
+    });
     expect(getBarChartTooltipStyles(darkTheme)).toMatchObject({
       backgroundColor: darkTheme.palette.vars.baseBackgroundMedium,
-      padding: "2px 8px",
-      borderRadius: "4px",
     });
-    expect(getBarChartTooltipTypographyStyles(darkTheme)).toMatchObject({
-      color: darkTheme.palette.vars.baseTextStrong,
+    expect(getBarChartValueLabelStyles(darkTheme)).toMatchObject({
+      fill: darkTheme.palette.vars.baseTextMedium,
     });
   });
 
-  it("renders bars with the theme track token", () => {
+  it("draws dotted value lines and solid time lines on quarters", () => {
     renderBarChart();
 
-    expect(screen.getByTestId("bar-series")).toHaveAttribute(
-      "data-background-fill",
+    const rows = screen.getByTestId("grid-rows");
+    const columns = screen.getByTestId("grid-columns");
+
+    expect(rows).toHaveAttribute("data-dash", "2 2");
+    expect(rows).toHaveAttribute("data-coordinates", "8,41,74,107,140");
+    expect(rows).toHaveAttribute(
+      "data-stroke",
       lightTheme.palette.vars.controlBorderMedium,
     );
+    expect(columns).toHaveAttribute("data-dash", "solid");
+    expect(columns).toHaveAttribute("data-coordinates", "44,144,244,344,444");
+  });
+
+  it("splits the plot width evenly across items, keeping an 8px gap, and fills bars with the item color", () => {
+    renderBarChart();
+
+    // The viewport is 230px; the 44px value column is not part of the plot, so
+    // each of the 3 slots is (230 - 44) / 3 wide and the bar is that minus 8px.
+    const expectedBarSize = (230 - BAR_CHART_Y_AXIS_WIDTH_PX) / data.length - 8;
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-bar-size",
+      String(expectedBarSize),
+    );
+    expect(screen.getByTestId("bar-chart")).not.toHaveStyle({
+      overflowX: "auto",
+    });
+    expect(screen.getByTestId("bar-chart-content")).toHaveStyle({
+      width: "100%",
+    });
+    expect(screen.getAllByTestId("bar-cell")).toHaveLength(3);
     expect(screen.getAllByTestId("bar-cell")[0]).toHaveAttribute(
       "data-fill",
       lightTheme.palette.vars.accentADefault,
     );
   });
 
+  it("holds bars at 18px and scrolls horizontally when they no longer fit", () => {
+    renderBarChart({ data: Array(20).fill(data[0]) as ChartDataItem[] });
+
+    // (230 - 44) / 20 - 8 is under 18px, so bars stay at the minimum and the
+    // content grows to fit every bar and gap: 44 + 20 * (18 + 8).
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-bar-size",
+      "18",
+    );
+    expect(screen.getByTestId("bar-chart")).toHaveStyle({ overflowX: "auto" });
+    expect(screen.getByTestId("bar-chart-content")).toHaveStyle({
+      width: "564px",
+    });
+  });
+
+  it("stops scrolling again once the container is wide enough", () => {
+    viewportWidth = 800;
+    renderBarChart({ data: Array(20).fill(data[0]) as ChartDataItem[] });
+
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-bar-size",
+      String((800 - 44) / 20 - 8),
+    );
+    expect(screen.getByTestId("bar-chart")).not.toHaveStyle({
+      overflowX: "auto",
+    });
+  });
+
+  it("prints the formatted value above every bar", () => {
+    renderBarChart({ valueFormatter: (value) => `${value}%` });
+
+    const labels = screen.getByTestId("bar-value-labels");
+    expect(labels).toHaveAttribute("data-data-key", "value");
+    expect(labels).toHaveAttribute("data-position", "top");
+    expect(labels).toHaveTextContent("20%");
+    // The label is anchored through its middle, so the offset is the 2px gap plus
+    // half the 18px label box rather than the whole box.
+    expect(labels).toHaveAttribute("data-baseline", "central");
+    expect(labels).toHaveAttribute(
+      "data-offset",
+      String(
+        BAR_CHART_VALUE_LABEL_GAP_PX + BAR_CHART_VALUE_LABEL_HEIGHT_PX / 2,
+      ),
+    );
+    expect(labels).toHaveAttribute(
+      "data-fill",
+      lightTheme.palette.vars.baseTextMedium,
+    );
+    expect(labels).toHaveAttribute("data-font-size", "12px");
+    expect(labels).toHaveAttribute("data-font-weight", "600");
+  });
+
+  it("keeps the label box and its gap clear above the tallest bar", () => {
+    renderBarChart();
+
+    expect(SPACE_ABOVE_BARS_PX).toBe(
+      BAR_CHART_VALUE_LABEL_HEIGHT_PX + BAR_CHART_VALUE_LABEL_GAP_PX,
+    );
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-margin-top",
+      String(SPACE_ABOVE_BARS_PX),
+    );
+  });
+
+  it("drops the labels and the space they reserved when showValues is false", () => {
+    renderBarChart({ showValues: false });
+
+    expect(screen.queryByTestId("bar-value-labels")).not.toBeInTheDocument();
+    // The reserved band exists only to hold the labels — leaving it behind would
+    // read as an unexplained gap above the bars.
+    expect(screen.getByTestId("recharts-bar-chart")).toHaveAttribute(
+      "data-margin-top",
+      "0",
+    );
+  });
+
+  describe("getBarChartLayout", () => {
+    it("uses an 18px minimum and an 8px gap", () => {
+      expect(MIN_BAR_SIZE_PX).toBe(18);
+      expect(SPACE_BETWEEN_BARS_PX).toBe(8);
+    });
+
+    it("fits bars to the plot and does not scroll while they are at least 18px", () => {
+      // Exactly at the threshold: (44 + 10 * 26 - 44) / 10 - 8 = 18.
+      expect(getBarChartLayout(44 + 10 * 26, 10)).toEqual({
+        barSize: 18,
+        contentWidth: undefined,
+      });
+    });
+
+    it("scrolls one pixel below the threshold", () => {
+      expect(getBarChartLayout(44 + 10 * 26 - 1, 10)).toEqual({
+        barSize: 18,
+        contentWidth: 44 + 10 * 26,
+      });
+    });
+
+    it("falls back to the minimum before the viewport is measured or with no data", () => {
+      expect(getBarChartLayout(0, 5)).toEqual({
+        barSize: 18,
+        contentWidth: undefined,
+      });
+      expect(getBarChartLayout(400, 0)).toEqual({
+        barSize: 18,
+        contentWidth: undefined,
+      });
+    });
+  });
+
+  it("scales to the largest value and labels only the ends of the value axis", () => {
+    renderBarChart();
+
+    const yAxis = screen.getByTestId("y-axis");
+    expect(yAxis).toHaveAttribute("data-domain", "0,40");
+    expect(yAxis).toHaveTextContent("040");
+  });
+
+  it("falls back to a 0-1 scale with distinct ticks when every value is 0", () => {
+    const zeroData: ChartDataItem[] = [
+      {
+        name: "15:11",
+        value: 0,
+        color: lightTheme.palette.vars.accentADefault,
+      },
+      {
+        name: "16:11",
+        value: 0,
+        color: lightTheme.palette.vars.accentADefault,
+      },
+    ];
+    renderBarChart({ data: zeroData });
+
+    const yAxis = screen.getByTestId("y-axis");
+    expect(yAxis).toHaveAttribute("data-domain", "0,1");
+    expect(yAxis).toHaveTextContent("01");
+  });
+
+  it("accepts a fixed scale and value formatter", () => {
+    renderBarChart({ maxValue: 100, valueFormatter: (value) => `${value}%` });
+
+    const yAxis = screen.getByTestId("y-axis");
+    expect(yAxis).toHaveAttribute("data-domain", "0,100");
+    expect(yAxis).toHaveTextContent("0%100%");
+  });
+
+  it("labels the start and end of the plot", () => {
+    const { rerender } = renderBarChart();
+
+    expect(screen.getByTestId("bar-chart-labels")).toHaveTextContent(
+      "15:1117:11",
+    );
+
+    rerender(
+      <ThemeProvider defaultMode={ThemeMode.Light}>
+        <BarChart data={data} categoryLabels={["Mon", "Sun"]} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId("bar-chart-labels")).toHaveTextContent("MonSun");
+  });
+
   it("calls handleClick with the selected data item", () => {
     const handleClick = jest.fn();
-    renderBarChart(false, handleClick);
+    renderBarChart({ handleClick });
 
-    fireEvent.click(screen.getAllByTestId("bar-cell")[0]);
+    fireEvent.click(screen.getAllByTestId("bar-cell")[1]);
 
-    expect(handleClick).toHaveBeenCalledWith(data[0]);
+    expect(handleClick).toHaveBeenCalledWith(data[1]);
   });
 });

@@ -11,8 +11,18 @@ import type {
   BoxProps,
 } from "@mui/material";
 
-export interface AccordionProps extends MuiAccordionProps {
-  /** Uses the filled container treatment shown in the contained accordion variants. */
+export interface AccordionProps extends Omit<MuiAccordionProps, "variant"> {
+  /**
+   * Visual treatment for the accordion surface.
+   * - `default`: transparent background; medium uncontained accordions show a top border and summary divider.
+   * - `contained`: persistent filled surface with a rounded border.
+   * - `hover`: rounded surface with no background fill; only the border appears on hover.
+   */
+  variant?: "default" | "contained" | "hover";
+  /**
+   * @deprecated Use `variant="contained"` instead. When `true`, renders the filled
+   * container treatment. Ignored when `variant` is provided.
+   */
   contained?: boolean;
   /** Controls typography, spacing, and divider behavior for large and medium layouts. */
   size?: "medium" | "large";
