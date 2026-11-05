@@ -104,7 +104,7 @@ describe("Toggle", () => {
       const label = screen.getByText("Notifications");
       const root = label.closest(".MuiFormControlLabel-root") as HTMLElement;
 
-      expect(root).toHaveStyle({ alignItems: "flex-start", gap: "4px" });
+      expect(root).toHaveStyle({ alignItems: "center", gap: "4px" });
       expect(window.getComputedStyle(label).color).toBe("rgb(60, 69, 81)");
     });
   });
