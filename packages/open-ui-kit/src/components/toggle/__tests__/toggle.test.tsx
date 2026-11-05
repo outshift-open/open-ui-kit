@@ -55,6 +55,60 @@ describe("Toggle", () => {
     });
   });
 
+  describe("label", () => {
+    it("does not wrap the toggle when label is omitted", () => {
+      const { container } = renderToggle();
+
+      expect(
+        container.querySelector(".MuiFormControlLabel-root"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("renders a label that toggles the switch", () => {
+      renderToggle({ label: "Notifications" });
+
+      const input = screen.getByRole("switch", { name: "Notifications" });
+      expect(input).not.toBeChecked();
+
+      fireEvent.click(screen.getByText("Notifications"));
+      expect(input).toBeChecked();
+    });
+
+    it("marks the label as disabled when the toggle is disabled", () => {
+      renderToggle({ label: "Notifications", disabled: true });
+
+      expect(screen.getByRole("switch")).toBeDisabled();
+      expect(screen.getByText("Notifications")).toHaveClass("Mui-disabled");
+    });
+
+    it("forwards formControlLabelProps and merges their sx last", () => {
+      renderToggle({
+        label: "Notifications",
+        formControlLabelProps: {
+          labelPlacement: "start",
+          sx: { gap: "12px" },
+        },
+      });
+
+      const root = screen
+        .getByText("Notifications")
+        .closest(".MuiFormControlLabel-root") as HTMLElement;
+
+      expect(root).toHaveClass("MuiFormControlLabel-labelPlacementStart");
+      expect(root).toHaveStyle({ gap: "12px" });
+    });
+
+    it("uses the shared label spacing and color", () => {
+      renderToggle({ label: "Notifications" });
+
+      const label = screen.getByText("Notifications");
+      const root = label.closest(".MuiFormControlLabel-root") as HTMLElement;
+
+      expect(root).toHaveStyle({ alignItems: "flex-start", gap: "4px" });
+      expect(window.getComputedStyle(label).color).toBe("rgb(60, 69, 81)");
+    });
+  });
+
   describe("interaction", () => {
     it("toggles on click", () => {
       renderToggle();

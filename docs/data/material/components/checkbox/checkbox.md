@@ -87,13 +87,15 @@ Keep disabled options visible only when users benefit from understanding that th
 | `defaultChecked` | `boolean` | Sets the initial selected state for uncontrolled usage. |
 | `indeterminate` | `boolean` | Shows the visual mixed state. |
 | `disabled` | `boolean` | Prevents interaction and applies disabled styling. |
+| `label` | `React.ReactNode` | Renders text beside the checkbox with the same spacing and typography as `RadioButton` and `Toggle`. |
+| `formControlLabelProps` | `Omit<FormControlLabelProps, 'control' \| 'label'>` | Props forwarded to the wrapping `FormControlLabel` when `label` is set, for example `labelPlacement`. Its `sx` is merged after the internal styles. |
 | `size` | `'small' \| 'medium'` | Changes the rendered control size. |
 | `slotProps.input` | `object` | Passes accessibility attributes to the native input. |
 
 ## Accessibility
 
 Every checkbox needs an accessible name.
-Use a visible label with `FormControlLabel` whenever possible.
+Use a visible label through the `label` prop whenever possible.
 When there is no visible label, add `aria-label` or `aria-labelledby` through `slotProps.input`.
 
 ```tsx

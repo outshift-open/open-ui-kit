@@ -10,8 +10,8 @@ const defaultArgs = {
   defaultChecked: false,
   disabled: false,
   indeterminate: false,
-  inputProps: {
-    "aria-label": "Select option",
+  slotProps: {
+    input: { "aria-label": "Select option" },
   },
 } satisfies CheckboxProps;
 
@@ -30,16 +30,22 @@ const meta: Meta<CheckboxProps> = {
     disabled: {
       control: "boolean",
     },
+    formControlLabelProps: {
+      control: false,
+    },
     indeterminate: {
       control: "boolean",
     },
-    inputProps: {
-      control: false,
+    label: {
+      control: "text",
     },
     name: {
       control: "text",
     },
     onChange: {
+      control: false,
+    },
+    slotProps: {
       control: false,
     },
     sx: {
@@ -96,9 +102,6 @@ const checkboxStateProps = (
     defaultChecked: checkState === "checked",
     disabled: visualState === "disabled",
     indeterminate: checkState === "mixed",
-    inputProps: {
-      "aria-label": stateLabel[checkState],
-    },
   };
 
   if (visualState === "hover") {
@@ -111,25 +114,6 @@ const checkboxStateProps = (
 
   return props;
 };
-
-const LabelText = ({
-  children,
-  disabled,
-}: {
-  children: string;
-  disabled?: boolean;
-}) => (
-  <Typography
-    variant="body2"
-    sx={(theme) => ({
-      color: disabled
-        ? theme.palette.vars.baseTextDisabled
-        : theme.palette.vars.baseTextDefault,
-    })}
-  >
-    {children}
-  </Typography>
-);
 
 const LabeledCheckbox = ({
   checkState = "unchecked",
@@ -146,31 +130,22 @@ const LabeledCheckbox = ({
   const disabled = visualState === "disabled" || args.disabled;
 
   return (
-    <Stack
-      component="label"
-      direction="row"
-      gap={0.5}
-      sx={{
-        alignItems: "flex-start",
-        cursor: disabled ? "default" : "pointer",
-        minHeight: { xs: 44, sm: 24 },
-      }}
-    >
-      <Checkbox
-        {...args}
-        {...stateProps}
-        disabled={disabled}
-        sx={[
-          ...(Array.isArray(stateProps.sx)
-            ? stateProps.sx
-            : stateProps.sx
-              ? [stateProps.sx]
-              : []),
-          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
-        ]}
-      />
-      <LabelText disabled={disabled}>{label}</LabelText>
-    </Stack>
+    <Checkbox
+      {...args}
+      {...stateProps}
+      // The visible label provides the accessible name, so drop the bare-story aria-label.
+      slotProps={{ input: {} }}
+      disabled={disabled}
+      label={label}
+      sx={[
+        ...(Array.isArray(stateProps.sx)
+          ? stateProps.sx
+          : stateProps.sx
+            ? [stateProps.sx]
+            : []),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
+    />
   );
 };
 
@@ -244,20 +219,13 @@ export const BareStates: Story = {
         <Stack key={visualState} gap={1}>
           <Typography variant="body2Semibold">{visualState}</Typography>
           {checkStates.map((checkState) => (
-            <Stack
+            <Checkbox
               key={checkState}
-              direction="row"
-              gap={1}
-              sx={{ alignItems: "center" }}
-            >
-              <Checkbox
-                {...args}
-                {...checkboxStateProps(checkState, visualState)}
-              />
-              <LabelText disabled={visualState === "disabled"}>
-                {stateLabel[checkState]}
-              </LabelText>
-            </Stack>
+              {...args}
+              {...checkboxStateProps(checkState, visualState)}
+              slotProps={{ input: {} }}
+              label={stateLabel[checkState]}
+            />
           ))}
         </Stack>
       ))}

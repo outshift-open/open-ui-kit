@@ -68,6 +68,8 @@ const meta: Meta<typeof Toggle> = {
     checked: { table: { disable: true } },
     defaultChecked: { control: "boolean" },
     disabled: { control: "boolean" },
+    formControlLabelProps: { table: { disable: true } },
+    label: { control: "text" },
     onChange: { table: { disable: true } },
     sx: { table: { disable: true } },
   },
@@ -80,7 +82,6 @@ type StoryTheme = {
   palette: {
     vars: {
       baseTextDefault: string;
-      baseTextWeak: string;
       controlIconMedium: string;
       infoBorderDefault: string;
       interactivePrimaryDefaultHover: string;
@@ -134,41 +135,15 @@ const ToggleLabel = ({
   checkState: CheckState;
   labelPosition: LabelPosition;
   visualState: VisualState;
-}) => {
-  const disabled = visualState === "Disabled";
-  const label = (
-    <Typography
-      variant="body2"
-      sx={(theme) => ({
-        color: disabled
-          ? theme.palette.vars.baseTextWeak
-          : theme.palette.vars.baseTextDefault,
-        lineHeight: "20px",
-      })}
-    >
-      Label
-    </Typography>
-  );
-
-  const toggle = <Toggle {...getToggleProps(checkState, visualState)} />;
-
-  return (
-    <Stack
-      component="label"
-      direction="row"
-      gap={1}
-      sx={{
-        alignItems: "center",
-        cursor: disabled ? "default" : "pointer",
-        minHeight: { xs: 44, sm: 20 },
-        width: "max-content",
-      }}
-    >
-      {labelPosition === "left" ? label : toggle}
-      {labelPosition === "left" ? toggle : label}
-    </Stack>
-  );
-};
+}) => (
+  <Toggle
+    {...getToggleProps(checkState, visualState)}
+    label="Label"
+    formControlLabelProps={{
+      labelPlacement: labelPosition === "left" ? "start" : "end",
+    }}
+  />
+);
 
 const StateMatrix = () => (
   <Box
@@ -381,20 +356,13 @@ export const WithLabel: Story = {
   name: "With Label",
   render: () => (
     <Stack spacing={2}>
-      <ToggleLabel
-        checkState="Checked"
-        labelPosition="right"
-        visualState="Default"
-      />
-      <ToggleLabel
-        checkState="Unchecked"
-        labelPosition="right"
-        visualState="Default"
-      />
-      <ToggleLabel
-        checkState="Checked"
-        labelPosition="left"
-        visualState="Disabled"
+      <Toggle defaultChecked label="Label" />
+      <Toggle label="Label" />
+      <Toggle
+        defaultChecked
+        disabled
+        label="Label"
+        formControlLabelProps={{ labelPlacement: "start" }}
       />
     </Stack>
   ),

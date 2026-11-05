@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BreakpointsOptions } from "@mui/material";
+import { BreakpointsOptions, CSSObject, Theme } from "@mui/material";
 import type { CSSProperties } from "react";
 import { TOOLBAR_MINIMUM_HEIGHT } from "./constants";
 
@@ -56,3 +56,20 @@ export const ellipsisStyle: CSSProperties = {
   overflow: "hidden",
   textOverflow: "ellipsis",
 };
+
+/**
+ * Label styling shared by form controls that render their text through
+ * `FormControlLabel` (RadioButton, Checkbox, Toggle), so the three stay in sync.
+ */
+export const getControlLabelStyles = (theme: Theme): CSSObject => ({
+  alignItems: "center",
+  gap: "4px",
+  margin: 0,
+  "& .MuiFormControlLabel-label": {
+    color: theme.palette.vars.baseTextDefault,
+    ...theme.typography.body2,
+  },
+  "& .MuiFormControlLabel-label.Mui-disabled": {
+    color: theme.palette.vars.baseTextDisabled,
+  },
+});
