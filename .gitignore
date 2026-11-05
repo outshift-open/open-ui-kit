@@ -167,3 +167,4 @@ storybook-static
 
 # IDE
 .idea
+.cursor

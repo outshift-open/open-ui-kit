@@ -74,6 +74,8 @@ Use the exported TypeScript props for implementation details and keep local over
 | --- | --- | --- |
 | `Toggle` props | Component-specific props | Controls the supported behavior, slots, state, and styling for Toggle. |
 | `children` | `React.ReactNode` | Content rendered inside the component when the component supports composition. |
+| `label` | `React.ReactNode` | Renders text beside the toggle with the same spacing and typography as `Checkbox` and `RadioButton`. |
+| `formControlLabelProps` | `Omit<FormControlLabelProps, 'control' \| 'label'>` | Props forwarded to the wrapping `FormControlLabel` when `label` is set, for example `labelPlacement`. Its `sx` is merged after the internal styles. |
 | `className` | `string` | Adds a class to the root slot for product-level styling hooks. |
 | `sx` | `SxProps` | Applies local style overrides while still using the active Open UI Kit theme. |
 

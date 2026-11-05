@@ -4,14 +4,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Switch, useTheme } from "@mui/material";
+import { FormControlLabel, Switch, useTheme } from "@mui/material";
+import { getControlLabelStyles } from "@/theme/style/common";
 import { getToggleStyles } from "../styles";
 import type { ToggleProps } from "../types";
 
-export const Toggle = ({ sx, ...props }: ToggleProps) => {
+export const Toggle = ({
+  label,
+  formControlLabelProps,
+  sx,
+  ...props
+}: ToggleProps) => {
   const theme = useTheme();
 
-  return (
+  const { sx: formControlLabelSx, ...restFormControlLabelProps } =
+    formControlLabelProps ?? {};
+
+  const toggle = (
     <Switch
       disableRipple
       sx={[
@@ -19,6 +28,27 @@ export const Toggle = ({ sx, ...props }: ToggleProps) => {
         ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
       ]}
       {...props}
+    />
+  );
+
+  if (label === undefined) {
+    return toggle;
+  }
+
+  return (
+    <FormControlLabel
+      control={toggle}
+      label={label}
+      {...restFormControlLabelProps}
+      disabled={props.disabled}
+      sx={[
+        getControlLabelStyles,
+        ...(Array.isArray(formControlLabelSx)
+          ? formControlLabelSx
+          : formControlLabelSx
+            ? [formControlLabelSx]
+            : []),
+      ]}
     />
   );
 };

@@ -34,6 +34,12 @@ export {
 
 export type { GradientsPalette, Gradient } from "./types/palette";
 export type {
+  SvgIconProps,
+  SxProps,
+  SystemStyleObject,
+  Theme,
+} from "./types/mui";
+export type {
   ThemeModeContextValue,
   ThemeProviderProps,
 } from "./theme-provider/theme-provider";

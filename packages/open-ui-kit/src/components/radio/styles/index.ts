@@ -5,6 +5,7 @@
  */
 
 import type { CSSObject, SxProps, Theme } from "@mui/material";
+import { getControlLabelStyles } from "@/theme/style/common";
 
 export const getRadioButtonStyles = (theme: Theme): CSSObject => ({
   height: "24px",
@@ -37,18 +38,7 @@ export const getRadioButtonStyles = (theme: Theme): CSSObject => ({
   },
 });
 
-export const getRadioLabelStyles = (theme: Theme): CSSObject => ({
-  alignItems: "flex-start",
-  gap: "4px",
-  margin: 0,
-  "& .MuiFormControlLabel-label": {
-    color: theme.palette.vars.baseTextDefault,
-    ...theme.typography.body2,
-  },
-  "& .MuiFormControlLabel-label.Mui-disabled": {
-    color: theme.palette.vars.baseTextDisabled,
-  },
-});
+export const getRadioLabelStyles = getControlLabelStyles;
 
 export const getStoryRadioHoverSx = (theme: Theme) =>
   ({

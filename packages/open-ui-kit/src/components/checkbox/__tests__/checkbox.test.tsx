@@ -5,11 +5,10 @@
  */
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ThemeMode, ThemeProvider } from "@/theme-provider/theme-provider";
 import { Checkbox } from "../components/checkbox";
-
 const renderCheckbox = (
   props: React.ComponentProps<typeof Checkbox> = {},
   dark = false,
@@ -67,6 +66,60 @@ describe("Checkbox", () => {
         width: "24px",
       });
       expect(icon).toHaveClass("MuiSvgIcon-root");
+    });
+  });
+
+  describe("label", () => {
+    it("does not wrap the checkbox when label is omitted", () => {
+      const { container } = renderCheckbox();
+
+      expect(
+        container.querySelector(".MuiFormControlLabel-root"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("renders a label that toggles the checkbox", () => {
+      renderCheckbox({ label: "Accept terms" });
+
+      const checkbox = screen.getByRole("checkbox", { name: "Accept terms" });
+      expect(checkbox).not.toBeChecked();
+
+      fireEvent.click(screen.getByText("Accept terms"));
+      expect(checkbox).toBeChecked();
+    });
+
+    it("marks the label as disabled when the checkbox is disabled", () => {
+      renderCheckbox({ label: "Accept terms", disabled: true });
+
+      expect(screen.getByRole("checkbox")).toBeDisabled();
+      expect(screen.getByText("Accept terms")).toHaveClass("Mui-disabled");
+    });
+
+    it("forwards formControlLabelProps and merges their sx last", () => {
+      renderCheckbox({
+        label: "Accept terms",
+        formControlLabelProps: {
+          labelPlacement: "start",
+          sx: { gap: "12px" },
+        },
+      });
+
+      const root = screen
+        .getByText("Accept terms")
+        .closest(".MuiFormControlLabel-root") as HTMLElement;
+
+      expect(root).toHaveClass("MuiFormControlLabel-labelPlacementStart");
+      expect(root).toHaveStyle({ gap: "12px" });
+    });
+
+    it("uses the shared label spacing and color", () => {
+      renderCheckbox({ label: "Accept terms" });
+
+      const label = screen.getByText("Accept terms");
+      const root = label.closest(".MuiFormControlLabel-root") as HTMLElement;
+
+      expect(root).toHaveStyle({ alignItems: "center", gap: "4px" });
+      expect(window.getComputedStyle(label).color).toBe("rgb(60, 69, 81)");
     });
   });
 

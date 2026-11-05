@@ -185,7 +185,7 @@ describe("RadioButton", () => {
 
     it("uses the CSS label spacing and typography tokens", () => {
       expect(getRadioLabelStyles(lightTheme)).toMatchObject({
-        alignItems: "flex-start",
+        alignItems: "center",
         gap: "4px",
         margin: 0,
         "& .MuiFormControlLabel-label": {

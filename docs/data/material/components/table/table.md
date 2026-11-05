@@ -24,6 +24,22 @@ Use this page as the implementation entry point, then use Storybook to inspect v
 import { Table } from '@open-ui-kit/core';
 ```
 
+### Types
+
+Table state and model types are exported with kit names, so you don't need to import them from the underlying table library:
+
+```tsx
+import type {
+  TableColumnDef,
+  TablePaginationState,
+  TableRowSelectionState,
+  TableSortingState,
+  TableVisibilityState,
+} from '@open-ui-kit/core';
+```
+
+`TableColumnPinningState`, `TableRowModel`, `TableCellModel` and `TableInstance` are also available.
+
 ## When to use
 
 Use Table when users need to compare rows of structured data, sort or select items, and scan repeated fields.
