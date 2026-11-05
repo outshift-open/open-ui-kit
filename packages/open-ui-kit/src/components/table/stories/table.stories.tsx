@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
-import {
-  MRT_ColumnDef,
-  MRT_ColumnPinningState,
-  MRT_PaginationState,
-  MRT_SortingState,
-} from "material-react-table";
 import { useEffect, useState } from "react";
 import {
   Adb as AdbIcon,
@@ -19,7 +13,13 @@ import { Button } from "@/components/button";
 import { ListItemIcon } from "@/components/list";
 import { DocsHeader } from "storybook/components/docs-header.stories";
 import { Table } from "../components/table";
-import { TableProps } from "../types";
+import type {
+  TableColumnDef,
+  TableColumnPinningState,
+  TablePaginationState,
+  TableProps,
+  TableSortingState,
+} from "../types";
 import { mainTableMockData, subTableMockData } from "../utils/mock-data";
 import { MenuItem } from "@/components/menu";
 import { PathDisplay } from "@/components/path-display";
@@ -206,11 +206,11 @@ const SimpleTableComponent = ({
   title,
   ...props
 }: TableProps<Record<string, unknown>>) => {
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
+  const [pagination, setPagination] = useState<TablePaginationState>({
     pageIndex: 0,
     pageSize: 15,
   });
-  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [sorting, setSorting] = useState<TableSortingState>([]);
   return (
     <Box sx={{ padding: "20px" }}>
       <BrowserRouter>
@@ -253,12 +253,12 @@ const SimpleTableWithFreezeColumnComponent = ({
   densityCompact,
   ...props
 }: TableProps<Record<string, unknown>>) => {
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
+  const [pagination, setPagination] = useState<TablePaginationState>({
     pageIndex: 0,
     pageSize: 15,
   });
-  const [sorting, setSorting] = useState<MRT_SortingState>([]);
-  const [columnPinning] = useState<MRT_ColumnPinningState>({
+  const [sorting, setSorting] = useState<TableSortingState>([]);
+  const [columnPinning] = useState<TableColumnPinningState>({
     left: ["id", "name"],
     right: ["bio"],
   });
@@ -300,11 +300,11 @@ const SubTableComponent = ({
   ...props
 }: any) => {
   const [innerData, setInnerData] = useState<any>([]);
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
+  const [pagination, setPagination] = useState<TablePaginationState>({
     pageIndex: 0,
     pageSize: 15,
   });
-  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [sorting, setSorting] = useState<TableSortingState>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -349,7 +349,7 @@ const SubTableComponent = ({
 const SubTablesWithPaginationComponent = ({
   densityCompact,
 }: TableProps<Record<string, unknown>>) => {
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
+  const [pagination, setPagination] = useState<TablePaginationState>({
     pageIndex: 0,
     pageSize: 15,
   });
@@ -366,12 +366,12 @@ const SubTablesWithPaginationComponent = ({
     return subTableResults[id];
   };
 
-  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [sorting, setSorting] = useState<TableSortingState>([]);
   return (
     <Box sx={{ padding: "20px" }}>
       <Table
         columns={
-          mainTableMockData.columns as unknown as MRT_ColumnDef<
+          mainTableMockData.columns as unknown as TableColumnDef<
             Record<string, unknown>,
             unknown
           >[]
