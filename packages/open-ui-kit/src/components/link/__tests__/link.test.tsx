@@ -46,6 +46,52 @@ describe("Link", () => {
     );
   });
 
+  it("renders absolute URLs as plain anchors without client-side routing", () => {
+    render(
+      <ThemeProvider>
+        <BrowserRouter>
+          <Link href="https://example.com/docs?a=1" openInNewTab>
+            External
+          </Link>
+        </BrowserRouter>
+      </ThemeProvider>,
+    );
+
+    const link = screen.getByRole("link", { name: "External" });
+    expect(link).toHaveAttribute("href", "https://example.com/docs?a=1");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("passes download through and lets reloadDocument skip routing", () => {
+    render(
+      <ThemeProvider>
+        <BrowserRouter>
+          <Link href="https://example.com/report.csv" download="report.csv">
+            Remote download
+          </Link>
+          <Link href="/api/report.csv" download reloadDocument>
+            Same-origin download
+          </Link>
+        </BrowserRouter>
+      </ThemeProvider>,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "Remote download" }),
+    ).toHaveAttribute("download", "report.csv");
+
+    const sameOrigin = screen.getByRole("link", {
+      name: "Same-origin download",
+    });
+    expect(sameOrigin).toHaveAttribute("href", "/api/report.csv");
+    expect(sameOrigin).toHaveAttribute("download");
+
+    // reloadDocument leaves the click to the browser, so it is not intercepted.
+    const notPrevented = fireEvent.click(sameOrigin);
+    expect(notPrevented).toBe(true);
+  });
+
   it("uses light theme primary tokens for interactive states", () => {
     expect(getLinkColor(lightTheme, LinkColorEnum.Primary, "default")).toBe(
       lightTheme.palette.vars.interactivePrimaryDefaultDefault,
