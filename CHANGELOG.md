@@ -1,3 +1,13 @@
+## [3.2.1](https://github.com/outshift-open/open-ui-kit/compare/v3.2.0...v3.2.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* checkbox and toggle labels ([896e270](https://github.com/outshift-open/open-ui-kit/commit/896e2703a1cd52ee47eb7852a982a9de53276bef))
+* export missing mui types ([9492793](https://github.com/outshift-open/open-ui-kit/commit/9492793901c58c718cf5e98649771f07389b8c40))
+* extend Link tests ([21cecdf](https://github.com/outshift-open/open-ui-kit/commit/21cecdf7429818296fcf810bca7e0525049d6b31))
+* tests ([3b765bf](https://github.com/outshift-open/open-ui-kit/commit/3b765bfb0dbb60ba26972ae198b87be50a52c4b0))
+
 # [3.2.0](https://github.com/outshift-open/open-ui-kit/compare/v3.1.0...v3.2.0) (2026-10-05)
 
 
